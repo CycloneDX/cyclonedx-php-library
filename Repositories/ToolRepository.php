@@ -21,30 +21,47 @@ declare(strict_types=1);
  * Copyright (c) Steve Springett. All Rights Reserved.
  */
 
-namespace CycloneDX\Core\Serialize\JSON\Normalizers;
+namespace CycloneDX\Core\Repositories;
 
-use CycloneDX\Core\Repositories\DisjunctiveLicenseRepository;
-use CycloneDX\Core\Serialize\JSON\AbstractNormalizer;
-use InvalidArgumentException;
+use CycloneDX\Core\Models\Tool;
 
 /**
  * @author jkowalleck
  */
-class DisjunctiveLicenseRepositoryNormalizer extends AbstractNormalizer
+class ToolRepository implements \Countable
 {
-    public function normalize(DisjunctiveLicenseRepository $repo): array
+    /**
+     * @var Tool[]
+     * @psalm-var list<Tool>
+     */
+    private $tools = [];
+
+    public function __construct(Tool ...$tools)
     {
-        $licenses = [];
+        $this->addTool(...$tools);
+    }
 
-        $normalizer = $this->getNormalizerFactory()->makeForDisjunctiveLicense();
-        foreach ($repo->getLicenses() as $license) {
-            try {
-                $licenses[] = $normalizer->normalize($license);
-            } catch (InvalidArgumentException $exception) {
-                continue;
-            }
-        }
+    /**
+     * @return $this
+     */
+    public function addTool(Tool ...$tools): self
+    {
+        array_push($this->tools, ...array_values($tools));
 
-        return $licenses;
+        return $this;
+    }
+
+    /**
+     * @return Tool[]
+     * @psalm-return list<Tool>
+     */
+    public function getTools(): array
+    {
+        return $this->tools;
+    }
+
+    public function count(): int
+    {
+        return \count($this->tools);
     }
 }

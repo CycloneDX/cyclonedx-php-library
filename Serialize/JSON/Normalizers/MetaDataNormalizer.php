@@ -24,51 +24,50 @@ declare(strict_types=1);
 namespace CycloneDX\Core\Serialize\JSON\Normalizers;
 
 use CycloneDX\Core\Helpers\NullAssertionTrait;
-use CycloneDX\Core\Models\Bom;
+use CycloneDX\Core\Models\Component;
 use CycloneDX\Core\Models\MetaData;
+use CycloneDX\Core\Repositories\ToolRepository;
 use CycloneDX\Core\Serialize\JSON\AbstractNormalizer;
 
 /**
  * @author jkowalleck
  */
-class BomNormalizer extends AbstractNormalizer
+class MetaDataNormalizer extends AbstractNormalizer
 {
     use NullAssertionTrait;
 
-    private const BOM_FORMAT = 'CycloneDX';
-
-    public function normalize(Bom $bom): array
+    public function normalize(MetaData $metaData): array
     {
-        $factory = $this->getNormalizerFactory();
-
         return array_filter(
             [
-                'bomFormat' => self::BOM_FORMAT,
-                'specVersion' => $factory->getSpec()->getVersion(),
-                'version' => $bom->getVersion(),
-                'metadata' => $this->normalizeMetaData($bom->getMetaData()),
-                'components' => $factory->makeForComponentRepository()->normalize($bom->getComponentRepository()),
+                // timestamp
+                'tools' => $this->normalizeTools($metaData->getTools()),
+                // authors
+                'component' => $this->normalizeComponent($metaData->getComponent()),
+                // manufacture
+                // supplier
             ],
             [$this, 'isNotNull']
         );
     }
 
-    private function normalizeMetaData(?MetaData $metaData): ?array
+    private function normalizeTools(?ToolRepository $tools): ?array
     {
-        if (null === $metaData) {
-            return null;
-        }
-
-        $factory = $this->getNormalizerFactory();
-
-        if (false === $factory->getSpec()->supportsMetaData()) {
-            return null;
-        }
-
-        $data = $factory->makeForMetaData()->normalize($metaData);
-
-        return empty($data)
+        return null === $tools || 0 === \count($tools)
             ? null
-            : $data;
+            : $this->getNormalizerFactory()->makeForToolRepository()->normalize($tools);
+    }
+
+    private function normalizeComponent(?Component $component): ?array
+    {
+        if (null === $component) {
+            return null;
+        }
+
+        try {
+            return $this->getNormalizerFactory()->makeForComponent()->normalize($component);
+        } catch (\DomainException $exception) {
+            return null;
+        }
     }
 }

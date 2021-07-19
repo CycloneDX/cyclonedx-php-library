@@ -23,28 +23,35 @@ declare(strict_types=1);
 
 namespace CycloneDX\Core\Serialize\JSON\Normalizers;
 
-use CycloneDX\Core\Repositories\DisjunctiveLicenseRepository;
+use CycloneDX\Core\Helpers\NullAssertionTrait;
+use CycloneDX\Core\Models\Tool;
+use CycloneDX\Core\Repositories\HashRepository;
 use CycloneDX\Core\Serialize\JSON\AbstractNormalizer;
-use InvalidArgumentException;
 
 /**
  * @author jkowalleck
  */
-class DisjunctiveLicenseRepositoryNormalizer extends AbstractNormalizer
+class ToolNormalizer extends AbstractNormalizer
 {
-    public function normalize(DisjunctiveLicenseRepository $repo): array
+    use NullAssertionTrait;
+
+    public function normalize(Tool $tool): array
     {
-        $licenses = [];
+        return array_filter(
+            [
+                'vendor' => $tool->getVendor(),
+                'name' => $tool->getName(),
+                'version' => $tool->getVersion(),
+                'hashes' => $this->normalizeHashes($tool->getHashRepository()),
+            ],
+            [$this, 'isNotNull']
+        );
+    }
 
-        $normalizer = $this->getNormalizerFactory()->makeForDisjunctiveLicense();
-        foreach ($repo->getLicenses() as $license) {
-            try {
-                $licenses[] = $normalizer->normalize($license);
-            } catch (InvalidArgumentException $exception) {
-                continue;
-            }
-        }
-
-        return $licenses;
+    private function normalizeHashes(?HashRepository $hashes): ?array
+    {
+        return null === $hashes || 0 === \count($hashes)
+            ? null
+            : $this->getNormalizerFactory()->makeForHashRepository()->normalize($hashes);
     }
 }

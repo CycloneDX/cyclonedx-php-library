@@ -23,28 +23,34 @@ declare(strict_types=1);
 
 namespace CycloneDX\Core\Serialize\JSON\Normalizers;
 
-use CycloneDX\Core\Repositories\DisjunctiveLicenseRepository;
+use CycloneDX\Core\Repositories\ToolRepository;
 use CycloneDX\Core\Serialize\JSON\AbstractNormalizer;
-use InvalidArgumentException;
 
 /**
  * @author jkowalleck
  */
-class DisjunctiveLicenseRepositoryNormalizer extends AbstractNormalizer
+class ToolRepositoryNormalizer extends AbstractNormalizer
 {
-    public function normalize(DisjunctiveLicenseRepository $repo): array
+    /**
+     * @return array[]
+     * @psalm-return list<array>
+     */
+    public function normalize(ToolRepository $repo): array
     {
-        $licenses = [];
+        $normalizer = $this->getNormalizerFactory()->makeForTool();
 
-        $normalizer = $this->getNormalizerFactory()->makeForDisjunctiveLicense();
-        foreach ($repo->getLicenses() as $license) {
+        $tools = [];
+        foreach ($repo->getTools() as $tool) {
             try {
-                $licenses[] = $normalizer->normalize($license);
-            } catch (InvalidArgumentException $exception) {
+                $item = $normalizer->normalize($tool);
+            } catch (\DomainException $exception) {
                 continue;
+            }
+            if (false === empty($item)) {
+                $tools[] = $item;
             }
         }
 
-        return $licenses;
+        return $tools;
     }
 }
