@@ -23,52 +23,52 @@ declare(strict_types=1);
 
 namespace CycloneDX\Core\Repositories;
 
-use CycloneDX\Core\Models\Tool;
+use CycloneDX\Core\Models\BomRef;
 
 /**
- * Unique list of {@see \CycloneDX\Core\Models\Tool}.
+ * Unique list of {@see \CycloneDX\Core\Models\BomRef}.
  *
  * @author jkowalleck
  */
-class ToolRepository implements \Countable
+class BomRefRepository implements \Countable
 {
     /**
-     * @var Tool[]
-     * @psalm-var list<Tool>
+     * @var BomRef[]
+     * @psalm-var list<BomRef>
      */
-    private $tools = [];
+    private $bomRefs = [];
 
-    public function __construct(Tool ...$tools)
+    public function __construct(BomRef ...$bomRefs)
     {
-        $this->addTool(...$tools);
+        $this->addBomRef(...$bomRefs);
     }
 
     /**
      * @return $this
      */
-    public function addTool(Tool ...$tools): self
+    public function addBomRef(BomRef ...$bomRefs): self
     {
-        foreach ($tools as $tool) {
-            if (\in_array($tool, $this->tools, true)) {
+        foreach ($bomRefs as $bomRef) {
+            if (\in_array($bomRef, $this->bomRefs, true)) {
                 continue;
             }
-            $this->tools[] = $tool;
+            $this->bomRefs[] = $bomRef;
         }
 
         return $this;
     }
 
     /**
-     * @return Tool[]
-     * @psalm-return list<Tool>
+     * @return BomRef[]
+     * @psalm-return list<BomRef>
      */
-    public function getTools(): array
+    public function getBomRefs(): array
     {
-        return $this->tools;
+        return $this->bomRefs;
     }
 
     public function count(): int
     {
-        return \count($this->tools);
+        return \count($this->bomRefs);
     }
 }
