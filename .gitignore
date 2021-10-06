@@ -14,7 +14,14 @@
 /psalm.xml
 /.psalm.cache/
 
+/phpdoc.xml
+/.phpdoc.cache/
+/ast.dump
 
 # these are the target of test tools and such
 /reports/
 /CI_reports/
+
+# these are targets of build tools and such
+/docs/.build/
+/.build/
