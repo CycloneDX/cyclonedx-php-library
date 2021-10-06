@@ -12,6 +12,12 @@
 
 Work with Bill of Materials in [CycloneDX](https://cyclonedx.org/) format.
 
+## Installation
+
+Install via composer:
+
+`composer require cyclonedx/cyclonedx-library`
+
 ## Contributing
 
 Feel free to open pull requests.
