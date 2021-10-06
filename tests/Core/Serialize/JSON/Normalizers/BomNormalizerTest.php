@@ -37,6 +37,9 @@ use PHPUnit\Framework\TestCase;
 /**
  * @covers \CycloneDX\Core\Serialize\JSON\Normalizers\BomNormalizer
  * @covers \CycloneDX\Core\Serialize\JSON\AbstractNormalizer
+ *
+ * @uses \CycloneDX\Core\Serialize\JSON\Normalizers\DependenciesNormalizer
+ * @uses \CycloneDX\Core\Serialize\JSON\Normalizers\MetaDataNormalizer
  */
 class BomNormalizerTest extends TestCase
 {
@@ -108,6 +111,9 @@ class BomNormalizerTest extends TestCase
         );
     }
 
+    /**
+     * @uses \CycloneDX\Core\Helpers\NullAssertionTrait
+     */
     public function testNormalizeMetaData(): void
     {
         $spec = $this->createConfiguredMock(

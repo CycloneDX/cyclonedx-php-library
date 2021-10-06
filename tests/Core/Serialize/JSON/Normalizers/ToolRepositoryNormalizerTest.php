@@ -37,13 +37,15 @@ use PHPUnit\Framework\TestCase;
  */
 class ToolRepositoryNormalizerTest extends TestCase
 {
-    /**
-     * @uses \CycloneDX\Core\Serialize\JSON\Normalizers\ToolNormalizer
-     */
     public function testNormalizeEmpty(): void
     {
         $spec = $this->createStub(SpecInterface::class);
-        $factory = $this->createConfiguredMock(NormalizerFactory::class, ['getSpec' => $spec]);
+        $toolNormalizer = $this->createMock(ToolNormalizer::class);
+        $factory = $this->createConfiguredMock(NormalizerFactory::class, [
+            'getSpec' => $spec,
+            'makeForTool' => $toolNormalizer,
+        ]);
+
         $normalizer = new ToolRepositoryNormalizer($factory);
         $tools = $this->createConfiguredMock(ToolRepository::class, ['count' => 0]);
 

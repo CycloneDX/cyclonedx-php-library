@@ -35,14 +35,19 @@ use PHPUnit\Framework\TestCase;
 /**
  * @covers \CycloneDX\Core\Serialize\DOM\Normalizers\ToolRepositoryNormalizer
  * @covers \CycloneDX\Core\Serialize\DOM\AbstractNormalizer
- * @covers \CycloneDX\Core\Helpers\SimpleDomTrait
+ *
+ * @uses \CycloneDX\Core\Serialize\DOM\Normalizers\ToolNormalizer
  */
 class ToolRepositoryNormalizerTest extends TestCase
 {
     public function testNormalizeEmpty(): void
     {
         $spec = $this->createStub(SpecInterface::class);
-        $factory = $this->createConfiguredMock(NormalizerFactory::class, ['getSpec' => $spec]);
+        $toolNormalizer = $this->createMock(ToolNormalizer::class);
+        $factory = $this->createConfiguredMock(NormalizerFactory::class, [
+            'getSpec' => $spec,
+            'makeForTool' => $toolNormalizer,
+        ]);
         $normalizer = new ToolRepositoryNormalizer($factory);
         $tools = $this->createConfiguredMock(ToolRepository::class, ['count' => 0]);
 
