@@ -1,0 +1,14 @@
+{
+    "name": "tools/composer-unused",
+    "type": "metapackage",
+    "description": "composer-unused",
+    "require-dev": {
+        "icanhazstring/composer-unused": "0.7.7",
+        "roave/security-advisories": "dev-latest"
+    },
+    "config": {
+        "preferred-install": "dist",
+        "sort-packages": true
+    },
+    "prefer-stable": true
+}
