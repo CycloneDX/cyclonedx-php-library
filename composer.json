@@ -11,7 +11,7 @@
         "package-url",
         "PURL"
     ],
-    "homepage": "https://github.com/CycloneDX/cyclonedx-php-composer/",
+    "homepage": "https://github.com/CycloneDX/cyclonedx-php-library/",
     "license": "Apache-2.0",
     "authors": [
         {
