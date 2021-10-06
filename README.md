@@ -18,6 +18,11 @@ Install via composer:
 
 `composer require cyclonedx/cyclonedx-library`
 
+## Conflicts
+
+Due to the fact that this library was split out of [`/src/Core` of cyclonedx-php-composer (346e6200fb2f5086061b15c2ee44f540893ce97d)](https://github.com/CycloneDX/cyclonedx-php-composer/tree/346e6200fb2f5086061b15c2ee44f540893ce97d/src/Core)  
+it will conflict with its original source: `cyclonedx/cyclonedx-php-composer:<3.5`.
+
 ## Contributing
 
 Feel free to open pull requests.
