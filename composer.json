@@ -1,5 +1,5 @@
 {
-    "name": "cyclonedx/cyclonedx-lib",
+    "name": "cyclonedx/cyclonedx-library",
     "type": "library",
     "description": "Work with CycloneDX Software Bill-of-Materials (SBOM)",
     "keywords": [
