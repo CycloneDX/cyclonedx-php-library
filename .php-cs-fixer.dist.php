@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 $header = <<<'EOF'
-This file is part of CycloneDX PHP Composer Plugin.
+This file is part of CycloneDX PHP Library.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

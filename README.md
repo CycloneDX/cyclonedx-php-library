@@ -8,7 +8,7 @@
 
 ----
 
-# CycloneDX PHP implementation
+# CycloneDX PHP Library
 
 Work with Bill of Materials in [CycloneDX](https://cyclonedx.org/) format.
 
