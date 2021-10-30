@@ -93,6 +93,7 @@ class HashRepository implements \Countable
         if (false === HashAlgorithm::isValidValue($algorithm)) {
             throw new DomainException("Unknown hash algorithm: $algorithm");
         }
+        /** @psalm-var HashAlgorithm::* $algorithm */
         if (null === $content) {
             unset($this->hashDict[$algorithm]);
         } else {
