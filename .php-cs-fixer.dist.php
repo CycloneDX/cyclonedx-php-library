@@ -39,6 +39,11 @@ return (new PhpCsFixer\Config())
             'phpdoc_order' => true,
             'header_comment' => ['header' => $header],
             'fopen_flags' => ['b_mode' => true],
+            'phpdoc_to_comment' => [
+                'ignored_tags' => [
+                    'psalm-var', // needed since PSALM introduced some lacks that only manual hints solved
+                ],
+            ],
         ]
     )
     ->setRiskyAllowed(true)
