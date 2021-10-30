@@ -2,10 +2,18 @@
 
 All notable changes to this project will be documented in this file.
 
+## 1.0.2 - 2021-10-30
+
+* Fixed
+  * Psalm-annotation of `CycloneDX\Core\Enums\Classification::isValidValue()` (via [#10])
+
+[#10]: https://github.com/CycloneDX/cyclonedx-php-library/pull/10
+
 ## 1.0.1 - 2021-10-23
 
 Removed composer's `conflict` constraint.  
-This was done to enable some workflows with package forks/mirrors that dont have proper version detection.
+This was done to enable some workflows with package forks/mirrors that don't have proper version detection.
+See [#9](https://github.com/CycloneDX/cyclonedx-php-library/pull/9)
 
 ## 1.0.0 - 2021-10-07
 
