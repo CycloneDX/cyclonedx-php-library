@@ -43,7 +43,7 @@ abstract class Classification
     public const FIRMWARE = 'firmware';
 
     /**
-     * @psalm-assert-if-true self::* $type
+     * @psalm-assert-if-true self::* $value
      */
     public static function isValidValue(string $value): bool
     {
