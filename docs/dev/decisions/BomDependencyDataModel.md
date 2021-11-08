@@ -16,7 +16,7 @@ Challenges:
   Have actual dependencies inside an actual instance of `Component` or have the data storage extra?
 * How to keep data consistent and `bom-ref` markers unique in the SBoB result XML/JSON?
 
-## Store without memory leaks:
+## Store Without Memory Leaks
 
 ### Option A
 
@@ -42,7 +42,7 @@ Rule: don't give a ***
 
 Whatever created the cycle should have had it prevented in the first place.
 
-## How to store the dependencies
+## How To Store The Dependencies
 
 ### Option A
 
@@ -52,7 +52,7 @@ There could be a new property to a `Bom` object, that holds the dependency tree.
 
 There could be a new property to a `Component` object, that holds the dependency tree.
 
-## keeping data consistent
+## Keeping Data Consistent
 
 Options depend on the DataStorage decision.
 
@@ -70,33 +70,33 @@ So when serializing the models to XML/JSON a check could be made, dependencies t
 * Components hold information about their first-level-dependencies; no extra data model for dependencies.  
   First-level only: This will prevent nesting but still having a graph on logic-level.
 * Cycles are prevented on render-time, but not on logic-level:
-  This allowes to make dependency-cycles visible.
+  This allows to make dependency-cycles visible.
   * For each component: render the first level dependencies only.  
     This assumes, that the component of the `metadata` is also rendered.
   * Components that don't have any dependency are rendered, still.
   * Skip dependencies to unknown components.
 
-### implementation details
+### Implementation Details
 
-#### design
+#### Design
 
 * New data tye `BomRef`
   * Has a private property `value` of nullable string type. `value` is null/undefined per default.
   * Property `value` which can be modified via getter/setter/constructor.  
-  * When `value` is unset, and the getter is called, then `value` is set to a unique id.
-  * if `BomRef` is castable to string, then the string is equal to the return of the `value`-getter.
+  * When `value` is (un)set, and the getter is called, then `value` is _not_ set to a unique id, but simply returned as is.
 * New data tye `BomRefRepository`
   * is a collection of `BomRef`
 * components have a new property `bomRef` of type `BomRef`.
-  * `bomRef` is created on construction and cannot be changed/set manually.
+  * `bomRef` is created on construction and cannot be changed/(un)set manually.
   * There is a getter for `bomRef`
-* components have a new private property `dependencies` of type `BomRefRepository`.
+* components have a new private property of type `BomRefRepository` to store "dependencies".
   * property is nullable, default null
   * property can be accessed via getter/setter
+  * accessors have the word "dependencies" in the name, ala "setDependencies"
 
-#### rendering
+#### Rendering
 
-Rendering is skipped, if the appllied spec does not support it (spec version < 1.2)
+Rendering is skipped, if the applied spec does not support it (spec version < 1.2)
 
 When rendering to XML/JSON some cleanup needs to be done:
 Detect dependencies that point to `BomRef` that are unknown 
@@ -112,7 +112,3 @@ If a duplicate is found: use another globally unique value instead. This can be 
 
 All components and the metadata component *should* be rendered.
 > Components that do not have their own dependencies MUST be declared as empty elements within the graph. Components that are not represented in the dependency graph MAY have unknown dependencies. It is RECOMMENDED that implementations assume this to be opaque and not an indicator of a component being dependency-free.
-
-#### composer specifics
-
-* need to check how composer's alias-packages could be handled.
