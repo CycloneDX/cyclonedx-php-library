@@ -24,7 +24,6 @@ declare(strict_types=1);
 namespace CycloneDX\Tests\Core\Models\License;
 
 use CycloneDX\Core\Models\License\AbstractDisjunctiveLicense;
-use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -45,11 +44,10 @@ abstract class AbstractDisjunctiveLicenseTestCase extends TestCase
     /**
      * @depends testSetAndGetUrl
      */
-    public function testSetUrlThrows(AbstractDisjunctiveLicense $license): void
+    public function testSetUrlToSomeUri(AbstractDisjunctiveLicense $license): void
     {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessageMatches('/invalid URL/i');
-        $license->setUrl('foo');
+        $license->setUrl('../foo.txt');
+        self::assertSame('../foo.txt', $license->getUrl());
     }
 
     /**

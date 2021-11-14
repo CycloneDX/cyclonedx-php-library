@@ -23,8 +23,6 @@ declare(strict_types=1);
 
 namespace CycloneDX\Core\Models\License;
 
-use InvalidArgumentException;
-
 /**
  * @author jkowalleck
  *
@@ -46,15 +44,10 @@ abstract class AbstractDisjunctiveLicense
     }
 
     /**
-     * @throws InvalidArgumentException if value is an invalid URL
-     *
      * @return $this
      */
     public function setUrl(?string $url): self
     {
-        if (null !== $url && false === filter_var($url, \FILTER_VALIDATE_URL)) {
-            throw new InvalidArgumentException("Invalid URL: $url");
-        }
         $this->url = $url;
 
         return $this;

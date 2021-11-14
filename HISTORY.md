@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
+## unreleased
+
+* Fixed
+  * `CycloneDX\Core\Models\License\AbstractDisjunctiveLicense::setUrl()` no longer restricts the argument to be a valid URL.  
+     Per schema definition `licenseType.url` should be a URI, not a URL.
+* Changed
+  * `CycloneDX\Core\Models\License\AbstractDisjunctiveLicense::setUrl()` no longer throws `InvalidArgumentException`
+     if the argument is not a URL.
+
 ## 1.0.2 - 2021-10-30
 
 * Fixed
