@@ -37,6 +37,9 @@ use PHPUnit\Framework\TestCase;
  */
 class ToolRepositoryNormalizerTest extends TestCase
 {
+    /**
+     * @uses \CycloneDX\Core\Serialize\JSON\Normalizers\ToolNormalizer
+     */
     public function testNormalizeEmpty(): void
     {
         $spec = $this->createStub(SpecInterface::class);
