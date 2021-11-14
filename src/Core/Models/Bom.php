@@ -24,6 +24,7 @@ declare(strict_types=1);
 namespace CycloneDX\Core\Models;
 
 use CycloneDX\Core\Repositories\ComponentRepository;
+use CycloneDX\Core\Repositories\ExternalReferenceRepository;
 use DomainException;
 
 /**
@@ -55,6 +56,14 @@ class Bom
      * @TODO deprecated rename it in v4 to `$metadata` and also rename the getter/setter
      */
     private $metaData;
+
+    /**
+     * Provides the ability to document external references related to the BOM or
+     * to the project the BOM describes.
+     *
+     * @var ExternalReferenceRepository|null
+     */
+    private $externalReferenceRepository;
 
     public function __construct(?ComponentRepository $componentRepository = null)
     {
@@ -121,6 +130,21 @@ class Bom
     public function setMetaData(?MetaData $metaData): self
     {
         $this->metaData = $metaData;
+
+        return $this;
+    }
+
+    public function getExternalReferenceRepository(): ?ExternalReferenceRepository
+    {
+        return $this->externalReferenceRepository;
+    }
+
+    /**
+     * @return $this
+     */
+    public function setExternalReferenceRepository(?ExternalReferenceRepository $externalReferenceRepository): self
+    {
+        $this->externalReferenceRepository = $externalReferenceRepository;
 
         return $this;
     }

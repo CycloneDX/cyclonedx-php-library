@@ -27,6 +27,7 @@ use CycloneDX\Core\Enums\Classification;
 use CycloneDX\Core\Models\License\LicenseExpression;
 use CycloneDX\Core\Repositories\BomRefRepository;
 use CycloneDX\Core\Repositories\DisjunctiveLicenseRepository;
+use CycloneDX\Core\Repositories\ExternalReferenceRepository;
 use CycloneDX\Core\Repositories\HashRepository;
 use DomainException;
 use PackageUrl\PackageUrl;
@@ -136,6 +137,14 @@ class Component
      * @psalm-suppress PropertyNotSetInConstructor
      */
     private $version;
+
+    /**
+     * Provides the ability to document external references related to the
+     * component or to the project the component describes.
+     *
+     * @var ExternalReferenceRepository|null
+     */
+    private $externalReferenceRepository;
 
     public function getBomRef(): BomRef
     {
@@ -327,6 +336,21 @@ class Component
     public function setDependenciesBomRefRepository(?BomRefRepository $dependenciesBomRefRepository): self
     {
         $this->dependenciesBomRefRepository = $dependenciesBomRefRepository;
+
+        return $this;
+    }
+
+    public function getExternalReferenceRepository(): ?ExternalReferenceRepository
+    {
+        return $this->externalReferenceRepository;
+    }
+
+    /**
+     * @return $this
+     */
+    public function setExternalReferenceRepository(?ExternalReferenceRepository $externalReferenceRepository): self
+    {
+        $this->externalReferenceRepository = $externalReferenceRepository;
 
         return $this;
     }
