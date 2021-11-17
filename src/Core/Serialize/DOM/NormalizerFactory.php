@@ -137,4 +137,14 @@ class NormalizerFactory
     {
         return new Normalizers\DependenciesNormalizer($this);
     }
+
+    public function makeForExternalReference(): Normalizers\ExternalReferenceNormalizer
+    {
+        return new Normalizers\ExternalReferenceNormalizer($this);
+    }
+
+    public function makeForExternalReferenceRepository(): Normalizers\ExternalReferenceRepositoryNormalizer
+    {
+        return new Normalizers\ExternalReferenceRepositoryNormalizer($this);
+    }
 }

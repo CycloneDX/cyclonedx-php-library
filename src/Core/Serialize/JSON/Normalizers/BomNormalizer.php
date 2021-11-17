@@ -26,6 +26,7 @@ namespace CycloneDX\Core\Serialize\JSON\Normalizers;
 use CycloneDX\Core\Helpers\NullAssertionTrait;
 use CycloneDX\Core\Models\Bom;
 use CycloneDX\Core\Models\MetaData;
+use CycloneDX\Core\Repositories\ExternalReferenceRepository;
 use CycloneDX\Core\Serialize\JSON\AbstractNormalizer;
 
 /**
@@ -48,6 +49,7 @@ class BomNormalizer extends AbstractNormalizer
                 'version' => $bom->getVersion(),
                 'metadata' => $this->normalizeMetaData($bom->getMetaData()),
                 'components' => $factory->makeForComponentRepository()->normalize($bom->getComponentRepository()),
+                'externalReferences' => $this->normalizeExternalReferences($bom->getExternalReferenceRepository()),
                 'dependencies' => $this->normalizeDependencies($bom),
             ],
             [$this, 'isNotNull']
@@ -71,6 +73,13 @@ class BomNormalizer extends AbstractNormalizer
         return empty($data)
             ? null
             : $data;
+    }
+
+    private function normalizeExternalReferences(?ExternalReferenceRepository $externalReferenceRepository): ?array
+    {
+        return null === $externalReferenceRepository || 0 === \count($externalReferenceRepository)
+            ? null
+            : $this->getNormalizerFactory()->makeForExternalReferenceRepository()->normalize($externalReferenceRepository);
     }
 
     private function normalizeDependencies(Bom $bom): ?array

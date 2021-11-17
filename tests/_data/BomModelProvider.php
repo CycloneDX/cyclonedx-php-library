@@ -24,9 +24,11 @@ declare(strict_types=1);
 namespace CycloneDX\Tests\_data;
 
 use CycloneDX\Core\Enums\Classification;
+use CycloneDX\Core\Enums\ExternalReferenceType;
 use CycloneDX\Core\Enums\HashAlgorithm;
 use CycloneDX\Core\Models\Bom;
 use CycloneDX\Core\Models\Component;
+use CycloneDX\Core\Models\ExternalReference;
 use CycloneDX\Core\Models\License\DisjunctiveLicenseWithId;
 use CycloneDX\Core\Models\License\DisjunctiveLicenseWithName;
 use CycloneDX\Core\Models\License\LicenseExpression;
@@ -34,6 +36,7 @@ use CycloneDX\Core\Models\MetaData;
 use CycloneDX\Core\Models\Tool;
 use CycloneDX\Core\Repositories\ComponentRepository;
 use CycloneDX\Core\Repositories\DisjunctiveLicenseRepository;
+use CycloneDX\Core\Repositories\ExternalReferenceRepository;
 use CycloneDX\Core\Repositories\HashRepository;
 use CycloneDX\Core\Repositories\ToolRepository;
 use Generator;
@@ -51,6 +54,7 @@ abstract class BomModelProvider
     public static function allBomTestData(): Generator
     {
         yield from self::bomPlain();
+        yield from self::bomWithExternalReferences();
 
         yield from self::bomWithAllComponents();
 
@@ -58,14 +62,36 @@ abstract class BomModelProvider
     }
 
     /**
-     * Just an plain BOM.
+     * Just a plain BOM.
      *
      * @psalm-return Generator<array{Bom}>
      */
     public static function bomPlain(): Generator
     {
-        yield 'plain' => [new Bom()];
-        yield 'plain v23' => [(new Bom())->setVersion(23)];
+        yield 'bom plain' => [new Bom()];
+        yield 'bom plain v23' => [(new Bom())->setVersion(23)];
+    }
+
+    /**
+     * BOM with externalReferences.
+     *
+     * @psalm-return Generator<array{Bom}>
+     */
+    public static function bomWithExternalReferences(): Generator
+    {
+        yield 'bom with empty ExternalReferences' => [
+            (new Bom())->setExternalReferenceRepository(
+                new ExternalReferenceRepository()
+            ),
+        ];
+
+        foreach (self::externalReferencesForAllTypes() as $label => $extRef) {
+            yield "bom with $label" => [
+                (new Bom())->setExternalReferenceRepository(
+                    new ExternalReferenceRepository($extRef)
+                ),
+            ];
+        }
     }
 
     /**
@@ -85,7 +111,7 @@ abstract class BomModelProvider
         yield from self::bomWithComponentLicenseUrl();
 
         yield from self::bomWithComponentHashAlgorithmsAllKnown();
-
+        yield from self::bomWithComponentWithExternalReferences();
         yield from self::bomWithComponentTypeAllKnown();
     }
 
@@ -133,6 +159,34 @@ abstract class BomModelProvider
             ...BomSpecData::getClassificationEnumForVersion('1.2'),
             ...BomSpecData::getClassificationEnumForVersion('1.3')
         );
+    }
+
+    /**
+     * BOM with externalReferences.
+     *
+     * @psalm-return Generator<array{Bom}>
+     */
+    public static function bomWithComponentWithExternalReferences(): Generator
+    {
+        yield 'component with empty ExternalReferences' => [
+            (new Bom())->setComponentRepository(
+                new ComponentRepository(
+                    (new Component(Classification::LIBRARY, 'dummy', 'foo-beta'))
+                        ->setExternalReferenceRepository(new ExternalReferenceRepository())
+                )
+            ),
+        ];
+
+        foreach (self::externalReferencesForAllTypes() as $label => $extRef) {
+            yield "component with $label" => [
+                (new Bom())->setComponentRepository(
+                    new ComponentRepository(
+                        (new Component(Classification::LIBRARY, 'dummy', 'foo-beta'))
+                            ->setExternalReferenceRepository(new ExternalReferenceRepository($extRef))
+                    )
+                ),
+            ];
+        }
     }
 
     /**
@@ -482,5 +536,26 @@ abstract class BomModelProvider
                 )
             ),
         ];
+    }
+
+    /**
+     * @return Generator<ExternalReference>
+     */
+    public static function externalReferencesForAllTypes(): Generator
+    {
+        /** @psalm-var list<string> $known */
+        $known = array_values((new \ReflectionClass(ExternalReferenceType::class))->getConstants());
+        $all = array_unique(
+            array_merge(
+                $known,
+                BomSpecData::getExternalReferenceTypeForVersion('1.1'),
+                BomSpecData::getExternalReferenceTypeForVersion('1.2'),
+                BomSpecData::getExternalReferenceTypeForVersion('1.3'),
+            )
+        );
+
+        foreach ($all as $type) {
+            yield "externalReference: $type" => new ExternalReference($type, ".../types/{$type}.txt");
+        }
     }
 }

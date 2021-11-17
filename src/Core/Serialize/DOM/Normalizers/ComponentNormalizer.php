@@ -28,6 +28,7 @@ use CycloneDX\Core\Helpers\SimpleDomTrait;
 use CycloneDX\Core\Models\Component;
 use CycloneDX\Core\Models\License\LicenseExpression;
 use CycloneDX\Core\Repositories\DisjunctiveLicenseRepository;
+use CycloneDX\Core\Repositories\ExternalReferenceRepository;
 use CycloneDX\Core\Repositories\HashRepository;
 use CycloneDX\Core\Serialize\DOM\AbstractNormalizer;
 use DomainException;
@@ -87,7 +88,7 @@ class ComponentNormalizer extends AbstractNormalizer
                 $this->normalizePurl($component->getPackageUrl()),
                 // modified
                 // pedigree
-                // externalReferences
+                $this->normalizeExternalReferences($component->getExternalReferenceRepository()),
                 // components
             ]
         );
@@ -161,5 +162,17 @@ class ComponentNormalizer extends AbstractNormalizer
         return null === $purl
             ? null
             : $this->simpleDomSafeTextElement($this->getNormalizerFactory()->getDocument(), 'purl', (string) $purl);
+    }
+
+    private function normalizeExternalReferences(?ExternalReferenceRepository $externalReferenceRepository): ?DOMElement
+    {
+        $factory = $this->getNormalizerFactory();
+
+        return null === $externalReferenceRepository || 0 === \count($externalReferenceRepository)
+            ? null
+            : $this->simpleDomAppendChildren(
+                $factory->getDocument()->createElement('externalReferences'),
+                $factory->makeForExternalReferenceRepository()->normalize($externalReferenceRepository)
+            );
     }
 }
