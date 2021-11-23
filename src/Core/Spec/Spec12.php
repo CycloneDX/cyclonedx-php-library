@@ -87,4 +87,9 @@ final class Spec12 implements SpecInterface
     {
         return true;
     }
+
+    public function supportsExternalReferenceHashes(): bool
+    {
+        return false;
+    }
 }
