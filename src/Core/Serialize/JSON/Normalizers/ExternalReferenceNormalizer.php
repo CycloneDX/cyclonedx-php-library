@@ -40,7 +40,7 @@ class ExternalReferenceNormalizer extends AbstractNormalizer
      */
     public function normalize(ExternalReference $externalReference): array
     {
-        // would throw DomainException if the type was not supported
+        // could throw DomainException if the type was not supported
 
         return array_filter(
             [
@@ -55,8 +55,14 @@ class ExternalReferenceNormalizer extends AbstractNormalizer
 
     private function normalizeHashes(?HashRepository $hashes): ?array
     {
+        $factory = $this->getNormalizerFactory();
+
+        if (false === $factory->getSpec()->supportsExternalReferenceHashes()) {
+            return null;
+        }
+
         return null === $hashes || 0 === \count($hashes)
             ? null
-            : $this->getNormalizerFactory()->makeForHashRepository()->normalize($hashes);
+            : $factory->makeForHashRepository()->normalize($hashes);
     }
 }

@@ -41,7 +41,7 @@ class ExternalReferenceNormalizer extends AbstractNormalizer
      */
     public function normalize(ExternalReference $externalReference): DOMElement
     {
-        // would throw DomainException if the type was not supported
+        // could throw DomainException if the type was not supported
 
         $doc = $this->getNormalizerFactory()->getDocument();
 
@@ -63,6 +63,10 @@ class ExternalReferenceNormalizer extends AbstractNormalizer
     private function normalizeHashes(?HashRepository $hashes): ?DOMElement
     {
         $factory = $this->getNormalizerFactory();
+
+        if (false === $factory->getSpec()->supportsExternalReferenceHashes()) {
+            return null;
+        }
 
         return null === $hashes || 0 === \count($hashes)
             ? null
