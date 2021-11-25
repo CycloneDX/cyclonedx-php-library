@@ -28,12 +28,10 @@ use CycloneDX\Core\Models\Component;
 use CycloneDX\Core\Models\License\DisjunctiveLicenseWithName;
 use CycloneDX\Core\Models\License\LicenseExpression;
 use CycloneDX\Core\Repositories\DisjunctiveLicenseRepository;
+use CycloneDX\Core\Repositories\ExternalReferenceRepository;
 use CycloneDX\Core\Repositories\HashRepository;
 use CycloneDX\Core\Serialize\JSON\NormalizerFactory;
-use CycloneDX\Core\Serialize\JSON\Normalizers\ComponentNormalizer;
-use CycloneDX\Core\Serialize\JSON\Normalizers\DisjunctiveLicenseRepositoryNormalizer;
-use CycloneDX\Core\Serialize\JSON\Normalizers\HashRepositoryNormalizer;
-use CycloneDX\Core\Serialize\JSON\Normalizers\LicenseExpressionNormalizer;
+use CycloneDX\Core\Serialize\JSON\Normalizers;
 use CycloneDX\Core\Spec\SpecInterface;
 use DomainException;
 use PackageUrl\PackageUrl;
@@ -57,7 +55,7 @@ class ComponentNormalizerTest extends TestCase
         );
         $spec = $this->createMock(SpecInterface::class);
         $factory = $this->createConfiguredMock(NormalizerFactory::class, ['getSpec' => $spec]);
-        $normalizer = new ComponentNormalizer($factory);
+        $normalizer = new Normalizers\ComponentNormalizer($factory);
 
         $spec->expects(self::once())->method('isSupportedComponentType')
             ->with('FakeType')
@@ -86,7 +84,7 @@ class ComponentNormalizerTest extends TestCase
         );
         $spec = $this->createMock(SpecInterface::class);
         $factory = $this->createConfiguredMock(NormalizerFactory::class, ['getSpec' => $spec]);
-        $normalizer = new ComponentNormalizer($factory);
+        $normalizer = new Normalizers\ComponentNormalizer($factory);
 
         $spec->expects(self::once())->method('isSupportedComponentType')
             ->with('FakeType')
@@ -127,14 +125,14 @@ class ComponentNormalizerTest extends TestCase
             'supportsLicenseExpression' => true,
             'supportsBomRef' => true,
         ]);
-        $licenseExpressionNormalizer = $this->createMock(LicenseExpressionNormalizer::class);
-        $hashRepositoryNormalizer = $this->createMock(HashRepositoryNormalizer::class);
+        $licenseExpressionNormalizer = $this->createMock(Normalizers\LicenseExpressionNormalizer::class);
+        $hashRepositoryNormalizer = $this->createMock(Normalizers\HashRepositoryNormalizer::class);
         $factory = $this->createConfiguredMock(NormalizerFactory::class, [
             'getSpec' => $spec,
             'makeForLicenseExpression' => $licenseExpressionNormalizer,
             'makeForHashRepository' => $hashRepositoryNormalizer,
         ]);
-        $normalizer = new ComponentNormalizer($factory);
+        $normalizer = new Normalizers\ComponentNormalizer($factory);
 
         $spec->expects(self::once())->method('isSupportedComponentType')
             ->with('FakeType')
@@ -186,12 +184,12 @@ class ComponentNormalizerTest extends TestCase
                 'supportsLicenseExpression' => false,
             ]
         );
-        $licenseNormalizer = $this->createMock(DisjunctiveLicenseRepositoryNormalizer::class);
+        $licenseNormalizer = $this->createMock(Normalizers\DisjunctiveLicenseRepositoryNormalizer::class);
         $factory = $this->createConfiguredMock(NormalizerFactory::class, [
             'getSpec' => $spec,
             'makeForDisjunctiveLicenseRepository' => $licenseNormalizer,
         ]);
-        $normalizer = new ComponentNormalizer($factory);
+        $normalizer = new Normalizers\ComponentNormalizer($factory);
 
         $transformedLicenseTest = static function (DisjunctiveLicenseRepository $licenses): bool {
             $licenses = $licenses->getLicenses();
@@ -232,12 +230,12 @@ class ComponentNormalizerTest extends TestCase
             ]
         );
         $spec = $this->createMock(SpecInterface::class);
-        $licenseNormalizer = $this->createMock(DisjunctiveLicenseRepositoryNormalizer::class);
+        $licenseNormalizer = $this->createMock(Normalizers\DisjunctiveLicenseRepositoryNormalizer::class);
         $factory = $this->createConfiguredMock(NormalizerFactory::class, [
             'getSpec' => $spec,
             'makeForDisjunctiveLicenseRepository' => $licenseNormalizer,
         ]);
-        $normalizer = new ComponentNormalizer($factory);
+        $normalizer = new Normalizers\ComponentNormalizer($factory);
 
         $spec->expects(self::once())->method('isSupportedComponentType')
             ->with('FakeType')
@@ -268,12 +266,12 @@ class ComponentNormalizerTest extends TestCase
             ]
         );
         $spec = $this->createMock(SpecInterface::class);
-        $licenseNormalizer = $this->createMock(DisjunctiveLicenseRepositoryNormalizer::class);
+        $licenseNormalizer = $this->createMock(Normalizers\DisjunctiveLicenseRepositoryNormalizer::class);
         $factory = $this->createConfiguredMock(NormalizerFactory::class, [
             'getSpec' => $spec,
             'makeForDisjunctiveLicenseRepository' => $licenseNormalizer,
         ]);
-        $normalizer = new ComponentNormalizer($factory);
+        $normalizer = new Normalizers\ComponentNormalizer($factory);
 
         $spec->expects(self::once())->method('isSupportedComponentType')
             ->with('FakeType')
@@ -288,4 +286,86 @@ class ComponentNormalizerTest extends TestCase
             'version' => 'some-version',
         ], $got);
     }
+
+    // region normalize ExternalReferences
+
+    public function testNormalizeExternalReferences(): void
+    {
+        $component = $this->createConfiguredMock(
+            Component::class,
+            [
+                'getName' => 'myName',
+                'getVersion' => 'some-version',
+                'getType' => 'FakeType',
+                'getExternalReferenceRepository' => $this->createConfiguredMock(ExternalReferenceRepository::class, ['count' => 1]),
+            ]
+        );
+        $spec = $this->createMock(SpecInterface::class);
+        $externalReferenceRepositoryNormalizer = $this->createMock(Normalizers\ExternalReferenceRepositoryNormalizer::class);
+        $factory = $this->createConfiguredMock(
+            NormalizerFactory::class,
+            [
+                'getSpec' => $spec,
+                'makeForExternalReferenceRepository' => $externalReferenceRepositoryNormalizer,
+            ]
+        );
+        $normalizer = new Normalizers\ComponentNormalizer($factory);
+
+        $spec->expects(self::once())->method('isSupportedComponentType')
+            ->with('FakeType')
+            ->willReturn(true);
+        $externalReferenceRepositoryNormalizer->expects(self::once())
+            ->method('normalize')
+            ->with($component->getExternalReferenceRepository())
+            ->willReturn(['FakeExternalReference']);
+
+        $actual = $normalizer->normalize($component);
+
+        self::assertSame([
+            'type' => 'FakeType',
+            'name' => 'myName',
+            'version' => 'some-version',
+            'externalReferences' => ['FakeExternalReference'],
+            ],
+            $actual
+        );
+    }
+
+    public function testNormalizeExternalReferencesOmitIfEmpty(): void
+    {
+        $component = $this->createConfiguredMock(
+            Component::class,
+            [
+                'getName' => 'myName',
+                'getVersion' => 'some-version',
+                'getType' => 'FakeType',
+                'getExternalReferenceRepository' => $this->createConfiguredMock(ExternalReferenceRepository::class, ['count' => 0]),
+            ]
+        );
+        $spec = $this->createMock(SpecInterface::class);
+        $externalReferenceRepositoryNormalizer = $this->createMock(Normalizers\ExternalReferenceRepositoryNormalizer::class);
+        $factory = $this->createConfiguredMock(
+            NormalizerFactory::class,
+            [
+                'getSpec' => $spec,
+                'makeForExternalReferenceRepository' => $externalReferenceRepositoryNormalizer,
+            ]
+        );
+        $normalizer = new Normalizers\ComponentNormalizer($factory);
+
+        $spec->expects(self::once())->method('isSupportedComponentType')
+            ->with('FakeType')
+            ->willReturn(true);
+        $externalReferenceRepositoryNormalizer->expects(self::never())->method('normalize');
+
+        $actual = $normalizer->normalize($component);
+
+        self::assertEquals([
+            'type' => 'FakeType',
+            'name' => 'myName',
+            'version' => 'some-version',
+        ], $actual);
+    }
+
+    // endregion normalize ExternalReferences
 }

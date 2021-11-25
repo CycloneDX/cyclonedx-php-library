@@ -333,6 +333,8 @@ class BomNormalizerTest extends TestCase
         );
     }
 
+    // region normalize ExternalReferences
+
     public function testNormalizeExternalReferences(): void
     {
         $spec = $this->createConfiguredMock(
@@ -419,4 +421,6 @@ class BomNormalizerTest extends TestCase
             $actual
         );
     }
+
+    // endregion normalize ExternalReferences
 }
