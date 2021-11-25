@@ -54,11 +54,12 @@ abstract class BomModelProvider
     public static function allBomTestData(): Generator
     {
         yield from self::bomPlain();
-        yield from self::bomWithExternalReferences();
 
         yield from self::bomWithAllComponents();
 
         yield from self::bomWithAllMetadata();
+
+        yield from self::bomWithExternalReferences();
     }
 
     /**
@@ -86,6 +87,14 @@ abstract class BomModelProvider
         ];
 
         foreach (self::externalReferencesForAllTypes() as $label => $extRef) {
+            yield "bom with $label" => [
+                (new Bom())->setExternalReferenceRepository(
+                    new ExternalReferenceRepository($extRef)
+                ),
+            ];
+        }
+
+        foreach (self::externalReferencesForHashAlgorithmsAllKnown() as $label => $extRef) {
             yield "bom with $label" => [
                 (new Bom())->setExternalReferenceRepository(
                     new ExternalReferenceRepository($extRef)
@@ -340,6 +349,21 @@ abstract class BomModelProvider
         }
     }
 
+    /** @psalm-return list<string> */
+    private static function allHashAlgorithms(): array
+    {
+        /** @psalm-var list<string> $known */
+        $known = array_values((new \ReflectionClass(HashAlgorithm::class))->getConstants());
+
+        return array_values(array_unique(array_merge(
+            $known,
+            BomSpecData::getHashAlgEnumForVersion('1.0'),
+            BomSpecData::getHashAlgEnumForVersion('1.1'),
+            BomSpecData::getHashAlgEnumForVersion('1.2'),
+            BomSpecData::getHashAlgEnumForVersion('1.3')
+        ), \SORT_STRING));
+    }
+
     /**
      * BOMs with all hash algorithms known.
      *
@@ -347,14 +371,8 @@ abstract class BomModelProvider
      */
     public static function bomWithComponentHashAlgorithmsAllKnown(): Generator
     {
-        /** @psalm-var list<string> $known */
-        $known = array_values((new \ReflectionClass(HashAlgorithm::class))->getConstants());
         yield from self::bomWithComponentHashAlgorithms(
-            ...$known,
-            ...BomSpecData::getHashAlgEnumForVersion('1.0'),
-            ...BomSpecData::getHashAlgEnumForVersion('1.1'),
-            ...BomSpecData::getHashAlgEnumForVersion('1.2'),
-            ...BomSpecData::getHashAlgEnumForVersion('1.3'),
+            ...self::allHashAlgorithms()
         );
     }
 
@@ -555,7 +573,20 @@ abstract class BomModelProvider
         );
 
         foreach ($all as $type) {
-            yield "externalReference: $type" => new ExternalReference($type, ".../types/{$type}.txt");
+            yield "externalReferenceType: $type" => new ExternalReference($type, ".../types/{$type}.txt");
+        }
+    }
+
+    /**
+     * BOMs with all hash algorithms known.
+     *
+     * @psalm-return Generator<array{Bom}>
+     */
+    public static function externalReferencesForHashAlgorithmsAllKnown(): Generator
+    {
+        $type = ExternalReferenceType::OTHER;
+        foreach (self::allHashAlgorithms() as $algorithm) {
+            yield "externalReferenceHash: $algorithm" => (new ExternalReference($type, ".../algorithm/{$algorithm}.txt"))->setHashRepository(new HashRepository([$algorithm => '12345678901234567890123456789012']));
         }
     }
 }
