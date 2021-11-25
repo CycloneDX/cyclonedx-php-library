@@ -241,7 +241,7 @@ class NormalizerFactoryTest extends TestCase
     /**
      * @depends testConstructor
      *
-     * @uses    \CycloneDX\Core\Serialize\DOM\Normalizers\ToolNormalizer
+     * @uses    \CycloneDX\Core\Serialize\JSON\Normalizers\ToolNormalizer
      * @uses    \CycloneDX\Core\Serialize\JSON\Normalizers\DependenciesNormalizer
      */
     public function testMakeForDependencies(NormalizerFactory $factory): void
@@ -254,7 +254,7 @@ class NormalizerFactoryTest extends TestCase
     /**
      * @depends testConstructor
      *
-     * @uses    \CycloneDX\Core\Serialize\DOM\Normalizers\ExternalReferenceNormalizer
+     * @uses    \CycloneDX\Core\Serialize\JSON\Normalizers\ExternalReferenceNormalizer
      */
     public function testMakeForExternalReference(NormalizerFactory $factory): void
     {
@@ -266,7 +266,7 @@ class NormalizerFactoryTest extends TestCase
     /**
      * @depends testConstructor
      *
-     * @uses    \CycloneDX\Core\Serialize\DOM\Normalizers\ExternalReferenceRepositoryNormalizer
+     * @uses    \CycloneDX\Core\Serialize\JSON\Normalizers\ExternalReferenceRepositoryNormalizer
      */
     public function testMakeForExternalReferenceRepository(NormalizerFactory $factory): void
     {
