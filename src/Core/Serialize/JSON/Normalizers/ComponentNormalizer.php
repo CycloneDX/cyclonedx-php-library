@@ -28,6 +28,7 @@ use CycloneDX\Core\Helpers\NullAssertionTrait;
 use CycloneDX\Core\Models\Component;
 use CycloneDX\Core\Models\License\LicenseExpression;
 use CycloneDX\Core\Repositories\DisjunctiveLicenseRepository;
+use CycloneDX\Core\Repositories\ExternalReferenceRepository;
 use CycloneDX\Core\Repositories\HashRepository;
 use CycloneDX\Core\Serialize\JSON\AbstractNormalizer;
 use DomainException;
@@ -72,6 +73,7 @@ class ComponentNormalizer extends AbstractNormalizer
                 'licenses' => $this->normalizeLicense($component->getLicense()),
                 'hashes' => $this->normalizeHashes($component->getHashRepository()),
                 'purl' => $this->normalizePurl($component->getPackageUrl()),
+                'externalReferences' => $this->normalizeExternalReferences($component->getExternalReferenceRepository()),
             ],
             [$this, 'isNotNull']
         );
@@ -125,5 +127,12 @@ class ComponentNormalizer extends AbstractNormalizer
         return null === $purl
             ? null
             : (string) $purl;
+    }
+
+    private function normalizeExternalReferences(?ExternalReferenceRepository $externalReferenceRepository): ?array
+    {
+        return null === $externalReferenceRepository || 0 === \count($externalReferenceRepository)
+            ? null
+            : $this->getNormalizerFactory()->makeForExternalReferenceRepository()->normalize($externalReferenceRepository);
     }
 }

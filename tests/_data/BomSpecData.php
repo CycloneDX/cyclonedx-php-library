@@ -49,6 +49,14 @@ abstract class BomSpecData
     /**
      * @psalm-return list<string> sorted list
      */
+    public static function getExternalReferenceTypeForVersion(string $version): array
+    {
+        return self::getEnumValuesForName($version, 'externalReferenceType');
+    }
+
+    /**
+     * @psalm-return list<string> sorted list
+     */
     public static function getHashAlgEnumForVersion(string $version): array
     {
         return self::getEnumValuesForName($version, 'hashAlg');

@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## unreleased
 
+* Added
+  * Support for ExternalReferences in BOM and Component (via [#17])
+
+[#17]: https://github.com/CycloneDX/cyclonedx-php-library/pull/17
+
 ## 1.0.3 - 2021-11-15
 
 * Fixed

@@ -66,4 +66,9 @@ class Spec13Test extends AbstractSpecTestCase
     {
         return true;
     }
+
+    public function shouldSupportExternalReferenceHashes(): bool
+    {
+        return true;
+    }
 }

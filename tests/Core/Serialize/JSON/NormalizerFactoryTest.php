@@ -241,13 +241,37 @@ class NormalizerFactoryTest extends TestCase
     /**
      * @depends testConstructor
      *
-     * @uses    \CycloneDX\Core\Serialize\DOM\Normalizers\ToolNormalizer
+     * @uses    \CycloneDX\Core\Serialize\JSON\Normalizers\ToolNormalizer
      * @uses    \CycloneDX\Core\Serialize\JSON\Normalizers\DependenciesNormalizer
      */
     public function testMakeForDependencies(NormalizerFactory $factory): void
     {
         $normalizer = $factory->makeForDependencies();
         self::assertInstanceOf(Normalizers\DependenciesNormalizer::class, $normalizer);
+        self::assertSame($factory, $normalizer->getNormalizerFactory());
+    }
+
+    /**
+     * @depends testConstructor
+     *
+     * @uses    \CycloneDX\Core\Serialize\JSON\Normalizers\ExternalReferenceNormalizer
+     */
+    public function testMakeForExternalReference(NormalizerFactory $factory): void
+    {
+        $normalizer = $factory->makeForExternalReference();
+        self::assertInstanceOf(Normalizers\ExternalReferenceNormalizer::class, $normalizer);
+        self::assertSame($factory, $normalizer->getNormalizerFactory());
+    }
+
+    /**
+     * @depends testConstructor
+     *
+     * @uses    \CycloneDX\Core\Serialize\JSON\Normalizers\ExternalReferenceRepositoryNormalizer
+     */
+    public function testMakeForExternalReferenceRepository(NormalizerFactory $factory): void
+    {
+        $normalizer = $factory->makeForExternalReferenceRepository();
+        self::assertInstanceOf(Normalizers\ExternalReferenceRepositoryNormalizer::class, $normalizer);
         self::assertSame($factory, $normalizer->getNormalizerFactory());
     }
 }

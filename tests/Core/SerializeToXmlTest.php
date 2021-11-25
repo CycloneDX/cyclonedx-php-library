@@ -47,6 +47,8 @@ class SerializeToXmlTest extends TestCase
      * This test might require online-connectivity.
      *
      * @dataProvider \CycloneDX\Tests\_data\BomModelProvider::allBomTestData
+     *
+     * @throws \Exception on validation failure
      */
     public function testSchema11(Bom $bom): void
     {
@@ -69,6 +71,8 @@ class SerializeToXmlTest extends TestCase
      * This test might require online-connectivity.
      *
      * @dataProvider \CycloneDX\Tests\_data\BomModelProvider::allBomTestData
+     *
+     * @throws \Exception on validation failure
      */
     public function testSchema12(Bom $bom): void
     {
@@ -91,6 +95,8 @@ class SerializeToXmlTest extends TestCase
      * This test might require online-connectivity.
      *
      * @dataProvider \CycloneDX\Tests\_data\BomModelProvider::allBomTestData
+     *
+     * @throws \Exception on validation failure
      */
     public function testSchema13(Bom $bom): void
     {

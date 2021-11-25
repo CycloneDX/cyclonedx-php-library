@@ -26,7 +26,6 @@ namespace CycloneDX\Tests\Core\Spec;
 use CycloneDX\Core\Enums\Classification;
 use CycloneDX\Core\Enums\HashAlgorithm;
 use CycloneDX\Core\Spec\SpecInterface;
-use CycloneDX\Core\Spec\Version;
 use CycloneDX\Tests\_data\BomSpecData;
 use Generator;
 use PHPUnit\Framework\TestCase;
@@ -36,7 +35,7 @@ abstract class AbstractSpecTestCase extends TestCase
     abstract protected function getSpec(): SpecInterface;
 
     /**
-     * @psalm-return Version::V_*
+     * @psalm-return \CycloneDX\Core\Spec\Version::V_*
      */
     abstract protected function getSpecVersion(): string;
 
@@ -61,7 +60,7 @@ abstract class AbstractSpecTestCase extends TestCase
     /**
      * @depends testKnownFormats
      */
-    public function testGetSupportedFormats(array $knownFormats): void
+    final public function testGetSupportedFormats(array $knownFormats): void
     {
         $formats = $this->getSpec()->getSupportedFormats();
         self::assertEquals($knownFormats, $formats);
@@ -190,4 +189,12 @@ abstract class AbstractSpecTestCase extends TestCase
     }
 
     abstract public function shouldSupportDependencies(): bool;
+
+    final public function testSupportsExternalReferenceHashes(): void
+    {
+        $isSupported = $this->getSpec()->supportsExternalReferenceHashes();
+        self::assertSame($this->shouldSupportExternalReferenceHashes(), $isSupported);
+    }
+
+    abstract public function shouldSupportExternalReferenceHashes(): bool;
 }

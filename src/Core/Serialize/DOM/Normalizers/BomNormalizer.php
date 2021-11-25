@@ -27,6 +27,7 @@ use CycloneDX\Core\Helpers\SimpleDomTrait;
 use CycloneDX\Core\Models\Bom;
 use CycloneDX\Core\Models\MetaData;
 use CycloneDX\Core\Repositories\ComponentRepository;
+use CycloneDX\Core\Repositories\ExternalReferenceRepository;
 use CycloneDX\Core\Serialize\DOM\AbstractNormalizer;
 use DOMElement;
 
@@ -61,8 +62,8 @@ class BomNormalizer extends AbstractNormalizer
             [
                 $this->normalizeMetaData($bom->getMetaData()),
                 $this->normalizeComponents($bom->getComponentRepository()),
+                $this->normalizeExternalReferences($bom->getExternalReferenceRepository()),
                 $this->normalizeDependencies($bom),
-                // externalReferences
             ]
         );
 
@@ -109,6 +110,18 @@ class BomNormalizer extends AbstractNormalizer
             : $this->simpleDomAppendChildren(
                 $factory->getDocument()->createElement('dependencies'),
                 $deps
+            );
+    }
+
+    private function normalizeExternalReferences(?ExternalReferenceRepository $externalReferenceRepository): ?DOMElement
+    {
+        $factory = $this->getNormalizerFactory();
+
+        return null === $externalReferenceRepository || 0 === \count($externalReferenceRepository)
+            ? null
+            : $this->simpleDomAppendChildren(
+                $factory->getDocument()->createElement('externalReferences'),
+                $factory->makeForExternalReferenceRepository()->normalize($externalReferenceRepository)
             );
     }
 }

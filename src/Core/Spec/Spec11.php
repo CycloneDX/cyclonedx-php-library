@@ -79,4 +79,9 @@ final class Spec11 implements SpecInterface
     {
         return false;
     }
+
+    public function supportsExternalReferenceHashes(): bool
+    {
+        return false;
+    }
 }

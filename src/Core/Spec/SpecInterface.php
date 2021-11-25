@@ -82,4 +82,9 @@ interface SpecInterface
      * version < 1.2 does not support BomRef.
      */
     public function supportsDependencies(): bool;
+
+    /**
+     * version < 1.3 does not support hashes in ExternalReference.
+     */
+    public function supportsExternalReferenceHashes(): bool;
 }

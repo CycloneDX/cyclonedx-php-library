@@ -29,6 +29,7 @@ use CycloneDX\Core\Models\Component;
 use CycloneDX\Core\Models\License\LicenseExpression;
 use CycloneDX\Core\Repositories\BomRefRepository;
 use CycloneDX\Core\Repositories\DisjunctiveLicenseRepository;
+use CycloneDX\Core\Repositories\ExternalReferenceRepository;
 use CycloneDX\Core\Repositories\HashRepository;
 use PackageUrl\PackageUrl;
 use PHPUnit\Framework\TestCase;
@@ -243,6 +244,18 @@ class ComponentTest extends TestCase
     }
 
     // endregion dependenciesBomRefRepository setter&getter
+
+    // region externalReferenceRepository setter&getter
+
+    public function testExternalReferenceRepositorySetterGetter(): void
+    {
+        $extRefRepo = $this->createStub(ExternalReferenceRepository::class);
+        $bom = $this->component->setExternalReferenceRepository($extRefRepo);
+        self::assertSame($this->component, $bom);
+        self::assertSame($extRefRepo, $this->component->getExternalReferenceRepository());
+    }
+
+    // endregion externalReferenceRepository setter&getter
 
     // region clone
 

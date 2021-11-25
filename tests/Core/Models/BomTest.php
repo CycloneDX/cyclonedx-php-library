@@ -26,6 +26,7 @@ namespace CycloneDX\Tests\Core\Models;
 use CycloneDX\Core\Models\Bom;
 use CycloneDX\Core\Models\MetaData;
 use CycloneDX\Core\Repositories\ComponentRepository;
+use CycloneDX\Core\Repositories\ExternalReferenceRepository;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -40,8 +41,6 @@ class BomTest extends TestCase
 
     protected function setUp(): void
     {
-        parent::setUp();
-
         $this->bom = new Bom($this->createStub(ComponentRepository::class));
     }
 
@@ -50,7 +49,8 @@ class BomTest extends TestCase
     public function testComponentsSetterGetter(): void
     {
         $components = $this->createStub(ComponentRepository::class);
-        $this->bom->setComponentRepository($components);
+        $bom = $this->bom->setComponentRepository($components);
+        self::assertSame($this->bom, $bom);
         self::assertSame($components, $this->bom->getComponentRepository());
     }
 
@@ -61,7 +61,8 @@ class BomTest extends TestCase
     public function testVersionSetterGetter(): void
     {
         $version = random_int(1, 255);
-        $this->bom->setVersion($version);
+        $bom = $this->bom->setVersion($version);
+        self::assertSame($this->bom, $bom);
         self::assertSame($version, $this->bom->getVersion());
     }
 
@@ -79,9 +80,22 @@ class BomTest extends TestCase
     public function testMetaDataSetterGetter(): void
     {
         $metaData = $this->createStub(MetaData::class);
-        $this->bom->setMetaData($metaData);
+        $bom = $this->bom->setMetaData($metaData);
+        self::assertSame($this->bom, $bom);
         self::assertSame($metaData, $this->bom->getMetaData());
     }
 
     // endregion metaData setter&getter
+
+    // region externalReferenceRepository setter&getter
+
+    public function testExternalReferenceRepositorySetterGetter(): void
+    {
+        $extRefRepo = $this->createStub(ExternalReferenceRepository::class);
+        $bom = $this->bom->setExternalReferenceRepository($extRefRepo);
+        self::assertSame($this->bom, $bom);
+        self::assertSame($extRefRepo, $this->bom->getExternalReferenceRepository());
+    }
+
+    // endregion externalReferenceRepository setter&getter
 }
