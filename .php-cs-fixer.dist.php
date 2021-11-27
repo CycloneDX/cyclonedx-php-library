@@ -41,7 +41,7 @@ return (new PhpCsFixer\Config())
             'fopen_flags' => ['b_mode' => true],
             'phpdoc_to_comment' => [
                 'ignored_tags' => [
-                    'psalm-var', // needed since PSALM introduced some lacks that only manual hints solved
+                //    'psalm-var', // needed when PSALM introduced some issues that only manual hints can solve
                 ],
             ],
         ]
