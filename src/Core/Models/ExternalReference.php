@@ -86,7 +86,6 @@ class ExternalReference
         if (false === ExternalReferenceType::isValidValue($type)) {
             throw new DomainException("Invalid type: $type");
         }
-        /** @psalm-var ExternalReferenceType::* $type */
         $this->type = $type;
 
         return $this;

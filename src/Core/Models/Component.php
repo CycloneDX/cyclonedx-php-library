@@ -219,7 +219,6 @@ class Component
         if (false === Classification::isValidValue($type)) {
             throw new DomainException("Invalid type: $type");
         }
-        /** @psalm-var Classification::* $type */
         $this->type = $type;
 
         return $this;
