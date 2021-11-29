@@ -24,6 +24,8 @@ declare(strict_types=1);
 namespace CycloneDX\Tests\Core\Serialize\JSON\Normalizers;
 
 use CycloneDX\Core\Models\Bom;
+use CycloneDX\Core\Models\Component;
+use CycloneDX\Core\Models\ExternalReference;
 use CycloneDX\Core\Models\MetaData;
 use CycloneDX\Core\Repositories\ComponentRepository;
 use CycloneDX\Core\Repositories\ExternalReferenceRepository;
@@ -36,8 +38,8 @@ use PHPUnit\Framework\TestCase;
  * @covers \CycloneDX\Core\Serialize\JSON\Normalizers\BomNormalizer
  * @covers \CycloneDX\Core\Serialize\JSON\AbstractNormalizer
  *
- * @uses \CycloneDX\Core\Serialize\JSON\Normalizers\DependenciesNormalizer
- * @uses \CycloneDX\Core\Serialize\JSON\Normalizers\MetaDataNormalizer
+ * @uses   \CycloneDX\Core\Serialize\JSON\Normalizers\DependenciesNormalizer
+ * @uses   \CycloneDX\Core\Serialize\JSON\Normalizers\MetaDataNormalizer
  */
 class BomNormalizerTest extends TestCase
 {
@@ -341,9 +343,12 @@ class BomNormalizerTest extends TestCase
             SpecInterface::class,
             [
                 'getVersion' => '1.2',
+                'supportsMetaData' => true,
             ]
         );
-        $externalReferenceRepositoryNormalizer = $this->createMock(Normalizers\ExternalReferenceRepositoryNormalizer::class);
+        $externalReferenceRepositoryNormalizer = $this->createMock(
+            Normalizers\ExternalReferenceRepositoryNormalizer::class
+        );
         $factory = $this->createConfiguredMock(
             NormalizerFactory::class,
             [
@@ -356,7 +361,10 @@ class BomNormalizerTest extends TestCase
             Bom::class,
             [
                 'getVersion' => 23,
-                'getExternalReferenceRepository' => $this->createConfiguredMock(ExternalReferenceRepository::class, ['count' => 1]),
+                'getExternalReferenceRepository' => $this->createConfiguredMock(
+                    ExternalReferenceRepository::class,
+                    ['count' => 1]
+                ),
             ]
         );
 
@@ -385,9 +393,12 @@ class BomNormalizerTest extends TestCase
             SpecInterface::class,
             [
                 'getVersion' => '1.2',
+                'supportsMetaData' => true,
             ]
         );
-        $externalReferenceRepositoryNormalizer = $this->createMock(Normalizers\ExternalReferenceRepositoryNormalizer::class);
+        $externalReferenceRepositoryNormalizer = $this->createMock(
+            Normalizers\ExternalReferenceRepositoryNormalizer::class
+        );
         $factory = $this->createConfiguredMock(
             NormalizerFactory::class,
             [
@@ -400,14 +411,16 @@ class BomNormalizerTest extends TestCase
             Bom::class,
             [
                 'getVersion' => 23,
-                'getExternalReferenceRepository' => $this->createConfiguredMock(ExternalReferenceRepository::class, ['count' => 0]),
+                'getExternalReferenceRepository' => $this->createConfiguredMock(
+                    ExternalReferenceRepository::class,
+                    ['count' => 0]
+                ),
             ]
         );
 
-        $externalReferenceRepositoryNormalizer->expects(self::never())
-            ->method('normalize')
+        $externalReferenceRepositoryNormalizer->method('normalize')
             ->with($bom->getExternalReferenceRepository())
-            ->willReturn(['FakeReferenceRepositoryNormalized']);
+            ->willReturn([/* empty */]);
 
         $actual = $normalizer->normalize($bom);
 
@@ -420,6 +433,114 @@ class BomNormalizerTest extends TestCase
             ],
             $actual
         );
+    }
+
+    /**
+     * @dataProvider dpNormalizeExternalReferencesWithComponent
+     *
+     * @uses \CycloneDX\Core\Repositories\ExternalReferenceRepository
+     */
+    public function testNormalizeExternalReferencesWithComponent(
+        ?ExternalReferenceRepository $bomExternalReferenceRepository,
+        ?ExternalReferenceRepository $componentExternalReferenceRepository
+    ): void {
+        $expectedNormal = $bomExternalReferenceRepository || $componentExternalReferenceRepository
+            ? ['externalReferences' => ['FakeReferenceRepositoryNormalized']]
+            : [/* not rendered */];
+        $spec = $this->createConfiguredMock(
+            SpecInterface::class,
+            [
+                'getVersion' => '1.1',
+                'supportsMetaData' => false,
+            ]
+        );
+        $externalReferenceRepositoryNormalizer = $this->createMock(
+            Normalizers\ExternalReferenceRepositoryNormalizer::class
+        );
+        $factory = $this->createConfiguredMock(
+            NormalizerFactory::class,
+            [
+                'getSpec' => $spec,
+                'makeForExternalReferenceRepository' => $externalReferenceRepositoryNormalizer,
+            ]
+        );
+        $normalizer = new Normalizers\BomNormalizer($factory);
+        $bom = $this->createConfiguredMock(
+            Bom::class,
+            [
+                'getVersion' => 23,
+                'getExternalReferenceRepository' => $bomExternalReferenceRepository,
+                'getMetaData' => $this->createConfiguredMock(
+                    MetaData::class,
+                    [
+                        'getComponent' => $this->createConfiguredMock(Component::class, [
+                            'getExternalReferenceRepository' => $componentExternalReferenceRepository,
+                        ]),
+                    ]
+                ),
+            ]
+        );
+
+        $repoContainsNeeded = static function (ExternalReferenceRepository $repo) use (
+            $bomExternalReferenceRepository,
+            $componentExternalReferenceRepository
+        ): bool {
+            $actualRefs = $repo->getExternalReferences();
+            self::assertCount(
+                ($bomExternalReferenceRepository ? \count($bomExternalReferenceRepository) : 0)
+                + ($componentExternalReferenceRepository ? \count($componentExternalReferenceRepository) : 0),
+                $actualRefs
+            );
+
+            if ($bomExternalReferenceRepository) {
+                foreach ($bomExternalReferenceRepository->getExternalReferences() as $expectedRef) {
+                    self::assertContains($expectedRef, $actualRefs);
+                }
+            }
+
+            if ($componentExternalReferenceRepository) {
+                foreach ($componentExternalReferenceRepository->getExternalReferences() as $expectedRef) {
+                    self::assertContains($expectedRef, $actualRefs);
+                }
+            }
+
+            return true;
+        };
+        $externalReferenceRepositoryNormalizer->method('normalize')
+            ->with($this->callback($repoContainsNeeded))
+            ->willReturn(['FakeReferenceRepositoryNormalized']);
+
+        $actual = $normalizer->normalize($bom);
+
+        self::assertSame(
+            [
+                'bomFormat' => 'CycloneDX',
+                'specVersion' => '1.1',
+                'version' => 23,
+                'components' => [],
+            ] + $expectedNormal,
+            $actual
+        );
+    }
+
+    public function dpNormalizeExternalReferencesWithComponent(): \Generator
+    {
+        yield 'null null' => [
+            null,
+            null,
+        ];
+        yield 'null one' => [
+            null,
+            new ExternalReferenceRepository($this->createStub(ExternalReference::class)),
+        ];
+        yield 'one null' => [
+            new ExternalReferenceRepository($this->createStub(ExternalReference::class)),
+            null,
+        ];
+        yield 'one one' => [
+            new ExternalReferenceRepository($this->createStub(ExternalReference::class)),
+            new ExternalReferenceRepository($this->createStub(ExternalReference::class)),
+        ];
     }
 
     // endregion normalize ExternalReferences

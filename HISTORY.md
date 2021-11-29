@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 ## unreleased
 
+* Added
+  * Prevention of information-loss on metadata-component's ExternalReferences,
+    when normalizing to a specification that does not support `bom.metadata`
+    (via [#26])
+
+[#26]: https://github.com/CycloneDX/cyclonedx-php-library/pull/26
+
 ## 1.1.0 - 2021-11-25
 
 * Added

@@ -26,7 +26,6 @@ namespace CycloneDX\Core\Serialize\JSON\Normalizers;
 use CycloneDX\Core\Helpers\NullAssertionTrait;
 use CycloneDX\Core\Models\Bom;
 use CycloneDX\Core\Models\MetaData;
-use CycloneDX\Core\Repositories\ExternalReferenceRepository;
 use CycloneDX\Core\Serialize\JSON\AbstractNormalizer;
 
 /**
@@ -49,7 +48,7 @@ class BomNormalizer extends AbstractNormalizer
                 'version' => $bom->getVersion(),
                 'metadata' => $this->normalizeMetaData($bom->getMetaData()),
                 'components' => $factory->makeForComponentRepository()->normalize($bom->getComponentRepository()),
-                'externalReferences' => $this->normalizeExternalReferences($bom->getExternalReferenceRepository()),
+                'externalReferences' => $this->normalizeExternalReferences($bom),
                 'dependencies' => $this->normalizeDependencies($bom),
             ],
             [$this, 'isNotNull']
@@ -75,11 +74,34 @@ class BomNormalizer extends AbstractNormalizer
             : $data;
     }
 
-    private function normalizeExternalReferences(?ExternalReferenceRepository $externalReferenceRepository): ?array
+    private function normalizeExternalReferences(Bom $bom): ?array
     {
-        return null === $externalReferenceRepository || 0 === \count($externalReferenceRepository)
+        $factory = $this->getNormalizerFactory();
+
+        $externalReferenceRepository = $bom->getExternalReferenceRepository();
+
+        if (false === $factory->getSpec()->supportsMetaData()) {
+            // prevent possible information loss: metadata cannot be rendered -> put it to bom
+            if (null !== ($m = $bom->getMetaData())
+                && null !== ($mc = $m->getComponent())
+                && null !== ($mcr = $mc->getExternalReferenceRepository())
+            ) {
+                $externalReferenceRepository = null !== $externalReferenceRepository
+                    ? (clone $externalReferenceRepository)->addExternalReference(...$mcr->getExternalReferences())
+                    : $mcr;
+            }
+            unset($m, $mc, $mcr);
+        }
+
+        if (null === $externalReferenceRepository) {
+            return null;
+        }
+
+        $data = $factory->makeForExternalReferenceRepository()->normalize($externalReferenceRepository);
+
+        return empty($data)
             ? null
-            : $this->getNormalizerFactory()->makeForExternalReferenceRepository()->normalize($externalReferenceRepository);
+            : $data;
     }
 
     private function normalizeDependencies(Bom $bom): ?array
