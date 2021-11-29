@@ -27,7 +27,6 @@ use CycloneDX\Core\Helpers\SimpleDomTrait;
 use CycloneDX\Core\Models\Bom;
 use CycloneDX\Core\Models\MetaData;
 use CycloneDX\Core\Repositories\ComponentRepository;
-use CycloneDX\Core\Repositories\ExternalReferenceRepository;
 use CycloneDX\Core\Serialize\DOM\AbstractNormalizer;
 use DOMElement;
 
@@ -62,7 +61,7 @@ class BomNormalizer extends AbstractNormalizer
             [
                 $this->normalizeMetaData($bom->getMetaData()),
                 $this->normalizeComponents($bom->getComponentRepository()),
-                $this->normalizeExternalReferences($bom->getExternalReferenceRepository()),
+                $this->normalizeExternalReferences($bom),
                 $this->normalizeDependencies($bom),
             ]
         );
@@ -95,6 +94,39 @@ class BomNormalizer extends AbstractNormalizer
         return $factory->makeForMetaData()->normalize($metaData);
     }
 
+    private function normalizeExternalReferences(Bom $bom): ?DOMElement
+    {
+        $factory = $this->getNormalizerFactory();
+
+        $externalReferenceRepository = $bom->getExternalReferenceRepository();
+
+        if (false === $factory->getSpec()->supportsMetaData()) {
+            // prevent possible information loss: metadata cannot be rendered -> put it to bom
+            if (null !== ($m = $bom->getMetaData())
+                && null !== ($mc = $m->getComponent())
+                && null !== ($mcr = $mc->getExternalReferenceRepository())
+            ) {
+                $externalReferenceRepository = null !== $externalReferenceRepository
+                    ? (clone $externalReferenceRepository)->addExternalReference(...$mcr->getExternalReferences())
+                    : $mcr;
+            }
+            unset($m, $mc, $mcr);
+        }
+
+        if (null === $externalReferenceRepository) {
+            return null;
+        }
+
+        $refs = $factory->makeForExternalReferenceRepository()->normalize($externalReferenceRepository);
+
+        return empty($refs)
+            ? null
+            : $this->simpleDomAppendChildren(
+                $factory->getDocument()->createElement('externalReferences'),
+                $refs
+            );
+    }
+
     private function normalizeDependencies(Bom $bom): ?DOMElement
     {
         $factory = $this->getNormalizerFactory();
@@ -110,18 +142,6 @@ class BomNormalizer extends AbstractNormalizer
             : $this->simpleDomAppendChildren(
                 $factory->getDocument()->createElement('dependencies'),
                 $deps
-            );
-    }
-
-    private function normalizeExternalReferences(?ExternalReferenceRepository $externalReferenceRepository): ?DOMElement
-    {
-        $factory = $this->getNormalizerFactory();
-
-        return null === $externalReferenceRepository || 0 === \count($externalReferenceRepository)
-            ? null
-            : $this->simpleDomAppendChildren(
-                $factory->getDocument()->createElement('externalReferences'),
-                $factory->makeForExternalReferenceRepository()->normalize($externalReferenceRepository)
             );
     }
 }
