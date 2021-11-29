@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## unreleased
 
+## 1.2.0 - 2021-11-29
+
 * Added
   * Prevention of information-loss on metadata-component's ExternalReferences,
     when normalizing to a specification that does not support `bom.metadata`
