@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## unreleased
 
+## 1.3.0 - 2021-12-01
+
 * Changed
   * JSON result does no longer have slashes escaped in strings. (via [#33])  
     Old: `"http:\/\/exampe.com"`  
