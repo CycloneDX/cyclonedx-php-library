@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 ## unreleased
 
+* Changed
+  * JSON result does no longer have slashes escaped in strings. (via [#33])  
+    Old: `"http:\/\/exampe.com"`  
+    New: `"http://exampe.com"`
+
+[#33]: https://github.com/CycloneDX/cyclonedx-php-library/pull/27
+
 ## 1.2.0 - 2021-11-29
 
 * Added

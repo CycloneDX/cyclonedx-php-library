@@ -33,20 +33,23 @@ use DomainException;
  */
 class JsonSerializer extends BaseSerializer
 {
+    private const NORMALIZE_OPTIONS =
+        \JSON_THROW_ON_ERROR // prevent unexpected data
+        | \JSON_PRESERVE_ZERO_FRACTION // float/double not converted to int
+        | \JSON_UNESCAPED_SLASHES // urls become shorter
+        | \JSON_PRETTY_PRINT;
+
     /**
      * @throws DomainException if something was not supported
      */
     protected function normalize(Bom $bom): string
     {
-        $options = \JSON_THROW_ON_ERROR | \JSON_PRESERVE_ZERO_FRACTION | \JSON_PRETTY_PRINT;
+        $data = (new JSON\NormalizerFactory($this->getSpec()))
+            ->makeForBom()
+            ->normalize($bom);
 
-        $json = json_encode(
-            (new JSON\NormalizerFactory($this->getSpec()))
-                ->makeForBom()
-                ->normalize($bom),
-            $options
-        );
-        \assert(false !== $json); // as option JSON_THROW_ON_ERROR is set
+        $json = json_encode($data, self::NORMALIZE_OPTIONS);
+        \assert(false !== $json); // as option JSON_THROW_ON_ERROR is expected to be set
 
         return $json;
     }
