@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## unreleased
 
+* Fixed
+  * XML serializer & DOM normalizer no longer generate invalid `XML::anyURI`. (via [#34])
+
+[#34]: https://github.com/CycloneDX/cyclonedx-php-library/pull/34
+
 ## 1.3.0 - 2021-12-01
 
 * Changed

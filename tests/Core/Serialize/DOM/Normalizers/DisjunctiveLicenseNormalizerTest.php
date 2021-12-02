@@ -75,13 +75,15 @@ class DisjunctiveLicenseNormalizerTest extends TestCase
             '<license><name>bar</name></license>',
         ];
 
-        yield 'optional url' => [
-            $this->createConfiguredMock(DisjunctiveLicenseWithName::class, [
-                'getName' => 'foo',
-                'getUrl' => 'http://foo.bar',
+        foreach (\CycloneDX\Tests\_data\XmlAnyUriData::dpEncodeAnyUri() as $name => [$rawUrl, $encodedUrl]) {
+            yield "optional url: $name" => [
+                $this->createConfiguredMock(DisjunctiveLicenseWithName::class, [
+                    'getName' => 'foo',
+                    'getUrl' => $rawUrl,
                 ]),
-            '<license><name>foo</name><url>http://foo.bar</url></license>',
-        ];
+                '<license><name>foo</name><url>'.htmlspecialchars($encodedUrl).'</url></license>',
+            ];
+        }
     }
 
     public function testNormalizeThrowsOnUnknown(): void

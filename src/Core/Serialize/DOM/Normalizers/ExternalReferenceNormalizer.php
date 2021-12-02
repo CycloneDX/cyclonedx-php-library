@@ -24,10 +24,13 @@ declare(strict_types=1);
 namespace CycloneDX\Core\Serialize\DOM\Normalizers;
 
 use CycloneDX\Core\Helpers\SimpleDomTrait;
+use CycloneDX\Core\Helpers\XmlTrait;
 use CycloneDX\Core\Models\ExternalReference;
 use CycloneDX\Core\Repositories\HashRepository;
 use CycloneDX\Core\Serialize\DOM\AbstractNormalizer;
+use DomainException;
 use DOMElement;
+use UnexpectedValueException;
 
 /**
  * @author jkowalleck
@@ -35,13 +38,23 @@ use DOMElement;
 class ExternalReferenceNormalizer extends AbstractNormalizer
 {
     use SimpleDomTrait;
+    use XmlTrait;
 
     /**
-     * @throws \DomainException
+     * @throws DomainException
+     * @throws UnexpectedValueException when url was unable to convert to XML::anyURI
      */
     public function normalize(ExternalReference $externalReference): DOMElement
     {
         // could throw DomainException if the type was not supported
+
+        $refURI = $externalReference->getUrl();
+        $anyURI = $this->encodeAnyUriBE($refURI);
+        if (null === $anyURI) {
+            // @codeCoverageIgnoreStart
+            throw new UnexpectedValueException("unable to make anyURI from: $refURI");
+            // @codeCoverageIgnoreEnd
+        }
 
         $doc = $this->getNormalizerFactory()->getDocument();
 
@@ -53,7 +66,7 @@ class ExternalReferenceNormalizer extends AbstractNormalizer
                 ]
             ),
             [
-                $this->simpleDomSafeTextElement($doc, 'url', $externalReference->getUrl()),
+                $this->simpleDomSafeTextElement($doc, 'url', $anyURI),
                 $this->simpleDomSafeTextElement($doc, 'comment', $externalReference->getComment()),
                 $this->normalizeHashes($externalReference->getHashRepository()),
             ]

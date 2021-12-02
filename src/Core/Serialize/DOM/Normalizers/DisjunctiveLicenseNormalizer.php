@@ -24,6 +24,7 @@ declare(strict_types=1);
 namespace CycloneDX\Core\Serialize\DOM\Normalizers;
 
 use CycloneDX\Core\Helpers\SimpleDomTrait;
+use CycloneDX\Core\Helpers\XmlTrait;
 use CycloneDX\Core\Models\License\AbstractDisjunctiveLicense;
 use CycloneDX\Core\Models\License\DisjunctiveLicenseWithId;
 use CycloneDX\Core\Models\License\DisjunctiveLicenseWithName;
@@ -37,6 +38,7 @@ use InvalidArgumentException;
 class DisjunctiveLicenseNormalizer extends AbstractNormalizer
 {
     use SimpleDomTrait;
+    use XmlTrait;
 
     /**
      * @psalm-assert DisjunctiveLicenseWithId|DisjunctiveLicenseWithName $license
@@ -62,7 +64,7 @@ class DisjunctiveLicenseNormalizer extends AbstractNormalizer
             [
                 $this->simpleDomSafeTextElement($document, 'id', $id),
                 $this->simpleDomSafeTextElement($document, 'name', $name),
-                $this->simpleDomSafeTextElement($document, 'url', $license->getUrl()),
+                $this->simpleDomSafeTextElement($document, 'url', $this->encodeAnyUriBE($license->getUrl())),
             ]
         );
     }
