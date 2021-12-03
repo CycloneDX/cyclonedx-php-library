@@ -25,6 +25,7 @@ namespace CycloneDX\Core\Serialize\DOM\Normalizers;
 
 use CycloneDX\Core\Factories\LicenseFactory;
 use CycloneDX\Core\Helpers\SimpleDomTrait;
+use CycloneDX\Core\Helpers\XmlTrait;
 use CycloneDX\Core\Models\Component;
 use CycloneDX\Core\Models\License\LicenseExpression;
 use CycloneDX\Core\Repositories\DisjunctiveLicenseRepository;
@@ -41,6 +42,7 @@ use PackageUrl\PackageUrl;
 class ComponentNormalizer extends AbstractNormalizer
 {
     use SimpleDomTrait;
+    use XmlTrait;
 
     /**
      * @throws DomainException
@@ -161,7 +163,11 @@ class ComponentNormalizer extends AbstractNormalizer
     {
         return null === $purl
             ? null
-            : $this->simpleDomSafeTextElement($this->getNormalizerFactory()->getDocument(), 'purl', (string) $purl);
+            : $this->simpleDomSafeTextElement(
+                $this->getNormalizerFactory()->getDocument(),
+                'purl',
+                $this->encodeAnyUriBE((string) $purl)
+            );
     }
 
     private function normalizeExternalReferences(?ExternalReferenceRepository $externalReferenceRepository): ?DOMElement

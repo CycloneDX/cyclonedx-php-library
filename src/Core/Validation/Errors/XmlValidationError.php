@@ -36,7 +36,7 @@ class XmlValidationError extends ValidationError
      *
      * @var object|null
      */
-    private $error;
+    private $debugError;
 
     /**
      * @internal
@@ -46,8 +46,20 @@ class XmlValidationError extends ValidationError
     public static function fromLibXMLError(LibXMLError $error): self
     {
         $i = new static($error->message);
-        $i->error = $error;
+        $i->debugError = $error;
 
         return $i;
+    }
+
+    /**
+     * Accessor for debug purposes.
+     *
+     * @internal as this method is not kept backwards-compatible
+     * @codeCoverageIgnore
+     * @SuppressWarnings(PHPMD)
+     */
+    final public function debug_getError(): ?object
+    {
+        return $this->debugError;
     }
 }

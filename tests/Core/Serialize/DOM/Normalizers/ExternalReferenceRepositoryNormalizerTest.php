@@ -84,7 +84,11 @@ class ExternalReferenceRepositoryNormalizerTest extends \PHPUnit\Framework\TestC
         self::assertSame([$FakeExtRef], $actual);
     }
 
-    public function testNormalizeSkipsOnThrow(): void
+    /**
+     * @dataProvider dpNormalizeSkipsOnThrow
+     * @psalm-param class-string<\Exception> $exceptionClass
+     */
+    public function testNormalizeSkipsOnThrow(string $exceptionClass): void
     {
         $spec = $this->createStub(SpecInterface::class);
         $externalReferenceNormalizer = $this->createMock(Normalizers\ExternalReferenceNormalizer::class);
@@ -102,10 +106,16 @@ class ExternalReferenceRepositoryNormalizerTest extends \PHPUnit\Framework\TestC
 
         $externalReferenceNormalizer->expects(self::exactly(2))->method('normalize')
             ->withConsecutive([$extRef1], [$extRef2])
-            ->willThrowException(new \DomainException());
+            ->willThrowException(new $exceptionClass());
 
         $actual = $normalizer->normalize($tools);
 
         self::assertSame([], $actual);
+    }
+
+    public function dpNormalizeSkipsOnThrow(): \Generator
+    {
+        yield 'DomainException' => [\DomainException::class];
+        yield 'UnexpectedValueException' => [\UnexpectedValueException::class];
     }
 }

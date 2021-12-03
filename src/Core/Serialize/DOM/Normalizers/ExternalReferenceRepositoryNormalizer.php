@@ -46,6 +46,8 @@ class ExternalReferenceRepositoryNormalizer extends AbstractNormalizer
                 $externalReferences[] = $normalizer->normalize($externalReference);
             } catch (\DomainException $exception) {
                 continue;
+            } catch (\UnexpectedValueException $exception) {
+                continue;
             }
         }
 

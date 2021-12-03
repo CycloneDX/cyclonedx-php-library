@@ -192,4 +192,28 @@ class ExternalReferenceNormalizerTest extends \PHPUnit\Framework\TestCase
     }
 
     // endregion normalize hashes
+
+    /**
+     * @dataProvider \CycloneDX\Tests\_data\XmlAnyUriData::dpEncodeAnyUri()
+     */
+    public function testNormalizeUrlEncodeAnyUri(string $rawUrl, string $encodedUrl): void
+    {
+        $normalizerFactory = $this->createConfiguredMock(NormalizerFactory::class, [
+            'getDocument' => new \DOMDocument(),
+        ]);
+        $normalizer = new Normalizers\ExternalReferenceNormalizer($normalizerFactory);
+        $extRef = $this->createConfiguredMock(ExternalReference::class, [
+            'getUrl' => $rawUrl,
+            'getType' => 'someType',
+            'getComment' => null,
+            'getHashRepository' => null,
+        ]);
+
+        $actual = $normalizer->normalize($extRef);
+
+        self::assertStringEqualsDomNode(
+            '<reference type="someType"><url>'.htmlspecialchars($encodedUrl).'</url></reference>',
+            $actual
+        );
+    }
 }
