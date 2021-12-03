@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## unreleased
 
+## 1.3.1 - 2021-12-03
+
 * Fixed
   * XML serializer & DOM normalizer no longer generate invalid `XML::anyURI`. (via [#34])
 
