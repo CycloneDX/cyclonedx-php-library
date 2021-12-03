@@ -45,5 +45,6 @@ abstract class XmlAnyUriData
         yield 'encode anyUri: <>' => ['https://example.org/#<test>', 'https://example.org/#%3Ctest%3E'];
         yield 'encode anyUri: {}' => ['https://example.org/#{test}', 'https://example.org/#%7Btest%7D'];
         yield 'encode anyUri: non-ASCII' => ['https://example.org/édition', 'https://example.org/édition'];
+        yield 'encode anyUri: partially encoded' => ['https://example.org/?bar[test%5D=baz', 'https://example.org/?bar%5Btest%5D=baz'];
     }
 }
