@@ -22,15 +22,15 @@ declare(strict_types=1);
  * Copyright (c) Steve Springett. All Rights Reserved.
  */
 
-namespace tools;
-
 /**
- * schema downloader.
+ * Schema Downloader.
  *
  * @internal
  *
  * @author jkowalleck
  */
+
+namespace tools\CycloneDX\SchemaDownloader;
 
 const SOURCE_ROOT = 'https://raw.githubusercontent.com/CycloneDX/specification/master/schema/';
 const TARGET_ROOT = __DIR__.'/../../res/';
@@ -42,6 +42,7 @@ abstract class BomXsd
     public const TargetPattern = TARGET_ROOT.'bom-%s.SNAPSHOT.xsd';
     public const Replace = [
         'schemaLocation="http://cyclonedx.org/schema/spdx"' => 'schemaLocation="spdx.SNAPSHOT.xsd"',
+        'schemaLocation="https://cyclonedx.org/schema/spdx"' => 'schemaLocation="spdx.SNAPSHOT.xsd"',
     ];
 }
 
