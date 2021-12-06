@@ -16,7 +16,9 @@ Work with Bill of Materials in [CycloneDX](https://cyclonedx.org/) format.
 
 Install via composer:
 
-`composer require cyclonedx/cyclonedx-library`
+```bash
+composer require cyclonedx/cyclonedx-library
+```
 
 ## Conflicts
 
