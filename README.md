@@ -27,13 +27,8 @@ it will conflict with its original source: `cyclonedx/cyclonedx-php-composer:<3.
 
 ## Contributing
 
-Feel free to open pull requests.
-
-To start developing simply run `composer run-script dev-setup` to install dev-dependencies and tools.
-
-Make sure
-* to run `composer run-script cs-fix` to have the coding standards applied.
-* to run `composer run-script test` and pass all tests.
+Feel free to open issues, bugreports or pull requests.  
+See the [CONTRIBUTING][contributing_file] file for details.
 
 ## License
 
@@ -41,6 +36,7 @@ Permission to modify and redistribute is granted under the terms of the Apache 2
 See the [LICENSE][license_file] file for the full license.
 
 [license_file]: https://github.com/CycloneDX/cyclonedx-php-library/blob/master/LICENSE
+[contributing_file]: https://github.com/CycloneDX/cyclonedx-php-library/blob/master/CONTRIBUTING.md
 
 [shield_gh-workflow-test]: https://img.shields.io/github/workflow/status/CycloneDX/cyclonedx-php-library/PHP%20CI/master?logo=GitHub&logoColor=white "build"
 [shield_packagist-version]: https://img.shields.io/packagist/v/cyclonedx/cyclonedx-library?logo=&logoColor=white "packagist"
