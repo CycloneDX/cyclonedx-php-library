@@ -1,7 +1,8 @@
 {
     "name": "cyclonedx/cyclonedx-library",
-    "type": "library",
     "description": "Work with CycloneDX Software Bill-of-Materials (SBOM)",
+    "license": "Apache-2.0",
+    "type": "library",
     "keywords": [
         "CycloneDX",
         "SBOM",
@@ -11,8 +12,6 @@
         "package-url",
         "PURL"
     ],
-    "homepage": "https://github.com/CycloneDX/cyclonedx-php-library/",
-    "license": "Apache-2.0",
     "authors": [
         {
             "name": "nscuro",
@@ -25,6 +24,10 @@
             "role": "Developer"
         }
     ],
+    "homepage": "https://github.com/CycloneDX/cyclonedx-php-library/",
+    "support": {
+        "issues": "https://github.com/CycloneDX/cyclonedx-php-library/issues"
+    },
     "require": {
         "php": "^7.3 || ^8.0",
         "ext-dom": "*",
@@ -37,6 +40,17 @@
         "ext-simplexml": "*",
         "phpunit/phpunit": "9.5.10",
         "roave/security-advisories": "dev-latest"
+    },
+    "prefer-stable": true,
+    "autoload": {
+        "psr-4": {
+            "CycloneDX\\Core\\": "src/Core/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "CycloneDX\\Tests\\": "tests/"
+        }
     },
     "config": {
         "preferred-install": "dist",
@@ -51,17 +65,6 @@
             "indent-style": "space"
         }
     },
-    "autoload": {
-        "psr-4": {
-            "CycloneDX\\Core\\": "src/Core/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "CycloneDX\\Tests\\": "tests/"
-        }
-    },
-    "prefer-stable": true,
     "scripts": {
         "cs-fix": "@php tools/php-cs-fixer/vendor/friendsofphp/php-cs-fixer/php-cs-fixer fix --diff",
         "dev-setup": [
@@ -104,8 +107,5 @@
         "test:phpmd": "Run mess-detector with phpMD.",
         "test:phpunit": "Run tests with PHPUnit.",
         "test:psalm": "Run static code analysis with Psalm."
-    },
-    "support": {
-        "issues": "https://github.com/CycloneDX/cyclonedx-php-library/issues"
     }
 }
