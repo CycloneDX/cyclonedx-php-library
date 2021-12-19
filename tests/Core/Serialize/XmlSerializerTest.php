@@ -43,7 +43,40 @@ class XmlSerializerTest extends TestCase
      * @uses   \CycloneDX\Core\Serialize\DOM\Normalizers\ComponentNormalizer
      * @uses   \CycloneDX\Core\Serialize\BomRefDiscriminator
      */
-    public function testSerialize(): void
+    public function testSerialize11(): void
+    {
+        $spec = $this->createConfiguredMock(
+            SpecInterface::class,
+            [
+                'getVersion' => '1.1',
+                'isSupportedFormat' => true,
+            ]
+        );
+        $serializer = new XmlSerializer($spec);
+        $bom = $this->createStub(Bom::class);
+
+        $actual = $serializer->serialize($bom);
+
+        self::assertXmlStringEqualsXmlString(
+            <<<'XML'
+                <?xml version="1.0" encoding="UTF-8"?>
+                <bom xmlns="http://cyclonedx.org/schema/bom/1.1" version="0">
+                  <components/>
+                </bom>
+                XML,
+            $actual
+        );
+    }
+
+    /**
+     * @uses   \CycloneDX\Core\Serialize\DOM\AbstractNormalizer
+     * @uses   \CycloneDX\Core\Serialize\DOM\NormalizerFactory
+     * @uses   \CycloneDX\Core\Serialize\DOM\Normalizers\BomNormalizer
+     * @uses   \CycloneDX\Core\Serialize\DOM\Normalizers\ComponentRepositoryNormalizer
+     * @uses   \CycloneDX\Core\Serialize\DOM\Normalizers\ComponentNormalizer
+     * @uses   \CycloneDX\Core\Serialize\BomRefDiscriminator
+     */
+    public function testSerialize12(): void
     {
         $spec = $this->createConfiguredMock(
             SpecInterface::class,
@@ -61,6 +94,39 @@ class XmlSerializerTest extends TestCase
             <<<'XML'
                 <?xml version="1.0" encoding="UTF-8"?>
                 <bom xmlns="http://cyclonedx.org/schema/bom/1.2" version="0">
+                  <components/>
+                </bom>
+                XML,
+            $actual
+        );
+    }
+
+    /**
+     * @uses   \CycloneDX\Core\Serialize\DOM\AbstractNormalizer
+     * @uses   \CycloneDX\Core\Serialize\DOM\NormalizerFactory
+     * @uses   \CycloneDX\Core\Serialize\DOM\Normalizers\BomNormalizer
+     * @uses   \CycloneDX\Core\Serialize\DOM\Normalizers\ComponentRepositoryNormalizer
+     * @uses   \CycloneDX\Core\Serialize\DOM\Normalizers\ComponentNormalizer
+     * @uses   \CycloneDX\Core\Serialize\BomRefDiscriminator
+     */
+    public function testSerialize13(): void
+    {
+        $spec = $this->createConfiguredMock(
+            SpecInterface::class,
+            [
+                'getVersion' => '1.3',
+                'isSupportedFormat' => true,
+            ]
+        );
+        $serializer = new XmlSerializer($spec);
+        $bom = $this->createStub(Bom::class);
+
+        $actual = $serializer->serialize($bom);
+
+        self::assertXmlStringEqualsXmlString(
+            <<<'XML'
+                <?xml version="1.0" encoding="UTF-8"?>
+                <bom xmlns="http://cyclonedx.org/schema/bom/1.3" version="0">
                   <components/>
                 </bom>
                 XML,
