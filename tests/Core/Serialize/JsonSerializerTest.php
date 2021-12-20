@@ -43,7 +43,7 @@ class JsonSerializerTest extends TestCase
      * @uses   \CycloneDX\Core\Serialize\JSON\Normalizers\ComponentNormalizer
      * @uses   \CycloneDX\Core\Serialize\BomRefDiscriminator
      */
-    public function testSerialize(): void
+    public function testSerialize12(): void
     {
         $spec = $this->createConfiguredMock(
             SpecInterface::class,
@@ -60,8 +60,45 @@ class JsonSerializerTest extends TestCase
         self::assertJsonStringEqualsJsonString(
             <<<'JSON'
                 {
+                    "$schema": "http://cyclonedx.org/schema/bom-1.2a.schema.json",
                     "bomFormat": "CycloneDX",
                     "specVersion": "1.2",
+                    "version": 0,
+                    "components": []
+                }
+                JSON,
+            $actual
+        );
+    }
+
+    /**
+     * @uses   \CycloneDX\Core\Serialize\JSON\AbstractNormalizer
+     * @uses   \CycloneDX\Core\Serialize\JSON\NormalizerFactory
+     * @uses   \CycloneDX\Core\Serialize\JSON\Normalizers\BomNormalizer
+     * @uses   \CycloneDX\Core\Serialize\JSON\Normalizers\ComponentRepositoryNormalizer
+     * @uses   \CycloneDX\Core\Serialize\JSON\Normalizers\ComponentNormalizer
+     * @uses   \CycloneDX\Core\Serialize\BomRefDiscriminator
+     */
+    public function testSerialize13(): void
+    {
+        $spec = $this->createConfiguredMock(
+            SpecInterface::class,
+            [
+                'getVersion' => '1.3',
+                'isSupportedFormat' => true,
+            ]
+        );
+        $serializer = new JsonSerializer($spec);
+        $bom = $this->createStub(Bom::class);
+
+        $actual = $serializer->serialize($bom);
+
+        self::assertJsonStringEqualsJsonString(
+            <<<'JSON'
+                {
+                    "$schema": "http://cyclonedx.org/schema/bom-1.3.schema.json",
+                    "bomFormat": "CycloneDX",
+                    "specVersion": "1.3",
                     "version": 0,
                     "components": []
                 }

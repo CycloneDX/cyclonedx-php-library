@@ -75,8 +75,9 @@ class SerializeToJsonTest extends TestCase
         $validator = new JsonStrictValidator($spec);
 
         $json = $serializer->serialize($bom);
-        $validationErrors = $validator->validateString($json);
+        self::assertJson($json);
 
+        $validationErrors = $validator->validateString($json);
         self::assertNull($validationErrors);
     }
 
@@ -99,8 +100,9 @@ class SerializeToJsonTest extends TestCase
         $validator = new JsonStrictValidator($spec);
 
         $json = $serializer->serialize($bom);
-        $validationErrors = $validator->validateString($json);
+        self::assertJson($json);
 
+        $validationErrors = $validator->validateString($json);
         self::assertNull($validationErrors);
     }
 

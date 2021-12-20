@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 ## unreleased
 
+* Added
+  * Resulting JSON files hold the correct `$schema`. ([#43] via [#42])
+
+[#43]: https://github.com/CycloneDX/cyclonedx-php-library/issues/43
+[#42]: https://github.com/CycloneDX/cyclonedx-php-library/pull/42
+
 ## 1.3.1 - 2021-12-03
 
 * Fixed
