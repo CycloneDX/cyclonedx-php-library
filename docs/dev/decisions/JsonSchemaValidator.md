@@ -24,7 +24,7 @@ multiple versions split for different php compatibility:
 
 CONS:
 * Claims to have full support of _draft7_.
-* v1 has insuppiciecient support for schema draft7.  
+* v1 has insufficient support for schema draft7.  
   we need to support php7.3 at the moment. so a switch to v2 wi not entirely possible.  
   writing a switching translator that can handle v1 and v2 is ugly and undesired.
 
