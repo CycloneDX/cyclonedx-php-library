@@ -47,7 +47,9 @@ CONS:
 ## Decision
 
 Unless support of php7.3 is dropped, [swaggest/json-schema] will be used.  
-After dropping support of php7.3 a switch to [opis/json-schema] v2 will be possible.
+
+After dropping support of php7.3 a switch to [opis/json-schema] v2 will be possible.  
+Constraint: schema files to fix https://github.com/CycloneDX/specification/issues/83 - as the [opis/json-schema] schema parser throws errors un the current schema snapshots.
 
 
 
