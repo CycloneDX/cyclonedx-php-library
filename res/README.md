@@ -1,6 +1,8 @@
-# resources
+# Resources
 
-## schema files
+These resources are shipped with the library.
+
+## Schema files
 
 some schema for offline use as download via [script](../tools/schema-downloader/download.php).  
 original sources: https://github.com/CycloneDX/specification/tree/master/schema
