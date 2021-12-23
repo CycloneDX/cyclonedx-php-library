@@ -1,6 +1,6 @@
 # resources
 
-## resources
+## schema files
 
 some schema for offline use as download via [script](../tools/schema-downloader/download.php).  
 original sources: https://github.com/CycloneDX/specification/tree/master/schema
