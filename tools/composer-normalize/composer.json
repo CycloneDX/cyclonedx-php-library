@@ -1,14 +1,17 @@
 {
     "name": "tools/composer-normalize",
-    "type": "metapackage",
     "description": "composer-normalize",
+    "type": "metapackage",
     "require-dev": {
         "ergebnis/composer-normalize": "2.20.0",
         "roave/security-advisories": "dev-latest"
     },
+    "prefer-stable": true,
     "config": {
+        "allow-plugins": {
+            "ergebnis/composer-normalize": true
+        },
         "preferred-install": "dist",
         "sort-packages": true
-    },
-    "prefer-stable": true
+    }
 }
