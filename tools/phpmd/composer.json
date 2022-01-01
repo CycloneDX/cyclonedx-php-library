@@ -1,14 +1,14 @@
 {
     "name": "tools/phpmd",
-    "type": "metapackage",
     "description": "phpmd",
+    "type": "metapackage",
     "require-dev": {
         "phpmd/phpmd": "2.11.1",
         "roave/security-advisories": "dev-latest"
     },
+    "prefer-stable": true,
     "config": {
         "preferred-install": "dist",
         "sort-packages": true
-    },
-    "prefer-stable": true
+    }
 }

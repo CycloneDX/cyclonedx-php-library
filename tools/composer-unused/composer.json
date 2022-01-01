@@ -1,15 +1,18 @@
 {
     "name": "tools/composer-unused",
-    "type": "metapackage",
     "description": "composer-unused",
+    "type": "metapackage",
     "require-dev": {
         "composer/composer": "^2.1.12",
         "icanhazstring/composer-unused": "0.7.12",
         "roave/security-advisories": "dev-latest"
     },
+    "prefer-stable": true,
     "config": {
+        "allow-plugins": {
+            "icanhazstring/composer-unused": true
+        },
         "preferred-install": "dist",
         "sort-packages": true
-    },
-    "prefer-stable": true
+    }
 }

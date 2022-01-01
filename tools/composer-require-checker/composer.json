@@ -1,14 +1,14 @@
 {
     "name": "tools/composer-require-checker",
-    "type": "metapackage",
     "description": "composer-require-checker",
+    "type": "metapackage",
     "require-dev": {
         "maglnet/composer-require-checker": "^3.5 || 2.1.0 || 2.0.0",
         "roave/security-advisories": "dev-latest"
     },
+    "prefer-stable": true,
     "config": {
         "preferred-install": "dist",
         "sort-packages": true
-    },
-    "prefer-stable": true
+    }
 }
