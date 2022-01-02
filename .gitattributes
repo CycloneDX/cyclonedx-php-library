@@ -30,3 +30,8 @@ composer.lock text eol=lf diff=json
 /CONTRIBUTING.md        export-ignore
 /demo                   export-ignore
 /docs/dev               export-ignore
+
+# files that are forced to be exported in "dist" releaes
+/phpdoc.dist.xml        -export-ignore
+/NOTICE                 -export-ignore
+/LICENSE                -export-ignore
