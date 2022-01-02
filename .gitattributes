@@ -35,3 +35,4 @@ composer.lock text eol=lf diff=json
 /phpdoc.dist.xml        -export-ignore
 /NOTICE                 -export-ignore
 /LICENSE                -export-ignore
+/semver.txt             -export-ignore
