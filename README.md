@@ -10,13 +10,14 @@
 
 # CycloneDX PHP Library
 
-Work with Bill of Materials in [CycloneDX](https://cyclonedx.org/) format.
+Work with Software Bill of Materials (SBoM)
+in [CycloneDX](https://cyclonedx.org/) format.
 
 ## Installation
 
 Install via composer:
 
-```bash
+```shell
 composer require cyclonedx/cyclonedx-library
 ```
 
