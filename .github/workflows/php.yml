@@ -148,7 +148,7 @@ jobs:
             composer-${{ github.job }}-${{ runner.os }}-${{ matrix.php }}-
             composer-${{ github.job }}-${{ runner.os }}-
       - name: Install psalm
-        run: composer update --prefer-dist --no-interaction --no-progress
+        run: composer install --prefer-dist --no-interaction --no-progress
         working-directory: tools/psalm
       - name: Install lowest dependencies
         if: ${{ matrix.dependencies == 'lowest' }}
@@ -201,7 +201,7 @@ jobs:
           restore-keys: |
             composer-${{ github.job }}-${{ runner.os }}-
       - name: Install composer-unused
-        run: composer update --prefer-dist --no-interaction --no-progress
+        run: composer install --prefer-dist --no-interaction --no-progress
         working-directory: tools/composer-unused
       - name: Run composer-unused tests
         run: >
@@ -237,10 +237,10 @@ jobs:
           restore-keys: |
             composer-${{ github.job }}-${{ runner.os }}-
       - name: Install composer-require-checker
-        run: composer update --prefer-dist --no-interaction --no-progress
+        run: composer install --prefer-dist --no-interaction --no-progress
         working-directory: tools/composer-require-checker
       - name: Install dependencies
-        run: composer update --no-dev --prefer-dist --no-interaction --no-progress
+        run: composer install --no-dev --prefer-dist --no-interaction --no-progress
       - name: Run composer-require-checker tests
         run: >
           php tools/composer-require-checker/vendor/maglnet/composer-require-checker/bin/composer-require-checker
@@ -273,7 +273,7 @@ jobs:
           restore-keys: |
             composer-${{ github.job }}-${{ runner.os }}-
       - name: Install PHP-CS-Fixer
-        run: composer update --prefer-dist --no-interaction --no-progress
+        run: composer install --prefer-dist --no-interaction --no-progress
         working-directory: tools/php-cs-fixer
       - name: Run PHP-CS-Fixer tests
         run: >
@@ -311,7 +311,7 @@ jobs:
           restore-keys: |
             composer-${{ github.job }}-${{ runner.os }}-
       - name: Install composer-normalize
-        run: composer update --prefer-dist --no-interaction --no-progress
+        run: composer install --prefer-dist --no-interaction --no-progress
         working-directory: tools/composer-normalize
       - name: Run composer-normalize tests
         run: >
@@ -350,7 +350,7 @@ jobs:
           restore-keys: |
             composer-${{ github.job }}-${{ runner.os }}-
       - name: Install phpmd
-        run: composer update --prefer-dist --no-interaction --no-progress
+        run: composer install --prefer-dist --no-interaction --no-progress
         working-directory: tools/phpmd
       - name: Run phpmd tests
         run: >
