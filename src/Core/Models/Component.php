@@ -133,8 +133,8 @@ class Component
      * The component version. The version should ideally comply with semantic versioning
      * but is not enforced.
      *
-     * @var string
-     * @psalm-suppress PropertyNotSetInConstructor
+     * @var string|null
+     * @psalm-var non-empty-string|null
      */
     private $version;
 
@@ -294,17 +294,21 @@ class Component
         return $this;
     }
 
+    // future change: will return  non-empty-string|null
+    // see https://github.com/CycloneDX/cyclonedx-php-library/issues/27
     public function getVersion(): string
     {
-        return $this->version;
+        return $this->version ?? '';
     }
 
     /**
      * @return $this
      */
-    public function setVersion(string $version): self
+    public function setVersion(?string $version): self
     {
-        $this->version = $version;
+        $this->version = '' === $version
+            ? null
+            : $version;
 
         return $this;
     }
@@ -358,12 +362,21 @@ class Component
      * @psalm-assert Classification::* $type
      *
      * @throws DomainException if type is unknown
+     *
+     * @SuppressWarnings(PHPMD.ErrorControlOperator)
      */
-    public function __construct(string $type, string $name, string $version)
+    public function __construct(string $type, string $name, ?string $version = null)
     {
         $this->setType($type);
         $this->setName($name);
-        $this->setVersion($version);
+
+        if (3 === \func_num_args()) {
+            @trigger_error( // when removed, remove the `@SuppressWarnings` in phpdoc
+                'parameter $version is deprecated and will be removed in a future release',
+                \E_USER_DEPRECATED
+            );
+            $this->setVersion($version);
+        }
         $this->bomRef = new BomRef();
     }
 

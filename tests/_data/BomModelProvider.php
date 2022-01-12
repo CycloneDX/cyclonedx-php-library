@@ -175,7 +175,7 @@ abstract class BomModelProvider
         yield 'component: plain' => [
             (new Bom())->setComponentRepository(
                 new ComponentRepository(
-                    new Component(Classification::LIBRARY, 'name', 'version')
+                    new Component(Classification::LIBRARY, 'name')
                 )
             ),
         ];
@@ -209,7 +209,7 @@ abstract class BomModelProvider
         yield 'component with empty ExternalReferences' => [
             (new Bom())->setComponentRepository(
                 new ComponentRepository(
-                    (new Component(Classification::LIBRARY, 'dummy', 'foo-beta'))
+                    (new Component(Classification::LIBRARY, 'dummy'))
                         ->setExternalReferenceRepository(new ExternalReferenceRepository())
                 )
             ),
@@ -219,7 +219,7 @@ abstract class BomModelProvider
             yield "component with $label" => [
                 (new Bom())->setComponentRepository(
                     new ComponentRepository(
-                        (new Component(Classification::LIBRARY, 'dummy', 'foo-beta'))
+                        (new Component(Classification::LIBRARY, 'dummy'))
                             ->setExternalReferenceRepository(new ExternalReferenceRepository($extRef))
                     )
                 ),
@@ -271,7 +271,7 @@ abstract class BomModelProvider
             yield "component types: $type" => [
                 (new Bom())->setComponentRepository(
                     new ComponentRepository(
-                        new Component($type, "dummy_$type", 'v0')
+                        new Component($type, "dummy_$type")
                     )
                 ),
             ];
@@ -289,7 +289,7 @@ abstract class BomModelProvider
         yield "component license: $license" => [
             (new Bom())->setComponentRepository(
                 new ComponentRepository(
-                    (new Component(Classification::LIBRARY, 'name', 'version'))
+                    (new Component(Classification::LIBRARY, 'name'))
                         ->setLicense(
                             new DisjunctiveLicenseRepository(
                                 DisjunctiveLicenseWithId::makeValidated(
@@ -314,7 +314,7 @@ abstract class BomModelProvider
         yield 'component license: random' => [
             (new Bom())->setComponentRepository(
                 new ComponentRepository(
-                    (new Component(Classification::LIBRARY, 'name', 'version'))
+                    (new Component(Classification::LIBRARY, 'name'))
                         ->setLicense(
                             new DisjunctiveLicenseRepository(
                                 new DisjunctiveLicenseWithName($license)
@@ -330,7 +330,7 @@ abstract class BomModelProvider
         yield 'component license expression' => [
             (new Bom())->setComponentRepository(
                 new ComponentRepository(
-                    (new Component(Classification::LIBRARY, 'name', 'version'))
+                    (new Component(Classification::LIBRARY, 'name'))
                         ->setLicense(
                             new LicenseExpression('(Foo or Bar)')
                         )
@@ -347,7 +347,7 @@ abstract class BomModelProvider
         yield 'component license with URL' => [
             (new Bom())->setComponentRepository(
                 new ComponentRepository(
-                    (new Component(Classification::LIBRARY, 'name', 'version'))
+                    (new Component(Classification::LIBRARY, 'name'))
                         ->setLicense(
                             new DisjunctiveLicenseRepository(
                                 (new DisjunctiveLicenseWithName('some text'))
@@ -366,12 +366,13 @@ abstract class BomModelProvider
      */
     public static function bomWithComponentVersion(): Generator
     {
-        $versions = ['1.0', 'dev-master'];
+        $versions = ['1.0', 'dev-master', ''];
         foreach ($versions as $version) {
             yield "component version: $version" => [
                 (new Bom())->setComponentRepository(
                     new ComponentRepository(
-                        new Component(Classification::LIBRARY, 'name', $version),
+                        (new Component(Classification::LIBRARY, 'name'))
+                        ->setVersion($version),
                     )
                 ),
             ];
@@ -462,7 +463,7 @@ abstract class BomModelProvider
             yield "component hash alg: $hashAlgorithm" => [
                 (new Bom())->setComponentRepository(
                     new ComponentRepository(
-                        (new Component(Classification::LIBRARY, 'name', '1.0'))
+                        (new Component(Classification::LIBRARY, 'name'))
                             ->setHashRepository(
                                 new HashRepository([$hashAlgorithm => '12345678901234567890123456789012'])
                             )
@@ -482,7 +483,7 @@ abstract class BomModelProvider
         yield 'component description: none' => [
             (new Bom())->setComponentRepository(
                 new ComponentRepository(
-                    (new Component(Classification::LIBRARY, 'name', '1.0'))
+                    (new Component(Classification::LIBRARY, 'name'))
                         ->setDescription(null)
                 )
             ),
@@ -490,7 +491,7 @@ abstract class BomModelProvider
         yield 'component description: empty' => [
             (new Bom())->setComponentRepository(
                 new ComponentRepository(
-                    (new Component(Classification::LIBRARY, 'name', '1.0'))
+                    (new Component(Classification::LIBRARY, 'name'))
                         ->setDescription('')
                 )
             ),
@@ -498,7 +499,7 @@ abstract class BomModelProvider
         yield 'component description: random' => [
             (new Bom())->setComponentRepository(
                 new ComponentRepository(
-                    (new Component(Classification::LIBRARY, 'name', '1.0'))
+                    (new Component(Classification::LIBRARY, 'name'))
                         ->setDescription(bin2hex(random_bytes(32)))
                 )
             ),
@@ -507,7 +508,7 @@ abstract class BomModelProvider
             (new Bom())->setComponentRepository(
                 new ComponentRepository(
                     (
-                    (new Component(Classification::LIBRARY, 'name', '1.0'))
+                    (new Component(Classification::LIBRARY, 'name'))
                         ->setDescription("\ta  test   ")
                     )
                 )
@@ -516,7 +517,7 @@ abstract class BomModelProvider
         yield 'component description: XML special chars' => [
             (new Bom())->setComponentRepository(
                 new ComponentRepository(
-                    (new Component(Classification::LIBRARY, 'name', '1.0'))
+                    (new Component(Classification::LIBRARY, 'name'))
                         ->setDescription(
                             'thisa&that'. // an & that is not a XML entity
                             '<strong>html<strong>'. // things that might cause schema-invalid XML
@@ -582,8 +583,7 @@ abstract class BomModelProvider
                 (new MetaData())->setComponent(
                     new Component(
                         Classification::APPLICATION,
-                        'foo',
-                        'bar'
+                        'foo'
                     )
                 )
             ),

@@ -92,4 +92,9 @@ final class Spec13 implements SpecInterface
     {
         return true;
     }
+
+    public function requiresComponentVersion(): bool
+    {
+        return true;
+    }
 }

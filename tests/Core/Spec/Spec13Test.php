@@ -71,4 +71,9 @@ class Spec13Test extends AbstractSpecTestCase
     {
         return true;
     }
+
+    public function shouldRequireComponentVersion(): bool
+    {
+        return true;
+    }
 }
