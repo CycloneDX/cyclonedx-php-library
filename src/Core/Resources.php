@@ -35,9 +35,6 @@ final class Resources
 
     public const ROOT = __DIR__.'/../../res/';
 
-    public const FILE_SPDX_XML_SCHEMA = __DIR__.'/../../res/spdx.SNAPSHOT.xsd';
-    public const FILE_SPDX_JSON_SCHEMA = __DIR__.'/../../res/spdx.SNAPSHOT.schema.json';
-
     public const FILE_CDX_XML_SCHEMA_1_0 = __DIR__.'/../../res/bom-1.0.SNAPSHOT.xsd';
     public const FILE_CDX_XML_SCHEMA_1_1 = __DIR__.'/../../res/bom-1.1.SNAPSHOT.xsd';
     public const FILE_CDX_XML_SCHEMA_1_2 = __DIR__.'/../../res/bom-1.2.SNAPSHOT.xsd';
@@ -45,7 +42,14 @@ final class Resources
 
     public const FILE_CDX_JSON_SCHEMA_1_2 = __DIR__.'/../../res/bom-1.2.SNAPSHOT.schema.json';
     public const FILE_CDX_JSON_SCHEMA_1_3 = __DIR__.'/../../res/bom-1.3.SNAPSHOT.schema.json';
+    public const FILE_CDX_JSON_SCHEMA_1_4 = __DIR__.'/../../res/bom-1.4.SNAPSHOT.schema.json';
 
     public const FILE_CDX_JSON_STRICT_SCHEMA_1_2 = __DIR__.'/../../res/bom-1.2-strict.SNAPSHOT.schema.json';
     public const FILE_CDX_JSON_STRICT_SCHEMA_1_3 = __DIR__.'/../../res/bom-1.3-strict.SNAPSHOT.schema.json';
+    // v1.4 is already strict - no special file here
+
+    public const FILE_SPDX_XML_SCHEMA = __DIR__.'/../../res/spdx.SNAPSHOT.xsd';
+    public const FILE_SPDX_JSON_SCHEMA = __DIR__.'/../../res/spdx.SNAPSHOT.schema.json';
+
+    public const FILE_JSF_JSON_SCHEMA = __DIR__.'/../../res/jsf-0.82.SNAPSHOT.schema.json';
 }
