@@ -38,7 +38,7 @@
     },
     "require-dev": {
         "ext-simplexml": "*",
-        "phpunit/phpunit": "9.5.12",
+        "phpunit/phpunit": "9.5.13",
         "roave/security-advisories": "dev-latest"
     },
     "prefer-stable": true,
