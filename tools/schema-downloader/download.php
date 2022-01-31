@@ -37,7 +37,7 @@ const TARGET_ROOT = __DIR__.'/../../res/';
 
 abstract class BomXsd
 {
-    public const Versions = ['1.0', '1.1', '1.2', '1.3'];
+    public const Versions = ['1.0', '1.1', '1.2', '1.3', '1.4'];
     public const SourcePattern = SOURCE_ROOT.'bom-%s.xsd';
     public const TargetPattern = TARGET_ROOT.'bom-%s.SNAPSHOT.xsd';
     public const Replace = [
@@ -48,23 +48,27 @@ abstract class BomXsd
 
 abstract class BomJsonLax
 {
-    public const Versions = ['1.2', '1.3'];
+    public const Versions = ['1.2', '1.3', '1.4'];
     public const SourcePattern = SOURCE_ROOT.'bom-%s.schema.json';
     public const TargetPattern = TARGET_ROOT.'bom-%s.SNAPSHOT.schema.json';
     public const Replace = [
         'spdx.schema.json' => 'spdx.SNAPSHOT.schema.json',
+        'jsf-0.82.schema.json' => 'jsf-0.82.SNAPSHOT.schema.json',
     ];
 }
 
-abstract class BomJsonStrict extends BomJsonLax
+abstract class BomJsonStrict
 {
+    public const Versions = ['1.2', '1.3'];
     public const SourcePattern = SOURCE_ROOT.'bom-%s-strict.schema.json';
     public const TargetPattern = TARGET_ROOT.'bom-%s-strict.SNAPSHOT.schema.json';
+    public const Replace = BomJsonLax::Replace;
 }
 
 const Others = [
     SOURCE_ROOT.'spdx.schema.json' => TARGET_ROOT.'spdx.SNAPSHOT.schema.json',
     SOURCE_ROOT.'spdx.xsd' => TARGET_ROOT.'spdx.SNAPSHOT.xsd',
+    SOURCE_ROOT.'jsf-0.82.schema.json' => TARGET_ROOT.'jsf-0.82.SNAPSHOT.schema.json',
 ];
 
 foreach ([
