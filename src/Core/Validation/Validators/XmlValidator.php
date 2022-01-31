@@ -52,6 +52,8 @@ class XmlValidator extends BaseValidator
     }
 
     /**
+     * @psalm-param non-empty-string $string
+     *
      * @throws FailedLoadingSchemaException if schema file unknown or not readable
      * @throws DOMException                 if loading the DOM failed
      *
@@ -97,6 +99,8 @@ class XmlValidator extends BaseValidator
     }
 
     /**
+     * @psalm-param non-empty-string $xml
+     *
      * @throws DOMException if loading the DOM failed
      */
     private function loadDomFromXml(string $xml): DOMDocument

@@ -54,6 +54,8 @@ class JsonValidator extends BaseValidator
     }
 
     /**
+     * @psalm-param non-empty-string $string
+     *
      * @throws FailedLoadingSchemaException if schema file unknown or not readable
      * @throws JsonException                if loading the JSON failed
      *
