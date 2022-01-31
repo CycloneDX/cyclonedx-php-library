@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 ## unreleased
 
+* Fixed
+  * `CycloneDX\Core\Validation\ValidatorInterface::validateString()` and implementations
+    are documented as `non-empty-string`, were undocumented `string` before. (via [#63])
+
+[#63]: https://github.com/CycloneDX/cyclonedx-php-library/pull/63
+
 ## 1.4.0 - 2021-12-20
 
 * Added

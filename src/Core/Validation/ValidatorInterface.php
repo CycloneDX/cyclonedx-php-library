@@ -34,5 +34,8 @@ interface ValidatorInterface
 
     public function getSpec(): SpecInterface;
 
+    /**
+     * @psalm-param non-empty-string $string
+     */
     public function validateString(string $string): ?ValidationError;
 }
