@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## unreleased
 
+## 1.4.1 - 2022-01-31
+
 * Fixed
   * `CycloneDX\Core\Validation\ValidatorInterface::validateString()` and implementations
     are documented as `non-empty-string`, were undocumented `string` before. (via [#63])
