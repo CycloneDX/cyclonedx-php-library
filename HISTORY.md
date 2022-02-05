@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## unreleased
 
+## 1.4.2 - 2022-02-05
+
 * Fixed
   * Return type of `CycloneDX\Core\Serialize\SerializerInterface::serialize()` and implementations/usage
     are documented as `non-empty-string`, were undocumented `string` before. (via [#70])
