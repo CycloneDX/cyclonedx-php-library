@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 ## unreleased
 
+* Fixed
+  * Return type of `CycloneDX\Core\Serialize\SerializerInterface::serialize()` and implementations/usage
+    are documented as `non-empty-string`, were undocumented `string` before. (via [#70])
+
+[#70]: https://github.com/CycloneDX/cyclonedx-php-library/pull/70
+
 ## 1.4.1 - 2022-01-31
 
 * Fixed

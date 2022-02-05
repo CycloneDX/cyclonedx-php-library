@@ -60,6 +60,7 @@ class XmlSerializer extends BaseSerializer
         // option LIBXML_NOEMPTYTAG might lead to errors in consumers
         $xml = $document->saveXML();
         \assert(false !== $xml);
+        \assert('' !== $xml);
 
         return $xml;
     }
