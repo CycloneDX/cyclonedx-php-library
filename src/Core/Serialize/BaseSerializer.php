@@ -77,7 +77,9 @@ abstract class BaseSerializer implements SerializerInterface
     /**
      * Normalize the Bom to a string.
      *
-     *  May throw implementation-dependent Exceptions.
+     * May throw implementation-dependent Exceptions.
+     *
+     * @psalm-return non-empty-string
      */
     abstract protected function normalize(Bom $bom): string;
 

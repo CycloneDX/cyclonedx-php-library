@@ -34,6 +34,8 @@ interface SerializerInterface
      * Serialize a {@see \CycloneDX\Core\Models\Bom} to string.
      *
      * May throw implementation-dependent Exceptions.
+     *
+     * @psalm-return non-empty-string
      */
     public function serialize(Bom $bom): string;
 }

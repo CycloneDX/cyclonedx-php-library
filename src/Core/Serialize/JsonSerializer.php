@@ -73,6 +73,7 @@ class JsonSerializer extends BaseSerializer
 
         $json = json_encode(array_merge($schemaBase, $data), self::NORMALIZE_OPTIONS);
         \assert(false !== $json); // as option JSON_THROW_ON_ERROR is expected to be set
+        \assert('' !== $json);
 
         return $json;
     }
