@@ -2,6 +2,9 @@
     "name": "tools/phpmd",
     "description": "phpmd",
     "type": "metapackage",
+    "require": {
+        "php": ">=7.4"
+    },
     "require-dev": {
         "phpmd/phpmd": "2.11.1",
         "roave/security-advisories": "dev-latest"

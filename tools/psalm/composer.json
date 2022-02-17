@@ -2,6 +2,9 @@
     "name": "tools/psalm",
     "description": "psalm and plugins",
     "type": "metapackage",
+    "require": {
+        "php": ">=7.4"
+    },
     "require-dev": {
         "roave/security-advisories": "dev-latest",
         "vimeo/psalm": "4.20.0"
