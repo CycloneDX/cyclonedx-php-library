@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 
 ## unreleased
 
+* Changed
+  * Use [version 82bf9e3 of CycloneDX spec][CDX-spec#82bf9e30ba3fd6413e72a0e66adce2cdf3354f32]
+    for XML and JSON schema validation. (via [#79])
+  * Use SPDX license enumeration from
+    [version 82bf9e3 of CycloneDX spec][CDX-spec#82bf9e30ba3fd6413e72a0e66adce2cdf3354f32].
+    (via [#79])
+
+[#79]: https://github.com/CycloneDX/cyclonedx-php-library/pull/79
+[CDX-spec#82bf9e30ba3fd6413e72a0e66adce2cdf3354f32]: https://github.com/CycloneDX/specification/tree/82bf9e30ba3fd6413e72a0e66adce2cdf3354f32
+
 ## 1.4.2 - 2022-02-05
 
 * Fixed
