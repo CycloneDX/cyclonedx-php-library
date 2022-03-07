@@ -7,6 +7,9 @@ These resources are shipped with the library.
 some schema for offline use as download via [script](../tools/schema-downloader/download.php).  
 original sources: https://github.com/CycloneDX/specification/tree/master/schema
 
+Currently using version
+[82bf9e30ba3fd6413e72a0e66adce2cdf3354f32](https://github.com/CycloneDX/specification/tree/82bf9e30ba3fd6413e72a0e66adce2cdf3354f32)
+
 | file | note |
 | ---  | --- |
 | [`bom-1.0.SNAPSHOT.xsd`](bom-1.0.SNAPSHOT.xsd) | `http://cyclonedx.org/schema/spdx` was replaced with `spdx.SNAPSHOT.xsd` |
