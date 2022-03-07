@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## unreleased
 
+## 1.5.0 - 2022-03-08
+
 * Changed
   * Use [version 82bf9e3 of CycloneDX spec][CDX-spec#82bf9e30ba3fd6413e72a0e66adce2cdf3354f32]
     for XML and JSON schema validation. (via [#79])
