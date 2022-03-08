@@ -67,7 +67,7 @@ class ComponentNormalizer extends AbstractNormalizer
                 'bom-ref' => $bomRef,
                 'type' => $type,
                 'name' => $name,
-                'version' => $version,
+                'version' => $version, // @TODO $spec->requiresComponentVersion() and omit if empty
                 'group' => $group,
                 'description' => $component->getDescription(),
                 'licenses' => $this->normalizeLicense($component->getLicense()),

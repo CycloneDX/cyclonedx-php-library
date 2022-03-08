@@ -50,8 +50,7 @@ class ComponentTest extends TestCase
     {
         $this->component = new Component(
             'library',
-            uniqid('myName', false),
-            uniqid('myVersion', true)
+            uniqid('myName', false)
         );
     }
 
@@ -63,6 +62,28 @@ class ComponentTest extends TestCase
     {
         $type = Classification::LIBRARY;
         $name = bin2hex(random_bytes(random_int(23, 255)));
+
+        $component = new Component($type, $name);
+
+        self::assertSame($type, $component->getType());
+        self::assertSame($name, $component->getName());
+        self::assertSame('', $component->getVersion());
+        self::assertNull($component->getDependenciesBomRefRepository());
+        self::assertNull($component->getGroup());
+        self::assertNull($component->getPackageUrl());
+        self::assertNull($component->getLicense());
+        self::assertNull($component->getHashRepository());
+        self::assertNull($component->getExternalReferenceRepository());
+    }
+
+    /**
+     * @uses \CycloneDX\Core\Enums\Classification::isValidValue
+     * @uses \CycloneDX\Core\Models\BomRef
+     */
+    public function testConstructorWithDeprecatedParam(): void
+    {
+        $type = Classification::LIBRARY;
+        $name = bin2hex(random_bytes(random_int(23, 255)));
         $version = uniqid('v', true);
 
         $component = new Component($type, $name, $version);
@@ -70,6 +91,12 @@ class ComponentTest extends TestCase
         self::assertSame($type, $component->getType());
         self::assertSame($name, $component->getName());
         self::assertSame($version, $component->getVersion());
+        self::assertNull($component->getDependenciesBomRefRepository());
+        self::assertNull($component->getGroup());
+        self::assertNull($component->getPackageUrl());
+        self::assertNull($component->getLicense());
+        self::assertNull($component->getHashRepository());
+        self::assertNull($component->getExternalReferenceRepository());
     }
 
     public function testGetBomRefConstant(): void
@@ -83,7 +110,7 @@ class ComponentTest extends TestCase
      * @uses \CycloneDX\Core\Models\BomRef::getValue
      * @uses \CycloneDX\Core\Models\BomRef::setValue
      */
-    public function testsetBomRefValue(): void
+    public function testSetBomRefValue(): void
     {
         $bomRef = $this->component->getBomRef();
         self::assertNull($bomRef->getValue());
@@ -118,11 +145,24 @@ class ComponentTest extends TestCase
 
     // region version setter&getter
 
-    public function testVersionSetterGetter(): void
+    /**
+     * @dataProvider dpVersionSetterGetter
+     */
+    public function testVersionSetterGetter(?string $version, ?string $expected): void
     {
+        $setReturn = $this->component->setVersion($version);
+        self::assertSame($this->component, $setReturn);
+        $actual = $this->component->getVersion();
+        self::assertSame($expected, $actual);
+    }
+
+    public function dpVersionSetterGetter(): \Generator
+    {
+        yield 'unset' => [null, ''];
+        yield 'empty-string' => ['', ''];
+
         $version = uniqid('v', true);
-        $this->component->setVersion($version);
-        self::assertSame($version, $this->component->getVersion());
+        yield 'random non-empty' => [$version, $version];
     }
 
     // endregion version setter&getter

@@ -80,7 +80,7 @@ class ComponentNormalizer extends AbstractNormalizer
                 // publisher
                 $this->simpleDomSafeTextElement($document, 'group', $group),
                 $this->simpleDomSafeTextElement($document, 'name', $name),
-                $this->simpleDomSafeTextElement($document, 'version', $version),
+                $this->simpleDomSafeTextElement($document, 'version', $version), // @TODO $spec->requiresComponentVersion() and omit if empty
                 $this->simpleDomSafeTextElement($document, 'description', $component->getDescription()),
                 // scope
                 $this->normalizeHashes($component->getHashRepository()),
