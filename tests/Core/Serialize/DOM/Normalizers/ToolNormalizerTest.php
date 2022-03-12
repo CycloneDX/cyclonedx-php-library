@@ -78,7 +78,7 @@ class ToolNormalizerTest extends TestCase
             ]
         );
         $spec = $this->createMock(SpecInterface::class);
-        $hashRepoNormalizer = $this->createMock(HashRepositoryNormalizer::class, );
+        $hashRepoNormalizer = $this->createMock(HashRepositoryNormalizer::class);
         $factory = $this->createConfiguredMock(
             NormalizerFactory::class,
             [
