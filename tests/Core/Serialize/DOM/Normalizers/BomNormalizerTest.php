@@ -266,7 +266,7 @@ class BomNormalizerTest extends TestCase
         $dependencyNormalizer->expects(self::once())
             ->method('normalize')
             ->with($bom)
-            ->willReturn([/* empty  */]);
+            ->willReturn([/* empty */]);
 
         $actual = $normalizer->normalize($bom);
 

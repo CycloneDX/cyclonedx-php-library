@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## unreleased
 
+* Style
+  * Fixe some whitespaces. (via [#82])
+
+[#82]: https://github.com/CycloneDX/cyclonedx-php-library/pull/82
+
 ## 1.5.0 - 2022-03-08
 
 * Changed
