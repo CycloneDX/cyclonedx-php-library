@@ -3,7 +3,7 @@
     "description": "phpmd",
     "type": "metapackage",
     "require-dev": {
-        "phpmd/phpmd": "2.11.1",
+        "phpmd/phpmd": "2.12.0",
         "roave/security-advisories": "dev-latest"
     },
     "prefer-stable": true,
