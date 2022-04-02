@@ -40,8 +40,8 @@ See the [LICENSE][license_file] file for the full license.
 [contributing_file]: https://github.com/CycloneDX/cyclonedx-php-library/blob/master/CONTRIBUTING.md
 
 [shield_gh-workflow-test]: https://img.shields.io/github/workflow/status/CycloneDX/cyclonedx-php-library/PHP%20CI/master?logo=GitHub&logoColor=white "build"
-[shield_packagist-version]: https://img.shields.io/packagist/v/cyclonedx/cyclonedx-library?logo=&logoColor=white "packagist"
-[shield_license]: https://img.shields.io/github/license/CycloneDX/cyclonedx-php-library "license"
+[shield_packagist-version]: https://img.shields.io/packagist/v/cyclonedx/cyclonedx-library?logo=Packagist&logoColor=white "packagist"
+[shield_license]: https://img.shields.io/github/license/CycloneDX/cyclonedx-php-library?logo=open%20source%20initiative&logoColor=white "license"
 [shield_website]: https://img.shields.io/badge/https://-cyclonedx.org-blue.svg "homepage"
 [shield_slack]: https://img.shields.io/badge/slack-join-blue?logo=Slack&logoColor=white "slack join"
 [shield_groups]: https://img.shields.io/badge/discussion-groups.io-blue.svg "groups discussion"
