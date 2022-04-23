@@ -3,7 +3,7 @@
     "description": "composer-normalize",
     "type": "metapackage",
     "require-dev": {
-        "ergebnis/composer-normalize": "2.25.1",
+        "ergebnis/composer-normalize": "2.25.2",
         "roave/security-advisories": "dev-latest"
     },
     "prefer-stable": true,
