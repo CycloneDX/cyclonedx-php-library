@@ -506,10 +506,8 @@ abstract class BomModelProvider
         yield 'component description: spaces' => [
             (new Bom())->setComponentRepository(
                 new ComponentRepository(
-                    (
                     (new Component(Classification::LIBRARY, 'name', '1.0'))
                         ->setDescription("\ta  test   ")
-                    )
                 )
             ),
         ];
