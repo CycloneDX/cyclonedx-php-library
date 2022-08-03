@@ -4,22 +4,30 @@ All notable changes to this project will be documented in this file.
 
 ## unreleased
 
+* Changed
+  * Use [version 9b04a94 of CycloneDX specification][CDX-specification#9b04a94474dfcabafe7d3a9f8db6c7e5eb868adb]
+    for XML and JSON schema validation. (via [#105])
+  * Use SPDX license enumeration from
+    [version 9b04a94 of CycloneDX specification][CDX-specification#9b04a94474dfcabafe7d3a9f8db6c7e5eb868adb].
+    (via [#105])
 * Style
   * Fixe some whitespaces. (via [#82])
 
 [#82]: https://github.com/CycloneDX/cyclonedx-php-library/pull/82
+[#105]: https://github.com/CycloneDX/cyclonedx-javascript-library/pull/105
+[CDX-specification#9b04a94474dfcabafe7d3a9f8db6c7e5eb868adb]: https://github.com/CycloneDX/specification/tree/9b04a94474dfcabafe7d3a9f8db6c7e5eb868adb
 
 ## 1.5.0 - 2022-03-08
 
 * Changed
-  * Use [version 82bf9e3 of CycloneDX spec][CDX-spec#82bf9e30ba3fd6413e72a0e66adce2cdf3354f32]
+  * Use [version 82bf9e3 of CycloneDX specification][CDX-specification#82bf9e30ba3fd6413e72a0e66adce2cdf3354f32]
     for XML and JSON schema validation. (via [#79])
   * Use SPDX license enumeration from
-    [version 82bf9e3 of CycloneDX spec][CDX-spec#82bf9e30ba3fd6413e72a0e66adce2cdf3354f32].
+    [version 82bf9e3 of CycloneDX specification][CDX-specification#82bf9e30ba3fd6413e72a0e66adce2cdf3354f32].
     (via [#79])
 
 [#79]: https://github.com/CycloneDX/cyclonedx-php-library/pull/79
-[CDX-spec#82bf9e30ba3fd6413e72a0e66adce2cdf3354f32]: https://github.com/CycloneDX/specification/tree/82bf9e30ba3fd6413e72a0e66adce2cdf3354f32
+[CDX-specification#82bf9e30ba3fd6413e72a0e66adce2cdf3354f32]: https://github.com/CycloneDX/specification/tree/82bf9e30ba3fd6413e72a0e66adce2cdf3354f32
 
 ## 1.4.2 - 2022-02-05
 
@@ -80,7 +88,7 @@ All notable changes to this project will be documented in this file.
 ## 1.0.3 - 2021-11-15
 
 * Fixed
-  * `CycloneDX\Core\Models\License\AbstractDisjunctiveLicense::setUrl()` no longer restricts the argument to be a valid URL.    
+  * `CycloneDX\Core\Models\License\AbstractDisjunctiveLicense::setUrl()` no longer restricts the argument to be a valid URL.  
     Per schema definition `licenseType.url` should be a URI, not a URL.
     See [#18](https://github.com/CycloneDX/cyclonedx-php-library/issues/18)
 * Changed
