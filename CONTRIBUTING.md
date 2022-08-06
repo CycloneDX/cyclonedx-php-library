@@ -21,7 +21,7 @@ Make sure
 
 ## Sign your commits
 
-Please sign your commits, 
+Please sign your commits,
 to show that you agree to publish your changes under the current terms and licenses of the project.
 
 ```shell

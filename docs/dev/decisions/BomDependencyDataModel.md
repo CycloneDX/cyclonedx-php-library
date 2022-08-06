@@ -2,13 +2,14 @@
 
 CDX >= 1.2 allowed to reflect on dependencies.  
 
-See https://cyclonedx.org/use-cases/#dependency-graph
+See <https://cyclonedx.org/use-cases/#dependency-graph>
 So from the examples JSON and XML representations are clear.
 
 Unfortunately the spec was designed to put dependencies into dependencies,
 which might allow cyclic data structures.
 
 Challenges:
+
 * How to store dependency references without causing memory leaks(by cyclic references)?  
   How to store dependencies in a way that prevents recursions/cycles?  
   How to detect/prevent recursions when traversing to render the XML/JSON?
@@ -18,14 +19,14 @@ Challenges:
 
 ## Store Without Memory Leaks
 
-### Option A
+### No leaks - Option A
 
 Rule: prevent nesting of dependencies.
 
 Can be achieved by storing a ref in form of an extra data type, called `BomRef` inside the dependency tree.  
 A component could simply hold that same `BomRef` to flag it as the target of a dependency.
- 
-### Option B
+
+### No leaks - Option B
 
 Rule: prevent nesting of dependencies.
 
@@ -36,7 +37,7 @@ a) there is no child (reached a leaf) --> adding of `newChild` possible
 b) an already traversed item is found --> cycle found; adding of `newChild` prohibited  
 To fully cover possible cycles, the first visited item is the `parent` itself.
 
-### Option C
+### No leaks - Option C
 
 Rule: don't give a ***
 
@@ -44,11 +45,11 @@ Whatever created the cycle should have had it prevented in the first place.
 
 ## How To Store The Dependencies
 
-### Option A
+### Deps - Option A
 
 There could be a new property to a `Bom` object, that holds the dependency tree.
 
-### Option B 
+### Deps - Option B
 
 There could be a new property to a `Component` object, that holds the dependency tree.
 
@@ -99,16 +100,16 @@ So when serializing the models to XML/JSON a check could be made, dependencies t
 Rendering is skipped, if the applied spec does not support it (spec version < 1.2)
 
 When rendering to XML/JSON some cleanup needs to be done:
-Detect dependencies that point to `BomRef` that are unknown 
-in context of `metadata.component.bomRef` and `components.*.bomRef`. 
+Detect dependencies that point to `BomRef` that are unknown
+in context of `metadata.component.bomRef` and `components.*.bomRef`.
 As long as nested/sub-components are not supported, the look-up is just a 1-level tree search.  
 The found unknown references must not be rendered as a dependency.
 
 `BomRefs` are objects, so they are unique in memory, but their string representation might not be unique.
-> Uniqueness *must* be enforced within all elements and children of the root-level bom element.  
+> Uniqueness _must_ be enforced within all elements and children of the root-level bom element.  
 
-Before rendering, a list of all known `BomRef` *must* be collected. see if their values are globally unique.
+Before rendering, a list of all known `BomRef` _must_ be collected. see if their values are globally unique.
 If a duplicate is found: use another globally unique value instead. This can be achieved by modification to the `BomRef.value` before rendering and resetting it after rendering.
 
-All components and the metadata component *should* be rendered.
+All components and the metadata component _should_ be rendered.
 > Components that do not have their own dependencies MUST be declared as empty elements within the graph. Components that are not represented in the dependency graph MAY have unknown dependencies. It is RECOMMENDED that implementations assume this to be opaque and not an indicator of a component being dependency-free.
