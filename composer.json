@@ -24,9 +24,10 @@
             "role": "Developer"
         }
     ],
-    "homepage": "https://github.com/CycloneDX/cyclonedx-php-library/",
+    "homepage": "https://github.com/CycloneDX/cyclonedx-php-library/#readme",
     "support": {
-        "issues": "https://github.com/CycloneDX/cyclonedx-php-library/issues"
+        "issues": "https://github.com/CycloneDX/cyclonedx-php-library/issues",
+        "source": "https://github.com/CycloneDX/cyclonedx-php-library/"
     },
     "require": {
         "php": "^7.3 || ^8.0",
