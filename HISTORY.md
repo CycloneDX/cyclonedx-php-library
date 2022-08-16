@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 ## unreleased
 
+## 1.6.1 - 2022-08-16
+
+* Maintenance release.
+
 ## 1.6.0 - 2022-08-03
 
 * Changed
