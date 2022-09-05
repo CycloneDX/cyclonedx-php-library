@@ -30,6 +30,7 @@ class ValidationError
 {
     /**
      * @var string
+     *
      * @readonly
      */
     private $message;

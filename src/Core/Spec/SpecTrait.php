@@ -43,6 +43,7 @@ trait SpecTrait
 
     /**
      * @return string[]
+     *
      * @psalm-return list<Format::*>
      */
     public function getSupportedFormats(): array
@@ -62,6 +63,7 @@ trait SpecTrait
 
     /**
      * @return string[]
+     *
      * @psalm-return list<Classification::*>
      */
     public function getSupportedComponentTypes(): array
@@ -76,6 +78,7 @@ trait SpecTrait
 
     /**
      * @return string[]
+     *
      * @psalm-return list<HashAlgorithm::*>
      */
     public function getSupportedHashAlgorithms(): array

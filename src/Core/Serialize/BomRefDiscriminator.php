@@ -34,12 +34,14 @@ class BomRefDiscriminator
 
     /**
      * @var BomRef[]
+     *
      * @psalm-var list<BomRef>
      */
     private $bomRefs = [];
 
     /**
      * @var string[]|null[]
+     *
      * @psalm-var list<?string>
      */
     private $originalValues = [];

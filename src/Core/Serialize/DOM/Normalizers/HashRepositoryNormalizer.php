@@ -39,6 +39,7 @@ class HashRepositoryNormalizer extends AbstractNormalizer
 
     /**
      * @return DOMElement[]
+     *
      * @psalm-return list<DOMElement>
      */
     public function normalize(HashRepository $repo): array

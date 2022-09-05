@@ -32,6 +32,7 @@ class LicenseExpression
 {
     /**
      * @var string
+     *
      * @psalm-suppress PropertyNotSetInConstructor
      */
     private $expression;

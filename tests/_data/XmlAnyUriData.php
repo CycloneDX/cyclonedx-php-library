@@ -31,6 +31,7 @@ abstract class XmlAnyUriData
      * list of RAW to ENCODED urls according to XML::anyURL spec.
      *
      * @return Generator<string[]>
+     *
      * @psalm-return Generator<string, array{0: string, 1: string}>
      */
     public static function dpEncodeAnyUri(): Generator

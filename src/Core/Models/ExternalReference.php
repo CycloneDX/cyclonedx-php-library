@@ -40,7 +40,9 @@ class ExternalReference
      * references. If a type does not exist for the reference being referred to, use the "other" type.
      *
      * @var string
+     *
      * @psalm-var ExternalReferenceType::*
+     *
      * @psalm-suppress PropertyNotSetInConstructor
      */
     private $type;
@@ -49,6 +51,7 @@ class ExternalReference
      * The URL to the external reference.
      *
      * @var string
+     *
      * @psalm-suppress PropertyNotSetInConstructor
      */
     private $url;
@@ -75,6 +78,7 @@ class ExternalReference
 
     /**
      * @param string $type A valid {@see \CycloneDX\Core\Enums\ExternalReferenceType}
+     *
      * @psalm-assert ExternalReferenceType::* $type
      *
      * @throws DomainException if value is unknown

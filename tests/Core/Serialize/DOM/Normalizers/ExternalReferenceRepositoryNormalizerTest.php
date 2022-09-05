@@ -86,6 +86,7 @@ class ExternalReferenceRepositoryNormalizerTest extends \PHPUnit\Framework\TestC
 
     /**
      * @dataProvider dpNormalizeSkipsOnThrow
+     *
      * @psalm-param class-string<\Exception> $exceptionClass
      */
     public function testNormalizeSkipsOnThrow(string $exceptionClass): void

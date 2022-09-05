@@ -41,6 +41,7 @@ class DependenciesNormalizer extends AbstractNormalizer
      * Make sure to use the {@see \CycloneDX\Core\Serialize\BomRefDiscriminator} before calling.
      *
      * @return array[]
+     *
      * @psalm-return list<Dependency>
      */
     public function normalize(Bom $bom): array

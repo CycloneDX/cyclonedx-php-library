@@ -34,6 +34,7 @@ class DisjunctiveLicenseRepository implements \Countable
 {
     /**
      * @var DisjunctiveLicenseWithId[]|DisjunctiveLicenseWithName[]
+     *
      * @psalm-var list<DisjunctiveLicenseWithId|DisjunctiveLicenseWithName>
      */
     private $licenses = [];
@@ -42,6 +43,7 @@ class DisjunctiveLicenseRepository implements \Countable
      * Unsupported Licenses are filtered out silently.
      *
      * @param DisjunctiveLicenseWithId[]|DisjunctiveLicenseWithName[] $licenses
+     *
      * @psalm-param  list<DisjunctiveLicenseWithId|DisjunctiveLicenseWithName> $licenses
      */
     public function __construct(AbstractDisjunctiveLicense ...$licenses)
@@ -54,6 +56,7 @@ class DisjunctiveLicenseRepository implements \Countable
      * Unsupported Licenses are filtered out silently.
      *
      * @param DisjunctiveLicenseWithId[]|DisjunctiveLicenseWithName[] $licenses
+     *
      * @psalm-param  list<DisjunctiveLicenseWithId|DisjunctiveLicenseWithName> $licenses
      *
      * @return $this
@@ -72,6 +75,7 @@ class DisjunctiveLicenseRepository implements \Countable
 
     /**
      * @return DisjunctiveLicenseWithId[]|DisjunctiveLicenseWithName[]
+     *
      * @psalm-return list<DisjunctiveLicenseWithId|DisjunctiveLicenseWithName>
      */
     public function getLicenses(): array

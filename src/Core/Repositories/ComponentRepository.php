@@ -34,6 +34,7 @@ class ComponentRepository implements \Countable
 {
     /**
      * @var Component[]
+     *
      * @psalm-var list<Component>
      */
     private $components = [];
@@ -60,6 +61,7 @@ class ComponentRepository implements \Countable
 
     /**
      * @return Component[]
+     *
      * @psalm-return list<Component>
      */
     public function getComponents(): array
@@ -74,6 +76,7 @@ class ComponentRepository implements \Countable
 
     /**
      * @return Component[]
+     *
      * @psalm-return list<Component>
      */
     public function findComponents(string $name, ?string $group): array
