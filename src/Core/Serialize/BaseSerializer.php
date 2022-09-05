@@ -51,6 +51,7 @@ abstract class BaseSerializer implements SerializerInterface
      * @return $this
      *
      * @deprecated
+     *
      * @TODO remove with next major version - milestone v4
      */
     public function setSpec(SpecInterface $spec): self

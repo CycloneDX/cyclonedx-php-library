@@ -37,6 +37,7 @@ class DisjunctiveLicenseRepositoryNormalizer extends AbstractNormalizer
 
     /**
      * @return DOMElement[]
+     *
      * @psalm-return list<DOMElement>
      */
     public function normalize(DisjunctiveLicenseRepository $repo): array

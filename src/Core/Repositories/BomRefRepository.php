@@ -34,6 +34,7 @@ class BomRefRepository implements \Countable
 {
     /**
      * @var BomRef[]
+     *
      * @psalm-var list<BomRef>
      */
     private $bomRefs = [];
@@ -60,6 +61,7 @@ class BomRefRepository implements \Countable
 
     /**
      * @return BomRef[]
+     *
      * @psalm-return list<BomRef>
      */
     public function getBomRefs(): array

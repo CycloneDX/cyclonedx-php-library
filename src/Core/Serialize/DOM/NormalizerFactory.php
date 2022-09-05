@@ -37,6 +37,7 @@ class NormalizerFactory
 
     /**
      * @var SpecInterface
+     *
      * @psalm-suppress PropertyNotSetInConstructor
      */
     private $spec;

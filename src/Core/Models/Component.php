@@ -56,6 +56,7 @@ class Component
      * Examples: commons-lang3 and jquery
      *
      * @var string
+     *
      * @psalm-suppress PropertyNotSetInConstructor
      */
     private $name;
@@ -69,6 +70,7 @@ class Component
      * Examples include: apache, org.apache.commons, and apache.org.
      *
      * @var string|null
+     *
      * @psalm-var non-empty-string|null
      */
     private $group;
@@ -82,7 +84,9 @@ class Component
      * for information describing each one.
      *
      * @var string
+     *
      * @psalm-var Classification::*
+     *
      * @psalm-suppress PropertyNotSetInConstructor
      */
     private $type;
@@ -91,6 +95,7 @@ class Component
      * Specifies a description for the component.
      *
      * @var string|null
+     *
      * @psalm-var non-empty-string|null
      */
     private $description;
@@ -134,6 +139,7 @@ class Component
      * but is not enforced.
      *
      * @var string
+     *
      * @psalm-suppress PropertyNotSetInConstructor
      */
     private $version;
@@ -208,6 +214,7 @@ class Component
 
     /**
      * @param string $type A valid {@see \CycloneDX\Core\Enums\Classification}
+     *
      * @psalm-assert Classification::* $type
      *
      * @throws DomainException if value is unknown
@@ -251,6 +258,7 @@ class Component
 
     /**
      * @param mixed $license
+     *
      * @psalm-assert LicenseExpression|DisjunctiveLicenseRepository|null $license
      *
      * @throws UnexpectedValueException
@@ -270,6 +278,7 @@ class Component
 
     /**
      * @param mixed $license
+     *
      * @psalm-assert-if-true  null|LicenseExpression|DisjunctiveLicenseRepository $license
      */
     private function isValidLicense($license): bool

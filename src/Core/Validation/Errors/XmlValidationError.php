@@ -55,7 +55,9 @@ class XmlValidationError extends ValidationError
      * Accessor for debug purposes.
      *
      * @internal as this method is not kept backwards-compatible
+     *
      * @codeCoverageIgnore
+     *
      * @SuppressWarnings(PHPMD)
      */
     final public function debug_getError(): ?object

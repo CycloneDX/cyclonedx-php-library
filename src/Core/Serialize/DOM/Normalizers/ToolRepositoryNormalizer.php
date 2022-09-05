@@ -34,6 +34,7 @@ class ToolRepositoryNormalizer extends AbstractNormalizer
 {
     /**
      * @return DOMElement[]
+     *
      * @psalm-return list<DOMElement>
      */
     public function normalize(ToolRepository $repo): array

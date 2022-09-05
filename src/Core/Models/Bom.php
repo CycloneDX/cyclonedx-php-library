@@ -35,6 +35,7 @@ class Bom
 {
     /**
      * @var ComponentRepository
+     *
      * @psalm-suppress PropertyNotSetInConstructor
      */
     private $componentRepository;
@@ -46,6 +47,7 @@ class Bom
      * Each version of a component should have a unique BOM and if no changes are made to the BOMs, then each BOM will have a version of '1'.
      *
      * @var int
+     *
      * @psalm-var positive-int
      */
     private $version = 1;
@@ -95,6 +97,7 @@ class Bom
 
     /**
      * @param int $version a value >= 1
+     *
      * @psalm-assert positive-int $version
      *
      * @throws DomainException if version <= 0

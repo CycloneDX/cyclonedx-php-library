@@ -44,6 +44,7 @@ class JsonSerializer extends BaseSerializer
      * JSON schema `$id` that is applied.
      *
      * @var string[]|null[]
+     *
      * @psalm-var array<Version::V_*, ?string>
      */
     private const SCHEMA = [

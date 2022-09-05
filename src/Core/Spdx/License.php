@@ -36,13 +36,16 @@ class License
 {
     /**
      * @var string[]
+     *
      * @psalm-var array<string, string>
+     *
      * @psalm-suppress PropertyNotSetInConstructor
      */
     private $licenses;
 
     /**
      * @return string[]
+     *
      * @psalm-return array<string, string>
      */
     public function getLicenses(): array
@@ -75,6 +78,7 @@ class License
 
     /**
      * @throws RuntimeException
+     *
      * @psalm-suppress RedundantConditionGivenDocblockType
      */
     public function loadLicenses(): void
@@ -97,6 +101,7 @@ class License
              * {@see \CycloneDX\Tests\unit\Core\Spdx\LicenseTest::testShippedLicensesFile()}.
              *
              * @var string[] $licenses
+             *
              * @psalm-suppress MixedArrayAccess
              * @psalm-suppress MixedAssignment
              */

@@ -78,6 +78,7 @@ abstract class BaseValidator implements ValidatorInterface
 
     /**
      * @return string[]|null[]
+     *
      * @psalm-return array<Version::V_*, ?string>
      */
     abstract protected static function listSchemaFiles(): array;

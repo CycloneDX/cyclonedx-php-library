@@ -33,6 +33,7 @@ class ExternalReferenceRepositoryNormalizer extends AbstractNormalizer
 {
     /**
      * @return array[]
+     *
      * @psalm-return list<array>
      */
     public function normalize(ExternalReferenceRepository $repo): array

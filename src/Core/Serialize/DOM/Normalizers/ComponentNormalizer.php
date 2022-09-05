@@ -103,6 +103,7 @@ class ComponentNormalizer extends AbstractNormalizer
     {
         /**
          * @var DOMElement[] $licenses
+         *
          * @psalm-var list<DOMElement> $licenses
          */
         if ($license instanceof LicenseExpression) {
@@ -123,6 +124,7 @@ class ComponentNormalizer extends AbstractNormalizer
 
     /**
      * @return DOMElement[]
+     *
      * @psalm-return list<DOMElement>
      */
     private function normalizeLicenseExpression(LicenseExpression $license): array
@@ -140,6 +142,7 @@ class ComponentNormalizer extends AbstractNormalizer
 
     /**
      * @return DOMElement[]
+     *
      * @psalm-return list<DOMElement>
      */
     private function normalizeDisjunctiveLicenses(DisjunctiveLicenseRepository $licenses): array

@@ -34,6 +34,7 @@ class ToolRepository implements \Countable
 {
     /**
      * @var Tool[]
+     *
      * @psalm-var list<Tool>
      */
     private $tools = [];
@@ -60,6 +61,7 @@ class ToolRepository implements \Countable
 
     /**
      * @return Tool[]
+     *
      * @psalm-return list<Tool>
      */
     public function getTools(): array

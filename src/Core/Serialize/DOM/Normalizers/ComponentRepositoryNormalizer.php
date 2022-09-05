@@ -34,6 +34,7 @@ class ComponentRepositoryNormalizer extends AbstractNormalizer
 {
     /**
      * @return DOMElement[]
+     *
      * @psalm-return list<DOMElement>
      */
     public function normalize(ComponentRepository $repo): array

@@ -38,6 +38,7 @@ interface SpecInterface
 
     /**
      * @return string[]
+     *
      * @psalm-return list<Format::*>
      */
     public function getSupportedFormats(): array;
@@ -48,6 +49,7 @@ interface SpecInterface
 
     /**
      * @return string[]
+     *
      * @psalm-return list<Classification::*>
      */
     public function getSupportedComponentTypes(): array;
@@ -56,6 +58,7 @@ interface SpecInterface
 
     /**
      * @return string[]
+     *
      * @psalm-return list<HashAlgorithm::*>
      */
     public function getSupportedHashAlgorithms(): array;
