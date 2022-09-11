@@ -27,6 +27,7 @@ use CycloneDX\Core\Models\Bom;
 use CycloneDX\Core\Serialize\JsonSerializer;
 use CycloneDX\Core\Spec\Spec11;
 use CycloneDX\Core\Spec\Spec12;
+use CycloneDX\Core\Spec\Spec13;
 use CycloneDX\Core\Validation\Validators\JsonStrictValidator;
 use DomainException;
 use PHPUnit\Framework\TestCase;
@@ -95,7 +96,7 @@ class SerializeToJsonTest extends TestCase
      */
     public function testSchema13(Bom $bom): void
     {
-        $spec = new Spec12();
+        $spec = new Spec13();
         $serializer = new JsonSerializer($spec);
         $validator = new JsonStrictValidator($spec);
 
