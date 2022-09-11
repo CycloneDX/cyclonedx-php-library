@@ -195,7 +195,8 @@ abstract class BomModelProvider
             ...BomSpecData::getClassificationEnumForVersion('1.0'),
             ...BomSpecData::getClassificationEnumForVersion('1.1'),
             ...BomSpecData::getClassificationEnumForVersion('1.2'),
-            ...BomSpecData::getClassificationEnumForVersion('1.3')
+            ...BomSpecData::getClassificationEnumForVersion('1.3'),
+            ...BomSpecData::getClassificationEnumForVersion('1.4')
         );
     }
 
@@ -257,6 +258,14 @@ abstract class BomModelProvider
     public static function bomWithComponentTypeSpec13(): Generator
     {
         yield from self::bomWithComponentTypes(...BomSpecData::getClassificationEnumForVersion('1.3'));
+    }
+
+    /**
+     * @psalm-return Generator<array{0: Bom}>
+     */
+    public static function bomWithComponentTypeSpec14(): Generator
+    {
+        yield from self::bomWithComponentTypes(...BomSpecData::getClassificationEnumForVersion('1.4'));
     }
 
     /**
@@ -391,7 +400,8 @@ abstract class BomModelProvider
                     BomSpecData::getHashAlgEnumForVersion('1.0'),
                     BomSpecData::getHashAlgEnumForVersion('1.1'),
                     BomSpecData::getHashAlgEnumForVersion('1.2'),
-                    BomSpecData::getHashAlgEnumForVersion('1.3')
+                    BomSpecData::getHashAlgEnumForVersion('1.3'),
+                    BomSpecData::getHashAlgEnumForVersion('1.4')
                 ),
                 \SORT_STRING
             )
@@ -448,6 +458,16 @@ abstract class BomModelProvider
     public static function bomWithComponentHashAlgorithmsSpec13(): Generator
     {
         yield from self::bomWithComponentHashAlgorithms(...BomSpecData::getHashAlgEnumForVersion('1.3'));
+    }
+
+    /**
+     * BOMs with all hash algorithms available in Spec 1.4.
+     *
+     * @psalm-return Generator<array{0: Bom}>
+     */
+    public static function bomWithComponentHashAlgorithmsSpec14(): Generator
+    {
+        yield from self::bomWithComponentHashAlgorithms(...BomSpecData::getHashAlgEnumForVersion('1.4'));
     }
 
     /**
@@ -601,6 +621,7 @@ abstract class BomModelProvider
                 BomSpecData::getExternalReferenceTypeForVersion('1.1'),
                 BomSpecData::getExternalReferenceTypeForVersion('1.2'),
                 BomSpecData::getExternalReferenceTypeForVersion('1.3'),
+                BomSpecData::getExternalReferenceTypeForVersion('1.4'),
             )
         );
 

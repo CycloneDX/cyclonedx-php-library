@@ -48,6 +48,7 @@ class XmlValidator extends BaseValidator
             Version::V_1_1 => Resources::FILE_CDX_XML_SCHEMA_1_1,
             Version::V_1_2 => Resources::FILE_CDX_XML_SCHEMA_1_2,
             Version::V_1_3 => Resources::FILE_CDX_XML_SCHEMA_1_3,
+            Version::V_1_4 => Resources::FILE_CDX_XML_SCHEMA_1_4,
         ];
     }
 

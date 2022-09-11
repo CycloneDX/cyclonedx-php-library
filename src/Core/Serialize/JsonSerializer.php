@@ -51,6 +51,7 @@ class JsonSerializer extends BaseSerializer
         Version::V_1_1 => null, // unsupported version
         Version::V_1_2 => 'http://cyclonedx.org/schema/bom-1.2a.schema.json',
         Version::V_1_3 => 'http://cyclonedx.org/schema/bom-1.3.schema.json',
+        Version::V_1_4 => 'http://cyclonedx.org/schema/bom-1.4.schema.json',
     ];
 
     private function getSchemaBase(): array

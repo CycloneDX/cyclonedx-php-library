@@ -6,6 +6,11 @@ All notable changes to this project will be documented in this file.
 
 ## 2.0.0 - unreleased
 
+* Added
+  * Support for CycloneDX v1.4 specification. (via [#65])
+
+[#65]: https://github.com/CycloneDX/cyclonedx-php-library/pull/65
+
 ## 1.6.2 - 2022-09-12
 
 Maintenance release.

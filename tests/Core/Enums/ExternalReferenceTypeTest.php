@@ -68,6 +68,7 @@ class ExternalReferenceTypeTest extends TestCase
             BomSpecData::getExternalReferenceTypeForVersion('1.1'),
             BomSpecData::getExternalReferenceTypeForVersion('1.2'),
             BomSpecData::getExternalReferenceTypeForVersion('1.3'),
+            BomSpecData::getExternalReferenceTypeForVersion('1.4'),
         ));
         foreach ($allValues as $value) {
             yield $value => [$value];

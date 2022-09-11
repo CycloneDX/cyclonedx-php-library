@@ -106,4 +106,40 @@ class JsonSerializerTest extends TestCase
             $actual
         );
     }
+
+    /**
+     * @uses   \CycloneDX\Core\Serialize\JSON\AbstractNormalizer
+     * @uses   \CycloneDX\Core\Serialize\JSON\NormalizerFactory
+     * @uses   \CycloneDX\Core\Serialize\JSON\Normalizers\BomNormalizer
+     * @uses   \CycloneDX\Core\Serialize\JSON\Normalizers\ComponentRepositoryNormalizer
+     * @uses   \CycloneDX\Core\Serialize\JSON\Normalizers\ComponentNormalizer
+     * @uses   \CycloneDX\Core\Serialize\BomRefDiscriminator
+     */
+    public function testSerialize14(): void
+    {
+        $spec = $this->createConfiguredMock(
+            SpecInterface::class,
+            [
+                'getVersion' => '1.4',
+                'isSupportedFormat' => true,
+            ]
+        );
+        $serializer = new JsonSerializer($spec);
+        $bom = $this->createStub(Bom::class);
+
+        $actual = $serializer->serialize($bom);
+
+        self::assertJsonStringEqualsJsonString(
+            <<<'JSON'
+                {
+                    "$schema": "http://cyclonedx.org/schema/bom-1.4.schema.json",
+                    "bomFormat": "CycloneDX",
+                    "specVersion": "1.4",
+                    "version": 0,
+                    "components": []
+                }
+                JSON,
+            $actual
+        );
+    }
 }

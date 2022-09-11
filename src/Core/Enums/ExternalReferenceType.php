@@ -60,6 +60,8 @@ abstract class ExternalReferenceType
     public const BUILD_META = 'build-meta';
     /** URL to an automated build system. */
     public const BUILD_SYSTEM = 'build-system';
+    /** URL to release notes. */
+    public const RELEASE_NOTES = 'release-notes';
     /** Use this if no other types accurately describe the purpose of the external reference. */
     public const OTHER = 'other';
 
