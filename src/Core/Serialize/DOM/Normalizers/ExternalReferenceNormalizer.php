@@ -41,12 +41,18 @@ class ExternalReferenceNormalizer extends AbstractNormalizer
     use XmlTrait;
 
     /**
-     * @throws DomainException
+     * @throws DomainException          when the type was not supported by the spec
      * @throws UnexpectedValueException when url was unable to convert to XML::anyURI
      */
     public function normalize(ExternalReference $externalReference): DOMElement
     {
-        // could throw DomainException if the type was not supported
+        $factory = $this->getNormalizerFactory();
+        $spec = $factory->getSpec();
+
+        $type = $externalReference->getType();
+        if (false === $spec->isSupportsExternalReferenceType($type)) {
+            throw new DomainException("ExternalReference has unsupported type: $type");
+        }
 
         $refURI = $externalReference->getUrl();
         $anyURI = $this->encodeAnyUriBE($refURI);
@@ -56,13 +62,13 @@ class ExternalReferenceNormalizer extends AbstractNormalizer
             // @codeCoverageIgnoreEnd
         }
 
-        $doc = $this->getNormalizerFactory()->getDocument();
+        $doc = $factory->getDocument();
 
         return $this->simpleDomAppendChildren(
             $this->simpleDomSetAttributes(
                 $doc->createElement('reference'),
                 [
-                    'type' => $externalReference->getType(),
+                    'type' => $type,
                 ]
             ),
             [

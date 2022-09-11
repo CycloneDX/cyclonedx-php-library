@@ -24,6 +24,7 @@ declare(strict_types=1);
 namespace CycloneDX\Core\Spec;
 
 use CycloneDX\Core\Enums\Classification;
+use CycloneDX\Core\Enums\ExternalReferenceType;
 use CycloneDX\Core\Enums\HashAlgorithm;
 
 /**
@@ -56,6 +57,24 @@ final class Spec11 implements SpecInterface
         HashAlgorithm::SHA_512,
         HashAlgorithm::SHA3_256,
         HashAlgorithm::SHA3_512,
+    ];
+
+    private const EXTERNAL_REFERENCE_TYPES = [
+        ExternalReferenceType::VCS,
+        ExternalReferenceType::ISSUE_TRACKER,
+        ExternalReferenceType::WEBSITE,
+        ExternalReferenceType::ADVISORIES,
+        ExternalReferenceType::BOM,
+        ExternalReferenceType::MAILING_LIST,
+        ExternalReferenceType::SOCIAL,
+        ExternalReferenceType::CHAT,
+        ExternalReferenceType::DOCUMENTATION,
+        ExternalReferenceType::SUPPORT,
+        ExternalReferenceType::DISTRIBUTION,
+        ExternalReferenceType::LICENSE,
+        ExternalReferenceType::BUILD_META,
+        ExternalReferenceType::BUILD_SYSTEM,
+        ExternalReferenceType::OTHER,
     ];
 
     private const HASH_CONTENT_REGEX = '/^(?:[a-fA-F0-9]{32}|[a-fA-F0-9]{40}|[a-fA-F0-9]{64}|[a-fA-F0-9]{96}|[a-fA-F0-9]{128})$/';

@@ -6,8 +6,16 @@ All notable changes to this project will be documented in this file.
 
 ## 2.0.0 - unreleased
 
+* BREAKING changes
+  * Public interface `\CycloneDX\Core\Spec\SpecInterface` requires new methods: (via [#65])
+    * `getSupportsExternalReferenceTypes()`
+    * `isSupportsExternalReferenceType()`
+* Changed
+  * The method `\CycloneDX\Core\Serialize\{DOM,JSON}\Normalizers\ExternalReferenceNormalizer::normalize` now throw `DomainException` when the `ExternalReference`'s type was not supported by the spec.  
+    This is considered a non-breaking change, because the behaviour was already documented in the API, even though there was no need for an implementation before. (via [#65])
 * Added
-  * Support for CycloneDX v1.4 specification. (via [#65])
+  * New class `\CycloneDX\Core\Spec\Spec14` to reflect CycloneDX v1.4. (via [#65])
+  * Spec implementations `\CycloneDX\Core\Spec\Spec1{1,2,3}`
 
 [#65]: https://github.com/CycloneDX/cyclonedx-php-library/pull/65
 

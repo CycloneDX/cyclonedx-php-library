@@ -24,6 +24,7 @@ declare(strict_types=1);
 namespace CycloneDX\Core\Spec;
 
 use CycloneDX\Core\Enums\Classification;
+use CycloneDX\Core\Enums\ExternalReferenceType;
 use CycloneDX\Core\Enums\HashAlgorithm;
 
 /**
@@ -89,5 +90,20 @@ trait SpecTrait
     public function isSupportedHashContent(string $content): bool
     {
         return 1 === preg_match(self::HASH_CONTENT_REGEX, $content);
+    }
+
+    /**
+     * @return string[]
+     *
+     * @psalm-return list<ExternalReferenceType::*>
+     */
+    public function getSupportsExternalReferenceTypes(): array
+    {
+        return self::EXTERNAL_REFERENCE_TYPES;
+    }
+
+    public function isSupportsExternalReferenceType(string $referenceType): bool
+    {
+        return \in_array($referenceType, self::EXTERNAL_REFERENCE_TYPES, true);
     }
 }

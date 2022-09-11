@@ -24,6 +24,7 @@ declare(strict_types=1);
 namespace CycloneDX\Core\Spec;
 
 use CycloneDX\Core\Enums\Classification;
+use CycloneDX\Core\Enums\ExternalReferenceType;
 use CycloneDX\Core\Enums\HashAlgorithm;
 
 /**
@@ -85,6 +86,15 @@ interface SpecInterface
      * version < 1.2 does not support BomRef.
      */
     public function supportsDependencies(): bool;
+
+    /**
+     * @return string[]
+     *
+     * @psalm-return list<ExternalReferenceType::*>
+     */
+    public function getSupportsExternalReferenceTypes(): array;
+
+    public function isSupportsExternalReferenceType(string $referenceType): bool;
 
     /**
      * version < 1.3 does not support hashes in ExternalReference.

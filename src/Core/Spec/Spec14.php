@@ -24,6 +24,7 @@ declare(strict_types=1);
 namespace CycloneDX\Core\Spec;
 
 use CycloneDX\Core\Enums\Classification;
+use CycloneDX\Core\Enums\ExternalReferenceType;
 use CycloneDX\Core\Enums\HashAlgorithm;
 
 /**
@@ -66,6 +67,25 @@ final class Spec14 implements SpecInterface
         HashAlgorithm::BLAKE2B_384,
         HashAlgorithm::BLAKE2B_512,
         HashAlgorithm::BLAKE3,
+    ];
+
+    private const EXTERNAL_REFERENCE_TYPES = [
+        ExternalReferenceType::VCS,
+        ExternalReferenceType::ISSUE_TRACKER,
+        ExternalReferenceType::WEBSITE,
+        ExternalReferenceType::ADVISORIES,
+        ExternalReferenceType::BOM,
+        ExternalReferenceType::MAILING_LIST,
+        ExternalReferenceType::SOCIAL,
+        ExternalReferenceType::CHAT,
+        ExternalReferenceType::DOCUMENTATION,
+        ExternalReferenceType::SUPPORT,
+        ExternalReferenceType::DISTRIBUTION,
+        ExternalReferenceType::LICENSE,
+        ExternalReferenceType::BUILD_META,
+        ExternalReferenceType::BUILD_SYSTEM,
+        ExternalReferenceType::RELEASE_NOTES,
+        ExternalReferenceType::OTHER,
     ];
 
     // @TODO
