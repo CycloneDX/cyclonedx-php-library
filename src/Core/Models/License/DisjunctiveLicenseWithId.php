@@ -27,6 +27,8 @@ use CycloneDX\Core\Spdx\License as LicenseValidator;
 use DomainException;
 
 /**
+ * Disjunctive license with (SPDX-)ID - aka SpdxLicense.
+ *
  * @author jkowalleck
  */
 class DisjunctiveLicenseWithId extends AbstractDisjunctiveLicense
