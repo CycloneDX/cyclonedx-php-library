@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 ## unreleased
 
+## 1.6.2 - 2022-09-12
+
+Maintenance release.
+
 * Docs:
   * Added "Responsibilities", "Capabilities" and "Usage" sections to README. (via [#115])
 
