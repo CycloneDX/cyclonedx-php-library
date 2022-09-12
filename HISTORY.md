@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## unreleased
 
+* Docs:
+  * Added "Responsibilities", "Capabilities" and "Usage" sections to README. (via [#115])
+
+[#115]: https://github.com/CycloneDX/cyclonedx-php-library/pull/115
+
 ## 1.6.1 - 2022-08-16
 
 * Maintenance release.

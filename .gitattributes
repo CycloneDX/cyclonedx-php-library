@@ -29,6 +29,7 @@ composer.lock text eol=lf diff=json
 /CODEOWNERS             export-ignore
 /CONTRIBUTING.md        export-ignore
 /demo                   export-ignore
+/examples               export-ignore
 /docs/dev               export-ignore
 
 # files that are forced to be exported in "dist" releaes

@@ -21,36 +21,25 @@ declare(strict_types=1);
  * Copyright (c) Steve Springett. All Rights Reserved.
  */
 
-namespace CycloneDX\Core\Models\License;
+require_once __DIR__.'/../vendor/autoload.php';
 
-/**
- * Disjunctive license with name - aka NamedLicense.
- *
- * @author jkowalleck
- */
-class DisjunctiveLicenseWithName extends AbstractDisjunctiveLicense
-{
-    /**
-     * If SPDX does not define the license used, this field may be used to provide the license name.
-     *
-     * @var string|null
-     */
-    private $name;
+// Example how to serialize a Bom to JSON / XML.
 
-    public function getName(): ?string
-    {
-        return $this->name;
-    }
+$bom = new \CycloneDX\Core\Models\Bom();
+$bom->getComponentRepository()->addComponent(
+    new \CycloneDX\Core\Models\Component(
+        \CycloneDX\Core\Enums\Classification::LIBRARY,
+        'myComponent',
+        '1.33.7'
+    )
+);
 
-    public function setName(string $name): self
-    {
-        $this->name = $name;
+$spec = new \CycloneDX\Core\Spec\Spec13();
 
-        return $this;
-    }
+$jsonSerializer = new \CycloneDX\Core\Serialize\JsonSerializer($spec);
+$serializedJSON = $jsonSerializer->serialize($bom);
+echo $serializedJSON, \PHP_EOL;
 
-    public function __construct(string $name)
-    {
-        $this->setName($name);
-    }
-}
+$xmlSerializer = new \CycloneDX\Core\Serialize\XmlSerializer($spec);
+$serializedXML = $xmlSerializer->serialize($bom);
+echo $serializedXML, \PHP_EOL;
