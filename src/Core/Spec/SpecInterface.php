@@ -28,7 +28,7 @@ use CycloneDX\Core\Enums\ExternalReferenceType;
 use CycloneDX\Core\Enums\HashAlgorithm;
 
 /**
- * @internal This interface may be affected by breaking changes without notice.
+ * @internal as this interface may be affected by breaking changes without notice
  *
  * @author jkowalleck
  */

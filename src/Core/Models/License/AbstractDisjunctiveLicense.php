@@ -26,7 +26,7 @@ namespace CycloneDX\Core\Models\License;
 /**
  * @author jkowalleck
  *
- * @internal This class may be affected by breaking changes without notice.
+ * @internal as this class may be affected by breaking changes without notice
  */
 abstract class AbstractDisjunctiveLicense
 {

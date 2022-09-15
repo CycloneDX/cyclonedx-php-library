@@ -27,7 +27,7 @@ use CycloneDX\Core\Resources;
 use Swaggest\JsonSchema;
 
 /**
- * @internal This class may be affected by breaking changes without notice.
+ * @internal as this class may be affected by breaking changes without notice
  *
  * @author jkowalleck
  */

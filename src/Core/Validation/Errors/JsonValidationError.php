@@ -32,7 +32,7 @@ use Swaggest\JsonSchema;
 class JsonValidationError extends ValidationError
 {
     /**
-     * @internal This function may be affected by breaking changes without notice.
+     * @internal as this function may be affected by breaking changes without notice
      *
      * @return static
      */

@@ -40,7 +40,7 @@ class XmlValidator extends BaseValidator
     /**
      * {@inheritdoc}
      *
-     * @internal This function may be affected by breaking changes without notice.
+     * @internal as this function may be affected by breaking changes without notice
      */
     protected static function listSchemaFiles(): array
     {
