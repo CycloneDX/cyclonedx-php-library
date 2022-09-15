@@ -7,14 +7,18 @@ All notable changes to this project will be documented in this file.
 ## 2.0.0 - unreleased
 
 * BREAKING changes
-  * Interface `\CycloneDX\Core\Spec\SpecInterface` became internal, was public api. (via [#65])
-  
+  * Interface `\CycloneDX\Core\Spec\SpecInterface` became internal, was public api. (via [#65])  
+    This is done to prevent the need for "breaking changed"  when the schema requires additional spec implementations.
 * Changed
-  * The method `\CycloneDX\Core\Serialize\{DOM,JSON}\Normalizers\ExternalReferenceNormalizer::normalize` now throw `DomainException` when the `ExternalReference`'s type was not supported by the spec.  
-    This is considered a non-breaking change, because the behaviour was already documented in the API, even though there was no need for an implementation before. (via [#65])
+  * Method `\CycloneDX\Core\Serialize\{DOM,JSON}\Normalizers\ExternalReferenceNormalizer::normalize` throw `DomainException` when `ExternalReference`'s type was not supported by the spec.  (via [#65])  
+    This is considered a non-breaking change, because the behaviour was already documented in the API, even though there was no need for an implementation before.
 * Added
   * New class `\CycloneDX\Core\Spec\Spec14` to reflect CycloneDX v1.4. (via [#65])
-  * Spec implementations `\CycloneDX\Core\Spec\Spec1{1,2,3}`
+  * New methods in class `\CycloneDX\Core\Spec\Spec1{1,2,3}` (via [#65])
+    * `::getSupportsExternalReferenceTypes()`
+    * `::isSupportsExternalReferenceType()`
+  * New class constant `\CycloneDX\Core\Spec\Version::V_1_4` (via [#65])
+  * Support for spec v1.4 in `CycloneDX\Core\Validation\Validators\{Json,Xml}StrictValidator`. (via [#65])
 
 [#65]: https://github.com/CycloneDX/cyclonedx-php-library/pull/65
 
