@@ -25,6 +25,7 @@ namespace CycloneDX\Core\Serialize\DOM\Normalizers;
 
 use CycloneDX\Core\Helpers\SimpleDomTrait;
 use CycloneDX\Core\Models\Tool;
+use CycloneDX\Core\Repositories\ExternalReferenceRepository;
 use CycloneDX\Core\Repositories\HashRepository;
 use CycloneDX\Core\Serialize\DOM\AbstractNormalizer;
 use DOMElement;
@@ -47,6 +48,7 @@ class ToolNormalizer extends AbstractNormalizer
                 $this->simpleDomSafeTextElement($doc, 'name', $tool->getName()),
                 $this->simpleDomSafeTextElement($doc, 'version', $tool->getVersion()),
                 $this->normalizeHashes($tool->getHashRepository()),
+                $this->normalizeExternalReferences($tool->getExternalReferenceRepository()),
             ]
         );
     }
@@ -58,6 +60,18 @@ class ToolNormalizer extends AbstractNormalizer
             : $this->simpleDomAppendChildren(
                 $this->getNormalizerFactory()->getDocument()->createElement('hashes'),
                 $this->getNormalizerFactory()->makeForHashRepository()->normalize($hashes)
+            );
+    }
+
+    private function normalizeExternalReferences(?ExternalReferenceRepository $externalReferenceRepository): ?DOMElement
+    {
+        $factory = $this->getNormalizerFactory();
+
+        return null === $externalReferenceRepository || 0 === \count($externalReferenceRepository)
+            ? null
+            : $this->simpleDomAppendChildren(
+                $factory->getDocument()->createElement('externalReferences'),
+                $factory->makeForExternalReferenceRepository()->normalize($externalReferenceRepository)
             );
     }
 }

@@ -25,6 +25,7 @@ namespace CycloneDX\Core\Serialize\JSON\Normalizers;
 
 use CycloneDX\Core\Helpers\NullAssertionTrait;
 use CycloneDX\Core\Models\Tool;
+use CycloneDX\Core\Repositories\ExternalReferenceRepository;
 use CycloneDX\Core\Repositories\HashRepository;
 use CycloneDX\Core\Serialize\JSON\AbstractNormalizer;
 
@@ -43,6 +44,7 @@ class ToolNormalizer extends AbstractNormalizer
                 'name' => $tool->getName(),
                 'version' => $tool->getVersion(),
                 'hashes' => $this->normalizeHashes($tool->getHashRepository()),
+                'externalReferences' => $this->normalizeExternalReferences($tool->getExternalReferenceRepository()),
             ],
             [$this, 'isNotNull']
         );
@@ -53,5 +55,12 @@ class ToolNormalizer extends AbstractNormalizer
         return null === $hashes || 0 === \count($hashes)
             ? null
             : $this->getNormalizerFactory()->makeForHashRepository()->normalize($hashes);
+    }
+
+    private function normalizeExternalReferences(?ExternalReferenceRepository $externalReferenceRepository): ?array
+    {
+        return null === $externalReferenceRepository || 0 === \count($externalReferenceRepository)
+            ? null
+            : $this->getNormalizerFactory()->makeForExternalReferenceRepository()->normalize($externalReferenceRepository);
     }
 }
