@@ -69,6 +69,7 @@ class ClassificationTest extends TestCase
             BomSpecData::getClassificationEnumForVersion('1.1'),
             BomSpecData::getClassificationEnumForVersion('1.2'),
             BomSpecData::getClassificationEnumForVersion('1.3'),
+            BomSpecData::getClassificationEnumForVersion('1.4'),
         ));
         foreach ($allValues as $value) {
             yield $value => [$value];

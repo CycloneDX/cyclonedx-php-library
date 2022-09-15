@@ -28,6 +28,7 @@ namespace CycloneDX\Core\Enums;
  * See {@link https://cyclonedx.org/schema/bom/1.1 Schema 1.1} for `hashAlg`.
  * See {@link https://cyclonedx.org/schema/bom/1.2 Schema 1.2} for `hashAlg`.
  * See {@link https://cyclonedx.org/schema/bom/1.3 Schema 1.3} for `hashAlg`.
+ * See {@link https://cyclonedx.org/schema/bom/1.4 Schema 1.4} for `hashAlg`.
  *
  * @author jkowalleck
  */

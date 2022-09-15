@@ -28,6 +28,7 @@ use CycloneDX\Core\Serialize\JsonSerializer;
 use CycloneDX\Core\Spec\Spec11;
 use CycloneDX\Core\Spec\Spec12;
 use CycloneDX\Core\Spec\Spec13;
+use CycloneDX\Core\Spec\Spec14;
 use CycloneDX\Core\Validation\Validators\JsonStrictValidator;
 use DomainException;
 use PHPUnit\Framework\TestCase;
@@ -108,4 +109,29 @@ class SerializeToJsonTest extends TestCase
     }
 
     // endregion Spec 1.3
+
+    // region Spec 1.4
+
+    /**
+     * This test might be slow.
+     * This test might require online-connectivity.
+     *
+     * @dataProvider \CycloneDX\Tests\_data\BomModelProvider::allBomTestData
+     *
+     * @throws \Exception on validation failure
+     */
+    public function testSchema14(Bom $bom): void
+    {
+        $spec = new Spec14();
+        $serializer = new JsonSerializer($spec);
+        $validator = new JsonStrictValidator($spec);
+
+        $json = $serializer->serialize($bom);
+        self::assertJson($json);
+
+        $validationErrors = $validator->validateString($json);
+        self::assertNull($validationErrors);
+    }
+
+    // endregion Spec 1.4
 }

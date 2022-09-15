@@ -24,12 +24,12 @@ declare(strict_types=1);
 namespace CycloneDX\Core\Models;
 
 /**
- * An identifier which can be used to reference objects elsewhere in the BOM.
+ * Identifier-DataType for interlinked elements.
+ *
+ * Class is currently final, to enforce proper usage.
  *
  * Implementation is intended to prevent memory leaks.
  * See ../../../docs/dev/decisions/BomDependencyDataModel.md
- *
- * Class is currently final, to enforce proper usage.
  *
  * @author jkowalleck
  */

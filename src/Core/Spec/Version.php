@@ -31,4 +31,5 @@ abstract class Version
     public const V_1_1 = '1.1';
     public const V_1_2 = '1.2';
     public const V_1_3 = '1.3';
+    public const V_1_4 = '1.4';
 }

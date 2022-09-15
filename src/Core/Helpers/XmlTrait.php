@@ -28,7 +28,7 @@ use DOMDocument;
 /**
  * @author jkowalleck
  *
- * @internal
+ * @internal as this trait may be affected by breaking changes without notice
  */
 trait XmlTrait
 {

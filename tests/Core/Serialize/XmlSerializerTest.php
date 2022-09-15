@@ -133,4 +133,37 @@ class XmlSerializerTest extends TestCase
             $actual
         );
     }
+
+    /**
+     * @uses   \CycloneDX\Core\Serialize\DOM\AbstractNormalizer
+     * @uses   \CycloneDX\Core\Serialize\DOM\NormalizerFactory
+     * @uses   \CycloneDX\Core\Serialize\DOM\Normalizers\BomNormalizer
+     * @uses   \CycloneDX\Core\Serialize\DOM\Normalizers\ComponentRepositoryNormalizer
+     * @uses   \CycloneDX\Core\Serialize\DOM\Normalizers\ComponentNormalizer
+     * @uses   \CycloneDX\Core\Serialize\BomRefDiscriminator
+     */
+    public function testSerialize14(): void
+    {
+        $spec = $this->createConfiguredMock(
+            SpecInterface::class,
+            [
+                'getVersion' => '1.4',
+                'isSupportedFormat' => true,
+            ]
+        );
+        $serializer = new XmlSerializer($spec);
+        $bom = $this->createStub(Bom::class);
+
+        $actual = $serializer->serialize($bom);
+
+        self::assertXmlStringEqualsXmlString(
+            <<<'XML'
+                <?xml version="1.0" encoding="UTF-8"?>
+                <bom xmlns="http://cyclonedx.org/schema/bom/1.4" version="0">
+                  <components/>
+                </bom>
+                XML,
+            $actual
+        );
+    }
 }

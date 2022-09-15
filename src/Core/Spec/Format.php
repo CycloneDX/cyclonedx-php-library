@@ -24,7 +24,7 @@ declare(strict_types=1);
 namespace CycloneDX\Core\Spec;
 
 /**
- * @internal
+ * @internal as this class may be affected by breaking changes without notice
  *
  * @author jkowalleck
  */

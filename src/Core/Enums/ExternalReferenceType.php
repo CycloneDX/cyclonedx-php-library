@@ -27,6 +27,7 @@ namespace CycloneDX\Core\Enums;
  * See {@link https://cyclonedx.org/schema/bom/1.1 Schema 1.1} for `externalReferenceType`.
  * See {@link https://cyclonedx.org/schema/bom/1.2 Schema 1.2} for `externalReferenceType`.
  * See {@link https://cyclonedx.org/schema/bom/1.3 Schema 1.3} for `externalReferenceType`.
+ * See {@link https://cyclonedx.org/schema/bom/1.4 Schema 1.4} for `externalReferenceType`.
  *
  * @author jkowalleck
  */
@@ -60,6 +61,8 @@ abstract class ExternalReferenceType
     public const BUILD_META = 'build-meta';
     /** URL to an automated build system. */
     public const BUILD_SYSTEM = 'build-system';
+    /** URL to release notes. */
+    public const RELEASE_NOTES = 'release-notes';
     /** Use this if no other types accurately describe the purpose of the external reference. */
     public const OTHER = 'other';
 

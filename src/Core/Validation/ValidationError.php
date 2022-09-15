@@ -58,7 +58,7 @@ class ValidationError
     }
 
     /**
-     * @internal
+     * @internal as this function may be affected by breaking changes without notice
      *
      * @return static
      */

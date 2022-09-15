@@ -27,6 +27,7 @@ use CycloneDX\Core\Helpers\NullAssertionTrait;
 use CycloneDX\Core\Models\ExternalReference;
 use CycloneDX\Core\Repositories\HashRepository;
 use CycloneDX\Core\Serialize\JSON\AbstractNormalizer;
+use DomainException;
 
 /**
  * @author jkowalleck
@@ -36,15 +37,18 @@ class ExternalReferenceNormalizer extends AbstractNormalizer
     use NullAssertionTrait;
 
     /**
-     * @throws \DomainException
+     * @throws DomainException when the type was not supported by the spec
      */
     public function normalize(ExternalReference $externalReference): array
     {
-        // could throw DomainException if the type was not supported
+        $type = $externalReference->getType();
+        if (false === $this->getNormalizerFactory()->getSpec()->isSupportsExternalReferenceType($type)) {
+            throw new DomainException("ExternalReference has unsupported type: $type");
+        }
 
         return array_filter(
             [
-                'type' => $externalReference->getType(),
+                'type' => $type,
                 'url' => $externalReference->getUrl(),
                 'comment' => $externalReference->getComment(),
                 'hashes' => $this->normalizeHashes($externalReference->getHashRepository()),

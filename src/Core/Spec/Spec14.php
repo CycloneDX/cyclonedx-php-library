@@ -30,17 +30,18 @@ use CycloneDX\Core\Enums\HashAlgorithm;
 /**
  * @author jkowalleck
  */
-final class Spec13 implements SpecInterface
+final class Spec14 implements SpecInterface
 {
     use SpecTrait;
 
-    private const VERSION = Version::V_1_3;
+    private const VERSION = Version::V_1_4;
 
     private const FORMATS = [
         Format::XML,
         Format::JSON,
     ];
 
+    // @TODO
     private const COMPONENT_TYPES = [
         Classification::APPLICATION,
         Classification::FRAMEWORK,
@@ -52,6 +53,7 @@ final class Spec13 implements SpecInterface
         Classification::FIRMWARE,
     ];
 
+    // @TODO
     private const HASH_ALGORITHMS = [
         HashAlgorithm::MD5,
         HashAlgorithm::SHA_1,
@@ -82,9 +84,11 @@ final class Spec13 implements SpecInterface
         ExternalReferenceType::LICENSE,
         ExternalReferenceType::BUILD_META,
         ExternalReferenceType::BUILD_SYSTEM,
+        ExternalReferenceType::RELEASE_NOTES,
         ExternalReferenceType::OTHER,
     ];
 
+    // @TODO
     private const HASH_CONTENT_REGEX = '/^(?:[a-fA-F0-9]{32}|[a-fA-F0-9]{40}|[a-fA-F0-9]{64}|[a-fA-F0-9]{96}|[a-fA-F0-9]{128})$/';
 
     public function supportsLicenseExpression(): bool
