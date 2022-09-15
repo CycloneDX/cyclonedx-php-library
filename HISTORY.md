@@ -26,6 +26,13 @@ All notable changes to this project will be documented in this file.
 [#65]: https://github.com/CycloneDX/cyclonedx-php-library/pull/65
 [#118]: https://github.com/CycloneDX/cyclonedx-php-library/pull/118
 
+## 1.6.3 - 2022-09-15
+
+Maintenance Release.
+
+* Legal:
+  * Transferred copyright to OWASP Foundation.
+
 ## 1.6.2 - 2022-09-12
 
 Maintenance release.
