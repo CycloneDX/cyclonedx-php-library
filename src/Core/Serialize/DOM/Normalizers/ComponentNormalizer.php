@@ -93,7 +93,7 @@ class ComponentNormalizer extends AbstractNormalizer
                 $this->normalizeHashes($component->getHashRepository()),
                 $this->normalizeLicense($component->getLicense()),
                 // copyright
-                // cpe <-- DEPRECATED in latest spec
+                // cpe
                 $this->normalizePurl($component->getPackageUrl()),
                 // modified
                 // pedigree
