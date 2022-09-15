@@ -115,4 +115,9 @@ final class Spec14 implements SpecInterface
     {
         return true;
     }
+
+    public function requiresComponentVersion(): bool
+    {
+        return false;
+    }
 }

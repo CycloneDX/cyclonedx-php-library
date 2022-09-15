@@ -49,7 +49,6 @@ class ComponentNormalizerTest extends TestCase
             Component::class,
             [
                 'getName' => 'foo',
-                'getVersion' => 'some-version',
                 'getType' => 'FakeType',
             ]
         );
@@ -67,13 +66,16 @@ class ComponentNormalizerTest extends TestCase
         $normalizer->normalize($component);
     }
 
-    public function testNormalizeMinimal(): void
+    /**
+     * @dataProvider dptNormalizeMinimal
+     */
+    public function testNormalizeMinimal(array $expected, bool $requiresComponentVersion): void
     {
         $component = $this->createConfiguredMock(
             Component::class,
             [
                 'getName' => 'foo',
-                'getVersion' => 'some-version',
+                'getVersion' => null,
                 'getType' => 'FakeType',
                 'getGroup' => null,
                 'getDescription' => null,
@@ -86,17 +88,35 @@ class ComponentNormalizerTest extends TestCase
         $factory = $this->createConfiguredMock(NormalizerFactory::class, ['getSpec' => $spec]);
         $normalizer = new Normalizers\ComponentNormalizer($factory);
 
-        $spec->expects(self::once())->method('isSupportedComponentType')
+        $spec->expects(self::once())
+            ->method('isSupportedComponentType')
             ->with('FakeType')
             ->willReturn(true);
+        $spec->method('requiresComponentVersion')
+            ->willReturn($requiresComponentVersion);
 
-        $got = $normalizer->normalize($component);
+        $actual = $normalizer->normalize($component);
 
-        self::assertSame([
-            'type' => 'FakeType',
-            'name' => 'foo',
-            'version' => 'some-version',
-        ], $got);
+        self::assertSame($expected, $actual);
+    }
+
+    public function dptNormalizeMinimal(): \Generator
+    {
+        yield 'mandatory Component Version' => [
+            [
+                'type' => 'FakeType',
+                'name' => 'foo',
+                'version' => '',
+            ],
+            true,
+        ];
+        yield 'optional Component Version' => [
+            [
+                'type' => 'FakeType',
+                'name' => 'foo',
+            ],
+            false,
+        ];
     }
 
     /**
@@ -134,13 +154,16 @@ class ComponentNormalizerTest extends TestCase
         ]);
         $normalizer = new Normalizers\ComponentNormalizer($factory);
 
-        $spec->expects(self::once())->method('isSupportedComponentType')
+        $spec->expects(self::once())
+            ->method('isSupportedComponentType')
             ->with('FakeType')
             ->willReturn(true);
-        $licenseExpressionNormalizer->expects(self::once())->method('normalize')
+        $licenseExpressionNormalizer->expects(self::once())
+            ->method('normalize')
             ->with($component->getLicense())
             ->willReturn(['FakeLicense']);
-        $hashRepositoryNormalizer->expects(self::once())->method('normalize')
+        $hashRepositoryNormalizer->expects(self::once())
+            ->method('normalize')
             ->with($component->getHashRepository())
             ->willReturn(['FakeHashes']);
 
@@ -173,7 +196,6 @@ class ComponentNormalizerTest extends TestCase
             Component::class,
             [
                 'getName' => 'myName',
-                'getVersion' => 'some-version',
                 'getType' => 'FakeType',
                 'getLicense' => $this->createConfiguredMock(LicenseExpression::class, ['getExpression' => 'myLicense']),
             ]
@@ -201,10 +223,12 @@ class ComponentNormalizerTest extends TestCase
             return true;
         };
 
-        $spec->expects(self::once())->method('isSupportedComponentType')
+        $spec->expects(self::once())
+            ->method('isSupportedComponentType')
             ->with('FakeType')
             ->willReturn(true);
-        $licenseNormalizer->expects(self::once())->method('normalize')
+        $licenseNormalizer->expects(self::once())
+            ->method('normalize')
             ->with($this->callback($transformedLicenseTest))
             ->willReturn(['FakeLicense']);
 
@@ -213,7 +237,6 @@ class ComponentNormalizerTest extends TestCase
         self::assertEquals([
             'type' => 'FakeType',
             'name' => 'myName',
-            'version' => 'some-version',
             'licenses' => ['FakeLicense'],
         ], $got);
     }
@@ -224,7 +247,6 @@ class ComponentNormalizerTest extends TestCase
             Component::class,
             [
                 'getName' => 'myName',
-                'getVersion' => 'some-version',
                 'getType' => 'FakeType',
                 'getLicense' => $this->createConfiguredMock(DisjunctiveLicenseRepository::class, ['count' => 1]),
             ]
@@ -237,10 +259,12 @@ class ComponentNormalizerTest extends TestCase
         ]);
         $normalizer = new Normalizers\ComponentNormalizer($factory);
 
-        $spec->expects(self::once())->method('isSupportedComponentType')
+        $spec->expects(self::once())
+            ->method('isSupportedComponentType')
             ->with('FakeType')
             ->willReturn(true);
-        $licenseNormalizer->expects(self::once())->method('normalize')
+        $licenseNormalizer->expects(self::once())
+            ->method('normalize')
             ->with($component->getLicense())
             ->willReturn(['FakeLicenses']);
 
@@ -249,7 +273,6 @@ class ComponentNormalizerTest extends TestCase
         self::assertEquals([
             'type' => 'FakeType',
             'name' => 'myName',
-            'version' => 'some-version',
             'licenses' => ['FakeLicenses'],
         ], $got);
     }
@@ -260,7 +283,6 @@ class ComponentNormalizerTest extends TestCase
             Component::class,
             [
                 'getName' => 'myName',
-                'getVersion' => 'some-version',
                 'getType' => 'FakeType',
                 'getLicense' => $this->createConfiguredMock(DisjunctiveLicenseRepository::class, ['count' => 0]),
             ]
@@ -273,17 +295,18 @@ class ComponentNormalizerTest extends TestCase
         ]);
         $normalizer = new Normalizers\ComponentNormalizer($factory);
 
-        $spec->expects(self::once())->method('isSupportedComponentType')
+        $spec->expects(self::once())
+            ->method('isSupportedComponentType')
             ->with('FakeType')
             ->willReturn(true);
-        $licenseNormalizer->expects(self::never())->method('normalize');
+        $licenseNormalizer->expects(self::never())
+            ->method('normalize');
 
         $got = $normalizer->normalize($component);
 
         self::assertEquals([
             'type' => 'FakeType',
             'name' => 'myName',
-            'version' => 'some-version',
         ], $got);
     }
 
@@ -295,7 +318,6 @@ class ComponentNormalizerTest extends TestCase
             Component::class,
             [
                 'getName' => 'myName',
-                'getVersion' => 'some-version',
                 'getType' => 'FakeType',
                 'getExternalReferenceRepository' => $this->createConfiguredMock(ExternalReferenceRepository::class, ['count' => 1]),
             ]
@@ -311,7 +333,8 @@ class ComponentNormalizerTest extends TestCase
         );
         $normalizer = new Normalizers\ComponentNormalizer($factory);
 
-        $spec->expects(self::once())->method('isSupportedComponentType')
+        $spec->expects(self::once())
+            ->method('isSupportedComponentType')
             ->with('FakeType')
             ->willReturn(true);
         $externalReferenceRepositoryNormalizer->expects(self::once())
@@ -324,7 +347,6 @@ class ComponentNormalizerTest extends TestCase
         self::assertSame([
             'type' => 'FakeType',
             'name' => 'myName',
-            'version' => 'some-version',
             'externalReferences' => ['FakeExternalReference'],
             ],
             $actual
@@ -337,7 +359,6 @@ class ComponentNormalizerTest extends TestCase
             Component::class,
             [
                 'getName' => 'myName',
-                'getVersion' => 'some-version',
                 'getType' => 'FakeType',
                 'getExternalReferenceRepository' => $this->createConfiguredMock(ExternalReferenceRepository::class, ['count' => 0]),
             ]
@@ -353,17 +374,18 @@ class ComponentNormalizerTest extends TestCase
         );
         $normalizer = new Normalizers\ComponentNormalizer($factory);
 
-        $spec->expects(self::once())->method('isSupportedComponentType')
+        $spec->expects(self::once())
+            ->method('isSupportedComponentType')
             ->with('FakeType')
             ->willReturn(true);
-        $externalReferenceRepositoryNormalizer->expects(self::never())->method('normalize');
+        $externalReferenceRepositoryNormalizer->expects(self::never())
+            ->method('normalize');
 
         $actual = $normalizer->normalize($component);
 
         self::assertEquals([
             'type' => 'FakeType',
             'name' => 'myName',
-            'version' => 'some-version',
         ], $actual);
     }
 

@@ -111,4 +111,9 @@ final class Spec12 implements SpecInterface
     {
         return false;
     }
+
+    public function requiresComponentVersion(): bool
+    {
+        return true;
+    }
 }

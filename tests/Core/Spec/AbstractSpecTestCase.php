@@ -197,4 +197,12 @@ abstract class AbstractSpecTestCase extends TestCase
     }
 
     abstract public function shouldSupportExternalReferenceHashes(): bool;
+
+    final public function testRequiresComponentVersion(): void
+    {
+        $isSupported = $this->getSpec()->requiresComponentVersion();
+        self::assertSame($this->shouldRequireComponentVersion(), $isSupported);
+    }
+
+    abstract public function shouldRequireComponentVersion(): bool;
 }

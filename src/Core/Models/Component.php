@@ -138,9 +138,7 @@ class Component
      * The component version. The version should ideally comply with semantic versioning
      * but is not enforced.
      *
-     * @var string
-     *
-     * @psalm-suppress PropertyNotSetInConstructor
+     * @var string|null
      */
     private $version;
 
@@ -303,7 +301,7 @@ class Component
         return $this;
     }
 
-    public function getVersion(): string
+    public function getVersion(): ?string
     {
         return $this->version;
     }
@@ -311,7 +309,7 @@ class Component
     /**
      * @return $this
      */
-    public function setVersion(string $version): self
+    public function setVersion(?string $version): self
     {
         $this->version = $version;
 
@@ -368,7 +366,7 @@ class Component
      *
      * @throws DomainException if type is unknown
      */
-    public function __construct(string $type, string $name, string $version)
+    public function __construct(string $type, string $name, ?string $version = null)
     {
         $this->setType($type);
         $this->setName($name);
