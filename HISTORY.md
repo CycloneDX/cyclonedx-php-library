@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 ## unreleased
 
+## 1.6.3 - 2022-09-15
+
+Maintenance Release.
+
+* Legal:
+  * Transferred copyright to OWASP Foundation.
+
 ## 1.6.2 - 2022-09-12
 
 Maintenance release.
