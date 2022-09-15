@@ -28,7 +28,7 @@ use DOMElement;
 use DOMNode;
 
 /**
- * @internal
+ * @internal This trait may be affected by breaking changes without notice.
  *
  * @author jkowalleck
  */

@@ -26,7 +26,7 @@ namespace CycloneDX\Core\Helpers;
 /**
  * @author jkowalleck
  *
- * @internal
+ * @internal This trait may be affected by breaking changes without notice.
  */
 trait NullAssertionTrait
 {

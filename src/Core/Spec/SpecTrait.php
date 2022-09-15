@@ -28,7 +28,7 @@ use CycloneDX\Core\Enums\ExternalReferenceType;
 use CycloneDX\Core\Enums\HashAlgorithm;
 
 /**
- * @internal
+ * @internal This trait may be affected by breaking changes without notice.
  *
  * @author jkowalleck
  */

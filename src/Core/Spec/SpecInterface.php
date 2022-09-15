@@ -28,6 +28,8 @@ use CycloneDX\Core\Enums\ExternalReferenceType;
 use CycloneDX\Core\Enums\HashAlgorithm;
 
 /**
+ * @internal This interface may be affected by breaking changes without notice.
+ *
  * @author jkowalleck
  */
 interface SpecInterface

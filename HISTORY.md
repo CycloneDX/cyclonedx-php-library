@@ -7,9 +7,8 @@ All notable changes to this project will be documented in this file.
 ## 2.0.0 - unreleased
 
 * BREAKING changes
-  * Public interface `\CycloneDX\Core\Spec\SpecInterface` requires new methods: (via [#65])
-    * `getSupportsExternalReferenceTypes()`
-    * `isSupportsExternalReferenceType()`
+  * Interface `\CycloneDX\Core\Spec\SpecInterface` became internal, was public api. (via [#65])
+  
 * Changed
   * The method `\CycloneDX\Core\Serialize\{DOM,JSON}\Normalizers\ExternalReferenceNormalizer::normalize` now throw `DomainException` when the `ExternalReference`'s type was not supported by the spec.  
     This is considered a non-breaking change, because the behaviour was already documented in the API, even though there was no need for an implementation before. (via [#65])

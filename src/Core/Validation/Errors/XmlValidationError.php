@@ -39,7 +39,7 @@ class XmlValidationError extends ValidationError
     private $debugError;
 
     /**
-     * @internal
+     * @internal This function may be affected by breaking changes without notice.
      *
      * @return static
      */
@@ -54,7 +54,7 @@ class XmlValidationError extends ValidationError
     /**
      * Accessor for debug purposes.
      *
-     * @internal as this method is not kept backwards-compatible
+     * @internal This method may be affected by breaking changes without notice.
      *
      * @codeCoverageIgnore
      *
