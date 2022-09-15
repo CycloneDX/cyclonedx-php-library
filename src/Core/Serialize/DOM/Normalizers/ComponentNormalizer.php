@@ -58,7 +58,10 @@ class ComponentNormalizer extends AbstractNormalizer
 
         $type = $component->getType();
         if (false === $spec->isSupportedComponentType($type)) {
-            $reportFQN = "$group/$name@$version";
+            $reportFQN = "$group/$name";
+            if (null !== $version) {
+                $reportFQN .= "@$version";
+            }
             throw new DomainException("Component '$reportFQN' has unsupported type: $type");
         }
 
@@ -80,7 +83,11 @@ class ComponentNormalizer extends AbstractNormalizer
                 // publisher
                 $this->simpleDomSafeTextElement($document, 'group', $group),
                 $this->simpleDomSafeTextElement($document, 'name', $name),
-                $this->simpleDomSafeTextElement($document, 'version', $version),
+                $this->simpleDomSafeTextElement($document, 'version',
+                    null === $version && $spec->requiresComponentVersion()
+                        ? ''
+                        : $version
+                ),
                 $this->simpleDomSafeTextElement($document, 'description', $component->getDescription()),
                 // scope
                 $this->normalizeHashes($component->getHashRepository()),

@@ -175,7 +175,7 @@ abstract class BomModelProvider
         yield 'component: plain' => [
             (new Bom())->setComponentRepository(
                 new ComponentRepository(
-                    new Component(Classification::LIBRARY, 'name', 'version')
+                    new Component(Classification::LIBRARY, 'name')
                 )
             ),
         ];

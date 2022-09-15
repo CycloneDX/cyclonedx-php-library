@@ -54,7 +54,10 @@ class ComponentNormalizer extends AbstractNormalizer
 
         $type = $component->getType();
         if (false === $spec->isSupportedComponentType($type)) {
-            $reportFQN = "$group/$name@$version";
+            $reportFQN = "$group/$name";
+            if (null !== $version) {
+                $reportFQN .= "@$version";
+            }
             throw new DomainException("Component '$reportFQN' has unsupported type: $type");
         }
 
@@ -67,7 +70,9 @@ class ComponentNormalizer extends AbstractNormalizer
                 'bom-ref' => $bomRef,
                 'type' => $type,
                 'name' => $name,
-                'version' => $version,
+                'version' => null === $version && $spec->requiresComponentVersion()
+                    ? ''
+                    : $version,
                 'group' => $group,
                 'description' => $component->getDescription(),
                 'licenses' => $this->normalizeLicense($component->getLicense()),

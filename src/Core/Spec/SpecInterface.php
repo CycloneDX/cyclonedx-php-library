@@ -102,4 +102,9 @@ interface SpecInterface
      * version < 1.3 does not support hashes in ExternalReference.
      */
     public function supportsExternalReferenceHashes(): bool;
+
+    /**
+     * version < 1.4 requires components to have a version, later it became optional.
+     */
+    public function requiresComponentVersion(): bool;
 }
