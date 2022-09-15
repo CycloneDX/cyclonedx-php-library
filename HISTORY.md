@@ -9,7 +9,9 @@ All notable changes to this project will be documented in this file.
 Maintenance Release.
 
 * Legal:
-  * Transferred copyright to OWASP Foundation.
+  * Transferred copyright to OWASP Foundation. (via [#121])
+
+[#121]: https://github.com/CycloneDX/cyclonedx-php-library/pull/121
 
 ## 1.6.2 - 2022-09-12
 
