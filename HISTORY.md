@@ -7,6 +7,7 @@ All notable changes to this project will be documented in this file.
 ## 2.0.0 - unreleased
 
 * BREAKING changes
+  * Dropped support for php v7.3 and v7.4. (via [#125])
   * Interface `\CycloneDX\Core\Spec\SpecInterface` became internal, was public api. (via [#65])  
     This is done to prevent the need for future "breaking changed" when the schema requires additional spec implementations.
 * Changed
@@ -28,6 +29,7 @@ All notable changes to this project will be documented in this file.
 [#118]: https://github.com/CycloneDX/cyclonedx-php-library/pull/118
 [#123]: https://github.com/CycloneDX/cyclonedx-php-library/pull/123
 [#124]: https://github.com/CycloneDX/cyclonedx-php-library/pull/123
+[#125]: https://github.com/CycloneDX/cyclonedx-php-library/pull/125
 
 ## 1.6.3 - 2022-09-15
 
