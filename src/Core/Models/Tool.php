@@ -23,6 +23,7 @@ declare(strict_types=1);
 
 namespace CycloneDX\Core\Models;
 
+use CycloneDX\Core\Repositories\ExternalReferenceRepository;
 use CycloneDX\Core\Repositories\HashRepository;
 
 /**
@@ -57,6 +58,13 @@ class Tool
      * @var HashRepository|null
      */
     private $hashRepository;
+
+    /**
+     * Provides the ability to document external references related to the tool.
+     *
+     * @var ExternalReferenceRepository|null
+     */
+    private $externalReferenceRepository;
 
     public function getVendor(): ?string
     {
@@ -114,6 +122,21 @@ class Tool
     public function setHashRepository(?HashRepository $hashRepository): self
     {
         $this->hashRepository = $hashRepository;
+
+        return $this;
+    }
+
+    public function getExternalReferenceRepository(): ?ExternalReferenceRepository
+    {
+        return $this->externalReferenceRepository;
+    }
+
+    /**
+     * @return $this
+     */
+    public function setExternalReferenceRepository(?ExternalReferenceRepository $externalReferenceRepository): self
+    {
+        $this->externalReferenceRepository = $externalReferenceRepository;
 
         return $this;
     }

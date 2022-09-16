@@ -120,4 +120,9 @@ final class Spec14 implements SpecInterface
     {
         return false;
     }
+
+    public function supportsToolExternalReferences(): bool
+    {
+        return true;
+    }
 }

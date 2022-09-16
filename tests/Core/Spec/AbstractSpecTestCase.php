@@ -205,4 +205,12 @@ abstract class AbstractSpecTestCase extends TestCase
     }
 
     abstract public function shouldRequireComponentVersion(): bool;
+
+    final public function testSupportsToolExternalReferences(): void
+    {
+        $isSupported = $this->getSpec()->supportsToolExternalReferences();
+        self::assertSame($this->shouldSupportToolExternalReferences(), $isSupported);
+    }
+
+    abstract public function shouldSupportToolExternalReferences(): bool;
 }

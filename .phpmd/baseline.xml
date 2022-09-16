@@ -11,6 +11,7 @@
   <violation rule="PHPMD\Rule\CleanCode\StaticAccess" file="src/Core/Models/Component.php"/>
   <violation rule="PHPMD\Rule\CleanCode\StaticAccess" file="src/Core/Models/ExternalReference.php"/>
   <violation rule="PHPMD\Rule\Naming\ShortVariable" file="src/Core/Models/License/DisjunctiveLicenseWithId.php"/>
+  <violation rule="PHPMD\Rule\Naming\LongVariable" file="src/Core/Models/Tool.php"/>
   <violation rule="PHPMD\Rule\UnusedPrivateMethod" file="src/Core/Repositories/DisjunctiveLicenseRepository.php" method="isSupportedLicense"/>
   <violation rule="PHPMD\Rule\CleanCode\StaticAccess" file="src/Core/Repositories/HashRepository.php"/>
   <violation rule="PHPMD\Rule\CleanCode\ElseExpression" file="src/Core/Repositories/HashRepository.php"/>
@@ -26,6 +27,7 @@
   <violation rule="PHPMD\Rule\Naming\ShortVariable" file="src/Core/Serialize/DOM/Normalizers/DisjunctiveLicenseNormalizer.php"/>
   <violation rule="PHPMD\Rule\CleanCode\ElseExpression" file="src/Core/Serialize/DOM/Normalizers/DisjunctiveLicenseNormalizer.php"/>
   <violation rule="PHPMD\Rule\Design\EmptyCatchBlock" file="src/Core/Serialize/DOM/Normalizers/HashRepositoryNormalizer.php"/>
+  <violation rule="PHPMD\Rule\Naming\LongVariable" file="src/Core/Serialize/DOM/Normalizers/ToolNormalizer.php"/>
   <violation rule="PHPMD\Rule\Design\TooManyPublicMethods" file="src/Core/Serialize/JSON/NormalizerFactory.php"/>
   <violation rule="PHPMD\Rule\Design\CouplingBetweenObjects" file="src/Core/Serialize/JSON/NormalizerFactory.php"/>
   <violation rule="PHPMD\Rule\CleanCode\IfStatementAssignment" file="src/Core/Serialize/JSON/Normalizers/BomNormalizer.php" method="normalizeExternalReferences"/>
@@ -36,7 +38,7 @@
   <violation rule="PHPMD\Rule\Naming\LongVariable" file="src/Core/Serialize/JSON/Normalizers/DependenciesNormalizer.php"/>
   <violation rule="PHPMD\Rule\Naming\ShortVariable" file="src/Core/Serialize/JSON/Normalizers/DisjunctiveLicenseNormalizer.php"/>
   <violation rule="PHPMD\Rule\CleanCode\ElseExpression" file="src/Core/Serialize/JSON/Normalizers/DisjunctiveLicenseNormalizer.php"/>
-  <violation rule="PHPMD\Rule\UnusedPrivateField" file="src/Core/Validation/Errors/XmlValidationError.php"/>
+  <violation rule="PHPMD\Rule\Naming\LongVariable" file="src/Core/Serialize/JSON/Normalizers/ToolNormalizer.php"/>
   <violation rule="PHPMD\Rule\Naming\ShortVariable" file="src/Core/Validation/Errors/XmlValidationError.php"/>
   <violation rule="PHPMD\Rule\Naming\LongClassName" file="src/Core/Validation/Helpers/JsonSchemaRemoteRefProviderForSnapshotResources.php"/>
   <violation rule="PHPMD\Rule\Naming\ShortVariable" file="src/Core/Validation/ValidationError.php"/>

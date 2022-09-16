@@ -76,4 +76,9 @@ class Spec13Test extends AbstractSpecTestCase
     {
         return true;
     }
+
+    public function shouldSupportToolExternalReferences(): bool
+    {
+        return false;
+    }
 }

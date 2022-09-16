@@ -107,4 +107,9 @@ interface SpecInterface
      * version < 1.4 requires components to have a version, later it became optional.
      */
     public function requiresComponentVersion(): bool;
+
+    /**
+     * version < 1.4 requires components to have a version, later it became optional.
+     */
+    public function supportsToolExternalReferences(): bool;
 }
