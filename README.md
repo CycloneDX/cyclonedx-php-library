@@ -57,6 +57,7 @@ Code of v1 is in branch "[1.x](https://github.com/CycloneDX/cyclonedx-php-librar
 * Factories for the following use cases:
   * Create data models from any license descriptor string
 * Implementation of the [_CycloneDX_ Specification][CycloneDX-spec] for the following versions:
+  * `1.4`
   * `1.3`
   * `1.2`
   * `1.1`
