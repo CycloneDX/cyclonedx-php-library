@@ -19,14 +19,15 @@ All notable changes to this project will be documented in this file.
   * New class `\CycloneDX\Core\Spec\Spec14` to reflect CycloneDX v1.4. (via [#65])
   * Support for CycloneDX v1.4 in `\CycloneDX\Core\Validation\Validators\{Json,Xml}StrictValidator`. (via [#65])
   * New methods in class `\CycloneDX\Core\Spec\Spec1{1,2,3}`:
-    * `::getSupportsExternalReferenceTypes()` (via [#65])
-    * `::isSupportsExternalReferenceType()` (via [#65])
+    * `::getSupportedExternalReferenceTypes()` (via [#65], [#124])
+    * `::isSupportedExternalReferenceType()` (via [#65], [#124])
     * `::supportsToolExternalReferences()` (via [#123])
   * New class constant `CycloneDX\Core\Enums\ExternalReferenceType::RELEASE_NOTES` to reflect CycloneDX v1.4. (via [#65])
 
 [#65]: https://github.com/CycloneDX/cyclonedx-php-library/pull/65
 [#118]: https://github.com/CycloneDX/cyclonedx-php-library/pull/118
 [#123]: https://github.com/CycloneDX/cyclonedx-php-library/pull/123
+[#124]: https://github.com/CycloneDX/cyclonedx-php-library/pull/123
 
 ## 1.6.3 - 2022-09-15
 

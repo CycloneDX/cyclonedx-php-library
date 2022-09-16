@@ -50,7 +50,7 @@ class ExternalReferenceNormalizer extends AbstractNormalizer
         $spec = $factory->getSpec();
 
         $type = $externalReference->getType();
-        if (false === $spec->isSupportsExternalReferenceType($type)) {
+        if (false === $spec->isSupportedExternalReferenceType($type)) {
             throw new DomainException("ExternalReference has unsupported type: $type");
         }
 

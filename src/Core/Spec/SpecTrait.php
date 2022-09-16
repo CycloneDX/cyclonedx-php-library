@@ -97,12 +97,12 @@ trait SpecTrait
      *
      * @psalm-return list<ExternalReferenceType::*>
      */
-    public function getSupportsExternalReferenceTypes(): array
+    public function getSupportedExternalReferenceTypes(): array
     {
         return self::EXTERNAL_REFERENCE_TYPES;
     }
 
-    public function isSupportsExternalReferenceType(string $referenceType): bool
+    public function isSupportedExternalReferenceType(string $referenceType): bool
     {
         return \in_array($referenceType, self::EXTERNAL_REFERENCE_TYPES, true);
     }

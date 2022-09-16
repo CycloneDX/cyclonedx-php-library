@@ -42,7 +42,7 @@ class ExternalReferenceNormalizer extends AbstractNormalizer
     public function normalize(ExternalReference $externalReference): array
     {
         $type = $externalReference->getType();
-        if (false === $this->getNormalizerFactory()->getSpec()->isSupportsExternalReferenceType($type)) {
+        if (false === $this->getNormalizerFactory()->getSpec()->isSupportedExternalReferenceType($type)) {
             throw new DomainException("ExternalReference has unsupported type: $type");
         }
 

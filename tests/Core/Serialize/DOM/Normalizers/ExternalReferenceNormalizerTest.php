@@ -53,7 +53,7 @@ class ExternalReferenceNormalizerTest extends \PHPUnit\Framework\TestCase
             'getHashRepository' => null,
         ]);
 
-        $spec->method('isSupportsExternalReferenceType')
+        $spec->method('isSupportedExternalReferenceType')
             ->with('someType')
             ->willReturn(true);
 
@@ -81,7 +81,7 @@ class ExternalReferenceNormalizerTest extends \PHPUnit\Framework\TestCase
         ]);
 
         $spec->expects(self::atLeastOnce())
-            ->method('isSupportsExternalReferenceType')
+            ->method('isSupportedExternalReferenceType')
             ->with('someType')
             ->willReturn(false);
 
@@ -106,7 +106,7 @@ class ExternalReferenceNormalizerTest extends \PHPUnit\Framework\TestCase
             'getHashRepository' => null,
         ]);
 
-        $spec->method('isSupportsExternalReferenceType')
+        $spec->method('isSupportedExternalReferenceType')
             ->with('someType')
             ->willReturn(true);
 
@@ -139,7 +139,7 @@ class ExternalReferenceNormalizerTest extends \PHPUnit\Framework\TestCase
             'getHashRepository' => $this->createConfiguredMock(HashRepository::class, ['count' => 1]),
         ]);
 
-        $spec->method('isSupportsExternalReferenceType')
+        $spec->method('isSupportedExternalReferenceType')
             ->with('someType')
             ->willReturn(true);
         $hashRepositoryNormalizer->expects(self::once())
@@ -180,7 +180,7 @@ class ExternalReferenceNormalizerTest extends \PHPUnit\Framework\TestCase
             'getHashRepository' => $this->createConfiguredMock(HashRepository::class, ['count' => 0]),
         ]);
 
-        $spec->method('isSupportsExternalReferenceType')
+        $spec->method('isSupportedExternalReferenceType')
             ->with('someType')
             ->willReturn(true);
         $hashRepositoryNormalizer->expects(self::never())
@@ -217,7 +217,7 @@ class ExternalReferenceNormalizerTest extends \PHPUnit\Framework\TestCase
             'getHashRepository' => $this->createConfiguredMock(HashRepository::class, ['count' => 1]),
         ]);
 
-        $spec->method('isSupportsExternalReferenceType')
+        $spec->method('isSupportedExternalReferenceType')
             ->with('someType')
             ->willReturn(true);
         $hashRepositoryNormalizer->expects(self::never())
@@ -253,7 +253,7 @@ class ExternalReferenceNormalizerTest extends \PHPUnit\Framework\TestCase
         ]);
 
         $spec->expects(self::atLeastOnce())
-            ->method('isSupportsExternalReferenceType')
+            ->method('isSupportedExternalReferenceType')
             ->with('someType')
             ->willReturn(true);
 
