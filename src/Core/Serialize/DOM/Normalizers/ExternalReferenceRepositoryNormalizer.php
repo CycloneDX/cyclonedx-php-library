@@ -45,10 +45,8 @@ class ExternalReferenceRepositoryNormalizer extends AbstractNormalizer
         foreach ($repo->getExternalReferences() as $externalReference) {
             try {
                 $externalReferences[] = $normalizer->normalize($externalReference);
-            } catch (\DomainException $exception) {
-                continue;
-            } catch (\UnexpectedValueException $exception) {
-                continue;
+            } catch (\DomainException|\UnexpectedValueException) {
+                // pass
             }
         }
 

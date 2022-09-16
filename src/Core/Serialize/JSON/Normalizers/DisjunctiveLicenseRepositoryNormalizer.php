@@ -40,8 +40,8 @@ class DisjunctiveLicenseRepositoryNormalizer extends AbstractNormalizer
         foreach ($repo->getLicenses() as $license) {
             try {
                 $licenses[] = $normalizer->normalize($license);
-            } catch (InvalidArgumentException $exception) {
-                continue;
+            } catch (InvalidArgumentException) {
+                // pass
             }
         }
 

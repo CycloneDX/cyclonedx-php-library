@@ -37,10 +37,8 @@ class DisjunctiveLicenseWithId extends AbstractDisjunctiveLicense
      * A valid SPDX license ID.
      *
      * @see \CycloneDX\Core\Spdx\License::validate()
-     *
-     * @var string
      */
-    private $id;
+    private string $id;
 
     public function getId(): string
     {
@@ -59,7 +57,7 @@ class DisjunctiveLicenseWithId extends AbstractDisjunctiveLicense
     {
         $validId = $spdxLicenseValidator->getLicense($id);
         if (null === $validId) {
-            throw new DomainException("Invalid SPDX license: $validId");
+            throw new DomainException("Invalid SPDX license: $id");
         }
 
         return new self($validId);

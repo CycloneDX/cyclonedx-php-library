@@ -38,7 +38,7 @@ class HashRepository implements \Countable
      *
      * @psalm-var  array<HashAlgorithm::*, string>
      */
-    private $hashDict = [];
+    private array $hashDict = [];
 
     /**
      * Ignores unknown hash algorithms.
@@ -67,8 +67,8 @@ class HashRepository implements \Countable
         foreach ($hashes as $algorithm => $content) {
             try {
                 $this->setHash($algorithm, $content);
-            } catch (DomainException $exception) {
-                unset($exception);
+            } catch (DomainException) {
+                // pass
             }
         }
 

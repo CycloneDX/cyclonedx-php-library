@@ -35,11 +35,9 @@ class NormalizerFactory
     public const FORMAT = Format::JSON;
 
     /**
-     * @var SpecInterface
-     *
      * @psalm-suppress PropertyNotSetInConstructor
      */
-    private $spec;
+    private SpecInterface $spec;
 
     /**
      * @throws DomainException when the spec does not support JSON format

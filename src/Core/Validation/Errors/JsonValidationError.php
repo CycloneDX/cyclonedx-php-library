@@ -34,9 +34,10 @@ class JsonValidationError extends ValidationError
     /**
      * @internal as this function may be affected by breaking changes without notice
      *
-     * @return static
+     * @psalm-suppress MoreSpecificReturnType
+     * @psalm-suppress LessSpecificReturnStatement
      */
-    public static function fromJsonSchemaInvalidValue(JsonSchema\InvalidValue $error): self
+    public static function fromJsonSchemaInvalidValue(JsonSchema\InvalidValue $error): static
     {
         return parent::fromThrowable($error);
     }

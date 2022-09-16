@@ -84,10 +84,7 @@ class ComponentNormalizer extends AbstractNormalizer
         );
     }
 
-    /**
-     * @param LicenseExpression|DisjunctiveLicenseRepository|null $license
-     */
-    private function normalizeLicense($license): ?array
+    private function normalizeLicense(LicenseExpression|DisjunctiveLicenseRepository|null $license): ?array
     {
         if ($license instanceof LicenseExpression) {
             return $this->normalizeLicenseExpression($license);

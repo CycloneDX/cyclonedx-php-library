@@ -50,7 +50,8 @@ class HashRepositoryNormalizer extends AbstractNormalizer
         foreach ($repo->getHashes() as $algorithm => $content) {
             try {
                 $hashes[] = $hashNormalizer->normalize($algorithm, $content);
-            } catch (\DomainException $exception) {
+            } catch (\DomainException) {
+                // pass
             }
         }
 

@@ -30,8 +30,7 @@ namespace CycloneDX\Core\Serialize\JSON;
  */
 abstract class AbstractNormalizer
 {
-    /** @var NormalizerFactory */
-    private $normalizerFactory;
+    private NormalizerFactory $normalizerFactory;
 
     public function __construct(NormalizerFactory $normalizerFactory)
     {

@@ -32,17 +32,13 @@ class MetaData
 {
     /**
      * The tool(s) used in the creation of the BOM.
-     *
-     * @var ToolRepository|null
      */
-    private $tools;
+    private ?ToolRepository $tools = null;
 
     /**
      * The component that the BOM describes.
-     *
-     * @var Component|null
      */
-    private $component;
+    private ?Component $component = null;
 
     public function getTools(): ?ToolRepository
     {

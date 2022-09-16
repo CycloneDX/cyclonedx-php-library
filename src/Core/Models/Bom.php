@@ -34,11 +34,9 @@ use DomainException;
 class Bom
 {
     /**
-     * @var ComponentRepository
-     *
      * @psalm-suppress PropertyNotSetInConstructor
      */
-    private $componentRepository;
+    private ComponentRepository $componentRepository;
 
     /**
      * The version allows component publishers/authors to make changes to existing BOMs to update various aspects of the document such as description or licenses.
@@ -46,26 +44,20 @@ class Bom
      * The default version is '1' and should be incremented for each version of the BOM that is published.
      * Each version of a component should have a unique BOM and if no changes are made to the BOMs, then each BOM will have a version of '1'.
      *
-     * @var int
-     *
      * @psalm-var positive-int
      */
-    private $version = 1;
+    private int $version = 1;
 
     /**
-     * @var MetaData|null
-     *
      * @TODO deprecated rename it in v4 to `$metadata` and also rename the getter/setter
      */
-    private $metaData;
+    private ?MetaData $metaData = null;
 
     /**
      * Provides the ability to document external references related to the BOM or
      * to the project the BOM describes.
-     *
-     * @var ExternalReferenceRepository|null
      */
-    private $externalReferenceRepository;
+    private ?ExternalReferenceRepository $externalReferenceRepository = null;
 
     public function __construct(?ComponentRepository $componentRepository = null)
     {

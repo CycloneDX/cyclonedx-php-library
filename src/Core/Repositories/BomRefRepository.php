@@ -37,7 +37,7 @@ class BomRefRepository implements \Countable
      *
      * @psalm-var list<BomRef>
      */
-    private $bomRefs = [];
+    private array $bomRefs = [];
 
     public function __construct(BomRef ...$bomRefs)
     {

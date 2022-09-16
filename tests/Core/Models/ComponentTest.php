@@ -145,14 +145,6 @@ class ComponentTest extends TestCase
         yield 'expression' => [$this->createStub(LicenseExpression::class)];
     }
 
-    public function testLicensesSetterGetterThrowsOnInvalidArgument(): void
-    {
-        $this->expectException(\UnexpectedValueException::class);
-        $this->expectExceptionMessageMatches('/invalid license type/i');
-
-        $this->component->setLicense(new \stdClass());
-    }
-
     // endregion licenses setter&getter
 
     // region hashes setter&getter

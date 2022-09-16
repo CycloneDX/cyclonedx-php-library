@@ -32,10 +32,7 @@ use CycloneDX\Core\Spec\SpecInterface;
  */
 abstract class BaseSerializer implements SerializerInterface
 {
-    /**
-     * @var SpecInterface
-     */
-    private $spec;
+    private SpecInterface $spec;
 
     public function __construct(SpecInterface $spec)
     {

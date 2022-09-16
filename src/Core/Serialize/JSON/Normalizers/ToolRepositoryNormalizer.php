@@ -44,7 +44,7 @@ class ToolRepositoryNormalizer extends AbstractNormalizer
         foreach ($repo->getTools() as $tool) {
             try {
                 $item = $normalizer->normalize($tool);
-            } catch (\DomainException $exception) {
+            } catch (\DomainException) {
                 continue;
             }
             if (false === empty($item)) {

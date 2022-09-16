@@ -34,6 +34,8 @@ use RuntimeException;
  */
 class License
 {
+    private bool $initialized = false;
+
     /**
      * @var string[]
      *
@@ -41,7 +43,7 @@ class License
      *
      * @psalm-suppress PropertyNotSetInConstructor
      */
-    private $licenses;
+    private array $licenses;
 
     /**
      * @return string[]
@@ -78,12 +80,10 @@ class License
 
     /**
      * @throws RuntimeException
-     *
-     * @psalm-suppress RedundantConditionGivenDocblockType
      */
     public function loadLicenses(): void
     {
-        if (null !== $this->licenses) {
+        if ($this->initialized) {
             // @codeCoverageIgnoreStart
             return;
             // @codeCoverageIgnoreEnd
@@ -98,7 +98,7 @@ class License
         try {
             /**
              * list of strings, as asserted by an integration test:
-             * {@see \CycloneDX\Tests\unit\Core\Spdx\LicenseTest::testShippedLicensesFile()}.
+             * {@see \CycloneDX\Tests\Core\Spdx\LicenseTest::testShippedLicensesFile()}.
              *
              * @var string[] $licenses
              *
@@ -114,5 +114,7 @@ class License
         foreach ($licenses as $license) {
             $this->licenses[strtolower($license)] = $license;
         }
+
+        $this->initialized = true;
     }
 }

@@ -39,34 +39,25 @@ class ExternalReference
      * Specifies the type of external reference. There are built-in types to describe common
      * references. If a type does not exist for the reference being referred to, use the "other" type.
      *
-     * @var string
-     *
      * @psalm-var ExternalReferenceType::*
      *
      * @psalm-suppress PropertyNotSetInConstructor
      */
-    private $type;
+    private string $type;
 
     /**
      * The URL to the external reference.
      *
-     * @var string
-     *
      * @psalm-suppress PropertyNotSetInConstructor
      */
-    private $url;
+    private string $url;
 
     /**
      * An optional comment describing the external reference.
-     *
-     * @var string|null
      */
-    private $comment;
+    private ?string $comment = null;
 
-    /**
-     * @var HashRepository|null
-     */
-    private $hashRepository;
+    private ?HashRepository $hashRepository = null;
 
     /**
      * @psalm-return  ExternalReferenceType::*

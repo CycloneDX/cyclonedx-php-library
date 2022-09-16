@@ -31,10 +31,7 @@ use CycloneDX\Core\Spec\Version;
  */
 abstract class BaseValidator implements ValidatorInterface
 {
-    /**
-     * @var SpecInterface
-     */
-    private $spec;
+    private SpecInterface $spec;
 
     public function __construct(SpecInterface $spec)
     {

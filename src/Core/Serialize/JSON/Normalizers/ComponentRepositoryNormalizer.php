@@ -42,8 +42,8 @@ class ComponentRepositoryNormalizer extends AbstractNormalizer
         foreach ($repo->getComponents() as $component) {
             try {
                 $components[] = $normalizer->normalize($component);
-            } catch (\DomainException $exception) {
-                continue;
+            } catch (\DomainException) {
+                // pass
             }
         }
 

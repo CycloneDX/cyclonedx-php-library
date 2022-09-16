@@ -36,14 +36,11 @@ class NormalizerFactory
     public const FORMAT = Format::XML;
 
     /**
-     * @var SpecInterface
-     *
      * @psalm-suppress PropertyNotSetInConstructor
      */
-    private $spec;
+    private SpecInterface $spec;
 
-    /** @var DOMDocument */
-    private $document;
+    private DOMDocument $document;
 
     /**
      * @throws DomainException when the spec does not support XML format

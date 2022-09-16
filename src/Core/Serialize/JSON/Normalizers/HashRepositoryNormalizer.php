@@ -39,8 +39,8 @@ class HashRepositoryNormalizer extends AbstractNormalizer
         foreach ($repo->getHashes() as $algorithm => $content) {
             try {
                 $hashes[] = $normalizer->normalize($algorithm, $content);
-            } catch (\DomainException $exception) {
-                continue;
+            } catch (\DomainException) {
+                // pass
             }
         }
 

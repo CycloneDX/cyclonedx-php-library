@@ -31,11 +31,9 @@ use DomainException;
 class LicenseExpression
 {
     /**
-     * @var string
-     *
      * @psalm-suppress PropertyNotSetInConstructor
      */
-    private $expression;
+    private string $expression;
 
     public function getExpression(): string
     {

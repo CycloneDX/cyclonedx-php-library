@@ -29,18 +29,14 @@ namespace CycloneDX\Core\Validation;
 class ValidationError
 {
     /**
-     * @var string
-     *
      * @readonly
      */
-    private $message;
+    private string $message;
 
     /**
      * keep for internal debug purposes.
-     *
-     * @var object|null
      */
-    private $error;
+    private ?object $error = null;
 
     final protected function __construct(string $message)
     {
@@ -59,10 +55,8 @@ class ValidationError
 
     /**
      * @internal as this function may be affected by breaking changes without notice
-     *
-     * @return static
      */
-    public static function fromThrowable(\Throwable $error): self
+    public static function fromThrowable(\Throwable $error): static
     {
         $i = new static($error->getMessage());
         $i->error = $error;

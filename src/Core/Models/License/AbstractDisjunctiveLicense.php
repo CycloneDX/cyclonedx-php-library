@@ -33,10 +33,8 @@ abstract class AbstractDisjunctiveLicense
     /**
      * The URL to the license file.
      * If specified, a 'license' externalReference should also be specified for completeness.
-     *
-     * @var string|null
      */
-    private $url;
+    private ?string $url = null;
 
     public function getUrl(): ?string
     {

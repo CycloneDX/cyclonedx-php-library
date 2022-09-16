@@ -35,10 +35,7 @@ namespace CycloneDX\Core\Models;
  */
 final class BomRef
 {
-    /**
-     * @var string|null
-     */
-    private $value;
+    private ?string $value;
 
     public function __construct(?string $value = null)
     {

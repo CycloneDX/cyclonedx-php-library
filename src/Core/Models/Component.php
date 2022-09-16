@@ -31,7 +31,6 @@ use CycloneDX\Core\Repositories\ExternalReferenceRepository;
 use CycloneDX\Core\Repositories\HashRepository;
 use DomainException;
 use PackageUrl\PackageUrl;
-use UnexpectedValueException;
 
 /**
  * @author nscuro
@@ -44,10 +43,8 @@ class Component
      *
      * Implementation is intended to prevent memory leaks.
      * See ../../../docs/dev/decisions/BomDependencyDataModel.md
-     *
-     * @var BomRef
      */
-    private $bomRef;
+    private BomRef $bomRef;
 
     /**
      * The name of the component. This will often be a shortened, single name
@@ -55,11 +52,9 @@ class Component
      *
      * Examples: commons-lang3 and jquery
      *
-     * @var string
-     *
      * @psalm-suppress PropertyNotSetInConstructor
      */
-    private $name;
+    private string $name;
 
     /**
      * The grouping name or identifier. This will often be a shortened, single
@@ -69,11 +64,9 @@ class Component
      *
      * Examples include: apache, org.apache.commons, and apache.org.
      *
-     * @var string|null
-     *
      * @psalm-var non-empty-string|null
      */
-    private $group;
+    private ?string $group = null;
 
     /**
      * Specifies the type of component. For software components, classify as application if no more
@@ -83,72 +76,56 @@ class Component
      * Refer to the {@link https://cyclonedx.org/schema/bom/1.1 bom:classification documentation}
      * for information describing each one.
      *
-     * @var string
-     *
      * @psalm-var Classification::*
      *
      * @psalm-suppress PropertyNotSetInConstructor
      */
-    private $type;
+    private string $type;
 
     /**
      * Specifies a description for the component.
      *
-     * @var string|null
-     *
      * @psalm-var non-empty-string|null
      */
-    private $description;
+    private ?string $description = null;
 
     /**
      * Package-URL (PURL).
      *
      * The purl, if specified, must be valid and conform to the specification
      * defined at: {@linnk https://github.com/package-url/purl-spec/blob/master/README.rst#purl}.
-     *
-     * @var PackageUrl|null
      */
-    private $packageUrl;
+    private ?PackageUrl $packageUrl = null;
 
     /**
      * licence(s).
-     *
-     * @var LicenseExpression|DisjunctiveLicenseRepository|null
      */
-    private $license;
+    private LicenseExpression|DisjunctiveLicenseRepository|null $license = null;
 
     /**
      * Specifies the file hashes of the component.
-     *
-     * @var HashRepository|null
      */
-    private $hashRepository;
+    private ?HashRepository $hashRepository = null;
 
     /**
      * References to dependencies.
      *
      * Implementation is intended to prevent memory leaks.
      * See ../../../docs/dev/decisions/BomDependencyDataModel.md
-     *
-     * @var BomRefRepository|null
      */
-    private $dependenciesBomRefRepository;
+    private ?BomRefRepository $dependenciesBomRefRepository = null;
 
     /**
      * The component version. The version should ideally comply with semantic versioning
      * but is not enforced.
-     *
-     * @var string|null
      */
-    private $version;
+    private ?string $version = null;
 
     /**
      * Provides the ability to document external references related to the
      * component or to the project the component describes.
-     *
-     * @var ExternalReferenceRepository|null
      */
-    private $externalReferenceRepository;
+    private ?ExternalReferenceRepository $externalReferenceRepository = null;
 
     public function getBomRef(): BomRef
     {
@@ -246,44 +223,19 @@ class Component
         return $this;
     }
 
-    /**
-     * @return LicenseExpression|DisjunctiveLicenseRepository|null
-     */
-    public function getLicense()
+    public function getLicense(): LicenseExpression|DisjunctiveLicenseRepository|null
     {
         return $this->license;
     }
 
-    /**
-     * @param mixed $license
-     *
-     * @psalm-assert LicenseExpression|DisjunctiveLicenseRepository|null $license
-     *
-     * @throws UnexpectedValueException
-     *
+    /***
      * @return $this
      */
-    public function setLicense($license): self
+    public function setLicense(LicenseExpression|DisjunctiveLicenseRepository|null $license): self
     {
-        if (false === $this->isValidLicense($license)) {
-            throw new UnexpectedValueException('Invalid license type');
-        }
-
         $this->license = $license;
 
         return $this;
-    }
-
-    /**
-     * @param mixed $license
-     *
-     * @psalm-assert-if-true  null|LicenseExpression|DisjunctiveLicenseRepository $license
-     */
-    private function isValidLicense($license): bool
-    {
-        return null === $license
-            || $license instanceof LicenseExpression
-            || $license instanceof DisjunctiveLicenseRepository;
     }
 
     public function getHashRepository(): ?HashRepository

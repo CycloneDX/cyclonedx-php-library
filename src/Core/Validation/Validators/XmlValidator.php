@@ -28,7 +28,6 @@ use CycloneDX\Core\Spec\Version;
 use CycloneDX\Core\Validation\BaseValidator;
 use CycloneDX\Core\Validation\Errors\XmlValidationError;
 use CycloneDX\Core\Validation\Exceptions\FailedLoadingSchemaException;
-use CycloneDX\Core\Validation\ValidationError;
 use DOMDocument;
 use DOMException;
 
@@ -57,10 +56,8 @@ class XmlValidator extends BaseValidator
      *
      * @throws FailedLoadingSchemaException if schema file unknown or not readable
      * @throws DOMException                 if loading the DOM failed
-     *
-     * @return XmlValidationError|null
      */
-    public function validateString(string $string): ?ValidationError
+    public function validateString(string $string): ?XmlValidationError
     {
         return $this->validateDom(
             $this->loadDomFromXml($string)

@@ -35,7 +35,7 @@ class ExternalReferenceRepository implements \Countable
      *
      * @psalm-var list<ExternalReference>
      */
-    private $externalReferences = [];
+    private array $externalReferences = [];
 
     public function __construct(ExternalReference ...$externalReferences)
     {

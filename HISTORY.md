@@ -10,6 +10,8 @@ All notable changes to this project will be documented in this file.
   * Dropped support for php v7.3 and v7.4. (via [#125])
   * Interface `\CycloneDX\Core\Spec\SpecInterface` became internal, was public api. (via [#65])  
     This is done to prevent the need for future "breaking changed" when the schema requires additional spec implementations.
+  * API changes:
+    * ... TO LOST 
 * Changed
   * Method `\CycloneDX\Core\Serialize\{DOM,JSON}\Normalizers\ExternalReferenceNormalizer::normalize` throw `DomainException` when `ExternalReference`'s type was not supported by the spec.  (via [#65])  
     This is considered a non-breaking change, because the behaviour was already documented in the API, even though there was no need for an implementation before.
