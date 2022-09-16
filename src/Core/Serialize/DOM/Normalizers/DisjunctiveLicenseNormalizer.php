@@ -54,7 +54,7 @@ class DisjunctiveLicenseNormalizer extends AbstractNormalizer
             $id = null;
             $name = $license->getName();
         } else {
-            throw new InvalidArgumentException('Unsupported license class: '.\get_class($license));
+            throw new InvalidArgumentException('Unsupported license class: '.$license::class);
         }
 
         $document = $this->getNormalizerFactory()->getDocument();

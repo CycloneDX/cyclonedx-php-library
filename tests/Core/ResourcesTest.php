@@ -51,7 +51,7 @@ class ResourcesTest extends TestCase
     {
         $constants = (new \ReflectionClass(Resources::class))->getConstants();
         foreach ($constants as $name => $value) {
-            if (0 === strpos($name, 'FILE')) {
+            if (str_starts_with($name, 'FILE')) {
                 yield $name => [$value];
             }
         }

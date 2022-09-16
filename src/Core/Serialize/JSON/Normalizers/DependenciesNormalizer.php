@@ -57,14 +57,10 @@ class DependenciesNormalizer extends AbstractNormalizer
         }
 
         $allComponentRefs = array_map(
-            static function (Component $c): BomRef {
-                return $c->getBomRef();
-            },
+            static fn (Component $c): BomRef => $c->getBomRef(),
             $allComponents
         );
-        $isKnownRef = static function (BomRef $r) use ($allComponentRefs): bool {
-            return \in_array($r, $allComponentRefs, true);
-        };
+        $isKnownRef = static fn (BomRef $r): bool => \in_array($r, $allComponentRefs, true);
 
         $dependencies = [];
         foreach ($allComponents as $component) {
