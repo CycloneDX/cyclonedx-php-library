@@ -69,6 +69,15 @@ interface SpecInterface
     public function isSupportedHashContent(string $content): bool;
 
     /**
+     * @return string[]
+     *
+     * @psalm-return list<ExternalReferenceType::*>
+     */
+    public function getSupportedExternalReferenceTypes(): array;
+
+    public function isSupportedExternalReferenceType(string $referenceType): bool;
+
+    /**
      * version 1.0 does not support license expressions
      * they must be normalized to disjunctive licenses.
      */
@@ -88,15 +97,6 @@ interface SpecInterface
      * version < 1.2 does not support BomRef.
      */
     public function supportsDependencies(): bool;
-
-    /**
-     * @return string[]
-     *
-     * @psalm-return list<ExternalReferenceType::*>
-     */
-    public function getSupportedExternalReferenceTypes(): array;
-
-    public function isSupportedExternalReferenceType(string $referenceType): bool;
 
     /**
      * version < 1.3 does not support hashes in ExternalReference.

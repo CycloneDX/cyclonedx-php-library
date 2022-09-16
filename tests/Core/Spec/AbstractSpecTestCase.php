@@ -24,6 +24,7 @@ declare(strict_types=1);
 namespace CycloneDX\Tests\Core\Spec;
 
 use CycloneDX\Core\Enums\Classification;
+use CycloneDX\Core\Enums\ExternalReferenceType;
 use CycloneDX\Core\Enums\HashAlgorithm;
 use CycloneDX\Core\Spec\SpecInterface;
 use CycloneDX\Tests\_data\BomSpecData;
@@ -69,7 +70,7 @@ abstract class AbstractSpecTestCase extends TestCase
     /**
      * @dataProvider dpIsSupportsFormat
      */
-    final public function testIsSupportsFormat(string $format, bool $expected): void
+    final public function testIsSupportedFormat(string $format, bool $expected): void
     {
         $isSupported = $this->getSpec()->isSupportedFormat($format);
         self::assertSame($expected, $isSupported);
@@ -156,6 +157,36 @@ abstract class AbstractSpecTestCase extends TestCase
     {
         yield 'crap' => ['this is an invalid hash', false];
         yield 'valid sha1' => ['a052cfe45093f1c2d26bd854d06aa370ceca3b38', true];
+    }
+
+    final public function testGetSupportedExternalReferenceTypes(): void
+    {
+        $expected = BomSpecData::getExternalReferenceTypeForVersion($this->getSpecVersion());
+
+        $values = $this->getSpec()->getSupportedExternalReferenceTypes();
+
+        self::assertNotCount(0, $values);
+        sort($values, \SORT_STRING);
+        self::assertSame($expected, $values);
+    }
+
+    /**
+     * @dataProvider dpIsSupportedExternalReferenceType
+     */
+    final public function testIsSupportedExternalReferenceType(string $value, bool $expected): void
+    {
+        $isSupported = $this->getSpec()->isSupportedExternalReferenceType($value);
+        self::assertSame($expected, $isSupported);
+    }
+
+    final public function dpIsSupportedExternalReferenceType(): Generator
+    {
+        yield 'unknown' => [uniqid('ExternalReferenceType', false), false];
+        $known = BomSpecData::getExternalReferenceTypeForVersion($this->getSpecVersion());
+        $values = (new \ReflectionClass(ExternalReferenceType::class))->getConstants();
+        foreach ($values as $value) {
+            yield $value => [$value, \in_array($value, $known, true)];
+        }
     }
 
     final public function testSupportsLicenseExpression(): void
