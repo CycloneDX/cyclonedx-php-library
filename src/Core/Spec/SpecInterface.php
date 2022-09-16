@@ -94,9 +94,9 @@ interface SpecInterface
      *
      * @psalm-return list<ExternalReferenceType::*>
      */
-    public function getSupportsExternalReferenceTypes(): array;
+    public function getSupportedExternalReferenceTypes(): array;
 
-    public function isSupportsExternalReferenceType(string $referenceType): bool;
+    public function isSupportedExternalReferenceType(string $referenceType): bool;
 
     /**
      * version < 1.3 does not support hashes in ExternalReference.
