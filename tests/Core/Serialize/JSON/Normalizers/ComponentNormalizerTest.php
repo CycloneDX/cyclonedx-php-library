@@ -50,6 +50,7 @@ class ComponentNormalizerTest extends TestCase
             [
                 'getName' => 'foo',
                 'getType' => 'FakeType',
+                'getVersion' => 'v1.33.7',
             ]
         );
         $spec = $this->createMock(SpecInterface::class);
