@@ -581,6 +581,10 @@ abstract class BomModelProvider
                             ->setVersion('toolVersion')
                             ->setHashRepository(
                                 new HashRepository([HashAlgorithm::MD5 => '12345678901234567890123456789012'])
+                            )->setExternalReferenceRepository(
+                                new ExternalReferenceRepository(
+                                    new ExternalReference(ExternalReferenceType::OTHER, 'https://acme.com')
+                                )
                             ),
                     )
                 )

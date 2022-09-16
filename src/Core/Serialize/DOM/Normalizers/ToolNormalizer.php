@@ -67,6 +67,10 @@ class ToolNormalizer extends AbstractNormalizer
     {
         $factory = $this->getNormalizerFactory();
 
+        if (false === $factory->getSpec()->supportsToolExternalReferences()) {
+            return null;
+        }
+
         return null === $externalReferenceRepository || 0 === \count($externalReferenceRepository)
             ? null
             : $this->simpleDomAppendChildren(

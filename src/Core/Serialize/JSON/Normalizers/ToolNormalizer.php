@@ -59,8 +59,14 @@ class ToolNormalizer extends AbstractNormalizer
 
     private function normalizeExternalReferences(?ExternalReferenceRepository $externalReferenceRepository): ?array
     {
+        $factory = $this->getNormalizerFactory();
+
+        if (false === $factory->getSpec()->supportsToolExternalReferences()) {
+            return null;
+        }
+
         return null === $externalReferenceRepository || 0 === \count($externalReferenceRepository)
             ? null
-            : $this->getNormalizerFactory()->makeForExternalReferenceRepository()->normalize($externalReferenceRepository);
+            : $factory->makeForExternalReferenceRepository()->normalize($externalReferenceRepository);
     }
 }

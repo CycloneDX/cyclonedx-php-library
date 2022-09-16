@@ -116,4 +116,9 @@ final class Spec12 implements SpecInterface
     {
         return true;
     }
+
+    public function supportsToolExternalReferences(): bool
+    {
+        return false;
+    }
 }
