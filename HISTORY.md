@@ -21,12 +21,12 @@ All notable changes to this project will be documented in this file.
   * New methods in class `\CycloneDX\Core\Spec\Spec1{1,2,3}`:
     * `::getSupportsExternalReferenceTypes()` (via [#65])
     * `::isSupportsExternalReferenceType()` (via [#65])
-    * `::supportsToolExternalReferences()` (via [#])
+    * `::supportsToolExternalReferences()` (via [#123])
   * New class constant `CycloneDX\Core\Enums\ExternalReferenceType::RELEASE_NOTES` to reflect CycloneDX v1.4. (via [#65])
 
 [#65]: https://github.com/CycloneDX/cyclonedx-php-library/pull/65
 [#118]: https://github.com/CycloneDX/cyclonedx-php-library/pull/118
-[#]: https://github.com/CycloneDX/cyclonedx-php-library/pull/
+[#123]: https://github.com/CycloneDX/cyclonedx-php-library/pull/123
 
 ## 1.6.3 - 2022-09-15
 
