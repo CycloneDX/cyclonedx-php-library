@@ -43,8 +43,8 @@ class ToolNormalizer extends AbstractNormalizer
                 'vendor' => $tool->getVendor(),
                 'name' => $tool->getName(),
                 'version' => $tool->getVersion(),
-                'hashes' => $this->normalizeHashes($tool->getHashRepository()),
-                'externalReferences' => $this->normalizeExternalReferences($tool->getExternalReferenceRepository()),
+                'hashes' => $this->normalizeHashes($tool->getHashes()),
+                'externalReferences' => $this->normalizeExternalReferences($tool->getExternalReferences()),
             ],
             [$this, 'isNotNull']
         );

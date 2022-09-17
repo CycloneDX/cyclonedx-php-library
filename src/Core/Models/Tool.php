@@ -49,12 +49,12 @@ class Tool
     /**
      * The hashes of the tool (if applicable).
      */
-    private ?HashRepository $hashRepository = null;
+    private HashRepository $hashes;
 
     /**
      * Provides the ability to document external references related to the tool.
      */
-    private ?ExternalReferenceRepository $externalReferenceRepository = null;
+    private ExternalReferenceRepository $externalReferences;
 
     public function getVendor(): ?string
     {
@@ -101,33 +101,39 @@ class Tool
         return $this;
     }
 
-    public function getHashRepository(): ?HashRepository
+    public function getHashes(): HashRepository
     {
-        return $this->hashRepository;
+        return $this->hashes;
     }
 
     /**
      * @return $this
      */
-    public function setHashRepository(?HashRepository $hashRepository): self
+    public function setHashes(HashRepository $hashes): self
     {
-        $this->hashRepository = $hashRepository;
+        $this->hashes = $hashes;
 
         return $this;
     }
 
-    public function getExternalReferenceRepository(): ?ExternalReferenceRepository
+    public function getExternalReferences(): ExternalReferenceRepository
     {
-        return $this->externalReferenceRepository;
+        return $this->externalReferences;
     }
 
     /**
      * @return $this
      */
-    public function setExternalReferenceRepository(?ExternalReferenceRepository $externalReferenceRepository): self
+    public function setExternalReferences(ExternalReferenceRepository $externalReferences): self
     {
-        $this->externalReferenceRepository = $externalReferenceRepository;
+        $this->externalReferences = $externalReferences;
 
         return $this;
+    }
+
+    public function __construct()
+    {
+        $this->hashes = new HashRepository();
+        $this->externalReferences = new ExternalReferenceRepository();
     }
 }

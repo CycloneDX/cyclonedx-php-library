@@ -47,8 +47,8 @@ class ToolNormalizer extends AbstractNormalizer
                 $this->simpleDomSafeTextElement($doc, 'vendor', $tool->getVendor()),
                 $this->simpleDomSafeTextElement($doc, 'name', $tool->getName()),
                 $this->simpleDomSafeTextElement($doc, 'version', $tool->getVersion()),
-                $this->normalizeHashes($tool->getHashRepository()),
-                $this->normalizeExternalReferences($tool->getExternalReferenceRepository()),
+                $this->normalizeHashes($tool->getHashes()),
+                $this->normalizeExternalReferences($tool->getExternalReferences()),
             ]
         );
     }

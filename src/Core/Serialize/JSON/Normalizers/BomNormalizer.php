@@ -47,7 +47,7 @@ class BomNormalizer extends AbstractNormalizer
                 'specVersion' => $factory->getSpec()->getVersion(),
                 'version' => $bom->getVersion(),
                 'metadata' => $this->normalizeMetaData($bom->getMetaData()),
-                'components' => $factory->makeForComponentRepository()->normalize($bom->getComponentRepository()),
+                'components' => $factory->makeForComponentRepository()->normalize($bom->getComponents()),
                 'externalReferences' => $this->normalizeExternalReferences($bom),
                 'dependencies' => $this->normalizeDependencies($bom),
             ],
@@ -78,11 +78,11 @@ class BomNormalizer extends AbstractNormalizer
     {
         $factory = $this->getNormalizerFactory();
 
-        $externalReferenceRepository = $bom->getExternalReferenceRepository();
+        $externalReferenceRepository = $bom->getExternalReferences();
 
         if (false === $factory->getSpec()->supportsMetaData()) {
             // prevent possible information loss: metadata cannot be rendered -> put it to bom
-            $mcr = $bom->getMetaData()?->getComponent()?->getExternalReferenceRepository();
+            $mcr = $bom->getMetaData()?->getComponent()?->getExternalReferences();
             if (null !== $mcr) {
                 $externalReferenceRepository = null !== $externalReferenceRepository
                     ? (clone $externalReferenceRepository)->addExternalReference(...$mcr->getExternalReferences())

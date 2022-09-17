@@ -88,7 +88,7 @@ abstract class BaseSerializer implements SerializerInterface
     {
         $allBomRefs = [];
 
-        $allComponents = $bom->getComponentRepository()->getComponents();
+        $allComponents = $bom->getComponents()->getComponents();
 
         $metadataComponent = $bom->getMetaData()?->getComponent();
         if (null !== $metadataComponent) {
@@ -97,7 +97,7 @@ abstract class BaseSerializer implements SerializerInterface
 
         foreach ($allComponents as $component) {
             $allBomRefs[] = $component->getBomRef();
-            $dependencies = $component->getDependenciesBomRefRepository();
+            $dependencies = $component->getDependencies();
             if (null !== $dependencies) {
                 array_push($allBomRefs, ...$dependencies->getBomRefs());
             }

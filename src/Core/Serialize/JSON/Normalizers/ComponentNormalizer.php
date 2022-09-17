@@ -27,7 +27,7 @@ use CycloneDX\Core\Factories\LicenseFactory;
 use CycloneDX\Core\Helpers\NullAssertionTrait;
 use CycloneDX\Core\Models\Component;
 use CycloneDX\Core\Models\License\LicenseExpression;
-use CycloneDX\Core\Repositories\DisjunctiveLicenseRepository;
+use CycloneDX\Core\Repositories\LicenseRepository;
 use CycloneDX\Core\Repositories\ExternalReferenceRepository;
 use CycloneDX\Core\Repositories\HashRepository;
 use CycloneDX\Core\Serialize\JSON\AbstractNormalizer;
@@ -76,21 +76,21 @@ class ComponentNormalizer extends AbstractNormalizer
                 'group' => $group,
                 'description' => $component->getDescription(),
                 'licenses' => $this->normalizeLicense($component->getLicense()),
-                'hashes' => $this->normalizeHashes($component->getHashRepository()),
+                'hashes' => $this->normalizeHashes($component->getHashes()),
                 'purl' => $this->normalizePurl($component->getPackageUrl()),
-                'externalReferences' => $this->normalizeExternalReferences($component->getExternalReferenceRepository()),
+                'externalReferences' => $this->normalizeExternalReferences($component->getExternalReferences()),
             ],
             [$this, 'isNotNull']
         );
     }
 
-    private function normalizeLicense(LicenseExpression|DisjunctiveLicenseRepository|null $license): ?array
+    private function normalizeLicense(LicenseExpression|LicenseRepository|null $license): ?array
     {
         if ($license instanceof LicenseExpression) {
             return $this->normalizeLicenseExpression($license);
         }
 
-        if ($license instanceof DisjunctiveLicenseRepository) {
+        if ($license instanceof LicenseRepository) {
             return $this->normalizeDisjunctiveLicenses($license);
         }
 
@@ -110,7 +110,7 @@ class ComponentNormalizer extends AbstractNormalizer
         );
     }
 
-    private function normalizeDisjunctiveLicenses(DisjunctiveLicenseRepository $licenses): ?array
+    private function normalizeDisjunctiveLicenses(LicenseRepository $licenses): ?array
     {
         return 0 === \count($licenses)
             ? null

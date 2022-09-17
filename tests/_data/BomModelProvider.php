@@ -35,7 +35,7 @@ use CycloneDX\Core\Models\License\LicenseExpression;
 use CycloneDX\Core\Models\MetaData;
 use CycloneDX\Core\Models\Tool;
 use CycloneDX\Core\Repositories\ComponentRepository;
-use CycloneDX\Core\Repositories\DisjunctiveLicenseRepository;
+use CycloneDX\Core\Repositories\LicenseRepository;
 use CycloneDX\Core\Repositories\ExternalReferenceRepository;
 use CycloneDX\Core\Repositories\HashRepository;
 use CycloneDX\Core\Repositories\ToolRepository;
@@ -81,13 +81,13 @@ abstract class BomModelProvider
     public static function bomWithExternalReferences(): Generator
     {
         yield 'bom with no ExternalReferences' => [
-            (new Bom())->setExternalReferenceRepository(
+            (new Bom())->setExternalReferences(
                 new ExternalReferenceRepository()
             ),
         ];
 
         yield 'bom with ExternalReferences: empty string' => [
-            (new Bom())->setExternalReferenceRepository(
+            (new Bom())->setExternalReferences(
                 new ExternalReferenceRepository(
                     new ExternalReference(ExternalReferenceType::OTHER, '')
                 )
@@ -95,7 +95,7 @@ abstract class BomModelProvider
         ];
 
         yield 'bom with ExternalReferences: malformed url - double#' => [
-            (new Bom())->setExternalReferenceRepository(
+            (new Bom())->setExternalReferences(
                 new ExternalReferenceRepository(
                     new ExternalReference(ExternalReferenceType::OTHER,
                         'https://example.com/something#foo#bar'
@@ -105,7 +105,7 @@ abstract class BomModelProvider
         ];
 
         yield 'bom with ExternalReference: email' => [
-            (new Bom())->setExternalReferenceRepository(
+            (new Bom())->setExternalReferences(
                 new ExternalReferenceRepository(
                     new ExternalReference(
                         ExternalReferenceType::MAILING_LIST,
@@ -117,7 +117,7 @@ abstract class BomModelProvider
 
         foreach (self::externalReferencesForAllTypes() as $label => $extRef) {
             yield "bom with $label" => [
-                (new Bom())->setExternalReferenceRepository(
+                (new Bom())->setExternalReferences(
                     new ExternalReferenceRepository($extRef)
                 ),
             ];
@@ -125,7 +125,7 @@ abstract class BomModelProvider
 
         foreach (self::externalReferencesForHashAlgorithmsAllKnown() as $label => $extRef) {
             yield "bom with $label" => [
-                (new Bom())->setExternalReferenceRepository(
+                (new Bom())->setExternalReferences(
                     new ExternalReferenceRepository($extRef)
                 ),
             ];
@@ -173,7 +173,7 @@ abstract class BomModelProvider
     public static function bomWithComponentPlain(): Generator
     {
         yield 'component: plain' => [
-            (new Bom())->setComponentRepository(
+            (new Bom())->setComponents(
                 new ComponentRepository(
                     new Component(Classification::LIBRARY, 'name')
                 )
@@ -208,20 +208,20 @@ abstract class BomModelProvider
     public static function bomWithComponentWithExternalReferences(): Generator
     {
         yield 'component with empty ExternalReferences' => [
-            (new Bom())->setComponentRepository(
+            (new Bom())->setComponents(
                 new ComponentRepository(
                     (new Component(Classification::LIBRARY, 'dummy', 'foo-beta'))
-                        ->setExternalReferenceRepository(new ExternalReferenceRepository())
+                        ->setExternalReferences(new ExternalReferenceRepository())
                 )
             ),
         ];
 
         foreach (self::externalReferencesForAllTypes() as $label => $extRef) {
             yield "component with $label" => [
-                (new Bom())->setComponentRepository(
+                (new Bom())->setComponents(
                     new ComponentRepository(
                         (new Component(Classification::LIBRARY, 'dummy', 'foo-beta'))
-                            ->setExternalReferenceRepository(new ExternalReferenceRepository($extRef))
+                            ->setExternalReferences(new ExternalReferenceRepository($extRef))
                     )
                 ),
             ];
@@ -278,7 +278,7 @@ abstract class BomModelProvider
         $types = array_unique($types, \SORT_STRING);
         foreach ($types as $type) {
             yield "component types: $type" => [
-                (new Bom())->setComponentRepository(
+                (new Bom())->setComponents(
                     new ComponentRepository(
                         new Component($type, "dummy_$type", 'v0')
                     )
@@ -296,11 +296,11 @@ abstract class BomModelProvider
     {
         $license = 'MIT';
         yield "component license: $license" => [
-            (new Bom())->setComponentRepository(
+            (new Bom())->setComponents(
                 new ComponentRepository(
                     (new Component(Classification::LIBRARY, 'name', 'version'))
-                        ->setLicense(
-                            new DisjunctiveLicenseRepository(
+                        ->setLicenses(
+                            new LicenseRepository(
                                 DisjunctiveLicenseWithId::makeValidated(
                                     $license,
                                     SpdxLicenseValidatorSingleton::getInstance()
@@ -321,11 +321,11 @@ abstract class BomModelProvider
     {
         $license = 'random '.bin2hex(random_bytes(32));
         yield 'component license: random' => [
-            (new Bom())->setComponentRepository(
+            (new Bom())->setComponents(
                 new ComponentRepository(
                     (new Component(Classification::LIBRARY, 'name', 'version'))
-                        ->setLicense(
-                            new DisjunctiveLicenseRepository(
+                        ->setLicenses(
+                            new LicenseRepository(
                                 new DisjunctiveLicenseWithName($license)
                             )
                         )
@@ -337,10 +337,10 @@ abstract class BomModelProvider
     public static function bomWithComponentLicenseExpression(): Generator
     {
         yield 'component license expression' => [
-            (new Bom())->setComponentRepository(
+            (new Bom())->setComponents(
                 new ComponentRepository(
                     (new Component(Classification::LIBRARY, 'name', 'version'))
-                        ->setLicense(
+                        ->setLicenses(
                             new LicenseExpression('(Foo or Bar)')
                         )
                 )
@@ -354,11 +354,11 @@ abstract class BomModelProvider
     public static function bomWithComponentLicenseUrl(): Generator
     {
         yield 'component license with URL' => [
-            (new Bom())->setComponentRepository(
+            (new Bom())->setComponents(
                 new ComponentRepository(
                     (new Component(Classification::LIBRARY, 'name', 'version'))
-                        ->setLicense(
-                            new DisjunctiveLicenseRepository(
+                        ->setLicenses(
+                            new LicenseRepository(
                                 (new DisjunctiveLicenseWithName('some text'))
                                     ->setUrl('https://example.com/license'),
                             )
@@ -378,7 +378,7 @@ abstract class BomModelProvider
         $versions = ['1.0', 'dev-master'];
         foreach ($versions as $version) {
             yield "component version: $version" => [
-                (new Bom())->setComponentRepository(
+                (new Bom())->setComponents(
                     new ComponentRepository(
                         new Component(Classification::LIBRARY, 'name', $version),
                     )
@@ -480,10 +480,10 @@ abstract class BomModelProvider
         $hashAlgorithms = array_unique($hashAlgorithms, \SORT_STRING);
         foreach ($hashAlgorithms as $hashAlgorithm) {
             yield "component hash alg: $hashAlgorithm" => [
-                (new Bom())->setComponentRepository(
+                (new Bom())->setComponents(
                     new ComponentRepository(
                         (new Component(Classification::LIBRARY, 'name', '1.0'))
-                            ->setHashRepository(
+                            ->setHashes(
                                 new HashRepository([$hashAlgorithm => '12345678901234567890123456789012'])
                             )
                     )
@@ -500,7 +500,7 @@ abstract class BomModelProvider
     public static function bomWithComponentDescription(): Generator
     {
         yield 'component description: none' => [
-            (new Bom())->setComponentRepository(
+            (new Bom())->setComponents(
                 new ComponentRepository(
                     (new Component(Classification::LIBRARY, 'name', '1.0'))
                         ->setDescription(null)
@@ -508,7 +508,7 @@ abstract class BomModelProvider
             ),
         ];
         yield 'component description: empty' => [
-            (new Bom())->setComponentRepository(
+            (new Bom())->setComponents(
                 new ComponentRepository(
                     (new Component(Classification::LIBRARY, 'name', '1.0'))
                         ->setDescription('')
@@ -516,7 +516,7 @@ abstract class BomModelProvider
             ),
         ];
         yield 'component description: random' => [
-            (new Bom())->setComponentRepository(
+            (new Bom())->setComponents(
                 new ComponentRepository(
                     (new Component(Classification::LIBRARY, 'name', '1.0'))
                         ->setDescription(bin2hex(random_bytes(32)))
@@ -524,7 +524,7 @@ abstract class BomModelProvider
             ),
         ];
         yield 'component description: spaces' => [
-            (new Bom())->setComponentRepository(
+            (new Bom())->setComponents(
                 new ComponentRepository(
                     (new Component(Classification::LIBRARY, 'name', '1.0'))
                         ->setDescription("\ta  test   ")
@@ -532,7 +532,7 @@ abstract class BomModelProvider
             ),
         ];
         yield 'component description: XML special chars' => [
-            (new Bom())->setComponentRepository(
+            (new Bom())->setComponents(
                 new ComponentRepository(
                     (new Component(Classification::LIBRARY, 'name', '1.0'))
                         ->setDescription(
@@ -579,9 +579,9 @@ abstract class BomModelProvider
                             ->setVendor('myToolVendor')
                             ->setName('myTool')
                             ->setVersion('toolVersion')
-                            ->setHashRepository(
+                            ->setHashes(
                                 new HashRepository([HashAlgorithm::MD5 => '12345678901234567890123456789012'])
-                            )->setExternalReferenceRepository(
+                            )->setExternalReferences(
                                 new ExternalReferenceRepository(
                                     new ExternalReference(ExternalReferenceType::OTHER, 'https://acme.com')
                                 )
@@ -645,7 +645,7 @@ abstract class BomModelProvider
         foreach (self::allHashAlgorithms() as $algorithm) {
             yield "externalReferenceHash: $algorithm" => (new ExternalReference(
                 $type, ".../algorithm/{$algorithm}.txt"
-            ))->setHashRepository(new HashRepository([$algorithm => '12345678901234567890123456789012']));
+            ))->setHashes(new HashRepository([$algorithm => '12345678901234567890123456789012']));
         }
     }
 }

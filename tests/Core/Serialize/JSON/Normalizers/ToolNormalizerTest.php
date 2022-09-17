@@ -81,11 +81,11 @@ class ToolNormalizerTest extends TestCase
 
         $hashRepoNormalizer->expects(self::once())
             ->method('normalize')
-            ->with($tool->getHashRepository())
+            ->with($tool->getHashes())
             ->willReturn(['FakeHash' => 'dummyHash']);
         $extRefRepoNormalizer->expects(self::once())
             ->method('normalize')
-            ->with($tool->getExternalReferenceRepository())
+            ->with($tool->getExternalReferences())
             ->willReturn(['FakeExtRefs' => 'dummyRef']);
 
         $actual = $normalizer->normalize($tool);

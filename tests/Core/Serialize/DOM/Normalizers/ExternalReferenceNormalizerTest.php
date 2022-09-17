@@ -144,7 +144,7 @@ class ExternalReferenceNormalizerTest extends \PHPUnit\Framework\TestCase
             ->willReturn(true);
         $hashRepositoryNormalizer->expects(self::once())
             ->method('normalize')
-            ->with($extRef->getHashRepository())
+            ->with($extRef->getHashes())
             ->willReturn([$normalizerFactory->getDocument()->createElement('FakeHash', 'dummy')]);
 
         $actual = $normalizer->normalize($extRef);
@@ -185,7 +185,7 @@ class ExternalReferenceNormalizerTest extends \PHPUnit\Framework\TestCase
             ->willReturn(true);
         $hashRepositoryNormalizer->expects(self::never())
             ->method('normalize')
-            ->with($extRef->getHashRepository());
+            ->with($extRef->getHashes());
 
         $actual = $normalizer->normalize($extRef);
 
@@ -222,7 +222,7 @@ class ExternalReferenceNormalizerTest extends \PHPUnit\Framework\TestCase
             ->willReturn(true);
         $hashRepositoryNormalizer->expects(self::never())
             ->method('normalize')
-            ->with($extRef->getHashRepository());
+            ->with($extRef->getHashes());
 
         $actual = $normalizer->normalize($extRef);
 

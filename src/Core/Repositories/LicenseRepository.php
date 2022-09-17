@@ -25,23 +25,24 @@ namespace CycloneDX\Core\Repositories;
 
 use CycloneDX\Core\Models\License\DisjunctiveLicenseWithId;
 use CycloneDX\Core\Models\License\DisjunctiveLicenseWithName;
+use CycloneDX\Core\Models\License\LicenseExpression;
 
 /**
  * @author jkowalleck
  */
-class DisjunctiveLicenseRepository implements \Countable
+class LicenseRepository implements \Countable
 {
     /**
-     * @var DisjunctiveLicenseWithId[]|DisjunctiveLicenseWithName[]
+     * @var DisjunctiveLicenseWithId[]|DisjunctiveLicenseWithName[]|LicenseExpression[]
      *
-     * @psalm-var list<DisjunctiveLicenseWithId|DisjunctiveLicenseWithName>
+     * @psalm-var list<DisjunctiveLicenseWithId|DisjunctiveLicenseWithName|LicenseExpression>
      */
     private array $licenses = [];
 
     /**
      * Unsupported Licenses are filtered out silently.
      */
-    public function __construct(DisjunctiveLicenseWithId|DisjunctiveLicenseWithName ...$licenses)
+    public function __construct(DisjunctiveLicenseWithId|DisjunctiveLicenseWithName|LicenseExpression ...$licenses)
     {
         $this->addLicense(...$licenses);
     }
@@ -52,7 +53,7 @@ class DisjunctiveLicenseRepository implements \Countable
      *
      * @return $this
      */
-    public function addLicense(DisjunctiveLicenseWithId|DisjunctiveLicenseWithName ...$licenses): self
+    public function addLicense(DisjunctiveLicenseWithId|DisjunctiveLicenseWithName|LicenseExpression ...$licenses): self
     {
         foreach ($licenses as $license) {
             if (\in_array($license, $this->licenses, true)) {
@@ -65,9 +66,9 @@ class DisjunctiveLicenseRepository implements \Countable
     }
 
     /**
-     * @return DisjunctiveLicenseWithId[]|DisjunctiveLicenseWithName[]
+     * @return DisjunctiveLicenseWithId[]|DisjunctiveLicenseWithName[]|LicenseExpression[]
      *
-     * @psalm-return list<DisjunctiveLicenseWithId|DisjunctiveLicenseWithName>
+     * @psalm-return list<DisjunctiveLicenseWithId|DisjunctiveLicenseWithName|LicenseExpression>
      */
     public function getLicenses(): array
     {

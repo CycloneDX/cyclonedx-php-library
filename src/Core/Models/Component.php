@@ -26,7 +26,7 @@ namespace CycloneDX\Core\Models;
 use CycloneDX\Core\Enums\Classification;
 use CycloneDX\Core\Models\License\LicenseExpression;
 use CycloneDX\Core\Repositories\BomRefRepository;
-use CycloneDX\Core\Repositories\DisjunctiveLicenseRepository;
+use CycloneDX\Core\Repositories\LicenseRepository;
 use CycloneDX\Core\Repositories\ExternalReferenceRepository;
 use CycloneDX\Core\Repositories\HashRepository;
 use DomainException;
@@ -43,6 +43,8 @@ class Component
      *
      * Implementation is intended to prevent memory leaks.
      * See ../../../docs/dev/decisions/BomDependencyDataModel.md
+     *
+     * @readonly
      */
     private BomRef $bomRef;
 
@@ -100,12 +102,12 @@ class Component
     /**
      * licence(s).
      */
-    private LicenseExpression|DisjunctiveLicenseRepository|null $license = null;
+    private LicenseRepository $licenses;
 
     /**
      * Specifies the file hashes of the component.
      */
-    private ?HashRepository $hashRepository = null;
+    private HashRepository $hashes;
 
     /**
      * References to dependencies.
@@ -113,7 +115,7 @@ class Component
      * Implementation is intended to prevent memory leaks.
      * See ../../../docs/dev/decisions/BomDependencyDataModel.md
      */
-    private ?BomRefRepository $dependenciesBomRefRepository = null;
+    private BomRefRepository $dependencies;
 
     /**
      * The component version. The version should ideally comply with semantic versioning
@@ -125,7 +127,7 @@ class Component
      * Provides the ability to document external references related to the
      * component or to the project the component describes.
      */
-    private ?ExternalReferenceRepository $externalReferenceRepository = null;
+    private ExternalReferenceRepository $externalReferences;
 
     public function getBomRef(): BomRef
     {
@@ -222,32 +224,32 @@ class Component
         return $this;
     }
 
-    public function getLicense(): LicenseExpression|DisjunctiveLicenseRepository|null
+    public function getLicenses(): LicenseRepository
     {
-        return $this->license;
+        return $this->licenses;
     }
 
     /***
      * @return $this
      */
-    public function setLicense(LicenseExpression|DisjunctiveLicenseRepository|null $license): self
+    public function setLicenses(LicenseRepository $licenses): self
     {
-        $this->license = $license;
+        $this->licenses = $licenses;
 
         return $this;
     }
 
-    public function getHashRepository(): ?HashRepository
+    public function getHashes(): HashRepository
     {
-        return $this->hashRepository;
+        return $this->hashes;
     }
 
     /**
      * @return $this
      */
-    public function setHashRepository(?HashRepository $hashRepository): self
+    public function setHashes(HashRepository $hashes): self
     {
-        $this->hashRepository = $hashRepository;
+        $this->hashes = $hashes;
 
         return $this;
     }
@@ -282,32 +284,32 @@ class Component
         return $this;
     }
 
-    public function getDependenciesBomRefRepository(): ?BomRefRepository
+    public function getDependencies(): BomRefRepository
     {
-        return $this->dependenciesBomRefRepository;
+        return $this->dependencies;
     }
 
     /**
      * @return $this
      */
-    public function setDependenciesBomRefRepository(?BomRefRepository $dependenciesBomRefRepository): self
+    public function setDependencies(BomRefRepository $dependencies): self
     {
-        $this->dependenciesBomRefRepository = $dependenciesBomRefRepository;
+        $this->dependencies = $dependencies;
 
         return $this;
     }
 
-    public function getExternalReferenceRepository(): ?ExternalReferenceRepository
+    public function getExternalReferences(): ExternalReferenceRepository
     {
-        return $this->externalReferenceRepository;
+        return $this->externalReferences;
     }
 
     /**
      * @return $this
      */
-    public function setExternalReferenceRepository(?ExternalReferenceRepository $externalReferenceRepository): self
+    public function setExternalReferences(ExternalReferenceRepository $externalReferences): self
     {
-        $this->externalReferenceRepository = $externalReferenceRepository;
+        $this->externalReferences = $externalReferences;
 
         return $this;
     }
@@ -322,6 +324,10 @@ class Component
         $this->setType($type);
         $this->setName($name);
         $this->bomRef = new BomRef();
+        $this->dependencies = new BomRefRepository();
+        $this->licenses = new LicenseRepository();
+        $this->hashes = new HashRepository();
+        $this->externalReferences = new ExternalReferenceRepository();
     }
 
     public function __clone()

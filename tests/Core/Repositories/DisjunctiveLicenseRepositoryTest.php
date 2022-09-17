@@ -25,17 +25,17 @@ namespace CycloneDX\Tests\Core\Repositories;
 
 use CycloneDX\Core\Models\License\DisjunctiveLicenseWithId;
 use CycloneDX\Core\Models\License\DisjunctiveLicenseWithName;
-use CycloneDX\Core\Repositories\DisjunctiveLicenseRepository;
+use CycloneDX\Core\Repositories\LicenseRepository;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers \CycloneDX\Core\Repositories\DisjunctiveLicenseRepository
+ * @covers \CycloneDX\Core\Repositories\LicenseRepository
  */
 class DisjunctiveLicenseRepositoryTest extends TestCase
 {
     public function testEmptyConstructor(): void
     {
-        $repo = new DisjunctiveLicenseRepository();
+        $repo = new LicenseRepository();
 
         self::assertCount(0, $repo);
         self::assertSame([], $repo->getLicenses());
@@ -46,7 +46,7 @@ class DisjunctiveLicenseRepositoryTest extends TestCase
         $license1 = $this->createStub(DisjunctiveLicenseWithId::class);
         $license2 = $this->createStub(DisjunctiveLicenseWithName::class);
 
-        $repo = new DisjunctiveLicenseRepository($license1, $license2, $license1, $license2);
+        $repo = new LicenseRepository($license1, $license2, $license1, $license2);
 
         self::assertCount(2, $repo);
         self::assertCount(2, $repo->getLicenses());
@@ -59,7 +59,7 @@ class DisjunctiveLicenseRepositoryTest extends TestCase
         $license1 = $this->createStub(DisjunctiveLicenseWithName::class);
         $license2 = $this->createStub(DisjunctiveLicenseWithId::class);
         $license3 = $this->createStub(DisjunctiveLicenseWithName::class);
-        $repo = new DisjunctiveLicenseRepository($license1, $license2);
+        $repo = new LicenseRepository($license1, $license2);
 
         $actual = $repo->addLicense($license2, $license3, $license3);
 

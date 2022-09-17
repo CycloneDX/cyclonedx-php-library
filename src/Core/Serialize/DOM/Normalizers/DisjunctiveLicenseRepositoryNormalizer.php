@@ -24,7 +24,7 @@ declare(strict_types=1);
 namespace CycloneDX\Core\Serialize\DOM\Normalizers;
 
 use CycloneDX\Core\Helpers\SimpleDomTrait;
-use CycloneDX\Core\Repositories\DisjunctiveLicenseRepository;
+use CycloneDX\Core\Repositories\LicenseRepository;
 use CycloneDX\Core\Serialize\DOM\AbstractNormalizer;
 use DOMElement;
 
@@ -40,7 +40,7 @@ class DisjunctiveLicenseRepositoryNormalizer extends AbstractNormalizer
      *
      * @psalm-return list<DOMElement>
      */
-    public function normalize(DisjunctiveLicenseRepository $repo): array
+    public function normalize(LicenseRepository $repo): array
     {
         $licenses = [];
 

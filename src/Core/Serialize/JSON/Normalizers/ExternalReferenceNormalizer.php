@@ -51,7 +51,7 @@ class ExternalReferenceNormalizer extends AbstractNormalizer
                 'type' => $type,
                 'url' => $externalReference->getUrl(),
                 'comment' => $externalReference->getComment(),
-                'hashes' => $this->normalizeHashes($externalReference->getHashRepository()),
+                'hashes' => $this->normalizeHashes($externalReference->getHashes()),
             ],
             [$this, 'isNotNull']
         );

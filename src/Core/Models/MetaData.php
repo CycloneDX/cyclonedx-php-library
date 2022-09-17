@@ -33,14 +33,14 @@ class MetaData
     /**
      * The tool(s) used in the creation of the BOM.
      */
-    private ?ToolRepository $tools = null;
+    private ToolRepository $tools;
 
     /**
      * The component that the BOM describes.
      */
     private ?Component $component = null;
 
-    public function getTools(): ?ToolRepository
+    public function getTools(): ToolRepository
     {
         return $this->tools;
     }
@@ -48,7 +48,7 @@ class MetaData
     /**
      * @return $this
      */
-    public function setTools(?ToolRepository $tools): self
+    public function setTools(ToolRepository $tools): self
     {
         $this->tools = $tools;
 
@@ -68,5 +68,10 @@ class MetaData
         $this->component = $component;
 
         return $this;
+    }
+
+    public function __construct()
+    {
+        $this->tools = new ToolRepository();
     }
 }

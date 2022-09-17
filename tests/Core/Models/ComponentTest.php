@@ -28,7 +28,7 @@ use CycloneDX\Core\Models\BomRef;
 use CycloneDX\Core\Models\Component;
 use CycloneDX\Core\Models\License\LicenseExpression;
 use CycloneDX\Core\Repositories\BomRefRepository;
-use CycloneDX\Core\Repositories\DisjunctiveLicenseRepository;
+use CycloneDX\Core\Repositories\LicenseRepository;
 use CycloneDX\Core\Repositories\ExternalReferenceRepository;
 use CycloneDX\Core\Repositories\HashRepository;
 use PackageUrl\PackageUrl;
@@ -134,7 +134,7 @@ class ComponentTest extends TestCase
      */
     public function testLicensesSetterGetter(Component $component, $license): void
     {
-        $component->setLicense($license);
+        $component->setLicenses($license);
         self::assertSame($license, $component->getLicense());
     }
 
@@ -142,7 +142,7 @@ class ComponentTest extends TestCase
     {
         $component = $this->testConstructor();
         yield 'null' => [$component, null];
-        yield 'repo' => [$component, $this->createStub(DisjunctiveLicenseRepository::class)];
+        yield 'repo' => [$component, $this->createStub(LicenseRepository::class)];
         yield 'expression' => [$component, $this->createStub(LicenseExpression::class)];
     }
 
@@ -155,8 +155,8 @@ class ComponentTest extends TestCase
      */
     public function testHashesSetterGetter(Component $component, $hashes): void
     {
-        $component->setHashRepository($hashes);
-        self::assertSame($hashes, $component->getHashRepository());
+        $component->setHashes($hashes);
+        self::assertSame($hashes, $component->getHashes());
     }
 
     public function dpHashesSetterGetter(): \Generator
@@ -238,11 +238,11 @@ class ComponentTest extends TestCase
     public function testDependenciesBomRefRepositorySetterGetter(Component $component): void
     {
         $repo = $this->createMock(BomRefRepository::class);
-        self::assertNull($component->getDependenciesBomRefRepository());
+        self::assertNull($component->getDependencies());
 
-        $component->setDependenciesBomRefRepository($repo);
+        $component->setDependencies($repo);
 
-        self::assertSame($repo, $component->getDependenciesBomRefRepository());
+        self::assertSame($repo, $component->getDependencies());
     }
 
     // endregion dependenciesBomRefRepository setter&getter
@@ -256,10 +256,10 @@ class ComponentTest extends TestCase
     {
         $extRefRepo = $this->createStub(ExternalReferenceRepository::class);
 
-        $actual = $component->setExternalReferenceRepository($extRefRepo);
+        $actual = $component->setExternalReferences($extRefRepo);
 
         self::assertSame($component, $actual);
-        self::assertSame($extRefRepo, $component->getExternalReferenceRepository());
+        self::assertSame($extRefRepo, $component->getExternalReferences());
     }
 
     // endregion externalReferenceRepository setter&getter

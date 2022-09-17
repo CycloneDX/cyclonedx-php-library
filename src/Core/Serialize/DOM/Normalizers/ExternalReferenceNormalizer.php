@@ -74,7 +74,7 @@ class ExternalReferenceNormalizer extends AbstractNormalizer
             [
                 $this->simpleDomSafeTextElement($doc, 'url', $anyURI),
                 $this->simpleDomSafeTextElement($doc, 'comment', $externalReference->getComment()),
-                $this->normalizeHashes($externalReference->getHashRepository()),
+                $this->normalizeHashes($externalReference->getHashes()),
             ]
         );
     }

@@ -40,8 +40,8 @@ class ToolTest extends TestCase
         self::assertNull($tool->getVendor());
         self::assertNull($tool->getName());
         self::assertNull($tool->getVersion());
-        self::assertNull($tool->getHashRepository());
-        self::assertNull($tool->getExternalReferenceRepository());
+        self::assertNull($tool->getHashes());
+        self::assertNull($tool->getExternalReferences());
 
         return $tool;
     }
@@ -82,8 +82,8 @@ class ToolTest extends TestCase
     public function testSetterGetterHashRepository(Tool $tool): void
     {
         $hashes = $this->createStub(HashRepository::class);
-        $tool->setHashRepository($hashes);
-        self::assertSame($hashes, $tool->getHashRepository());
+        $tool->setHashes($hashes);
+        self::assertSame($hashes, $tool->getHashes());
     }
 
     /**
@@ -92,7 +92,7 @@ class ToolTest extends TestCase
     public function testSetterGetterExternalReferenceRepository(Tool $tool): void
     {
         $extRefs = $this->createStub(ExternalReferenceRepository::class);
-        $tool->setExternalReferenceRepository($extRefs);
-        self::assertSame($extRefs, $tool->getExternalReferenceRepository());
+        $tool->setExternalReferences($extRefs);
+        self::assertSame($extRefs, $tool->getExternalReferences());
     }
 }

@@ -82,7 +82,7 @@ See extended [examples].
 
 ```php
 $bom = new \CycloneDX\Core\Models\Bom();
-$bom->getComponentRepository()->addComponent(
+$bom->getComponents()->addComponent(
     new \CycloneDX\Core\Models\Component(
         \CycloneDX\Core\Enums\Classification::LIBRARY,
         'myComponent'

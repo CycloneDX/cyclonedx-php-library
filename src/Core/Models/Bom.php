@@ -36,7 +36,7 @@ class Bom
     /**
      * @psalm-suppress PropertyNotSetInConstructor
      */
-    private ComponentRepository $componentRepository;
+    private ComponentRepository $components;
 
     /**
      * The version allows component publishers/authors to make changes to existing BOMs to update various aspects of the document such as description or licenses.
@@ -57,24 +57,25 @@ class Bom
      * Provides the ability to document external references related to the BOM or
      * to the project the BOM describes.
      */
-    private ?ExternalReferenceRepository $externalReferenceRepository = null;
+    private ExternalReferenceRepository $externalReferences;
 
-    public function __construct(?ComponentRepository $componentRepository = null)
+    public function __construct(?ComponentRepository $components = null)
     {
-        $this->setComponentRepository($componentRepository ?? new ComponentRepository());
+        $this->setComponents($components ?? new ComponentRepository());
+        $this->externalReferences = new ExternalReferenceRepository();
     }
 
-    public function getComponentRepository(): ComponentRepository
+    public function getComponents(): ComponentRepository
     {
-        return $this->componentRepository;
+        return $this->components;
     }
 
     /**
      * @return $this
      */
-    public function setComponentRepository(ComponentRepository $componentRepository): self
+    public function setComponents(ComponentRepository $components): self
     {
-        $this->componentRepository = $componentRepository;
+        $this->components = $components;
 
         return $this;
     }
@@ -128,17 +129,17 @@ class Bom
         return $this;
     }
 
-    public function getExternalReferenceRepository(): ?ExternalReferenceRepository
+    public function getExternalReferences(): ExternalReferenceRepository
     {
-        return $this->externalReferenceRepository;
+        return $this->externalReferences;
     }
 
     /**
      * @return $this
      */
-    public function setExternalReferenceRepository(?ExternalReferenceRepository $externalReferenceRepository): self
+    public function setExternalReferences(ExternalReferenceRepository $externalReferences): self
     {
-        $this->externalReferenceRepository = $externalReferenceRepository;
+        $this->externalReferences = $externalReferences;
 
         return $this;
     }

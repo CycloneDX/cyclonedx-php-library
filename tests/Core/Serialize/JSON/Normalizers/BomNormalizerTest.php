@@ -95,7 +95,7 @@ class BomNormalizerTest extends TestCase
 
         $componentsNormalizer->expects(self::once())
             ->method('normalize')
-            ->with($bom->getComponentRepository())
+            ->with($bom->getComponents())
             ->willReturn(['FakeComponents']);
 
         $actual = $normalizer->normalize($bom);
@@ -370,7 +370,7 @@ class BomNormalizerTest extends TestCase
 
         $externalReferenceRepositoryNormalizer->expects(self::once())
             ->method('normalize')
-            ->with($bom->getExternalReferenceRepository())
+            ->with($bom->getExternalReferences())
             ->willReturn(['FakeReferenceRepositoryNormalized']);
 
         $actual = $normalizer->normalize($bom);
@@ -419,7 +419,7 @@ class BomNormalizerTest extends TestCase
         );
 
         $externalReferenceRepositoryNormalizer->method('normalize')
-            ->with($bom->getExternalReferenceRepository())
+            ->with($bom->getExternalReferences())
             ->willReturn([/* empty */]);
 
         $actual = $normalizer->normalize($bom);

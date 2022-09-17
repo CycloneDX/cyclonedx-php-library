@@ -43,7 +43,7 @@ class ExternalReferenceTest extends TestCase
         $this->assertSame(ExternalReferenceType::OTHER, $extRef->getType());
         $this->assertSame('https://localhost/dummy', $extRef->getUrl());
         $this->assertNull($extRef->getComment());
-        $this->assertNull($extRef->getHashRepository());
+        $this->assertNull($extRef->getHashes());
 
         return $extRef;
     }
@@ -123,9 +123,9 @@ class ExternalReferenceTest extends TestCase
     public function testHashesSetterAndGetter(ExternalReference $extRef): void
     {
         $hashes = $this->createStub(HashRepository::class);
-        $got = $extRef->setHashRepository($hashes);
+        $got = $extRef->setHashes($hashes);
         $this->assertSame($extRef, $got);
-        $this->assertSame($hashes, $extRef->getHashRepository());
+        $this->assertSame($hashes, $extRef->getHashes());
     }
 
     // endregion test Comment

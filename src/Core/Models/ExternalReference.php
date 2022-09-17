@@ -57,7 +57,7 @@ class ExternalReference
      */
     private ?string $comment = null;
 
-    private ?HashRepository $hashRepository = null;
+    private HashRepository $hashes;
 
     /**
      * @psalm-return  ExternalReferenceType::*
@@ -115,17 +115,17 @@ class ExternalReference
         return $this;
     }
 
-    public function getHashRepository(): ?HashRepository
+    public function getHashes(): HashRepository
     {
-        return $this->hashRepository;
+        return $this->hashes;
     }
 
     /**
      * @return $this
      */
-    public function setHashRepository(?HashRepository $hashRepository): self
+    public function setHashes(HashRepository $hashes): self
     {
-        $this->hashRepository = $hashRepository;
+        $this->hashes = $hashes;
 
         return $this;
     }
@@ -139,5 +139,6 @@ class ExternalReference
     {
         $this->setType($type);
         $this->setUrl($url);
+        $this->hashes = new HashRepository();
     }
 }

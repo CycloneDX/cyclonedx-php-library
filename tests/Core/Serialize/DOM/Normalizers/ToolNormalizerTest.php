@@ -98,11 +98,11 @@ class ToolNormalizerTest extends TestCase
 
         $hashRepoNormalizer->expects(self::once())
             ->method('normalize')
-            ->with($tool->getHashRepository())
+            ->with($tool->getHashes())
             ->willReturn([$factory->getDocument()->createElement('FakeHash', 'dummyHash')]);
         $extRefRepoNormalizer->expects(self::once())
             ->method('normalize')
-            ->with($tool->getExternalReferenceRepository())
+            ->with($tool->getExternalReferences())
             ->willReturn([$factory->getDocument()->createElement('FakeExtRefs', 'dummyRef')]);
 
         $actual = $normalizer->normalize($tool);

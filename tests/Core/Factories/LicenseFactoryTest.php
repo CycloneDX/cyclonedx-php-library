@@ -191,7 +191,7 @@ class LicenseFactoryTest extends TestCase
     /**
      * @uses \CycloneDX\Core\Models\License\DisjunctiveLicenseWithName
      * @uses \CycloneDX\Core\Models\License\AbstractDisjunctiveLicense
-     * @uses \CycloneDX\Core\Repositories\DisjunctiveLicenseRepository
+     * @uses \CycloneDX\Core\Repositories\LicenseRepository
      */
     public function testMakeDisjunctiveFromExpression(): void
     {

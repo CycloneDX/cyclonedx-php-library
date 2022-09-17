@@ -28,7 +28,7 @@ use CycloneDX\Core\Helpers\SimpleDomTrait;
 use CycloneDX\Core\Helpers\XmlTrait;
 use CycloneDX\Core\Models\Component;
 use CycloneDX\Core\Models\License\LicenseExpression;
-use CycloneDX\Core\Repositories\DisjunctiveLicenseRepository;
+use CycloneDX\Core\Repositories\LicenseRepository;
 use CycloneDX\Core\Repositories\ExternalReferenceRepository;
 use CycloneDX\Core\Repositories\HashRepository;
 use CycloneDX\Core\Serialize\DOM\AbstractNormalizer;
@@ -90,20 +90,20 @@ class ComponentNormalizer extends AbstractNormalizer
                 ),
                 $this->simpleDomSafeTextElement($document, 'description', $component->getDescription()),
                 // scope
-                $this->normalizeHashes($component->getHashRepository()),
+                $this->normalizeHashes($component->getHashes()),
                 $this->normalizeLicense($component->getLicense()),
                 // copyright
                 // cpe
                 $this->normalizePurl($component->getPackageUrl()),
                 // modified
                 // pedigree
-                $this->normalizeExternalReferences($component->getExternalReferenceRepository()),
+                $this->normalizeExternalReferences($component->getExternalReferences()),
                 // components
             ]
         );
     }
 
-    private function normalizeLicense(LicenseExpression|DisjunctiveLicenseRepository|null $license): ?DOMElement
+    private function normalizeLicense(LicenseExpression|LicenseRepository|null $license): ?DOMElement
     {
         /**
          * @var DOMElement[] $licenses
@@ -112,7 +112,7 @@ class ComponentNormalizer extends AbstractNormalizer
          */
         if ($license instanceof LicenseExpression) {
             $licenses = $this->normalizeLicenseExpression($license);
-        } elseif ($license instanceof DisjunctiveLicenseRepository) {
+        } elseif ($license instanceof LicenseRepository) {
             $licenses = $this->normalizeDisjunctiveLicenses($license);
         } else {
             $licenses = [];
@@ -149,7 +149,7 @@ class ComponentNormalizer extends AbstractNormalizer
      *
      * @psalm-return list<DOMElement>
      */
-    private function normalizeDisjunctiveLicenses(DisjunctiveLicenseRepository $licenses): array
+    private function normalizeDisjunctiveLicenses(LicenseRepository $licenses): array
     {
         return 0 === \count($licenses)
             ? []

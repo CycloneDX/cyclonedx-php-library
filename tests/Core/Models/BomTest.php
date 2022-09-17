@@ -49,9 +49,9 @@ class BomTest extends TestCase
     public function testComponentsSetterGetter(): void
     {
         $components = $this->createStub(ComponentRepository::class);
-        $bom = $this->bom->setComponentRepository($components);
+        $bom = $this->bom->setComponents($components);
         self::assertSame($this->bom, $bom);
-        self::assertSame($components, $this->bom->getComponentRepository());
+        self::assertSame($components, $this->bom->getComponents());
     }
 
     // endregion components setter&getter&modifiers
@@ -92,9 +92,9 @@ class BomTest extends TestCase
     public function testExternalReferenceRepositorySetterGetter(): void
     {
         $extRefRepo = $this->createStub(ExternalReferenceRepository::class);
-        $bom = $this->bom->setExternalReferenceRepository($extRefRepo);
+        $bom = $this->bom->setExternalReferences($extRefRepo);
         self::assertSame($this->bom, $bom);
-        self::assertSame($extRefRepo, $this->bom->getExternalReferenceRepository());
+        self::assertSame($extRefRepo, $this->bom->getExternalReferences());
     }
 
     // endregion externalReferenceRepository setter&getter

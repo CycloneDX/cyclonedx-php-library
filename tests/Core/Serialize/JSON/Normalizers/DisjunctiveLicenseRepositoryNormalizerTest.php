@@ -25,7 +25,7 @@ namespace CycloneDX\Tests\Core\Serialize\JSON\Normalizers;
 
 use CycloneDX\Core\Models\License\DisjunctiveLicenseWithId;
 use CycloneDX\Core\Models\License\DisjunctiveLicenseWithName;
-use CycloneDX\Core\Repositories\DisjunctiveLicenseRepository;
+use CycloneDX\Core\Repositories\LicenseRepository;
 use CycloneDX\Core\Serialize\JSON\NormalizerFactory;
 use CycloneDX\Core\Serialize\JSON\Normalizers\DisjunctiveLicenseNormalizer;
 use CycloneDX\Core\Serialize\JSON\Normalizers\DisjunctiveLicenseRepositoryNormalizer;
@@ -47,7 +47,7 @@ class DisjunctiveLicenseRepositoryNormalizerTest extends TestCase
         $licenseNormalizer = $this->createMock(DisjunctiveLicenseNormalizer::class);
         $factory = $this->createConfiguredMock(NormalizerFactory::class, ['makeForDisjunctiveLicense' => $licenseNormalizer]);
         $normalizer = new DisjunctiveLicenseRepositoryNormalizer($factory);
-        $repo = $this->createStub(DisjunctiveLicenseRepository::class);
+        $repo = $this->createStub(LicenseRepository::class);
         $repo->method('getLicenses')->willReturn([$license1, $license2]);
 
         $licenseNormalizer->expects(self::exactly(2))->method('normalize')
