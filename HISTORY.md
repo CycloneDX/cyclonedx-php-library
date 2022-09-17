@@ -10,6 +10,7 @@ All notable changes to this project will be documented in this file.
   * Removed support for PHP v7.3. ([#6]   via [#125])
   * Removed support for PHP v7.4. ([#114] via [#125])
   * Changed models' aggregation properties to be no longer optional. ([#66] via [#131])
+  * Streamlined repository data structures to follow a common method naming scheme. (via [#131])
 * Added
   * Support for CycloneDX v1.4. ([#57] via [#65], [#118], [#123])
 * Misc
@@ -66,11 +67,18 @@ API changes
     * BREAKING: renamed methods `{get,set}HashRepository()` -> `{get,set}Hashes()`
       and made their parameter & return type non-nullable, was nullable. ([#66] via [#131])
 - `\CycloneDX\Core\Repositories`
+  * Overall:
+    * BREAKING: Renamed the namespace to `Collections`. (via [#131])
+    * BREAKING: Streamlined all classes, renamed all getters to `getItems` and all setters to `setItems`.  (via [#131])
+      In addition, the method arguments were renamed to generic `$items`.
   * `DisjunctiveLicenseRepository`
     * BREAKING: renamed the class to `LicenseRepository`. (via [#131])
     * BREAKING: Added the capability to also aggregate instances of class `Models\LicenseExpression`. (via [#131])
       Therefore, various getters and setters and the constructor changed their signatures,
       was usage of `Models\License\AbstractDisjunctiveLicense` only.
+  * `HashRepository`
+    * BREAKING: renamed to `HashDictionary`. (via [#131])
+    * BREAKING: renamed all methods and changed all method signatures to match the overall streamlined scheme. (via [#131])
 - `\CycloneDX\Core\Serialize`
   * Changed the method `{DOM,JSON}\Normalizers\ExternalReferenceNormalizer::normalize()`
     to actually throw `\DomainException` when `\ExternalReference`'s type was not supported by the spec. (via [#65])  

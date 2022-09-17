@@ -21,14 +21,14 @@ declare(strict_types=1);
  * Copyright (c) OWASP Foundation. All Rights Reserved.
  */
 
-namespace CycloneDX\Tests\Core\Repositories;
+namespace CycloneDX\Tests\Core\Collections;
 
 use CycloneDX\Core\Models\Tool;
-use CycloneDX\Core\Repositories\ToolRepository;
+use CycloneDX\Core\Collections\ToolRepository;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers \CycloneDX\Core\Repositories\ToolRepository
+ * @covers \CycloneDX\Core\Collections\ToolRepository
  */
 class ToolRepositoryTest extends TestCase
 {
@@ -37,7 +37,7 @@ class ToolRepositoryTest extends TestCase
         $repo = new ToolRepository();
 
         self::assertCount(0, $repo);
-        self::assertSame([], $repo->getTools());
+        self::assertSame([], $repo->getItems());
     }
 
     public function testConstructAndGet(): void
@@ -48,9 +48,9 @@ class ToolRepositoryTest extends TestCase
         $repo = new ToolRepository($tool1, $tool2, $tool1, $tool2);
 
         self::assertCount(2, $repo);
-        self::assertCount(2, $repo->getTools());
-        self::assertContains($tool1, $repo->getTools());
-        self::assertContains($tool2, $repo->getTools());
+        self::assertCount(2, $repo->getItems());
+        self::assertContains($tool1, $repo->getItems());
+        self::assertContains($tool2, $repo->getItems());
     }
 
     public function testAddAndGetTool(): void
@@ -60,13 +60,13 @@ class ToolRepositoryTest extends TestCase
         $tool3 = $this->createStub(Tool::class);
         $repo = new ToolRepository($tool1, $tool2);
 
-        $actual = $repo->addTool($tool2, $tool3, $tool3);
+        $actual = $repo->addItems($tool2, $tool3, $tool3);
 
         self::assertSame($repo, $actual);
         self::assertCount(3, $repo);
-        self::assertCount(3, $repo->getTools());
-        self::assertContains($tool1, $repo->getTools());
-        self::assertContains($tool2, $repo->getTools());
-        self::assertContains($tool3, $repo->getTools());
+        self::assertCount(3, $repo->getItems());
+        self::assertContains($tool1, $repo->getItems());
+        self::assertContains($tool2, $repo->getItems());
+        self::assertContains($tool3, $repo->getItems());
     }
 }

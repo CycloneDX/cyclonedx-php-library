@@ -21,56 +21,56 @@ declare(strict_types=1);
  * Copyright (c) OWASP Foundation. All Rights Reserved.
  */
 
-namespace CycloneDX\Core\Repositories;
+namespace CycloneDX\Core\Collections;
 
-use CycloneDX\Core\Models\BomRef;
+use CycloneDX\Core\Models\Tool;
 
 /**
- * Unique list of {@see \CycloneDX\Core\Models\BomRef}.
+ * Unique collection of {@see \CycloneDX\Core\Models\Tool}.
  *
  * @author jkowalleck
  */
-class BomRefRepository implements \Countable
+class ToolRepository implements \Countable
 {
     /**
-     * @var BomRef[]
+     * @var Tool[]
      *
-     * @psalm-var list<BomRef>
+     * @psalm-var list<Tool>
      */
-    private array $bomRefs = [];
+    private array $items = [];
 
-    public function __construct(BomRef ...$bomRefs)
+    public function __construct(Tool ...$items)
     {
-        $this->addBomRef(...$bomRefs);
+        $this->addItems(...$items);
     }
 
     /**
      * @return $this
      */
-    public function addBomRef(BomRef ...$bomRefs): self
+    public function addItems(Tool ...$items): self
     {
-        foreach ($bomRefs as $bomRef) {
-            if (\in_array($bomRef, $this->bomRefs, true)) {
+        foreach ($items as $item) {
+            if (\in_array($item, $this->items, true)) {
                 continue;
             }
-            $this->bomRefs[] = $bomRef;
+            $this->items[] = $item;
         }
 
         return $this;
     }
 
     /**
-     * @return BomRef[]
+     * @return Tool[]
      *
-     * @psalm-return list<BomRef>
+     * @psalm-return list<Tool>
      */
-    public function getBomRefs(): array
+    public function getItems(): array
     {
-        return $this->bomRefs;
+        return $this->items;
     }
 
     public function count(): int
     {
-        return \count($this->bomRefs);
+        return \count($this->items);
     }
 }

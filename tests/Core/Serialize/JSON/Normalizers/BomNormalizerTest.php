@@ -27,8 +27,8 @@ use CycloneDX\Core\Models\Bom;
 use CycloneDX\Core\Models\Component;
 use CycloneDX\Core\Models\ExternalReference;
 use CycloneDX\Core\Models\Metadata;
-use CycloneDX\Core\Repositories\ComponentRepository;
-use CycloneDX\Core\Repositories\ExternalReferenceRepository;
+use CycloneDX\Core\Collections\ComponentRepository;
+use CycloneDX\Core\Collections\ExternalReferenceRepository;
 use CycloneDX\Core\Serialize\JSON\NormalizerFactory;
 use CycloneDX\Core\Serialize\JSON\Normalizers;
 use CycloneDX\Core\Spec\SpecInterface;
@@ -438,7 +438,7 @@ class BomNormalizerTest extends TestCase
     /**
      * @dataProvider dpNormalizeExternalReferencesWithComponent
      *
-     * @uses \CycloneDX\Core\Repositories\ExternalReferenceRepository
+     * @uses \CycloneDX\Core\Collections\ExternalReferenceRepository
      */
     public function testNormalizeExternalReferencesWithComponent(
         ?ExternalReferenceRepository $bomExternalReferenceRepository,
@@ -485,7 +485,7 @@ class BomNormalizerTest extends TestCase
             $bomExternalReferenceRepository,
             $componentExternalReferenceRepository
         ): bool {
-            $actualRefs = $repo->getExternalReferences();
+            $actualRefs = $repo->getItems();
             self::assertCount(
                 ($bomExternalReferenceRepository ? \count($bomExternalReferenceRepository) : 0)
                 + ($componentExternalReferenceRepository ? \count($componentExternalReferenceRepository) : 0),
@@ -493,13 +493,13 @@ class BomNormalizerTest extends TestCase
             );
 
             if ($bomExternalReferenceRepository) {
-                foreach ($bomExternalReferenceRepository->getExternalReferences() as $expectedRef) {
+                foreach ($bomExternalReferenceRepository->getItems() as $expectedRef) {
                     self::assertContains($expectedRef, $actualRefs);
                 }
             }
 
             if ($componentExternalReferenceRepository) {
-                foreach ($componentExternalReferenceRepository->getExternalReferences() as $expectedRef) {
+                foreach ($componentExternalReferenceRepository->getItems() as $expectedRef) {
                     self::assertContains($expectedRef, $actualRefs);
                 }
             }

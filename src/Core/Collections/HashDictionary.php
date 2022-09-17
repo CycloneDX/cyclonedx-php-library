@@ -21,52 +21,52 @@ declare(strict_types=1);
  * Copyright (c) OWASP Foundation. All Rights Reserved.
  */
 
-namespace CycloneDX\Core\Repositories;
+namespace CycloneDX\Core\Collections;
 
 use CycloneDX\Core\Enums\HashAlgorithm;
 use DomainException;
 
 /**
- * Dictionary of {@see \CycloneDX\Core\Enums\HashAlgorithm} => $content.
+ * Dictionary of {@see \CycloneDX\Core\Enums\HashAlgorithm} => `$content:string`.
  *
  * @author jkowalleck
  */
-class HashRepository implements \Countable
+class HashDictionary implements \Countable
 {
     /**
      * @var string[] dictionary of hashes
      *
      * @psalm-var  array<HashAlgorithm::*, string>
      */
-    private array $hashDict = [];
+    private array $items = [];
 
     /**
      * Ignores unknown hash algorithms.
      *
-     * @param string[] $hashes dictionary of hashes. Valid keys are {@see \CycloneDX\Core\Enums\HashAlgorithm}
+     * @param string[] $items dictionary of hashes. Valid keys are {@see \CycloneDX\Core\Enums\HashAlgorithm}
      *
-     * @psalm-param array<string,string> $hashes
+     * @psalm-param array<string,string> $items
      */
-    public function __construct(array $hashes = [])
+    public function __construct(array $items = [])
     {
-        $this->setHashes($hashes);
+        $this->setItems($items);
     }
 
     /**
      * Set the hashes.
      * Ignores unknown hash algorithms.
      *
-     * @param string[] $hashes dictionary of hashes. Valid keys are {@see \CycloneDX\Core\Enums\HashAlgorithm}
+     * @param string[] $items dictionary of hashes. Valid keys are {@see \CycloneDX\Core\Enums\HashAlgorithm}
      *
-     * @psalm-param array<string,string> $hashes
+     * @psalm-param array<string,string> $items
      *
      * @return $this
      */
-    public function setHashes(array $hashes): self
+    public function setItems(array $items): self
     {
-        foreach ($hashes as $algorithm => $content) {
+        foreach ($items as $algorithm => $content) {
             try {
-                $this->setHash($algorithm, $content);
+                $this->set($algorithm, $content);
             } catch (DomainException) {
                 // pass
             }
@@ -80,9 +80,9 @@ class HashRepository implements \Countable
      *
      * @psalm-return array<HashAlgorithm::*, string>
      */
-    public function getHashes(): array
+    public function getItems(): array
     {
-        return $this->hashDict;
+        return $this->items;
     }
 
     /**
@@ -92,27 +92,27 @@ class HashRepository implements \Countable
      *
      * @return $this
      */
-    public function setHash(string $algorithm, ?string $content): self
+    public function set(string $algorithm, ?string $content): self
     {
         if (false === HashAlgorithm::isValidValue($algorithm)) {
             throw new DomainException("Unknown hash algorithm: $algorithm");
         }
         if (null === $content) {
-            unset($this->hashDict[$algorithm]);
+            unset($this->items[$algorithm]);
         } else {
-            $this->hashDict[$algorithm] = $content;
+            $this->items[$algorithm] = $content;
         }
 
         return $this;
     }
 
-    public function getHash(string $algorithm): ?string
+    public function get(string $algorithm): ?string
     {
-        return $this->hashDict[$algorithm] ?? null;
+        return $this->items[$algorithm] ?? null;
     }
 
     public function count(): int
     {
-        return \count($this->hashDict);
+        return \count($this->items);
     }
 }

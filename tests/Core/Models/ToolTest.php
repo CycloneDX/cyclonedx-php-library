@@ -24,8 +24,8 @@ declare(strict_types=1);
 namespace CycloneDX\Tests\Core\Models;
 
 use CycloneDX\Core\Models\Tool;
-use CycloneDX\Core\Repositories\ExternalReferenceRepository;
-use CycloneDX\Core\Repositories\HashRepository;
+use CycloneDX\Core\Collections\ExternalReferenceRepository;
+use CycloneDX\Core\Collections\HashDictionary;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -81,7 +81,7 @@ class ToolTest extends TestCase
      */
     public function testSetterGetterHashRepository(Tool $tool): void
     {
-        $hashes = $this->createStub(HashRepository::class);
+        $hashes = $this->createStub(HashDictionary::class);
         $tool->setHashes($hashes);
         self::assertSame($hashes, $tool->getHashes());
     }

@@ -25,8 +25,8 @@ namespace CycloneDX\Core\Serialize\DOM\Normalizers;
 
 use CycloneDX\Core\Helpers\SimpleDomTrait;
 use CycloneDX\Core\Models\Tool;
-use CycloneDX\Core\Repositories\ExternalReferenceRepository;
-use CycloneDX\Core\Repositories\HashRepository;
+use CycloneDX\Core\Collections\ExternalReferenceRepository;
+use CycloneDX\Core\Collections\HashDictionary;
 use CycloneDX\Core\Serialize\DOM\AbstractNormalizer;
 use DOMElement;
 
@@ -53,7 +53,7 @@ class ToolNormalizer extends AbstractNormalizer
         );
     }
 
-    private function normalizeHashes(?HashRepository $hashes): ?DOMElement
+    private function normalizeHashes(?HashDictionary $hashes): ?DOMElement
     {
         return null === $hashes || 0 === \count($hashes)
             ? null

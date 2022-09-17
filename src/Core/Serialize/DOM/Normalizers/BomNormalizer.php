@@ -26,7 +26,7 @@ namespace CycloneDX\Core\Serialize\DOM\Normalizers;
 use CycloneDX\Core\Helpers\SimpleDomTrait;
 use CycloneDX\Core\Models\Bom;
 use CycloneDX\Core\Models\Metadata;
-use CycloneDX\Core\Repositories\ComponentRepository;
+use CycloneDX\Core\Collections\ComponentRepository;
 use CycloneDX\Core\Serialize\DOM\AbstractNormalizer;
 use DOMElement;
 
@@ -105,7 +105,7 @@ class BomNormalizer extends AbstractNormalizer
             $mcr = $bom->getMetadata()?->getComponent()?->getExternalReferences();
             if (null !== $mcr) {
                 $externalReferenceRepository = null !== $externalReferenceRepository
-                    ? (clone $externalReferenceRepository)->addExternalReference(...$mcr->getExternalReferences())
+                    ? (clone $externalReferenceRepository)->addItems(...$mcr->getItems())
                     : $mcr;
             }
             unset($mcr);

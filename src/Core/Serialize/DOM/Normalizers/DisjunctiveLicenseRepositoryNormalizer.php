@@ -24,7 +24,7 @@ declare(strict_types=1);
 namespace CycloneDX\Core\Serialize\DOM\Normalizers;
 
 use CycloneDX\Core\Helpers\SimpleDomTrait;
-use CycloneDX\Core\Repositories\LicenseRepository;
+use CycloneDX\Core\Collections\LicenseRepository;
 use CycloneDX\Core\Serialize\DOM\AbstractNormalizer;
 use DOMElement;
 
@@ -45,7 +45,7 @@ class DisjunctiveLicenseRepositoryNormalizer extends AbstractNormalizer
         $licenses = [];
 
         $normalizer = $this->getNormalizerFactory()->makeForDisjunctiveLicense();
-        foreach ($repo->getLicenses() as $license) {
+        foreach ($repo->getItems() as $license) {
             $licenses[] = $normalizer->normalize($license);
         }
 

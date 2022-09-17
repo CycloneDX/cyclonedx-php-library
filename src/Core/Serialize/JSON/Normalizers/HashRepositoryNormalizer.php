@@ -23,7 +23,7 @@ declare(strict_types=1);
 
 namespace CycloneDX\Core\Serialize\JSON\Normalizers;
 
-use CycloneDX\Core\Repositories\HashRepository;
+use CycloneDX\Core\Collections\HashDictionary;
 use CycloneDX\Core\Serialize\JSON\AbstractNormalizer;
 
 /**
@@ -31,12 +31,12 @@ use CycloneDX\Core\Serialize\JSON\AbstractNormalizer;
  */
 class HashRepositoryNormalizer extends AbstractNormalizer
 {
-    public function normalize(HashRepository $repo): array
+    public function normalize(HashDictionary $repo): array
     {
         $hashes = [];
 
         $normalizer = $this->getNormalizerFactory()->makeForHash();
-        foreach ($repo->getHashes() as $algorithm => $content) {
+        foreach ($repo->getItems() as $algorithm => $content) {
             try {
                 $hashes[] = $normalizer->normalize($algorithm, $content);
             } catch (\DomainException) {

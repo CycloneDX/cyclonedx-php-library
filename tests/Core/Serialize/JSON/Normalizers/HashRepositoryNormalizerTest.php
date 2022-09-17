@@ -23,7 +23,7 @@ declare(strict_types=1);
 
 namespace CycloneDX\Tests\Core\Serialize\JSON\Normalizers;
 
-use CycloneDX\Core\Repositories\HashRepository;
+use CycloneDX\Core\Collections\HashDictionary;
 use CycloneDX\Core\Serialize\JSON\NormalizerFactory;
 use CycloneDX\Core\Serialize\JSON\Normalizers\HashNormalizer;
 use CycloneDX\Core\Serialize\JSON\Normalizers\HashRepositoryNormalizer;
@@ -48,8 +48,8 @@ class HashRepositoryNormalizerTest extends TestCase
         $hashNormalizer = $this->createMock(HashNormalizer::class);
         $factory = $this->createConfiguredMock(NormalizerFactory::class, ['makeForHash' => $hashNormalizer]);
         $normalizer = new HashRepositoryNormalizer($factory);
-        $repo = $this->createStub(HashRepository::class);
-        $repo->method('getHashes')->willReturn(['alg1' => 'content1', 'alg2' => 'content2']);
+        $repo = $this->createStub(HashDictionary::class);
+        $repo->method('getItems')->willReturn(['alg1' => 'content1', 'alg2' => 'content2']);
 
         $hashNormalizer->expects(self::exactly(2))->method('normalize')
             ->withConsecutive(['alg1', 'content1'], ['alg2', 'content2'])
@@ -69,7 +69,7 @@ class HashRepositoryNormalizerTest extends TestCase
         $factory = $this->createConfiguredMock(NormalizerFactory::class, ['makeForHash' => $hashNormalizer]);
         $normalizer = new HashRepositoryNormalizer($factory);
 
-        $repo = $this->createConfiguredMock(HashRepository::class, [
+        $repo = $this->createConfiguredMock(HashDictionary::class, [
             'getHashes' => ['alg1' => 'cont1', 'alg2' => 'cont2'],
         ]);
 

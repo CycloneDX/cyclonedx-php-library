@@ -23,7 +23,7 @@ declare(strict_types=1);
 
 namespace CycloneDX\Core\Serialize\JSON\Normalizers;
 
-use CycloneDX\Core\Repositories\ExternalReferenceRepository;
+use CycloneDX\Core\Collections\ExternalReferenceRepository;
 use CycloneDX\Core\Serialize\JSON\AbstractNormalizer;
 
 /**
@@ -41,7 +41,7 @@ class ExternalReferenceRepositoryNormalizer extends AbstractNormalizer
         $normalizer = $this->getNormalizerFactory()->makeForExternalReference();
 
         $externalReferences = [];
-        foreach ($repo->getExternalReferences() as $externalReference) {
+        foreach ($repo->getItems() as $externalReference) {
             try {
                 $item = $normalizer->normalize($externalReference);
             } catch (\DomainException) {

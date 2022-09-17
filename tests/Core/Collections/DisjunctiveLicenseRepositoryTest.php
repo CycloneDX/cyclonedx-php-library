@@ -21,15 +21,15 @@ declare(strict_types=1);
  * Copyright (c) OWASP Foundation. All Rights Reserved.
  */
 
-namespace CycloneDX\Tests\Core\Repositories;
+namespace CycloneDX\Tests\Core\Collections;
 
 use CycloneDX\Core\Models\License\DisjunctiveLicenseWithId;
 use CycloneDX\Core\Models\License\DisjunctiveLicenseWithName;
-use CycloneDX\Core\Repositories\LicenseRepository;
+use CycloneDX\Core\Collections\LicenseRepository;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers \CycloneDX\Core\Repositories\LicenseRepository
+ * @covers \CycloneDX\Core\Collections\LicenseRepository
  */
 class DisjunctiveLicenseRepositoryTest extends TestCase
 {
@@ -38,7 +38,7 @@ class DisjunctiveLicenseRepositoryTest extends TestCase
         $repo = new LicenseRepository();
 
         self::assertCount(0, $repo);
-        self::assertSame([], $repo->getLicenses());
+        self::assertSame([], $repo->getItems());
     }
 
     public function testNonEmptyConstruct(): void
@@ -49,9 +49,9 @@ class DisjunctiveLicenseRepositoryTest extends TestCase
         $repo = new LicenseRepository($license1, $license2, $license1, $license2);
 
         self::assertCount(2, $repo);
-        self::assertCount(2, $repo->getLicenses());
-        self::assertContains($license1, $repo->getLicenses());
-        self::assertContains($license2, $repo->getLicenses());
+        self::assertCount(2, $repo->getItems());
+        self::assertContains($license1, $repo->getItems());
+        self::assertContains($license2, $repo->getItems());
     }
 
     public function testAddLicense(): void
@@ -61,13 +61,13 @@ class DisjunctiveLicenseRepositoryTest extends TestCase
         $license3 = $this->createStub(DisjunctiveLicenseWithName::class);
         $repo = new LicenseRepository($license1, $license2);
 
-        $actual = $repo->addLicense($license2, $license3, $license3);
+        $actual = $repo->addItems($license2, $license3, $license3);
 
         self::assertSame($repo, $actual);
         self::assertCount(3, $repo);
-        self::assertCount(3, $repo->getLicenses());
-        self::assertContains($license1, $repo->getLicenses());
-        self::assertContains($license2, $repo->getLicenses());
-        self::assertContains($license3, $repo->getLicenses());
+        self::assertCount(3, $repo->getItems());
+        self::assertContains($license1, $repo->getItems());
+        self::assertContains($license2, $repo->getItems());
+        self::assertContains($license3, $repo->getItems());
     }
 }

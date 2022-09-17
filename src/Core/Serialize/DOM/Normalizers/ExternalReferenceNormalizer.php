@@ -26,7 +26,7 @@ namespace CycloneDX\Core\Serialize\DOM\Normalizers;
 use CycloneDX\Core\Helpers\SimpleDomTrait;
 use CycloneDX\Core\Helpers\XmlTrait;
 use CycloneDX\Core\Models\ExternalReference;
-use CycloneDX\Core\Repositories\HashRepository;
+use CycloneDX\Core\Collections\HashDictionary;
 use CycloneDX\Core\Serialize\DOM\AbstractNormalizer;
 use DomainException;
 use DOMElement;
@@ -79,7 +79,7 @@ class ExternalReferenceNormalizer extends AbstractNormalizer
         );
     }
 
-    private function normalizeHashes(?HashRepository $hashes): ?DOMElement
+    private function normalizeHashes(?HashDictionary $hashes): ?DOMElement
     {
         $factory = $this->getNormalizerFactory();
 

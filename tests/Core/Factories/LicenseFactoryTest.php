@@ -191,7 +191,7 @@ class LicenseFactoryTest extends TestCase
     /**
      * @uses \CycloneDX\Core\Models\License\DisjunctiveLicenseWithName
      * @uses \CycloneDX\Core\Models\License\AbstractDisjunctiveLicense
-     * @uses \CycloneDX\Core\Repositories\LicenseRepository
+     * @uses \CycloneDX\Core\Collections\LicenseRepository
      */
     public function testMakeDisjunctiveFromExpression(): void
     {
@@ -199,7 +199,7 @@ class LicenseFactoryTest extends TestCase
         $expression = $this->createConfiguredMock(LicenseExpression::class, ['getExpression' => 'foo']);
 
         $got = $factory->makeDisjunctiveFromExpression($expression);
-        $licenses = $got->getLicenses();
+        $licenses = $got->getItems();
 
         self::assertCount(1, $licenses);
         self::assertInstanceOf(DisjunctiveLicenseWithName::class, $licenses[0]);

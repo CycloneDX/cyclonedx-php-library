@@ -21,12 +21,12 @@ declare(strict_types=1);
  * Copyright (c) OWASP Foundation. All Rights Reserved.
  */
 
-namespace CycloneDX\Core\Repositories;
+namespace CycloneDX\Core\Collections;
 
 use CycloneDX\Core\Models\Component;
 
 /**
- * Unique list of {@see \CycloneDX\Core\Models\Component}.
+ * Unique collection of {@see \CycloneDX\Core\Models\Component}.
  *
  * @author jkowalleck
  */
@@ -37,23 +37,23 @@ class ComponentRepository implements \Countable
      *
      * @psalm-var list<Component>
      */
-    private array $components = [];
+    private array $items = [];
 
-    public function __construct(Component ...$components)
+    public function __construct(Component ...$items)
     {
-        $this->addComponent(...$components);
+        $this->addItems(...$items);
     }
 
     /**
      * @return $this
      */
-    public function addComponent(Component ...$components): self
+    public function addItems(Component ...$items): self
     {
-        foreach ($components as $component) {
-            if (\in_array($component, $this->components, true)) {
+        foreach ($items as $item) {
+            if (\in_array($item, $this->items, true)) {
                 continue;
             }
-            $this->components[] = $component;
+            $this->items[] = $item;
         }
 
         return $this;
@@ -64,14 +64,14 @@ class ComponentRepository implements \Countable
      *
      * @psalm-return list<Component>
      */
-    public function getComponents(): array
+    public function getItems(): array
     {
-        return $this->components;
+        return $this->items;
     }
 
     public function count(): int
     {
-        return \count($this->components);
+        return \count($this->items);
     }
 
     /**
@@ -79,7 +79,7 @@ class ComponentRepository implements \Countable
      *
      * @psalm-return list<Component>
      */
-    public function findComponents(string $name, ?string $group): array
+    public function findItem(string $name, ?string $group): array
     {
         if ('' === $group) {
             $group = null;
@@ -87,7 +87,7 @@ class ComponentRepository implements \Countable
 
         return array_values(
             array_filter(
-                $this->components,
+                $this->items,
                 static function (Component $component) use ($name, $group): bool {
                     return $component->getName() === $name
                         && $component->getGroup() === $group;

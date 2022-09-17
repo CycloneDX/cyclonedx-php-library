@@ -26,7 +26,7 @@ namespace CycloneDX\Core\Serialize\DOM\Normalizers;
 use CycloneDX\Core\Helpers\SimpleDomTrait;
 use CycloneDX\Core\Models\Component;
 use CycloneDX\Core\Models\Metadata;
-use CycloneDX\Core\Repositories\ToolRepository;
+use CycloneDX\Core\Collections\ToolRepository;
 use CycloneDX\Core\Serialize\DOM\AbstractNormalizer;
 use DOMElement;
 

@@ -25,8 +25,8 @@ namespace CycloneDX\Core\Serialize\JSON\Normalizers;
 
 use CycloneDX\Core\Helpers\NullAssertionTrait;
 use CycloneDX\Core\Models\Tool;
-use CycloneDX\Core\Repositories\ExternalReferenceRepository;
-use CycloneDX\Core\Repositories\HashRepository;
+use CycloneDX\Core\Collections\ExternalReferenceRepository;
+use CycloneDX\Core\Collections\HashDictionary;
 use CycloneDX\Core\Serialize\JSON\AbstractNormalizer;
 
 /**
@@ -50,7 +50,7 @@ class ToolNormalizer extends AbstractNormalizer
         );
     }
 
-    private function normalizeHashes(?HashRepository $hashes): ?array
+    private function normalizeHashes(?HashDictionary $hashes): ?array
     {
         return null === $hashes || 0 === \count($hashes)
             ? null

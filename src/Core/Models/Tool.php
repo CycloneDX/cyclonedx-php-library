@@ -23,8 +23,8 @@ declare(strict_types=1);
 
 namespace CycloneDX\Core\Models;
 
-use CycloneDX\Core\Repositories\ExternalReferenceRepository;
-use CycloneDX\Core\Repositories\HashRepository;
+use CycloneDX\Core\Collections\ExternalReferenceRepository;
+use CycloneDX\Core\Collections\HashDictionary;
 
 /**
  * @author jkowalleck
@@ -49,7 +49,7 @@ class Tool
     /**
      * The hashes of the tool (if applicable).
      */
-    private HashRepository $hashes;
+    private HashDictionary $hashes;
 
     /**
      * Provides the ability to document external references related to the tool.
@@ -101,7 +101,7 @@ class Tool
         return $this;
     }
 
-    public function getHashes(): HashRepository
+    public function getHashes(): HashDictionary
     {
         return $this->hashes;
     }
@@ -109,7 +109,7 @@ class Tool
     /**
      * @return $this
      */
-    public function setHashes(HashRepository $hashes): self
+    public function setHashes(HashDictionary $hashes): self
     {
         $this->hashes = $hashes;
 
@@ -133,7 +133,7 @@ class Tool
 
     public function __construct()
     {
-        $this->hashes = new HashRepository();
+        $this->hashes = new HashDictionary();
         $this->externalReferences = new ExternalReferenceRepository();
     }
 }

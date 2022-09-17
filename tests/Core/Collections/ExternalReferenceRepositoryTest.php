@@ -21,14 +21,14 @@ declare(strict_types=1);
  * Copyright (c) OWASP Foundation. All Rights Reserved.
  */
 
-namespace CycloneDX\Tests\Core\Repositories;
+namespace CycloneDX\Tests\Core\Collections;
 
 use CycloneDX\Core\Models\ExternalReference;
-use CycloneDX\Core\Repositories\ExternalReferenceRepository;
+use CycloneDX\Core\Collections\ExternalReferenceRepository;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers \CycloneDX\Core\Repositories\ExternalReferenceRepository
+ * @covers \CycloneDX\Core\Collections\ExternalReferenceRepository
  */
 class ExternalReferenceRepositoryTest extends TestCase
 {
@@ -37,7 +37,7 @@ class ExternalReferenceRepositoryTest extends TestCase
         $repo = new ExternalReferenceRepository();
 
         self::assertCount(0, $repo);
-        self::assertSame([], $repo->getExternalReferences());
+        self::assertSame([], $repo->getItems());
     }
 
     public function testConstructAndGet(): void
@@ -53,9 +53,9 @@ class ExternalReferenceRepositoryTest extends TestCase
         );
 
         self::assertCount(2, $repo);
-        self::assertCount(2, $repo->getExternalReferences());
-        self::assertContains($externalReference1, $repo->getExternalReferences());
-        self::assertContains($externalReference2, $repo->getExternalReferences());
+        self::assertCount(2, $repo->getItems());
+        self::assertContains($externalReference1, $repo->getItems());
+        self::assertContains($externalReference2, $repo->getItems());
     }
 
     public function testAddAndGetExternalReference(): void
@@ -65,13 +65,13 @@ class ExternalReferenceRepositoryTest extends TestCase
         $externalReference3 = $this->createStub(ExternalReference::class);
         $repo = new ExternalReferenceRepository($externalReference1, $externalReference2);
 
-        $actual = $repo->addExternalReference($externalReference2, $externalReference3, $externalReference3);
+        $actual = $repo->addItems($externalReference2, $externalReference3, $externalReference3);
 
         self::assertSame($repo, $actual);
         self::assertCount(3, $repo);
-        self::assertCount(3, $repo->getExternalReferences());
-        self::assertContains($externalReference1, $repo->getExternalReferences());
-        self::assertContains($externalReference2, $repo->getExternalReferences());
-        self::assertContains($externalReference3, $repo->getExternalReferences());
+        self::assertCount(3, $repo->getItems());
+        self::assertContains($externalReference1, $repo->getItems());
+        self::assertContains($externalReference2, $repo->getItems());
+        self::assertContains($externalReference3, $repo->getItems());
     }
 }

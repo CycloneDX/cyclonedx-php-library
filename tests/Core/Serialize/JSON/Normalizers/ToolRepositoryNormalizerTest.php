@@ -24,7 +24,7 @@ declare(strict_types=1);
 namespace CycloneDX\Tests\Core\Serialize\JSON\Normalizers;
 
 use CycloneDX\Core\Models\Tool;
-use CycloneDX\Core\Repositories\ToolRepository;
+use CycloneDX\Core\Collections\ToolRepository;
 use CycloneDX\Core\Serialize\JSON\NormalizerFactory;
 use CycloneDX\Core\Serialize\JSON\Normalizers\ToolNormalizer;
 use CycloneDX\Core\Serialize\JSON\Normalizers\ToolRepositoryNormalizer;

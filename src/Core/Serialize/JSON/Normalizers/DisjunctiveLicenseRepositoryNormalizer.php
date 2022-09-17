@@ -23,7 +23,7 @@ declare(strict_types=1);
 
 namespace CycloneDX\Core\Serialize\JSON\Normalizers;
 
-use CycloneDX\Core\Repositories\LicenseRepository;
+use CycloneDX\Core\Collections\LicenseRepository;
 use CycloneDX\Core\Serialize\JSON\AbstractNormalizer;
 
 /**
@@ -36,7 +36,7 @@ class DisjunctiveLicenseRepositoryNormalizer extends AbstractNormalizer
         $licenses = [];
 
         $normalizer = $this->getNormalizerFactory()->makeForDisjunctiveLicense();
-        foreach ($repo->getLicenses() as $license) {
+        foreach ($repo->getItems() as $license) {
             $licenses[] = $normalizer->normalize($license);
         }
 

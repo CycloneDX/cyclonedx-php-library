@@ -25,7 +25,7 @@ namespace CycloneDX\Tests\Core\Models;
 
 use CycloneDX\Core\Models\Component;
 use CycloneDX\Core\Models\Metadata;
-use CycloneDX\Core\Repositories\ToolRepository;
+use CycloneDX\Core\Collections\ToolRepository;
 use PHPUnit\Framework\TestCase;
 
 /**

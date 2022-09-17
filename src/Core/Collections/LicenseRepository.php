@@ -21,13 +21,17 @@ declare(strict_types=1);
  * Copyright (c) OWASP Foundation. All Rights Reserved.
  */
 
-namespace CycloneDX\Core\Repositories;
+namespace CycloneDX\Core\Collections;
 
 use CycloneDX\Core\Models\License\DisjunctiveLicenseWithId;
 use CycloneDX\Core\Models\License\DisjunctiveLicenseWithName;
 use CycloneDX\Core\Models\License\LicenseExpression;
 
 /**
+ * Unique collection of {@see \CycloneDX\Core\Models\License\DisjunctiveLicenseWithId},
+ * {@see \CycloneDX\Core\Models\License\DisjunctiveLicenseWithName} and
+ * {@see \CycloneDX\Core\Models\License\LicenseExpression}.
+ *
  * @author jkowalleck
  */
 class LicenseRepository implements \Countable
@@ -37,14 +41,14 @@ class LicenseRepository implements \Countable
      *
      * @psalm-var list<DisjunctiveLicenseWithId|DisjunctiveLicenseWithName|LicenseExpression>
      */
-    private array $licenses = [];
+    private array $items = [];
 
     /**
      * Unsupported Licenses are filtered out silently.
      */
-    public function __construct(DisjunctiveLicenseWithId|DisjunctiveLicenseWithName|LicenseExpression ...$licenses)
+    public function __construct(DisjunctiveLicenseWithId|DisjunctiveLicenseWithName|LicenseExpression ...$items)
     {
-        $this->addLicense(...$licenses);
+        $this->addItems(...$items);
     }
 
     /**
@@ -53,13 +57,13 @@ class LicenseRepository implements \Countable
      *
      * @return $this
      */
-    public function addLicense(DisjunctiveLicenseWithId|DisjunctiveLicenseWithName|LicenseExpression ...$licenses): self
+    public function addItems(DisjunctiveLicenseWithId|DisjunctiveLicenseWithName|LicenseExpression ...$items): self
     {
-        foreach ($licenses as $license) {
-            if (\in_array($license, $this->licenses, true)) {
+        foreach ($items as $item) {
+            if (\in_array($item, $this->items, true)) {
                 continue;
             }
-            $this->licenses[] = $license;
+            $this->items[] = $item;
         }
 
         return $this;
@@ -70,13 +74,13 @@ class LicenseRepository implements \Countable
      *
      * @psalm-return list<DisjunctiveLicenseWithId|DisjunctiveLicenseWithName|LicenseExpression>
      */
-    public function getLicenses(): array
+    public function getItems(): array
     {
-        return $this->licenses;
+        return $this->items;
     }
 
     public function count(): int
     {
-        return \count($this->licenses);
+        return \count($this->items);
     }
 }

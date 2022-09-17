@@ -21,15 +21,15 @@ declare(strict_types=1);
  * Copyright (c) OWASP Foundation. All Rights Reserved.
  */
 
-namespace CycloneDX\Tests\Core\Repositories;
+namespace CycloneDX\Tests\Core\Collections;
 
 use CycloneDX\Core\Models\BomRef;
-use CycloneDX\Core\Repositories\BomRefRepository;
+use CycloneDX\Core\Collections\BomRefRepository;
 use Generator;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers \CycloneDX\Core\Repositories\BomRefRepository
+ * @covers \CycloneDX\Core\Collections\BomRefRepository
  */
 class BomRefRepositoryTest extends TestCase
 {
@@ -37,7 +37,7 @@ class BomRefRepositoryTest extends TestCase
     {
         $repo = new BomRefRepository();
 
-        self::assertSame([], $repo->getBomRefs());
+        self::assertSame([], $repo->getItems());
         self::assertCount(0, $repo);
     }
 
@@ -52,9 +52,9 @@ class BomRefRepositoryTest extends TestCase
         $repo = new BomRefRepository(...$bomRefs);
 
         self::assertSameSize($expectedContains, $repo);
-        self::assertSameSize($expectedContains, $repo->getBomRefs());
+        self::assertSameSize($expectedContains, $repo->getItems());
         foreach ($expectedContains as $expectedContain) {
-            self::assertContains($expectedContain, $repo->getBomRefs());
+            self::assertContains($expectedContain, $repo->getItems());
         }
     }
 
@@ -88,13 +88,13 @@ class BomRefRepositoryTest extends TestCase
     {
         $repo = new BomRefRepository(...$initial);
 
-        $actual = $repo->addBomRef(...$add);
+        $actual = $repo->addItems(...$add);
 
         self::assertSame($actual, $repo);
         self::assertSameSize($expectedContains, $repo);
-        self::assertSameSize($expectedContains, $repo->getBomRefs());
+        self::assertSameSize($expectedContains, $repo->getItems());
         foreach ($expectedContains as $expectedContain) {
-            self::assertContains($expectedContain, $repo->getBomRefs());
+            self::assertContains($expectedContain, $repo->getItems());
         }
     }
 

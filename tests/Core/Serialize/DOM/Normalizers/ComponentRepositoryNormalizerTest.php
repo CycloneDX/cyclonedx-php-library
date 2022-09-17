@@ -24,7 +24,7 @@ declare(strict_types=1);
 namespace CycloneDX\Tests\Core\Serialize\DOM\Normalizers;
 
 use CycloneDX\Core\Models\Component;
-use CycloneDX\Core\Repositories\ComponentRepository;
+use CycloneDX\Core\Collections\ComponentRepository;
 use CycloneDX\Core\Serialize\DOM\NormalizerFactory;
 use CycloneDX\Core\Serialize\DOM\Normalizers\ComponentNormalizer;
 use CycloneDX\Core\Serialize\DOM\Normalizers\ComponentRepositoryNormalizer;

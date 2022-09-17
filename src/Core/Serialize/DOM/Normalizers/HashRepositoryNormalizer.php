@@ -25,7 +25,7 @@ namespace CycloneDX\Core\Serialize\DOM\Normalizers;
 
 use CycloneDX\Core\Helpers\NullAssertionTrait;
 use CycloneDX\Core\Helpers\SimpleDomTrait;
-use CycloneDX\Core\Repositories\HashRepository;
+use CycloneDX\Core\Collections\HashDictionary;
 use CycloneDX\Core\Serialize\DOM\AbstractNormalizer;
 use DOMElement;
 
@@ -42,12 +42,12 @@ class HashRepositoryNormalizer extends AbstractNormalizer
      *
      * @psalm-return list<DOMElement>
      */
-    public function normalize(HashRepository $repo): array
+    public function normalize(HashDictionary $repo): array
     {
         $hashes = [];
 
         $hashNormalizer = $this->getNormalizerFactory()->makeForHash();
-        foreach ($repo->getHashes() as $algorithm => $content) {
+        foreach ($repo->getItems() as $algorithm => $content) {
             try {
                 $hashes[] = $hashNormalizer->normalize($algorithm, $content);
             } catch (\DomainException) {

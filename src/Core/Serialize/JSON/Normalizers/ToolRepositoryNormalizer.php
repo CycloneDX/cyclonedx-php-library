@@ -23,7 +23,7 @@ declare(strict_types=1);
 
 namespace CycloneDX\Core\Serialize\JSON\Normalizers;
 
-use CycloneDX\Core\Repositories\ToolRepository;
+use CycloneDX\Core\Collections\ToolRepository;
 use CycloneDX\Core\Serialize\JSON\AbstractNormalizer;
 
 /**
@@ -41,7 +41,7 @@ class ToolRepositoryNormalizer extends AbstractNormalizer
         $normalizer = $this->getNormalizerFactory()->makeForTool();
 
         $tools = [];
-        foreach ($repo->getTools() as $tool) {
+        foreach ($repo->getItems() as $tool) {
             try {
                 $item = $normalizer->normalize($tool);
             } catch (\DomainException) {

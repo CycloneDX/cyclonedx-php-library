@@ -23,7 +23,7 @@ declare(strict_types=1);
 
 namespace CycloneDX\Tests\Core\Serialize\DOM\Normalizers;
 
-use CycloneDX\Core\Repositories\HashRepository;
+use CycloneDX\Core\Collections\HashDictionary;
 use CycloneDX\Core\Serialize\DOM\NormalizerFactory;
 use CycloneDX\Core\Serialize\DOM\Normalizers\HashNormalizer;
 use CycloneDX\Core\Serialize\DOM\Normalizers\HashRepositoryNormalizer;
@@ -60,8 +60,8 @@ class HashRepositoryNormalizerTest extends TestCase
         $dummy1 = $this->createStub(DOMElement::class);
         $dummy2 = $this->createStub(DOMElement::class);
         $normalizer = new HashRepositoryNormalizer($factory);
-        $repo = $this->createStub(HashRepository::class);
-        $repo->method('getHashes')->willReturn(['alg1' => 'content1', 'alg2' => 'content2']);
+        $repo = $this->createStub(HashDictionary::class);
+        $repo->method('getItems')->willReturn(['alg1' => 'content1', 'alg2' => 'content2']);
 
         $hashNormalizer->expects(self::exactly(2))->method('normalize')
             ->withConsecutive(['alg1', 'content1'], ['alg2', 'content2'])
@@ -82,7 +82,7 @@ class HashRepositoryNormalizerTest extends TestCase
         $normalizer = new HashRepositoryNormalizer($factory);
 
         $repo = $this->createConfiguredMock(
-            HashRepository::class,
+            HashDictionary::class,
             [
                 'getHashes' => ['alg1' => 'cont1', 'alg2' => 'cont2', 'alg3' => 'cont3'],
             ]

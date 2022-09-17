@@ -27,10 +27,10 @@ use CycloneDX\Core\Enums\Classification;
 use CycloneDX\Core\Models\BomRef;
 use CycloneDX\Core\Models\Component;
 use CycloneDX\Core\Models\License\LicenseExpression;
-use CycloneDX\Core\Repositories\BomRefRepository;
-use CycloneDX\Core\Repositories\LicenseRepository;
-use CycloneDX\Core\Repositories\ExternalReferenceRepository;
-use CycloneDX\Core\Repositories\HashRepository;
+use CycloneDX\Core\Collections\BomRefRepository;
+use CycloneDX\Core\Collections\LicenseRepository;
+use CycloneDX\Core\Collections\ExternalReferenceRepository;
+use CycloneDX\Core\Collections\HashDictionary;
 use PackageUrl\PackageUrl;
 use PHPUnit\Framework\TestCase;
 
@@ -163,7 +163,7 @@ class ComponentTest extends TestCase
     {
         $component = $this->testConstructor();
         yield 'null' => [$component, null];
-        yield 'repo' => [$component, $this->createStub(HashRepository::class)];
+        yield 'repo' => [$component, $this->createStub(HashDictionary::class)];
     }
 
     // endregion hashes setter&getter

@@ -21,11 +21,13 @@ declare(strict_types=1);
  * Copyright (c) OWASP Foundation. All Rights Reserved.
  */
 
-namespace CycloneDX\Core\Repositories;
+namespace CycloneDX\Core\Collections;
 
 use CycloneDX\Core\Models\ExternalReference;
 
 /**
+ * Unique collection of {@see \CycloneDX\Core\Models\ExternalReference}.
+ *
  * @author jkowalleck
  */
 class ExternalReferenceRepository implements \Countable
@@ -35,23 +37,23 @@ class ExternalReferenceRepository implements \Countable
      *
      * @psalm-var list<ExternalReference>
      */
-    private array $externalReferences = [];
+    private array $items = [];
 
-    public function __construct(ExternalReference ...$externalReferences)
+    public function __construct(ExternalReference ...$items)
     {
-        $this->addExternalReference(...$externalReferences);
+        $this->addItems(...$items);
     }
 
     /**
      * @return $this
      */
-    public function addExternalReference(ExternalReference ...$externalReferences): self
+    public function addItems(ExternalReference ...$items): self
     {
-        foreach ($externalReferences as $externalReference) {
-            if (\in_array($externalReference, $this->externalReferences, true)) {
+        foreach ($items as $item) {
+            if (\in_array($item, $this->items, true)) {
                 continue;
             }
-            $this->externalReferences[] = $externalReference;
+            $this->items[] = $item;
         }
 
         return $this;
@@ -62,13 +64,13 @@ class ExternalReferenceRepository implements \Countable
      *
      * @psalm-return list<ExternalReference>
      */
-    public function getExternalReferences(): array
+    public function getItems(): array
     {
-        return $this->externalReferences;
+        return $this->items;
     }
 
     public function count(): int
     {
-        return \count($this->externalReferences);
+        return \count($this->items);
     }
 }

@@ -27,9 +27,9 @@ use CycloneDX\Core\Models\BomRef;
 use CycloneDX\Core\Models\Component;
 use CycloneDX\Core\Models\License\DisjunctiveLicenseWithName;
 use CycloneDX\Core\Models\License\LicenseExpression;
-use CycloneDX\Core\Repositories\LicenseRepository;
-use CycloneDX\Core\Repositories\ExternalReferenceRepository;
-use CycloneDX\Core\Repositories\HashRepository;
+use CycloneDX\Core\Collections\LicenseRepository;
+use CycloneDX\Core\Collections\ExternalReferenceRepository;
+use CycloneDX\Core\Collections\HashDictionary;
 use CycloneDX\Core\Serialize\JSON\NormalizerFactory;
 use CycloneDX\Core\Serialize\JSON\Normalizers;
 use CycloneDX\Core\Spec\SpecInterface;
@@ -135,7 +135,7 @@ class ComponentNormalizerTest extends TestCase
                 'getGroup' => 'myGroup',
                 'getDescription' => 'my description',
                 'getLicense' => $this->createStub(LicenseExpression::class),
-                'getHashRepository' => $this->createConfiguredMock(HashRepository::class, ['count' => 1]),
+                'getHashRepository' => $this->createConfiguredMock(HashDictionary::class, ['count' => 1]),
                 'getPackageUrl' => $this->createConfiguredMock(
                     PackageUrl::class,
                     ['toString' => 'FakePURL', '__toString' => 'FakePURL']
@@ -188,7 +188,7 @@ class ComponentNormalizerTest extends TestCase
 
     /**
      * @uses \CycloneDX\Core\Models\License\DisjunctiveLicenseWithName
-     * @uses \CycloneDX\Core\Repositories\LicenseRepository
+     * @uses \CycloneDX\Core\Collections\LicenseRepository
      * @uses \CycloneDX\Core\Factories\LicenseFactory
      */
     public function testNormalizeUnsupportedLicenseExpression(): void
@@ -215,7 +215,7 @@ class ComponentNormalizerTest extends TestCase
         $normalizer = new Normalizers\ComponentNormalizer($factory);
 
         $transformedLicenseTest = static function (LicenseRepository $licenses): bool {
-            $licenses = $licenses->getLicenses();
+            $licenses = $licenses->getItems();
             self::assertCount(1, $licenses);
             self::assertArrayHasKey(0, $licenses);
             self::assertInstanceOf(DisjunctiveLicenseWithName::class, $licenses[0]);

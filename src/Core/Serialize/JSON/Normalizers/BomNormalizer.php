@@ -85,7 +85,7 @@ class BomNormalizer extends AbstractNormalizer
             $mcr = $bom->getMetadata()?->getComponent()?->getExternalReferences();
             if (null !== $mcr) {
                 $externalReferenceRepository = null !== $externalReferenceRepository
-                    ? (clone $externalReferenceRepository)->addExternalReference(...$mcr->getExternalReferences())
+                    ? (clone $externalReferenceRepository)->addItems(...$mcr->getItems())
                     : $mcr;
             }
             unset($mcr);

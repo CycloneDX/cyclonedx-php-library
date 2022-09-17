@@ -25,8 +25,8 @@ namespace CycloneDX\Tests\Core\Models;
 
 use CycloneDX\Core\Models\Bom;
 use CycloneDX\Core\Models\Metadata;
-use CycloneDX\Core\Repositories\ComponentRepository;
-use CycloneDX\Core\Repositories\ExternalReferenceRepository;
+use CycloneDX\Core\Collections\ComponentRepository;
+use CycloneDX\Core\Collections\ExternalReferenceRepository;
 use PHPUnit\Framework\TestCase;
 
 /**

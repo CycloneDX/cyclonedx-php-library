@@ -34,11 +34,11 @@ use CycloneDX\Core\Models\License\DisjunctiveLicenseWithName;
 use CycloneDX\Core\Models\License\LicenseExpression;
 use CycloneDX\Core\Models\Metadata;
 use CycloneDX\Core\Models\Tool;
-use CycloneDX\Core\Repositories\ComponentRepository;
-use CycloneDX\Core\Repositories\LicenseRepository;
-use CycloneDX\Core\Repositories\ExternalReferenceRepository;
-use CycloneDX\Core\Repositories\HashRepository;
-use CycloneDX\Core\Repositories\ToolRepository;
+use CycloneDX\Core\Collections\ComponentRepository;
+use CycloneDX\Core\Collections\LicenseRepository;
+use CycloneDX\Core\Collections\ExternalReferenceRepository;
+use CycloneDX\Core\Collections\HashDictionary;
+use CycloneDX\Core\Collections\ToolRepository;
 use Generator;
 
 /**
@@ -484,7 +484,7 @@ abstract class BomModelProvider
                     new ComponentRepository(
                         (new Component(Classification::LIBRARY, 'name', '1.0'))
                             ->setHashes(
-                                new HashRepository([$hashAlgorithm => '12345678901234567890123456789012'])
+                                new HashDictionary([$hashAlgorithm => '12345678901234567890123456789012'])
                             )
                     )
                 ),
@@ -580,7 +580,7 @@ abstract class BomModelProvider
                             ->setName('myTool')
                             ->setVersion('toolVersion')
                             ->setHashes(
-                                new HashRepository([HashAlgorithm::MD5 => '12345678901234567890123456789012'])
+                                new HashDictionary([HashAlgorithm::MD5 => '12345678901234567890123456789012'])
                             )->setExternalReferences(
                                 new ExternalReferenceRepository(
                                     new ExternalReference(ExternalReferenceType::OTHER, 'https://acme.com')
@@ -645,7 +645,7 @@ abstract class BomModelProvider
         foreach (self::allHashAlgorithms() as $algorithm) {
             yield "externalReferenceHash: $algorithm" => (new ExternalReference(
                 $type, ".../algorithm/{$algorithm}.txt"
-            ))->setHashes(new HashRepository([$algorithm => '12345678901234567890123456789012']));
+            ))->setHashes(new HashDictionary([$algorithm => '12345678901234567890123456789012']));
         }
     }
 }

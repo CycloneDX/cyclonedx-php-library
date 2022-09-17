@@ -25,7 +25,7 @@ namespace CycloneDX\Tests\Core\Models;
 
 use CycloneDX\Core\Enums\ExternalReferenceType;
 use CycloneDX\Core\Models\ExternalReference;
-use CycloneDX\Core\Repositories\HashRepository;
+use CycloneDX\Core\Collections\HashDictionary;
 use DomainException;
 use PHPUnit\Framework\TestCase;
 
@@ -122,7 +122,7 @@ class ExternalReferenceTest extends TestCase
      */
     public function testHashesSetterAndGetter(ExternalReference $extRef): void
     {
-        $hashes = $this->createStub(HashRepository::class);
+        $hashes = $this->createStub(HashDictionary::class);
         $got = $extRef->setHashes($hashes);
         $this->assertSame($extRef, $got);
         $this->assertSame($hashes, $extRef->getHashes());

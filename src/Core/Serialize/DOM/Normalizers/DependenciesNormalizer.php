@@ -44,7 +44,7 @@ class DependenciesNormalizer extends AbstractNormalizer
      */
     public function normalize(Bom $bom): array
     {
-        $allComponents = $bom->getComponents()->getComponents();
+        $allComponents = $bom->getComponents()->getItems();
 
         $mainComponent = $bom->getMetadata()?->getComponent();
         if (null !== $mainComponent) {
@@ -62,7 +62,7 @@ class DependenciesNormalizer extends AbstractNormalizer
             $componentDependencies = $component->getDependencies();
             $dependenciesRefs = null === $componentDependencies
                 ? []
-                : array_filter($componentDependencies->getBomRefs(), $isKnownRef);
+                : array_filter($componentDependencies->getItems(), $isKnownRef);
 
             $dependency = $this->normalizeDependency($component->getBomRef(), ...$dependenciesRefs);
             if (null !== $dependency) {

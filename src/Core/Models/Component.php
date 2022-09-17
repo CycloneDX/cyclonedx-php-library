@@ -25,10 +25,10 @@ namespace CycloneDX\Core\Models;
 
 use CycloneDX\Core\Enums\Classification;
 use CycloneDX\Core\Models\License\LicenseExpression;
-use CycloneDX\Core\Repositories\BomRefRepository;
-use CycloneDX\Core\Repositories\LicenseRepository;
-use CycloneDX\Core\Repositories\ExternalReferenceRepository;
-use CycloneDX\Core\Repositories\HashRepository;
+use CycloneDX\Core\Collections\BomRefRepository;
+use CycloneDX\Core\Collections\LicenseRepository;
+use CycloneDX\Core\Collections\ExternalReferenceRepository;
+use CycloneDX\Core\Collections\HashDictionary;
 use DomainException;
 use PackageUrl\PackageUrl;
 
@@ -107,7 +107,7 @@ class Component
     /**
      * Specifies the file hashes of the component.
      */
-    private HashRepository $hashes;
+    private HashDictionary $hashes;
 
     /**
      * References to dependencies.
@@ -239,7 +239,7 @@ class Component
         return $this;
     }
 
-    public function getHashes(): HashRepository
+    public function getHashes(): HashDictionary
     {
         return $this->hashes;
     }
@@ -247,7 +247,7 @@ class Component
     /**
      * @return $this
      */
-    public function setHashes(HashRepository $hashes): self
+    public function setHashes(HashDictionary $hashes): self
     {
         $this->hashes = $hashes;
 
@@ -326,7 +326,7 @@ class Component
         $this->bomRef = new BomRef();
         $this->dependencies = new BomRefRepository();
         $this->licenses = new LicenseRepository();
-        $this->hashes = new HashRepository();
+        $this->hashes = new HashDictionary();
         $this->externalReferences = new ExternalReferenceRepository();
     }
 

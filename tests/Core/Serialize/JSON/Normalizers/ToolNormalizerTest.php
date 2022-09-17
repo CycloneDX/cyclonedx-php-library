@@ -24,8 +24,8 @@ declare(strict_types=1);
 namespace CycloneDX\Tests\Core\Serialize\JSON\Normalizers;
 
 use CycloneDX\Core\Models\Tool;
-use CycloneDX\Core\Repositories\ExternalReferenceRepository;
-use CycloneDX\Core\Repositories\HashRepository;
+use CycloneDX\Core\Collections\ExternalReferenceRepository;
+use CycloneDX\Core\Collections\HashDictionary;
 use CycloneDX\Core\Serialize\JSON\NormalizerFactory;
 use CycloneDX\Core\Serialize\JSON\Normalizers\ExternalReferenceRepositoryNormalizer;
 use CycloneDX\Core\Serialize\JSON\Normalizers\HashRepositoryNormalizer;
@@ -60,7 +60,7 @@ class ToolNormalizerTest extends TestCase
                 'getVendor' => 'myVendor',
                 'getName' => 'myName',
                 'getVersion' => 'myVersion',
-                'getHashRepository' => $this->createConfiguredMock(HashRepository::class, ['count' => 2]),
+                'getHashRepository' => $this->createConfiguredMock(HashDictionary::class, ['count' => 2]),
                 'getExternalReferenceRepository' => $this->createConfiguredMock(ExternalReferenceRepository::class, ['count' => 2]),
             ]
         );

@@ -23,7 +23,7 @@ declare(strict_types=1);
 
 namespace CycloneDX\Core\Serialize\DOM\Normalizers;
 
-use CycloneDX\Core\Repositories\ExternalReferenceRepository;
+use CycloneDX\Core\Collections\ExternalReferenceRepository;
 use CycloneDX\Core\Serialize\DOM\AbstractNormalizer;
 use DOMElement;
 
@@ -42,7 +42,7 @@ class ExternalReferenceRepositoryNormalizer extends AbstractNormalizer
         $normalizer = $this->getNormalizerFactory()->makeForExternalReference();
 
         $externalReferences = [];
-        foreach ($repo->getExternalReferences() as $externalReference) {
+        foreach ($repo->getItems() as $externalReference) {
             try {
                 $externalReferences[] = $normalizer->normalize($externalReference);
             } catch (\DomainException|\UnexpectedValueException) {

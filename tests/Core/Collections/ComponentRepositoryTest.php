@@ -21,15 +21,15 @@ declare(strict_types=1);
  * Copyright (c) OWASP Foundation. All Rights Reserved.
  */
 
-namespace CycloneDX\Tests\Core\Repositories;
+namespace CycloneDX\Tests\Core\Collections;
 
 use CycloneDX\Core\Models\Component;
-use CycloneDX\Core\Repositories\ComponentRepository;
+use CycloneDX\Core\Collections\ComponentRepository;
 use Generator;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers \CycloneDX\Core\Repositories\ComponentRepository
+ * @covers \CycloneDX\Core\Collections\ComponentRepository
  */
 class ComponentRepositoryTest extends TestCase
 {
@@ -37,7 +37,7 @@ class ComponentRepositoryTest extends TestCase
     {
         $repo = new ComponentRepository();
 
-        self::assertSame([], $repo->getComponents());
+        self::assertSame([], $repo->getItems());
         self::assertCount(0, $repo);
     }
 
@@ -49,9 +49,9 @@ class ComponentRepositoryTest extends TestCase
         $repo = new ComponentRepository($component1, $component2, $component1, $component2);
 
         self::assertCount(2, $repo);
-        self::assertCount(2, $repo->getComponents());
-        self::assertContains($component1, $repo->getComponents());
-        self::assertContains($component2, $repo->getComponents());
+        self::assertCount(2, $repo->getItems());
+        self::assertContains($component1, $repo->getItems());
+        self::assertContains($component2, $repo->getItems());
     }
 
     public function testAddAndGetComponent(): void
@@ -61,14 +61,14 @@ class ComponentRepositoryTest extends TestCase
         $component3 = $this->createStub(Component::class);
         $repo = new ComponentRepository($component1, $component3);
 
-        $actual = $repo->addComponent($component2, $component3, $component2);
+        $actual = $repo->addItems($component2, $component3, $component2);
 
         self::assertSame($repo, $actual);
         self::assertCount(3, $actual);
-        self::assertCount(3, $repo->getComponents());
-        self::assertContains($component1, $repo->getComponents());
-        self::assertContains($component2, $repo->getComponents());
-        self::assertContains($component3, $repo->getComponents());
+        self::assertCount(3, $repo->getItems());
+        self::assertContains($component1, $repo->getItems());
+        self::assertContains($component2, $repo->getItems());
+        self::assertContains($component3, $repo->getItems());
     }
 
     /**
@@ -82,7 +82,7 @@ class ComponentRepositoryTest extends TestCase
         ?string $findGroup,
         array $expectedFindings
     ): void {
-        $actual = $repo->findComponents($findName, $findGroup);
+        $actual = $repo->findItem($findName, $findGroup);
 
         self::assertSameSize($expectedFindings, $actual);
         foreach ($expectedFindings as $expectedFinding) {

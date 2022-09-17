@@ -23,7 +23,7 @@ declare(strict_types=1);
 
 namespace CycloneDX\Core\Serialize\DOM\Normalizers;
 
-use CycloneDX\Core\Repositories\ComponentRepository;
+use CycloneDX\Core\Collections\ComponentRepository;
 use CycloneDX\Core\Serialize\DOM\AbstractNormalizer;
 use DOMElement;
 
@@ -42,7 +42,7 @@ class ComponentRepositoryNormalizer extends AbstractNormalizer
         $normalizer = $this->getNormalizerFactory()->makeForComponent();
 
         $components = [];
-        foreach ($repo->getComponents() as $component) {
+        foreach ($repo->getItems() as $component) {
             try {
                 $components[] = $normalizer->normalize($component);
             } catch (\DomainException) {
