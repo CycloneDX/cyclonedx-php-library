@@ -17,7 +17,7 @@ All notable changes to this project will be documented in this file.
 * Changed
   * Method `\CycloneDX\Core\Serialize\{DOM,JSON}\Normalizers\ExternalReferenceNormalizer::normalize` throw `DomainException` when `ExternalReference`'s type was not supported by the spec.  (via [#65])  
     This is considered a non-breaking change, because the behaviour was already documented in the API, even though there was no need for an implementation before.
-  * Class `\CycloneDX\Core\Models\Component`'s property `version` is optional now, to reflect CycloneDX v1.4. (via [#118])  
+  * Class `\CycloneDX\Core\Models\Component`'s property `version` is optional now, to reflect CycloneDX v1.4. (via [#118], [#131])  
     This affects constructor arguments, and affects methods `{get,set}Version()`.
   * Some methods no longer throw `InvalidArgumentException`. (via [#125])  
     This was possible by enforcing correct typing on language level.
@@ -44,6 +44,7 @@ All notable changes to this project will be documented in this file.
 [#123]: https://github.com/CycloneDX/cyclonedx-php-library/pull/123
 [#124]: https://github.com/CycloneDX/cyclonedx-php-library/pull/123
 [#125]: https://github.com/CycloneDX/cyclonedx-php-library/pull/125
+[#131]: https://github.com/CycloneDX/cyclonedx-php-library/pull/131
 
 ## 1.6.3 - 2022-09-15
 
