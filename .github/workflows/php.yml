@@ -29,9 +29,7 @@ jobs:
         os: [ "ubuntu-latest" ]
         php:
           - "8.1" # highest supported
-          - "8.0"
-          - "7.4"
-          - "7.3" # lowest supported
+          - "8.0" # lowest supported
         dependencies: [ "lowest", "highest" ]
         exclude:
           - # unstable combinations: `Swaggest\JsonSchema` on php8.1 - throws PHP Deprecated warnings
@@ -120,7 +118,7 @@ jobs:
             php: "8.1"
             dependencies: "highest"
           - # lowest supported
-            php: "7.3"
+            php: "8.0"
             dependencies: "lowest"
     steps:
       - name: Checkout
@@ -164,6 +162,7 @@ jobs:
           --no-diff
           --no-cache
           --long-progress
+          --output-format=github
           --report=${{ env.REPORTS_DIR }}/psalm.php${{ matrix.php }}_${{ matrix.dependencies }}.junit.xml
       - name: Artifact reports
         if: ${{ ! cancelled() }}

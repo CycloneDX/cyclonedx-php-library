@@ -65,12 +65,11 @@ trait SimpleDomTrait
     }
 
     /**
-     * @param mixed|null $data
-     * @param bool       $null whether to return null when `$data` is null
+     * @param bool $null whether to return null when `$data` is null
      *
      * @return DOMElement|null ($null is true && $data is null ? null : DOMElement)
      */
-    private function simpleDomSafeTextElement(DOMDocument $document, string $name, $data, bool $null = true): ?DOMElement
+    private function simpleDomSafeTextElement(DOMDocument $document, string $name, mixed $data, bool $null = true): ?DOMElement
     {
         $element = $document->createElement($name);
         if (null !== $data) {

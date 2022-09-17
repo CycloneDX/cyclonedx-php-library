@@ -23,7 +23,6 @@ declare(strict_types=1);
 
 namespace CycloneDX\Core\Factories;
 
-use CycloneDX\Core\Models\License\AbstractDisjunctiveLicense;
 use CycloneDX\Core\Models\License\DisjunctiveLicenseWithId;
 use CycloneDX\Core\Models\License\DisjunctiveLicenseWithName;
 use CycloneDX\Core\Models\License\LicenseExpression;
@@ -34,10 +33,7 @@ use UnexpectedValueException;
 
 class LicenseFactory
 {
-    /**
-     * @var SpdxLicenseValidator|null
-     */
-    private $spdxLicenseValidator;
+    private ?SpdxLicenseValidator $spdxLicenseValidator;
 
     public function __construct(?SpdxLicenseValidator $spdxLicenseValidator = null)
     {
@@ -51,12 +47,8 @@ class LicenseFactory
      */
     public function getSpdxLicenseValidator(): SpdxLicenseValidator
     {
-        $validator = $this->spdxLicenseValidator;
-        if (null === $validator) {
-            throw new UnexpectedValueException('Missing spdxLicenseValidator');
-        }
-
-        return $validator;
+        return $this->spdxLicenseValidator
+            ?? throw new UnexpectedValueException('Missing spdxLicenseValidator');
     }
 
     public function setSpdxLicenseValidator(SpdxLicenseValidator $spdxLicenseValidator): self
@@ -66,14 +58,11 @@ class LicenseFactory
         return $this;
     }
 
-    /**
-     * @return DisjunctiveLicenseWithName|DisjunctiveLicenseWithId|LicenseExpression
-     */
-    public function makeFromString(string $license)
+    public function makeFromString(string $license): DisjunctiveLicenseWithName|DisjunctiveLicenseWithId|LicenseExpression
     {
         try {
             return $this->makeExpression($license);
-        } catch (DomainException $exception) {
+        } catch (DomainException) {
             return $this->makeDisjunctive($license);
         }
     }
@@ -86,14 +75,11 @@ class LicenseFactory
         return new LicenseExpression($license);
     }
 
-    /**
-     * @return DisjunctiveLicenseWithId|DisjunctiveLicenseWithName
-     */
-    public function makeDisjunctive(string $license): AbstractDisjunctiveLicense
+    public function makeDisjunctive(string $license): DisjunctiveLicenseWithId|DisjunctiveLicenseWithName
     {
         try {
             return $this->makeDisjunctiveWithId($license);
-        } catch (UnexpectedValueException|DomainException $exception) {
+        } catch (UnexpectedValueException|DomainException) {
             return $this->makeDisjunctiveWithName($license);
         }
     }

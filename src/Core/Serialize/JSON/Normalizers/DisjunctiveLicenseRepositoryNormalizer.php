@@ -25,7 +25,6 @@ namespace CycloneDX\Core\Serialize\JSON\Normalizers;
 
 use CycloneDX\Core\Repositories\DisjunctiveLicenseRepository;
 use CycloneDX\Core\Serialize\JSON\AbstractNormalizer;
-use InvalidArgumentException;
 
 /**
  * @author jkowalleck
@@ -38,11 +37,7 @@ class DisjunctiveLicenseRepositoryNormalizer extends AbstractNormalizer
 
         $normalizer = $this->getNormalizerFactory()->makeForDisjunctiveLicense();
         foreach ($repo->getLicenses() as $license) {
-            try {
-                $licenses[] = $normalizer->normalize($license);
-            } catch (InvalidArgumentException $exception) {
-                continue;
-            }
+            $licenses[] = $normalizer->normalize($license);
         }
 
         return $licenses;

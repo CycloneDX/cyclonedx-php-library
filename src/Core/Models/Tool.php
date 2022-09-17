@@ -33,38 +33,28 @@ class Tool
 {
     /**
      * The vendor of the tool used to create the BOM.
-     *
-     * @var string|null
      */
-    private $vendor;
+    private ?string $vendor = null;
 
     /**
      * The name of the tool used to create the BOM.
-     *
-     * @var string|null
      */
-    private $name;
+    private ?string $name = null;
 
     /**
      * The version of the tool used to create the BOM.
-     *
-     * @var string|null
      */
-    private $version;
+    private ?string $version = null;
 
     /**
      * The hashes of the tool (if applicable).
-     *
-     * @var HashRepository|null
      */
-    private $hashRepository;
+    private ?HashRepository $hashRepository = null;
 
     /**
      * Provides the ability to document external references related to the tool.
-     *
-     * @var ExternalReferenceRepository|null
      */
-    private $externalReferenceRepository;
+    private ?ExternalReferenceRepository $externalReferenceRepository = null;
 
     public function getVendor(): ?string
     {

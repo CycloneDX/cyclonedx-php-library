@@ -24,11 +24,9 @@ declare(strict_types=1);
 namespace CycloneDX\Core\Serialize\JSON\Normalizers;
 
 use CycloneDX\Core\Helpers\NullAssertionTrait;
-use CycloneDX\Core\Models\License\AbstractDisjunctiveLicense;
 use CycloneDX\Core\Models\License\DisjunctiveLicenseWithId;
 use CycloneDX\Core\Models\License\DisjunctiveLicenseWithName;
 use CycloneDX\Core\Serialize\JSON\AbstractNormalizer;
-use InvalidArgumentException;
 
 /**
  * @author jkowalleck
@@ -37,21 +35,14 @@ class DisjunctiveLicenseNormalizer extends AbstractNormalizer
 {
     use NullAssertionTrait;
 
-    /**
-     * @psalm-assert DisjunctiveLicenseWithId|DisjunctiveLicenseWithName $license
-     *
-     * @throws InvalidArgumentException
-     */
-    public function normalize(AbstractDisjunctiveLicense $license): array
+    public function normalize(DisjunctiveLicenseWithId|DisjunctiveLicenseWithName $license): array
     {
         if ($license instanceof DisjunctiveLicenseWithId) {
             $id = $license->getId();
             $name = null;
-        } elseif ($license instanceof DisjunctiveLicenseWithName) {
+        } else {
             $id = null;
             $name = $license->getName();
-        } else {
-            throw new InvalidArgumentException('Unsupported license class: '.\get_class($license));
         }
 
         return ['license' => array_filter(

@@ -29,7 +29,6 @@ use CycloneDX\Core\Validation\BaseValidator;
 use CycloneDX\Core\Validation\Errors\JsonValidationError;
 use CycloneDX\Core\Validation\Exceptions\FailedLoadingSchemaException;
 use CycloneDX\Core\Validation\Helpers\JsonSchemaRemoteRefProviderForSnapshotResources;
-use CycloneDX\Core\Validation\ValidationError;
 use Exception;
 use JsonException;
 use Swaggest\JsonSchema;
@@ -59,10 +58,8 @@ class JsonValidator extends BaseValidator
      *
      * @throws FailedLoadingSchemaException if schema file unknown or not readable
      * @throws JsonException                if loading the JSON failed
-     *
-     * @return JsonValidationError|null
      */
-    public function validateString(string $string): ?ValidationError
+    public function validateString(string $string): ?JsonValidationError
     {
         return $this->validateData(
             $this->loadDataFromJson($string)

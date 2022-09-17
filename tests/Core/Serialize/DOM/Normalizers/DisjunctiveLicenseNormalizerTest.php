@@ -85,16 +85,4 @@ class DisjunctiveLicenseNormalizerTest extends TestCase
             ];
         }
     }
-
-    public function testNormalizeThrowsOnUnknown(): void
-    {
-        $license = $this->createStub(AbstractDisjunctiveLicense::class);
-        $factory = $this->createMock(NormalizerFactory::class);
-        $normalizer = new DisjunctiveLicenseNormalizer($factory);
-
-        $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessageMatches('/unsupported license class/i');
-
-        $normalizer->normalize($license);
-    }
 }

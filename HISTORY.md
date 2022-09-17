@@ -7,13 +7,23 @@ All notable changes to this project will be documented in this file.
 ## 2.0.0 - unreleased
 
 * BREAKING changes
+  * Dropped support for php v7.3 and v7.4. (via [#125])
   * Interface `\CycloneDX\Core\Spec\SpecInterface` became internal, was public api. (via [#65])  
     This is done to prevent the need for future "breaking changed" when the schema requires additional spec implementations.
+  * API
+    * Some methods now enforce the use of concrete union types instead of protocols.  (via [#125])
+      Affected the usages of `\CycloneDX\Core\Models\License\AbstractDisjunctiveLicense` and methods that used license-related classes.
+      This was possible due to php8's UnionType language feature.
 * Changed
   * Method `\CycloneDX\Core\Serialize\{DOM,JSON}\Normalizers\ExternalReferenceNormalizer::normalize` throw `DomainException` when `ExternalReference`'s type was not supported by the spec.  (via [#65])  
     This is considered a non-breaking change, because the behaviour was already documented in the API, even though there was no need for an implementation before.
   * Class `\CycloneDX\Core\Models\Component`'s property `version` is optional now, to reflect CycloneDX v1.4. (via [#118])  
     This affects constructor arguments, and affects methods `{get,set}Version()`.
+  * Some methods no longer throw `InvalidArgumentException`. (via [#125])  
+    This was possible by enforcing correct typing on language level.
+* Removed
+  * The public usage of the internal class `\CycloneDX\Core\Models\License\AbstractDisjunctiveLicense`. (via [#125])  
+    This was possible due php8's UnionType language feature.
 * Added
   * New class constant `\CycloneDX\Core\Spec\Version::V_1_4` for CycloneDX v1.4. (via [#65])
   * New class `\CycloneDX\Core\Spec\Spec14` to reflect CycloneDX v1.4. (via [#65])
@@ -23,11 +33,17 @@ All notable changes to this project will be documented in this file.
     * `::isSupportedExternalReferenceType()` (via [#65], [#124])
     * `::supportsToolExternalReferences()` (via [#123])
   * New class constant `CycloneDX\Core\Enums\ExternalReferenceType::RELEASE_NOTES` to reflect CycloneDX v1.4. (via [#65])
+* Style
+  * All class properties now enforce the correct types. (via [#125])  
+    This is considered a non-breaking change, because the types were already correctly annotated.  
+    This was possible due to php74's features and php8's UnionType language feature.
+  * Migrated internals to php8 language features. (via [#125])
 
 [#65]: https://github.com/CycloneDX/cyclonedx-php-library/pull/65
 [#118]: https://github.com/CycloneDX/cyclonedx-php-library/pull/118
 [#123]: https://github.com/CycloneDX/cyclonedx-php-library/pull/123
 [#124]: https://github.com/CycloneDX/cyclonedx-php-library/pull/123
+[#125]: https://github.com/CycloneDX/cyclonedx-php-library/pull/125
 
 ## 1.6.3 - 2022-09-15
 

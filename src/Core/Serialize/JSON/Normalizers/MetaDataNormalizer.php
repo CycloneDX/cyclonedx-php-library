@@ -66,7 +66,7 @@ class MetaDataNormalizer extends AbstractNormalizer
 
         try {
             return $this->getNormalizerFactory()->makeForComponent()->normalize($component);
-        } catch (\DomainException $exception) {
+        } catch (\DomainException) {
             return null;
         }
     }

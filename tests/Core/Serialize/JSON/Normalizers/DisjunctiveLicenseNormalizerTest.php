@@ -77,24 +77,12 @@ class DisjunctiveLicenseNormalizerTest extends TestCase
         yield 'optional url' => [
             $this->createConfiguredMock(DisjunctiveLicenseWithName::class, [
                 'getName' => 'foo',
-                'getUrl' => 'http://foo.bar',
+                'getUrl' => 'https://foo.bar',
                 ]),
             ['license' => [
                 'name' => 'foo',
-                'url' => 'http://foo.bar',
+                'url' => 'https://foo.bar',
             ]],
         ];
-    }
-
-    public function testNormalizeThrowsOnUnknown(): void
-    {
-        $license = $this->createStub(AbstractDisjunctiveLicense::class);
-        $factory = $this->createMock(NormalizerFactory::class);
-        $normalizer = new DisjunctiveLicenseNormalizer($factory);
-
-        $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessageMatches('/unsupported license class/i');
-
-        $normalizer->normalize($license);
     }
 }

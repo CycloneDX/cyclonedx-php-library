@@ -32,10 +32,7 @@ use CycloneDX\Core\Spec\SpecInterface;
  */
 abstract class BaseSerializer implements SerializerInterface
 {
-    /**
-     * @var SpecInterface
-     */
-    private $spec;
+    private SpecInterface $spec;
 
     public function __construct(SpecInterface $spec)
     {
@@ -93,12 +90,9 @@ abstract class BaseSerializer implements SerializerInterface
 
         $allComponents = $bom->getComponentRepository()->getComponents();
 
-        $metadata = $bom->getMetaData();
-        if (null !== $metadata) {
-            $metadataComponent = $metadata->getComponent();
-            if (null !== $metadataComponent) {
-                $allComponents[] = $metadataComponent;
-            }
+        $metadataComponent = $bom->getMetaData()?->getComponent();
+        if (null !== $metadataComponent) {
+            $allComponents[] = $metadataComponent;
         }
 
         foreach ($allComponents as $component) {

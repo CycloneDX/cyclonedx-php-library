@@ -37,7 +37,7 @@ class ComponentRepository implements \Countable
      *
      * @psalm-var list<Component>
      */
-    private $components = [];
+    private array $components = [];
 
     public function __construct(Component ...$components)
     {

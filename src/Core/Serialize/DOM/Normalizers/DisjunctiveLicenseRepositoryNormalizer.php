@@ -46,11 +46,7 @@ class DisjunctiveLicenseRepositoryNormalizer extends AbstractNormalizer
 
         $normalizer = $this->getNormalizerFactory()->makeForDisjunctiveLicense();
         foreach ($repo->getLicenses() as $license) {
-            try {
-                $licenses[] = $normalizer->normalize($license);
-            } catch (\InvalidArgumentException $exception) {
-                continue;
-            }
+            $licenses[] = $normalizer->normalize($license);
         }
 
         return $licenses;

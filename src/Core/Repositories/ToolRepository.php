@@ -37,7 +37,7 @@ class ToolRepository implements \Countable
      *
      * @psalm-var list<Tool>
      */
-    private $tools = [];
+    private array $tools = [];
 
     public function __construct(Tool ...$tools)
     {

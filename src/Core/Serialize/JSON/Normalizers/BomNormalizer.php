@@ -82,15 +82,13 @@ class BomNormalizer extends AbstractNormalizer
 
         if (false === $factory->getSpec()->supportsMetaData()) {
             // prevent possible information loss: metadata cannot be rendered -> put it to bom
-            if (null !== ($m = $bom->getMetaData())
-                && null !== ($mc = $m->getComponent())
-                && null !== ($mcr = $mc->getExternalReferenceRepository())
-            ) {
+            $mcr = $bom->getMetaData()?->getComponent()?->getExternalReferenceRepository();
+            if (null !== $mcr) {
                 $externalReferenceRepository = null !== $externalReferenceRepository
                     ? (clone $externalReferenceRepository)->addExternalReference(...$mcr->getExternalReferences())
                     : $mcr;
             }
-            unset($m, $mc, $mcr);
+            unset($mcr);
         }
 
         if (null === $externalReferenceRepository) {

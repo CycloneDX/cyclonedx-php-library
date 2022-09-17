@@ -23,7 +23,6 @@ declare(strict_types=1);
 
 namespace CycloneDX\Core\Repositories;
 
-use CycloneDX\Core\Models\License\AbstractDisjunctiveLicense;
 use CycloneDX\Core\Models\License\DisjunctiveLicenseWithId;
 use CycloneDX\Core\Models\License\DisjunctiveLicenseWithName;
 
@@ -37,16 +36,12 @@ class DisjunctiveLicenseRepository implements \Countable
      *
      * @psalm-var list<DisjunctiveLicenseWithId|DisjunctiveLicenseWithName>
      */
-    private $licenses = [];
+    private array $licenses = [];
 
     /**
      * Unsupported Licenses are filtered out silently.
-     *
-     * @param DisjunctiveLicenseWithId[]|DisjunctiveLicenseWithName[] $licenses
-     *
-     * @psalm-param  list<DisjunctiveLicenseWithId|DisjunctiveLicenseWithName> $licenses
      */
-    public function __construct(AbstractDisjunctiveLicense ...$licenses)
+    public function __construct(DisjunctiveLicenseWithId|DisjunctiveLicenseWithName ...$licenses)
     {
         $this->addLicense(...$licenses);
     }
@@ -55,15 +50,11 @@ class DisjunctiveLicenseRepository implements \Countable
      * Add supported licenses.
      * Unsupported Licenses are filtered out silently.
      *
-     * @param DisjunctiveLicenseWithId[]|DisjunctiveLicenseWithName[] $licenses
-     *
-     * @psalm-param  list<DisjunctiveLicenseWithId|DisjunctiveLicenseWithName> $licenses
-     *
      * @return $this
      */
-    public function addLicense(AbstractDisjunctiveLicense ...$licenses): self
+    public function addLicense(DisjunctiveLicenseWithId|DisjunctiveLicenseWithName ...$licenses): self
     {
-        foreach (array_filter($licenses, [$this, 'isSupportedLicense']) as $license) {
+        foreach ($licenses as $license) {
             if (\in_array($license, $this->licenses, true)) {
                 continue;
             }
@@ -86,14 +77,5 @@ class DisjunctiveLicenseRepository implements \Countable
     public function count(): int
     {
         return \count($this->licenses);
-    }
-
-    /**
-     * @psalm-assert-if-true DisjunctiveLicenseWithId|DisjunctiveLicenseWithName $license
-     */
-    private function isSupportedLicense(AbstractDisjunctiveLicense $license): bool
-    {
-        return $license instanceof DisjunctiveLicenseWithId
-            || $license instanceof DisjunctiveLicenseWithName;
     }
 }

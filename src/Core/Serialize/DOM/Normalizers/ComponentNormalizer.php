@@ -103,10 +103,7 @@ class ComponentNormalizer extends AbstractNormalizer
         );
     }
 
-    /**
-     * @param LicenseExpression|DisjunctiveLicenseRepository|null $license
-     */
-    private function normalizeLicense($license): ?DOMElement
+    private function normalizeLicense(LicenseExpression|DisjunctiveLicenseRepository|null $license): ?DOMElement
     {
         /**
          * @var DOMElement[] $licenses

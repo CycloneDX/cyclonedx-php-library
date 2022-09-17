@@ -37,14 +37,14 @@ class BomRefDiscriminator
      *
      * @psalm-var list<BomRef>
      */
-    private $bomRefs = [];
+    private array $bomRefs = [];
 
     /**
      * @var string[]|null[]
      *
      * @psalm-var list<?string>
      */
-    private $originalValues = [];
+    private array $originalValues = [];
 
     public function __construct(BomRef ...$bomRefs)
     {

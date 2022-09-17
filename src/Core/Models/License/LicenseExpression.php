@@ -31,11 +31,9 @@ use DomainException;
 class LicenseExpression
 {
     /**
-     * @var string
-     *
      * @psalm-suppress PropertyNotSetInConstructor
      */
-    private $expression;
+    private string $expression;
 
     public function getExpression(): string
     {
@@ -49,10 +47,9 @@ class LicenseExpression
      */
     public function setExpression(string $expression): self
     {
-        if (false === self::isValid($expression)) {
-            throw new DomainException("Invalid expression: $expression");
-        }
-        $this->expression = $expression;
+        $this->expression = self::isValid($expression)
+            ? $expression
+            : throw new DomainException("Invalid expression: $expression");
 
         return $this;
     }

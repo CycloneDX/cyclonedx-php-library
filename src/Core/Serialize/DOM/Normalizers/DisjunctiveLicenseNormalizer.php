@@ -25,12 +25,10 @@ namespace CycloneDX\Core\Serialize\DOM\Normalizers;
 
 use CycloneDX\Core\Helpers\SimpleDomTrait;
 use CycloneDX\Core\Helpers\XmlTrait;
-use CycloneDX\Core\Models\License\AbstractDisjunctiveLicense;
 use CycloneDX\Core\Models\License\DisjunctiveLicenseWithId;
 use CycloneDX\Core\Models\License\DisjunctiveLicenseWithName;
 use CycloneDX\Core\Serialize\DOM\AbstractNormalizer;
 use DOMElement;
-use InvalidArgumentException;
 
 /**
  * @author jkowalleck
@@ -40,21 +38,14 @@ class DisjunctiveLicenseNormalizer extends AbstractNormalizer
     use SimpleDomTrait;
     use XmlTrait;
 
-    /**
-     * @psalm-assert DisjunctiveLicenseWithId|DisjunctiveLicenseWithName $license
-     *
-     * @throws InvalidArgumentException
-     */
-    public function normalize(AbstractDisjunctiveLicense $license): DOMElement
+    public function normalize(DisjunctiveLicenseWithId|DisjunctiveLicenseWithName $license): DOMElement
     {
         if ($license instanceof DisjunctiveLicenseWithId) {
             $id = $license->getId();
             $name = null;
-        } elseif ($license instanceof DisjunctiveLicenseWithName) {
+        } else {
             $id = null;
             $name = $license->getName();
-        } else {
-            throw new InvalidArgumentException('Unsupported license class: '.\get_class($license));
         }
 
         $document = $this->getNormalizerFactory()->getDocument();

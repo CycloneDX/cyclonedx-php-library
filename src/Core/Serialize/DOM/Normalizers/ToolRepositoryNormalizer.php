@@ -45,8 +45,8 @@ class ToolRepositoryNormalizer extends AbstractNormalizer
         foreach ($repo->getTools() as $tool) {
             try {
                 $tools[] = $normalizer->normalize($tool);
-            } catch (\DomainException $exception) {
-                continue;
+            } catch (\DomainException) {
+                // pass
             }
         }
 

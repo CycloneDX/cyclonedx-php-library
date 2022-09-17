@@ -36,14 +36,11 @@ class NormalizerFactory
     public const FORMAT = Format::XML;
 
     /**
-     * @var SpecInterface
-     *
      * @psalm-suppress PropertyNotSetInConstructor
      */
-    private $spec;
+    private SpecInterface $spec;
 
-    /** @var DOMDocument */
-    private $document;
+    private DOMDocument $document;
 
     /**
      * @throws DomainException when the spec does not support XML format
@@ -66,10 +63,9 @@ class NormalizerFactory
      */
     public function setSpec(SpecInterface $spec): self
     {
-        if (false === $spec->isSupportedFormat(self::FORMAT)) {
-            throw new DomainException('Unsupported format "'.self::FORMAT.'" for spec '.$spec->getVersion());
-        }
-        $this->spec = $spec;
+        $this->spec = $spec->isSupportedFormat(self::FORMAT)
+            ? $spec
+            : throw new DomainException('Unsupported format "'.self::FORMAT.'" for spec '.$spec->getVersion());
 
         return $this;
     }

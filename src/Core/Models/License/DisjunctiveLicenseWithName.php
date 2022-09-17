@@ -32,10 +32,8 @@ class DisjunctiveLicenseWithName extends AbstractDisjunctiveLicense
 {
     /**
      * If SPDX does not define the license used, this field may be used to provide the license name.
-     *
-     * @var string|null
      */
-    private $name;
+    private ?string $name = null;
 
     public function getName(): ?string
     {
