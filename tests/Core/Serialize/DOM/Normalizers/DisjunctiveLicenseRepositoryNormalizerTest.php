@@ -61,23 +61,4 @@ class DisjunctiveLicenseRepositoryNormalizerTest extends TestCase
 
         self::assertSame([$dummy1, $dummy2], $normalized);
     }
-
-    public function testNormalizeSkipsOnThrows(): void
-    {
-        $license1 = $this->createStub(DisjunctiveLicenseWithId::class);
-        $license2 = $this->createStub(DisjunctiveLicenseWithName::class);
-        $licenseNormalizer = $this->createMock(DisjunctiveLicenseNormalizer::class);
-        $factory = $this->createConfiguredMock(NormalizerFactory::class, ['makeForDisjunctiveLicense' => $licenseNormalizer]);
-        $normalizer = new DisjunctiveLicenseRepositoryNormalizer($factory);
-        $repo = $this->createStub(DisjunctiveLicenseRepository::class);
-        $repo->method('getLicenses')->willReturn([$license1, $license2]);
-
-        $licenseNormalizer->expects(self::exactly(2))->method('normalize')
-            ->withConsecutive([$license1], [$license2])
-            ->willThrowException(new \InvalidArgumentException());
-
-        $got = $normalizer->normalize($repo);
-
-        self::assertSame([], $got);
-    }
 }
