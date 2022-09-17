@@ -1,0 +1,17 @@
+{
+    "name": "tools/infection",
+    "description": "infection",
+    "type": "metapackage",
+    "require-dev": {
+        "infection/infection": "0.26.14",
+        "roave/security-advisories": "dev-latest"
+    },
+    "prefer-stable": true,
+    "config": {
+        "allow-plugins": {
+            "infection/extension-installer": true
+        },
+        "preferred-install": "dist",
+        "sort-packages": true
+    }
+}
