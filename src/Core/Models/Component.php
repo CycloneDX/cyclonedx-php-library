@@ -317,11 +317,10 @@ class Component
      *
      * @throws DomainException if type is unknown
      */
-    public function __construct(string $type, string $name, ?string $version = null)
+    public function __construct(string $type, string $name)
     {
         $this->setType($type);
         $this->setName($name);
-        $this->setVersion($version);
         $this->bomRef = new BomRef();
     }
 
