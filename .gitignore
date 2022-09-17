@@ -11,6 +11,9 @@
 /phpunit.xml
 /.phpunit.cache/
 
+/infection.json
+/.infection.tmp/
+
 /psalm.xml
 /.psalm.cache/
 

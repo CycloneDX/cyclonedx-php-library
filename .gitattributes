@@ -4,6 +4,7 @@
 *.md          text eol=lf diff=markdown
 *.php         text eol=lf diff=php
 *.json        text eol=lf diff=json
+*.json.diff   text eol=lf diff=json
 *.xml         text eol=lf diff=xml
 *.xml.dist    text eol=lf diff=xml
 *.xsd         text eol=lf diff=xml
@@ -23,6 +24,7 @@ composer.lock text eol=lf diff=json
 /phpmd.ruleset.xml      export-ignore
 /phpmd.baseline.xml     export-ignore linguist-generated
 /phpunit.xml.dist       export-ignore
+/infection.json.dist    export-ignore
 /psalm.xml.dist         export-ignore
 /.psalm                 export-ignore
 /HISTORY.md             export-ignore

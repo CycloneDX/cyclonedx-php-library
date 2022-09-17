@@ -1,0 +1,18 @@
+{
+    "$schema": "tools/infection/vendor/infection/infection/resources/schema.json",
+    "tmpDir": ".infection.tmp",
+    "source": {
+        "directories": [
+            "src/Core"
+        ]
+    },
+    "testFramework": "phpunit",
+    "phpUnit": {},
+    "initialTestsPhpOptions": " -d zend.assertions=1 -d assert.exception=1 -d display_errors=On -d error_reporting=-1 -d log_errors_max_len=0 -d memory_limit=-1 -d xdebug.mode=coverage -d pcov.enabled=1 -d pcov.directory=. -d pcov.exclude=\"~vendor~\"",
+    "logs": {
+        "text": "reports/infections.txt"
+    },
+    "mutators": {
+        "@default": true
+    }
+}
