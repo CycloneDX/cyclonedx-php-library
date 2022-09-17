@@ -98,10 +98,9 @@ class Bom
      */
     public function setVersion(int $version): self
     {
-        if (false === $this->isValidVersion($version)) {
-            throw new DomainException("Invalid value: $version");
-        }
-        $this->version = $version;
+        $this->version = $this->isValidVersion($version)
+            ? $version
+            : throw new DomainException("Invalid value: $version");
 
         return $this;
     }

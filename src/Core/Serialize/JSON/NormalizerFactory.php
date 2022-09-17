@@ -59,10 +59,9 @@ class NormalizerFactory
      */
     public function setSpec(SpecInterface $spec): self
     {
-        if (false === $spec->isSupportedFormat(self::FORMAT)) {
-            throw new DomainException('Unsupported format "'.self::FORMAT.'" for spec '.$spec->getVersion());
-        }
-        $this->spec = $spec;
+        $this->spec = $spec->isSupportedFormat(self::FORMAT)
+            ? $spec
+            : throw new DomainException('Unsupported format "'.self::FORMAT.'" for spec '.$spec->getVersion());
 
         return $this;
     }

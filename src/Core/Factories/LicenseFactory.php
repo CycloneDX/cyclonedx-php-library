@@ -47,12 +47,8 @@ class LicenseFactory
      */
     public function getSpdxLicenseValidator(): SpdxLicenseValidator
     {
-        $validator = $this->spdxLicenseValidator;
-        if (null === $validator) {
-            throw new UnexpectedValueException('Missing spdxLicenseValidator');
-        }
-
-        return $validator;
+        return $this->spdxLicenseValidator
+            ?? throw new UnexpectedValueException('Missing spdxLicenseValidator');
     }
 
     public function setSpdxLicenseValidator(SpdxLicenseValidator $spdxLicenseValidator): self

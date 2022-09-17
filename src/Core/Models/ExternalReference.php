@@ -78,10 +78,9 @@ class ExternalReference
      */
     public function setType(string $type): self
     {
-        if (false === ExternalReferenceType::isValidValue($type)) {
-            throw new DomainException("Invalid type: $type");
-        }
-        $this->type = $type;
+        $this->type = ExternalReferenceType::isValidValue($type)
+            ? $type
+            : throw new DomainException("Invalid type: $type");
 
         return $this;
     }

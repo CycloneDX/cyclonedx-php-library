@@ -198,10 +198,9 @@ class Component
      */
     public function setType(string $type): self
     {
-        if (false === Classification::isValidValue($type)) {
-            throw new DomainException("Invalid type: $type");
-        }
-        $this->type = $type;
+        $this->type = Classification::isValidValue($type)
+            ? $type
+            : throw new DomainException("Invalid type: $type");
 
         return $this;
     }

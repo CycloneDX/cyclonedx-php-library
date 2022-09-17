@@ -47,10 +47,9 @@ class LicenseExpression
      */
     public function setExpression(string $expression): self
     {
-        if (false === self::isValid($expression)) {
-            throw new DomainException("Invalid expression: $expression");
-        }
-        $this->expression = $expression;
+        $this->expression = self::isValid($expression)
+            ? $expression
+            : throw new DomainException("Invalid expression: $expression");
 
         return $this;
     }
