@@ -6,43 +6,99 @@ All notable changes to this project will be documented in this file.
 
 ## 2.0.0 - unreleased
 
-* BREAKING changes
-  * Dropped support for php v7.3 and v7.4. (via [#125])
-  * Interface `\CycloneDX\Core\Spec\SpecInterface` became internal, was public api. (via [#65])  
-    This is done to prevent the need for future "breaking changed" when the schema requires additional spec implementations.
-  * API
-    * Some methods now enforce the use of concrete union types instead of protocols.  (via [#125])
-      Affected the usages of `\CycloneDX\Core\Models\License\AbstractDisjunctiveLicense` and methods that used license-related classes.
-      This was possible due to php8's UnionType language feature.
-* Changed
-  * Method `\CycloneDX\Core\Serialize\{DOM,JSON}\Normalizers\ExternalReferenceNormalizer::normalize` throw `DomainException` when `ExternalReference`'s type was not supported by the spec.  (via [#65])  
-    This is considered a non-breaking change, because the behaviour was already documented in the API, even though there was no need for an implementation before.
-  * Class `\CycloneDX\Core\Models\Component`'s property `version` is optional now, to reflect CycloneDX v1.4. (via [#118], [#131])  
-    This affects constructor arguments, and affects methods `{get,set}Version()`.
-  * Some methods no longer throw `InvalidArgumentException`. (via [#125])  
-    This was possible by enforcing correct typing on language level.
-* Removed
-  * The public usage of the internal class `\CycloneDX\Core\Models\License\AbstractDisjunctiveLicense`. (via [#125])  
-    This was possible due php8's UnionType language feature.
+* BREAKING
+  * Removed support for PHP v7.3. ([#6]   via [#125])
+  * Removed support for PHP v7.4. ([#114] via [#125])
+  * Changed models' aggregation properties to be no longer optional. ([#66] via [#131])
 * Added
-  * New class constant `\CycloneDX\Core\Spec\Version::V_1_4` for CycloneDX v1.4. (via [#65])
-  * New class `\CycloneDX\Core\Spec\Spec14` to reflect CycloneDX v1.4. (via [#65])
-  * Support for CycloneDX v1.4 in `\CycloneDX\Core\Validation\Validators\{Json,Xml}StrictValidator`. (via [#65])
-  * New methods in class `\CycloneDX\Core\Spec\Spec1{1,2,3}`:
+  * Support for CycloneDX v1.4. ([#57] via [#65], [#118], [#123])
+* Misc
+  * All class properties now enforce the correct types. ([#6], [#114] via [#125])  
+    This is considered a non-breaking change, because the types were already correctly annotated.  
+    This was possible due to PHP74's features and php8's UnionType language feature.
+  * Migrated internals to PHP8 language features. ([#114] via [#125])
+  
+API changes
+
+- Overall
+  * BREAKING: Enforced the use of concrete union types instead of protocols. ([#114] via [#125])
+    Affected the usages of no longer public `\CycloneDX\Core\Models\License\AbstractDisjunctiveLicense` and methods that used license-related classes.
+    This was possible due to PHP8's UnionType language feature.
+  * Changed some methods to no longer throw `\InvalidArgumentException`. (via [#125])  
+    PhpDoc annotations were updated, so that code analysis tools should pick up.  
+    This was possible by enforcing correct typing on PHP8 language level.
+- `\CycloneDX\Core\Enum`
+  * Added class constant `ExternalReferenceType::RELEASE_NOTES` to reflect CycloneDX v1.4. ([#57] via [#65])
+- `\CycloneDX\Core\Factories`
+  * No noteworthy changes.
+- `\CycloneDX\Core\Models`
+  * `Bom`
+    * BREAKING: renamed methods `{get,set}ComponentRepository()` -> `{get,set}Components()`. ([#66] via [#131])
+    * BREAKING: renamed methods `{get,set}ExternalReferenceRepository()` -> `{get,set}ExternalReferences()`
+      and made their parameter & return type non-nullable, was nullable. ([#66] via [#131])
+  * `Component`
+    * BREAKING: renamed methods `{get,set}DependenciesBomRefRepository()` -> `{get,set}Dependencies()`
+      and made their parameter & return type non-nullable, was nullable. ([#66] via [#131])
+    * BREAKING: renamed methods `{get,set}ExternalReferenceRepository()` -> `{get,set}ExternalReferences()`
+      and made their parameter & return type non-nullable, was nullable. ([#66] via [#131])
+    * BREAKING: renamed methods `{get,set}HashRepository()` -> `{get,set}Hashes()`
+      and made their parameter & return type non-nullable, was nullable. ([#66] via [#131])
+    * BREAKING: renamed methods `{get,set}MetaData()` -> `{get,set}Metadata()`
+      and made their parameter & return type non-nullable, was nullable. ([#66] via [#131])
+    * BREAKING: renamed methods `{get,set}License()` -> `{get,set}Licenses()`
+      and made it work with class `LicenseRepository` only, was working with various `Models\License\*` types. ([#66] via [#131])
+    * BREAKING: Changed class property `version` to optional now, to reflect CycloneDX v1.4. ([#27] via [#118], [#131])  
+      This affects constructor arguments, and affects methods `{get,set}Version()`.
+  * `ExternalReference`
+    * BREAKING: renamed methods `{get,set}HashRepository()` -> `{get,set}Hashes()`
+    and made their parameter & return type non-nullable, was nullable. ([#66] via [#131])
+  * `Licenses\*`
+    * BREAKING: Removed the public usage of the internal class `License\AbstractDisjunctiveLicense`. (via [#125])  
+      This was made possible due PHP8's UnionType language feature.  
+      The class was not removed, but marked `@internal`.
+  * `MetaData`
+    * BREAKING: renamed class to `Metadata`.  (via [#131])  
+      Even though PHP is case-insensitive with class names, autoloaders are not. Therefore, this is considered a breaking change.
+    * BREAKING: changed methods `{get,set}Tools()` so that their parameter & return type non-nullable, was nullable. ([#66] via [#131])
+  * `Tool`
+    * BREAKING: renamed methods `{get,set}ExternalReferenceRepository()` -> `{get,set}ExternalReferences()`
+      and made their parameter & return type non-nullable, was nullable. ([#66] via [#131])
+    * BREAKING: renamed methods `{get,set}HashRepository()` -> `{get,set}Hashes()`
+      and made their parameter & return type non-nullable, was nullable. ([#66] via [#131])
+- `\CycloneDX\Core\Repositories`
+  * `DisjunctiveLicenseRepository`
+    * BREAKING: renamed the class to `LicenseRepository`. (via [#131])
+    * BREAKING: Added the capability to also aggregate instances of class `Models\LicenseExpression`. (via [#131])
+      Therefore, various getters and setters and the constructor changed their signatures,
+      was usage of `Models\License\AbstractDisjunctiveLicense` only.
+- `\CycloneDX\Core\Serialize`
+  * Changed the method `{DOM,JSON}\Normalizers\ExternalReferenceNormalizer::normalize()`
+    to actually throw `\DomainException` when `\ExternalReference`'s type was not supported by the spec. (via [#65])  
+    This is considered a non-breaking change, because the behaviour was already documented in the API, even though there was no need for an implementation before.
+- `\CycloneDX\Core\Spdx`
+  * No noteworthy changes.
+- `\CycloneDX\Core\Spec`
+  * BREAKING: Removed the public usage of the interface `SpecInterface`. (via [#65])  
+    This is done to prevent the need for future "breaking changed" when the schema requires additional spec implementations.  
+    The class was not removed, but marked `@internal`.
+  * Added class constant `Version::V_1_4` for CycloneDX v1.4. ([#57] via [#65])
+  * Added new class `Spec14` to reflect CycloneDX v1.4. ([#57] via [#65])
+  * Added new methods in class `Spec1{1,2,3}`:
     * `::getSupportedExternalReferenceTypes()` (via [#65], [#124])
     * `::isSupportedExternalReferenceType()` (via [#65], [#124])
     * `::supportsToolExternalReferences()` (via [#123])
-  * New class constant `CycloneDX\Core\Enums\ExternalReferenceType::RELEASE_NOTES` to reflect CycloneDX v1.4. (via [#65])
-* Style
-  * All class properties now enforce the correct types. (via [#125])  
-    This is considered a non-breaking change, because the types were already correctly annotated.  
-    This was possible due to php74's features and php8's UnionType language feature.
-  * Migrated internals to php8 language features. (via [#125])
-
+- `\CycloneDX\Core\Validation`
+  * Added support for CycloneDX v1.4 in `{Json,Xml}StrictValidator`. ([#57] via [#65])
+  
+[#6]: https://github.com/CycloneDX/cyclonedx-php-library/issues/6
+[#27]: https://github.com/CycloneDX/cyclonedx-php-library/issues/27
+[#57]: https://github.com/CycloneDX/cyclonedx-php-library/issues/57
 [#65]: https://github.com/CycloneDX/cyclonedx-php-library/pull/65
+[#66]: https://github.com/CycloneDX/cyclonedx-php-library/issues/66
+[#114]: https://github.com/CycloneDX/cyclonedx-php-library/issues/114
 [#118]: https://github.com/CycloneDX/cyclonedx-php-library/pull/118
 [#123]: https://github.com/CycloneDX/cyclonedx-php-library/pull/123
-[#124]: https://github.com/CycloneDX/cyclonedx-php-library/pull/123
+[#124]: https://github.com/CycloneDX/cyclonedx-php-library/pull/124
 [#125]: https://github.com/CycloneDX/cyclonedx-php-library/pull/125
 [#131]: https://github.com/CycloneDX/cyclonedx-php-library/pull/131
 
