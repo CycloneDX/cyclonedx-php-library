@@ -29,11 +29,11 @@ $bom = new \CycloneDX\Core\Models\Bom();
 $bom->getComponentRepository()->addComponent(
     new \CycloneDX\Core\Models\Component(
         \CycloneDX\Core\Enums\Classification::LIBRARY,
-        'myComponent',
+        'myComponent'
     )
 );
 
-$spec = new \CycloneDX\Core\Spec\Spec13();
+$spec = new \CycloneDX\Core\Spec\Spec14();
 
 $jsonSerializer = new \CycloneDX\Core\Serialize\JsonSerializer($spec);
 $serializedJSON = $jsonSerializer->serialize($bom);

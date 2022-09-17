@@ -85,8 +85,7 @@ $bom = new \CycloneDX\Core\Models\Bom();
 $bom->getComponentRepository()->addComponent(
     new \CycloneDX\Core\Models\Component(
         \CycloneDX\Core\Enums\Classification::LIBRARY,
-        'myComponent',
-        '1.33.7'
+        'myComponent'
     )
 );
 ```
