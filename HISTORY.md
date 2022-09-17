@@ -21,18 +21,18 @@ All notable changes to this project will be documented in this file.
   
 API changes
 
-- Overall
+* Overall
   * BREAKING: Enforced the use of concrete union types instead of protocols. ([#114] via [#125])
     Affected the usages of no longer public `\CycloneDX\Core\Models\License\AbstractDisjunctiveLicense` and methods that used license-related classes.
     This was possible due to PHP8's UnionType language feature.
   * Changed some methods to no longer throw `\InvalidArgumentException`. (via [#125])  
     PhpDoc annotations were updated, so that code analysis tools should pick up.  
     This was possible by enforcing correct typing on PHP8 language level.
-- `\CycloneDX\Core\Enum`
+* `\CycloneDX\Core\Enum`
   * Added class constant `ExternalReferenceType::RELEASE_NOTES` to reflect CycloneDX v1.4. ([#57] via [#65])
-- `\CycloneDX\Core\Factories`
+* `\CycloneDX\Core\Factories`
   * No noteworthy changes.
-- `\CycloneDX\Core\Models`
+* `\CycloneDX\Core\Models`
   * `Bom`
     * BREAKING: renamed methods `{get,set}ComponentRepository()` -> `{get,set}Components()`. ([#66] via [#131])
     * BREAKING: renamed methods `{get,set}ExternalReferenceRepository()` -> `{get,set}ExternalReferences()`
@@ -66,7 +66,7 @@ API changes
       and made their parameter & return type non-nullable, was nullable. ([#66] via [#131])
     * BREAKING: renamed methods `{get,set}HashRepository()` -> `{get,set}Hashes()`
       and made their parameter & return type non-nullable, was nullable. ([#66] via [#131])
-- `\CycloneDX\Core\Repositories`
+* `\CycloneDX\Core\Repositories`
   * Overall:
     * BREAKING: Renamed the namespace to `Collections`. (via [#131])
     * BREAKING: Streamlined all classes, renamed all getters to `getItems` and all setters to `setItems`.  (via [#131])
@@ -79,13 +79,13 @@ API changes
   * `HashRepository`
     * BREAKING: renamed to `HashDictionary`. (via [#131])
     * BREAKING: renamed all methods and changed all method signatures to match the overall streamlined scheme. (via [#131])
-- `\CycloneDX\Core\Serialize`
+* `\CycloneDX\Core\Serialize`
   * Changed the method `{DOM,JSON}\Normalizers\ExternalReferenceNormalizer::normalize()`
     to actually throw `\DomainException` when `\ExternalReference`'s type was not supported by the spec. (via [#65])  
     This is considered a non-breaking change, because the behaviour was already documented in the API, even though there was no need for an implementation before.
-- `\CycloneDX\Core\Spdx`
+* `\CycloneDX\Core\Spdx`
   * No noteworthy changes.
-- `\CycloneDX\Core\Spec`
+* `\CycloneDX\Core\Spec`
   * BREAKING: Removed the public usage of the interface `SpecInterface`. (via [#65])  
     This is done to prevent the need for future "breaking changed" when the schema requires additional spec implementations.  
     The class was not removed, but marked `@internal`.
@@ -95,7 +95,7 @@ API changes
     * `::getSupportedExternalReferenceTypes()` (via [#65], [#124])
     * `::isSupportedExternalReferenceType()` (via [#65], [#124])
     * `::supportsToolExternalReferences()` (via [#123])
-- `\CycloneDX\Core\Validation`
+* `\CycloneDX\Core\Validation`
   * Added support for CycloneDX v1.4 in `{Json,Xml}StrictValidator`. ([#57] via [#65])
   
 [#6]: https://github.com/CycloneDX/cyclonedx-php-library/issues/6
