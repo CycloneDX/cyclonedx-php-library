@@ -90,12 +90,9 @@ abstract class BaseSerializer implements SerializerInterface
 
         $allComponents = $bom->getComponentRepository()->getComponents();
 
-        $metadata = $bom->getMetaData();
-        if (null !== $metadata) {
-            $metadataComponent = $metadata->getComponent();
-            if (null !== $metadataComponent) {
-                $allComponents[] = $metadataComponent;
-            }
+        $metadataComponent = $bom->getMetaData()?->getComponent();
+        if (null !== $metadataComponent) {
+            $allComponents[] = $metadataComponent;
         }
 
         foreach ($allComponents as $component) {

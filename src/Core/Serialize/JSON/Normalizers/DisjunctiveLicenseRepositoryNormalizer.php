@@ -25,7 +25,6 @@ namespace CycloneDX\Core\Serialize\JSON\Normalizers;
 
 use CycloneDX\Core\Repositories\DisjunctiveLicenseRepository;
 use CycloneDX\Core\Serialize\JSON\AbstractNormalizer;
-use InvalidArgumentException;
 
 /**
  * @author jkowalleck
