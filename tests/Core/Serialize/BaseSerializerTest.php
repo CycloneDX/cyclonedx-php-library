@@ -26,7 +26,7 @@ namespace CycloneDX\Tests\Core\Serialize;
 use CycloneDX\Core\Models\Bom;
 use CycloneDX\Core\Models\BomRef;
 use CycloneDX\Core\Models\Component;
-use CycloneDX\Core\Models\MetaData;
+use CycloneDX\Core\Models\Metadata;
 use CycloneDX\Core\Repositories\BomRefRepository;
 use CycloneDX\Core\Repositories\ComponentRepository;
 use CycloneDX\Core\Serialize\BaseSerializer;
@@ -212,7 +212,7 @@ class BaseSerializerTest extends TestCase
                             ]
                         ),
                         'getMetaData' => $this->createConfiguredMock(
-                            MetaData::class,
+                            Metadata::class,
                             [
                                 'getComponent' => $componentRoot,
                             ]

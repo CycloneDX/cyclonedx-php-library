@@ -32,7 +32,7 @@ use CycloneDX\Core\Models\ExternalReference;
 use CycloneDX\Core\Models\License\DisjunctiveLicenseWithId;
 use CycloneDX\Core\Models\License\DisjunctiveLicenseWithName;
 use CycloneDX\Core\Models\License\LicenseExpression;
-use CycloneDX\Core\Models\MetaData;
+use CycloneDX\Core\Models\Metadata;
 use CycloneDX\Core\Models\Tool;
 use CycloneDX\Core\Repositories\ComponentRepository;
 use CycloneDX\Core\Repositories\LicenseRepository;
@@ -553,7 +553,7 @@ abstract class BomModelProvider
     private static function bomWithMetaDataPlain(): Generator
     {
         yield 'metadata: plain' => [
-            (new Bom())->setMetaData(new MetaData()),
+            (new Bom())->setMetadata(new Metadata()),
         ];
     }
 
@@ -565,14 +565,14 @@ abstract class BomModelProvider
     private static function bomWithMetaDataTools(): Generator
     {
         yield 'metadata: empty tools' => [
-            (new Bom())->setMetaData(
-                (new MetaData())->setTools(new ToolRepository())
+            (new Bom())->setMetadata(
+                (new Metadata())->setTools(new ToolRepository())
             ),
         ];
 
         yield 'metadata: some tools' => [
-            (new Bom())->setMetaData(
-                (new MetaData())->setTools(
+            (new Bom())->setMetadata(
+                (new Metadata())->setTools(
                     new ToolRepository(
                         new Tool(),
                         (new Tool())
@@ -600,8 +600,8 @@ abstract class BomModelProvider
     private static function bomWithMetaDataComponent(): Generator
     {
         yield 'metadata: minimal component' => [
-            (new Bom())->setMetaData(
-                (new MetaData())->setComponent(
+            (new Bom())->setMetadata(
+                (new Metadata())->setComponent(
                     new Component(
                         Classification::APPLICATION,
                         'foo',

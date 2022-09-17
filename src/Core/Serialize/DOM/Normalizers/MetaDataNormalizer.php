@@ -25,7 +25,7 @@ namespace CycloneDX\Core\Serialize\DOM\Normalizers;
 
 use CycloneDX\Core\Helpers\SimpleDomTrait;
 use CycloneDX\Core\Models\Component;
-use CycloneDX\Core\Models\MetaData;
+use CycloneDX\Core\Models\Metadata;
 use CycloneDX\Core\Repositories\ToolRepository;
 use CycloneDX\Core\Serialize\DOM\AbstractNormalizer;
 use DOMElement;
@@ -37,7 +37,7 @@ class MetaDataNormalizer extends AbstractNormalizer
 {
     use SimpleDomTrait;
 
-    public function normalize(MetaData $metaData): DOMElement
+    public function normalize(Metadata $metaData): DOMElement
     {
         return $this->simpleDomAppendChildren(
             $this->getNormalizerFactory()->getDocument()->createElement('metadata'),

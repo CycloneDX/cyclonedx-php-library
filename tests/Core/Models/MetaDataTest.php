@@ -24,18 +24,18 @@ declare(strict_types=1);
 namespace CycloneDX\Tests\Core\Models;
 
 use CycloneDX\Core\Models\Component;
-use CycloneDX\Core\Models\MetaData;
+use CycloneDX\Core\Models\Metadata;
 use CycloneDX\Core\Repositories\ToolRepository;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers \CycloneDX\Core\Models\MetaData
+ * @covers \CycloneDX\Core\Models\Metadata
  */
 class MetaDataTest extends TestCase
 {
-    public function testConstructor(): MetaData
+    public function testConstructor(): Metadata
     {
-        $metaData = new MetaData();
+        $metaData = new Metadata();
 
         self::assertNull($metaData->getTools());
         self::assertNull($metaData->getComponent());
@@ -46,7 +46,7 @@ class MetaDataTest extends TestCase
     /**
      * @depends testConstructor
      */
-    public function testGetterSetterTools(MetaData $metaData): void
+    public function testGetterSetterTools(Metadata $metaData): void
     {
         $tools = $this->createStub(ToolRepository::class);
         $metaData->setTools($tools);
@@ -56,7 +56,7 @@ class MetaDataTest extends TestCase
     /**
      * @depends testConstructor
      */
-    public function testSetterSetterComponent(MetaData $metaData): void
+    public function testSetterSetterComponent(Metadata $metaData): void
     {
         $component = $this->createStub(Component::class);
         $metaData->setComponent($component);

@@ -48,10 +48,7 @@ class Bom
      */
     private int $version = 1;
 
-    /**
-     * @TODO deprecated rename it in v4 to `$metadata` and also rename the getter/setter
-     */
-    private ?MetaData $metaData = null;
+    private Metadata $metadata;
 
     /**
      * Provides the ability to document external references related to the BOM or
@@ -63,6 +60,7 @@ class Bom
     {
         $this->setComponents($components ?? new ComponentRepository());
         $this->externalReferences = new ExternalReferenceRepository();
+        $this->metadata = new Metadata();
     }
 
     public function getComponents(): ComponentRepository
@@ -99,7 +97,7 @@ class Bom
      */
     public function setVersion(int $version): self
     {
-        $this->version = $this->isValidVersion($version)
+        $this->version = self::isValidVersion($version)
             ? $version
             : throw new DomainException("Invalid value: $version");
 
@@ -109,22 +107,22 @@ class Bom
     /**
      * @psalm-assert-if-true positive-int $version
      */
-    private function isValidVersion(int $version): bool
+    private static function isValidVersion(int $version): bool
     {
         return $version > 0;
     }
 
-    public function getMetaData(): ?MetaData
+    public function getMetadata(): Metadata
     {
-        return $this->metaData;
+        return $this->metadata;
     }
 
     /**
      * @return $this
      */
-    public function setMetaData(?MetaData $metaData): self
+    public function setMetadata(Metadata $metadata): self
     {
-        $this->metaData = $metaData;
+        $this->metadata = $metadata;
 
         return $this;
     }

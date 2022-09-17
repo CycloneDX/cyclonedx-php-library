@@ -48,7 +48,7 @@ class DependenciesNormalizer extends AbstractNormalizer
     {
         $allComponents = $bom->getComponents()->getComponents();
 
-        $mainComponent = $bom->getMetaData()?->getComponent();
+        $mainComponent = $bom->getMetadata()?->getComponent();
         if (null !== $mainComponent) {
             $allComponents[] = $mainComponent;
         }

@@ -26,7 +26,7 @@ namespace CycloneDX\Tests\Core\Serialize\JSON\Normalizers;
 use CycloneDX\Core\Models\Bom;
 use CycloneDX\Core\Models\Component;
 use CycloneDX\Core\Models\ExternalReference;
-use CycloneDX\Core\Models\MetaData;
+use CycloneDX\Core\Models\Metadata;
 use CycloneDX\Core\Repositories\ComponentRepository;
 use CycloneDX\Core\Repositories\ExternalReferenceRepository;
 use CycloneDX\Core\Serialize\JSON\NormalizerFactory;
@@ -136,13 +136,13 @@ class BomNormalizerTest extends TestCase
             Bom::class,
             [
                 'getVersion' => 23,
-                'getMetaData' => $this->createStub(MetaData::class),
+                'getMetaData' => $this->createStub(Metadata::class),
             ]
         );
 
         $metadataNormalizer->expects(self::once())
             ->method('normalize')
-            ->with($bom->getMetaData())
+            ->with($bom->getMetadata())
             ->willReturn(['FakeMetaData']);
 
         $actual = $normalizer->normalize($bom);
@@ -181,12 +181,12 @@ class BomNormalizerTest extends TestCase
             Bom::class,
             [
                 'getVersion' => 23,
-                'getMetaData' => $this->createStub(MetaData::class),
+                'getMetaData' => $this->createStub(Metadata::class),
             ]
         );
 
         $metadataNormalizer->method('normalize')
-            ->with($bom->getMetaData())
+            ->with($bom->getMetadata())
             ->willReturn([/* empty */]);
 
         $actual = $normalizer->normalize($bom);
@@ -224,12 +224,12 @@ class BomNormalizerTest extends TestCase
             Bom::class,
             [
                 'getVersion' => 23,
-                'getMetaData' => $this->createStub(MetaData::class),
+                'getMetaData' => $this->createStub(Metadata::class),
             ]
         );
 
         $metadataNormalizer->method('normalize')
-            ->with($bom->getMetaData())
+            ->with($bom->getMetadata())
             ->willReturn(['FakeMetaData']);
 
         $actual = $normalizer->normalize($bom);
@@ -267,7 +267,7 @@ class BomNormalizerTest extends TestCase
             Bom::class,
             [
                 'getVersion' => 23,
-                'getMetaData' => $this->createStub(MetaData::class),
+                'getMetaData' => $this->createStub(Metadata::class),
             ]
         );
 
@@ -312,7 +312,7 @@ class BomNormalizerTest extends TestCase
             Bom::class,
             [
                 'getVersion' => 23,
-                'getMetaData' => $this->createStub(MetaData::class),
+                'getMetaData' => $this->createStub(Metadata::class),
             ]
         );
 
@@ -471,7 +471,7 @@ class BomNormalizerTest extends TestCase
                 'getVersion' => 23,
                 'getExternalReferenceRepository' => $bomExternalReferenceRepository,
                 'getMetaData' => $this->createConfiguredMock(
-                    MetaData::class,
+                    Metadata::class,
                     [
                         'getComponent' => $this->createConfiguredMock(Component::class, [
                             'getExternalReferenceRepository' => $componentExternalReferenceRepository,

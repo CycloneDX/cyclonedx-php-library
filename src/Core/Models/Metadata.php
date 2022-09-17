@@ -28,7 +28,7 @@ use CycloneDX\Core\Repositories\ToolRepository;
 /**
  * @author jkowalleck
  */
-class MetaData
+class Metadata
 {
     /**
      * The tool(s) used in the creation of the BOM.

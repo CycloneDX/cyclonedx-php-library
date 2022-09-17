@@ -25,7 +25,7 @@ namespace CycloneDX\Core\Serialize\JSON\Normalizers;
 
 use CycloneDX\Core\Helpers\NullAssertionTrait;
 use CycloneDX\Core\Models\Component;
-use CycloneDX\Core\Models\MetaData;
+use CycloneDX\Core\Models\Metadata;
 use CycloneDX\Core\Repositories\ToolRepository;
 use CycloneDX\Core\Serialize\JSON\AbstractNormalizer;
 
@@ -36,7 +36,7 @@ class MetaDataNormalizer extends AbstractNormalizer
 {
     use NullAssertionTrait;
 
-    public function normalize(MetaData $metaData): array
+    public function normalize(Metadata $metaData): array
     {
         return array_filter(
             [

@@ -25,7 +25,7 @@ namespace CycloneDX\Core\Serialize\DOM\Normalizers;
 
 use CycloneDX\Core\Helpers\SimpleDomTrait;
 use CycloneDX\Core\Models\Bom;
-use CycloneDX\Core\Models\MetaData;
+use CycloneDX\Core\Models\Metadata;
 use CycloneDX\Core\Repositories\ComponentRepository;
 use CycloneDX\Core\Serialize\DOM\AbstractNormalizer;
 use DOMElement;
@@ -59,7 +59,7 @@ class BomNormalizer extends AbstractNormalizer
         $this->simpleDomAppendChildren(
             $element,
             [
-                $this->normalizeMetaData($bom->getMetaData()),
+                $this->normalizeMetaData($bom->getMetadata()),
                 $this->normalizeComponents($bom->getComponents()),
                 $this->normalizeExternalReferences($bom),
                 $this->normalizeDependencies($bom),
@@ -79,7 +79,7 @@ class BomNormalizer extends AbstractNormalizer
         );
     }
 
-    private function normalizeMetaData(?MetaData $metaData): ?DOMElement
+    private function normalizeMetaData(?Metadata $metaData): ?DOMElement
     {
         if (null === $metaData) {
             return null;
@@ -102,7 +102,7 @@ class BomNormalizer extends AbstractNormalizer
 
         if (false === $factory->getSpec()->supportsMetaData()) {
             // prevent possible information loss: metadata cannot be rendered -> put it to bom
-            $mcr = $bom->getMetaData()?->getComponent()?->getExternalReferences();
+            $mcr = $bom->getMetadata()?->getComponent()?->getExternalReferences();
             if (null !== $mcr) {
                 $externalReferenceRepository = null !== $externalReferenceRepository
                     ? (clone $externalReferenceRepository)->addExternalReference(...$mcr->getExternalReferences())

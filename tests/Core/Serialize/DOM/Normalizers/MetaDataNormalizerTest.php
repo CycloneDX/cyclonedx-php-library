@@ -24,7 +24,7 @@ declare(strict_types=1);
 namespace CycloneDX\Tests\Core\Serialize\DOM\Normalizers;
 
 use CycloneDX\Core\Models\Component;
-use CycloneDX\Core\Models\MetaData;
+use CycloneDX\Core\Models\Metadata;
 use CycloneDX\Core\Repositories\ToolRepository;
 use CycloneDX\Core\Serialize\DOM\NormalizerFactory;
 use CycloneDX\Core\Serialize\DOM\Normalizers\ComponentNormalizer;
@@ -45,7 +45,7 @@ class MetaDataNormalizerTest extends TestCase
 
     public function testNormalizeEmpty(): void
     {
-        $metaData = $this->createMock(MetaData::class);
+        $metaData = $this->createMock(Metadata::class);
         $spec = $this->createMock(SpecInterface::class);
         $factory = $this->createConfiguredMock(
             NormalizerFactory::class,
@@ -61,7 +61,7 @@ class MetaDataNormalizerTest extends TestCase
     public function testNormalizeTools(): void
     {
         $metaData = $this->createConfiguredMock(
-            MetaData::class,
+            Metadata::class,
             [
                 'getTools' => $this->createConfiguredMock(ToolRepository::class, ['count' => 2]),
             ]
@@ -97,7 +97,7 @@ class MetaDataNormalizerTest extends TestCase
     public function testNormalizeComponent(): void
     {
         $metaData = $this->createConfiguredMock(
-            MetaData::class,
+            Metadata::class,
             [
                 'getComponent' => $this->createMock(Component::class),
             ]
@@ -130,7 +130,7 @@ class MetaDataNormalizerTest extends TestCase
     public function testNormalizeComponentUnsupported(): void
     {
         $metaData = $this->createConfiguredMock(
-            MetaData::class,
+            Metadata::class,
             [
                 'getComponent' => $this->createMock(Component::class),
             ]

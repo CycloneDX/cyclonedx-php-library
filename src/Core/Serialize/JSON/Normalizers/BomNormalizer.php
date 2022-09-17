@@ -25,7 +25,7 @@ namespace CycloneDX\Core\Serialize\JSON\Normalizers;
 
 use CycloneDX\Core\Helpers\NullAssertionTrait;
 use CycloneDX\Core\Models\Bom;
-use CycloneDX\Core\Models\MetaData;
+use CycloneDX\Core\Models\Metadata;
 use CycloneDX\Core\Serialize\JSON\AbstractNormalizer;
 
 /**
@@ -46,7 +46,7 @@ class BomNormalizer extends AbstractNormalizer
                 'bomFormat' => self::BOM_FORMAT,
                 'specVersion' => $factory->getSpec()->getVersion(),
                 'version' => $bom->getVersion(),
-                'metadata' => $this->normalizeMetaData($bom->getMetaData()),
+                'metadata' => $this->normalizeMetaData($bom->getMetadata()),
                 'components' => $factory->makeForComponentRepository()->normalize($bom->getComponents()),
                 'externalReferences' => $this->normalizeExternalReferences($bom),
                 'dependencies' => $this->normalizeDependencies($bom),
@@ -55,7 +55,7 @@ class BomNormalizer extends AbstractNormalizer
         );
     }
 
-    private function normalizeMetaData(?MetaData $metaData): ?array
+    private function normalizeMetaData(?Metadata $metaData): ?array
     {
         if (null === $metaData) {
             return null;
@@ -82,7 +82,7 @@ class BomNormalizer extends AbstractNormalizer
 
         if (false === $factory->getSpec()->supportsMetaData()) {
             // prevent possible information loss: metadata cannot be rendered -> put it to bom
-            $mcr = $bom->getMetaData()?->getComponent()?->getExternalReferences();
+            $mcr = $bom->getMetadata()?->getComponent()?->getExternalReferences();
             if (null !== $mcr) {
                 $externalReferenceRepository = null !== $externalReferenceRepository
                     ? (clone $externalReferenceRepository)->addExternalReference(...$mcr->getExternalReferences())
