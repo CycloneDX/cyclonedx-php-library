@@ -28,75 +28,92 @@ API changes
   * Changed some methods to no longer throw `\InvalidArgumentException`. (via [#125])  
     PhpDoc annotations were updated, so that code analysis tools should pick up.
     This was possible by enforcing correct typing on PHP8 language level.
-* `\CycloneDX\Core\Enum`
+* `\CycloneDX\Core\Enum` namespace
   * Added class constant `ExternalReferenceType::RELEASE_NOTES` to reflect CycloneDX v1.4 ([#57] via [#65])
-* `\CycloneDX\Core\Factories`
+* `\CycloneDX\Core\Factories` namespace
   * No noteworthy changes
-* `\CycloneDX\Core\Models`
-  * `Bom`
+* `\CycloneDX\Core\Models` namespace
+  * `Bom` class
     * BREAKING: renamed methods `{get,set}ComponentRepository()` -> `{get,set}Components()` ([#133] via [#131])
     * BREAKING: renamed methods `{get,set}ExternalReferenceRepository()` -> `{get,set}ExternalReferences()` ([#133] via [#131])  
       and changed parameter & return type to non-nullable, was nullable ([#66] via [#131])
-  * `Component`
+    * BREAKING: renamed methods `{get,set}MetaData()` -> `{get,set}Metadata()` ([#133] via [#131])  
+      and changed parameter & return type to non-nullable, was nullable ([#66] via [#131])
+  * `Component` class
     * BREAKING: renamed methods `{get,set}DependenciesBomRefRepository()` -> `{get,set}Dependencies()` ([#133] via [#131])  
       and changed parameter & return type to non-nullable, was nullable ([#66] via [#131])
     * BREAKING: renamed methods `{get,set}ExternalReferenceRepository()` -> `{get,set}ExternalReferences()` ([#133] via [#131])  
       and changed parameter & return type to non-nullable, was nullable ([#66] via [#131])
     * BREAKING: renamed methods `{get,set}HashRepository()` -> `{get,set}Hashes()` ([#133] via [#131])  
       and changed parameter & return type to non-nullable, was nullable ([#66] via [#131])
-    * BREAKING: renamed methods `{get,set}MetaData()` -> `{get,set}Metadata()` ([#133] via [#131])  
-      and changed parameter & return type to non-nullable, was nullable ([#66] via [#131])
     * BREAKING: renamed methods `{get,set}License()` -> `{get,set}Licenses()` (via [#131])  
       and changed it work with class `LicenseRepository` only, was working with various `Models\License\*` types. ([#66] via [#131])
     * BREAKING: Changed class property `version` to optional now, to reflect CycloneDX v1.4. ([#27] via [#118], [#131])  
       This affects constructor arguments, and affects methods `{get,set}Version()`.
-  * `ExternalReference`
+  * `ExternalReference` class
     * BREAKING: renamed methods `{get,set}HashRepository()` -> `{get,set}Hashes()` ([#133] via [#131])  
       and changed parameter & return type to non-nullable, was nullable ([#66] via [#131])
-  * `Licenses\*`
-    * BREAKING: Removed the public usage of the internal class `License\AbstractDisjunctiveLicense`. (via [#125])  
+  * `Licenses` namespace
+    * BREAKING: Removed the public usage of the internal class `AbstractDisjunctiveLicense`. (via [#125])  
       This was made possible due PHP8's UnionType language feature.
       The class was not removed, but marked `@internal`.
-  * `MetaData`
+  * `MetaData` class
     * BREAKING: renamed class to `Metadata` ([#133] via [#131])  
       Even though PHP is case-insensitive with class names, autoloaders are not. Therefore, this is considered a breaking change.
     * BREAKING: changed methods `{get,set}Tools()` so that their parameter & return type is non-nullable, was nullable ([#66] via [#131])
-  * `Tool`
+  * `Tool` class
     * BREAKING: renamed methods `{get,set}ExternalReferenceRepository()` -> `{get,set}ExternalReferences()` ([#133] via [#131])  
       and changed parameter & return type to non-nullable, was nullable ([#66] via [#131])
     * BREAKING: renamed methods `{get,set}HashRepository()` -> `{get,set}Hashes()` ([#133] via [#131])  
       and changed parameter & return type to non-nullable, was nullable ([#66] via [#131])
-* `\CycloneDX\Core\Repositories`
+* `\CycloneDX\Core\Repositories` namespace
   * Overall:
     * BREAKING: Renamed the namespace to `Collections` ([#133] via [#131])
     * BREAKING: Streamlined all classes, renamed all getters to `getItems` and all setters to `setItems`. ([#133] via [#131])  
       In addition, the method arguments were renamed to generic `$items`.
-  * `DisjunctiveLicenseRepository`
+  * `DisjunctiveLicenseRepository` class
     * BREAKING: renamed the class to `LicenseRepository` (via [#131])
     * BREAKING: Added the capability to also aggregate instances of class `Models\LicenseExpression`. (via [#131])
       Therefore, various getters and setters and the constructor changed their signatures,
       was usage of `Models\License\AbstractDisjunctiveLicense` only.
-  * `HashRepository`
+  * `HashRepository` class
     * BREAKING: renamed to `HashDictionary` ([#133] via [#131])
     * BREAKING: renamed all methods and changed all method signatures to match the overall streamlined scheme ([#133] via [#131])
-* `\CycloneDX\Core\Serialize`
-  * Changed the method `{DOM,JSON}\Normalizers\ExternalReferenceNormalizer::normalize()`
-    to actually throw `\DomainException` when `\ExternalReference`'s type was not supported by the spec. (via [#65])  
-    This is considered a non-breaking change, because the behaviour was already documented in the API, even though there was no need for an implementation before.
-* `\CycloneDX\Core\Spdx`
+* `\CycloneDX\Core\Serialize` namespace
+  * `{DOM,JSON}\NormalizerFactory` classes
+    * BREAKING: removed method `makeForLicenseExpression()` (via [#131])
+    * BREAKING: removed method `makeForDisjunctiveLicense()` (via [#131])
+    * BREAKING: removed method `makeForDisjunctiveLicenseRepository()` (via [#131])
+    * BREAKING: removed method `makeForHashRepositonary()` - use `makeForHashDictionary()` instead ([#133] via [#131])
+    * BREAKING: removed method `setSpec()` (via [#131])
+    * Added new method `makeForHashDictionary()` ([#133] via [#131])
+    * Added method `makeForLicense()` (via [#131])
+    * Added method `makeForLicenseRepository()` (via [#131])
+  * namespaces `{DOM,JSON}\Normalizers`
+    * BREAKING: removed classes `DisjunctiveLicenseNormalizer` - use `LicenseNormalizer` instead (via [#131])
+    * BREAKING: removed classes `LicenseExpressionNormalizer`  - use `LicenseNormalizer` instead (via [#131])
+    * BREAKING: removed classes `DisjunctiveLicenseRepositoryNormalizer` (via [#131]) 
+    * BREAKING: renamed classes `HashRepositoryNormalizer` -> `HashDictionaryNormalizer` ([#133] via [#131])
+      and changed signatures to accept `Models\HashDictionary` instead of `Models\HashRepository`
+    * Added new classes `LicenseNormalizer` that can normalize every existing license model (via [#131])
+    * Added new classes `LicenseRepositoryNormalizer` that can normalize `LicenseRepository` (via [#131])
+    * `ExternalReferenceNormalizer` classes
+      * Changed the method `normalize()` to actually throw `\DomainException` when `\ExternalReference`'s type was not supported by the spec. (via [#65])  
+        This is considered a non-breaking change, because the behaviour was already documented in the API, even though there was no need for an implementation before.
+* `\CycloneDX\Core\Spdx` namespace
   * No noteworthy changes.
-* `\CycloneDX\Core\Spec`
+* `\CycloneDX\Core\Spec` namespace
   * BREAKING: removed the public usage of the interface `SpecInterface` (via [#65])  
     This is done to prevent the need for future "breaking changed" when the schema requires additional spec implementations.  
     The class was not removed, but marked `@internal`.
   * Added class constant `Version::V_1_4` for CycloneDX v1.4 ([#57] via [#65])
   * Added new class `Spec14` to reflect CycloneDX v1.4 ([#57] via [#65])
   * Added new methods in class `Spec1{1,2,3}`:
-    * `::getSupportedExternalReferenceTypes()` (via [#65], [#124])
-    * `::isSupportedExternalReferenceType()` (via [#65], [#124])
-    * `::supportsToolExternalReferences()` (via [#123])
-* `\CycloneDX\Core\Validation`
-  * Added support for CycloneDX v1.4 in `{Json,Xml}StrictValidator` ([#57] via [#65])
+    * `getSupportedExternalReferenceTypes()` (via [#65], [#124])
+    * `isSupportedExternalReferenceType()` (via [#65], [#124])
+    * `supportsToolExternalReferences()` (via [#123])
+* `\CycloneDX\Core\Validation` namespace
+  * Added support for CycloneDX v1.4 in classes`{Json,Xml}StrictValidator` ([#57] via [#65])
   
 [#6]: https://github.com/CycloneDX/cyclonedx-php-library/issues/6
 [#27]: https://github.com/CycloneDX/cyclonedx-php-library/issues/27
