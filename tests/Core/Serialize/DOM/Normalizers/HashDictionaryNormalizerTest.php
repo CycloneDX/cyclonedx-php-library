@@ -25,25 +25,25 @@ namespace CycloneDX\Tests\Core\Serialize\DOM\Normalizers;
 
 use CycloneDX\Core\Collections\HashDictionary;
 use CycloneDX\Core\Serialize\DOM\NormalizerFactory;
+use CycloneDX\Core\Serialize\DOM\Normalizers\HashDictionaryNormalizer;
 use CycloneDX\Core\Serialize\DOM\Normalizers\HashNormalizer;
-use CycloneDX\Core\Serialize\DOM\Normalizers\HashRepositoryNormalizer;
 use DOMDocument;
 use DOMElement;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers \CycloneDX\Core\Serialize\DOM\Normalizers\HashRepositoryNormalizer
+ * @covers \CycloneDX\Core\Serialize\DOM\Normalizers\HashDictionaryNormalizer
  * @covers \CycloneDX\Core\Serialize\DOM\AbstractNormalizer
  * @covers \CycloneDX\Core\Helpers\SimpleDomTrait
  *
  * @uses   \CycloneDX\Core\Serialize\DOM\Normalizers\HashNormalizer
  */
-class HashRepositoryNormalizerTest extends TestCase
+class HashDictionaryNormalizerTest extends TestCase
 {
     public function testConstructor(): void
     {
         $factory = $this->createMock(NormalizerFactory::class);
-        $normalizer = new HashRepositoryNormalizer($factory);
+        $normalizer = new HashDictionaryNormalizer($factory);
         self::assertSame($factory, $normalizer->getNormalizerFactory());
     }
 
@@ -59,7 +59,7 @@ class HashRepositoryNormalizerTest extends TestCase
         );
         $dummy1 = $this->createStub(DOMElement::class);
         $dummy2 = $this->createStub(DOMElement::class);
-        $normalizer = new HashRepositoryNormalizer($factory);
+        $normalizer = new HashDictionaryNormalizer($factory);
         $repo = $this->createStub(HashDictionary::class);
         $repo->method('getItems')->willReturn(['alg1' => 'content1', 'alg2' => 'content2']);
 
@@ -79,7 +79,7 @@ class HashRepositoryNormalizerTest extends TestCase
     {
         $hashNormalizer = $this->createMock(HashNormalizer::class);
         $factory = $this->createConfiguredMock(NormalizerFactory::class, ['makeForHash' => $hashNormalizer]);
-        $normalizer = new HashRepositoryNormalizer($factory);
+        $normalizer = new HashDictionaryNormalizer($factory);
 
         $repo = $this->createConfiguredMock(
             HashDictionary::class,

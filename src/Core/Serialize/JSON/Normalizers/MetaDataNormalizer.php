@@ -23,10 +23,10 @@ declare(strict_types=1);
 
 namespace CycloneDX\Core\Serialize\JSON\Normalizers;
 
+use CycloneDX\Core\Collections\ToolRepository;
 use CycloneDX\Core\Helpers\NullAssertionTrait;
 use CycloneDX\Core\Models\Component;
 use CycloneDX\Core\Models\Metadata;
-use CycloneDX\Core\Collections\ToolRepository;
 use CycloneDX\Core\Serialize\JSON\AbstractNormalizer;
 
 /**
@@ -51,9 +51,9 @@ class MetaDataNormalizer extends AbstractNormalizer
         );
     }
 
-    private function normalizeTools(?ToolRepository $tools): ?array
+    private function normalizeTools(ToolRepository $tools): ?array
     {
-        return null === $tools || 0 === \count($tools)
+        return 0 === \count($tools)
             ? null
             : $this->getNormalizerFactory()->makeForToolRepository()->normalize($tools);
     }

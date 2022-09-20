@@ -23,8 +23,8 @@ declare(strict_types=1);
 
 namespace CycloneDX\Tests\Core\Collections;
 
-use CycloneDX\Core\Models\Component;
 use CycloneDX\Core\Collections\ComponentRepository;
+use CycloneDX\Core\Models\Component;
 use Generator;
 use PHPUnit\Framework\TestCase;
 
@@ -54,7 +54,7 @@ class ComponentRepositoryTest extends TestCase
         self::assertContains($component2, $repo->getItems());
     }
 
-    public function testAddAndGetComponent(): void
+    public function testAddAndGetItems(): void
     {
         $component1 = $this->createStub(Component::class);
         $component2 = $this->createStub(Component::class);
@@ -76,7 +76,7 @@ class ComponentRepositoryTest extends TestCase
      *
      * @dataProvider dpFindComponents
      */
-    public function testFindComponents(
+    public function testFindItem(
         ComponentRepository $repo,
         string $findName,
         ?string $findGroup,

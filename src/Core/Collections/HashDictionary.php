@@ -111,6 +111,9 @@ class HashDictionary implements \Countable
         return $this->items[$algorithm] ?? null;
     }
 
+    /**
+     * @psalm-return 0|positive-int
+     */
     public function count(): int
     {
         return \count($this->items);

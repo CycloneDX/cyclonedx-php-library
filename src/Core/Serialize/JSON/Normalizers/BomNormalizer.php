@@ -55,12 +55,8 @@ class BomNormalizer extends AbstractNormalizer
         );
     }
 
-    private function normalizeMetaData(?Metadata $metaData): ?array
+    private function normalizeMetaData(Metadata $metaData): ?array
     {
-        if (null === $metaData) {
-            return null;
-        }
-
         $factory = $this->getNormalizerFactory();
 
         if (false === $factory->getSpec()->supportsMetaData()) {
@@ -82,16 +78,16 @@ class BomNormalizer extends AbstractNormalizer
 
         if (false === $factory->getSpec()->supportsMetaData()) {
             // prevent possible information loss: metadata cannot be rendered -> put it to bom
-            $mcr = $bom->getMetadata()?->getComponent()?->getExternalReferences();
+            $mcr = $bom->getMetadata()->getComponent()?->getExternalReferences();
             if (null !== $mcr) {
-                $externalReferenceRepository = null !== $externalReferenceRepository
+                $externalReferenceRepository = \count($externalReferenceRepository)
                     ? (clone $externalReferenceRepository)->addItems(...$mcr->getItems())
                     : $mcr;
             }
             unset($mcr);
         }
 
-        if (null === $externalReferenceRepository) {
+        if (0 === \count($externalReferenceRepository)) {
             return null;
         }
 

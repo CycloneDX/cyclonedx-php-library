@@ -23,10 +23,10 @@ declare(strict_types=1);
 
 namespace CycloneDX\Core\Factories;
 
+use CycloneDX\Core\Collections\LicenseRepository;
 use CycloneDX\Core\Models\License\DisjunctiveLicenseWithId;
 use CycloneDX\Core\Models\License\DisjunctiveLicenseWithName;
 use CycloneDX\Core\Models\License\LicenseExpression;
-use CycloneDX\Core\Collections\LicenseRepository;
 use CycloneDX\Core\Spdx\License as SpdxLicenseValidator;
 use DomainException;
 use UnexpectedValueException;

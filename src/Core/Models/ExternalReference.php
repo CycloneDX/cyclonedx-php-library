@@ -23,8 +23,8 @@ declare(strict_types=1);
 
 namespace CycloneDX\Core\Models;
 
-use CycloneDX\Core\Enums\ExternalReferenceType;
 use CycloneDX\Core\Collections\HashDictionary;
+use CycloneDX\Core\Enums\ExternalReferenceType;
 use DomainException;
 
 /**

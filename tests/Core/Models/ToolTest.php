@@ -23,9 +23,9 @@ declare(strict_types=1);
 
 namespace CycloneDX\Tests\Core\Models;
 
-use CycloneDX\Core\Models\Tool;
 use CycloneDX\Core\Collections\ExternalReferenceRepository;
 use CycloneDX\Core\Collections\HashDictionary;
+use CycloneDX\Core\Models\Tool;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -40,8 +40,8 @@ class ToolTest extends TestCase
         self::assertNull($tool->getVendor());
         self::assertNull($tool->getName());
         self::assertNull($tool->getVersion());
-        self::assertNull($tool->getHashes());
-        self::assertNull($tool->getExternalReferences());
+        self::assertCount(0, $tool->getHashes());
+        self::assertCount(0, $tool->getExternalReferences());
 
         return $tool;
     }

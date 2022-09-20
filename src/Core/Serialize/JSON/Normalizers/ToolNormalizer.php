@@ -23,10 +23,10 @@ declare(strict_types=1);
 
 namespace CycloneDX\Core\Serialize\JSON\Normalizers;
 
-use CycloneDX\Core\Helpers\NullAssertionTrait;
-use CycloneDX\Core\Models\Tool;
 use CycloneDX\Core\Collections\ExternalReferenceRepository;
 use CycloneDX\Core\Collections\HashDictionary;
+use CycloneDX\Core\Helpers\NullAssertionTrait;
+use CycloneDX\Core\Models\Tool;
 use CycloneDX\Core\Serialize\JSON\AbstractNormalizer;
 
 /**
@@ -50,14 +50,14 @@ class ToolNormalizer extends AbstractNormalizer
         );
     }
 
-    private function normalizeHashes(?HashDictionary $hashes): ?array
+    private function normalizeHashes(HashDictionary $hashes): ?array
     {
-        return null === $hashes || 0 === \count($hashes)
+        return 0 === \count($hashes)
             ? null
-            : $this->getNormalizerFactory()->makeForHashRepository()->normalize($hashes);
+            : $this->getNormalizerFactory()->makeForHashDictionary()->normalize($hashes);
     }
 
-    private function normalizeExternalReferences(?ExternalReferenceRepository $externalReferenceRepository): ?array
+    private function normalizeExternalReferences(ExternalReferenceRepository $externalReferenceRepository): ?array
     {
         $factory = $this->getNormalizerFactory();
 
@@ -65,7 +65,7 @@ class ToolNormalizer extends AbstractNormalizer
             return null;
         }
 
-        return null === $externalReferenceRepository || 0 === \count($externalReferenceRepository)
+        return 0 === \count($externalReferenceRepository)
             ? null
             : $factory->makeForExternalReferenceRepository()->normalize($externalReferenceRepository);
     }

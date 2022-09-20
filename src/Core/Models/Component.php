@@ -23,12 +23,11 @@ declare(strict_types=1);
 
 namespace CycloneDX\Core\Models;
 
-use CycloneDX\Core\Enums\Classification;
-use CycloneDX\Core\Models\License\LicenseExpression;
 use CycloneDX\Core\Collections\BomRefRepository;
-use CycloneDX\Core\Collections\LicenseRepository;
 use CycloneDX\Core\Collections\ExternalReferenceRepository;
 use CycloneDX\Core\Collections\HashDictionary;
+use CycloneDX\Core\Collections\LicenseRepository;
+use CycloneDX\Core\Enums\Classification;
 use DomainException;
 use PackageUrl\PackageUrl;
 

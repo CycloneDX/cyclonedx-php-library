@@ -26,24 +26,35 @@ namespace CycloneDX\Core\Serialize\JSON\Normalizers;
 use CycloneDX\Core\Helpers\NullAssertionTrait;
 use CycloneDX\Core\Models\License\DisjunctiveLicenseWithId;
 use CycloneDX\Core\Models\License\DisjunctiveLicenseWithName;
+use CycloneDX\Core\Models\License\LicenseExpression;
 use CycloneDX\Core\Serialize\JSON\AbstractNormalizer;
 
 /**
  * @author jkowalleck
  */
-class DisjunctiveLicenseNormalizer extends AbstractNormalizer
+class LicenseNormalizer extends AbstractNormalizer
 {
     use NullAssertionTrait;
 
-    public function normalize(DisjunctiveLicenseWithId|DisjunctiveLicenseWithName $license): array
+    public function normalize(LicenseExpression|DisjunctiveLicenseWithId|DisjunctiveLicenseWithName $license): array
     {
-        if ($license instanceof DisjunctiveLicenseWithId) {
-            $id = $license->getId();
-            $name = null;
-        } else {
-            $id = null;
-            $name = $license->getName();
-        }
+        return $license instanceof LicenseExpression
+            ? $this->normalizeExpression($license)
+            : $this->normalizeDisjunctive($license);
+    }
+
+    private function normalizeExpression(LicenseExpression $license): array
+    {
+        // TO BE IMPLEMENTED IF NEEDED: may throw, if not supported by the spec
+
+        return ['expression' => $license->getExpression()];
+    }
+
+    private function normalizeDisjunctive(DisjunctiveLicenseWithId|DisjunctiveLicenseWithName $license): array
+    {
+        [$id, $name] = $license instanceof DisjunctiveLicenseWithId
+            ? [$license->getId(), null]
+            : [null, $license->getName()];
 
         return ['license' => array_filter(
             [

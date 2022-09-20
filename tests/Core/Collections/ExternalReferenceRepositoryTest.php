@@ -23,8 +23,8 @@ declare(strict_types=1);
 
 namespace CycloneDX\Tests\Core\Collections;
 
-use CycloneDX\Core\Models\ExternalReference;
 use CycloneDX\Core\Collections\ExternalReferenceRepository;
+use CycloneDX\Core\Models\ExternalReference;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -58,7 +58,7 @@ class ExternalReferenceRepositoryTest extends TestCase
         self::assertContains($externalReference2, $repo->getItems());
     }
 
-    public function testAddAndGetExternalReference(): void
+    public function testAddAndGetItems(): void
     {
         $externalReference1 = $this->createStub(ExternalReference::class);
         $externalReference2 = $this->createStub(ExternalReference::class);

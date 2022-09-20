@@ -23,10 +23,10 @@ declare(strict_types=1);
 
 namespace CycloneDX\Core\Serialize\DOM\Normalizers;
 
-use CycloneDX\Core\Helpers\SimpleDomTrait;
-use CycloneDX\Core\Models\Tool;
 use CycloneDX\Core\Collections\ExternalReferenceRepository;
 use CycloneDX\Core\Collections\HashDictionary;
+use CycloneDX\Core\Helpers\SimpleDomTrait;
+use CycloneDX\Core\Models\Tool;
 use CycloneDX\Core\Serialize\DOM\AbstractNormalizer;
 use DOMElement;
 
@@ -53,17 +53,19 @@ class ToolNormalizer extends AbstractNormalizer
         );
     }
 
-    private function normalizeHashes(?HashDictionary $hashes): ?DOMElement
+    private function normalizeHashes(HashDictionary $hashes): ?DOMElement
     {
-        return null === $hashes || 0 === \count($hashes)
+        $factory = $this->getNormalizerFactory();
+
+        return 0 === \count($hashes)
             ? null
             : $this->simpleDomAppendChildren(
-                $this->getNormalizerFactory()->getDocument()->createElement('hashes'),
-                $this->getNormalizerFactory()->makeForHashRepository()->normalize($hashes)
+                $factory->getDocument()->createElement('hashes'),
+                $factory->makeForHashDictionary()->normalize($hashes)
             );
     }
 
-    private function normalizeExternalReferences(?ExternalReferenceRepository $externalReferenceRepository): ?DOMElement
+    private function normalizeExternalReferences(ExternalReferenceRepository $externalReferenceRepository): ?DOMElement
     {
         $factory = $this->getNormalizerFactory();
 
@@ -71,7 +73,7 @@ class ToolNormalizer extends AbstractNormalizer
             return null;
         }
 
-        return null === $externalReferenceRepository || 0 === \count($externalReferenceRepository)
+        return 0 === \count($externalReferenceRepository)
             ? null
             : $this->simpleDomAppendChildren(
                 $factory->getDocument()->createElement('externalReferences'),

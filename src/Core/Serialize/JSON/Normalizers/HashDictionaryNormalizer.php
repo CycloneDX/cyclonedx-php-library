@@ -21,29 +21,29 @@ declare(strict_types=1);
  * Copyright (c) OWASP Foundation. All Rights Reserved.
  */
 
-namespace CycloneDX\Core\Serialize\DOM\Normalizers;
+namespace CycloneDX\Core\Serialize\JSON\Normalizers;
 
-use CycloneDX\Core\Helpers\SimpleDomTrait;
-use CycloneDX\Core\Models\License\LicenseExpression;
-use CycloneDX\Core\Serialize\DOM\AbstractNormalizer;
-use DOMElement;
+use CycloneDX\Core\Collections\HashDictionary;
+use CycloneDX\Core\Serialize\JSON\AbstractNormalizer;
 
 /**
  * @author jkowalleck
  */
-class LicenseExpressionNormalizer extends AbstractNormalizer
+class HashDictionaryNormalizer extends AbstractNormalizer
 {
-    use SimpleDomTrait;
-
-    public function normalize(LicenseExpression $license): DOMElement
+    public function normalize(HashDictionary $repo): array
     {
-        $element = $this->simpleDomSafeTextElement(
-            $this->getNormalizerFactory()->getDocument(),
-            'expression',
-            $license->getExpression()
-        );
-        \assert(null !== $element);
+        $hashes = [];
 
-        return $element;
+        $normalizer = $this->getNormalizerFactory()->makeForHash();
+        foreach ($repo->getItems() as $algorithm => $content) {
+            try {
+                $hashes[] = $normalizer->normalize($algorithm, $content);
+            } catch (\DomainException) {
+                // pass
+            }
+        }
+
+        return $hashes;
     }
 }

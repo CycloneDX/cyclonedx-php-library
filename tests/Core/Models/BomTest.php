@@ -23,10 +23,10 @@ declare(strict_types=1);
 
 namespace CycloneDX\Tests\Core\Models;
 
-use CycloneDX\Core\Models\Bom;
-use CycloneDX\Core\Models\Metadata;
 use CycloneDX\Core\Collections\ComponentRepository;
 use CycloneDX\Core\Collections\ExternalReferenceRepository;
+use CycloneDX\Core\Models\Bom;
+use CycloneDX\Core\Models\Metadata;
 use PHPUnit\Framework\TestCase;
 
 /**

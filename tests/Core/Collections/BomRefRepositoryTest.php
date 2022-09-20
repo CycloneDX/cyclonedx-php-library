@@ -23,8 +23,8 @@ declare(strict_types=1);
 
 namespace CycloneDX\Tests\Core\Collections;
 
-use CycloneDX\Core\Models\BomRef;
 use CycloneDX\Core\Collections\BomRefRepository;
+use CycloneDX\Core\Models\BomRef;
 use Generator;
 use PHPUnit\Framework\TestCase;
 
@@ -84,7 +84,7 @@ class BomRefRepositoryTest extends TestCase
      * @param BomRef[] $add
      * @param BomRef[] $expected
      */
-    public function testAddBomRef(array $initial, array $add, array $expectedContains): void
+    public function testAddAndGetItems(array $initial, array $add, array $expectedContains): void
     {
         $repo = new BomRefRepository(...$initial);
 

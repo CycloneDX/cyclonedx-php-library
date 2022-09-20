@@ -23,9 +23,9 @@ declare(strict_types=1);
 
 namespace CycloneDX\Tests\Core\Serialize\JSON\Normalizers;
 
-use CycloneDX\Core\Models\Tool;
 use CycloneDX\Core\Collections\ExternalReferenceRepository;
 use CycloneDX\Core\Collections\HashDictionary;
+use CycloneDX\Core\Models\Tool;
 use CycloneDX\Core\Serialize\JSON\NormalizerFactory;
 use CycloneDX\Core\Serialize\JSON\Normalizers\ExternalReferenceRepositoryNormalizer;
 use CycloneDX\Core\Serialize\JSON\Normalizers\HashRepositoryNormalizer;

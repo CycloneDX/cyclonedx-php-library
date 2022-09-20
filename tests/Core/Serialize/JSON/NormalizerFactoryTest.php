@@ -149,7 +149,7 @@ class NormalizerFactoryTest extends TestCase
      */
     public function testMakeForHashRepository(NormalizerFactory $factory): void
     {
-        $normalizer = $factory->makeForHashRepository();
+        $normalizer = $factory->makeForHashDictionary();
         self::assertInstanceOf(Normalizers\HashRepositoryNormalizer::class, $normalizer);
         self::assertSame($factory, $normalizer->getNormalizerFactory());
     }

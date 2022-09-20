@@ -79,6 +79,9 @@ class LicenseRepository implements \Countable
         return $this->items;
     }
 
+    /**
+     * @psalm-return 0|positive-int
+     */
     public function count(): int
     {
         return \count($this->items);

@@ -23,13 +23,13 @@ declare(strict_types=1);
 
 namespace CycloneDX\Tests\Core\Serialize\DOM\Normalizers;
 
+use CycloneDX\Core\Collections\ExternalReferenceRepository;
+use CycloneDX\Core\Collections\HashDictionary;
+use CycloneDX\Core\Collections\LicenseRepository;
 use CycloneDX\Core\Models\BomRef;
 use CycloneDX\Core\Models\Component;
 use CycloneDX\Core\Models\License\DisjunctiveLicenseWithName;
 use CycloneDX\Core\Models\License\LicenseExpression;
-use CycloneDX\Core\Collections\LicenseRepository;
-use CycloneDX\Core\Collections\ExternalReferenceRepository;
-use CycloneDX\Core\Collections\HashDictionary;
 use CycloneDX\Core\Serialize\DOM\NormalizerFactory;
 use CycloneDX\Core\Serialize\DOM\Normalizers;
 use CycloneDX\Core\Spec\SpecInterface;
@@ -214,7 +214,7 @@ class ComponentNormalizerTest extends TestCase
                 'supportsLicenseExpression' => false,
             ]
         );
-        $licenseNormalizer = $this->createMock(Normalizers\DisjunctiveLicenseRepositoryNormalizer::class);
+        $licenseNormalizer = $this->createMock(Normalizers\LicenseRepositoryNormalizer::class);
         $factory = $this->createConfiguredMock(
             NormalizerFactory::class,
             [
@@ -266,7 +266,7 @@ class ComponentNormalizerTest extends TestCase
             ]
         );
         $spec = $this->createMock(SpecInterface::class);
-        $licenseNormalizer = $this->createMock(Normalizers\DisjunctiveLicenseRepositoryNormalizer::class);
+        $licenseNormalizer = $this->createMock(Normalizers\LicenseRepositoryNormalizer::class);
         $factory = $this->createConfiguredMock(
             NormalizerFactory::class,
             [
@@ -308,7 +308,7 @@ class ComponentNormalizerTest extends TestCase
             ]
         );
         $spec = $this->createMock(SpecInterface::class);
-        $licenseNormalizer = $this->createMock(Normalizers\DisjunctiveLicenseRepositoryNormalizer::class);
+        $licenseNormalizer = $this->createMock(Normalizers\LicenseRepositoryNormalizer::class);
         $factory = $this->createConfiguredMock(
             NormalizerFactory::class,
             [

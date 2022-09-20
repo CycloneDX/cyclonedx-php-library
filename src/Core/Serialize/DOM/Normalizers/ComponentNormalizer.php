@@ -23,14 +23,12 @@ declare(strict_types=1);
 
 namespace CycloneDX\Core\Serialize\DOM\Normalizers;
 
-use CycloneDX\Core\Factories\LicenseFactory;
+use CycloneDX\Core\Collections\ExternalReferenceRepository;
+use CycloneDX\Core\Collections\HashDictionary;
+use CycloneDX\Core\Collections\LicenseRepository;
 use CycloneDX\Core\Helpers\SimpleDomTrait;
 use CycloneDX\Core\Helpers\XmlTrait;
 use CycloneDX\Core\Models\Component;
-use CycloneDX\Core\Models\License\LicenseExpression;
-use CycloneDX\Core\Collections\LicenseRepository;
-use CycloneDX\Core\Collections\ExternalReferenceRepository;
-use CycloneDX\Core\Collections\HashDictionary;
 use CycloneDX\Core\Serialize\DOM\AbstractNormalizer;
 use DomainException;
 use DOMElement;
@@ -45,7 +43,7 @@ class ComponentNormalizer extends AbstractNormalizer
     use XmlTrait;
 
     /**
-     * @throws DomainException
+     * @throws DomainException if component has unsupported type
      */
     public function normalize(Component $component): DOMElement
     {
@@ -91,7 +89,7 @@ class ComponentNormalizer extends AbstractNormalizer
                 $this->simpleDomSafeTextElement($document, 'description', $component->getDescription()),
                 // scope
                 $this->normalizeHashes($component->getHashes()),
-                $this->normalizeLicense($component->getLicense()),
+                $this->normalizeLicenses($component->getLicenses()),
                 // copyright
                 // cpe
                 $this->normalizePurl($component->getPackageUrl()),
@@ -103,66 +101,27 @@ class ComponentNormalizer extends AbstractNormalizer
         );
     }
 
-    private function normalizeLicense(LicenseExpression|LicenseRepository|null $license): ?DOMElement
+    private function normalizeLicenses(LicenseRepository $licenses): ?DOMElement
     {
-        /**
-         * @var DOMElement[] $licenses
-         *
-         * @psalm-var list<DOMElement> $licenses
-         */
-        if ($license instanceof LicenseExpression) {
-            $licenses = $this->normalizeLicenseExpression($license);
-        } elseif ($license instanceof LicenseRepository) {
-            $licenses = $this->normalizeDisjunctiveLicenses($license);
-        } else {
-            $licenses = [];
-        }
+        $factory = $this->getNormalizerFactory();
 
         return 0 === \count($licenses)
             ? null
             : $this->simpleDomAppendChildren(
-                $this->getNormalizerFactory()->getDocument()->createElement('licenses'),
-                $licenses
+                $factory->getDocument()->createElement('licenses'),
+                $factory->makeForLicenseRepository()->normalize($licenses)
             );
     }
 
-    /**
-     * @return DOMElement[]
-     *
-     * @psalm-return list<DOMElement>
-     */
-    private function normalizeLicenseExpression(LicenseExpression $license): array
+    private function normalizeHashes(HashDictionary $hashes): ?DOMElement
     {
-        if ($this->getNormalizerFactory()->getSpec()->supportsLicenseExpression()) {
-            return [
-                $this->getNormalizerFactory()->makeForLicenseExpression()->normalize($license),
-            ];
-        }
+        $factory = $this->getNormalizerFactory();
 
-        return $this->normalizeDisjunctiveLicenses(
-            (new LicenseFactory())->makeDisjunctiveFromExpression($license)
-        );
-    }
-
-    /**
-     * @return DOMElement[]
-     *
-     * @psalm-return list<DOMElement>
-     */
-    private function normalizeDisjunctiveLicenses(LicenseRepository $licenses): array
-    {
-        return 0 === \count($licenses)
-            ? []
-            : $this->getNormalizerFactory()->makeForDisjunctiveLicenseRepository()->normalize($licenses);
-    }
-
-    private function normalizeHashes(?HashDictionary $hashes): ?DOMElement
-    {
-        return null === $hashes || 0 === \count($hashes)
+        return 0 === \count($hashes)
             ? null
             : $this->simpleDomAppendChildren(
-                $this->getNormalizerFactory()->getDocument()->createElement('hashes'),
-                $this->getNormalizerFactory()->makeForHashRepository()->normalize($hashes)
+                $factory->getDocument()->createElement('hashes'),
+                $factory->makeForHashDictionary()->normalize($hashes)
             );
     }
 
@@ -177,11 +136,11 @@ class ComponentNormalizer extends AbstractNormalizer
             );
     }
 
-    private function normalizeExternalReferences(?ExternalReferenceRepository $externalReferenceRepository): ?DOMElement
+    private function normalizeExternalReferences(ExternalReferenceRepository $externalReferenceRepository): ?DOMElement
     {
         $factory = $this->getNormalizerFactory();
 
-        return null === $externalReferenceRepository || 0 === \count($externalReferenceRepository)
+        return 0 === \count($externalReferenceRepository)
             ? null
             : $this->simpleDomAppendChildren(
                 $factory->getDocument()->createElement('externalReferences'),

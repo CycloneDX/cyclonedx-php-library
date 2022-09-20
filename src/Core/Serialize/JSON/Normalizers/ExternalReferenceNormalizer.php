@@ -23,9 +23,9 @@ declare(strict_types=1);
 
 namespace CycloneDX\Core\Serialize\JSON\Normalizers;
 
+use CycloneDX\Core\Collections\HashDictionary;
 use CycloneDX\Core\Helpers\NullAssertionTrait;
 use CycloneDX\Core\Models\ExternalReference;
-use CycloneDX\Core\Collections\HashDictionary;
 use CycloneDX\Core\Serialize\JSON\AbstractNormalizer;
 use DomainException;
 
@@ -57,7 +57,7 @@ class ExternalReferenceNormalizer extends AbstractNormalizer
         );
     }
 
-    private function normalizeHashes(?HashDictionary $hashes): ?array
+    private function normalizeHashes(HashDictionary $hashes): ?array
     {
         $factory = $this->getNormalizerFactory();
 
@@ -65,8 +65,8 @@ class ExternalReferenceNormalizer extends AbstractNormalizer
             return null;
         }
 
-        return null === $hashes || 0 === \count($hashes)
+        return 0 === \count($hashes)
             ? null
-            : $factory->makeForHashRepository()->normalize($hashes);
+            : $factory->makeForHashDictionary()->normalize($hashes);
     }
 }

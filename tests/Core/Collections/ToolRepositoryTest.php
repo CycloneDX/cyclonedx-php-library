@@ -23,8 +23,8 @@ declare(strict_types=1);
 
 namespace CycloneDX\Tests\Core\Collections;
 
-use CycloneDX\Core\Models\Tool;
 use CycloneDX\Core\Collections\ToolRepository;
+use CycloneDX\Core\Models\Tool;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -53,7 +53,7 @@ class ToolRepositoryTest extends TestCase
         self::assertContains($tool2, $repo->getItems());
     }
 
-    public function testAddAndGetTool(): void
+    public function testAddAndGetItems(): void
     {
         $tool1 = $this->createStub(Tool::class);
         $tool2 = $this->createStub(Tool::class);

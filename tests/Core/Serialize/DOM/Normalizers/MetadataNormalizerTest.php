@@ -23,9 +23,9 @@ declare(strict_types=1);
 
 namespace CycloneDX\Tests\Core\Serialize\DOM\Normalizers;
 
+use CycloneDX\Core\Collections\ToolRepository;
 use CycloneDX\Core\Models\Component;
 use CycloneDX\Core\Models\Metadata;
-use CycloneDX\Core\Collections\ToolRepository;
 use CycloneDX\Core\Serialize\DOM\NormalizerFactory;
 use CycloneDX\Core\Serialize\DOM\Normalizers\ComponentNormalizer;
 use CycloneDX\Core\Serialize\DOM\Normalizers\MetaDataNormalizer;
@@ -39,7 +39,7 @@ use PHPUnit\Framework\TestCase;
  * @covers \CycloneDX\Core\Serialize\DOM\Normalizers\MetaDataNormalizer
  * @covers \CycloneDX\Core\Serialize\DOM\AbstractNormalizer
  */
-class MetaDataNormalizerTest extends TestCase
+class MetadataNormalizerTest extends TestCase
 {
     use DomNodeAssertionTrait;
 

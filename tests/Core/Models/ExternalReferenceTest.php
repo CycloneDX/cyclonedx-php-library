@@ -23,9 +23,9 @@ declare(strict_types=1);
 
 namespace CycloneDX\Tests\Core\Models;
 
+use CycloneDX\Core\Collections\HashDictionary;
 use CycloneDX\Core\Enums\ExternalReferenceType;
 use CycloneDX\Core\Models\ExternalReference;
-use CycloneDX\Core\Collections\HashDictionary;
 use DomainException;
 use PHPUnit\Framework\TestCase;
 
@@ -43,7 +43,7 @@ class ExternalReferenceTest extends TestCase
         $this->assertSame(ExternalReferenceType::OTHER, $extRef->getType());
         $this->assertSame('https://localhost/dummy', $extRef->getUrl());
         $this->assertNull($extRef->getComment());
-        $this->assertNull($extRef->getHashes());
+        $this->assertCount(0, $extRef->getHashes());
 
         return $extRef;
     }

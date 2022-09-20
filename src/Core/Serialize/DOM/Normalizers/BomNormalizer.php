@@ -23,10 +23,10 @@ declare(strict_types=1);
 
 namespace CycloneDX\Core\Serialize\DOM\Normalizers;
 
+use CycloneDX\Core\Collections\ComponentRepository;
 use CycloneDX\Core\Helpers\SimpleDomTrait;
 use CycloneDX\Core\Models\Bom;
 use CycloneDX\Core\Models\Metadata;
-use CycloneDX\Core\Collections\ComponentRepository;
 use CycloneDX\Core\Serialize\DOM\AbstractNormalizer;
 use DOMElement;
 
@@ -79,19 +79,19 @@ class BomNormalizer extends AbstractNormalizer
         );
     }
 
-    private function normalizeMetaData(?Metadata $metaData): ?DOMElement
+    private function normalizeMetaData(Metadata $metaData): ?DOMElement
     {
-        if (null === $metaData) {
-            return null;
-        }
-
         $factory = $this->getNormalizerFactory();
 
         if (false === $factory->getSpec()->supportsMetaData()) {
             return null;
         }
 
-        return $factory->makeForMetaData()->normalize($metaData);
+        $elem = $factory->makeForMetaData()->normalize($metaData);
+
+        return $elem->hasChildNodes()
+            ? $elem
+            : null;
     }
 
     private function normalizeExternalReferences(Bom $bom): ?DOMElement
@@ -102,22 +102,22 @@ class BomNormalizer extends AbstractNormalizer
 
         if (false === $factory->getSpec()->supportsMetaData()) {
             // prevent possible information loss: metadata cannot be rendered -> put it to bom
-            $mcr = $bom->getMetadata()?->getComponent()?->getExternalReferences();
+            $mcr = $bom->getMetadata()->getComponent()?->getExternalReferences();
             if (null !== $mcr) {
-                $externalReferenceRepository = null !== $externalReferenceRepository
+                $externalReferenceRepository = \count($externalReferenceRepository) > 0
                     ? (clone $externalReferenceRepository)->addItems(...$mcr->getItems())
                     : $mcr;
             }
             unset($mcr);
         }
 
-        if (null === $externalReferenceRepository) {
+        if (0 === \count($externalReferenceRepository)) {
             return null;
         }
 
         $refs = $factory->makeForExternalReferenceRepository()->normalize($externalReferenceRepository);
 
-        return empty($refs)
+        return 0 === \count($refs)
             ? null
             : $this->simpleDomAppendChildren(
                 $factory->getDocument()->createElement('externalReferences'),

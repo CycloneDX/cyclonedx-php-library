@@ -27,26 +27,44 @@ use CycloneDX\Core\Helpers\SimpleDomTrait;
 use CycloneDX\Core\Helpers\XmlTrait;
 use CycloneDX\Core\Models\License\DisjunctiveLicenseWithId;
 use CycloneDX\Core\Models\License\DisjunctiveLicenseWithName;
+use CycloneDX\Core\Models\License\LicenseExpression;
 use CycloneDX\Core\Serialize\DOM\AbstractNormalizer;
 use DOMElement;
 
 /**
  * @author jkowalleck
  */
-class DisjunctiveLicenseNormalizer extends AbstractNormalizer
+class LicenseNormalizer extends AbstractNormalizer
 {
     use SimpleDomTrait;
     use XmlTrait;
 
-    public function normalize(DisjunctiveLicenseWithId|DisjunctiveLicenseWithName $license): DOMElement
+    public function normalize(LicenseExpression|DisjunctiveLicenseWithId|DisjunctiveLicenseWithName $license): DOMElement
     {
-        if ($license instanceof DisjunctiveLicenseWithId) {
-            $id = $license->getId();
-            $name = null;
-        } else {
-            $id = null;
-            $name = $license->getName();
-        }
+        return $license instanceof LicenseExpression
+            ? $this->normalizeExpression($license)
+            : $this->normalizeDisjunctive($license);
+    }
+
+    private function normalizeExpression(LicenseExpression $license): DOMElement
+    {
+        // TO BE IMPLEMENTED IF NEEDED: may throw, if not supported by the spec
+
+        $element = $this->simpleDomSafeTextElement(
+            $this->getNormalizerFactory()->getDocument(),
+            'expression',
+            $license->getExpression()
+        );
+        \assert(null !== $element);
+
+        return $element;
+    }
+
+    private function normalizeDisjunctive(DisjunctiveLicenseWithId|DisjunctiveLicenseWithName $license): DOMElement
+    {
+        [$id, $name] = $license instanceof DisjunctiveLicenseWithId
+            ? [$license->getId(), null]
+            : [null, $license->getName()];
 
         $document = $this->getNormalizerFactory()->getDocument();
 

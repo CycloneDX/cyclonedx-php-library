@@ -23,9 +23,9 @@ declare(strict_types=1);
 
 namespace CycloneDX\Tests\Core\Collections;
 
+use CycloneDX\Core\Collections\LicenseRepository;
 use CycloneDX\Core\Models\License\DisjunctiveLicenseWithId;
 use CycloneDX\Core\Models\License\DisjunctiveLicenseWithName;
-use CycloneDX\Core\Collections\LicenseRepository;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -54,7 +54,7 @@ class DisjunctiveLicenseRepositoryTest extends TestCase
         self::assertContains($license2, $repo->getItems());
     }
 
-    public function testAddLicense(): void
+    public function testAddAndGetItems(): void
     {
         $license1 = $this->createStub(DisjunctiveLicenseWithName::class);
         $license2 = $this->createStub(DisjunctiveLicenseWithId::class);

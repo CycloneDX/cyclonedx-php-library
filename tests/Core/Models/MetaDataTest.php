@@ -23,9 +23,9 @@ declare(strict_types=1);
 
 namespace CycloneDX\Tests\Core\Models;
 
+use CycloneDX\Core\Collections\ToolRepository;
 use CycloneDX\Core\Models\Component;
 use CycloneDX\Core\Models\Metadata;
-use CycloneDX\Core\Collections\ToolRepository;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -37,7 +37,7 @@ class MetaDataTest extends TestCase
     {
         $metaData = new Metadata();
 
-        self::assertNull($metaData->getTools());
+        self::assertCount(0, $metaData->getTools());
         self::assertNull($metaData->getComponent());
 
         return $metaData;

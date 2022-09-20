@@ -21,18 +21,30 @@ declare(strict_types=1);
  * Copyright (c) OWASP Foundation. All Rights Reserved.
  */
 
-namespace CycloneDX\Core\Serialize\JSON\Normalizers;
+namespace CycloneDX\Core\Serialize\DOM\Normalizers;
 
-use CycloneDX\Core\Models\License\LicenseExpression;
-use CycloneDX\Core\Serialize\JSON\AbstractNormalizer;
+use CycloneDX\Core\Collections\LicenseRepository;
+use CycloneDX\Core\Helpers\SimpleDomTrait;
+use CycloneDX\Core\Serialize\DOM\AbstractNormalizer;
+use DOMElement;
 
 /**
  * @author jkowalleck
  */
-class LicenseExpressionNormalizer extends AbstractNormalizer
+class LicenseRepositoryNormalizer extends AbstractNormalizer
 {
-    public function normalize(LicenseExpression $license): array
+    use SimpleDomTrait;
+
+    /**
+     * @return DOMElement[]
+     *
+     * @psalm-return list<DOMElement>
+     */
+    public function normalize(LicenseRepository $repo): array
     {
-        return ['expression' => $license->getExpression()];
+        return array_map(
+            [$this->getNormalizerFactory()->makeForLicense(), 'normalize'],
+            $repo->getItems()
+        );
     }
 }

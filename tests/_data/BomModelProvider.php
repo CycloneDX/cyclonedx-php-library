@@ -23,6 +23,11 @@ declare(strict_types=1);
 
 namespace CycloneDX\Tests\_data;
 
+use CycloneDX\Core\Collections\ComponentRepository;
+use CycloneDX\Core\Collections\ExternalReferenceRepository;
+use CycloneDX\Core\Collections\HashDictionary;
+use CycloneDX\Core\Collections\LicenseRepository;
+use CycloneDX\Core\Collections\ToolRepository;
 use CycloneDX\Core\Enums\Classification;
 use CycloneDX\Core\Enums\ExternalReferenceType;
 use CycloneDX\Core\Enums\HashAlgorithm;
@@ -34,11 +39,6 @@ use CycloneDX\Core\Models\License\DisjunctiveLicenseWithName;
 use CycloneDX\Core\Models\License\LicenseExpression;
 use CycloneDX\Core\Models\Metadata;
 use CycloneDX\Core\Models\Tool;
-use CycloneDX\Core\Collections\ComponentRepository;
-use CycloneDX\Core\Collections\LicenseRepository;
-use CycloneDX\Core\Collections\ExternalReferenceRepository;
-use CycloneDX\Core\Collections\HashDictionary;
-use CycloneDX\Core\Collections\ToolRepository;
 use Generator;
 
 /**

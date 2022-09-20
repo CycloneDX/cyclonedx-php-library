@@ -25,21 +25,21 @@ namespace CycloneDX\Tests\Core\Serialize\JSON\Normalizers;
 
 use CycloneDX\Core\Collections\HashDictionary;
 use CycloneDX\Core\Serialize\JSON\NormalizerFactory;
+use CycloneDX\Core\Serialize\JSON\Normalizers\HashDictionaryNormalizer;
 use CycloneDX\Core\Serialize\JSON\Normalizers\HashNormalizer;
-use CycloneDX\Core\Serialize\JSON\Normalizers\HashRepositoryNormalizer;
 use DomainException;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers \CycloneDX\Core\Serialize\JSON\Normalizers\HashRepositoryNormalizer
+ * @covers \CycloneDX\Core\Serialize\JSON\Normalizers\HashDictionaryNormalizer
  * @covers \CycloneDX\Core\Serialize\JSON\AbstractNormalizer
  */
-class HashRepositoryNormalizerTest extends TestCase
+class HashDictionaryNormalizerTest extends TestCase
 {
     public function testConstructor(): void
     {
         $factory = $this->createMock(NormalizerFactory::class);
-        $normalizer = new HashRepositoryNormalizer($factory);
+        $normalizer = new HashDictionaryNormalizer($factory);
         self::assertSame($factory, $normalizer->getNormalizerFactory());
     }
 
@@ -47,7 +47,7 @@ class HashRepositoryNormalizerTest extends TestCase
     {
         $hashNormalizer = $this->createMock(HashNormalizer::class);
         $factory = $this->createConfiguredMock(NormalizerFactory::class, ['makeForHash' => $hashNormalizer]);
-        $normalizer = new HashRepositoryNormalizer($factory);
+        $normalizer = new HashDictionaryNormalizer($factory);
         $repo = $this->createStub(HashDictionary::class);
         $repo->method('getItems')->willReturn(['alg1' => 'content1', 'alg2' => 'content2']);
 
@@ -67,7 +67,7 @@ class HashRepositoryNormalizerTest extends TestCase
     {
         $hashNormalizer = $this->createMock(HashNormalizer::class);
         $factory = $this->createConfiguredMock(NormalizerFactory::class, ['makeForHash' => $hashNormalizer]);
-        $normalizer = new HashRepositoryNormalizer($factory);
+        $normalizer = new HashDictionaryNormalizer($factory);
 
         $repo = $this->createConfiguredMock(HashDictionary::class, [
             'getHashes' => ['alg1' => 'cont1', 'alg2' => 'cont2'],

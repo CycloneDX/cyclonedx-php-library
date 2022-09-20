@@ -48,7 +48,7 @@ class DependenciesNormalizer extends AbstractNormalizer
     {
         $allComponents = $bom->getComponents()->getItems();
 
-        $mainComponent = $bom->getMetadata()?->getComponent();
+        $mainComponent = $bom->getMetadata()->getComponent();
         if (null !== $mainComponent) {
             $allComponents[] = $mainComponent;
         }
@@ -61,12 +61,10 @@ class DependenciesNormalizer extends AbstractNormalizer
 
         $dependencies = [];
         foreach ($allComponents as $component) {
-            $componentDependencies = $component->getDependencies();
-            $dependenciesRefs = null === $componentDependencies
-                ? []
-                : array_filter($componentDependencies->getItems(), $isKnownRef);
-
-            $dependency = $this->normalizeDependency($component->getBomRef(), ...$dependenciesRefs);
+            $dependency = $this->normalizeDependency(
+                $component->getBomRef(),
+                ...array_filter($component->getDependencies()->getItems(), $isKnownRef)
+            );
             if (null !== $dependency) {
                 $dependencies[] = $dependency;
             }
@@ -90,10 +88,9 @@ class DependenciesNormalizer extends AbstractNormalizer
         $deps = [];
         foreach ($dependencyRefs as $dependencyRef) {
             $dependencyRefValue = $dependencyRef->getValue();
-            if (null === $dependencyRefValue) {
-                continue;
+            if (null !== $dependencyRefValue) {
+                $deps[] = $dependencyRefValue;
             }
-            $deps[] = $dependencyRefValue;
         }
         if (!empty($deps)) {
             $dep['dependsOn'] = $deps;

@@ -23,13 +23,11 @@ declare(strict_types=1);
 
 namespace CycloneDX\Core\Serialize\JSON\Normalizers;
 
-use CycloneDX\Core\Factories\LicenseFactory;
-use CycloneDX\Core\Helpers\NullAssertionTrait;
-use CycloneDX\Core\Models\Component;
-use CycloneDX\Core\Models\License\LicenseExpression;
-use CycloneDX\Core\Collections\LicenseRepository;
 use CycloneDX\Core\Collections\ExternalReferenceRepository;
 use CycloneDX\Core\Collections\HashDictionary;
+use CycloneDX\Core\Collections\LicenseRepository;
+use CycloneDX\Core\Helpers\NullAssertionTrait;
+use CycloneDX\Core\Models\Component;
 use CycloneDX\Core\Serialize\JSON\AbstractNormalizer;
 use DomainException;
 use PackageUrl\PackageUrl;
@@ -42,7 +40,7 @@ class ComponentNormalizer extends AbstractNormalizer
     use NullAssertionTrait;
 
     /**
-     * @throws DomainException
+     * @throws DomainException if component has unsupported type
      */
     public function normalize(Component $component): array
     {
@@ -75,7 +73,7 @@ class ComponentNormalizer extends AbstractNormalizer
                     : $version,
                 'group' => $group,
                 'description' => $component->getDescription(),
-                'licenses' => $this->normalizeLicense($component->getLicense()),
+                'licenses' => $this->normalizeLicenses($component->getLicenses()),
                 'hashes' => $this->normalizeHashes($component->getHashes()),
                 'purl' => $this->normalizePurl($component->getPackageUrl()),
                 'externalReferences' => $this->normalizeExternalReferences($component->getExternalReferences()),
@@ -84,44 +82,18 @@ class ComponentNormalizer extends AbstractNormalizer
         );
     }
 
-    private function normalizeLicense(LicenseExpression|LicenseRepository|null $license): ?array
-    {
-        if ($license instanceof LicenseExpression) {
-            return $this->normalizeLicenseExpression($license);
-        }
-
-        if ($license instanceof LicenseRepository) {
-            return $this->normalizeDisjunctiveLicenses($license);
-        }
-
-        return null;
-    }
-
-    private function normalizeLicenseExpression(LicenseExpression $license): ?array
-    {
-        if ($this->getNormalizerFactory()->getSpec()->supportsLicenseExpression()) {
-            return [
-                $this->getNormalizerFactory()->makeForLicenseExpression()->normalize($license),
-            ];
-        }
-
-        return $this->normalizeDisjunctiveLicenses(
-            (new LicenseFactory())->makeDisjunctiveFromExpression($license)
-        );
-    }
-
-    private function normalizeDisjunctiveLicenses(LicenseRepository $licenses): ?array
+    private function normalizeLicenses(LicenseRepository $licenses): ?array
     {
         return 0 === \count($licenses)
             ? null
-            : $this->getNormalizerFactory()->makeForDisjunctiveLicenseRepository()->normalize($licenses);
+            : $this->getNormalizerFactory()->makeForLicenseRepository()->normalize($licenses);
     }
 
-    private function normalizeHashes(?HashDictionary $hashes): ?array
+    private function normalizeHashes(HashDictionary $hashes): ?array
     {
-        return null === $hashes || 0 === \count($hashes)
+        return 0 === \count($hashes)
             ? null
-            : $this->getNormalizerFactory()->makeForHashRepository()->normalize($hashes);
+            : $this->getNormalizerFactory()->makeForHashDictionary()->normalize($hashes);
     }
 
     private function normalizePurl(?PackageUrl $purl): ?string
@@ -131,9 +103,9 @@ class ComponentNormalizer extends AbstractNormalizer
             : (string) $purl;
     }
 
-    private function normalizeExternalReferences(?ExternalReferenceRepository $externalReferenceRepository): ?array
+    private function normalizeExternalReferences(ExternalReferenceRepository $externalReferenceRepository): ?array
     {
-        return null === $externalReferenceRepository || 0 === \count($externalReferenceRepository)
+        return 0 === \count($externalReferenceRepository)
             ? null
             : $this->getNormalizerFactory()->makeForExternalReferenceRepository()->normalize($externalReferenceRepository);
     }

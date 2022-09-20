@@ -23,8 +23,8 @@ declare(strict_types=1);
 
 namespace CycloneDX\Tests\Core\Collections;
 
-use CycloneDX\Core\Enums\HashAlgorithm;
 use CycloneDX\Core\Collections\HashDictionary;
+use CycloneDX\Core\Enums\HashAlgorithm;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -32,7 +32,7 @@ use PHPUnit\Framework\TestCase;
  *
  * @uses \CycloneDX\Core\Enums\HashAlgorithm::isValidValue()
  */
-class HashRepositoryTest extends TestCase
+class HashDictionaryTest extends TestCase
 {
     public function testNonEmptyConstructor(): void
     {

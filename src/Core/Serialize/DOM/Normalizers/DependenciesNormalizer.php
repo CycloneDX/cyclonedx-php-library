@@ -46,7 +46,7 @@ class DependenciesNormalizer extends AbstractNormalizer
     {
         $allComponents = $bom->getComponents()->getItems();
 
-        $mainComponent = $bom->getMetadata()?->getComponent();
+        $mainComponent = $bom->getMetadata()->getComponent();
         if (null !== $mainComponent) {
             $allComponents[] = $mainComponent;
         }
@@ -59,12 +59,10 @@ class DependenciesNormalizer extends AbstractNormalizer
 
         $dependencies = [];
         foreach ($allComponents as $component) {
-            $componentDependencies = $component->getDependencies();
-            $dependenciesRefs = null === $componentDependencies
-                ? []
-                : array_filter($componentDependencies->getItems(), $isKnownRef);
-
-            $dependency = $this->normalizeDependency($component->getBomRef(), ...$dependenciesRefs);
+            $dependency = $this->normalizeDependency(
+                $component->getBomRef(),
+                ...array_filter($component->getDependencies()->getItems(), $isKnownRef)
+            );
             if (null !== $dependency) {
                 $dependencies[] = $dependency;
             }
@@ -89,16 +87,14 @@ class DependenciesNormalizer extends AbstractNormalizer
 
         foreach ($dependencyRefs as $dependencyRef) {
             $dependencyRefValue = $dependencyRef->getValue();
-            if (null === $dependencyRefValue) {
-                continue;
+            if (null !== $dependencyRefValue) {
+                $dependency->appendChild(
+                    $this->simpleDomSetAttributes(
+                        $doc->createElement('dependency'),
+                        ['ref' => $dependencyRefValue]
+                    )
+                );
             }
-
-            $dependency->appendChild(
-                $this->simpleDomSetAttributes(
-                    $doc->createElement('dependency'),
-                    ['ref' => $dependencyRefValue]
-                )
-            );
         }
 
         return $dependency;

@@ -23,14 +23,14 @@ declare(strict_types=1);
 
 namespace CycloneDX\Tests\Core\Models;
 
+use CycloneDX\Core\Collections\BomRefRepository;
+use CycloneDX\Core\Collections\ExternalReferenceRepository;
+use CycloneDX\Core\Collections\HashDictionary;
+use CycloneDX\Core\Collections\LicenseRepository;
 use CycloneDX\Core\Enums\Classification;
 use CycloneDX\Core\Models\BomRef;
 use CycloneDX\Core\Models\Component;
 use CycloneDX\Core\Models\License\LicenseExpression;
-use CycloneDX\Core\Collections\BomRefRepository;
-use CycloneDX\Core\Collections\LicenseRepository;
-use CycloneDX\Core\Collections\ExternalReferenceRepository;
-use CycloneDX\Core\Collections\HashDictionary;
 use PackageUrl\PackageUrl;
 use PHPUnit\Framework\TestCase;
 
@@ -56,12 +56,12 @@ class ComponentTest extends TestCase
         $component = new Component($type, $name);
 
         self::assertInstanceOf(BomRef::class, $component->getBomRef());
-        self::assertNull($component->getDependenciesBomRefRepository());
+        self::assertCount(0, $component->getDependencies());
         self::assertNull($component->getDescription());
-        self::assertNull($component->getExternalReferenceRepository());
+        self::assertCount(0, $component->getExternalReferences());
         self::assertNull($component->getGroup());
-        self::assertNull($component->getHashRepository());
-        self::assertNull($component->getLicense());
+        self::assertCount(0, $component->getHashes());
+        self::assertCount(0, $component->getLicenses());
         self::assertSame($name, $component->getName());
         self::assertNull($component->getPackageUrl());
         self::assertSame($type, $component->getType());
