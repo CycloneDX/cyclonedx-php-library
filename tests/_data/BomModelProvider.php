@@ -49,7 +49,9 @@ abstract class BomModelProvider
     /**
      * a set of Bom structures.
      *
-     * @psalm-return Generator<array{0: Bom}>
+     * @return Generator<Bom[]>
+     *
+     * @psalm-return Generator<string, array{0:Bom}>
      */
     public static function allBomTestData(): Generator
     {
@@ -65,7 +67,11 @@ abstract class BomModelProvider
     /**
      * Just a plain BOM.
      *
-     * @psalm-return Generator<array{0: Bom}>
+     * @return Generator<Bom[]>
+     *
+     * @psalm-return Generator<string, array{0:Bom}>
+     *
+     * @psalm-suppress MissingThrowsDocblock
      */
     public static function bomPlain(): Generator
     {
@@ -76,7 +82,11 @@ abstract class BomModelProvider
     /**
      * BOM with externalReferences.
      *
-     * @psalm-return Generator<array{0: Bom}>
+     * @return Generator<Bom[]>
+     *
+     * @psalm-return Generator<string, array{0:Bom}>
+     *
+     * @psalm-suppress MissingThrowsDocblock
      */
     public static function bomWithExternalReferences(): Generator
     {
@@ -135,7 +145,9 @@ abstract class BomModelProvider
     /**
      * BOM wil all possible components.
      *
-     * @psalm-return Generator<array{0: Bom}>
+     * @return Generator<Bom[]>
+     *
+     * @psalm-return Generator<string, array{0:Bom}>
      */
     public static function bomWithAllComponents(): Generator
     {
@@ -156,7 +168,9 @@ abstract class BomModelProvider
     /**
      * BOM wil all possible metadata.
      *
-     * @psalm-return Generator<array{0: Bom}>
+     * @return Generator<Bom[]>
+     *
+     * @psalm-return Generator<string, array{0:Bom}>
      */
     public static function bomWithAllMetadata(): Generator
     {
@@ -168,7 +182,11 @@ abstract class BomModelProvider
     /**
      * BOM with one plain component.
      *
-     * @psalm-return Generator<array{0: Bom}>
+     * @return Generator<Bom[]>
+     *
+     * @psalm-return Generator<string, array{0:Bom}>
+     *
+     * @psalm-suppress MissingThrowsDocblock
      */
     public static function bomWithComponentPlain(): Generator
     {
@@ -184,7 +202,9 @@ abstract class BomModelProvider
     /**
      * BOMs with all classification types known.
      *
-     * @psalm-return Generator<array{0: Bom}>
+     * @return Generator<Bom[]>
+     *
+     * @psalm-return Generator<string, array{0:Bom}>
      */
     public static function bomWithComponentTypeAllKnown(): Generator
     {
@@ -203,14 +223,18 @@ abstract class BomModelProvider
     /**
      * BOM with externalReferences.
      *
-     * @psalm-return Generator<array{0: Bom}>
+     * @return Generator<Bom[]>
+     *
+     * @psalm-return Generator<string, array{0:Bom}>
+     *
+     * @psalm-suppress MissingThrowsDocblock
      */
     public static function bomWithComponentWithExternalReferences(): Generator
     {
         yield 'component with empty ExternalReferences' => [
             (new Bom())->setComponents(
                 new ComponentRepository(
-                    (new Component(Classification::LIBRARY, 'dummy', 'foo-beta'))
+                    (new Component(Classification::LIBRARY, 'dummy'))
                         ->setExternalReferences(new ExternalReferenceRepository())
                 )
             ),
@@ -220,7 +244,7 @@ abstract class BomModelProvider
             yield "component with $label" => [
                 (new Bom())->setComponents(
                     new ComponentRepository(
-                        (new Component(Classification::LIBRARY, 'dummy', 'foo-beta'))
+                        (new Component(Classification::LIBRARY, 'dummy'))
                             ->setExternalReferences(new ExternalReferenceRepository($extRef))
                     )
                 ),
@@ -229,7 +253,11 @@ abstract class BomModelProvider
     }
 
     /**
-     * @psalm-return Generator<array{0: Bom}>
+     * @return Generator<Bom[]>
+     *
+     * @psalm-return Generator<string, array{0:Bom}>
+     *
+     * @psalm-suppress MissingThrowsDocblock
      */
     public static function bomWithComponentTypeSpec10(): Generator
     {
@@ -237,7 +265,11 @@ abstract class BomModelProvider
     }
 
     /**
-     * @psalm-return Generator<array{0: Bom}>
+     * @return Generator<Bom[]>
+     *
+     * @psalm-return Generator<string, array{0:Bom}>
+     *
+     * @psalm-suppress MissingThrowsDocblock
      */
     public static function bomWithComponentTypeSpec11(): Generator
     {
@@ -245,7 +277,11 @@ abstract class BomModelProvider
     }
 
     /**
-     * @psalm-return Generator<array{0: Bom}>
+     * @return Generator<Bom[]>
+     *
+     * @psalm-return Generator<string, array{0:Bom}>
+     *
+     * @psalm-suppress MissingThrowsDocblock
      */
     public static function bomWithComponentTypeSpec12(): Generator
     {
@@ -253,7 +289,11 @@ abstract class BomModelProvider
     }
 
     /**
-     * @psalm-return Generator<array{0: Bom}>
+     * @return Generator<Bom[]>
+     *
+     * @psalm-return Generator<string, array{0:Bom}>
+     *
+     * @psalm-suppress MissingThrowsDocblock
      */
     public static function bomWithComponentTypeSpec13(): Generator
     {
@@ -261,7 +301,11 @@ abstract class BomModelProvider
     }
 
     /**
-     * @psalm-return Generator<array{0: Bom}>
+     * @return Generator<Bom[]>
+     *
+     * @psalm-return Generator<string, array{0:Bom}>
+     *
+     * @psalm-suppress MissingThrowsDocblock
      */
     public static function bomWithComponentTypeSpec14(): Generator
     {
@@ -271,7 +315,11 @@ abstract class BomModelProvider
     /**
      * BOMs with all hash algorithms available in a spec.
      *
-     * @psalm-return Generator<array{0: Bom}>
+     * @return Generator<Bom[]>
+     *
+     * @psalm-return Generator<string, array{0:Bom}>
+     *
+     * @psalm-suppress MissingThrowsDocblock
      */
     public static function bomWithComponentTypes(string ...$types): Generator
     {
@@ -280,7 +328,7 @@ abstract class BomModelProvider
             yield "component types: $type" => [
                 (new Bom())->setComponents(
                     new ComponentRepository(
-                        new Component($type, "dummy_$type", 'v0')
+                        new Component($type, "dummy_$type")
                     )
                 ),
             ];
@@ -290,7 +338,11 @@ abstract class BomModelProvider
     /**
      * BOMs with one component that has one license.
      *
-     * @psalm-return Generator<array{0: Bom}>
+     * @return Generator<Bom[]>
+     *
+     * @psalm-return Generator<string, array{0:Bom}>
+     *
+     * @psalm-suppress MissingThrowsDocblock
      */
     public static function bomWithComponentLicenseId(): Generator
     {
@@ -298,7 +350,7 @@ abstract class BomModelProvider
         yield "component license: $license" => [
             (new Bom())->setComponents(
                 new ComponentRepository(
-                    (new Component(Classification::LIBRARY, 'name', 'version'))
+                    (new Component(Classification::LIBRARY, 'name'))
                         ->setLicenses(
                             new LicenseRepository(
                                 DisjunctiveLicenseWithId::makeValidated(
@@ -315,7 +367,11 @@ abstract class BomModelProvider
     /**
      * BOMs with one component that has one license.
      *
-     * @psalm-return Generator<array{0: Bom}>
+     * @return Generator<Bom[]>
+     *
+     * @psalm-return Generator<string, array{0:Bom}>
+     *
+     * @psalm-suppress MissingThrowsDocblock
      */
     public static function bomWithComponentLicenseName(): Generator
     {
@@ -323,7 +379,7 @@ abstract class BomModelProvider
         yield 'component license: random' => [
             (new Bom())->setComponents(
                 new ComponentRepository(
-                    (new Component(Classification::LIBRARY, 'name', 'version'))
+                    (new Component(Classification::LIBRARY, 'name'))
                         ->setLicenses(
                             new LicenseRepository(
                                 new DisjunctiveLicenseWithName($license)
@@ -334,14 +390,23 @@ abstract class BomModelProvider
         ];
     }
 
+    /**
+     * @return Generator<Bom[]>
+     *
+     * @psalm-return Generator<string, array{0:Bom}>
+     *
+     * @psalm-suppress MissingThrowsDocblock
+     */
     public static function bomWithComponentLicenseExpression(): Generator
     {
         yield 'component license expression' => [
             (new Bom())->setComponents(
                 new ComponentRepository(
-                    (new Component(Classification::LIBRARY, 'name', 'version'))
+                    (new Component(Classification::LIBRARY, 'name'))
                         ->setLicenses(
-                            new LicenseExpression('(Foo or Bar)')
+                            new LicenseRepository(
+                                new LicenseExpression('(Foo or Bar)')
+                            )
                         )
                 )
             ),
@@ -349,14 +414,18 @@ abstract class BomModelProvider
     }
 
     /**
-     * @psalm-return Generator<array{0: Bom}>
+     * @return Generator<Bom[]>
+     *
+     * @psalm-return Generator<string, array{0:Bom}>
+     *
+     * @psalm-suppress MissingThrowsDocblock
      */
     public static function bomWithComponentLicenseUrl(): Generator
     {
         yield 'component license with URL' => [
             (new Bom())->setComponents(
                 new ComponentRepository(
-                    (new Component(Classification::LIBRARY, 'name', 'version'))
+                    (new Component(Classification::LIBRARY, 'name'))
                         ->setLicenses(
                             new LicenseRepository(
                                 (new DisjunctiveLicenseWithName('some text'))
@@ -371,7 +440,9 @@ abstract class BomModelProvider
     /**
      * BOMs with one component that has a version.
      *
-     * @psalm-return Generator<array{0: Bom}>
+     * @return Generator<Bom[]>
+     *
+     * @psalm-return Generator<string, array{0:Bom}>
      */
     public static function bomWithComponentVersion(): Generator
     {
@@ -380,7 +451,9 @@ abstract class BomModelProvider
             yield "component version: $version" => [
                 (new Bom())->setComponents(
                     new ComponentRepository(
-                        new Component(Classification::LIBRARY, 'name', $version),
+                        (
+                            new Component(Classification::LIBRARY, 'name')
+                        )->setVersion($version),
                     )
                 ),
             ];
@@ -411,7 +484,9 @@ abstract class BomModelProvider
     /**
      * BOMs with all hash algorithms known.
      *
-     * @psalm-return Generator<array{0: Bom}>
+     * @return Generator<Bom[]>
+     *
+     * @psalm-return Generator<string, array{0:Bom}>
      */
     public static function bomWithComponentHashAlgorithmsAllKnown(): Generator
     {
@@ -423,7 +498,9 @@ abstract class BomModelProvider
     /**
      * BOMs with all hash algorithms available in Spec 1.0.
      *
-     * @psalm-return Generator<array{0: Bom}>
+     * @return Generator<Bom[]>
+     *
+     * @psalm-return Generator<string, array{0:Bom}>
      */
     public static function bomWithComponentHashAlgorithmsSpec10(): Generator
     {
@@ -433,7 +510,9 @@ abstract class BomModelProvider
     /**
      * BOMs with all hash algorithms available in Spec 1.1.
      *
-     * @psalm-return Generator<array{0: Bom}>
+     * @return Generator<Bom[]>
+     *
+     * @psalm-return Generator<string, array{0:Bom}>
      */
     public static function bomWithComponentHashAlgorithmsSpec11(): Generator
     {
@@ -443,7 +522,9 @@ abstract class BomModelProvider
     /**
      * BOMs with all hash algorithms available in Spec 1.2.
      *
-     * @psalm-return Generator<array{0: Bom}>
+     * @return Generator<Bom[]>
+     *
+     * @psalm-return Generator<string, array{0:Bom}>
      */
     public static function bomWithComponentHashAlgorithmsSpec12(): Generator
     {
@@ -453,7 +534,9 @@ abstract class BomModelProvider
     /**
      * BOMs with all hash algorithms available in Spec 1.3.
      *
-     * @psalm-return Generator<array{0: Bom}>
+     * @return Generator<Bom[]>
+     *
+     * @psalm-return Generator<string, array{0:Bom}>
      */
     public static function bomWithComponentHashAlgorithmsSpec13(): Generator
     {
@@ -463,7 +546,9 @@ abstract class BomModelProvider
     /**
      * BOMs with all hash algorithms available in Spec 1.4.
      *
-     * @psalm-return Generator<array{0: Bom}>
+     * @return Generator<Bom[]>
+     *
+     * @psalm-return Generator<string, array{0:Bom}>
      */
     public static function bomWithComponentHashAlgorithmsSpec14(): Generator
     {
@@ -473,7 +558,9 @@ abstract class BomModelProvider
     /**
      * BOMs with all hash algorithms available in a spec.
      *
-     * @psalm-return Generator<array{0: Bom}>
+     * @return Generator<Bom[]>
+     *
+     * @psalm-return Generator<string, array{0:Bom}>
      */
     public static function bomWithComponentHashAlgorithms(string ...$hashAlgorithms): Generator
     {
@@ -482,7 +569,7 @@ abstract class BomModelProvider
             yield "component hash alg: $hashAlgorithm" => [
                 (new Bom())->setComponents(
                     new ComponentRepository(
-                        (new Component(Classification::LIBRARY, 'name', '1.0'))
+                        (new Component(Classification::LIBRARY, 'name'))
                             ->setHashes(
                                 new HashDictionary([$hashAlgorithm => '12345678901234567890123456789012'])
                             )
@@ -495,14 +582,18 @@ abstract class BomModelProvider
     /**
      * BOMs with components that have a description.
      *
-     * @psalm-return Generator<array{0: Bom}>
+     * @return Generator<Bom[]>
+     *
+     * @psalm-return Generator<string, array{0:Bom}>
+     *
+     * @psalm-suppress MissingThrowsDocblock
      */
     public static function bomWithComponentDescription(): Generator
     {
         yield 'component description: none' => [
             (new Bom())->setComponents(
                 new ComponentRepository(
-                    (new Component(Classification::LIBRARY, 'name', '1.0'))
+                    (new Component(Classification::LIBRARY, 'name'))
                         ->setDescription(null)
                 )
             ),
@@ -510,7 +601,7 @@ abstract class BomModelProvider
         yield 'component description: empty' => [
             (new Bom())->setComponents(
                 new ComponentRepository(
-                    (new Component(Classification::LIBRARY, 'name', '1.0'))
+                    (new Component(Classification::LIBRARY, 'name'))
                         ->setDescription('')
                 )
             ),
@@ -518,7 +609,7 @@ abstract class BomModelProvider
         yield 'component description: random' => [
             (new Bom())->setComponents(
                 new ComponentRepository(
-                    (new Component(Classification::LIBRARY, 'name', '1.0'))
+                    (new Component(Classification::LIBRARY, 'name'))
                         ->setDescription(bin2hex(random_bytes(32)))
                 )
             ),
@@ -526,7 +617,7 @@ abstract class BomModelProvider
         yield 'component description: spaces' => [
             (new Bom())->setComponents(
                 new ComponentRepository(
-                    (new Component(Classification::LIBRARY, 'name', '1.0'))
+                    (new Component(Classification::LIBRARY, 'name'))
                         ->setDescription("\ta  test   ")
                 )
             ),
@@ -534,9 +625,9 @@ abstract class BomModelProvider
         yield 'component description: XML special chars' => [
             (new Bom())->setComponents(
                 new ComponentRepository(
-                    (new Component(Classification::LIBRARY, 'name', '1.0'))
+                    (new Component(Classification::LIBRARY, 'name'))
                         ->setDescription(
-                            'thisa&that'. // an & that is not a XML entity
+                            'this & that'. // an & that is not an XML entity
                             '<strong>html<strong>'. // things that might cause schema-invalid XML
                             'bar ]]><[CDATA[baz]]> foo' // unexpected CDATA end
                         )
@@ -548,7 +639,9 @@ abstract class BomModelProvider
     /**
      * BOMs with plain metadata.
      *
-     * @psalm-return Generator<array{0: Bom}>
+     * @return Generator<Bom[]>
+     *
+     * @psalm-return Generator<string, array{0:Bom}>
      */
     private static function bomWithMetaDataPlain(): Generator
     {
@@ -560,7 +653,11 @@ abstract class BomModelProvider
     /**
      * BOMs with plain metadata that have tools.
      *
-     * @psalm-return Generator<array{0: Bom}>
+     * @return Generator<Bom[]>
+     *
+     * @psalm-return Generator<string, array{0:Bom}>
+     *
+     * @psalm-suppress MissingThrowsDocblock
      */
     private static function bomWithMetaDataTools(): Generator
     {
@@ -595,7 +692,11 @@ abstract class BomModelProvider
     /**
      * BOMs with plain metadata that have a component.
      *
-     * @psalm-return Generator<array{0: Bom}>
+     * @return Generator<Bom[]>
+     *
+     * @psalm-return Generator<string, array{0:Bom}>
+     *
+     * @psalm-suppress MissingThrowsDocblock
      */
     private static function bomWithMetaDataComponent(): Generator
     {
@@ -604,8 +705,7 @@ abstract class BomModelProvider
                 (new Metadata())->setComponent(
                     new Component(
                         Classification::APPLICATION,
-                        'foo',
-                        'bar'
+                        'foo'
                     )
                 )
             ),
@@ -614,6 +714,8 @@ abstract class BomModelProvider
 
     /**
      * @return Generator<ExternalReference>
+     *
+     * @psalm-return Generator<string, ExternalReference>
      */
     public static function externalReferencesForAllTypes(): Generator
     {
@@ -637,7 +739,9 @@ abstract class BomModelProvider
     /**
      * BOMs with all hash algorithms known.
      *
-     * @psalm-return Generator<array{0: Bom}>
+     * @return Generator<ExternalReference>
+     *
+     * @psalm-return Generator<string, ExternalReference>
      */
     public static function externalReferencesForHashAlgorithmsAllKnown(): Generator
     {

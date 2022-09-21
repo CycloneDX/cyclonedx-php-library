@@ -46,7 +46,7 @@ class ExternalReferenceNormalizerTest extends \PHPUnit\Framework\TestCase
             'getUrl' => 'someUrl',
             'getType' => 'someType',
             'getComment' => null,
-            'getHashRepository' => null,
+            'getHashes' => $this->createMock(HashDictionary::class),
         ]);
 
         $spec->expects(self::atLeastOnce())
@@ -75,7 +75,7 @@ class ExternalReferenceNormalizerTest extends \PHPUnit\Framework\TestCase
             'getUrl' => 'someUrl',
             'getType' => 'someType',
             'getComment' => null,
-            'getHashRepository' => null,
+            'getHashes' => $this->createMock(HashDictionary::class),
         ]);
 
         $spec->expects(self::atLeastOnce())
@@ -100,7 +100,7 @@ class ExternalReferenceNormalizerTest extends \PHPUnit\Framework\TestCase
             'getUrl' => 'someUrl',
             'getType' => 'someType',
             'getComment' => 'someComment',
-            'getHashRepository' => null,
+            'getHashes' => $this->createMock(HashDictionary::class),
         ]);
 
         $spec->method('isSupportedExternalReferenceType')
@@ -123,33 +123,33 @@ class ExternalReferenceNormalizerTest extends \PHPUnit\Framework\TestCase
         $spec = $this->createConfiguredMock(SpecInterface::class, [
             'supportsExternalReferenceHashes' => true,
         ]);
-        $hashRepositoryNormalizer = $this->createMock(Normalizers\HashRepositoryNormalizer::class);
+        $hashDictNormalizer = $this->createMock(Normalizers\HashDictionaryNormalizer::class);
         $normalizerFactory = $this->createConfiguredMock(NormalizerFactory::class, [
             'getSpec' => $spec,
-            'makeForHashRepository' => $hashRepositoryNormalizer,
+            'makeForHashDictionary' => $hashDictNormalizer,
         ]);
         $normalizer = new Normalizers\ExternalReferenceNormalizer($normalizerFactory);
         $extRef = $this->createConfiguredMock(ExternalReference::class, [
             'getUrl' => 'someUrl',
             'getType' => 'someType',
             'getComment' => null,
-            'getHashRepository' => $this->createConfiguredMock(HashDictionary::class, ['count' => 1]),
+            'getHashes' => $this->createConfiguredMock(HashDictionary::class, ['count' => 1]),
         ]);
 
         $spec->method('isSupportedExternalReferenceType')
             ->with('someType')
             ->willReturn(true);
-        $hashRepositoryNormalizer->expects(self::once())
+        $hashDictNormalizer->expects(self::once())
             ->method('normalize')
             ->with($extRef->getHashes())
-            ->willReturn(['NormalizedHashRepoFake']);
+            ->willReturn(['NormalizedHashDictFake']);
 
         $actual = $normalizer->normalize($extRef);
 
         self::assertSame([
             'type' => 'someType',
             'url' => 'someUrl',
-            'hashes' => ['NormalizedHashRepoFake'],
+            'hashes' => ['NormalizedHashDictFake'],
         ], $actual);
     }
 
@@ -158,23 +158,23 @@ class ExternalReferenceNormalizerTest extends \PHPUnit\Framework\TestCase
         $spec = $this->createConfiguredMock(SpecInterface::class, [
             'supportsExternalReferenceHashes' => true,
         ]);
-        $hashRepositoryNormalizer = $this->createMock(Normalizers\HashRepositoryNormalizer::class);
+        $HashDictionaryNormalizer = $this->createMock(Normalizers\HashDictionaryNormalizer::class);
         $normalizerFactory = $this->createConfiguredMock(NormalizerFactory::class, [
             'getSpec' => $spec,
-            'makeForHashRepository' => $hashRepositoryNormalizer,
+            'makeForHashDictionary' => $HashDictionaryNormalizer,
         ]);
         $normalizer = new Normalizers\ExternalReferenceNormalizer($normalizerFactory);
         $extRef = $this->createConfiguredMock(ExternalReference::class, [
             'getUrl' => 'someUrl',
             'getType' => 'someType',
             'getComment' => null,
-            'getHashRepository' => $this->createConfiguredMock(HashDictionary::class, ['count' => 0]),
+            'getHashes' => $this->createConfiguredMock(HashDictionary::class, ['count' => 0]),
         ]);
 
         $spec->method('isSupportedExternalReferenceType')
             ->with('someType')
             ->willReturn(true);
-        $hashRepositoryNormalizer->expects(self::never())
+        $HashDictionaryNormalizer->expects(self::never())
             ->method('normalize')
             ->with($extRef->getHashes());
 
@@ -192,23 +192,23 @@ class ExternalReferenceNormalizerTest extends \PHPUnit\Framework\TestCase
         $spec = $this->createConfiguredMock(SpecInterface::class, [
             'supportsExternalReferenceHashes' => false,
         ]);
-        $hashRepositoryNormalizer = $this->createMock(Normalizers\HashRepositoryNormalizer::class);
+        $HashDictionaryNormalizer = $this->createMock(Normalizers\HashDictionaryNormalizer::class);
         $normalizerFactory = $this->createConfiguredMock(NormalizerFactory::class, [
             'getSpec' => $spec,
-            'makeForHashRepository' => $hashRepositoryNormalizer,
+            'makeForHashDictionary' => $HashDictionaryNormalizer,
         ]);
         $normalizer = new Normalizers\ExternalReferenceNormalizer($normalizerFactory);
         $extRef = $this->createConfiguredMock(ExternalReference::class, [
             'getUrl' => 'someUrl',
             'getType' => 'someType',
             'getComment' => null,
-            'getHashRepository' => $this->createConfiguredMock(HashDictionary::class, ['count' => 1]),
+            'getHashes' => $this->createConfiguredMock(HashDictionary::class, ['count' => 1]),
         ]);
 
         $spec->method('isSupportedExternalReferenceType')
             ->with('someType')
             ->willReturn(true);
-        $hashRepositoryNormalizer->expects(self::never())
+        $HashDictionaryNormalizer->expects(self::never())
             ->method('normalize')
             ->with($extRef->getHashes());
 

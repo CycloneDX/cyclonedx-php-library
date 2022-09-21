@@ -81,7 +81,7 @@ class ComponentNormalizerTest extends TestCase
                 'getGroup' => null,
                 'getDescription' => null,
                 'getLicense' => null,
-                'getHashRepository' => null,
+                'getHashDictionary' => null,
                 'getPackageUrl' => null,
             ]
         );
@@ -135,7 +135,7 @@ class ComponentNormalizerTest extends TestCase
                 'getGroup' => 'myGroup',
                 'getDescription' => 'my description',
                 'getLicense' => $this->createStub(LicenseExpression::class),
-                'getHashRepository' => $this->createConfiguredMock(HashDictionary::class, ['count' => 1]),
+                'getHashDictionary' => $this->createConfiguredMock(HashDictionary::class, ['count' => 1]),
                 'getPackageUrl' => $this->createConfiguredMock(
                     PackageUrl::class,
                     ['toString' => 'FakePURL', '__toString' => 'FakePURL']
@@ -147,11 +147,11 @@ class ComponentNormalizerTest extends TestCase
             'supportsBomRef' => true,
         ]);
         $licenseExpressionNormalizer = $this->createMock(Normalizers\LicenseExpressionNormalizer::class);
-        $hashRepositoryNormalizer = $this->createMock(Normalizers\HashRepositoryNormalizer::class);
+        $HashDictionaryNormalizer = $this->createMock(Normalizers\HashDictionaryNormalizer::class);
         $factory = $this->createConfiguredMock(NormalizerFactory::class, [
             'getSpec' => $spec,
             'makeForLicenseExpression' => $licenseExpressionNormalizer,
-            'makeForHashRepository' => $hashRepositoryNormalizer,
+            'makeForHashDictionary' => $HashDictionaryNormalizer,
         ]);
         $normalizer = new Normalizers\ComponentNormalizer($factory);
 
@@ -163,7 +163,7 @@ class ComponentNormalizerTest extends TestCase
             ->method('normalize')
             ->with($component->getLicense())
             ->willReturn(['FakeLicense']);
-        $hashRepositoryNormalizer->expects(self::once())
+        $HashDictionaryNormalizer->expects(self::once())
             ->method('normalize')
             ->with($component->getHashes())
             ->willReturn(['FakeHashes']);
@@ -320,7 +320,7 @@ class ComponentNormalizerTest extends TestCase
             [
                 'getName' => 'myName',
                 'getType' => 'FakeType',
-                'getExternalReferenceRepository' => $this->createConfiguredMock(ExternalReferenceRepository::class, ['count' => 1]),
+                'getExternalReferences' => $this->createConfiguredMock(ExternalReferenceRepository::class, ['count' => 1]),
             ]
         );
         $spec = $this->createMock(SpecInterface::class);
@@ -361,7 +361,7 @@ class ComponentNormalizerTest extends TestCase
             [
                 'getName' => 'myName',
                 'getType' => 'FakeType',
-                'getExternalReferenceRepository' => $this->createConfiguredMock(ExternalReferenceRepository::class, ['count' => 0]),
+                'getExternalReferences' => $this->createConfiguredMock(ExternalReferenceRepository::class, ['count' => 0]),
             ]
         );
         $spec = $this->createMock(SpecInterface::class);

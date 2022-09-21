@@ -31,6 +31,7 @@ use CycloneDX\Core\Models\Component;
 use CycloneDX\Core\Models\Metadata;
 use CycloneDX\Core\Serialize\JSON\NormalizerFactory;
 use CycloneDX\Core\Serialize\JSON\Normalizers\DependenciesNormalizer;
+use PHPUnit\Framework\MockObject\Stub\ReturnSelf;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -93,11 +94,13 @@ class DependenciesNormalizerTest extends TestCase
 
     public function dpNormalize(): \Generator
     {
+        $dependencies = $this->createStub(BomRefRepository::class);
+
         $componentWithoutBomRefValue = $this->createConfiguredMock(
             Component::class,
             [
                 'getBomRef' => new BomRef(null),
-                'getDependenciesBomRefRepository' => null,
+                'getDependencies' => $dependencies,
             ]
         );
 
@@ -105,16 +108,16 @@ class DependenciesNormalizerTest extends TestCase
             Component::class,
             [
                 'getBomRef' => new BomRef('ComponentWithoutDeps'),
-                'getDependenciesBomRefRepository' => null,
+                'getDependencies' => $dependencies,
             ]
         );
         $componentWithNoDeps = $this->createConfiguredMock(
             Component::class,
             [
                 'getBomRef' => new BomRef('ComponentWithNoDeps'),
-                'getDependenciesBomRefRepository' => $this->createConfiguredMock(
+                'getDependencies' => $this->createConfiguredMock(
                     BomRefRepository::class,
-                    ['getBomRefs' => []]
+                    ['getItems' => []]
                 ),
             ]
         );
@@ -122,10 +125,10 @@ class DependenciesNormalizerTest extends TestCase
             Component::class,
             [
                 'getBomRef' => new BomRef('ComponentWithDeps'),
-                'getDependenciesBomRefRepository' => $this->createConfiguredMock(
+                'getDependencies' => $this->createConfiguredMock(
                     BomRefRepository::class,
                     [
-                        'getBomRefs' => [
+                        'getItems' => [
                             $componentWithoutDeps->getBomRef(),
                             $componentWithNoDeps->getBomRef(),
                         ],
@@ -137,10 +140,10 @@ class DependenciesNormalizerTest extends TestCase
             Component::class,
             [
                 'getBomRef' => new BomRef('myRootComponent'),
-                'getDependenciesBomRefRepository' => $this->createConfiguredMock(
+                'getDependencies' => $this->createConfiguredMock(
                     BomRefRepository::class,
                     [
-                        'getBomRefs' => [
+                        'getItems' => [
                             $componentWithDeps->getBomRef(),
                             $componentWithoutDeps->getBomRef(),
                             $componentWithoutBomRefValue->getBomRef(),
@@ -154,10 +157,10 @@ class DependenciesNormalizerTest extends TestCase
         $bom = $this->createConfiguredMock(
             Bom::class,
             [
-                'getComponentRepository' => $this->createConfiguredMock(
+                'getComponents' => $this->createConfiguredMock(
                     ComponentRepository::class,
                     [
-                        'getComponents' => [
+                        'getItems' => [
                             $componentWithoutDeps,
                             $componentWithNoDeps,
                             $componentWithDeps,
@@ -165,7 +168,7 @@ class DependenciesNormalizerTest extends TestCase
                         ],
                     ]
                 ),
-                'getMetaData' => $this->createConfiguredMock(
+                'getMetadata' => $this->createConfiguredMock(
                     Metadata::class,
                     [
                         'getComponent' => $rootComponent,

@@ -69,7 +69,7 @@ class ToolRepositoryNormalizerTest extends TestCase
         $tool = $this->createStub(Tool::class);
         $tools = $this->createConfiguredMock(ToolRepository::class, [
             'count' => 1,
-            'getTools' => [$tool],
+            'getItems' => [$tool],
         ]);
 
         $toolNormalizer->expects(self::once())->method('normalize')
@@ -94,7 +94,7 @@ class ToolRepositoryNormalizerTest extends TestCase
         $tool2 = $this->createStub(Tool::class);
         $tools = $this->createConfiguredMock(ToolRepository::class, [
             'count' => 1,
-            'getTools' => [$tool1, $tool2],
+            'getItems' => [$tool1, $tool2],
         ]);
 
         $toolNormalizer->expects(self::exactly(2))->method('normalize')

@@ -82,7 +82,7 @@ class ToolTest extends TestCase
     /**
      * @depends testConstruct
      */
-    public function testSetterGetterHashRepository(Tool $tool): void
+    public function testSetterGetterHashDictionary(Tool $tool): void
     {
         $hashes = $this->createStub(HashDictionary::class);
         $tool->setHashes($hashes);

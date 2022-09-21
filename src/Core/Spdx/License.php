@@ -46,6 +46,14 @@ class License
     private array $licenses;
 
     /**
+     * @throws RuntimeException if loading licenses failed
+     */
+    public function __construct()
+    {
+        $this->loadLicenses();
+    }
+
+    /**
      * @return string[]
      *
      * @psalm-return array<string, string>
@@ -60,14 +68,6 @@ class License
         return realpath(Resources::FILE_SPDX_JSON_SCHEMA);
     }
 
-    /**
-     * @throws RuntimeException if loading licenses failed
-     */
-    public function __construct()
-    {
-        $this->loadLicenses();
-    }
-
     public function validate(string $identifier): bool
     {
         return isset($this->licenses[strtolower($identifier)]);
@@ -80,6 +80,8 @@ class License
 
     /**
      * @throws RuntimeException
+     *
+     * @internal
      */
     public function loadLicenses(): void
     {

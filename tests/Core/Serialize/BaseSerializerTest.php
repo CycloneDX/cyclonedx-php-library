@@ -154,29 +154,31 @@ class BaseSerializerTest extends TestCase
 
     public function dpBomWithRefs(): \Generator
     {
+        $dependencies = $this->createStub(BomRefRepository::class);
+
         foreach (['null' => null, 'common string' => 'foo'] as $name => $bomRefValue) {
             $componentNullDeps = $this->createConfiguredMock(
                 Component::class,
                 [
                     'getBomRef' => new BomRef($bomRefValue),
-                    'getDependenciesBomRefRepository' => null,
+                    'getDependencies' => $dependencies,
                 ]
             );
             $componentEmptyDeps = $this->createConfiguredMock(
                 Component::class,
                 [
                     'getBomRef' => new BomRef($bomRefValue),
-                    'getDependenciesBomRefRepository' => $this->createMock(BomRefRepository::class),
+                    'getDependencies' => $this->createMock(BomRefRepository::class),
                 ]
             );
             $componentKnownDeps = $this->createConfiguredMock(
                 Component::class,
                 [
                     'getBomRef' => new BomRef($bomRefValue),
-                    'getDependenciesBomRefRepository' => $this->createConfiguredMock(
+                    'getDependencies' => $this->createConfiguredMock(
                         BomRefRepository::class,
                         [
-                            'getBomRefs' => [$componentNullDeps->getBomRef()],
+                            'getItems' => [$componentNullDeps->getBomRef()],
                         ]
                     ),
                 ]
@@ -185,10 +187,10 @@ class BaseSerializerTest extends TestCase
                 Component::class,
                 [
                     'getBomRef' => new BomRef($bomRefValue),
-                    'getDependenciesBomRefRepository' => $this->createConfiguredMock(
+                    'getDependencies' => $this->createConfiguredMock(
                         BomRefRepository::class,
                         [
-                            'getBomRefs' => [
+                            'getItems' => [
                                 $componentKnownDeps->getBomRef(),
                                 $componentEmptyDeps->getBomRef(),
                             ],
@@ -201,17 +203,17 @@ class BaseSerializerTest extends TestCase
                 $this->createConfiguredMock(
                     Bom::class,
                     [
-                        'getComponentRepository' => $this->createConfiguredMock(
+                        'getComponents' => $this->createConfiguredMock(
                             ComponentRepository::class,
                             [
-                                'getComponents' => [
+                                'getItems' => [
                                     $componentNullDeps,
                                     $componentEmptyDeps,
                                     $componentKnownDeps,
                                 ],
                             ]
                         ),
-                        'getMetaData' => $this->createConfiguredMock(
+                        'getMetadata' => $this->createConfiguredMock(
                             Metadata::class,
                             [
                                 'getComponent' => $componentRoot,

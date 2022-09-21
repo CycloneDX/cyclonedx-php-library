@@ -28,7 +28,7 @@ use CycloneDX\Core\Collections\HashDictionary;
 use CycloneDX\Core\Models\Tool;
 use CycloneDX\Core\Serialize\DOM\NormalizerFactory;
 use CycloneDX\Core\Serialize\DOM\Normalizers\ExternalReferenceRepositoryNormalizer;
-use CycloneDX\Core\Serialize\DOM\Normalizers\HashRepositoryNormalizer;
+use CycloneDX\Core\Serialize\DOM\Normalizers\HashDictionaryNormalizer;
 use CycloneDX\Core\Serialize\DOM\Normalizers\ToolNormalizer;
 use CycloneDX\Core\Spec\SpecInterface;
 use CycloneDX\Tests\_traits\DomNodeAssertionTrait;
@@ -66,7 +66,7 @@ class ToolNormalizerTest extends TestCase
     }
 
     /**
-     * @uses \CycloneDX\Core\Serialize\DOM\Normalizers\HashRepositoryNormalizer
+     * @uses \CycloneDX\Core\Serialize\DOM\Normalizers\HashDictionaryNormalizer
      */
     public function testNormalizeFull(): void
     {
@@ -76,27 +76,27 @@ class ToolNormalizerTest extends TestCase
                 'getVendor' => 'myVendor',
                 'getName' => 'myName',
                 'getVersion' => 'myVersion',
-                'getHashRepository' => $this->createConfiguredMock(HashDictionary::class, ['count' => 2]),
-                'getExternalReferenceRepository' => $this->createConfiguredMock(ExternalReferenceRepository::class, ['count' => 2]),
+                'getHashDictionary' => $this->createConfiguredMock(HashDictionary::class, ['count' => 2]),
+                'getExternalReferences' => $this->createConfiguredMock(ExternalReferenceRepository::class, ['count' => 2]),
             ]
         );
         $spec = $this->createConfiguredMock(SpecInterface::class, [
             'supportsToolExternalReferences' => true,
         ]);
-        $hashRepoNormalizer = $this->createMock(HashRepositoryNormalizer::class);
+        $HashDictNormalizer = $this->createMock(HashDictionaryNormalizer::class);
         $extRefRepoNormalizer = $this->createMock(ExternalReferenceRepositoryNormalizer::class);
         $factory = $this->createConfiguredMock(
             NormalizerFactory::class,
             [
                 'getSpec' => $spec,
                 'getDocument' => new DOMDocument(),
-                'makeForHashRepository' => $hashRepoNormalizer,
+                'makeForHashDictionary' => $HashDictNormalizer,
                 'makeForExternalReferenceRepository' => $extRefRepoNormalizer,
             ]
         );
         $normalizer = new ToolNormalizer($factory);
 
-        $hashRepoNormalizer->expects(self::once())
+        $HashDictNormalizer->expects(self::once())
             ->method('normalize')
             ->with($tool->getHashes())
             ->willReturn([$factory->getDocument()->createElement('FakeHash', 'dummyHash')]);
@@ -127,27 +127,27 @@ class ToolNormalizerTest extends TestCase
                 'getVendor' => null,
                 'getName' => null,
                 'getVersion' => null,
-                'getHashRepository' => null,
-                'getExternalReferenceRepository' => null,
+                'getHashDictionary' => null,
+                'getExternalReferences' => null,
             ]
         );
         $spec = $this->createConfiguredMock(SpecInterface::class, [
             'supportsToolExternalReferences' => true,
         ]);
-        $hashRepoNormalizer = $this->createMock(HashRepositoryNormalizer::class);
+        $HashDictNormalizer = $this->createMock(HashDictionaryNormalizer::class);
         $extRefRepoNormalizer = $this->createMock(ExternalReferenceRepositoryNormalizer::class);
         $factory = $this->createConfiguredMock(
             NormalizerFactory::class,
             [
                 'getSpec' => $spec,
                 'getDocument' => new DOMDocument(),
-                'makeForHashRepository' => $hashRepoNormalizer,
+                'makeForHashDictionary' => $HashDictNormalizer,
                 'makeForExternalReferenceRepository' => $extRefRepoNormalizer,
             ]
         );
         $normalizer = new ToolNormalizer($factory);
 
-        $hashRepoNormalizer->expects(self::never())
+        $HashDictNormalizer->expects(self::never())
             ->method('normalize')
             ->willThrowException(new \BadMethodCallException());
         $extRefRepoNormalizer->expects(self::never())

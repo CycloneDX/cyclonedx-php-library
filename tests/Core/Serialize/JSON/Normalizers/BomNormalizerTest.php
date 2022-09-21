@@ -89,7 +89,7 @@ class BomNormalizerTest extends TestCase
             Bom::class,
             [
                 'getVersion' => 23,
-                'getComponentRepository' => $this->createStub(ComponentRepository::class),
+                'getComponents' => $this->createStub(ComponentRepository::class),
             ]
         );
 
@@ -136,7 +136,7 @@ class BomNormalizerTest extends TestCase
             Bom::class,
             [
                 'getVersion' => 23,
-                'getMetaData' => $this->createStub(Metadata::class),
+                'getMetadata' => $this->createStub(Metadata::class),
             ]
         );
 
@@ -181,7 +181,7 @@ class BomNormalizerTest extends TestCase
             Bom::class,
             [
                 'getVersion' => 23,
-                'getMetaData' => $this->createStub(Metadata::class),
+                'getMetadata' => $this->createStub(Metadata::class),
             ]
         );
 
@@ -224,7 +224,7 @@ class BomNormalizerTest extends TestCase
             Bom::class,
             [
                 'getVersion' => 23,
-                'getMetaData' => $this->createStub(Metadata::class),
+                'getMetadata' => $this->createStub(Metadata::class),
             ]
         );
 
@@ -267,7 +267,7 @@ class BomNormalizerTest extends TestCase
             Bom::class,
             [
                 'getVersion' => 23,
-                'getMetaData' => $this->createStub(Metadata::class),
+                'getMetadata' => $this->createStub(Metadata::class),
             ]
         );
 
@@ -312,7 +312,7 @@ class BomNormalizerTest extends TestCase
             Bom::class,
             [
                 'getVersion' => 23,
-                'getMetaData' => $this->createStub(Metadata::class),
+                'getMetadata' => $this->createStub(Metadata::class),
             ]
         );
 
@@ -361,7 +361,7 @@ class BomNormalizerTest extends TestCase
             Bom::class,
             [
                 'getVersion' => 23,
-                'getExternalReferenceRepository' => $this->createConfiguredMock(
+                'getExternalReferences' => $this->createConfiguredMock(
                     ExternalReferenceRepository::class,
                     ['count' => 1]
                 ),
@@ -411,7 +411,7 @@ class BomNormalizerTest extends TestCase
             Bom::class,
             [
                 'getVersion' => 23,
-                'getExternalReferenceRepository' => $this->createConfiguredMock(
+                'getExternalReferences' => $this->createConfiguredMock(
                     ExternalReferenceRepository::class,
                     ['count' => 0]
                 ),
@@ -469,12 +469,12 @@ class BomNormalizerTest extends TestCase
             Bom::class,
             [
                 'getVersion' => 23,
-                'getExternalReferenceRepository' => $bomExternalReferenceRepository,
-                'getMetaData' => $this->createConfiguredMock(
+                'getExternalReferences' => $bomExternalReferenceRepository,
+                'getMetadata' => $this->createConfiguredMock(
                     Metadata::class,
                     [
                         'getComponent' => $this->createConfiguredMock(Component::class, [
-                            'getExternalReferenceRepository' => $componentExternalReferenceRepository,
+                            'getExternalReferences' => $componentExternalReferenceRepository,
                         ]),
                     ]
                 ),
