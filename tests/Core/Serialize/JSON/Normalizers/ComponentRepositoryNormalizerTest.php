@@ -61,7 +61,7 @@ class ComponentRepositoryNormalizerTest extends TestCase
         $component = $this->createStub(Component::class);
         $components = $this->createConfiguredMock(ComponentRepository::class, [
             'count' => 1,
-            'getComponents' => [$component],
+            'getItems' => [$component],
         ]);
 
         $componentNormalizer->expects(self::once())->method('normalize')
@@ -86,7 +86,7 @@ class ComponentRepositoryNormalizerTest extends TestCase
         $component2 = $this->createStub(Component::class);
         $components = $this->createConfiguredMock(ComponentRepository::class, [
             'count' => 1,
-            'getComponents' => [$component1, $component2],
+            'getItems' => [$component1, $component2],
         ]);
 
         $componentNormalizer->expects(self::exactly(2))->method('normalize')

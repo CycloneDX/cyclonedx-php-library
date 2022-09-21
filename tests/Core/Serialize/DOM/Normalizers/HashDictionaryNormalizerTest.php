@@ -84,7 +84,7 @@ class HashDictionaryNormalizerTest extends TestCase
         $repo = $this->createConfiguredMock(
             HashDictionary::class,
             [
-                'getHashes' => ['alg1' => 'cont1', 'alg2' => 'cont2', 'alg3' => 'cont3'],
+                'getItems' => ['alg1' => 'cont1', 'alg2' => 'cont2', 'alg3' => 'cont3'],
             ]
         );
 

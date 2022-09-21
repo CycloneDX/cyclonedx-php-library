@@ -377,14 +377,12 @@ class BomNormalizerTest extends TestCase
     }
 
     /**
-     * @dataProvider dpNormalizeExternalReferencesWithComponent
-     *
      * @uses \CycloneDX\Core\Collections\ExternalReferenceRepository
      */
-    public function testNormalizeExternalReferencesWithComponent(
-        ?ExternalReferenceRepository $bomExternalReferenceRepository,
-        ?ExternalReferenceRepository $componentExternalReferenceRepository
-    ): void {
+    public function testNormalizeExternalReferencesWithComponent(): void
+    {
+        $bomExternalReferenceRepository = new ExternalReferenceRepository($this->createStub(ExternalReference::class));
+        $componentExternalReferenceRepository = new ExternalReferenceRepository($this->createStub(ExternalReference::class));
         $expectedNormal = $bomExternalReferenceRepository || $componentExternalReferenceRepository
             ? '<externalReferences><FakeNormalized>faked</FakeNormalized></externalReferences>'
             : '';
@@ -461,26 +459,6 @@ class BomNormalizerTest extends TestCase
             '</bom>',
             $actual
         );
-    }
-
-    public function dpNormalizeExternalReferencesWithComponent(): \Generator
-    {
-        yield 'null null' => [
-            null,
-            null,
-        ];
-        yield 'null one' => [
-            null,
-            new ExternalReferenceRepository($this->createStub(ExternalReference::class)),
-        ];
-        yield 'one null' => [
-            new ExternalReferenceRepository($this->createStub(ExternalReference::class)),
-            null,
-        ];
-        yield 'one one' => [
-            new ExternalReferenceRepository($this->createStub(ExternalReference::class)),
-            new ExternalReferenceRepository($this->createStub(ExternalReference::class)),
-        ];
     }
 
     // endregion normalize ExternalReferences

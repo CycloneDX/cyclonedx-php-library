@@ -76,7 +76,7 @@ class ToolNormalizerTest extends TestCase
                 'getVendor' => 'myVendor',
                 'getName' => 'myName',
                 'getVersion' => 'myVersion',
-                'getHashDictionary' => $this->createConfiguredMock(HashDictionary::class, ['count' => 2]),
+                'getHashes' => $this->createConfiguredMock(HashDictionary::class, ['count' => 2]),
                 'getExternalReferences' => $this->createConfiguredMock(ExternalReferenceRepository::class, ['count' => 2]),
             ]
         );
@@ -127,8 +127,8 @@ class ToolNormalizerTest extends TestCase
                 'getVendor' => null,
                 'getName' => null,
                 'getVersion' => null,
-                'getHashDictionary' => null,
-                'getExternalReferences' => null,
+                'getHashes' => $this->createStub(HashDictionary::class),
+                'getExternalReferences' => $this->createStub(ExternalReferenceRepository::class),
             ]
         );
         $spec = $this->createConfiguredMock(SpecInterface::class, [

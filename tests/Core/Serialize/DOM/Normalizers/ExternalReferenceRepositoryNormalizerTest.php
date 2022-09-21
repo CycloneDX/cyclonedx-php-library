@@ -70,7 +70,7 @@ class ExternalReferenceRepositoryNormalizerTest extends \PHPUnit\Framework\TestC
         $externalReference = $this->createStub(ExternalReference::class);
         $repo = $this->createConfiguredMock(ExternalReferenceRepository::class, [
             'count' => 1,
-            'getExternalReferences' => [$externalReference],
+            'getItems' => [$externalReference],
         ]);
         $FakeExtRef = $this->createStub(DOMElement::class);
 
@@ -102,7 +102,7 @@ class ExternalReferenceRepositoryNormalizerTest extends \PHPUnit\Framework\TestC
         $extRef2 = $this->createStub(ExternalReference::class);
         $tools = $this->createConfiguredMock(ExternalReferenceRepository::class, [
             'count' => 1,
-            'getExternalReferences' => [$extRef1, $extRef2],
+            'getItems' => [$extRef1, $extRef2],
         ]);
 
         $externalReferenceNormalizer->expects(self::exactly(2))->method('normalize')

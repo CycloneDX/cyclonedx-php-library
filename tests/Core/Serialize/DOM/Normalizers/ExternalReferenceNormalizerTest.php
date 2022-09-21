@@ -50,7 +50,7 @@ class ExternalReferenceNormalizerTest extends \PHPUnit\Framework\TestCase
             'getUrl' => 'someUrl',
             'getType' => 'someType',
             'getComment' => null,
-            'getHashDictionary' => null,
+            'getHashes' => $this->createStub(HashDictionary::class),
         ]);
 
         $spec->method('isSupportedExternalReferenceType')
@@ -77,7 +77,7 @@ class ExternalReferenceNormalizerTest extends \PHPUnit\Framework\TestCase
             'getUrl' => '..',
             'getType' => 'someType',
             'getComment' => null,
-            'getHashDictionary' => null,
+            'getHashes' => $this->createStub(HashDictionary::class),
         ]);
 
         $spec->expects(self::atLeastOnce())
@@ -103,7 +103,7 @@ class ExternalReferenceNormalizerTest extends \PHPUnit\Framework\TestCase
             'getUrl' => 'someUrl',
             'getType' => 'someType',
             'getComment' => 'someComment',
-            'getHashDictionary' => null,
+            'getHashes' => $this->createStub(HashDictionary::class),
         ]);
 
         $spec->method('isSupportedExternalReferenceType')
@@ -136,7 +136,7 @@ class ExternalReferenceNormalizerTest extends \PHPUnit\Framework\TestCase
             'getUrl' => 'someUrl',
             'getType' => 'someType',
             'getComment' => null,
-            'getHashDictionary' => $this->createConfiguredMock(HashDictionary::class, ['count' => 1]),
+            'getHashes' => $this->createConfiguredMock(HashDictionary::class, ['count' => 1]),
         ]);
 
         $spec->method('isSupportedExternalReferenceType')
@@ -177,7 +177,7 @@ class ExternalReferenceNormalizerTest extends \PHPUnit\Framework\TestCase
             'getUrl' => 'someUrl',
             'getType' => 'someType',
             'getComment' => null,
-            'getHashDictionary' => $this->createConfiguredMock(HashDictionary::class, ['count' => 0]),
+            'getHashes' => $this->createStub(HashDictionary::class),
         ]);
 
         $spec->method('isSupportedExternalReferenceType')
@@ -214,7 +214,7 @@ class ExternalReferenceNormalizerTest extends \PHPUnit\Framework\TestCase
             'getUrl' => 'someUrl',
             'getType' => 'someType',
             'getComment' => null,
-            'getHashDictionary' => $this->createConfiguredMock(HashDictionary::class, ['count' => 1]),
+            'getHashes' => $this->createConfiguredMock(HashDictionary::class, ['count' => 1]),
         ]);
 
         $spec->method('isSupportedExternalReferenceType')
@@ -249,7 +249,7 @@ class ExternalReferenceNormalizerTest extends \PHPUnit\Framework\TestCase
             'getUrl' => $rawUrl,
             'getType' => 'someType',
             'getComment' => null,
-            'getHashDictionary' => null,
+            'getHashes' => $this->createStub(HashDictionary::class),
         ]);
 
         $spec->expects(self::atLeastOnce())

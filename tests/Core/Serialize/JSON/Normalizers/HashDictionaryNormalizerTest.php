@@ -70,7 +70,7 @@ class HashDictionaryNormalizerTest extends TestCase
         $normalizer = new HashDictionaryNormalizer($factory);
 
         $repo = $this->createConfiguredMock(HashDictionary::class, [
-            'getHashes' => ['alg1' => 'cont1', 'alg2' => 'cont2'],
+            'getItems' => ['alg1' => 'cont1', 'alg2' => 'cont2'],
         ]);
 
         $hashNormalizer->expects(self::exactly(2))
