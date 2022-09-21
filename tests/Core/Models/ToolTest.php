@@ -30,6 +30,9 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \CycloneDX\Core\Models\Tool
+ *
+ * @uses \CycloneDX\Core\Collections\HashDictionary
+ * @uses \CycloneDX\Core\Collections\ExternalReferenceRepository
  */
 class ToolTest extends TestCase
 {

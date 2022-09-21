@@ -30,8 +30,10 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \CycloneDX\Core\Models\Metadata
+ *
+ * @uses \CycloneDX\Core\Collections\ToolRepository
  */
-class MetaDataTest extends TestCase
+class MetadataTest extends TestCase
 {
     public function testConstructor(): Metadata
     {

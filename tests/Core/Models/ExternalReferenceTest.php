@@ -33,6 +33,7 @@ use PHPUnit\Framework\TestCase;
  * @covers \CycloneDX\Core\Models\ExternalReference
  *
  * @uses \CycloneDX\Core\Enums\ExternalReferenceType::isValidValue()
+ * @uses  \CycloneDX\Core\Collections\HashDictionary
  */
 class ExternalReferenceTest extends TestCase
 {

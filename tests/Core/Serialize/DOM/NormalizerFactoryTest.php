@@ -71,44 +71,6 @@ class NormalizerFactoryTest extends TestCase
 
     /**
      * @depends testConstructor
-     */
-    public function testSetSpec(NormalizerFactory $factory): void
-    {
-        $spec = $this->createConfiguredMock(
-            SpecInterface::class,
-            [
-                'isSupportedFormat' => true,
-                'getSupportedFormats' => ['DOM'],
-            ]
-        );
-
-        $actual = $factory->setSpec($spec);
-
-        self::assertSame($spec, $factory->getSpec());
-        self::assertSame($factory, $actual);
-    }
-
-    /**
-     * @depends testConstructor
-     */
-    public function testSetSpecThrowsWhenUnsupported(NormalizerFactory $factory): void
-    {
-        $spec = $this->createConfiguredMock(
-            SpecInterface::class,
-            [
-                'isSupportedFormat' => false,
-                'getSupportedFormats' => [],
-            ]
-        );
-
-        $this->expectException(DomainException::class);
-        $this->expectExceptionMessageMatches('/unsupported format/i');
-
-        $factory->setSpec($spec);
-    }
-
-    /**
-     * @depends testConstructor
      *
      * @uses \CycloneDX\Core\Serialize\DOM\Normalizers\ComponentRepositoryNormalizer
      */

@@ -30,7 +30,6 @@ use CycloneDX\Core\Collections\LicenseRepository;
 use CycloneDX\Core\Enums\Classification;
 use CycloneDX\Core\Models\BomRef;
 use CycloneDX\Core\Models\Component;
-use CycloneDX\Core\Models\License\LicenseExpression;
 use PackageUrl\PackageUrl;
 use PHPUnit\Framework\TestCase;
 
@@ -41,6 +40,10 @@ use PHPUnit\Framework\TestCase;
  *
  * @uses   \CycloneDX\Core\Enums\Classification::isValidValue
  * @uses   \CycloneDX\Core\Models\BomRef::__construct
+ * @uses  \CycloneDX\Core\Collections\LicenseRepository
+ * @uses \CycloneDX\Core\Collections\HashDictionary
+ * @uses \CycloneDX\Core\Collections\ExternalReferenceRepository
+ * @uses \CycloneDX\Core\Collections\BomRefRepository
  */
 class ComponentTest extends TestCase
 {
@@ -130,20 +133,13 @@ class ComponentTest extends TestCase
     // region licenses setter&getter
 
     /**
-     * @dataProvider dpLicensesSetterGetter
+     * @depends testConstructor
      */
-    public function testLicensesSetterGetter(Component $component, $license): void
+    public function testLicensesSetterGetter(Component $component): void
     {
-        $component->setLicenses($license);
-        self::assertSame($license, $component->getLicense());
-    }
-
-    public function dpLicensesSetterGetter(): \Generator
-    {
-        $component = $this->testConstructor();
-        yield 'null' => [$component, null];
-        yield 'repo' => [$component, $this->createStub(LicenseRepository::class)];
-        yield 'expression' => [$component, $this->createStub(LicenseExpression::class)];
+        $licenses = $this->createStub(LicenseRepository::class);
+        $component->setLicenses($licenses);
+        self::assertSame($licenses, $component->getLicenses());
     }
 
     // endregion licenses setter&getter
@@ -151,19 +147,13 @@ class ComponentTest extends TestCase
     // region hashes setter&getter
 
     /**
-     * @dataProvider dpHashesSetterGetter
+     * @depends testConstructor
      */
-    public function testHashesSetterGetter(Component $component, $hashes): void
+    public function testHashesSetterGetter(Component $component): void
     {
+        $hashes = $this->createStub(HashDictionary::class);
         $component->setHashes($hashes);
         self::assertSame($hashes, $component->getHashes());
-    }
-
-    public function dpHashesSetterGetter(): \Generator
-    {
-        $component = $this->testConstructor();
-        yield 'null' => [$component, null];
-        yield 'repo' => [$component, $this->createStub(HashDictionary::class)];
     }
 
     // endregion hashes setter&getter
@@ -238,7 +228,7 @@ class ComponentTest extends TestCase
     public function testDependenciesBomRefRepositorySetterGetter(Component $component): void
     {
         $repo = $this->createMock(BomRefRepository::class);
-        self::assertNull($component->getDependencies());
+        self::assertNotSame($repo, $component->getDependencies());
 
         $component->setDependencies($repo);
 
