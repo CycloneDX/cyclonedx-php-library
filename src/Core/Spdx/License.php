@@ -96,7 +96,9 @@ class License
             ? file_get_contents($file)
             : throw new RuntimeException("Missing licenses file: $file");
         if (false === $json) {
+            // @codeCoverageIgnoreStart
             throw new RuntimeException("Failed to get content from licenses file: $file");
+            // @codeCoverageIgnoreEnd
         }
 
         try {
