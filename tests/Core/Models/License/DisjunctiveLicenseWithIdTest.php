@@ -26,14 +26,14 @@ namespace CycloneDX\Tests\Core\Models\License;
 use CycloneDX\Core\Models\License\DisjunctiveLicenseWithId;
 use CycloneDX\Core\Spdx\License as LicenseValidator;
 use DomainException;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \CycloneDX\Core\Models\License\DisjunctiveLicenseWithId
- * @covers \CycloneDX\Core\Models\License\AbstractDisjunctiveLicense
  */
-class DisjunctiveLicenseWithIdTest extends AbstractDisjunctiveLicenseTestCase
+class DisjunctiveLicenseWithIdTest extends TestCase
 {
-    public function testConstruct(): void
+    public function testConstruct(): DisjunctiveLicenseWithId
     {
         $spdxLicenseValidator = $this->createMock(LicenseValidator::class);
         $spdxLicenseValidator->method('validate')->with('foo')->willReturn(true);
@@ -42,6 +42,9 @@ class DisjunctiveLicenseWithIdTest extends AbstractDisjunctiveLicenseTestCase
         $license = DisjunctiveLicenseWithId::makeValidated('foo', $spdxLicenseValidator);
 
         self::assertSame('bar', $license->getId());
+        self::assertNull($license->getUrl());
+
+        return $license;
     }
 
     public function testConstructThrowsWHenUnknown(): void
@@ -54,5 +57,26 @@ class DisjunctiveLicenseWithIdTest extends AbstractDisjunctiveLicenseTestCase
         $this->expectExceptionMessageMatches('/invalid SPDX license/i');
 
         DisjunctiveLicenseWithId::makeValidated('foo', $spdxLicenseValidator);
+    }
+
+    /**
+     * @depends testConstruct
+     */
+    public function testSetAndGetUrl(DisjunctiveLicenseWithId $license): DisjunctiveLicenseWithId
+    {
+        $url = uniqid('url', true);
+        $license->setUrl($url);
+        self::assertSame($url, $license->getUrl());
+
+        return $license;
+    }
+
+    /**
+     * @depends testSetAndGetUrl
+     */
+    public function testSetUrlNull(DisjunctiveLicenseWithId $license): void
+    {
+        $license->setUrl(null);
+        self::assertNull($license->getUrl());
     }
 }

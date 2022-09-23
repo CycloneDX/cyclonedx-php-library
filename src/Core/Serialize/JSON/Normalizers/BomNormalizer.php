@@ -80,9 +80,7 @@ class BomNormalizer extends AbstractNormalizer
             // prevent possible information loss: metadata cannot be rendered -> put it to bom
             $mcr = $bom->getMetadata()->getComponent()?->getExternalReferences();
             if (null !== $mcr) {
-                $externalReferenceRepository = \count($externalReferenceRepository)
-                    ? (clone $externalReferenceRepository)->addItems(...$mcr->getItems())
-                    : $mcr;
+                $externalReferenceRepository = (clone $externalReferenceRepository)->addItems(...$mcr->getItems());
             }
             unset($mcr);
         }

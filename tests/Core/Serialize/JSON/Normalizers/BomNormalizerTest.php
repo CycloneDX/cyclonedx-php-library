@@ -116,7 +116,7 @@ class BomNormalizerTest extends TestCase
     /**
      * @uses \CycloneDX\Core\_helpers\NullAssertionTrait
      */
-    public function testNormalizeMetaData(): void
+    public function testNormalizeMetadata(): void
     {
         $spec = $this->createConfiguredMock(
             SpecInterface::class,
@@ -161,7 +161,7 @@ class BomNormalizerTest extends TestCase
         );
     }
 
-    public function testNormalizeMetaDataEmpty(): void
+    public function testNormalizeMetadataEmpty(): void
     {
         $spec = $this->createConfiguredMock(
             SpecInterface::class,
@@ -204,7 +204,7 @@ class BomNormalizerTest extends TestCase
         );
     }
 
-    public function testNormalizeMetaDataSkipped(): void
+    public function testNormalizeMetadataSkipped(): void
     {
         $spec = $this->createConfiguredMock(
             SpecInterface::class,
@@ -369,10 +369,16 @@ class BomNormalizerTest extends TestCase
                 'getExternalReferences' => new ExternalReferenceRepository($extRef1),
                 'getMetadata' => $this->createConfiguredMock(
                     Metadata::class,
-                    ['getComponent' => $this->createConfiguredMock(
-                        Component::class, [
-                        'getExternalReferences' => new ExternalReferenceRepository($extRef2),
-                    ])]), ]);
+                    [
+                        'getComponent' => $this->createConfiguredMock(
+                            Component::class, [
+                                'getExternalReferences' => new ExternalReferenceRepository($extRef2),
+                            ]
+                        ),
+                    ]
+                ),
+            ]
+        );
 
         $extRefNormalizer->expects(self::once())
             ->method('normalize')
@@ -392,6 +398,49 @@ class BomNormalizerTest extends TestCase
                 'version' => 23,
                 'components' => [],
                 'externalReferences' => ['dummyExRefs'],
+            ],
+            $actual
+        );
+    }
+
+    /**
+     * @uses \CycloneDX\Core\Collections\ExternalReferenceRepository
+     */
+    public function testNormalizeExternalReferencesOmittedWHenEmpty(): void
+    {
+        $spec = $this->createConfiguredMock(SpecInterface::class, [
+            'getVersion' => '1.2',
+            'supportsMetaData' => false,
+        ]);
+        $extRefNormalizer = $this->createMock(Normalizers\ExternalReferenceRepositoryNormalizer::class);
+        $factory = $this->createConfiguredMock(NormalizerFactory::class, [
+            'getSpec' => $spec,
+            'makeForExternalReferenceRepository' => $extRefNormalizer,
+        ]);
+        $normalizer = new Normalizers\BomNormalizer($factory);
+        $extRef1 = $this->createStub(ExternalReference::class);
+        $extRef2 = $this->createStub(ExternalReference::class);
+        $bom = $this->createConfiguredMock(
+            Bom::class,
+            [
+                'getVersion' => 23,
+                'getExternalReferences' => new ExternalReferenceRepository($extRef1),
+            ]
+        );
+
+        $extRefNormalizer->expects(self::once())
+            ->method('normalize')
+            ->with($bom->getExternalReferences())
+            ->willReturn([/* empty */]);
+
+        $actual = $normalizer->normalize($bom);
+
+        self::assertSame(
+            [
+                'bomFormat' => 'CycloneDX',
+                'specVersion' => '1.2',
+                'version' => 23,
+                'components' => [],
             ],
             $actual
         );

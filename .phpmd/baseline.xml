@@ -9,6 +9,7 @@
   <violation rule="PHPMD\Rule\CleanCode\StaticAccess" file="src/Core/Models/Component.php"/>
   <violation rule="PHPMD\Rule\CleanCode\StaticAccess" file="src/Core/Models/ExternalReference.php"/>
   <violation rule="PHPMD\Rule\Naming\ShortVariable" file="src/Core/Models/License/DisjunctiveLicenseWithId.php"/>
+  <violation rule="PHPMD\Rule\Controversial\CamelCaseClassName" file="src/Core/Models/License/_DisjunctiveLicenseBase.php"/>
   <violation rule="PHPMD\Rule\Design\TooManyPublicMethods" file="src/Core/Serialize/DOM/NormalizerFactory.php"/>
   <violation rule="PHPMD\Rule\Design\CouplingBetweenObjects" file="src/Core/Serialize/DOM/NormalizerFactory.php"/>
   <violation rule="PHPMD\Rule\Naming\LongVariable" file="src/Core/Serialize/DOM/Normalizers/BomNormalizer.php"/>
@@ -28,6 +29,6 @@
   <violation rule="PHPMD\Rule\Naming\ShortVariable" file="src/Core/Validation/ValidationError.php"/>
   <violation rule="PHPMD\Rule\CleanCode\StaticAccess" file="src/Core/Validation/Validators/JsonValidator.php"/>
   <violation rule="PHPMD\Rule\CleanCode\StaticAccess" file="src/Core/Validation/Validators/XmlValidator.php"/>
-  <violation rule="PHPMD\Rule\CleanCode\ElseExpression" file="src/Core/_Helpers/SimpleDomTrait.php"/>
-  <violation rule="PHPMD\Rule\CleanCode\BooleanArgumentFlag" file="src/Core/_Helpers/SimpleDomTrait.php"/>
+  <violation rule="PHPMD\Rule\CleanCode\ElseExpression" file="src/Core/_helpers/SimpleDomTrait.php"/>
+  <violation rule="PHPMD\Rule\CleanCode\BooleanArgumentFlag" file="src/Core/_helpers/SimpleDomTrait.php"/>
 </phpmd-baseline>

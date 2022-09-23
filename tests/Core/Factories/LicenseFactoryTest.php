@@ -153,7 +153,6 @@ class LicenseFactoryTest extends TestCase
 
     /**
      * @uses \CycloneDX\Core\Models\License\DisjunctiveLicenseWithId
-     * @uses \CycloneDX\Core\Models\License\AbstractDisjunctiveLicense
      */
     public function testMakeDisjunctiveWithId(): void
     {
@@ -176,7 +175,6 @@ class LicenseFactoryTest extends TestCase
 
     /**
      *  @uses \CycloneDX\Core\Models\License\DisjunctiveLicenseWithName
-     *  @uses \CycloneDX\Core\Models\License\AbstractDisjunctiveLicense
      */
     public function testMakeDisjunctiveWithName(): void
     {
@@ -190,7 +188,6 @@ class LicenseFactoryTest extends TestCase
 
     /**
      * @uses \CycloneDX\Core\Models\License\DisjunctiveLicenseWithName
-     * @uses \CycloneDX\Core\Models\License\AbstractDisjunctiveLicense
      * @uses \CycloneDX\Core\Collections\LicenseRepository
      */
     public function testMakeDisjunctiveFromExpression(): void

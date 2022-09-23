@@ -24,7 +24,10 @@ declare(strict_types=1);
 namespace CycloneDX\Tests\Core\Serialize\DOM\Normalizers;
 
 use CycloneDX\Core\Collections\ComponentRepository;
+use CycloneDX\Core\Collections\ExternalReferenceRepository;
 use CycloneDX\Core\Models\Bom;
+use CycloneDX\Core\Models\Component;
+use CycloneDX\Core\Models\ExternalReference;
 use CycloneDX\Core\Models\Metadata;
 use CycloneDX\Core\Serialize\DOM\NormalizerFactory;
 use CycloneDX\Core\Serialize\DOM\Normalizers;
@@ -106,7 +109,9 @@ class BomNormalizerTest extends TestCase
         );
     }
 
-    public function testNormalizeMetaData(): void
+    // region metadata
+
+    public function testNormalizeMetadata(): void
     {
         $spec = $this->createConfiguredMock(
             SpecInterface::class,
@@ -149,7 +154,7 @@ class BomNormalizerTest extends TestCase
         );
     }
 
-    public function testNormalizeMetaDataNotSupported(): void
+    public function testNormalizeMetadataNotSupported(): void
     {
         $spec = $this->createConfiguredMock(
             SpecInterface::class,
@@ -189,6 +194,10 @@ class BomNormalizerTest extends TestCase
             $actual
         );
     }
+
+    // endregion metadata
+
+    // region dependencies
 
     public function testNormalizeDependencies(): void
     {
@@ -275,4 +284,108 @@ class BomNormalizerTest extends TestCase
             $actual
         );
     }
+
+    // endregion dependencies
+
+    // region external references
+
+    /**
+     * @uses \CycloneDX\Core\Collections\ExternalReferenceRepository
+     */
+    public function testNormalizeExternalReferencesMergedIfUnsupportedMetadata(): void
+    {
+        $spec = $this->createConfiguredMock(SpecInterface::class, [
+            'getVersion' => '1.2',
+            'supportsMetaData' => false,
+        ]);
+        $extRefNormalizer = $this->createMock(Normalizers\ExternalReferenceRepositoryNormalizer::class);
+        $factory = $this->createConfiguredMock(NormalizerFactory::class, [
+            'getSpec' => $spec,
+            'getDocument' => new DOMDocument(),
+            'makeForExternalReferenceRepository' => $extRefNormalizer,
+        ]);
+        $normalizer = new Normalizers\BomNormalizer($factory);
+        $extRef1 = $this->createStub(ExternalReference::class);
+        $extRef2 = $this->createStub(ExternalReference::class);
+        $bom = $this->createConfiguredMock(
+            Bom::class,
+            [
+                'getVersion' => 23,
+                'getExternalReferences' => new ExternalReferenceRepository($extRef1),
+                'getMetadata' => $this->createConfiguredMock(
+                    Metadata::class,
+                    [
+                        'getComponent' => $this->createConfiguredMock(
+                            Component::class, [
+                                'getExternalReferences' => new ExternalReferenceRepository($extRef2),
+                            ]
+                        ),
+                    ]
+                ),
+            ]
+        );
+
+        $extRefNormalizer->expects(self::once())
+            ->method('normalize')
+            ->with($this->callback(static function (ExternalReferenceRepository $extRefs) use ($extRef1, $extRef2) {
+                self::assertEquals([$extRef1, $extRef2], $extRefs->getItems());
+
+                return true;
+            }))
+            ->willReturn([$factory->getDocument()->createElement('FakeexternalReference', 'faked')]);
+
+        $actual = $normalizer->normalize($bom);
+
+        self::assertStringEqualsDomNode(
+            '<bom xmlns="http://cyclonedx.org/schema/bom/1.2" version="23">'.
+            '<components></components>'.
+            '<externalReferences><FakeexternalReference>faked</FakeexternalReference></externalReferences>'.
+            '</bom>',
+            $actual
+        );
+    }
+
+    /**
+     * @uses \CycloneDX\Core\Collections\ExternalReferenceRepository
+     */
+    public function testNormalizeExternalReferencesOmittedWHenEmpty(): void
+    {
+        $spec = $this->createConfiguredMock(SpecInterface::class, [
+            'getVersion' => '1.2',
+            'supportsMetaData' => false,
+        ]);
+        $extRefNormalizer = $this->createMock(Normalizers\ExternalReferenceRepositoryNormalizer::class);
+        $factory = $this->createConfiguredMock(NormalizerFactory::class, [
+            'getSpec' => $spec,
+            'getDocument' => new DOMDocument(),
+            'makeForExternalReferenceRepository' => $extRefNormalizer,
+        ]);
+        $normalizer = new Normalizers\BomNormalizer($factory);
+        $extRef1 = $this->createStub(ExternalReference::class);
+        $extRef2 = $this->createStub(ExternalReference::class);
+        $bom = $this->createConfiguredMock(
+            Bom::class,
+            [
+                'getVersion' => 23,
+                'getExternalReferences' => new ExternalReferenceRepository($extRef1),
+            ]
+        );
+
+        $extRefNormalizer->expects(self::once())
+            ->method('normalize')
+            ->with($bom->getExternalReferences())
+            ->willReturn([/* empty */]);
+
+        $actual = $normalizer->normalize($bom);
+
+        self::assertStringEqualsDomNode(
+            '<bom xmlns="http://cyclonedx.org/schema/bom/1.2" version="23">'.
+            '<components></components>'.
+            // 'externalReferences' is unset,
+            '</bom>',
+            $actual
+        );
+    }
+
+    // endregion external references
 }
