@@ -36,7 +36,7 @@ class HashDictionary implements \Countable
     /**
      * @var string[] dictionary of hashes
      *
-     * @psalm-var  array<HashAlgorithm::*, string>
+     * @psalm-var  array<HashAlgorithm::*,string>
      */
     private array $items = [];
 
@@ -78,7 +78,7 @@ class HashDictionary implements \Countable
     /**
      * @return string[] dictionary of hashes
      *
-     * @psalm-return array<HashAlgorithm::*, string>
+     * @psalm-return array<HashAlgorithm::*,string>
      */
     public function getItems(): array
     {
@@ -106,6 +106,9 @@ class HashDictionary implements \Countable
         return $this;
     }
 
+    /**
+     * @psalm-param HashAlgorithm::*|string $algorithm
+     */
     public function get(string $algorithm): ?string
     {
         return $this->items[$algorithm] ?? null;
