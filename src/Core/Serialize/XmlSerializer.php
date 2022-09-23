@@ -23,7 +23,7 @@ declare(strict_types=1);
 
 namespace CycloneDX\Core\Serialize;
 
-use CycloneDX\Core\_Helpers\SimpleDomTrait;
+use CycloneDX\Core\_helpers\SimpleDomTrait;
 use CycloneDX\Core\Models\Bom;
 use DomainException;
 use DOMDocument;

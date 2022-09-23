@@ -23,7 +23,7 @@ declare(strict_types=1);
 
 namespace CycloneDX\Core\Serialize\JSON\Normalizers;
 
-use CycloneDX\Core\_Helpers\NullAssertionTrait;
+use CycloneDX\Core\_helpers\NullAssertionTrait;
 use CycloneDX\Core\Models\Bom;
 use CycloneDX\Core\Models\Metadata;
 use CycloneDX\Core\Serialize\JSON\AbstractNormalizer;

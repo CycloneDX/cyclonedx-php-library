@@ -23,8 +23,8 @@ declare(strict_types=1);
 
 namespace CycloneDX\Core\Serialize\DOM\Normalizers;
 
-use CycloneDX\Core\_Helpers\SimpleDomTrait;
-use CycloneDX\Core\_Helpers\XmlTrait;
+use CycloneDX\Core\_helpers\SimpleDomTrait;
+use CycloneDX\Core\_helpers\XmlTrait;
 use CycloneDX\Core\Collections\HashDictionary;
 use CycloneDX\Core\Models\ExternalReference;
 use CycloneDX\Core\Serialize\DOM\AbstractNormalizer;

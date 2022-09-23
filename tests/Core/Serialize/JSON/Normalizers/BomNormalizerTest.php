@@ -109,7 +109,7 @@ class BomNormalizerTest extends TestCase
     }
 
     /**
-     * @uses \CycloneDX\Core\_Helpers\NullAssertionTrait
+     * @uses \CycloneDX\Core\_helpers\NullAssertionTrait
      */
     public function testNormalizeMetaData(): void
     {

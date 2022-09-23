@@ -23,7 +23,7 @@ declare(strict_types=1);
 
 namespace CycloneDX\Core\Serialize\DOM\Normalizers;
 
-use CycloneDX\Core\_Helpers\SimpleDomTrait;
+use CycloneDX\Core\_helpers\SimpleDomTrait;
 use CycloneDX\Core\Collections\ToolRepository;
 use CycloneDX\Core\Models\Component;
 use CycloneDX\Core\Models\Metadata;
