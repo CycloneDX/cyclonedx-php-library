@@ -23,7 +23,7 @@ declare(strict_types=1);
 
 namespace CycloneDX\Core\Serialize\DOM\Normalizers;
 
-use CycloneDX\Core\Helpers\SimpleDomTrait;
+use CycloneDX\Core\_Helpers\SimpleDomTrait;
 use CycloneDX\Core\Models\Bom;
 use CycloneDX\Core\Models\BomRef;
 use CycloneDX\Core\Models\Component;

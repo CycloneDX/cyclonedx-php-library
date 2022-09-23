@@ -23,7 +23,7 @@ declare(strict_types=1);
 
 namespace CycloneDX\Core\Serialize\JSON\Normalizers;
 
-use CycloneDX\Core\Helpers\NullAssertionTrait;
+use CycloneDX\Core\_Helpers\NullAssertionTrait;
 use CycloneDX\Core\Models\License\DisjunctiveLicenseWithId;
 use CycloneDX\Core\Models\License\DisjunctiveLicenseWithName;
 use CycloneDX\Core\Models\License\LicenseExpression;

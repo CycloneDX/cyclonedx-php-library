@@ -21,7 +21,7 @@ declare(strict_types=1);
  * Copyright (c) OWASP Foundation. All Rights Reserved.
  */
 
-namespace CycloneDX\Core\Helpers;
+namespace CycloneDX\Core\_Helpers;
 
 /**
  * @author jkowalleck

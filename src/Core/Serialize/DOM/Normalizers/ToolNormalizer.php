@@ -23,9 +23,9 @@ declare(strict_types=1);
 
 namespace CycloneDX\Core\Serialize\DOM\Normalizers;
 
+use CycloneDX\Core\_Helpers\SimpleDomTrait;
 use CycloneDX\Core\Collections\ExternalReferenceRepository;
 use CycloneDX\Core\Collections\HashDictionary;
-use CycloneDX\Core\Helpers\SimpleDomTrait;
 use CycloneDX\Core\Models\Tool;
 use CycloneDX\Core\Serialize\DOM\AbstractNormalizer;
 use DOMElement;

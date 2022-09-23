@@ -23,8 +23,8 @@ declare(strict_types=1);
 
 namespace CycloneDX\Core\Serialize\DOM\Normalizers;
 
-use CycloneDX\Core\Helpers\SimpleDomTrait;
-use CycloneDX\Core\Helpers\XmlTrait;
+use CycloneDX\Core\_Helpers\SimpleDomTrait;
+use CycloneDX\Core\_Helpers\XmlTrait;
 use CycloneDX\Core\Models\License\DisjunctiveLicenseWithId;
 use CycloneDX\Core\Models\License\DisjunctiveLicenseWithName;
 use CycloneDX\Core\Models\License\LicenseExpression;

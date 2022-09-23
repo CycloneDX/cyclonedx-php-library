@@ -36,7 +36,7 @@ use PHPUnit\Framework\TestCase;
 /**
  * @covers \CycloneDX\Core\Serialize\DOM\Normalizers\BomNormalizer
  * @covers \CycloneDX\Core\Serialize\DOM\AbstractNormalizer
- * @covers \CycloneDX\Core\Helpers\SimpleDomTrait
+ * @covers \CycloneDX\Core\_Helpers\SimpleDomTrait
  */
 class BomNormalizerTest extends TestCase
 {

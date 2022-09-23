@@ -23,9 +23,9 @@ declare(strict_types=1);
 
 namespace CycloneDX\Core\Serialize\JSON\Normalizers;
 
+use CycloneDX\Core\_Helpers\NullAssertionTrait;
 use CycloneDX\Core\Collections\ExternalReferenceRepository;
 use CycloneDX\Core\Collections\HashDictionary;
-use CycloneDX\Core\Helpers\NullAssertionTrait;
 use CycloneDX\Core\Models\Tool;
 use CycloneDX\Core\Serialize\JSON\AbstractNormalizer;
 

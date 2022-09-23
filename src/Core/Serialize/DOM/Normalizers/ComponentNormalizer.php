@@ -23,11 +23,11 @@ declare(strict_types=1);
 
 namespace CycloneDX\Core\Serialize\DOM\Normalizers;
 
+use CycloneDX\Core\_Helpers\SimpleDomTrait;
+use CycloneDX\Core\_Helpers\XmlTrait;
 use CycloneDX\Core\Collections\ExternalReferenceRepository;
 use CycloneDX\Core\Collections\HashDictionary;
 use CycloneDX\Core\Collections\LicenseRepository;
-use CycloneDX\Core\Helpers\SimpleDomTrait;
-use CycloneDX\Core\Helpers\XmlTrait;
 use CycloneDX\Core\Models\Component;
 use CycloneDX\Core\Serialize\DOM\AbstractNormalizer;
 use DomainException;

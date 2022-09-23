@@ -6,8 +6,6 @@
   <violation rule="PHPMD\Rule\CleanCode\MissingImport" file="src/Core/Enums/ExternalReferenceType.php"/>
   <violation rule="PHPMD\Rule\CleanCode\MissingImport" file="src/Core/Enums/HashAlgorithm.php"/>
   <violation rule="PHPMD\Rule\CleanCode\StaticAccess" file="src/Core/Factories/LicenseFactory.php"/>
-  <violation rule="PHPMD\Rule\CleanCode\ElseExpression" file="src/Core/Helpers/SimpleDomTrait.php"/>
-  <violation rule="PHPMD\Rule\CleanCode\BooleanArgumentFlag" file="src/Core/Helpers/SimpleDomTrait.php"/>
   <violation rule="PHPMD\Rule\CleanCode\StaticAccess" file="src/Core/Models/Component.php"/>
   <violation rule="PHPMD\Rule\CleanCode\StaticAccess" file="src/Core/Models/ExternalReference.php"/>
   <violation rule="PHPMD\Rule\Naming\ShortVariable" file="src/Core/Models/License/DisjunctiveLicenseWithId.php"/>
@@ -30,4 +28,6 @@
   <violation rule="PHPMD\Rule\Naming\ShortVariable" file="src/Core/Validation/ValidationError.php"/>
   <violation rule="PHPMD\Rule\CleanCode\StaticAccess" file="src/Core/Validation/Validators/JsonValidator.php"/>
   <violation rule="PHPMD\Rule\CleanCode\StaticAccess" file="src/Core/Validation/Validators/XmlValidator.php"/>
+  <violation rule="PHPMD\Rule\CleanCode\ElseExpression" file="src/Core/_Helpers/SimpleDomTrait.php"/>
+  <violation rule="PHPMD\Rule\CleanCode\BooleanArgumentFlag" file="src/Core/_Helpers/SimpleDomTrait.php"/>
 </phpmd-baseline>

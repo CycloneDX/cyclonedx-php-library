@@ -27,7 +27,7 @@
         </include>
         <exclude>
             <!-- who cares for the helpers, they are just helpers. -->
-            <directory suffix=".php">src/Core/Helpers</directory>
+            <directory suffix=".php">src/Core/_Helpers</directory>
         </exclude>
         <report>
             <clover outputFile="reports/coverage.clover.xml"/>
