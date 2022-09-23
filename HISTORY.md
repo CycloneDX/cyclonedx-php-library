@@ -54,9 +54,14 @@ API changes
     * BREAKING: renamed methods `{get,set}HashRepository()` -> `{get,set}Hashes()` ([#133] via [#131])  
       and changed parameter & return type to non-nullable, was nullable ([#66] via [#131])
   * `Licenses` namespace
-    * BREAKING: Removed the public usage of the internal class `AbstractDisjunctiveLicense`. (via [#125])  
-      This was made possible due PHP8's UnionType language feature.
-      The class was not removed, but marked `@internal`.
+    * `AbstractDisjunctiveLicense`
+       * BREAKING: Removed this class (via [#125], [#131])
+    * `DisjunctiveLicenseWithId` class
+      * No noteworthy changes.
+    * `DisjunctiveLicenseWithName` class
+      * No noteworthy changes.
+    * `LicenseExpression` class
+      * No noteworthy changes.
   * `MetaData` class
     * BREAKING: renamed class to `Metadata` ([#133] via [#131])  
       Even though PHP is case-insensitive with class names, autoloaders are not. Therefore, this is considered a breaking change.

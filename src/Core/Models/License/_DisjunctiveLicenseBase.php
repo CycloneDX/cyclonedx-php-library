@@ -28,7 +28,7 @@ namespace CycloneDX\Core\Models\License;
  *
  * @internal as this class may be affected by breaking changes without notice
  */
-abstract class AbstractDisjunctiveLicense
+trait _DisjunctiveLicenseBase
 {
     /**
      * The URL to the license file.

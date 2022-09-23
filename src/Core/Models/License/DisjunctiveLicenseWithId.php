@@ -31,8 +31,10 @@ use DomainException;
  *
  * @author jkowalleck
  */
-class DisjunctiveLicenseWithId extends AbstractDisjunctiveLicense
+class DisjunctiveLicenseWithId
 {
+    use _DisjunctiveLicenseBase;
+
     /**
      * A valid SPDX license ID.
      *
@@ -45,6 +47,11 @@ class DisjunctiveLicenseWithId extends AbstractDisjunctiveLicense
         return $this->id;
     }
 
+    private function __construct(string $id)
+    {
+        $this->id = $id;
+    }
+
     /**
      * @param string $id SPDX-ID of a license
      *
@@ -55,16 +62,9 @@ class DisjunctiveLicenseWithId extends AbstractDisjunctiveLicense
      */
     public static function makeValidated(string $id, LicenseValidator $spdxLicenseValidator): self
     {
-        $validId = $spdxLicenseValidator->getLicense($id);
+        $validId = $spdxLicenseValidator->getLicense($id)
+            ?? throw new DomainException("Invalid SPDX license: $id");
 
-        return new self(
-            $validId
-            ?? throw new DomainException("Invalid SPDX license: $id")
-        );
-    }
-
-    private function __construct(string $id)
-    {
-        $this->id = $id;
+        return new self($validId);
     }
 }
