@@ -80,15 +80,44 @@ class ExternalReferenceNormalizerTest extends \PHPUnit\Framework\TestCase
             'getHashes' => $this->createStub(HashDictionary::class),
         ]);
 
-        $spec->expects(self::atLeastOnce())
+        $spec->expects(self::exactly(2))
             ->method('isSupportedExternalReferenceType')
-            ->with('someType')
+            ->withConsecutive(['someType'], ['other'])
             ->willReturn(false);
 
         $this->expectException(\DomainException::class);
         $this->expectExceptionMessage('ExternalReference has unsupported type: someType');
 
         $normalizer->normalize($extRef);
+    }
+
+    public function testNormalizeTypeConvertIfNotSupported(): void
+    {
+        $spec = $this->createMock(Spec::class);
+        $normalizerFactory = $this->createConfiguredMock(\CycloneDX\Core\Serialization\DOM\NormalizerFactory::class, [
+            'getDocument' => new \DOMDocument(),
+            'getSPec' => $spec,
+        ]);
+        $normalizer = new Normalizers\ExternalReferenceNormalizer($normalizerFactory);
+        $extRef = $this->createConfiguredMock(ExternalReference::class, [
+            'getType' => 'someType',
+            'getUrl' => 'someUrl',
+        ]);
+
+        $spec->expects(self::exactly(2))
+            ->method('isSupportedExternalReferenceType')
+            ->withConsecutive(['someType'], ['other'])
+            ->willReturnMap([
+                ['someType', false],
+                ['other', true],
+            ]);
+
+        $actual = $normalizer->normalize($extRef);
+
+        self::assertStringEqualsDomNode(
+            '<reference type="other"><url>someUrl</url></reference>',
+            $actual
+        );
     }
 
     public function testNormalizeComment(): void

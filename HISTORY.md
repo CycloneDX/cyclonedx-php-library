@@ -30,8 +30,6 @@ API changes
     This was possible by enforcing correct typing on PHP8 language level.
 * `\CycloneDX\Core\Enum` namespace
   * Added class constant `ExternalReferenceType::RELEASE_NOTES` to reflect CycloneDX v1.4 ([#57] via [#65])
-* `\CycloneDX\Core\Factories` namespace
-  * No noteworthy changes
 * `\CycloneDX\Core\Models` namespace
   * `Bom` class
     * BREAKING: renamed methods `{get,set}ComponentRepository()` -> `{get,set}Components()` ([#133] via [#131])
@@ -56,12 +54,6 @@ API changes
   * `Licenses` namespace
     * `AbstractDisjunctiveLicense`
        * BREAKING: Removed this class (via [#125], [#131])
-    * `DisjunctiveLicenseWithId` class
-      * No noteworthy changes.
-    * `DisjunctiveLicenseWithName` class
-      * No noteworthy changes.
-    * `LicenseExpression` class
-      * No noteworthy changes.
   * `MetaData` class
     * BREAKING: renamed class to `Metadata` ([#133] via [#131])  
       Even though PHP is case-insensitive with class names, autoloaders are not. Therefore, this is considered a breaking change.
@@ -111,9 +103,10 @@ API changes
     * `ExternalReferenceNormalizer` classes
       * Changed the method `normalize()` to actually throw `\DomainException` when `\ExternalReference`'s type was not supported by the spec. (via [#65])  
         This is considered a non-breaking change, because the behaviour was already documented in the API, even though there was no need for an implementation before.
+    * `ExternalReferenceNormalizer` classes
+      * Changed, so that it tries to convert unsupported types to "other", before it throws an `\DomainException` ([#137] via [#147])
 * `\CycloneDX\Core\Spdx` namespace
-  * `License` class
-    * BREAKING: renamed the class to `LicenseValidator` ([#133] via [#143])
+  * BREAKING: renamed the class `License` -> `LicenseValidator` ([#133] via [#143])
 * `\CycloneDX\Core\Spec` namespace
   * BREAKING: completely reworked everything ([#139] via [#142])  
     See the code base for references
@@ -138,6 +131,7 @@ API changes
 [#125]: https://github.com/CycloneDX/cyclonedx-php-library/pull/125
 [#131]: https://github.com/CycloneDX/cyclonedx-php-library/pull/131
 [#133]: https://github.com/CycloneDX/cyclonedx-php-library/pull/133
+[#137]: https://github.com/CycloneDX/cyclonedx-php-library/issues/137
 [#139]: https://github.com/CycloneDX/cyclonedx-php-library/issues/139
 [#142]: https://github.com/CycloneDX/cyclonedx-php-library/pull/142
 [#143]: https://github.com/CycloneDX/cyclonedx-php-library/pull/143
