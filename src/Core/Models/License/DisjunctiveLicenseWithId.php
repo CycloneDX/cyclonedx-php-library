@@ -23,7 +23,7 @@ declare(strict_types=1);
 
 namespace CycloneDX\Core\Models\License;
 
-use CycloneDX\Core\Spdx\License as LicenseValidator;
+use CycloneDX\Core\Spdx\LicenseValidator;
 use DomainException;
 
 /**
@@ -38,7 +38,7 @@ class DisjunctiveLicenseWithId
     /**
      * A valid SPDX license ID.
      *
-     * @see \CycloneDX\Core\Spdx\License::validate()
+     * @see \CycloneDX\Core\Spdx\LicenseValidator::validate()
      */
     private string $id;
 
@@ -57,8 +57,8 @@ class DisjunctiveLicenseWithId
      *
      * @throws DomainException when the SPDX license is invalid
      *
-     * @see \CycloneDX\Core\Spdx\License::getLicense()
-     * @see \CycloneDX\Core\Spdx\License::validate()
+     * @see \CycloneDX\Core\Spdx\LicenseValidator::getLicense()
+     * @see \CycloneDX\Core\Spdx\LicenseValidator::validate()
      */
     public static function makeValidated(string $id, LicenseValidator $spdxLicenseValidator): self
     {

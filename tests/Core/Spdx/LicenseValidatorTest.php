@@ -23,17 +23,17 @@ declare(strict_types=1);
 
 namespace CycloneDX\Tests\Core\Spdx;
 
-use CycloneDX\Core\Spdx\License;
+use CycloneDX\Core\Spdx\LicenseValidator;
 use Generator;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers  \CycloneDX\Core\Spdx\License
+ * @covers  \CycloneDX\Core\Spdx\LicenseValidator
  */
-class LicenseTest extends TestCase
+class LicenseValidatorTest extends TestCase
 {
     /**
-     * @psalm-var License&\PHPUnit\Framework\MockObject\MockObject
+     * @psalm-var LicenseValidator&\PHPUnit\Framework\MockObject\MockObject
      */
     private $license;
 
@@ -50,7 +50,7 @@ class LicenseTest extends TestCase
         $tempFilePath = tempnam(sys_get_temp_dir(), __CLASS__);
         file_put_contents($tempFilePath, self::LICENSES_FILE_CONTENT);
 
-        $this->license = $this->createPartialMock(License::class, ['getResourcesFile']);
+        $this->license = $this->createPartialMock(LicenseValidator::class, ['getResourcesFile']);
         $this->license->method('getResourcesFile')->willReturn($tempFilePath);
         $this->license->loadLicenses();
 
@@ -106,7 +106,7 @@ class LicenseTest extends TestCase
 
     public function testShippedLicensesFile(): void
     {
-        $file = (new License())->getResourcesFile();
+        $file = (new LicenseValidator())->getResourcesFile();
 
         self::assertFileExists($file);
 
@@ -127,7 +127,7 @@ class LicenseTest extends TestCase
     {
         $tempFilePath = tempnam(sys_get_temp_dir(), __METHOD__);
         file_put_contents($tempFilePath, '["foo');
-        $license = $this->createPartialMock(License::class, ['getResourcesFile']);
+        $license = $this->createPartialMock(LicenseValidator::class, ['getResourcesFile']);
         $license->method('getResourcesFile')->willReturn($tempFilePath);
 
         $this->expectException(\RuntimeException::class);
@@ -141,7 +141,7 @@ class LicenseTest extends TestCase
         $tempFilePath = tempnam(sys_get_temp_dir(), __METHOD__);
         unlink($tempFilePath);
 
-        $license = $this->createPartialMock(License::class, ['getResourcesFile']);
+        $license = $this->createPartialMock(LicenseValidator::class, ['getResourcesFile']);
         $license->method('getResourcesFile')->willReturn($tempFilePath);
 
         $this->expectException(\RuntimeException::class);

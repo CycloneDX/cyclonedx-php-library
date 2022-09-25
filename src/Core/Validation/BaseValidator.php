@@ -29,7 +29,7 @@ use CycloneDX\Core\Spec\Version;
 /**
  * @author jkowalleck
  */
-abstract class BaseValidator implements ValidatorInterface
+abstract class BaseValidator implements Validator
 {
     private Spec $spec;
 

@@ -32,7 +32,7 @@ use RuntimeException;
  *
  * @author jkowalleck
  */
-class License
+class LicenseValidator
 {
     private bool $initialized = false;
 

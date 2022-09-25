@@ -28,7 +28,7 @@ use CycloneDX\Core\Spec\Spec;
 /**
  * @author jkowalleck
  */
-interface ValidatorInterface
+interface Validator
 {
     public function __construct(Spec $spec);
 

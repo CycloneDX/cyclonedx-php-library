@@ -27,7 +27,7 @@ use CycloneDX\Core\Factories\LicenseFactory;
 use CycloneDX\Core\Models\License\DisjunctiveLicenseWithId;
 use CycloneDX\Core\Models\License\DisjunctiveLicenseWithName;
 use CycloneDX\Core\Models\License\LicenseExpression;
-use CycloneDX\Core\Spdx\License as SpdxLicenseValidator;
+use CycloneDX\Core\Spdx\LicenseValidator as SpdxLicenseValidator;
 use DomainException;
 use PHPUnit\Framework\TestCase;
 use UnexpectedValueException;
