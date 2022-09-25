@@ -21,24 +21,29 @@ declare(strict_types=1);
  * Copyright (c) OWASP Foundation. All Rights Reserved.
  */
 
-require_once __DIR__.'/../vendor/autoload.php';
+namespace CycloneDX\Core\Serialization\JSON\Normalizers;
 
-// Example how to serialize a Bom to JSON / XML.
+use CycloneDX\Core\Collections\HashDictionary;
+use CycloneDX\Core\Serialization\JSON\_BaseNormalizer;
 
-$bom = new \CycloneDX\Core\Models\Bom();
-$bom->getComponents()->addItems(
-    new \CycloneDX\Core\Models\Component(
-        \CycloneDX\Core\Enums\Classification::LIBRARY,
-        'myComponent'
-    )
-);
+/**
+ * @author jkowalleck
+ */
+class HashDictionaryNormalizer extends _BaseNormalizer
+{
+    public function normalize(HashDictionary $repo): array
+    {
+        $hashes = [];
 
-$spec = \CycloneDX\Core\Spec\SpecFactory::make1dot4();
+        $normalizer = $this->getNormalizerFactory()->makeForHash();
+        foreach ($repo->getItems() as $algorithm => $content) {
+            try {
+                $hashes[] = $normalizer->normalize($algorithm, $content);
+            } catch (\DomainException) {
+                // pass
+            }
+        }
 
-$jsonSerializer = new \CycloneDX\Core\Serialization\JsonSerializer($spec);
-$serializedJSON = $jsonSerializer->serialize($bom);
-echo $serializedJSON, \PHP_EOL;
-
-$xmlSerializer = new \CycloneDX\Core\Serialization\XmlSerializer($spec);
-$serializedXML = $xmlSerializer->serialize($bom);
-echo $serializedXML, \PHP_EOL;
+        return $hashes;
+    }
+}

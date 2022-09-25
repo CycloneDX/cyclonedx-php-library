@@ -21,24 +21,31 @@ declare(strict_types=1);
  * Copyright (c) OWASP Foundation. All Rights Reserved.
  */
 
-require_once __DIR__.'/../vendor/autoload.php';
+namespace CycloneDX\Core\Serialization\JSON;
 
-// Example how to serialize a Bom to JSON / XML.
+/**
+ * @internal as this class may be affected by breaking changes without notice
+ *
+ * @author jkowalleck
+ *
+ * @SuppressWarnings(PHPMD.CamelCaseClassName)
+ */
+abstract class _BaseNormalizer
+{
+    /**
+     * @readonly
+     */
+    private NormalizerFactory $normalizerFactory;
 
-$bom = new \CycloneDX\Core\Models\Bom();
-$bom->getComponents()->addItems(
-    new \CycloneDX\Core\Models\Component(
-        \CycloneDX\Core\Enums\Classification::LIBRARY,
-        'myComponent'
-    )
-);
+    public function __construct(NormalizerFactory $normalizerFactory)
+    {
+        $this->normalizerFactory = $normalizerFactory;
+    }
 
-$spec = \CycloneDX\Core\Spec\SpecFactory::make1dot4();
+    public function getNormalizerFactory(): NormalizerFactory
+    {
+        return $this->normalizerFactory;
+    }
 
-$jsonSerializer = new \CycloneDX\Core\Serialization\JsonSerializer($spec);
-$serializedJSON = $jsonSerializer->serialize($bom);
-echo $serializedJSON, \PHP_EOL;
-
-$xmlSerializer = new \CycloneDX\Core\Serialization\XmlSerializer($spec);
-$serializedXML = $xmlSerializer->serialize($bom);
-echo $serializedXML, \PHP_EOL;
+    // intention to implement a "public function normalize" that accepts an object, and returns a normalized object
+}

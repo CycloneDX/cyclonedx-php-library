@@ -24,7 +24,7 @@ declare(strict_types=1);
 namespace CycloneDX\Tests\Core;
 
 use CycloneDX\Core\Models\Bom;
-use CycloneDX\Core\Serialize\JsonSerializer;
+use CycloneDX\Core\Serialization\JsonSerializer;
 use CycloneDX\Core\Spec\SpecFactory;
 use CycloneDX\Core\Validation\Validators\JsonStrictValidator;
 use DomainException;

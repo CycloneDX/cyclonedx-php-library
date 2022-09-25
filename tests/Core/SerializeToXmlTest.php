@@ -24,7 +24,7 @@ declare(strict_types=1);
 namespace CycloneDX\Tests\Core;
 
 use CycloneDX\Core\Models\Bom;
-use CycloneDX\Core\Serialize\XmlSerializer;
+use CycloneDX\Core\Serialization\XmlSerializer;
 use CycloneDX\Core\Spec\SpecFactory;
 use CycloneDX\Core\Validation\Validators\XmlValidator;
 use PHPUnit\Framework\TestCase;

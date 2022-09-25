@@ -73,18 +73,20 @@ API changes
       and changed parameter & return type to non-nullable, was nullable ([#66] via [#131])
 * `\CycloneDX\Core\Repositories` namespace
   * Overall:
-    * BREAKING: Renamed the namespace to `Collections` ([#133] via [#131])
-    * BREAKING: Streamlined all classes, renamed all getters to `getItems` and all setters to `setItems`. ([#133] via [#131])  
+    * BREAKING: renamed the namespace to `Collections` ([#133] via [#131])
+    * BREAKING: streamlined all classes, renamed all getters to `getItems` and all setters to `setItems`. ([#133] via [#131])  
       In addition, the method arguments were renamed to generic `$items`.
   * `DisjunctiveLicenseRepository` class
     * BREAKING: renamed the class to `LicenseRepository` (via [#131])
-    * BREAKING: Added the capability to also aggregate instances of class `Models\LicenseExpression`. (via [#131])
+    * BREAKING: added the capability to also aggregate instances of class `Models\LicenseExpression`. (via [#131])
       Therefore, various getters and setters and the constructor changed their signatures,
       was usage of `Models\License\AbstractDisjunctiveLicense` only.
   * `HashRepository` class
     * BREAKING: renamed to `HashDictionary` ([#133] via [#131])
     * BREAKING: renamed all methods and changed all method signatures to match the overall streamlined scheme ([#133] via [#131])
 * `\CycloneDX\Core\Serialize` namespace
+  * Overall
+    * BREAKING: renamed namespace to `Serialization` ([#5] via [#146])
   * `BaseSerializer` class
     * BREAKING: removed deprecated method `setSpec()` (via [#144])
   * `BaseValidator` class
@@ -123,6 +125,7 @@ API changes
   * `ValidatorInterface` interface
     * BREAKING: renamed interface to `Validator` ([#133] via [#143])
 
+[#5]: https://github.com/CycloneDX/cyclonedx-php-library/issues/5
 [#6]: https://github.com/CycloneDX/cyclonedx-php-library/issues/6
 [#27]: https://github.com/CycloneDX/cyclonedx-php-library/issues/27
 [#57]: https://github.com/CycloneDX/cyclonedx-php-library/issues/57
@@ -139,6 +142,7 @@ API changes
 [#142]: https://github.com/CycloneDX/cyclonedx-php-library/pull/142
 [#143]: https://github.com/CycloneDX/cyclonedx-php-library/pull/143
 [#144]: https://github.com/CycloneDX/cyclonedx-php-library/pull/144
+[#146]: https://github.com/CycloneDX/cyclonedx-php-library/pull/146
 
 ## 1.6.3 - 2022-09-15
 
