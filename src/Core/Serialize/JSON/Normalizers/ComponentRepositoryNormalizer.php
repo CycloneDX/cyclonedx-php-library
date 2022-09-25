@@ -24,12 +24,12 @@ declare(strict_types=1);
 namespace CycloneDX\Core\Serialize\JSON\Normalizers;
 
 use CycloneDX\Core\Collections\ComponentRepository;
-use CycloneDX\Core\Serialize\JSON\AbstractNormalizer;
+use CycloneDX\Core\Serialize\JSON\_BaseNormalizer;
 
 /**
  * @author jkowalleck
  */
-class ComponentRepositoryNormalizer extends AbstractNormalizer
+class ComponentRepositoryNormalizer extends _BaseNormalizer
 {
     /**
      * @psalm-return list<mixed>

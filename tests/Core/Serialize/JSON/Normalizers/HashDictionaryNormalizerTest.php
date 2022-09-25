@@ -32,7 +32,7 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \CycloneDX\Core\Serialize\JSON\Normalizers\HashDictionaryNormalizer
- * @covers \CycloneDX\Core\Serialize\JSON\AbstractNormalizer
+ * @covers \CycloneDX\Core\Serialize\JSON\_BaseNormalizer
  */
 class HashDictionaryNormalizerTest extends TestCase
 {

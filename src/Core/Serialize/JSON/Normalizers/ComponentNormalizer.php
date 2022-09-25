@@ -28,14 +28,14 @@ use CycloneDX\Core\Collections\ExternalReferenceRepository;
 use CycloneDX\Core\Collections\HashDictionary;
 use CycloneDX\Core\Collections\LicenseRepository;
 use CycloneDX\Core\Models\Component;
-use CycloneDX\Core\Serialize\JSON\AbstractNormalizer;
+use CycloneDX\Core\Serialize\JSON\_BaseNormalizer;
 use DomainException;
 use PackageUrl\PackageUrl;
 
 /**
  * @author jkowalleck
  */
-class ComponentNormalizer extends AbstractNormalizer
+class ComponentNormalizer extends _BaseNormalizer
 {
     use NullAssertionTrait;
 

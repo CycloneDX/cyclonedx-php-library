@@ -27,12 +27,12 @@ use CycloneDX\Core\_helpers\NullAssertionTrait;
 use CycloneDX\Core\Collections\ExternalReferenceRepository;
 use CycloneDX\Core\Collections\HashDictionary;
 use CycloneDX\Core\Models\Tool;
-use CycloneDX\Core\Serialize\JSON\AbstractNormalizer;
+use CycloneDX\Core\Serialize\JSON\_BaseNormalizer;
 
 /**
  * @author jkowalleck
  */
-class ToolNormalizer extends AbstractNormalizer
+class ToolNormalizer extends _BaseNormalizer
 {
     use NullAssertionTrait;
 

@@ -33,7 +33,7 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \CycloneDX\Core\Serialize\JSON\Normalizers\ComponentRepositoryNormalizer
- * @covers \CycloneDX\Core\Serialize\JSON\AbstractNormalizer
+ * @covers \CycloneDX\Core\Serialize\JSON\_BaseNormalizer
  */
 class ComponentRepositoryNormalizerTest extends TestCase
 {

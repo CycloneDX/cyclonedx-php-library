@@ -27,10 +27,10 @@ use CycloneDX\Core\_helpers\SimpleDomTrait;
 use CycloneDX\Core\Models\Bom;
 use CycloneDX\Core\Models\BomRef;
 use CycloneDX\Core\Models\Component;
-use CycloneDX\Core\Serialize\DOM\AbstractNormalizer;
+use CycloneDX\Core\Serialize\DOM\_BaseNormalizer;
 use DOMElement;
 
-class DependenciesNormalizer extends AbstractNormalizer
+class DependenciesNormalizer extends _BaseNormalizer
 {
     use SimpleDomTrait;
 

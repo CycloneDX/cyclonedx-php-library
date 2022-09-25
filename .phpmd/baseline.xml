@@ -17,6 +17,7 @@
   <violation rule="PHPMD\Rule\Naming\ShortVariable" file="src/Core/Serialize/DOM/Normalizers/DependenciesNormalizer.php"/>
   <violation rule="PHPMD\Rule\Naming\ShortVariable" file="src/Core/Serialize/DOM/Normalizers/LicenseNormalizer.php"/>
   <violation rule="PHPMD\Rule\Naming\LongVariable" file="src/Core/Serialize/DOM/Normalizers/ToolNormalizer.php"/>
+  <violation rule="PHPMD\Rule\Controversial\CamelCaseClassName" file="src/Core/Serialize/DOM/_BaseNormalizer.php"/>
   <violation rule="PHPMD\Rule\Design\TooManyPublicMethods" file="src/Core/Serialize/JSON/NormalizerFactory.php"/>
   <violation rule="PHPMD\Rule\Design\CouplingBetweenObjects" file="src/Core/Serialize/JSON/NormalizerFactory.php"/>
   <violation rule="PHPMD\Rule\Naming\LongVariable" file="src/Core/Serialize/JSON/Normalizers/BomNormalizer.php"/>
@@ -24,6 +25,7 @@
   <violation rule="PHPMD\Rule\Naming\ShortVariable" file="src/Core/Serialize/JSON/Normalizers/DependenciesNormalizer.php"/>
   <violation rule="PHPMD\Rule\Naming\ShortVariable" file="src/Core/Serialize/JSON/Normalizers/LicenseNormalizer.php"/>
   <violation rule="PHPMD\Rule\Naming\LongVariable" file="src/Core/Serialize/JSON/Normalizers/ToolNormalizer.php"/>
+  <violation rule="PHPMD\Rule\Controversial\CamelCaseClassName" file="src/Core/Serialize/JSON/_BaseNormalizer.php"/>
   <violation rule="PHPMD\Rule\Naming\ShortVariable" file="src/Core/Validation/Errors/XmlValidationError.php"/>
   <violation rule="PHPMD\Rule\Naming\LongClassName" file="src/Core/Validation/Helpers/JsonSchemaRemoteRefProviderForSnapshotResources.php"/>
   <violation rule="PHPMD\Rule\Naming\ShortVariable" file="src/Core/Validation/ValidationError.php"/>

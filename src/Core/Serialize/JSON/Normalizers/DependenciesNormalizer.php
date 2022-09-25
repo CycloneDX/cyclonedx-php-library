@@ -27,12 +27,12 @@ use CycloneDX\Core\_helpers\NullAssertionTrait;
 use CycloneDX\Core\Models\Bom;
 use CycloneDX\Core\Models\BomRef;
 use CycloneDX\Core\Models\Component;
-use CycloneDX\Core\Serialize\JSON\AbstractNormalizer;
+use CycloneDX\Core\Serialize\JSON\_BaseNormalizer;
 
 /**
  * @psalm-type Dependency = array{ref: string, dependsOn?: non-empty-list<string>}
  */
-class DependenciesNormalizer extends AbstractNormalizer
+class DependenciesNormalizer extends _BaseNormalizer
 {
     use NullAssertionTrait;
 

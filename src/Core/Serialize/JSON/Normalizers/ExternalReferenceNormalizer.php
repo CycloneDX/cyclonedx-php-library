@@ -26,13 +26,13 @@ namespace CycloneDX\Core\Serialize\JSON\Normalizers;
 use CycloneDX\Core\_helpers\NullAssertionTrait;
 use CycloneDX\Core\Collections\HashDictionary;
 use CycloneDX\Core\Models\ExternalReference;
-use CycloneDX\Core\Serialize\JSON\AbstractNormalizer;
+use CycloneDX\Core\Serialize\JSON\_BaseNormalizer;
 use DomainException;
 
 /**
  * @author jkowalleck
  */
-class ExternalReferenceNormalizer extends AbstractNormalizer
+class ExternalReferenceNormalizer extends _BaseNormalizer
 {
     use NullAssertionTrait;
 

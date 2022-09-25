@@ -36,7 +36,7 @@ use PHPUnit\Framework\TestCase;
 class XmlSerializerTest extends TestCase
 {
     /**
-     * @uses   \CycloneDX\Core\Serialize\DOM\AbstractNormalizer
+     * @uses   \CycloneDX\Core\Serialize\DOM\_BaseNormalizer
      * @uses   \CycloneDX\Core\Serialize\DOM\NormalizerFactory
      * @uses   \CycloneDX\Core\Serialize\DOM\Normalizers\BomNormalizer
      * @uses   \CycloneDX\Core\Serialize\DOM\Normalizers\ComponentRepositoryNormalizer
@@ -69,7 +69,7 @@ class XmlSerializerTest extends TestCase
     }
 
     /**
-     * @uses   \CycloneDX\Core\Serialize\DOM\AbstractNormalizer
+     * @uses   \CycloneDX\Core\Serialize\DOM\_BaseNormalizer
      * @uses   \CycloneDX\Core\Serialize\DOM\NormalizerFactory
      * @uses   \CycloneDX\Core\Serialize\DOM\Normalizers\BomNormalizer
      * @uses   \CycloneDX\Core\Serialize\DOM\Normalizers\ComponentRepositoryNormalizer
@@ -102,7 +102,7 @@ class XmlSerializerTest extends TestCase
     }
 
     /**
-     * @uses   \CycloneDX\Core\Serialize\DOM\AbstractNormalizer
+     * @uses   \CycloneDX\Core\Serialize\DOM\_BaseNormalizer
      * @uses   \CycloneDX\Core\Serialize\DOM\NormalizerFactory
      * @uses   \CycloneDX\Core\Serialize\DOM\Normalizers\BomNormalizer
      * @uses   \CycloneDX\Core\Serialize\DOM\Normalizers\ComponentRepositoryNormalizer
@@ -135,7 +135,7 @@ class XmlSerializerTest extends TestCase
     }
 
     /**
-     * @uses   \CycloneDX\Core\Serialize\DOM\AbstractNormalizer
+     * @uses   \CycloneDX\Core\Serialize\DOM\_BaseNormalizer
      * @uses   \CycloneDX\Core\Serialize\DOM\NormalizerFactory
      * @uses   \CycloneDX\Core\Serialize\DOM\Normalizers\BomNormalizer
      * @uses   \CycloneDX\Core\Serialize\DOM\Normalizers\ComponentRepositoryNormalizer

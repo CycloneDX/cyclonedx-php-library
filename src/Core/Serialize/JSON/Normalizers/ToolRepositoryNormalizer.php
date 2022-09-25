@@ -24,12 +24,12 @@ declare(strict_types=1);
 namespace CycloneDX\Core\Serialize\JSON\Normalizers;
 
 use CycloneDX\Core\Collections\ToolRepository;
-use CycloneDX\Core\Serialize\JSON\AbstractNormalizer;
+use CycloneDX\Core\Serialize\JSON\_BaseNormalizer;
 
 /**
  * @author jkowalleck
  */
-class ToolRepositoryNormalizer extends AbstractNormalizer
+class ToolRepositoryNormalizer extends _BaseNormalizer
 {
     /**
      * @return array[]

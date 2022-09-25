@@ -23,18 +23,15 @@ declare(strict_types=1);
 
 namespace CycloneDX\Core\Serialize\DOM\Normalizers;
 
-use CycloneDX\Core\_helpers\SimpleDomTrait;
 use CycloneDX\Core\Collections\LicenseRepository;
-use CycloneDX\Core\Serialize\DOM\AbstractNormalizer;
+use CycloneDX\Core\Serialize\DOM\_BaseNormalizer;
 use DOMElement;
 
 /**
  * @author jkowalleck
  */
-class LicenseRepositoryNormalizer extends AbstractNormalizer
+class LicenseRepositoryNormalizer extends _BaseNormalizer
 {
-    use SimpleDomTrait;
-
     /**
      * @return DOMElement[]
      *

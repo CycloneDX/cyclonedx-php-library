@@ -36,7 +36,7 @@ use PHPUnit\Framework\TestCase;
 class JsonSerializerTest extends TestCase
 {
     /**
-     * @uses   \CycloneDX\Core\Serialize\JSON\AbstractNormalizer
+     * @uses   \CycloneDX\Core\Serialize\JSON\_BaseNormalizer
      * @uses   \CycloneDX\Core\Serialize\JSON\NormalizerFactory
      * @uses   \CycloneDX\Core\Serialize\JSON\Normalizers\BomNormalizer
      * @uses   \CycloneDX\Core\Serialize\JSON\Normalizers\ComponentRepositoryNormalizer
@@ -72,7 +72,7 @@ class JsonSerializerTest extends TestCase
     }
 
     /**
-     * @uses   \CycloneDX\Core\Serialize\JSON\AbstractNormalizer
+     * @uses   \CycloneDX\Core\Serialize\JSON\_BaseNormalizer
      * @uses   \CycloneDX\Core\Serialize\JSON\NormalizerFactory
      * @uses   \CycloneDX\Core\Serialize\JSON\Normalizers\BomNormalizer
      * @uses   \CycloneDX\Core\Serialize\JSON\Normalizers\ComponentRepositoryNormalizer
@@ -108,7 +108,7 @@ class JsonSerializerTest extends TestCase
     }
 
     /**
-     * @uses   \CycloneDX\Core\Serialize\JSON\AbstractNormalizer
+     * @uses   \CycloneDX\Core\Serialize\JSON\_BaseNormalizer
      * @uses   \CycloneDX\Core\Serialize\JSON\NormalizerFactory
      * @uses   \CycloneDX\Core\Serialize\JSON\Normalizers\BomNormalizer
      * @uses   \CycloneDX\Core\Serialize\JSON\Normalizers\ComponentRepositoryNormalizer

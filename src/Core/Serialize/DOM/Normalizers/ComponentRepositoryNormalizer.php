@@ -24,13 +24,13 @@ declare(strict_types=1);
 namespace CycloneDX\Core\Serialize\DOM\Normalizers;
 
 use CycloneDX\Core\Collections\ComponentRepository;
-use CycloneDX\Core\Serialize\DOM\AbstractNormalizer;
+use CycloneDX\Core\Serialize\DOM\_BaseNormalizer;
 use DOMElement;
 
 /**
  * @author jkowalleck
  */
-class ComponentRepositoryNormalizer extends AbstractNormalizer
+class ComponentRepositoryNormalizer extends _BaseNormalizer
 {
     /**
      * @return DOMElement[]

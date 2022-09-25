@@ -27,12 +27,12 @@ use CycloneDX\Core\_helpers\NullAssertionTrait;
 use CycloneDX\Core\Models\License\DisjunctiveLicenseWithId;
 use CycloneDX\Core\Models\License\DisjunctiveLicenseWithName;
 use CycloneDX\Core\Models\License\LicenseExpression;
-use CycloneDX\Core\Serialize\JSON\AbstractNormalizer;
+use CycloneDX\Core\Serialize\JSON\_BaseNormalizer;
 
 /**
  * @author jkowalleck
  */
-class LicenseNormalizer extends AbstractNormalizer
+class LicenseNormalizer extends _BaseNormalizer
 {
     use NullAssertionTrait;
 

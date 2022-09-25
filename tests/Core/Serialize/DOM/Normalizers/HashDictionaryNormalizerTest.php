@@ -33,7 +33,7 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \CycloneDX\Core\Serialize\DOM\Normalizers\HashDictionaryNormalizer
- * @covers \CycloneDX\Core\Serialize\DOM\AbstractNormalizer
+ * @covers \CycloneDX\Core\Serialize\DOM\_BaseNormalizer
  * @covers \CycloneDX\Core\_helpers\SimpleDomTrait
  *
  * @uses   \CycloneDX\Core\Serialize\DOM\Normalizers\HashNormalizer

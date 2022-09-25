@@ -31,7 +31,7 @@ use CycloneDX\Core\Spec\SpecInterface;
 
 /**
  * @covers \CycloneDX\Core\Serialize\JSON\Normalizers\ExternalReferenceRepositoryNormalizer
- * @covers \CycloneDX\Core\Serialize\JSON\AbstractNormalizer
+ * @covers \CycloneDX\Core\Serialize\JSON\_BaseNormalizer
  *
  * @uses \CycloneDX\Core\Serialize\JSON\Normalizers\ExternalReferenceNormalizer
  */

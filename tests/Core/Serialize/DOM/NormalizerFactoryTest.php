@@ -32,7 +32,7 @@ use PHPUnit\Framework\TestCase;
 /**
  * @covers \CycloneDX\Core\Serialize\DOM\NormalizerFactory
  *
- * @uses   \CycloneDX\Core\Serialize\DOM\AbstractNormalizer
+ * @uses   \CycloneDX\Core\Serialize\DOM\_BaseNormalizer
  */
 class NormalizerFactoryTest extends TestCase
 {

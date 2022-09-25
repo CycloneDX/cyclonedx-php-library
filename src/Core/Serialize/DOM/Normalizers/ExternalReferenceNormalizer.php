@@ -27,7 +27,7 @@ use CycloneDX\Core\_helpers\SimpleDomTrait;
 use CycloneDX\Core\_helpers\XmlTrait;
 use CycloneDX\Core\Collections\HashDictionary;
 use CycloneDX\Core\Models\ExternalReference;
-use CycloneDX\Core\Serialize\DOM\AbstractNormalizer;
+use CycloneDX\Core\Serialize\DOM\_BaseNormalizer;
 use DomainException;
 use DOMElement;
 use UnexpectedValueException;
@@ -35,7 +35,7 @@ use UnexpectedValueException;
 /**
  * @author jkowalleck
  */
-class ExternalReferenceNormalizer extends AbstractNormalizer
+class ExternalReferenceNormalizer extends _BaseNormalizer
 {
     use SimpleDomTrait;
     use XmlTrait;

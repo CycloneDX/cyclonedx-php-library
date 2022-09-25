@@ -24,12 +24,12 @@ declare(strict_types=1);
 namespace CycloneDX\Core\Serialize\JSON\Normalizers;
 
 use CycloneDX\Core\Collections\HashDictionary;
-use CycloneDX\Core\Serialize\JSON\AbstractNormalizer;
+use CycloneDX\Core\Serialize\JSON\_BaseNormalizer;
 
 /**
  * @author jkowalleck
  */
-class HashDictionaryNormalizer extends AbstractNormalizer
+class HashDictionaryNormalizer extends _BaseNormalizer
 {
     public function normalize(HashDictionary $repo): array
     {

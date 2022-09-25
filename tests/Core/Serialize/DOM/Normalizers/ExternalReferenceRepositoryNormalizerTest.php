@@ -32,7 +32,7 @@ use DOMElement;
 
 /**
  * @covers \CycloneDX\Core\Serialize\DOM\Normalizers\ExternalReferenceRepositoryNormalizer
- * @covers \CycloneDX\Core\Serialize\DOM\AbstractNormalizer
+ * @covers \CycloneDX\Core\Serialize\DOM\_BaseNormalizer
  *
  * @uses \CycloneDX\Core\Serialize\DOM\Normalizers\ExternalReferenceNormalizer
  */

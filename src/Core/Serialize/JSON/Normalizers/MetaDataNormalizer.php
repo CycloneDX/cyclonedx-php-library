@@ -27,12 +27,12 @@ use CycloneDX\Core\_helpers\NullAssertionTrait;
 use CycloneDX\Core\Collections\ToolRepository;
 use CycloneDX\Core\Models\Component;
 use CycloneDX\Core\Models\Metadata;
-use CycloneDX\Core\Serialize\JSON\AbstractNormalizer;
+use CycloneDX\Core\Serialize\JSON\_BaseNormalizer;
 
 /**
  * @author jkowalleck
  */
-class MetaDataNormalizer extends AbstractNormalizer
+class MetaDataNormalizer extends _BaseNormalizer
 {
     use NullAssertionTrait;
 

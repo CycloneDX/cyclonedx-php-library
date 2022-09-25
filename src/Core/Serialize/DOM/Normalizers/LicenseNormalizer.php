@@ -28,13 +28,13 @@ use CycloneDX\Core\_helpers\XmlTrait;
 use CycloneDX\Core\Models\License\DisjunctiveLicenseWithId;
 use CycloneDX\Core\Models\License\DisjunctiveLicenseWithName;
 use CycloneDX\Core\Models\License\LicenseExpression;
-use CycloneDX\Core\Serialize\DOM\AbstractNormalizer;
+use CycloneDX\Core\Serialize\DOM\_BaseNormalizer;
 use DOMElement;
 
 /**
  * @author jkowalleck
  */
-class LicenseNormalizer extends AbstractNormalizer
+class LicenseNormalizer extends _BaseNormalizer
 {
     use SimpleDomTrait;
     use XmlTrait;

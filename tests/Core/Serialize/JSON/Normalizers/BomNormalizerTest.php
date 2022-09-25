@@ -36,7 +36,7 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \CycloneDX\Core\Serialize\JSON\Normalizers\BomNormalizer
- * @covers \CycloneDX\Core\Serialize\JSON\AbstractNormalizer
+ * @covers \CycloneDX\Core\Serialize\JSON\_BaseNormalizer
  *
  * @uses   \CycloneDX\Core\Serialize\JSON\Normalizers\DependenciesNormalizer
  * @uses   \CycloneDX\Core\Serialize\JSON\Normalizers\MetaDataNormalizer

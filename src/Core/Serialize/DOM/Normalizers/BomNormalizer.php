@@ -27,13 +27,13 @@ use CycloneDX\Core\_helpers\SimpleDomTrait;
 use CycloneDX\Core\Collections\ComponentRepository;
 use CycloneDX\Core\Models\Bom;
 use CycloneDX\Core\Models\Metadata;
-use CycloneDX\Core\Serialize\DOM\AbstractNormalizer;
+use CycloneDX\Core\Serialize\DOM\_BaseNormalizer;
 use DOMElement;
 
 /**
  * @author jkowalleck
  */
-class BomNormalizer extends AbstractNormalizer
+class BomNormalizer extends _BaseNormalizer
 {
     use SimpleDomTrait;
 

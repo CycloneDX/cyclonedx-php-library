@@ -38,7 +38,7 @@ use PHPUnit\Framework\TestCase;
 /**
  * @covers \CycloneDX\Core\Serialize\DOM\Normalizers\ToolNormalizer
  *
- * @uses   \CycloneDX\Core\Serialize\DOM\AbstractNormalizer
+ * @uses   \CycloneDX\Core\Serialize\DOM\_BaseNormalizer
  */
 class ToolNormalizerTest extends TestCase
 {

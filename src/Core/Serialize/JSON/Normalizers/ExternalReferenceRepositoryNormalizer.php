@@ -24,12 +24,12 @@ declare(strict_types=1);
 namespace CycloneDX\Core\Serialize\JSON\Normalizers;
 
 use CycloneDX\Core\Collections\ExternalReferenceRepository;
-use CycloneDX\Core\Serialize\JSON\AbstractNormalizer;
+use CycloneDX\Core\Serialize\JSON\_BaseNormalizer;
 
 /**
  * @author jkowalleck
  */
-class ExternalReferenceRepositoryNormalizer extends AbstractNormalizer
+class ExternalReferenceRepositoryNormalizer extends _BaseNormalizer
 {
     /**
      * @return array[]

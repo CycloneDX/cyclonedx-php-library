@@ -56,6 +56,8 @@ class NormalizerFactory
         $this->document = new DOMDocument();
     }
 
+    // intention: all factory methods return an instance of "_BaseNormalizer"
+
     public function getSpec(): SpecInterface
     {
         return $this->spec;

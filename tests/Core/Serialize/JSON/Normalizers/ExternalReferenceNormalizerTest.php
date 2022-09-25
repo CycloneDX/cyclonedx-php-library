@@ -31,7 +31,7 @@ use CycloneDX\Core\Spec\SpecInterface;
 
 /**
  * @covers \CycloneDX\Core\Serialize\JSON\Normalizers\ExternalReferenceNormalizer
- * @covers \CycloneDX\Core\Serialize\JSON\AbstractNormalizer
+ * @covers \CycloneDX\Core\Serialize\JSON\_BaseNormalizer
  */
 class ExternalReferenceNormalizerTest extends \PHPUnit\Framework\TestCase
 {

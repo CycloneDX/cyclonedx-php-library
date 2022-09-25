@@ -24,12 +24,12 @@ declare(strict_types=1);
 namespace CycloneDX\Core\Serialize\JSON\Normalizers;
 
 use CycloneDX\Core\Collections\LicenseRepository;
-use CycloneDX\Core\Serialize\JSON\AbstractNormalizer;
+use CycloneDX\Core\Serialize\JSON\_BaseNormalizer;
 
 /**
  * @author jkowalleck
  */
-class LicenseRepositoryNormalizer extends AbstractNormalizer
+class LicenseRepositoryNormalizer extends _BaseNormalizer
 {
     public function normalize(LicenseRepository $repo): array
     {

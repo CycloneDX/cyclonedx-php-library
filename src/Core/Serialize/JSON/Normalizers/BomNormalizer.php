@@ -26,12 +26,12 @@ namespace CycloneDX\Core\Serialize\JSON\Normalizers;
 use CycloneDX\Core\_helpers\NullAssertionTrait;
 use CycloneDX\Core\Models\Bom;
 use CycloneDX\Core\Models\Metadata;
-use CycloneDX\Core\Serialize\JSON\AbstractNormalizer;
+use CycloneDX\Core\Serialize\JSON\_BaseNormalizer;
 
 /**
  * @author jkowalleck
  */
-class BomNormalizer extends AbstractNormalizer
+class BomNormalizer extends _BaseNormalizer
 {
     use NullAssertionTrait;
 

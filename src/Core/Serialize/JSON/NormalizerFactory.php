@@ -54,6 +54,8 @@ class NormalizerFactory
         return $this->spec;
     }
 
+    // intention: all factory methods return an instance of "_BaseNormalizer"
+
     public function makeForBom(): Normalizers\BomNormalizer
     {
         return new Normalizers\BomNormalizer($this);

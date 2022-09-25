@@ -32,7 +32,7 @@ use CycloneDX\Tests\_traits\DomNodeAssertionTrait;
 
 /**
  * @covers \CycloneDX\Core\Serialize\DOM\Normalizers\ExternalReferenceNormalizer
- * @covers \CycloneDX\Core\Serialize\DOM\AbstractNormalizer
+ * @covers \CycloneDX\Core\Serialize\DOM\_BaseNormalizer
  */
 class ExternalReferenceNormalizerTest extends \PHPUnit\Framework\TestCase
 {

@@ -36,7 +36,7 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \CycloneDX\Core\Serialize\DOM\Normalizers\DependenciesNormalizer
- * @covers \CycloneDX\Core\Serialize\DOM\AbstractNormalizer
+ * @covers \CycloneDX\Core\Serialize\DOM\_BaseNormalizer
  */
 class DependenciesNormalizerTest extends TestCase
 {
