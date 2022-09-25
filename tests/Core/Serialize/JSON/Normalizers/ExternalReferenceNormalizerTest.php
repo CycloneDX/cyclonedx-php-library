@@ -27,7 +27,7 @@ use CycloneDX\Core\Collections\HashDictionary;
 use CycloneDX\Core\Models\ExternalReference;
 use CycloneDX\Core\Serialize\JSON\NormalizerFactory;
 use CycloneDX\Core\Serialize\JSON\Normalizers;
-use CycloneDX\Core\Spec\SpecInterface;
+use CycloneDX\Core\Spec\Spec;
 
 /**
  * @covers \CycloneDX\Core\Serialize\JSON\Normalizers\ExternalReferenceNormalizer
@@ -37,7 +37,7 @@ class ExternalReferenceNormalizerTest extends \PHPUnit\Framework\TestCase
 {
     public function testNormalizeTypeAndUrl(): void
     {
-        $spec = $this->createMock(SpecInterface::class);
+        $spec = $this->createMock(Spec::class);
         $normalizerFactory = $this->createConfiguredMock(NormalizerFactory::class, [
             'getSPec' => $spec,
         ]);
@@ -66,7 +66,7 @@ class ExternalReferenceNormalizerTest extends \PHPUnit\Framework\TestCase
 
     public function testThrowOnUnsupportedRefType(): void
     {
-        $spec = $this->createMock(SpecInterface::class);
+        $spec = $this->createMock(Spec::class);
         $normalizerFactory = $this->createConfiguredMock(NormalizerFactory::class, [
             'getSPec' => $spec,
         ]);
@@ -91,7 +91,7 @@ class ExternalReferenceNormalizerTest extends \PHPUnit\Framework\TestCase
 
     public function testNormalizeComment(): void
     {
-        $spec = $this->createMock(SpecInterface::class);
+        $spec = $this->createMock(Spec::class);
         $normalizerFactory = $this->createConfiguredMock(NormalizerFactory::class, [
             'getSPec' => $spec,
         ]);
@@ -120,7 +120,7 @@ class ExternalReferenceNormalizerTest extends \PHPUnit\Framework\TestCase
 
     public function testNormalizeHashes(): void
     {
-        $spec = $this->createConfiguredMock(SpecInterface::class, [
+        $spec = $this->createConfiguredMock(Spec::class, [
             'supportsExternalReferenceHashes' => true,
         ]);
         $hashDictNormalizer = $this->createMock(Normalizers\HashDictionaryNormalizer::class);
@@ -155,7 +155,7 @@ class ExternalReferenceNormalizerTest extends \PHPUnit\Framework\TestCase
 
     public function testNormalizeHashesOmitIfEmpty(): void
     {
-        $spec = $this->createConfiguredMock(SpecInterface::class, [
+        $spec = $this->createConfiguredMock(Spec::class, [
             'supportsExternalReferenceHashes' => true,
         ]);
         $HashDictionaryNormalizer = $this->createMock(Normalizers\HashDictionaryNormalizer::class);
@@ -189,7 +189,7 @@ class ExternalReferenceNormalizerTest extends \PHPUnit\Framework\TestCase
 
     public function testNormalizeHashesOmitIfNotSupported(): void
     {
-        $spec = $this->createConfiguredMock(SpecInterface::class, [
+        $spec = $this->createConfiguredMock(Spec::class, [
             'supportsExternalReferenceHashes' => false,
         ]);
         $HashDictionaryNormalizer = $this->createMock(Normalizers\HashDictionaryNormalizer::class);

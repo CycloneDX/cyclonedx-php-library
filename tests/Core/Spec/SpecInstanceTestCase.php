@@ -26,17 +26,17 @@ namespace CycloneDX\Tests\Core\Spec;
 use CycloneDX\Core\Enums\Classification;
 use CycloneDX\Core\Enums\ExternalReferenceType;
 use CycloneDX\Core\Enums\HashAlgorithm;
-use CycloneDX\Core\Spec\SpecInterface;
+use CycloneDX\Core\Spec\Spec;
 use CycloneDX\Tests\_data\BomSpecData;
 use Generator;
 use PHPUnit\Framework\TestCase;
 
-abstract class AbstractSpecTestCase extends TestCase
+abstract class SpecInstanceTestCase extends TestCase
 {
-    abstract protected function getSpec(): SpecInterface;
+    abstract protected function getSpec(): Spec;
 
     /**
-     * @psalm-return \CycloneDX\Core\Spec\Version::V_*
+     * @psalm-return \CycloneDX\Core\Spec\Version::*
      */
     abstract protected function getSpecVersion(): string;
 
@@ -59,15 +59,6 @@ abstract class AbstractSpecTestCase extends TestCase
     }
 
     /**
-     * @depends testKnownFormats
-     */
-    final public function testGetSupportedFormats(array $knownFormats): void
-    {
-        $formats = $this->getSpec()->getSupportedFormats();
-        self::assertEquals($knownFormats, $formats);
-    }
-
-    /**
      * @dataProvider dpIsSupportsFormat
      */
     final public function testIsSupportedFormat(string $format, bool $expected): void
@@ -82,17 +73,6 @@ abstract class AbstractSpecTestCase extends TestCase
         foreach ($this->shouldSupportFormats() as $format) {
             yield $format => [$format, true];
         }
-    }
-
-    final public function testGetSupportedComponentTypes(): void
-    {
-        $expected = BomSpecData::getClassificationEnumForVersion($this->getSpecVersion());
-
-        $values = $this->getSpec()->getSupportedComponentTypes();
-
-        self::assertNotCount(0, $values);
-        sort($values, \SORT_STRING);
-        self::assertSame($expected, $values);
     }
 
     /**
@@ -112,17 +92,6 @@ abstract class AbstractSpecTestCase extends TestCase
         foreach ($values as $value) {
             yield $value => [$value, \in_array($value, $known, true)];
         }
-    }
-
-    final public function testGetSupportedHashAlgorithms(): void
-    {
-        $expected = BomSpecData::getHashAlgEnumForVersion($this->getSpecVersion());
-
-        $values = $this->getSpec()->getSupportedHashAlgorithms();
-
-        self::assertNotCount(0, $values);
-        sort($values, \SORT_STRING);
-        self::assertSame($expected, $values);
     }
 
     /**
@@ -157,17 +126,6 @@ abstract class AbstractSpecTestCase extends TestCase
     {
         yield 'crap' => ['this is an invalid hash', false];
         yield 'valid sha1' => ['a052cfe45093f1c2d26bd854d06aa370ceca3b38', true];
-    }
-
-    final public function testGetSupportedExternalReferenceTypes(): void
-    {
-        $expected = BomSpecData::getExternalReferenceTypeForVersion($this->getSpecVersion());
-
-        $values = $this->getSpec()->getSupportedExternalReferenceTypes();
-
-        self::assertNotCount(0, $values);
-        sort($values, \SORT_STRING);
-        self::assertSame($expected, $values);
     }
 
     /**

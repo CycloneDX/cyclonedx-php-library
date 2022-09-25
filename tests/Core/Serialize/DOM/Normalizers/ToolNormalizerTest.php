@@ -30,7 +30,7 @@ use CycloneDX\Core\Serialize\DOM\NormalizerFactory;
 use CycloneDX\Core\Serialize\DOM\Normalizers\ExternalReferenceRepositoryNormalizer;
 use CycloneDX\Core\Serialize\DOM\Normalizers\HashDictionaryNormalizer;
 use CycloneDX\Core\Serialize\DOM\Normalizers\ToolNormalizer;
-use CycloneDX\Core\Spec\SpecInterface;
+use CycloneDX\Core\Spec\Spec;
 use CycloneDX\Tests\_traits\DomNodeAssertionTrait;
 use DOMDocument;
 use PHPUnit\Framework\TestCase;
@@ -47,7 +47,7 @@ class ToolNormalizerTest extends TestCase
     public function testNormalizeEmpty(): void
     {
         $tool = $this->createMock(Tool::class);
-        $spec = $this->createMock(SpecInterface::class);
+        $spec = $this->createMock(Spec::class);
         $factory = $this->createConfiguredMock(
             NormalizerFactory::class,
             [
@@ -80,7 +80,7 @@ class ToolNormalizerTest extends TestCase
                 'getExternalReferences' => $this->createConfiguredMock(ExternalReferenceRepository::class, ['count' => 2]),
             ]
         );
-        $spec = $this->createConfiguredMock(SpecInterface::class, [
+        $spec = $this->createConfiguredMock(Spec::class, [
             'supportsToolExternalReferences' => true,
         ]);
         $HashDictNormalizer = $this->createMock(HashDictionaryNormalizer::class);
@@ -131,7 +131,7 @@ class ToolNormalizerTest extends TestCase
                 'getExternalReferences' => $this->createStub(ExternalReferenceRepository::class),
             ]
         );
-        $spec = $this->createConfiguredMock(SpecInterface::class, [
+        $spec = $this->createConfiguredMock(Spec::class, [
             'supportsToolExternalReferences' => true,
         ]);
         $HashDictNormalizer = $this->createMock(HashDictionaryNormalizer::class);

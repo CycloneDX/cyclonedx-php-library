@@ -25,21 +25,21 @@ namespace CycloneDX\Core\Serialize;
 
 use CycloneDX\Core\Models\Bom;
 use CycloneDX\Core\Models\BomRef;
-use CycloneDX\Core\Spec\SpecInterface;
+use CycloneDX\Core\Spec\Spec;
 
 /**
  * @author jkowalleck
  */
 abstract class BaseSerializer implements SerializerInterface
 {
-    private SpecInterface $spec;
+    private Spec $spec;
 
-    public function __construct(SpecInterface $spec)
+    public function __construct(Spec $spec)
     {
         $this->spec = $spec;
     }
 
-    public function getSpec(): SpecInterface
+    public function getSpec(): Spec
     {
         return $this->spec;
     }
@@ -51,7 +51,7 @@ abstract class BaseSerializer implements SerializerInterface
      *
      * @TODO remove with next major version - milestone v4
      */
-    public function setSpec(SpecInterface $spec): self
+    public function setSpec(Spec $spec): self
     {
         $this->spec = $spec;
 

@@ -24,22 +24,24 @@ declare(strict_types=1);
 namespace CycloneDX\Tests\Core\Spec;
 
 use CycloneDX\Core\Spec\Format;
-use CycloneDX\Core\Spec\Spec14;
-use CycloneDX\Core\Spec\SpecInterface;
+use CycloneDX\Core\Spec\Spec;
+use CycloneDX\Core\Spec\SpecFactory;
 
 /**
- * @covers \CycloneDX\Core\Spec\Spec14
+ * @covers \CycloneDX\Core\Spec\Spec
+ *
+ * @uses \CycloneDX\Core\Spec\SpecFactory
  */
-class Spec14Test extends AbstractSpecTestCase
+class Spec1dot2Test extends SpecInstanceTestCase
 {
-    protected function getSpec(): SpecInterface
+    protected function getSpec(): Spec
     {
-        return new Spec14();
+        return SpecFactory::make1dot2();
     }
 
     protected function getSpecVersion(): string
     {
-        return '1.4';
+        return '1.2';
     }
 
     protected function shouldSupportFormats(): array
@@ -69,16 +71,16 @@ class Spec14Test extends AbstractSpecTestCase
 
     public function shouldSupportExternalReferenceHashes(): bool
     {
-        return true;
+        return false;
     }
 
     public function shouldRequireComponentVersion(): bool
     {
-        return false;
+        return true;
     }
 
     public function shouldSupportToolExternalReferences(): bool
     {
-        return true;
+        return false;
     }
 }

@@ -31,7 +31,7 @@ use CycloneDX\Core\Models\ExternalReference;
 use CycloneDX\Core\Models\Metadata;
 use CycloneDX\Core\Serialize\JSON\NormalizerFactory;
 use CycloneDX\Core\Serialize\JSON\Normalizers;
-use CycloneDX\Core\Spec\SpecInterface;
+use CycloneDX\Core\Spec\Spec;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -45,7 +45,7 @@ class BomNormalizerTest extends TestCase
 {
     public function testNormalize(): void
     {
-        $spec = $this->createConfiguredMock(SpecInterface::class, ['getVersion' => '1.2']);
+        $spec = $this->createConfiguredMock(Spec::class, ['getVersion' => '1.2']);
         $factory = $this->createConfiguredMock(
             NormalizerFactory::class,
             [
@@ -75,7 +75,7 @@ class BomNormalizerTest extends TestCase
 
     public function testNormalizeComponents(): void
     {
-        $spec = $this->createConfiguredMock(SpecInterface::class, ['getVersion' => '1.2']);
+        $spec = $this->createConfiguredMock(Spec::class, ['getVersion' => '1.2']);
         $componentsNormalizer = $this->createMock(Normalizers\ComponentRepositoryNormalizer::class);
         $factory = $this->createConfiguredMock(
             NormalizerFactory::class,
@@ -119,7 +119,7 @@ class BomNormalizerTest extends TestCase
     public function testNormalizeMetadata(): void
     {
         $spec = $this->createConfiguredMock(
-            SpecInterface::class,
+            Spec::class,
             [
                 'getVersion' => '1.2',
                 'supportsMetaData' => true,
@@ -164,7 +164,7 @@ class BomNormalizerTest extends TestCase
     public function testNormalizeMetadataEmpty(): void
     {
         $spec = $this->createConfiguredMock(
-            SpecInterface::class,
+            Spec::class,
             [
                 'getVersion' => '1.2',
                 'supportsMetaData' => true,
@@ -207,7 +207,7 @@ class BomNormalizerTest extends TestCase
     public function testNormalizeMetadataSkipped(): void
     {
         $spec = $this->createConfiguredMock(
-            SpecInterface::class,
+            Spec::class,
             [
                 'getVersion' => '1.2',
                 'supportsMetaData' => false,
@@ -254,7 +254,7 @@ class BomNormalizerTest extends TestCase
     public function testNormalizeDependencies(): void
     {
         $spec = $this->createConfiguredMock(
-            SpecInterface::class,
+            Spec::class,
             [
                 'getVersion' => '1.2',
                 'supportsDependencies' => true,
@@ -299,7 +299,7 @@ class BomNormalizerTest extends TestCase
     public function testNormalizeDependenciesOmitWhenEmpty(): void
     {
         $spec = $this->createConfiguredMock(
-            SpecInterface::class,
+            Spec::class,
             [
                 'getVersion' => '1.2',
                 'supportsDependencies' => true,
@@ -350,7 +350,7 @@ class BomNormalizerTest extends TestCase
      */
     public function testNormalizeExternalReferencesMergedIfUnsupportedMetadata(): void
     {
-        $spec = $this->createConfiguredMock(SpecInterface::class, [
+        $spec = $this->createConfiguredMock(Spec::class, [
             'getVersion' => '1.2',
             'supportsMetaData' => false,
         ]);
@@ -408,7 +408,7 @@ class BomNormalizerTest extends TestCase
      */
     public function testNormalizeExternalReferencesOmittedWHenEmpty(): void
     {
-        $spec = $this->createConfiguredMock(SpecInterface::class, [
+        $spec = $this->createConfiguredMock(Spec::class, [
             'getVersion' => '1.2',
             'supportsMetaData' => false,
         ]);

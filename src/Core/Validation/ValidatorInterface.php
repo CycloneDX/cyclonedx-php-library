@@ -23,16 +23,16 @@ declare(strict_types=1);
 
 namespace CycloneDX\Core\Validation;
 
-use CycloneDX\Core\Spec\SpecInterface;
+use CycloneDX\Core\Spec\Spec;
 
 /**
  * @author jkowalleck
  */
 interface ValidatorInterface
 {
-    public function __construct(SpecInterface $spec);
+    public function __construct(Spec $spec);
 
-    public function getSpec(): SpecInterface;
+    public function getSpec(): Spec;
 
     /**
      * @psalm-param non-empty-string $string

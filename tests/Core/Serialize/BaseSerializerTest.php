@@ -30,7 +30,7 @@ use CycloneDX\Core\Models\BomRef;
 use CycloneDX\Core\Models\Component;
 use CycloneDX\Core\Models\Metadata;
 use CycloneDX\Core\Serialize\BaseSerializer;
-use CycloneDX\Core\Spec\SpecInterface;
+use CycloneDX\Core\Spec\Spec;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -46,19 +46,19 @@ class BaseSerializerTest extends TestCase
     private $serializer;
 
     /**
-     * @var SpecInterface|\PHPUnit\Framework\MockObject\MockObject
+     * @var Spec|\PHPUnit\Framework\MockObject\MockObject
      */
     private $spec;
 
     protected function setUp(): void
     {
-        $this->spec = $this->createMock(SpecInterface::class);
+        $this->spec = $this->createMock(Spec::class);
         $this->serializer = $this->getMockForAbstractClass(BaseSerializer::class, [$this->spec]);
     }
 
     public function testSetSpec(): void
     {
-        $spec = $this->createMock(SpecInterface::class);
+        $spec = $this->createMock(Spec::class);
         self::assertNotSame($spec, $this->serializer->getSpec());
 
         $this->serializer->setSpec($spec);

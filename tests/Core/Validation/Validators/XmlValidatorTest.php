@@ -23,7 +23,7 @@ declare(strict_types=1);
 
 namespace CycloneDX\Tests\Core\Validation\Validators;
 
-use CycloneDX\Core\Spec\SpecInterface;
+use CycloneDX\Core\Spec\Spec;
 use CycloneDX\Core\Validation\Errors\XmlValidationError;
 use CycloneDX\Core\Validation\Exceptions\FailedLoadingSchemaException;
 use CycloneDX\Core\Validation\Validators\XmlValidator;
@@ -40,7 +40,7 @@ class XmlValidatorTest extends TestCase
 {
     public function testConstructor(): XmlValidator
     {
-        $spec = $this->createStub(SpecInterface::class);
+        $spec = $this->createStub(Spec::class);
         $validator = new XmlValidator($spec);
         self::assertSame($spec, $validator->getSpec());
 
@@ -52,7 +52,7 @@ class XmlValidatorTest extends TestCase
      */
     public function testSetSpec(XmlValidator $validator): void
     {
-        $spec = $this->createStub(SpecInterface::class);
+        $spec = $this->createStub(Spec::class);
         $validator->setSpec($spec);
         self::assertSame($spec, $validator->getSpec());
     }
@@ -88,7 +88,7 @@ class XmlValidatorTest extends TestCase
 
     public function testValidateStringThrowsWhenNotParseable(): void
     {
-        $spec = $this->createConfiguredMock(SpecInterface::class, ['getVersion' => '1.2']);
+        $spec = $this->createConfiguredMock(Spec::class, ['getVersion' => '1.2']);
         $validator = new XmlValidator($spec);
         $xml = '<bom>some invalid XML';
 
@@ -100,7 +100,7 @@ class XmlValidatorTest extends TestCase
 
     public function testValidateDomPasses(): void
     {
-        $spec = $this->createConfiguredMock(SpecInterface::class, ['getVersion' => '1.2']);
+        $spec = $this->createConfiguredMock(Spec::class, ['getVersion' => '1.2']);
         $validator = new XmlValidator($spec);
         $doc = new DOMDocument();
         $loaded = $doc->loadXML(
@@ -134,7 +134,7 @@ class XmlValidatorTest extends TestCase
      */
     public function testValidateDomFails(): void
     {
-        $spec = $this->createConfiguredMock(SpecInterface::class, ['getVersion' => '1.2']);
+        $spec = $this->createConfiguredMock(Spec::class, ['getVersion' => '1.2']);
         $validator = new XmlValidator($spec);
         $doc = new DOMDocument();
         $loaded = $doc->loadXML(
@@ -176,7 +176,7 @@ class XmlValidatorTest extends TestCase
      */
     public function testValidateDomThrowsOnDuplicateBomRef(): void
     {
-        $spec = $this->createConfiguredMock(SpecInterface::class, ['getVersion' => '1.2']);
+        $spec = $this->createConfiguredMock(Spec::class, ['getVersion' => '1.2']);
         $validator = new XmlValidator($spec);
         $doc = new DOMDocument();
         $loaded = $doc->loadXML(
@@ -211,7 +211,7 @@ class XmlValidatorTest extends TestCase
 
     public function testValidateDomThrowsOnSchemaFileUnknown(): void
     {
-        $spec = $this->createConfiguredMock(SpecInterface::class, ['getVersion' => 'unknown']);
+        $spec = $this->createConfiguredMock(Spec::class, ['getVersion' => 'unknown']);
         $validator = new XmlValidator($spec);
         $doc = $this->createPartialMock(DOMDocument::class, ['schemaValidate']);
 

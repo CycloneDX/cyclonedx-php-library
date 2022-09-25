@@ -108,15 +108,8 @@ API changes
 * `\CycloneDX\Core\Spdx` namespace
   * No noteworthy changes.
 * `\CycloneDX\Core\Spec` namespace
-  * BREAKING: removed the public usage of the interface `SpecInterface` (via [#65])  
-    This is done to prevent the need for future "breaking changed" when the schema requires additional spec implementations.  
-    The class was not removed, but marked `@internal`.
-  * Added class constant `Version::V_1_4` for CycloneDX v1.4 ([#57] via [#65])
-  * Added new class `Spec14` to reflect CycloneDX v1.4 ([#57] via [#65])
-  * Added new methods in class `Spec1{1,2,3}`:
-    * `getSupportedExternalReferenceTypes()` (via [#65], [#124])
-    * `isSupportedExternalReferenceType()` (via [#65], [#124])
-    * `supportsToolExternalReferences()` (via [#123])
+  * BREAKING: completely reworked everything ([#139] via [#142])  
+    See the code base for references
 * `\CycloneDX\Core\Validation` namespace
   * Added support for CycloneDX v1.4 in classes`{Json,Xml}StrictValidator` ([#57] via [#65])
   
@@ -132,6 +125,8 @@ API changes
 [#125]: https://github.com/CycloneDX/cyclonedx-php-library/pull/125
 [#131]: https://github.com/CycloneDX/cyclonedx-php-library/pull/131
 [#133]: https://github.com/CycloneDX/cyclonedx-php-library/pull/133
+[#139]: https://github.com/CycloneDX/cyclonedx-php-library/issues/139
+[#142]: https://github.com/CycloneDX/cyclonedx-php-library/pull/142
 
 ## 1.6.3 - 2022-09-15
 

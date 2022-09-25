@@ -23,7 +23,7 @@ declare(strict_types=1);
 
 namespace CycloneDX\Core\Validation;
 
-use CycloneDX\Core\Spec\SpecInterface;
+use CycloneDX\Core\Spec\Spec;
 use CycloneDX\Core\Spec\Version;
 
 /**
@@ -31,14 +31,14 @@ use CycloneDX\Core\Spec\Version;
  */
 abstract class BaseValidator implements ValidatorInterface
 {
-    private SpecInterface $spec;
+    private Spec $spec;
 
-    public function __construct(SpecInterface $spec)
+    public function __construct(Spec $spec)
     {
         $this->spec = $spec;
     }
 
-    public function getSpec(): SpecInterface
+    public function getSpec(): Spec
     {
         return $this->spec;
     }
@@ -48,7 +48,7 @@ abstract class BaseValidator implements ValidatorInterface
      *
      * @return $this
      */
-    public function setSpec(SpecInterface $spec): self
+    public function setSpec(Spec $spec): self
     {
         $this->spec = $spec;
 
@@ -76,7 +76,7 @@ abstract class BaseValidator implements ValidatorInterface
     /**
      * @return string[]|null[]
      *
-     * @psalm-return array<Version::V_*, ?string>
+     * @psalm-return array<Version::*, ?string>
      */
     abstract protected static function listSchemaFiles(): array;
 }
