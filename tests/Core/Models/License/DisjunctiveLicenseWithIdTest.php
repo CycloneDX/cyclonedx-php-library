@@ -24,7 +24,7 @@ declare(strict_types=1);
 namespace CycloneDX\Tests\Core\Models\License;
 
 use CycloneDX\Core\Models\License\DisjunctiveLicenseWithId;
-use CycloneDX\Core\Spdx\License as LicenseValidator;
+use CycloneDX\Core\Spdx\LicenseValidator;
 use DomainException;
 use PHPUnit\Framework\TestCase;
 
