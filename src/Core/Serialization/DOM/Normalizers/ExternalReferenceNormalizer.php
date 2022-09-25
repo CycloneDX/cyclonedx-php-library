@@ -26,6 +26,7 @@ namespace CycloneDX\Core\Serialization\DOM\Normalizers;
 use CycloneDX\Core\_helpers\SimpleDomTrait;
 use CycloneDX\Core\_helpers\XmlTrait;
 use CycloneDX\Core\Collections\HashDictionary;
+use CycloneDX\Core\Enums\ExternalReferenceType;
 use CycloneDX\Core\Models\ExternalReference;
 use CycloneDX\Core\Serialization\DOM\_BaseNormalizer;
 use DomainException;
@@ -51,7 +52,11 @@ class ExternalReferenceNormalizer extends _BaseNormalizer
 
         $type = $externalReference->getType();
         if (false === $spec->isSupportedExternalReferenceType($type)) {
-            throw new DomainException("ExternalReference has unsupported type: $type");
+            // prevent information-loss -> try transfer to OTHER
+            $type = ExternalReferenceType::OTHER;
+            if (false === $spec->isSupportedExternalReferenceType($type)) {
+                throw new DomainException('ExternalReference has unsupported type: '.$externalReference->getType());
+            }
         }
 
         $refURI = $externalReference->getUrl();

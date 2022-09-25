@@ -25,6 +25,7 @@ namespace CycloneDX\Core\Serialization\JSON\Normalizers;
 
 use CycloneDX\Core\_helpers\NullAssertionTrait;
 use CycloneDX\Core\Collections\HashDictionary;
+use CycloneDX\Core\Enums\ExternalReferenceType;
 use CycloneDX\Core\Models\ExternalReference;
 use CycloneDX\Core\Serialization\JSON\_BaseNormalizer;
 use DomainException;
@@ -41,9 +42,14 @@ class ExternalReferenceNormalizer extends _BaseNormalizer
      */
     public function normalize(ExternalReference $externalReference): array
     {
+        $spec = $this->getNormalizerFactory()->getSpec();
         $type = $externalReference->getType();
-        if (false === $this->getNormalizerFactory()->getSpec()->isSupportedExternalReferenceType($type)) {
-            throw new DomainException("ExternalReference has unsupported type: $type");
+        if (false === $spec->isSupportedExternalReferenceType($type)) {
+            // prevent information-loss -> try transfer to OTHER
+            $type = ExternalReferenceType::OTHER;
+            if (false === $spec->isSupportedExternalReferenceType($type)) {
+                throw new DomainException('ExternalReference has unsupported type: '.$externalReference->getType());
+            }
         }
 
         return array_filter(
