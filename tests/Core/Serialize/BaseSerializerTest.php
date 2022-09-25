@@ -56,14 +56,12 @@ class BaseSerializerTest extends TestCase
         $this->serializer = $this->getMockForAbstractClass(BaseSerializer::class, [$this->spec]);
     }
 
-    public function testSetSpec(): void
+    public function testGetSpec(): void
     {
-        $spec = $this->createMock(Spec::class);
-        self::assertNotSame($spec, $this->serializer->getSpec());
-
-        $this->serializer->setSpec($spec);
-
-        self::assertSame($spec, $this->serializer->getSpec());
+        self::assertSame(
+            $this->spec,
+            $this->serializer->getSpec()
+        );
     }
 
     /**

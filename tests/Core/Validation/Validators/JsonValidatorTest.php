@@ -49,16 +49,6 @@ class JsonValidatorTest extends TestCase
         return $validator;
     }
 
-    /**
-     * @depends testConstructor
-     */
-    public function testSetSpec(JsonValidator $validator): void
-    {
-        $spec = $this->createStub(Spec::class);
-        $validator->setSpec($spec);
-        self::assertSame($spec, $validator->getSpec());
-    }
-
     public function testValidateString(): void
     {
         $validator = $this->createPartialMock(JsonValidator::class, ['validateData']);

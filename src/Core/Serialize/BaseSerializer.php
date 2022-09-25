@@ -32,6 +32,9 @@ use CycloneDX\Core\Spec\Spec;
  */
 abstract class BaseSerializer implements SerializerInterface
 {
+    /**
+     * @readonly
+     */
     private Spec $spec;
 
     public function __construct(Spec $spec)
@@ -42,20 +45,6 @@ abstract class BaseSerializer implements SerializerInterface
     public function getSpec(): Spec
     {
         return $this->spec;
-    }
-
-    /**
-     * @return $this
-     *
-     * @deprecated
-     *
-     * @TODO remove with next major version - milestone v4
-     */
-    public function setSpec(Spec $spec): self
-    {
-        $this->spec = $spec;
-
-        return $this;
     }
 
     /**
