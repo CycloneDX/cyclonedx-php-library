@@ -23,6 +23,8 @@ declare(strict_types=1);
 
 namespace CycloneDX\Core\Enums;
 
+use ReflectionClass;
+
 /**
  * Classification - aka ComponentType.
  *
@@ -50,7 +52,7 @@ abstract class Classification
      */
     public static function isValidValue(string $value): bool
     {
-        $values = (new \ReflectionClass(self::class))->getConstants();
+        $values = (new ReflectionClass(self::class))->getConstants();
 
         return \in_array($value, $values, true);
     }

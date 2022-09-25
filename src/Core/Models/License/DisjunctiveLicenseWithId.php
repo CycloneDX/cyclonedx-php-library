@@ -29,6 +29,8 @@ use DomainException;
 /**
  * Disjunctive license with (SPDX-)ID - aka SpdxLicense.
  *
+ * @SuppressWarnings(PHPMD.ShortVariable) $id
+ *
  * @author jkowalleck
  */
 class DisjunctiveLicenseWithId
@@ -47,6 +49,9 @@ class DisjunctiveLicenseWithId
         return $this->id;
     }
 
+    /**
+     * @SuppressWarnings(PHPMD.ShortVariable)
+     */
     private function __construct(string $id)
     {
         $this->id = $id;
@@ -59,6 +64,8 @@ class DisjunctiveLicenseWithId
      *
      * @see \CycloneDX\Core\Spdx\LicenseValidator::getLicense()
      * @see \CycloneDX\Core\Spdx\LicenseValidator::validate()
+     *
+     * @SuppressWarnings(PHPMD.ShortVariable)
      */
     public static function makeValidated(string $id, LicenseValidator $spdxLicenseValidator): self
     {

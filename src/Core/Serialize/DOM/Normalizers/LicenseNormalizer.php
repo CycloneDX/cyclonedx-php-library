@@ -61,6 +61,9 @@ class LicenseNormalizer extends _BaseNormalizer
         return $element;
     }
 
+    /**
+     * @SuppressWarnings(PHPMD.ShortVariable)
+     */
     private function normalizeDisjunctive(DisjunctiveLicenseWithId|DisjunctiveLicenseWithName $license): DOMElement
     {
         [$id, $name] = $license instanceof DisjunctiveLicenseWithId

@@ -91,6 +91,9 @@ class HashDictionary implements \Countable
      * @throws DomainException if $algorithm is not in {@see \CycloneDX\Core\Enums\HashAlgorithm}'s constants list
      *
      * @return $this
+     *
+     * @SuppressWarnings(PHPMD.StaticAccess)
+     * @SuppressWarnings(PHPMD.ElseExpression)
      */
     public function set(string $algorithm, ?string $content): self
     {

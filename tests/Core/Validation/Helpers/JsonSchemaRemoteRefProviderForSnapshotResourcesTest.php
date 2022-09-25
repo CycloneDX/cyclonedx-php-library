@@ -24,11 +24,11 @@ declare(strict_types=1);
 namespace CycloneDX\Tests\Core\Validation\Helpers;
 
 use CycloneDX\Core\Resources;
-use CycloneDX\Core\Validation\Helpers\JsonSchemaRemoteRefProviderForSnapshotResources;
+use CycloneDX\Core\Validation\_helpers\JsonSchemaRemoteRefProviderForSnapshotResources;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers \CycloneDX\Core\Validation\Helpers\JsonSchemaRemoteRefProviderForSnapshotResources
+ * @covers \CycloneDX\Core\Validation\_helpers\JsonSchemaRemoteRefProviderForSnapshotResources
  */
 class JsonSchemaRemoteRefProviderForSnapshotResourcesTest extends TestCase
 {

@@ -57,7 +57,7 @@ class ToolNormalizer extends _BaseNormalizer
             : $this->getNormalizerFactory()->makeForHashDictionary()->normalize($hashes);
     }
 
-    private function normalizeExternalReferences(ExternalReferenceRepository $externalReferenceRepository): ?array
+    private function normalizeExternalReferences(ExternalReferenceRepository $extRefs): ?array
     {
         $factory = $this->getNormalizerFactory();
 
@@ -65,8 +65,8 @@ class ToolNormalizer extends _BaseNormalizer
             return null;
         }
 
-        return 0 === \count($externalReferenceRepository)
+        return 0 === \count($extRefs)
             ? null
-            : $factory->makeForExternalReferenceRepository()->normalize($externalReferenceRepository);
+            : $factory->makeForExternalReferenceRepository()->normalize($extRefs);
     }
 }

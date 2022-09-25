@@ -74,22 +74,22 @@ class BomNormalizer extends _BaseNormalizer
     {
         $factory = $this->getNormalizerFactory();
 
-        $externalReferenceRepository = $bom->getExternalReferences();
+        $extRefs = $bom->getExternalReferences();
 
         if (false === $factory->getSpec()->supportsMetaData()) {
             // prevent possible information loss: metadata cannot be rendered -> put it to bom
             $mcr = $bom->getMetadata()->getComponent()?->getExternalReferences();
             if (null !== $mcr) {
-                $externalReferenceRepository = (clone $externalReferenceRepository)->addItems(...$mcr->getItems());
+                $extRefs = (clone $extRefs)->addItems(...$mcr->getItems());
             }
             unset($mcr);
         }
 
-        if (0 === \count($externalReferenceRepository)) {
+        if (0 === \count($extRefs)) {
             return null;
         }
 
-        $data = $factory->makeForExternalReferenceRepository()->normalize($externalReferenceRepository);
+        $data = $factory->makeForExternalReferenceRepository()->normalize($extRefs);
 
         return empty($data)
             ? null

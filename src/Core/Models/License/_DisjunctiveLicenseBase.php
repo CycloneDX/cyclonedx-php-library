@@ -24,9 +24,11 @@ declare(strict_types=1);
 namespace CycloneDX\Core\Models\License;
 
 /**
- * @author jkowalleck
- *
  * @internal as this class may be affected by breaking changes without notice
+ *
+ * @SuppressWarnings(PHPMD.CamelCaseClassName)
+ *
+ * @author jkowalleck
  */
 trait _DisjunctiveLicenseBase
 {

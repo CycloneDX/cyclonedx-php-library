@@ -28,6 +28,9 @@ use CycloneDX\Core\Spec\Spec;
 use DomainException;
 
 /**
+ * @SuppressWarnings(PHPMD.TooManyPublicMethods)
+ * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
+ *
  * @author jkowalleck
  */
 class NormalizerFactory

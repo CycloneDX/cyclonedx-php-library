@@ -103,10 +103,10 @@ class ComponentNormalizer extends _BaseNormalizer
             : (string) $purl;
     }
 
-    private function normalizeExternalReferences(ExternalReferenceRepository $externalReferenceRepository): ?array
+    private function normalizeExternalReferences(ExternalReferenceRepository $extRefs): ?array
     {
-        return 0 === \count($externalReferenceRepository)
+        return 0 === \count($extRefs)
             ? null
-            : $this->getNormalizerFactory()->makeForExternalReferenceRepository()->normalize($externalReferenceRepository);
+            : $this->getNormalizerFactory()->makeForExternalReferenceRepository()->normalize($extRefs);
     }
 }

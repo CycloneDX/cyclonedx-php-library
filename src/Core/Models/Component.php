@@ -196,6 +196,8 @@ class Component
      * @throws DomainException if value is unknown
      *
      * @return $this
+     *
+     * @SuppressWarnings(PHPMD.StaticAccess)
      */
     public function setType(string $type): self
     {

@@ -37,7 +37,7 @@ use stdClass;
  * @covers \CycloneDX\Core\Validation\Validators\JsonValidator
  * @covers \CycloneDX\Core\Validation\BaseValidator
  *
- * @uses   \CycloneDX\Core\Validation\Helpers\JsonSchemaRemoteRefProviderForSnapshotResources
+ * @uses   \CycloneDX\Core\Validation\_helpers\JsonSchemaRemoteRefProviderForSnapshotResources
  */
 class JsonStrictValidatorTest extends TestCase
 {

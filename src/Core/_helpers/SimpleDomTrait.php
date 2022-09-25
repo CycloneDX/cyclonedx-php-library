@@ -36,6 +36,8 @@ trait SimpleDomTrait
 {
     /**
      * @psalm-param iterable<string, scalar|null> $attributes
+     *
+     * @SuppressWarnings(PHPMD.ElseExpression)
      */
     private function simpleDomSetAttributes(DOMElement $element, iterable $attributes): DOMElement
     {
@@ -68,6 +70,9 @@ trait SimpleDomTrait
      * @param bool $null whether to return null when `$data` is null
      *
      * @return DOMElement|null ($null is true && $data is null ? null : DOMElement)
+     *
+     * @SuppressWarnings(PHPMD.BooleanArgumentFlag)
+     * @SuppressWarnings(PHPMD.ElseExpression)
      */
     private function simpleDomSafeTextElement(DOMDocument $document, string $name, mixed $data, bool $null = true): ?DOMElement
     {

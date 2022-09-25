@@ -51,6 +51,9 @@ class LicenseNormalizer extends _BaseNormalizer
         return ['expression' => $license->getExpression()];
     }
 
+    /**
+     * @SuppressWarnings(PHPMD.ShortVariable)
+     */
     private function normalizeDisjunctive(DisjunctiveLicenseWithId|DisjunctiveLicenseWithName $license): array
     {
         [$id, $name] = $license instanceof DisjunctiveLicenseWithId

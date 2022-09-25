@@ -27,6 +27,8 @@ namespace CycloneDX\Core\Serialize\DOM;
  * @internal as this class may be affected by breaking changes without notice
  *
  * @author jkowalleck
+ *
+ * @SuppressWarnings(PHPMD.CamelCaseClassName)
  */
 abstract class _BaseNormalizer
 {
