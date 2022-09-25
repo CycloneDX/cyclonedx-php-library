@@ -29,7 +29,7 @@ use CycloneDX\Core\Enums\HashAlgorithm;
 use DomainException;
 
 /**
- * Factory for {@see Spec} objects.
+ * Factory for {@see Spec Specification} objects.
  */
 abstract class SpecFactory
 {
@@ -47,7 +47,7 @@ abstract class SpecFactory
     */
 
     /**
-     * Create the appropriate {@see Spec} based on {@see Version}.
+     * Create the appropriate {@see Spec Specification} based on {@see Version}.
      *
      * @psalm-assert Version::* $version
      *
@@ -65,7 +65,7 @@ abstract class SpecFactory
     }
 
     /**
-     * Create the {@see Spec} based on {@see Version::v1dot1}.
+     * Create the {@see Spec Specification} based on {@see Version::v1dot1}.
      */
     public static function make1dot1(): Spec
     {
@@ -120,7 +120,7 @@ abstract class SpecFactory
     }
 
     /**
-     * Create the {@see Spec} based on {@see Version::v1dot2}.
+     * Create the {@see Spec Specification} based on {@see Version::v1dot2}.
      */
     public static function make1dot2(): Spec
     {
@@ -183,7 +183,7 @@ abstract class SpecFactory
     }
 
     /**
-     * Create the {@see Spec} based on {@see Version::v1dot3}.
+     * Create the {@see Spec Specification} based on {@see Version::v1dot3}.
      */
     public static function make1dot3(): Spec
     {
@@ -246,7 +246,7 @@ abstract class SpecFactory
     }
 
     /**
-     * Create the {@see Spec} based on {@see Version::v1dot4}.
+     * Create the {@see Spec Specification} based on {@see Version::v1dot4}.
      */
     public static function make1dot4(): Spec
     {

@@ -28,8 +28,8 @@ use CycloneDX\Core\Enums\ExternalReferenceType;
 use CycloneDX\Core\Enums\HashAlgorithm;
 
 /**
- * this class is not for public use.
- * See {@see SpecFactory} to get prepared instances.
+ * This class is not for public use.
+ * See {@see SpecFactory Specification Factory} to get prepared instances.
  *
  * @internal as this trait may be affected by breaking changes without notice
  *
