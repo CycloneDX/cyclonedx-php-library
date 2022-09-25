@@ -94,7 +94,7 @@ API changes
     * Added new method `makeForHashDictionary()` ([#133] via [#131])
     * Added method `makeForLicense()` (via [#131])
     * Added method `makeForLicenseRepository()` (via [#131])
-  * namespaces `{DOM,JSON}\Normalizers`
+  * `{DOM,JSON}\Normalizers` namespaces
     * BREAKING: removed classes `DisjunctiveLicenseNormalizer` - use `LicenseNormalizer` instead (via [#131])
     * BREAKING: removed classes `LicenseExpressionNormalizer`  - use `LicenseNormalizer` instead (via [#131])
     * BREAKING: removed classes `DisjunctiveLicenseRepositoryNormalizer` (via [#131]) 
@@ -106,13 +106,19 @@ API changes
       * Changed the method `normalize()` to actually throw `\DomainException` when `\ExternalReference`'s type was not supported by the spec. (via [#65])  
         This is considered a non-breaking change, because the behaviour was already documented in the API, even though there was no need for an implementation before.
 * `\CycloneDX\Core\Spdx` namespace
-  * No noteworthy changes.
+  * `License` class
+    * BREAKING: renamed the class to `LicenseValidator` ([#133] via [#143])
 * `\CycloneDX\Core\Spec` namespace
   * BREAKING: completely reworked everything ([#139] via [#142])  
     See the code base for references
 * `\CycloneDX\Core\Validation` namespace
-  * Added support for CycloneDX v1.4 in classes`{Json,Xml}StrictValidator` ([#57] via [#65])
-  
+  * `{Json,Xml}Validator` classes
+    * Added support for CycloneDX v1.4` ([#57] via [#65])
+  * `JsonStrictValidator` class
+    * Added support for CycloneDX v1.4 ([#57] via [#65])
+  * `ValidatorInterface` interface
+    * BREAKING: renamed interface to `Validator` ([#133] via [#143])
+
 [#6]: https://github.com/CycloneDX/cyclonedx-php-library/issues/6
 [#27]: https://github.com/CycloneDX/cyclonedx-php-library/issues/27
 [#57]: https://github.com/CycloneDX/cyclonedx-php-library/issues/57
@@ -127,6 +133,7 @@ API changes
 [#133]: https://github.com/CycloneDX/cyclonedx-php-library/pull/133
 [#139]: https://github.com/CycloneDX/cyclonedx-php-library/issues/139
 [#142]: https://github.com/CycloneDX/cyclonedx-php-library/pull/142
+[#143]: https://github.com/CycloneDX/cyclonedx-php-library/pull/143
 
 ## 1.6.3 - 2022-09-15
 
