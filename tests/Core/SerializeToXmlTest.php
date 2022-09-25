@@ -25,10 +25,7 @@ namespace CycloneDX\Tests\Core;
 
 use CycloneDX\Core\Models\Bom;
 use CycloneDX\Core\Serialize\XmlSerializer;
-use CycloneDX\Core\Spec\Spec11;
-use CycloneDX\Core\Spec\Spec12;
-use CycloneDX\Core\Spec\Spec13;
-use CycloneDX\Core\Spec\Spec14;
+use CycloneDX\Core\Spec\SpecFactory;
 use CycloneDX\Core\Validation\Validators\XmlValidator;
 use PHPUnit\Framework\TestCase;
 
@@ -53,7 +50,7 @@ class SerializeToXmlTest extends TestCase
      */
     public function testSchema11(Bom $bom): void
     {
-        $spec = new Spec11();
+        $spec = SpecFactory::make1dot1();
         $serializer = new XmlSerializer($spec);
         $validator = new XmlValidator($spec);
 
@@ -77,7 +74,7 @@ class SerializeToXmlTest extends TestCase
      */
     public function testSchema12(Bom $bom): void
     {
-        $spec = new Spec12();
+        $spec = SpecFactory::make1dot2();
         $serializer = new XmlSerializer($spec);
         $validator = new XmlValidator($spec);
 
@@ -101,7 +98,7 @@ class SerializeToXmlTest extends TestCase
      */
     public function testSchema13(Bom $bom): void
     {
-        $spec = new Spec13();
+        $spec = SpecFactory::make1dot3();
         $serializer = new XmlSerializer($spec);
         $validator = new XmlValidator($spec);
 
@@ -125,7 +122,7 @@ class SerializeToXmlTest extends TestCase
      */
     public function testSchema14(Bom $bom): void
     {
-        $spec = new Spec14();
+        $spec = SpecFactory::make1dot4();
         $serializer = new XmlSerializer($spec);
         $validator = new XmlValidator($spec);
 

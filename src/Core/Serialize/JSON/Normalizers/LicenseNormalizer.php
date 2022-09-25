@@ -45,7 +45,8 @@ class LicenseNormalizer extends _BaseNormalizer
 
     private function normalizeExpression(LicenseExpression $license): array
     {
-        // TO BE IMPLEMENTED IF NEEDED: may throw, if not supported by the spec
+        // TODO: IMPLEMENTED IF NEEDED: may throw, if not supported by the spec
+        // $this->getNormalizerFactory()->getSpec()->supportsLicenseExpression()
 
         return ['expression' => $license->getExpression()];
     }

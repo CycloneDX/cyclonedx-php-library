@@ -30,7 +30,7 @@ use CycloneDX\Core\Models\BomRef;
 use CycloneDX\Core\Models\Component;
 use CycloneDX\Core\Serialize\JSON\NormalizerFactory;
 use CycloneDX\Core\Serialize\JSON\Normalizers;
-use CycloneDX\Core\Spec\SpecInterface;
+use CycloneDX\Core\Spec\Spec;
 use DomainException;
 use PackageUrl\PackageUrl;
 use PHPUnit\Framework\TestCase;
@@ -51,7 +51,7 @@ class ComponentNormalizerTest extends TestCase
                 'getVersion' => 'v1.33.7',
             ]
         );
-        $spec = $this->createMock(SpecInterface::class);
+        $spec = $this->createMock(Spec::class);
         $factory = $this->createConfiguredMock(NormalizerFactory::class, ['getSpec' => $spec]);
         $normalizer = new Normalizers\ComponentNormalizer($factory);
 
@@ -83,7 +83,7 @@ class ComponentNormalizerTest extends TestCase
                 'getPackageUrl' => null,
             ]
         );
-        $spec = $this->createMock(SpecInterface::class);
+        $spec = $this->createMock(Spec::class);
         $factory = $this->createConfiguredMock(NormalizerFactory::class, ['getSpec' => $spec]);
         $normalizer = new Normalizers\ComponentNormalizer($factory);
 
@@ -140,7 +140,7 @@ class ComponentNormalizerTest extends TestCase
                 ),
             ]
         );
-        $spec = $this->createConfiguredMock(SpecInterface::class, [
+        $spec = $this->createConfiguredMock(Spec::class, [
             'supportsBomRef' => true,
         ]);
         $licenseRepoNormalizer = $this->createMock(Normalizers\LicenseRepositoryNormalizer::class);
@@ -193,7 +193,7 @@ class ComponentNormalizerTest extends TestCase
                 'getLicenses' => $this->createConfiguredMock(LicenseRepository::class, ['count' => 1]),
             ]
         );
-        $spec = $this->createMock(SpecInterface::class);
+        $spec = $this->createMock(Spec::class);
         $licenseRepoNormalizer = $this->createMock(Normalizers\LicenseRepositoryNormalizer::class);
         $factory = $this->createConfiguredMock(NormalizerFactory::class, [
             'getSpec' => $spec,
@@ -229,7 +229,7 @@ class ComponentNormalizerTest extends TestCase
                 'getLicenses' => $this->createConfiguredMock(LicenseRepository::class, ['count' => 0]),
             ]
         );
-        $spec = $this->createMock(SpecInterface::class);
+        $spec = $this->createMock(Spec::class);
         $licenseRepoNormalizer = $this->createMock(Normalizers\LicenseRepositoryNormalizer::class);
         $factory = $this->createConfiguredMock(NormalizerFactory::class, [
             'getSpec' => $spec,
@@ -264,7 +264,7 @@ class ComponentNormalizerTest extends TestCase
                 'getExternalReferences' => $this->createConfiguredMock(ExternalReferenceRepository::class, ['count' => 1]),
             ]
         );
-        $spec = $this->createMock(SpecInterface::class);
+        $spec = $this->createMock(Spec::class);
         $externalReferenceRepositoryNormalizer = $this->createMock(Normalizers\ExternalReferenceRepositoryNormalizer::class);
         $factory = $this->createConfiguredMock(
             NormalizerFactory::class,
@@ -305,7 +305,7 @@ class ComponentNormalizerTest extends TestCase
                 'getExternalReferences' => $this->createConfiguredMock(ExternalReferenceRepository::class, ['count' => 0]),
             ]
         );
-        $spec = $this->createMock(SpecInterface::class);
+        $spec = $this->createMock(Spec::class);
         $externalReferenceRepositoryNormalizer = $this->createMock(Normalizers\ExternalReferenceRepositoryNormalizer::class);
         $factory = $this->createConfiguredMock(
             NormalizerFactory::class,

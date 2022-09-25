@@ -25,10 +25,7 @@ namespace CycloneDX\Tests\Core;
 
 use CycloneDX\Core\Models\Bom;
 use CycloneDX\Core\Serialize\JsonSerializer;
-use CycloneDX\Core\Spec\Spec11;
-use CycloneDX\Core\Spec\Spec12;
-use CycloneDX\Core\Spec\Spec13;
-use CycloneDX\Core\Spec\Spec14;
+use CycloneDX\Core\Spec\SpecFactory;
 use CycloneDX\Core\Validation\Validators\JsonStrictValidator;
 use DomainException;
 use PHPUnit\Framework\TestCase;
@@ -49,7 +46,7 @@ class SerializeToJsonTest extends TestCase
      */
     public function testSerialization11(): void
     {
-        $spec = new Spec11();
+        $spec = SpecFactory::make1dot1();
         $serializer = new JsonSerializer($spec);
 
         $this->expectException(DomainException::class);
@@ -72,7 +69,7 @@ class SerializeToJsonTest extends TestCase
      */
     public function testSchema12(Bom $bom): void
     {
-        $spec = new Spec12();
+        $spec = SpecFactory::make1dot2();
         $serializer = new JsonSerializer($spec);
         $validator = new JsonStrictValidator($spec);
 
@@ -97,7 +94,7 @@ class SerializeToJsonTest extends TestCase
      */
     public function testSchema13(Bom $bom): void
     {
-        $spec = new Spec13();
+        $spec = SpecFactory::make1dot3();
         $serializer = new JsonSerializer($spec);
         $validator = new JsonStrictValidator($spec);
 
@@ -122,7 +119,7 @@ class SerializeToJsonTest extends TestCase
      */
     public function testSchema14(Bom $bom): void
     {
-        $spec = new Spec14();
+        $spec = SpecFactory::make1dot4();
         $serializer = new JsonSerializer($spec);
         $validator = new JsonStrictValidator($spec);
 

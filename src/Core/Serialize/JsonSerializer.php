@@ -45,13 +45,13 @@ class JsonSerializer extends BaseSerializer
      *
      * @var string[]|null[]
      *
-     * @psalm-var array<Version::V_*, ?string>
+     * @psalm-var array<Version::*, ?string>
      */
     private const SCHEMA = [
-        Version::V_1_1 => null, // unsupported version
-        Version::V_1_2 => 'http://cyclonedx.org/schema/bom-1.2a.schema.json',
-        Version::V_1_3 => 'http://cyclonedx.org/schema/bom-1.3.schema.json',
-        Version::V_1_4 => 'http://cyclonedx.org/schema/bom-1.4.schema.json',
+        Version::v1dot1 => null, // unsupported version
+        Version::v1dot2 => 'http://cyclonedx.org/schema/bom-1.2a.schema.json',
+        Version::v1dot3 => 'http://cyclonedx.org/schema/bom-1.3.schema.json',
+        Version::v1dot4 => 'http://cyclonedx.org/schema/bom-1.4.schema.json',
     ];
 
     private function getSchemaBase(): array

@@ -25,7 +25,7 @@ namespace CycloneDX\Tests\Core\Serialize\DOM\Normalizers;
 
 use CycloneDX\Core\Serialize\DOM\NormalizerFactory;
 use CycloneDX\Core\Serialize\DOM\Normalizers\HashNormalizer;
-use CycloneDX\Core\Spec\SpecInterface;
+use CycloneDX\Core\Spec\Spec;
 use CycloneDX\Tests\_traits\DomNodeAssertionTrait;
 use DomainException;
 use DOMDocument;
@@ -57,10 +57,9 @@ class HashNormalizerTest extends TestCase
         $normalizer = new HashNormalizer($factory);
         $factory->method('getSpec')->willReturn(
             $this->createConfiguredMock(
-                SpecInterface::class,
+                Spec::class,
                 [
                     'isSupportedHashAlgorithm' => true,
-                    'getSupportedHashAlgorithms' => ['foo'],
                     'isSupportedHashContent' => true,
                 ]
             )
@@ -77,10 +76,9 @@ class HashNormalizerTest extends TestCase
         $normalizer = new HashNormalizer($factory);
         $factory->method('getSpec')->willReturn(
             $this->createConfiguredMock(
-                SpecInterface::class,
+                Spec::class,
                 [
                     'isSupportedHashAlgorithm' => false,
-                    'getSupportedHashAlgorithms' => [],
                     'isSupportedHashContent' => true,
                 ]
             )
@@ -98,10 +96,9 @@ class HashNormalizerTest extends TestCase
         $normalizer = new HashNormalizer($factory);
         $factory->method('getSpec')->willReturn(
             $this->createConfiguredMock(
-                SpecInterface::class,
+                Spec::class,
                 [
                     'isSupportedHashAlgorithm' => true,
-                    'getSupportedHashAlgorithms' => ['foo'],
                     'isSupportedHashContent' => false,
                 ]
             )

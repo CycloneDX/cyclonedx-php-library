@@ -48,7 +48,8 @@ class LicenseNormalizer extends _BaseNormalizer
 
     private function normalizeExpression(LicenseExpression $license): DOMElement
     {
-        // TO BE IMPLEMENTED IF NEEDED: may throw, if not supported by the spec
+        // TODO: IMPLEMENTED IF NEEDED: may throw, if not supported by the spec
+        // $this->getNormalizerFactory()->getSpec()->supportsLicenseExpression()
 
         $element = $this->simpleDomSafeTextElement(
             $this->getNormalizerFactory()->getDocument(),

@@ -30,7 +30,7 @@ use CycloneDX\Core\Serialize\DOM\NormalizerFactory;
 use CycloneDX\Core\Serialize\DOM\Normalizers\ComponentNormalizer;
 use CycloneDX\Core\Serialize\DOM\Normalizers\MetaDataNormalizer;
 use CycloneDX\Core\Serialize\DOM\Normalizers\ToolRepositoryNormalizer;
-use CycloneDX\Core\Spec\SpecInterface;
+use CycloneDX\Core\Spec\Spec;
 use CycloneDX\Tests\_traits\DomNodeAssertionTrait;
 use DOMDocument;
 use PHPUnit\Framework\TestCase;
@@ -46,7 +46,7 @@ class MetadataNormalizerTest extends TestCase
     public function testNormalizeEmpty(): void
     {
         $metaData = $this->createMock(Metadata::class);
-        $spec = $this->createMock(SpecInterface::class);
+        $spec = $this->createMock(Spec::class);
         $factory = $this->createConfiguredMock(
             NormalizerFactory::class,
             ['getSpec' => $spec, 'getDocument' => new DOMDocument()]
@@ -66,7 +66,7 @@ class MetadataNormalizerTest extends TestCase
                 'getTools' => $this->createConfiguredMock(ToolRepository::class, ['count' => 2]),
             ]
         );
-        $spec = $this->createMock(SpecInterface::class);
+        $spec = $this->createMock(Spec::class);
         $toolsRepoFactory = $this->createMock(ToolRepositoryNormalizer::class);
         $factory = $this->createConfiguredMock(
             NormalizerFactory::class,
@@ -102,7 +102,7 @@ class MetadataNormalizerTest extends TestCase
                 'getComponent' => $this->createMock(Component::class),
             ]
         );
-        $spec = $this->createMock(SpecInterface::class);
+        $spec = $this->createMock(Spec::class);
         $componentFactory = $this->createMock(ComponentNormalizer::class);
         $factory = $this->createConfiguredMock(
             NormalizerFactory::class,
@@ -135,7 +135,7 @@ class MetadataNormalizerTest extends TestCase
                 'getComponent' => $this->createMock(Component::class),
             ]
         );
-        $spec = $this->createMock(SpecInterface::class);
+        $spec = $this->createMock(Spec::class);
         $componentFactory = $this->createMock(ComponentNormalizer::class);
         $factory = $this->createConfiguredMock(
             NormalizerFactory::class,

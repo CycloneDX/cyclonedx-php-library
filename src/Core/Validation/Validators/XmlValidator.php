@@ -44,10 +44,10 @@ class XmlValidator extends BaseValidator
     protected static function listSchemaFiles(): array
     {
         return [
-            Version::V_1_1 => Resources::FILE_CDX_XML_SCHEMA_1_1,
-            Version::V_1_2 => Resources::FILE_CDX_XML_SCHEMA_1_2,
-            Version::V_1_3 => Resources::FILE_CDX_XML_SCHEMA_1_3,
-            Version::V_1_4 => Resources::FILE_CDX_XML_SCHEMA_1_4,
+            Version::v1dot1 => Resources::FILE_CDX_XML_SCHEMA_1_1,
+            Version::v1dot2 => Resources::FILE_CDX_XML_SCHEMA_1_2,
+            Version::v1dot3 => Resources::FILE_CDX_XML_SCHEMA_1_3,
+            Version::v1dot4 => Resources::FILE_CDX_XML_SCHEMA_1_4,
         ];
     }
 

@@ -33,7 +33,7 @@ $bom->getComponents()->addItems(
     )
 );
 
-$spec = new \CycloneDX\Core\Spec\Spec14();
+$spec = \CycloneDX\Core\Spec\SpecFactory::make1dot4();
 
 $jsonSerializer = new \CycloneDX\Core\Serialize\JsonSerializer($spec);
 $serializedJSON = $jsonSerializer->serialize($bom);

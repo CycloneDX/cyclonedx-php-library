@@ -28,7 +28,7 @@ use CycloneDX\Core\Models\License\DisjunctiveLicenseWithName;
 use CycloneDX\Core\Serialize\DOM\NormalizerFactory;
 use CycloneDX\Core\Serialize\DOM\Normalizers\LicenseNormalizer;
 use CycloneDX\Core\Serialize\DOM\Normalizers\LicenseRepositoryNormalizer;
-use CycloneDX\Core\Spec\SpecInterface;
+use CycloneDX\Core\Spec\Spec;
 use CycloneDX\Tests\_traits\DomNodeAssertionTrait;
 use DOMElement;
 use PHPUnit\Framework\TestCase;
@@ -43,7 +43,7 @@ class LicenseRepositoryNormalizerTest extends TestCase
 
     public function testNormalizeEmpty(): void
     {
-        $spec = $this->createStub(SpecInterface::class);
+        $spec = $this->createStub(Spec::class);
         $licenseNormalizer = $this->createMock(LicenseNormalizer::class);
         $factory = $this->createConfiguredMock(NormalizerFactory::class, [
             'getSpec' => $spec,
@@ -59,7 +59,7 @@ class LicenseRepositoryNormalizerTest extends TestCase
 
     public function testNormalize(): void
     {
-        $spec = $this->createStub(SpecInterface::class);
+        $spec = $this->createStub(Spec::class);
         $licenseNormalizer = $this->createMock(LicenseNormalizer::class);
         $factory = $this->createConfiguredMock(NormalizerFactory::class, [
             'getSpec' => $spec,

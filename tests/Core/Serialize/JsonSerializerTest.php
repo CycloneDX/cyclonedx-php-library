@@ -25,7 +25,7 @@ namespace CycloneDX\Tests\Core\Serialize;
 
 use CycloneDX\Core\Models\Bom;
 use CycloneDX\Core\Serialize\JsonSerializer;
-use CycloneDX\Core\Spec\SpecInterface;
+use CycloneDX\Core\Spec\Spec;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -46,7 +46,7 @@ class JsonSerializerTest extends TestCase
     public function testSerialize12(): void
     {
         $spec = $this->createConfiguredMock(
-            SpecInterface::class,
+            Spec::class,
             [
                 'getVersion' => '1.2',
                 'isSupportedFormat' => true,
@@ -82,7 +82,7 @@ class JsonSerializerTest extends TestCase
     public function testSerialize13(): void
     {
         $spec = $this->createConfiguredMock(
-            SpecInterface::class,
+            Spec::class,
             [
                 'getVersion' => '1.3',
                 'isSupportedFormat' => true,
@@ -118,7 +118,7 @@ class JsonSerializerTest extends TestCase
     public function testSerialize14(): void
     {
         $spec = $this->createConfiguredMock(
-            SpecInterface::class,
+            Spec::class,
             [
                 'getVersion' => '1.4',
                 'isSupportedFormat' => true,

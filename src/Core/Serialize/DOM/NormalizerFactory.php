@@ -24,7 +24,7 @@ declare(strict_types=1);
 namespace CycloneDX\Core\Serialize\DOM;
 
 use CycloneDX\Core\Spec\Format;
-use CycloneDX\Core\Spec\SpecInterface;
+use CycloneDX\Core\Spec\Spec;
 use DomainException;
 use DOMDocument;
 
@@ -38,7 +38,7 @@ class NormalizerFactory
     /**
      * @readonly
      */
-    private SpecInterface $spec;
+    private Spec $spec;
 
     /**
      * @readonly
@@ -48,7 +48,7 @@ class NormalizerFactory
     /**
      * @throws DomainException when the spec does not support XML format
      */
-    public function __construct(SpecInterface $spec)
+    public function __construct(Spec $spec)
     {
         $this->spec = $spec->isSupportedFormat(self::FORMAT)
             ? $spec
@@ -58,7 +58,7 @@ class NormalizerFactory
 
     // intention: all factory methods return an instance of "_BaseNormalizer"
 
-    public function getSpec(): SpecInterface
+    public function getSpec(): Spec
     {
         return $this->spec;
     }

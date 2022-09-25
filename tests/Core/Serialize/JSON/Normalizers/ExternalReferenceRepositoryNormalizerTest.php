@@ -27,7 +27,7 @@ use CycloneDX\Core\Collections\ExternalReferenceRepository;
 use CycloneDX\Core\Models\ExternalReference;
 use CycloneDX\Core\Serialize\JSON\NormalizerFactory;
 use CycloneDX\Core\Serialize\JSON\Normalizers;
-use CycloneDX\Core\Spec\SpecInterface;
+use CycloneDX\Core\Spec\Spec;
 
 /**
  * @covers \CycloneDX\Core\Serialize\JSON\Normalizers\ExternalReferenceRepositoryNormalizer
@@ -42,7 +42,7 @@ class ExternalReferenceRepositoryNormalizerTest extends \PHPUnit\Framework\TestC
      */
     public function testNormalizeEmpty(): void
     {
-        $spec = $this->createStub(SpecInterface::class);
+        $spec = $this->createStub(Spec::class);
         $externalReferenceNormalizer = $this->createMock(Normalizers\ExternalReferenceNormalizer::class);
         $factory = $this->createConfiguredMock(NormalizerFactory::class, [
             'getSpec' => $spec,
@@ -59,7 +59,7 @@ class ExternalReferenceRepositoryNormalizerTest extends \PHPUnit\Framework\TestC
 
     public function testNormalize(): void
     {
-        $spec = $this->createStub(SpecInterface::class);
+        $spec = $this->createStub(Spec::class);
         $externalReferenceNormalizer = $this->createMock(Normalizers\ExternalReferenceNormalizer::class);
         $factory = $this->createConfiguredMock(NormalizerFactory::class, [
             'getSpec' => $spec,
@@ -84,7 +84,7 @@ class ExternalReferenceRepositoryNormalizerTest extends \PHPUnit\Framework\TestC
 
     public function testNormalizeSkipsOnThrow(): void
     {
-        $spec = $this->createStub(SpecInterface::class);
+        $spec = $this->createStub(Spec::class);
         $externalReferenceNormalizer = $this->createMock(Normalizers\ExternalReferenceNormalizer::class);
         $factory = $this->createConfiguredMock(NormalizerFactory::class, [
             'getSpec' => $spec,

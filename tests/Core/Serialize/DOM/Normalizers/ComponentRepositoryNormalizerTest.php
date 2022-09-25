@@ -28,7 +28,7 @@ use CycloneDX\Core\Models\Component;
 use CycloneDX\Core\Serialize\DOM\NormalizerFactory;
 use CycloneDX\Core\Serialize\DOM\Normalizers\ComponentNormalizer;
 use CycloneDX\Core\Serialize\DOM\Normalizers\ComponentRepositoryNormalizer;
-use CycloneDX\Core\Spec\SpecInterface;
+use CycloneDX\Core\Spec\Spec;
 use DOMElement;
 use PHPUnit\Framework\TestCase;
 
@@ -41,7 +41,7 @@ class ComponentRepositoryNormalizerTest extends TestCase
 {
     public function testNormalizeEmpty(): void
     {
-        $spec = $this->createStub(SpecInterface::class);
+        $spec = $this->createStub(Spec::class);
         $factory = $this->createConfiguredMock(NormalizerFactory::class, ['getSpec' => $spec]);
         $normalizer = new ComponentRepositoryNormalizer($factory);
         $components = $this->createConfiguredMock(ComponentRepository::class, ['count' => 0]);
@@ -53,7 +53,7 @@ class ComponentRepositoryNormalizerTest extends TestCase
 
     public function testNormalize(): void
     {
-        $spec = $this->createStub(SpecInterface::class);
+        $spec = $this->createStub(Spec::class);
         $componentNormalizer = $this->createMock(ComponentNormalizer::class);
         $factory = $this->createConfiguredMock(NormalizerFactory::class, [
             'getSpec' => $spec,
@@ -78,7 +78,7 @@ class ComponentRepositoryNormalizerTest extends TestCase
 
     public function testNormalizeSkipsOnThrow(): void
     {
-        $spec = $this->createStub(SpecInterface::class);
+        $spec = $this->createStub(Spec::class);
         $componentNormalizer = $this->createMock(ComponentNormalizer::class);
         $factory = $this->createConfiguredMock(NormalizerFactory::class, [
             'getSpec' => $spec,

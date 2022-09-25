@@ -24,27 +24,29 @@ declare(strict_types=1);
 namespace CycloneDX\Tests\Core\Spec;
 
 use CycloneDX\Core\Spec\Format;
-use CycloneDX\Core\Spec\Spec13;
-use CycloneDX\Core\Spec\SpecInterface;
+use CycloneDX\Core\Spec\Spec;
+use CycloneDX\Core\Spec\SpecFactory;
 
 /**
- * @covers \CycloneDX\Core\Spec\Spec13
+ * @covers \CycloneDX\Core\Spec\Spec
+ *
+ * @uses \CycloneDX\Core\Spec\SpecFactory
  */
-class Spec13Test extends AbstractSpecTestCase
+class Spec1dot1Test extends SpecInstanceTestCase
 {
-    protected function getSpec(): SpecInterface
+    protected function getSpec(): Spec
     {
-        return new Spec13();
+        return SpecFactory::make1dot1();
     }
 
     protected function getSpecVersion(): string
     {
-        return '1.3';
+        return '1.1';
     }
 
     protected function shouldSupportFormats(): array
     {
-        return [Format::XML, Format::JSON];
+        return [Format::XML];
     }
 
     public function shouldSupportLicenseExpression(): bool
@@ -54,22 +56,22 @@ class Spec13Test extends AbstractSpecTestCase
 
     public function shouldSupportMetaData(): bool
     {
-        return true;
+        return false;
     }
 
     public function shouldSupportBomRef(): bool
     {
-        return true;
+        return false;
     }
 
     public function shouldSupportDependencies(): bool
     {
-        return true;
+        return false;
     }
 
     public function shouldSupportExternalReferenceHashes(): bool
     {
-        return true;
+        return false;
     }
 
     public function shouldRequireComponentVersion(): bool
