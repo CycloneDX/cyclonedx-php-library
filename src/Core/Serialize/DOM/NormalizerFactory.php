@@ -29,6 +29,9 @@ use DomainException;
 use DOMDocument;
 
 /**
+ * @SuppressWarnings(PHPMD.TooManyPublicMethods)
+ * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
+ *
  * @author jkowalleck
  */
 class NormalizerFactory

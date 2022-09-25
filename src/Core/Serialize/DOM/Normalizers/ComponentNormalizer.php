@@ -136,15 +136,15 @@ class ComponentNormalizer extends _BaseNormalizer
             );
     }
 
-    private function normalizeExternalReferences(ExternalReferenceRepository $externalReferenceRepository): ?DOMElement
+    private function normalizeExternalReferences(ExternalReferenceRepository $extRefs): ?DOMElement
     {
         $factory = $this->getNormalizerFactory();
 
-        return 0 === \count($externalReferenceRepository)
+        return 0 === \count($extRefs)
             ? null
             : $this->simpleDomAppendChildren(
                 $factory->getDocument()->createElement('externalReferences'),
-                $factory->makeForExternalReferenceRepository()->normalize($externalReferenceRepository)
+                $factory->makeForExternalReferenceRepository()->normalize($extRefs)
             );
     }
 }

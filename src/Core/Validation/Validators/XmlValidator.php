@@ -66,15 +66,16 @@ class XmlValidator extends BaseValidator
 
     /**
      * @throws FailedLoadingSchemaException
+     *
+     * @SuppressWarnings(PHPMD.StaticAccess)
      */
     public function validateDom(DOMDocument $doc): ?XmlValidationError
     {
         $error = $this->validateDomWithSchema($doc);
-        if ($error) {
-            return XmlValidationError::fromLibXMLError($error);
-        }
 
-        return null;
+        return $error
+            ? XmlValidationError::fromLibXMLError($error)
+            : null;
     }
 
     /**

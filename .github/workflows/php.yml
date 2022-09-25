@@ -357,5 +357,4 @@ jobs:
           php tools/phpmd/vendor/phpmd/phpmd/src/bin/phpmd
           src
           github
-          .phpmd/ruleset.xml
-          --baseline-file .phpmd/baseline.xml
+          .phpmd.rules.dist.xml

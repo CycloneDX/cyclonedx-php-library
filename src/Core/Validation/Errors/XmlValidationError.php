@@ -41,10 +41,10 @@ class XmlValidationError extends ValidationError
      */
     public static function fromLibXMLError(LibXMLError $error): static
     {
-        $i = new static($error->message);
-        $i->debugError = $error;
+        $instance = new static($error->message);
+        $instance->debugError = $error;
 
-        return $i;
+        return $instance;
     }
 
     /**

@@ -21,7 +21,7 @@ declare(strict_types=1);
  * Copyright (c) OWASP Foundation. All Rights Reserved.
  */
 
-namespace CycloneDX\Core\Validation\Helpers;
+namespace CycloneDX\Core\Validation\_helpers;
 
 use CycloneDX\Core\Resources;
 use Swaggest\JsonSchema;
@@ -30,6 +30,8 @@ use Swaggest\JsonSchema;
  * @internal as this class may be affected by breaking changes without notice
  *
  * @author jkowalleck
+ *
+ * @SuppressWarnings(PHPMD.LongClassName)
  */
 class JsonSchemaRemoteRefProviderForSnapshotResources implements JsonSchema\RemoteRefProvider
 {

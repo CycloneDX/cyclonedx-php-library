@@ -58,9 +58,9 @@ class ValidationError
      */
     public static function fromThrowable(\Throwable $error): static
     {
-        $i = new static($error->getMessage());
-        $i->error = $error;
+        $instance = new static($error->getMessage());
+        $instance->error = $error;
 
-        return $i;
+        return $instance;
     }
 }

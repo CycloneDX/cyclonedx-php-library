@@ -87,6 +87,8 @@ class LicenseFactory
     /**
      * @throws DomainException          when the SPDX license is invalid
      * @throws UnexpectedValueException when SpdxLicenseValidator is missing
+     *
+     * @SuppressWarnings(PHPMD.StaticAccess)
      */
     public function makeDisjunctiveWithId(string $license): DisjunctiveLicenseWithId
     {

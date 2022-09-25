@@ -25,10 +25,10 @@ namespace CycloneDX\Core\Validation\Validators;
 
 use CycloneDX\Core\Resources;
 use CycloneDX\Core\Spec\Version;
+use CycloneDX\Core\Validation\_helpers\JsonSchemaRemoteRefProviderForSnapshotResources;
 use CycloneDX\Core\Validation\BaseValidator;
 use CycloneDX\Core\Validation\Errors\JsonValidationError;
 use CycloneDX\Core\Validation\Exceptions\FailedLoadingSchemaException;
-use CycloneDX\Core\Validation\Helpers\JsonSchemaRemoteRefProviderForSnapshotResources;
 use Exception;
 use JsonException;
 use Swaggest\JsonSchema;
@@ -68,6 +68,8 @@ class JsonValidator extends BaseValidator
 
     /**
      * @throws FailedLoadingSchemaException
+     *
+     * @SuppressWarnings(PHPMD.StaticAccess)
      */
     public function validateData(\stdClass $data): ?JsonValidationError
     {
@@ -83,6 +85,8 @@ class JsonValidator extends BaseValidator
 
     /**
      * @throws FailedLoadingSchemaException
+     *
+     * @SuppressWarnings(PHPMD.StaticAccess)
      */
     private function getSchemaContract(): JsonSchema\SchemaContract
     {
