@@ -50,16 +50,6 @@ class JsonStrictValidatorTest extends TestCase
         return $validator;
     }
 
-    /**
-     * @depends testConstructor
-     */
-    public function testSetSpec(JsonStrictValidator $validator): void
-    {
-        $spec = $this->createStub(Spec::class);
-        $validator->setSpec($spec);
-        self::assertSame($spec, $validator->getSpec());
-    }
-
     public function testValidateString(): void
     {
         $validator = $this->createPartialMock(JsonStrictValidator::class, ['validateData']);

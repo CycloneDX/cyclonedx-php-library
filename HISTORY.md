@@ -85,6 +85,10 @@ API changes
     * BREAKING: renamed to `HashDictionary` ([#133] via [#131])
     * BREAKING: renamed all methods and changed all method signatures to match the overall streamlined scheme ([#133] via [#131])
 * `\CycloneDX\Core\Serialize` namespace
+  * `BaseSerializer` class
+    * BREAKING: removed deprecated method `setSpec()` (via [#144])
+  * `BaseValidator` class
+    * BREAKING: removed deprecated method `setSpec()` (via [#144])
   * `{DOM,JSON}\NormalizerFactory` classes
     * BREAKING: removed method `makeForLicenseExpression()` (via [#131])
     * BREAKING: removed method `makeForDisjunctiveLicense()` (via [#131])
@@ -134,6 +138,7 @@ API changes
 [#139]: https://github.com/CycloneDX/cyclonedx-php-library/issues/139
 [#142]: https://github.com/CycloneDX/cyclonedx-php-library/pull/142
 [#143]: https://github.com/CycloneDX/cyclonedx-php-library/pull/143
+[#144]: https://github.com/CycloneDX/cyclonedx-php-library/pull/144
 
 ## 1.6.3 - 2022-09-15
 

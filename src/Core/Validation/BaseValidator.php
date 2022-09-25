@@ -31,6 +31,9 @@ use CycloneDX\Core\Spec\Version;
  */
 abstract class BaseValidator implements Validator
 {
+    /**
+     * @readonly
+     */
     private Spec $spec;
 
     public function __construct(Spec $spec)
@@ -41,18 +44,6 @@ abstract class BaseValidator implements Validator
     public function getSpec(): Spec
     {
         return $this->spec;
-    }
-
-    /**
-     * @deprecated
-     *
-     * @return $this
-     */
-    public function setSpec(Spec $spec): self
-    {
-        $this->spec = $spec;
-
-        return $this;
     }
 
     /**
