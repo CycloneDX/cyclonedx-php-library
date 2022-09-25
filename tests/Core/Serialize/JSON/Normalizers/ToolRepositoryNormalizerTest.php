@@ -23,8 +23,8 @@ declare(strict_types=1);
 
 namespace CycloneDX\Tests\Core\Serialize\JSON\Normalizers;
 
+use CycloneDX\Core\Collections\ToolRepository;
 use CycloneDX\Core\Models\Tool;
-use CycloneDX\Core\Repositories\ToolRepository;
 use CycloneDX\Core\Serialize\JSON\NormalizerFactory;
 use CycloneDX\Core\Serialize\JSON\Normalizers\ToolNormalizer;
 use CycloneDX\Core\Serialize\JSON\Normalizers\ToolRepositoryNormalizer;
@@ -33,7 +33,7 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \CycloneDX\Core\Serialize\JSON\Normalizers\ToolRepositoryNormalizer
- * @covers \CycloneDX\Core\Serialize\JSON\AbstractNormalizer
+ * @covers \CycloneDX\Core\Serialize\JSON\_BaseNormalizer
  */
 class ToolRepositoryNormalizerTest extends TestCase
 {
@@ -69,7 +69,7 @@ class ToolRepositoryNormalizerTest extends TestCase
         $tool = $this->createStub(Tool::class);
         $tools = $this->createConfiguredMock(ToolRepository::class, [
             'count' => 1,
-            'getTools' => [$tool],
+            'getItems' => [$tool],
         ]);
 
         $toolNormalizer->expects(self::once())->method('normalize')
@@ -94,7 +94,7 @@ class ToolRepositoryNormalizerTest extends TestCase
         $tool2 = $this->createStub(Tool::class);
         $tools = $this->createConfiguredMock(ToolRepository::class, [
             'count' => 1,
-            'getTools' => [$tool1, $tool2],
+            'getItems' => [$tool1, $tool2],
         ]);
 
         $toolNormalizer->expects(self::exactly(2))->method('normalize')

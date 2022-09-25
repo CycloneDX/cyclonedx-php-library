@@ -23,17 +23,17 @@ declare(strict_types=1);
 
 namespace CycloneDX\Core\Serialize\DOM\Normalizers;
 
-use CycloneDX\Core\Helpers\SimpleDomTrait;
+use CycloneDX\Core\_helpers\SimpleDomTrait;
+use CycloneDX\Core\Collections\ComponentRepository;
 use CycloneDX\Core\Models\Bom;
-use CycloneDX\Core\Models\MetaData;
-use CycloneDX\Core\Repositories\ComponentRepository;
-use CycloneDX\Core\Serialize\DOM\AbstractNormalizer;
+use CycloneDX\Core\Models\Metadata;
+use CycloneDX\Core\Serialize\DOM\_BaseNormalizer;
 use DOMElement;
 
 /**
  * @author jkowalleck
  */
-class BomNormalizer extends AbstractNormalizer
+class BomNormalizer extends _BaseNormalizer
 {
     use SimpleDomTrait;
 
@@ -59,8 +59,8 @@ class BomNormalizer extends AbstractNormalizer
         $this->simpleDomAppendChildren(
             $element,
             [
-                $this->normalizeMetaData($bom->getMetaData()),
-                $this->normalizeComponents($bom->getComponentRepository()),
+                $this->normalizeMetaData($bom->getMetadata()),
+                $this->normalizeComponents($bom->getComponents()),
                 $this->normalizeExternalReferences($bom),
                 $this->normalizeDependencies($bom),
             ]
@@ -79,45 +79,43 @@ class BomNormalizer extends AbstractNormalizer
         );
     }
 
-    private function normalizeMetaData(?MetaData $metaData): ?DOMElement
+    private function normalizeMetaData(Metadata $metaData): ?DOMElement
     {
-        if (null === $metaData) {
-            return null;
-        }
-
         $factory = $this->getNormalizerFactory();
 
         if (false === $factory->getSpec()->supportsMetaData()) {
             return null;
         }
 
-        return $factory->makeForMetaData()->normalize($metaData);
+        $elem = $factory->makeForMetaData()->normalize($metaData);
+
+        return $elem->hasChildNodes()
+            ? $elem
+            : null;
     }
 
     private function normalizeExternalReferences(Bom $bom): ?DOMElement
     {
         $factory = $this->getNormalizerFactory();
 
-        $externalReferenceRepository = $bom->getExternalReferenceRepository();
+        $externalReferenceRepository = $bom->getExternalReferences();
 
         if (false === $factory->getSpec()->supportsMetaData()) {
             // prevent possible information loss: metadata cannot be rendered -> put it to bom
-            $mcr = $bom->getMetaData()?->getComponent()?->getExternalReferenceRepository();
+            $mcr = $bom->getMetadata()->getComponent()?->getExternalReferences();
             if (null !== $mcr) {
-                $externalReferenceRepository = null !== $externalReferenceRepository
-                    ? (clone $externalReferenceRepository)->addExternalReference(...$mcr->getExternalReferences())
-                    : $mcr;
+                $externalReferenceRepository = (clone $externalReferenceRepository)->addItems(...$mcr->getItems());
             }
             unset($mcr);
         }
 
-        if (null === $externalReferenceRepository) {
+        if (0 === \count($externalReferenceRepository)) {
             return null;
         }
 
         $refs = $factory->makeForExternalReferenceRepository()->normalize($externalReferenceRepository);
 
-        return empty($refs)
+        return 0 === \count($refs)
             ? null
             : $this->simpleDomAppendChildren(
                 $factory->getDocument()->createElement('externalReferences'),

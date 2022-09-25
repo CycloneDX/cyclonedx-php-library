@@ -23,15 +23,15 @@ declare(strict_types=1);
 
 namespace CycloneDX\Core\Serialize\DOM\Normalizers;
 
-use CycloneDX\Core\Helpers\SimpleDomTrait;
-use CycloneDX\Core\Serialize\DOM\AbstractNormalizer;
+use CycloneDX\Core\_helpers\SimpleDomTrait;
+use CycloneDX\Core\Serialize\DOM\_BaseNormalizer;
 use DomainException;
 use DOMElement;
 
 /**
  * @author jkowalleck
  */
-class HashNormalizer extends AbstractNormalizer
+class HashNormalizer extends _BaseNormalizer
 {
     use SimpleDomTrait;
 

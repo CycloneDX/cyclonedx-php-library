@@ -32,7 +32,7 @@ use PHPUnit\Framework\TestCase;
 /**
  * @covers \CycloneDX\Core\Serialize\JSON\NormalizerFactory
  *
- * @uses   \CycloneDX\Core\Serialize\JSON\AbstractNormalizer
+ * @uses   \CycloneDX\Core\Serialize\JSON\_BaseNormalizer
  */
 class NormalizerFactoryTest extends TestCase
 {
@@ -70,44 +70,6 @@ class NormalizerFactoryTest extends TestCase
 
     /**
      * @depends testConstructor
-     */
-    public function testSetSpec(NormalizerFactory $factory): void
-    {
-        $spec = $this->createConfiguredMock(
-            SpecInterface::class,
-            [
-                'isSupportedFormat' => true,
-                'getSupportedFormats' => ['JSON'],
-            ]
-        );
-
-        $actual = $factory->setSpec($spec);
-
-        self::assertSame($spec, $factory->getSpec());
-        self::assertSame($factory, $actual);
-    }
-
-    /**
-     * @depends testConstructor
-     */
-    public function testSetSpecThrowsWhenUnsupported(NormalizerFactory $factory): void
-    {
-        $spec = $this->createConfiguredMock(
-            SpecInterface::class,
-            [
-                'isSupportedFormat' => false,
-                'getSupportedFormats' => [],
-            ]
-        );
-
-        $this->expectException(DomainException::class);
-        $this->expectExceptionMessageMatches('/unsupported format/i');
-
-        $factory->setSpec($spec);
-    }
-
-    /**
-     * @depends testConstructor
      *
      * @uses    \CycloneDX\Core\Serialize\JSON\Normalizers\ComponentRepositoryNormalizer
      */
@@ -133,24 +95,36 @@ class NormalizerFactoryTest extends TestCase
     /**
      * @depends testConstructor
      *
-     * @uses    \CycloneDX\Core\Serialize\JSON\Normalizers\DisjunctiveLicenseNormalizer
+     * @uses    \CycloneDX\Core\Serialize\JSON\Normalizers\LicenseNormalizer
      */
-    public function testMakeForDisjunctiveLicense(NormalizerFactory $factory): void
+    public function testMakeForLicense(NormalizerFactory $factory): void
     {
-        $normalizer = $factory->makeForDisjunctiveLicense();
-        self::assertInstanceOf(Normalizers\DisjunctiveLicenseNormalizer::class, $normalizer);
+        $normalizer = $factory->makeForLicense();
+        self::assertInstanceOf(Normalizers\LicenseNormalizer::class, $normalizer);
         self::assertSame($factory, $normalizer->getNormalizerFactory());
     }
 
     /**
      * @depends testConstructor
      *
-     * @uses    \CycloneDX\Core\Serialize\JSON\Normalizers\HashRepositoryNormalizer
+     * @uses    \CycloneDX\Core\Serialize\JSON\Normalizers\LicenseRepositoryNormalizer
      */
-    public function testMakeForHashRepository(NormalizerFactory $factory): void
+    public function testMakeForLicenseRepository(NormalizerFactory $factory): void
     {
-        $normalizer = $factory->makeForHashRepository();
-        self::assertInstanceOf(Normalizers\HashRepositoryNormalizer::class, $normalizer);
+        $normalizer = $factory->makeForLicenseRepository();
+        self::assertInstanceOf(Normalizers\LicenseRepositoryNormalizer::class, $normalizer);
+        self::assertSame($factory, $normalizer->getNormalizerFactory());
+    }
+
+    /**
+     * @depends testConstructor
+     *
+     * @uses    \CycloneDX\Core\Serialize\JSON\Normalizers\HashDictionaryNormalizer
+     */
+    public function testMakeForHashDictionary(NormalizerFactory $factory): void
+    {
+        $normalizer = $factory->makeForHashDictionary();
+        self::assertInstanceOf(Normalizers\HashDictionaryNormalizer::class, $normalizer);
         self::assertSame($factory, $normalizer->getNormalizerFactory());
     }
 
@@ -163,30 +137,6 @@ class NormalizerFactoryTest extends TestCase
     {
         $normalizer = $factory->makeForComponent();
         self::assertInstanceOf(Normalizers\ComponentNormalizer::class, $normalizer);
-        self::assertSame($factory, $normalizer->getNormalizerFactory());
-    }
-
-    /**
-     * @depends testConstructor
-     *
-     * @uses    \CycloneDX\Core\Serialize\JSON\Normalizers\DisjunctiveLicenseRepositoryNormalizer
-     */
-    public function testMakeForDisjunctiveLicenseRepository(NormalizerFactory $factory): void
-    {
-        $normalizer = $factory->makeForDisjunctiveLicenseRepository();
-        self::assertInstanceOf(Normalizers\DisjunctiveLicenseRepositoryNormalizer::class, $normalizer);
-        self::assertSame($factory, $normalizer->getNormalizerFactory());
-    }
-
-    /**
-     * @depends testConstructor
-     *
-     * @uses    \CycloneDX\Core\Serialize\JSON\Normalizers\LicenseExpressionNormalizer
-     */
-    public function testMakeForLicenseExpression(NormalizerFactory $factory): void
-    {
-        $normalizer = $factory->makeForLicenseExpression();
-        self::assertInstanceOf(Normalizers\LicenseExpressionNormalizer::class, $normalizer);
         self::assertSame($factory, $normalizer->getNormalizerFactory());
     }
 

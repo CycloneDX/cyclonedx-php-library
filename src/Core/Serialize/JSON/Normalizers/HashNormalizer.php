@@ -23,13 +23,13 @@ declare(strict_types=1);
 
 namespace CycloneDX\Core\Serialize\JSON\Normalizers;
 
-use CycloneDX\Core\Serialize\JSON\AbstractNormalizer;
+use CycloneDX\Core\Serialize\JSON\_BaseNormalizer;
 use DomainException;
 
 /**
  * @author jkowalleck
  */
-class HashNormalizer extends AbstractNormalizer
+class HashNormalizer extends _BaseNormalizer
 {
     /**
      * @throws DomainException

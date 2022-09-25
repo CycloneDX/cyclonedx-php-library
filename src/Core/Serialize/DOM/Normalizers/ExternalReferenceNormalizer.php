@@ -23,11 +23,11 @@ declare(strict_types=1);
 
 namespace CycloneDX\Core\Serialize\DOM\Normalizers;
 
-use CycloneDX\Core\Helpers\SimpleDomTrait;
-use CycloneDX\Core\Helpers\XmlTrait;
+use CycloneDX\Core\_helpers\SimpleDomTrait;
+use CycloneDX\Core\_helpers\XmlTrait;
+use CycloneDX\Core\Collections\HashDictionary;
 use CycloneDX\Core\Models\ExternalReference;
-use CycloneDX\Core\Repositories\HashRepository;
-use CycloneDX\Core\Serialize\DOM\AbstractNormalizer;
+use CycloneDX\Core\Serialize\DOM\_BaseNormalizer;
 use DomainException;
 use DOMElement;
 use UnexpectedValueException;
@@ -35,7 +35,7 @@ use UnexpectedValueException;
 /**
  * @author jkowalleck
  */
-class ExternalReferenceNormalizer extends AbstractNormalizer
+class ExternalReferenceNormalizer extends _BaseNormalizer
 {
     use SimpleDomTrait;
     use XmlTrait;
@@ -74,24 +74,25 @@ class ExternalReferenceNormalizer extends AbstractNormalizer
             [
                 $this->simpleDomSafeTextElement($doc, 'url', $anyURI),
                 $this->simpleDomSafeTextElement($doc, 'comment', $externalReference->getComment()),
-                $this->normalizeHashes($externalReference->getHashRepository()),
+                $this->normalizeHashes($externalReference->getHashes()),
             ]
         );
     }
 
-    private function normalizeHashes(?HashRepository $hashes): ?DOMElement
+    private function normalizeHashes(HashDictionary $hashes): ?DOMElement
     {
-        $factory = $this->getNormalizerFactory();
+        if (0 === \count($hashes)) {
+            return null;
+        }
 
+        $factory = $this->getNormalizerFactory();
         if (false === $factory->getSpec()->supportsExternalReferenceHashes()) {
             return null;
         }
 
-        return null === $hashes || 0 === \count($hashes)
-            ? null
-            : $this->simpleDomAppendChildren(
-                $factory->getDocument()->createElement('hashes'),
-                $factory->makeForHashRepository()->normalize($hashes)
-            );
+        return $this->simpleDomAppendChildren(
+            $factory->getDocument()->createElement('hashes'),
+            $factory->makeForHashDictionary()->normalize($hashes)
+        );
     }
 }

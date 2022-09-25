@@ -23,8 +23,8 @@ declare(strict_types=1);
 
 namespace CycloneDX\Tests\Core\Serialize\JSON\Normalizers;
 
+use CycloneDX\Core\Collections\ComponentRepository;
 use CycloneDX\Core\Models\Component;
-use CycloneDX\Core\Repositories\ComponentRepository;
 use CycloneDX\Core\Serialize\JSON\NormalizerFactory;
 use CycloneDX\Core\Serialize\JSON\Normalizers\ComponentNormalizer;
 use CycloneDX\Core\Serialize\JSON\Normalizers\ComponentRepositoryNormalizer;
@@ -33,7 +33,7 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \CycloneDX\Core\Serialize\JSON\Normalizers\ComponentRepositoryNormalizer
- * @covers \CycloneDX\Core\Serialize\JSON\AbstractNormalizer
+ * @covers \CycloneDX\Core\Serialize\JSON\_BaseNormalizer
  */
 class ComponentRepositoryNormalizerTest extends TestCase
 {
@@ -61,7 +61,7 @@ class ComponentRepositoryNormalizerTest extends TestCase
         $component = $this->createStub(Component::class);
         $components = $this->createConfiguredMock(ComponentRepository::class, [
             'count' => 1,
-            'getComponents' => [$component],
+            'getItems' => [$component],
         ]);
 
         $componentNormalizer->expects(self::once())->method('normalize')
@@ -86,7 +86,7 @@ class ComponentRepositoryNormalizerTest extends TestCase
         $component2 = $this->createStub(Component::class);
         $components = $this->createConfiguredMock(ComponentRepository::class, [
             'count' => 1,
-            'getComponents' => [$component1, $component2],
+            'getItems' => [$component1, $component2],
         ]);
 
         $componentNormalizer->expects(self::exactly(2))->method('normalize')

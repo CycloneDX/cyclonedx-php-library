@@ -36,10 +36,13 @@ class NormalizerFactory
     public const FORMAT = Format::XML;
 
     /**
-     * @psalm-suppress PropertyNotSetInConstructor
+     * @readonly
      */
     private SpecInterface $spec;
 
+    /**
+     * @readonly
+     */
     private DOMDocument $document;
 
     /**
@@ -47,27 +50,17 @@ class NormalizerFactory
      */
     public function __construct(SpecInterface $spec)
     {
-        $this->setSpec($spec);
+        $this->spec = $spec->isSupportedFormat(self::FORMAT)
+            ? $spec
+            : throw new DomainException('Unsupported format "'.self::FORMAT.'" for spec '.$spec->getVersion());
         $this->document = new DOMDocument();
     }
+
+    // intention: all factory methods return an instance of "_BaseNormalizer"
 
     public function getSpec(): SpecInterface
     {
         return $this->spec;
-    }
-
-    /**
-     * @throws DomainException when the spec does not support XML format
-     *
-     * @return $this
-     */
-    public function setSpec(SpecInterface $spec): self
-    {
-        $this->spec = $spec->isSupportedFormat(self::FORMAT)
-            ? $spec
-            : throw new DomainException('Unsupported format "'.self::FORMAT.'" for spec '.$spec->getVersion());
-
-        return $this;
     }
 
     public function getDocument(): DOMDocument
@@ -90,24 +83,19 @@ class NormalizerFactory
         return new Normalizers\ComponentNormalizer($this);
     }
 
-    public function makeForLicenseExpression(): Normalizers\LicenseExpressionNormalizer
+    public function makeForLicense(): Normalizers\LicenseNormalizer
     {
-        return new Normalizers\LicenseExpressionNormalizer($this);
+        return new Normalizers\LicenseNormalizer($this);
     }
 
-    public function makeForDisjunctiveLicenseRepository(): Normalizers\DisjunctiveLicenseRepositoryNormalizer
+    public function makeForLicenseRepository(): Normalizers\LicenseRepositoryNormalizer
     {
-        return new Normalizers\DisjunctiveLicenseRepositoryNormalizer($this);
+        return new Normalizers\LicenseRepositoryNormalizer($this);
     }
 
-    public function makeForDisjunctiveLicense(): Normalizers\DisjunctiveLicenseNormalizer
+    public function makeForHashDictionary(): Normalizers\HashDictionaryNormalizer
     {
-        return new Normalizers\DisjunctiveLicenseNormalizer($this);
-    }
-
-    public function makeForHashRepository(): Normalizers\HashRepositoryNormalizer
-    {
-        return new Normalizers\HashRepositoryNormalizer($this);
+        return new Normalizers\HashDictionaryNormalizer($this);
     }
 
     public function makeForHash(): Normalizers\HashNormalizer

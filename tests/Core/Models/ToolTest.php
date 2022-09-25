@@ -23,13 +23,16 @@ declare(strict_types=1);
 
 namespace CycloneDX\Tests\Core\Models;
 
+use CycloneDX\Core\Collections\ExternalReferenceRepository;
+use CycloneDX\Core\Collections\HashDictionary;
 use CycloneDX\Core\Models\Tool;
-use CycloneDX\Core\Repositories\ExternalReferenceRepository;
-use CycloneDX\Core\Repositories\HashRepository;
 use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \CycloneDX\Core\Models\Tool
+ *
+ * @uses \CycloneDX\Core\Collections\HashDictionary
+ * @uses \CycloneDX\Core\Collections\ExternalReferenceRepository
  */
 class ToolTest extends TestCase
 {
@@ -40,8 +43,8 @@ class ToolTest extends TestCase
         self::assertNull($tool->getVendor());
         self::assertNull($tool->getName());
         self::assertNull($tool->getVersion());
-        self::assertNull($tool->getHashRepository());
-        self::assertNull($tool->getExternalReferenceRepository());
+        self::assertCount(0, $tool->getHashes());
+        self::assertCount(0, $tool->getExternalReferences());
 
         return $tool;
     }
@@ -79,11 +82,11 @@ class ToolTest extends TestCase
     /**
      * @depends testConstruct
      */
-    public function testSetterGetterHashRepository(Tool $tool): void
+    public function testSetterGetterHashDictionary(Tool $tool): void
     {
-        $hashes = $this->createStub(HashRepository::class);
-        $tool->setHashRepository($hashes);
-        self::assertSame($hashes, $tool->getHashRepository());
+        $hashes = $this->createStub(HashDictionary::class);
+        $tool->setHashes($hashes);
+        self::assertSame($hashes, $tool->getHashes());
     }
 
     /**
@@ -92,7 +95,7 @@ class ToolTest extends TestCase
     public function testSetterGetterExternalReferenceRepository(Tool $tool): void
     {
         $extRefs = $this->createStub(ExternalReferenceRepository::class);
-        $tool->setExternalReferenceRepository($extRefs);
-        self::assertSame($extRefs, $tool->getExternalReferenceRepository());
+        $tool->setExternalReferences($extRefs);
+        self::assertSame($extRefs, $tool->getExternalReferences());
     }
 }

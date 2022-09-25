@@ -26,21 +26,29 @@ namespace CycloneDX\Tests\_data;
 use Generator;
 
 use function PHPUnit\Framework\assertFileExists;
+use function PHPUnit\Framework\assertIsArray;
+use function PHPUnit\Framework\assertIsString;
 use function PHPUnit\Framework\assertNotCount;
 
 use SimpleXMLElement;
 
 abstract class BomSpecData
 {
+    /**
+     * @psalm-suppress MissingThrowsDocblock
+     */
     public static function getSpecFilePath(string $version): string
     {
         $file = realpath(__DIR__."/../../res/bom-$version.SNAPSHOT.xsd");
+        assertIsString($file);
         assertFileExists($file);
 
         return $file;
     }
 
     /**
+     * @return string[]
+     *
      * @psalm-return list<string> sorted list
      */
     public static function getClassificationEnumForVersion(string $version): array
@@ -49,6 +57,8 @@ abstract class BomSpecData
     }
 
     /**
+     * @return string[]
+     *
      * @psalm-return list<string> sorted list
      */
     public static function getExternalReferenceTypeForVersion(string $version): array
@@ -57,6 +67,8 @@ abstract class BomSpecData
     }
 
     /**
+     * @return string[]
+     *
      * @psalm-return list<string> sorted list
      */
     public static function getHashAlgEnumForVersion(string $version): array
@@ -66,10 +78,15 @@ abstract class BomSpecData
 
     // region helpers
 
-    private static $enumValueCache = [];
+    /** @psalm-var array<string, array<string, list<string>>>  */
+    private static array $enumValueCache = [];
 
     /**
+     * @return string[]
+     *
      * @psalm-return list<string> sorted list
+     *
+     * @psalm-suppress MissingThrowsDocblock
      */
     private static function getEnumValuesForName(string $version, string $name): array
     {
@@ -86,13 +103,15 @@ abstract class BomSpecData
 
     /**
      * @psalm-return Generator<string>
+     *
+     * @psalm-suppress MissingThrowsDocblock
      */
     private static function getEnumValuesForNameFromFile(string $version, string $name): Generator
     {
         $specXml = self::getSpecFilePath($version);
         $xml = new SimpleXMLElement($specXml, 0, true);
         $xmlEnumElems = $xml->xpath("xs:simpleType[@name='$name']/xs:restriction/xs:enumeration/@value");
-        /** @var SimpleXMLElement $xmlEnumElem */
+        assertIsArray($xmlEnumElems);
         foreach ($xmlEnumElems as $xmlEnumElem) {
             yield (string) $xmlEnumElem;
         }

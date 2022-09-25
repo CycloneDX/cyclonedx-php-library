@@ -28,8 +28,10 @@ namespace CycloneDX\Core\Models\License;
  *
  * @author jkowalleck
  */
-class DisjunctiveLicenseWithName extends AbstractDisjunctiveLicense
+class DisjunctiveLicenseWithName
 {
+    use _DisjunctiveLicenseBase;
+
     /**
      * If SPDX does not define the license used, this field may be used to provide the license name.
      */

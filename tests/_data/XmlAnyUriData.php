@@ -32,7 +32,7 @@ abstract class XmlAnyUriData
      *
      * @return Generator<string[]>
      *
-     * @psalm-return Generator<string, array{0: string, 1: string}>
+     * @psalm-return Generator<string, array{0:string, 1:string}>
      */
     public static function dpEncodeAnyUri(): Generator
     {

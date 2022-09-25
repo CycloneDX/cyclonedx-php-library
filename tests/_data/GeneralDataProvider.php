@@ -28,7 +28,9 @@ use Generator;
 abstract class GeneralDataProvider
 {
     /**
-     * @return Generator<string, array{string|null}>
+     * @return Generator<string[]|null[]>
+     *
+     * @psalm-return Generator<string, array{0:string|null}>
      */
     public static function stringRandomEmptyNull(): Generator
     {

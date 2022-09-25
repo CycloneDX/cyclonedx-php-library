@@ -23,78 +23,104 @@ declare(strict_types=1);
 
 namespace CycloneDX\Tests\Core\Models;
 
+use CycloneDX\Core\Collections\ComponentRepository;
+use CycloneDX\Core\Collections\ExternalReferenceRepository;
 use CycloneDX\Core\Models\Bom;
-use CycloneDX\Core\Models\MetaData;
-use CycloneDX\Core\Repositories\ComponentRepository;
-use CycloneDX\Core\Repositories\ExternalReferenceRepository;
+use CycloneDX\Core\Models\Metadata;
 use PHPUnit\Framework\TestCase;
 
 /**
  * Class BomTest.
  *
  * @covers \CycloneDX\Core\Models\Bom
+ *
+ * @uses \CycloneDX\Core\Collections\ComponentRepository
+ * @uses \CycloneDX\Core\Models\Metadata
+ * @uses \CycloneDX\Core\Collections\ToolRepository
+ * @uses \CycloneDX\Core\Collections\ExternalReferenceRepository
  */
 class BomTest extends TestCase
 {
-    /** @psalm-var Bom */
-    private $bom;
-
-    protected function setUp(): void
+    public function testConstruct(): Bom
     {
-        $this->bom = new Bom($this->createStub(ComponentRepository::class));
+        $components = $this->createStub(ComponentRepository::class);
+
+        $bom = new Bom($components);
+
+        self::assertSame(1, $bom->getVersion());
+        self::assertSame($components, $bom->getComponents());
+        self::assertCount(0, $bom->getExternalReferences());
+        self::assertEquals(new Metadata(), $bom->getMetadata());
+
+        return $bom;
     }
 
     // region components setter&getter&modifiers
 
-    public function testComponentsSetterGetter(): void
+    /**
+     * @depends testConstruct
+     */
+    public function testComponentsSetterGetter(Bom $bom): void
     {
         $components = $this->createStub(ComponentRepository::class);
-        $bom = $this->bom->setComponentRepository($components);
-        self::assertSame($this->bom, $bom);
-        self::assertSame($components, $this->bom->getComponentRepository());
+        $actual = $bom->setComponents($components);
+        self::assertSame($bom, $actual);
+        self::assertSame($components, $bom->getComponents());
     }
 
     // endregion components setter&getter&modifiers
 
     // region version setter&getter
 
-    public function testVersionSetterGetter(): void
+    /**
+     * @depends testConstruct
+     */
+    public function testVersionSetterGetter(Bom $bom): void
     {
         $version = random_int(1, 255);
-        $bom = $this->bom->setVersion($version);
-        self::assertSame($this->bom, $bom);
-        self::assertSame($version, $this->bom->getVersion());
+        $actual = $bom->setVersion($version);
+        self::assertSame($bom, $actual);
+        self::assertSame($version, $bom->getVersion());
     }
 
-    public function testVersionSetterInvalidValue(): void
+    /**
+     * @depends testConstruct
+     */
+    public function testVersionSetterInvalidValue(Bom $bom): void
     {
         $version = 0 - random_int(1, 255);
         $this->expectException(\DomainException::class);
-        $this->bom->setVersion($version);
+        $bom->setVersion($version);
     }
 
     // endregion version setter&getter
 
     // region metaData setter&getter
 
-    public function testMetaDataSetterGetter(): void
+    /**
+     * @depends testConstruct
+     */
+    public function testMetaDataSetterGetter(Bom $bom): void
     {
-        $metaData = $this->createStub(MetaData::class);
-        $bom = $this->bom->setMetaData($metaData);
-        self::assertSame($this->bom, $bom);
-        self::assertSame($metaData, $this->bom->getMetaData());
+        $metaData = $this->createStub(Metadata::class);
+        $actual = $bom->setMetadata($metaData);
+        self::assertSame($bom, $actual);
+        self::assertSame($metaData, $bom->getMetadata());
     }
 
     // endregion metaData setter&getter
 
     // region externalReferenceRepository setter&getter
 
-    public function testExternalReferenceRepositorySetterGetter(): void
+    /**
+     * @depends testConstruct
+     */
+    public function testExternalReferenceRepositorySetterGetter(Bom $bom): void
     {
         $extRefRepo = $this->createStub(ExternalReferenceRepository::class);
-        $bom = $this->bom->setExternalReferenceRepository($extRefRepo);
-        self::assertSame($this->bom, $bom);
-        self::assertSame($extRefRepo, $this->bom->getExternalReferenceRepository());
+        $actual = $bom->setExternalReferences($extRefRepo);
+        self::assertSame($bom, $actual);
+        self::assertSame($extRefRepo, $bom->getExternalReferences());
     }
 
     // endregion externalReferenceRepository setter&getter

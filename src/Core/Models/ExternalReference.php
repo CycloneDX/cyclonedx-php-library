@@ -23,8 +23,8 @@ declare(strict_types=1);
 
 namespace CycloneDX\Core\Models;
 
+use CycloneDX\Core\Collections\HashDictionary;
 use CycloneDX\Core\Enums\ExternalReferenceType;
-use CycloneDX\Core\Repositories\HashRepository;
 use DomainException;
 
 /**
@@ -57,7 +57,7 @@ class ExternalReference
      */
     private ?string $comment = null;
 
-    private ?HashRepository $hashRepository = null;
+    private HashDictionary $hashes;
 
     /**
      * @psalm-return  ExternalReferenceType::*
@@ -115,17 +115,17 @@ class ExternalReference
         return $this;
     }
 
-    public function getHashRepository(): ?HashRepository
+    public function getHashes(): HashDictionary
     {
-        return $this->hashRepository;
+        return $this->hashes;
     }
 
     /**
      * @return $this
      */
-    public function setHashRepository(?HashRepository $hashRepository): self
+    public function setHashes(HashDictionary $hashes): self
     {
-        $this->hashRepository = $hashRepository;
+        $this->hashes = $hashes;
 
         return $this;
     }
@@ -139,5 +139,6 @@ class ExternalReference
     {
         $this->setType($type);
         $this->setUrl($url);
+        $this->hashes = new HashDictionary();
     }
 }

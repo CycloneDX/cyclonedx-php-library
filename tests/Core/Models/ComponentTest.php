@@ -23,14 +23,13 @@ declare(strict_types=1);
 
 namespace CycloneDX\Tests\Core\Models;
 
+use CycloneDX\Core\Collections\BomRefRepository;
+use CycloneDX\Core\Collections\ExternalReferenceRepository;
+use CycloneDX\Core\Collections\HashDictionary;
+use CycloneDX\Core\Collections\LicenseRepository;
 use CycloneDX\Core\Enums\Classification;
 use CycloneDX\Core\Models\BomRef;
 use CycloneDX\Core\Models\Component;
-use CycloneDX\Core\Models\License\LicenseExpression;
-use CycloneDX\Core\Repositories\BomRefRepository;
-use CycloneDX\Core\Repositories\DisjunctiveLicenseRepository;
-use CycloneDX\Core\Repositories\ExternalReferenceRepository;
-use CycloneDX\Core\Repositories\HashRepository;
 use PackageUrl\PackageUrl;
 use PHPUnit\Framework\TestCase;
 
@@ -41,6 +40,10 @@ use PHPUnit\Framework\TestCase;
  *
  * @uses   \CycloneDX\Core\Enums\Classification::isValidValue
  * @uses   \CycloneDX\Core\Models\BomRef::__construct
+ * @uses  \CycloneDX\Core\Collections\LicenseRepository
+ * @uses \CycloneDX\Core\Collections\HashDictionary
+ * @uses \CycloneDX\Core\Collections\ExternalReferenceRepository
+ * @uses \CycloneDX\Core\Collections\BomRefRepository
  */
 class ComponentTest extends TestCase
 {
@@ -56,12 +59,12 @@ class ComponentTest extends TestCase
         $component = new Component($type, $name);
 
         self::assertInstanceOf(BomRef::class, $component->getBomRef());
-        self::assertNull($component->getDependenciesBomRefRepository());
+        self::assertCount(0, $component->getDependencies());
         self::assertNull($component->getDescription());
-        self::assertNull($component->getExternalReferenceRepository());
+        self::assertCount(0, $component->getExternalReferences());
         self::assertNull($component->getGroup());
-        self::assertNull($component->getHashRepository());
-        self::assertNull($component->getLicense());
+        self::assertCount(0, $component->getHashes());
+        self::assertCount(0, $component->getLicenses());
         self::assertSame($name, $component->getName());
         self::assertNull($component->getPackageUrl());
         self::assertSame($type, $component->getType());
@@ -130,20 +133,13 @@ class ComponentTest extends TestCase
     // region licenses setter&getter
 
     /**
-     * @dataProvider dpLicensesSetterGetter
+     * @depends testConstructor
      */
-    public function testLicensesSetterGetter(Component $component, $license): void
+    public function testLicensesSetterGetter(Component $component): void
     {
-        $component->setLicense($license);
-        self::assertSame($license, $component->getLicense());
-    }
-
-    public function dpLicensesSetterGetter(): \Generator
-    {
-        $component = $this->testConstructor();
-        yield 'null' => [$component, null];
-        yield 'repo' => [$component, $this->createStub(DisjunctiveLicenseRepository::class)];
-        yield 'expression' => [$component, $this->createStub(LicenseExpression::class)];
+        $licenses = $this->createStub(LicenseRepository::class);
+        $component->setLicenses($licenses);
+        self::assertSame($licenses, $component->getLicenses());
     }
 
     // endregion licenses setter&getter
@@ -151,19 +147,13 @@ class ComponentTest extends TestCase
     // region hashes setter&getter
 
     /**
-     * @dataProvider dpHashesSetterGetter
+     * @depends testConstructor
      */
-    public function testHashesSetterGetter(Component $component, $hashes): void
+    public function testHashesSetterGetter(Component $component): void
     {
-        $component->setHashRepository($hashes);
-        self::assertSame($hashes, $component->getHashRepository());
-    }
-
-    public function dpHashesSetterGetter(): \Generator
-    {
-        $component = $this->testConstructor();
-        yield 'null' => [$component, null];
-        yield 'repo' => [$component, $this->createStub(HashRepository::class)];
+        $hashes = $this->createStub(HashDictionary::class);
+        $component->setHashes($hashes);
+        self::assertSame($hashes, $component->getHashes());
     }
 
     // endregion hashes setter&getter
@@ -238,11 +228,11 @@ class ComponentTest extends TestCase
     public function testDependenciesBomRefRepositorySetterGetter(Component $component): void
     {
         $repo = $this->createMock(BomRefRepository::class);
-        self::assertNull($component->getDependenciesBomRefRepository());
+        self::assertNotSame($repo, $component->getDependencies());
 
-        $component->setDependenciesBomRefRepository($repo);
+        $component->setDependencies($repo);
 
-        self::assertSame($repo, $component->getDependenciesBomRefRepository());
+        self::assertSame($repo, $component->getDependencies());
     }
 
     // endregion dependenciesBomRefRepository setter&getter
@@ -256,10 +246,10 @@ class ComponentTest extends TestCase
     {
         $extRefRepo = $this->createStub(ExternalReferenceRepository::class);
 
-        $actual = $component->setExternalReferenceRepository($extRefRepo);
+        $actual = $component->setExternalReferences($extRefRepo);
 
         self::assertSame($component, $actual);
-        self::assertSame($extRefRepo, $component->getExternalReferenceRepository());
+        self::assertSame($extRefRepo, $component->getExternalReferences());
     }
 
     // endregion externalReferenceRepository setter&getter

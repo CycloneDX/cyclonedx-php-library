@@ -23,13 +23,13 @@ declare(strict_types=1);
 
 namespace CycloneDX\Core\Serialize\JSON\Normalizers;
 
-use CycloneDX\Core\Repositories\ComponentRepository;
-use CycloneDX\Core\Serialize\JSON\AbstractNormalizer;
+use CycloneDX\Core\Collections\ComponentRepository;
+use CycloneDX\Core\Serialize\JSON\_BaseNormalizer;
 
 /**
  * @author jkowalleck
  */
-class ComponentRepositoryNormalizer extends AbstractNormalizer
+class ComponentRepositoryNormalizer extends _BaseNormalizer
 {
     /**
      * @psalm-return list<mixed>
@@ -39,7 +39,7 @@ class ComponentRepositoryNormalizer extends AbstractNormalizer
         $components = [];
 
         $normalizer = $this->getNormalizerFactory()->makeForComponent();
-        foreach ($repo->getComponents() as $component) {
+        foreach ($repo->getItems() as $component) {
             try {
                 $components[] = $normalizer->normalize($component);
             } catch (\DomainException) {

@@ -23,8 +23,8 @@ declare(strict_types=1);
 
 namespace CycloneDX\Core\Models;
 
-use CycloneDX\Core\Repositories\ComponentRepository;
-use CycloneDX\Core\Repositories\ExternalReferenceRepository;
+use CycloneDX\Core\Collections\ComponentRepository;
+use CycloneDX\Core\Collections\ExternalReferenceRepository;
 use DomainException;
 
 /**
@@ -36,7 +36,7 @@ class Bom
     /**
      * @psalm-suppress PropertyNotSetInConstructor
      */
-    private ComponentRepository $componentRepository;
+    private ComponentRepository $components;
 
     /**
      * The version allows component publishers/authors to make changes to existing BOMs to update various aspects of the document such as description or licenses.
@@ -48,33 +48,32 @@ class Bom
      */
     private int $version = 1;
 
-    /**
-     * @TODO deprecated rename it in v4 to `$metadata` and also rename the getter/setter
-     */
-    private ?MetaData $metaData = null;
+    private Metadata $metadata;
 
     /**
      * Provides the ability to document external references related to the BOM or
      * to the project the BOM describes.
      */
-    private ?ExternalReferenceRepository $externalReferenceRepository = null;
+    private ExternalReferenceRepository $externalReferences;
 
-    public function __construct(?ComponentRepository $componentRepository = null)
+    public function __construct(?ComponentRepository $components = null)
     {
-        $this->setComponentRepository($componentRepository ?? new ComponentRepository());
+        $this->setComponents($components ?? new ComponentRepository());
+        $this->externalReferences = new ExternalReferenceRepository();
+        $this->metadata = new Metadata();
     }
 
-    public function getComponentRepository(): ComponentRepository
+    public function getComponents(): ComponentRepository
     {
-        return $this->componentRepository;
+        return $this->components;
     }
 
     /**
      * @return $this
      */
-    public function setComponentRepository(ComponentRepository $componentRepository): self
+    public function setComponents(ComponentRepository $components): self
     {
-        $this->componentRepository = $componentRepository;
+        $this->components = $components;
 
         return $this;
     }
@@ -98,7 +97,7 @@ class Bom
      */
     public function setVersion(int $version): self
     {
-        $this->version = $this->isValidVersion($version)
+        $this->version = self::isValidVersion($version)
             ? $version
             : throw new DomainException("Invalid value: $version");
 
@@ -108,37 +107,37 @@ class Bom
     /**
      * @psalm-assert-if-true positive-int $version
      */
-    private function isValidVersion(int $version): bool
+    private static function isValidVersion(int $version): bool
     {
         return $version > 0;
     }
 
-    public function getMetaData(): ?MetaData
+    public function getMetadata(): Metadata
     {
-        return $this->metaData;
+        return $this->metadata;
     }
 
     /**
      * @return $this
      */
-    public function setMetaData(?MetaData $metaData): self
+    public function setMetadata(Metadata $metadata): self
     {
-        $this->metaData = $metaData;
+        $this->metadata = $metadata;
 
         return $this;
     }
 
-    public function getExternalReferenceRepository(): ?ExternalReferenceRepository
+    public function getExternalReferences(): ExternalReferenceRepository
     {
-        return $this->externalReferenceRepository;
+        return $this->externalReferences;
     }
 
     /**
      * @return $this
      */
-    public function setExternalReferenceRepository(?ExternalReferenceRepository $externalReferenceRepository): self
+    public function setExternalReferences(ExternalReferenceRepository $externalReferences): self
     {
-        $this->externalReferenceRepository = $externalReferenceRepository;
+        $this->externalReferences = $externalReferences;
 
         return $this;
     }

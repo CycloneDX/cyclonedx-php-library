@@ -25,6 +25,10 @@
         <include>
             <directory suffix=".php">src</directory>
         </include>
+        <exclude>
+            <!-- who cares for the helpers, they are just helpers. -->
+            <directory suffix=".php">src/Core/_helpers</directory>
+        </exclude>
         <report>
             <clover outputFile="reports/coverage.clover.xml"/>
             <html outputDirectory="reports/coverage.html"/>
@@ -35,9 +39,8 @@
         <testdoxText outputFile="reports/phpunits.txt"/>
     </logging>
     <php>
-        <ini name="xdebug.mode=coverage" value="coverage" />
+        <ini name="xdebug.mode" value="coverage" />
         <ini name="pcov.enabled" value="1" />
-        <ini name="pcov.directory" value="." />
-        <ini name="pcov.exclude" value="~vendor~" />
+        <ini name="pcov.directory" value="src" />
     </php>
 </phpunit>

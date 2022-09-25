@@ -23,15 +23,15 @@ declare(strict_types=1);
 
 namespace CycloneDX\Core\Serialize\JSON\Normalizers;
 
-use CycloneDX\Core\Helpers\NullAssertionTrait;
+use CycloneDX\Core\_helpers\NullAssertionTrait;
 use CycloneDX\Core\Models\Bom;
-use CycloneDX\Core\Models\MetaData;
-use CycloneDX\Core\Serialize\JSON\AbstractNormalizer;
+use CycloneDX\Core\Models\Metadata;
+use CycloneDX\Core\Serialize\JSON\_BaseNormalizer;
 
 /**
  * @author jkowalleck
  */
-class BomNormalizer extends AbstractNormalizer
+class BomNormalizer extends _BaseNormalizer
 {
     use NullAssertionTrait;
 
@@ -46,8 +46,8 @@ class BomNormalizer extends AbstractNormalizer
                 'bomFormat' => self::BOM_FORMAT,
                 'specVersion' => $factory->getSpec()->getVersion(),
                 'version' => $bom->getVersion(),
-                'metadata' => $this->normalizeMetaData($bom->getMetaData()),
-                'components' => $factory->makeForComponentRepository()->normalize($bom->getComponentRepository()),
+                'metadata' => $this->normalizeMetaData($bom->getMetadata()),
+                'components' => $factory->makeForComponentRepository()->normalize($bom->getComponents()),
                 'externalReferences' => $this->normalizeExternalReferences($bom),
                 'dependencies' => $this->normalizeDependencies($bom),
             ],
@@ -55,12 +55,8 @@ class BomNormalizer extends AbstractNormalizer
         );
     }
 
-    private function normalizeMetaData(?MetaData $metaData): ?array
+    private function normalizeMetaData(Metadata $metaData): ?array
     {
-        if (null === $metaData) {
-            return null;
-        }
-
         $factory = $this->getNormalizerFactory();
 
         if (false === $factory->getSpec()->supportsMetaData()) {
@@ -78,20 +74,18 @@ class BomNormalizer extends AbstractNormalizer
     {
         $factory = $this->getNormalizerFactory();
 
-        $externalReferenceRepository = $bom->getExternalReferenceRepository();
+        $externalReferenceRepository = $bom->getExternalReferences();
 
         if (false === $factory->getSpec()->supportsMetaData()) {
             // prevent possible information loss: metadata cannot be rendered -> put it to bom
-            $mcr = $bom->getMetaData()?->getComponent()?->getExternalReferenceRepository();
+            $mcr = $bom->getMetadata()->getComponent()?->getExternalReferences();
             if (null !== $mcr) {
-                $externalReferenceRepository = null !== $externalReferenceRepository
-                    ? (clone $externalReferenceRepository)->addExternalReference(...$mcr->getExternalReferences())
-                    : $mcr;
+                $externalReferenceRepository = (clone $externalReferenceRepository)->addItems(...$mcr->getItems());
             }
             unset($mcr);
         }
 
-        if (null === $externalReferenceRepository) {
+        if (0 === \count($externalReferenceRepository)) {
             return null;
         }
 

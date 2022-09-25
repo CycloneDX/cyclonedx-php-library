@@ -23,9 +23,9 @@ declare(strict_types=1);
 
 namespace CycloneDX\Tests\Core\Models;
 
+use CycloneDX\Core\Collections\HashDictionary;
 use CycloneDX\Core\Enums\ExternalReferenceType;
 use CycloneDX\Core\Models\ExternalReference;
-use CycloneDX\Core\Repositories\HashRepository;
 use DomainException;
 use PHPUnit\Framework\TestCase;
 
@@ -33,6 +33,7 @@ use PHPUnit\Framework\TestCase;
  * @covers \CycloneDX\Core\Models\ExternalReference
  *
  * @uses \CycloneDX\Core\Enums\ExternalReferenceType::isValidValue()
+ * @uses  \CycloneDX\Core\Collections\HashDictionary
  */
 class ExternalReferenceTest extends TestCase
 {
@@ -43,7 +44,7 @@ class ExternalReferenceTest extends TestCase
         $this->assertSame(ExternalReferenceType::OTHER, $extRef->getType());
         $this->assertSame('https://localhost/dummy', $extRef->getUrl());
         $this->assertNull($extRef->getComment());
-        $this->assertNull($extRef->getHashRepository());
+        $this->assertCount(0, $extRef->getHashes());
 
         return $extRef;
     }
@@ -122,10 +123,10 @@ class ExternalReferenceTest extends TestCase
      */
     public function testHashesSetterAndGetter(ExternalReference $extRef): void
     {
-        $hashes = $this->createStub(HashRepository::class);
-        $got = $extRef->setHashRepository($hashes);
+        $hashes = $this->createStub(HashDictionary::class);
+        $got = $extRef->setHashes($hashes);
         $this->assertSame($extRef, $got);
-        $this->assertSame($hashes, $extRef->getHashRepository());
+        $this->assertSame($hashes, $extRef->getHashes());
     }
 
     // endregion test Comment

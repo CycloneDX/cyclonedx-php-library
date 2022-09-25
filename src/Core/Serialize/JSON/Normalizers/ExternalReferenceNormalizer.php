@@ -23,16 +23,16 @@ declare(strict_types=1);
 
 namespace CycloneDX\Core\Serialize\JSON\Normalizers;
 
-use CycloneDX\Core\Helpers\NullAssertionTrait;
+use CycloneDX\Core\_helpers\NullAssertionTrait;
+use CycloneDX\Core\Collections\HashDictionary;
 use CycloneDX\Core\Models\ExternalReference;
-use CycloneDX\Core\Repositories\HashRepository;
-use CycloneDX\Core\Serialize\JSON\AbstractNormalizer;
+use CycloneDX\Core\Serialize\JSON\_BaseNormalizer;
 use DomainException;
 
 /**
  * @author jkowalleck
  */
-class ExternalReferenceNormalizer extends AbstractNormalizer
+class ExternalReferenceNormalizer extends _BaseNormalizer
 {
     use NullAssertionTrait;
 
@@ -51,13 +51,13 @@ class ExternalReferenceNormalizer extends AbstractNormalizer
                 'type' => $type,
                 'url' => $externalReference->getUrl(),
                 'comment' => $externalReference->getComment(),
-                'hashes' => $this->normalizeHashes($externalReference->getHashRepository()),
+                'hashes' => $this->normalizeHashes($externalReference->getHashes()),
             ],
             [$this, 'isNotNull']
         );
     }
 
-    private function normalizeHashes(?HashRepository $hashes): ?array
+    private function normalizeHashes(HashDictionary $hashes): ?array
     {
         $factory = $this->getNormalizerFactory();
 
@@ -65,8 +65,8 @@ class ExternalReferenceNormalizer extends AbstractNormalizer
             return null;
         }
 
-        return null === $hashes || 0 === \count($hashes)
+        return 0 === \count($hashes)
             ? null
-            : $factory->makeForHashRepository()->normalize($hashes);
+            : $factory->makeForHashDictionary()->normalize($hashes);
     }
 }

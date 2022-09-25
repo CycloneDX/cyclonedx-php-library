@@ -24,17 +24,18 @@ declare(strict_types=1);
 namespace CycloneDX\Tests\Core\Models\License;
 
 use CycloneDX\Core\Models\License\DisjunctiveLicenseWithName;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \CycloneDX\Core\Models\License\DisjunctiveLicenseWithName
- * @covers \CycloneDX\Core\Models\License\AbstractDisjunctiveLicense
  */
-class DisjunctiveLicenseWithNameTest extends AbstractDisjunctiveLicenseTestCase
+class DisjunctiveLicenseWithNameTest extends TestCase
 {
     public function testConstruct(): DisjunctiveLicenseWithName
     {
         $license = new DisjunctiveLicenseWithName('foo');
         self::assertSame('foo', $license->getName());
+        self::assertNull($license->getUrl());
 
         return $license;
     }
@@ -46,5 +47,26 @@ class DisjunctiveLicenseWithNameTest extends AbstractDisjunctiveLicenseTestCase
     {
         $license->setName('bar');
         self::assertSame('bar', $license->getName());
+    }
+
+    /**
+     * @depends testConstruct
+     */
+    public function testSetAndGetUrl(DisjunctiveLicenseWithName $license): DisjunctiveLicenseWithName
+    {
+        $url = uniqid('url', true);
+        $license->setUrl($url);
+        self::assertSame($url, $license->getUrl());
+
+        return $license;
+    }
+
+    /**
+     * @depends testSetAndGetUrl
+     */
+    public function testSetUrlNull(DisjunctiveLicenseWithName $license): void
+    {
+        $license->setUrl(null);
+        self::assertNull($license->getUrl());
     }
 }

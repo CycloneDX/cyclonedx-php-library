@@ -23,16 +23,16 @@ declare(strict_types=1);
 
 namespace CycloneDX\Core\Serialize\JSON\Normalizers;
 
-use CycloneDX\Core\Helpers\NullAssertionTrait;
+use CycloneDX\Core\_helpers\NullAssertionTrait;
+use CycloneDX\Core\Collections\ExternalReferenceRepository;
+use CycloneDX\Core\Collections\HashDictionary;
 use CycloneDX\Core\Models\Tool;
-use CycloneDX\Core\Repositories\ExternalReferenceRepository;
-use CycloneDX\Core\Repositories\HashRepository;
-use CycloneDX\Core\Serialize\JSON\AbstractNormalizer;
+use CycloneDX\Core\Serialize\JSON\_BaseNormalizer;
 
 /**
  * @author jkowalleck
  */
-class ToolNormalizer extends AbstractNormalizer
+class ToolNormalizer extends _BaseNormalizer
 {
     use NullAssertionTrait;
 
@@ -43,21 +43,21 @@ class ToolNormalizer extends AbstractNormalizer
                 'vendor' => $tool->getVendor(),
                 'name' => $tool->getName(),
                 'version' => $tool->getVersion(),
-                'hashes' => $this->normalizeHashes($tool->getHashRepository()),
-                'externalReferences' => $this->normalizeExternalReferences($tool->getExternalReferenceRepository()),
+                'hashes' => $this->normalizeHashes($tool->getHashes()),
+                'externalReferences' => $this->normalizeExternalReferences($tool->getExternalReferences()),
             ],
             [$this, 'isNotNull']
         );
     }
 
-    private function normalizeHashes(?HashRepository $hashes): ?array
+    private function normalizeHashes(HashDictionary $hashes): ?array
     {
-        return null === $hashes || 0 === \count($hashes)
+        return 0 === \count($hashes)
             ? null
-            : $this->getNormalizerFactory()->makeForHashRepository()->normalize($hashes);
+            : $this->getNormalizerFactory()->makeForHashDictionary()->normalize($hashes);
     }
 
-    private function normalizeExternalReferences(?ExternalReferenceRepository $externalReferenceRepository): ?array
+    private function normalizeExternalReferences(ExternalReferenceRepository $externalReferenceRepository): ?array
     {
         $factory = $this->getNormalizerFactory();
 
@@ -65,7 +65,7 @@ class ToolNormalizer extends AbstractNormalizer
             return null;
         }
 
-        return null === $externalReferenceRepository || 0 === \count($externalReferenceRepository)
+        return 0 === \count($externalReferenceRepository)
             ? null
             : $factory->makeForExternalReferenceRepository()->normalize($externalReferenceRepository);
     }

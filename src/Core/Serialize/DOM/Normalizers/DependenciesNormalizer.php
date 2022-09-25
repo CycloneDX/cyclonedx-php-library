@@ -23,14 +23,14 @@ declare(strict_types=1);
 
 namespace CycloneDX\Core\Serialize\DOM\Normalizers;
 
-use CycloneDX\Core\Helpers\SimpleDomTrait;
+use CycloneDX\Core\_helpers\SimpleDomTrait;
 use CycloneDX\Core\Models\Bom;
 use CycloneDX\Core\Models\BomRef;
 use CycloneDX\Core\Models\Component;
-use CycloneDX\Core\Serialize\DOM\AbstractNormalizer;
+use CycloneDX\Core\Serialize\DOM\_BaseNormalizer;
 use DOMElement;
 
-class DependenciesNormalizer extends AbstractNormalizer
+class DependenciesNormalizer extends _BaseNormalizer
 {
     use SimpleDomTrait;
 
@@ -44,9 +44,9 @@ class DependenciesNormalizer extends AbstractNormalizer
      */
     public function normalize(Bom $bom): array
     {
-        $allComponents = $bom->getComponentRepository()->getComponents();
+        $allComponents = $bom->getComponents()->getItems();
 
-        $mainComponent = $bom->getMetaData()?->getComponent();
+        $mainComponent = $bom->getMetadata()->getComponent();
         if (null !== $mainComponent) {
             $allComponents[] = $mainComponent;
         }
@@ -59,12 +59,10 @@ class DependenciesNormalizer extends AbstractNormalizer
 
         $dependencies = [];
         foreach ($allComponents as $component) {
-            $componentDependencies = $component->getDependenciesBomRefRepository();
-            $dependenciesRefs = null === $componentDependencies
-                ? []
-                : array_filter($componentDependencies->getBomRefs(), $isKnownRef);
-
-            $dependency = $this->normalizeDependency($component->getBomRef(), ...$dependenciesRefs);
+            $dependency = $this->normalizeDependency(
+                $component->getBomRef(),
+                ...array_filter($component->getDependencies()->getItems(), $isKnownRef)
+            );
             if (null !== $dependency) {
                 $dependencies[] = $dependency;
             }
@@ -89,16 +87,14 @@ class DependenciesNormalizer extends AbstractNormalizer
 
         foreach ($dependencyRefs as $dependencyRef) {
             $dependencyRefValue = $dependencyRef->getValue();
-            if (null === $dependencyRefValue) {
-                continue;
+            if (null !== $dependencyRefValue) {
+                $dependency->appendChild(
+                    $this->simpleDomSetAttributes(
+                        $doc->createElement('dependency'),
+                        ['ref' => $dependencyRefValue]
+                    )
+                );
             }
-
-            $dependency->appendChild(
-                $this->simpleDomSetAttributes(
-                    $doc->createElement('dependency'),
-                    ['ref' => $dependencyRefValue]
-                )
-            );
         }
 
         return $dependency;

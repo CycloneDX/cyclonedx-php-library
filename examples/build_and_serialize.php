@@ -26,7 +26,7 @@ require_once __DIR__.'/../vendor/autoload.php';
 // Example how to serialize a Bom to JSON / XML.
 
 $bom = new \CycloneDX\Core\Models\Bom();
-$bom->getComponentRepository()->addComponent(
+$bom->getComponents()->addItems(
     new \CycloneDX\Core\Models\Component(
         \CycloneDX\Core\Enums\Classification::LIBRARY,
         'myComponent'

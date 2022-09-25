@@ -23,15 +23,15 @@ declare(strict_types=1);
 
 namespace CycloneDX\Tests\Core\Serialize\JSON\Normalizers;
 
+use CycloneDX\Core\Collections\ExternalReferenceRepository;
 use CycloneDX\Core\Models\ExternalReference;
-use CycloneDX\Core\Repositories\ExternalReferenceRepository;
 use CycloneDX\Core\Serialize\JSON\NormalizerFactory;
 use CycloneDX\Core\Serialize\JSON\Normalizers;
 use CycloneDX\Core\Spec\SpecInterface;
 
 /**
  * @covers \CycloneDX\Core\Serialize\JSON\Normalizers\ExternalReferenceRepositoryNormalizer
- * @covers \CycloneDX\Core\Serialize\JSON\AbstractNormalizer
+ * @covers \CycloneDX\Core\Serialize\JSON\_BaseNormalizer
  *
  * @uses \CycloneDX\Core\Serialize\JSON\Normalizers\ExternalReferenceNormalizer
  */
@@ -69,7 +69,7 @@ class ExternalReferenceRepositoryNormalizerTest extends \PHPUnit\Framework\TestC
         $externalReference = $this->createStub(ExternalReference::class);
         $repo = $this->createConfiguredMock(ExternalReferenceRepository::class, [
             'count' => 1,
-            'getExternalReferences' => [$externalReference],
+            'getItems' => [$externalReference],
         ]);
 
         $externalReferenceNormalizer->expects(self::once())
@@ -95,7 +95,7 @@ class ExternalReferenceRepositoryNormalizerTest extends \PHPUnit\Framework\TestC
         $extRef2 = $this->createStub(ExternalReference::class);
         $tools = $this->createConfiguredMock(ExternalReferenceRepository::class, [
             'count' => 1,
-            'getExternalReferences' => [$extRef1, $extRef2],
+            'getItems' => [$extRef1, $extRef2],
         ]);
 
         $externalReferenceNormalizer->expects(self::exactly(2))->method('normalize')

@@ -23,21 +23,21 @@ declare(strict_types=1);
 
 namespace CycloneDX\Core\Serialize\DOM\Normalizers;
 
-use CycloneDX\Core\Helpers\SimpleDomTrait;
+use CycloneDX\Core\_helpers\SimpleDomTrait;
+use CycloneDX\Core\Collections\ToolRepository;
 use CycloneDX\Core\Models\Component;
-use CycloneDX\Core\Models\MetaData;
-use CycloneDX\Core\Repositories\ToolRepository;
-use CycloneDX\Core\Serialize\DOM\AbstractNormalizer;
+use CycloneDX\Core\Models\Metadata;
+use CycloneDX\Core\Serialize\DOM\_BaseNormalizer;
 use DOMElement;
 
 /**
  * @author jkowalleck
  */
-class MetaDataNormalizer extends AbstractNormalizer
+class MetaDataNormalizer extends _BaseNormalizer
 {
     use SimpleDomTrait;
 
-    public function normalize(MetaData $metaData): DOMElement
+    public function normalize(Metadata $metaData): DOMElement
     {
         return $this->simpleDomAppendChildren(
             $this->getNormalizerFactory()->getDocument()->createElement('metadata'),
@@ -52,9 +52,9 @@ class MetaDataNormalizer extends AbstractNormalizer
         );
     }
 
-    private function normalizeTools(?ToolRepository $tools): ?DOMElement
+    private function normalizeTools(ToolRepository $tools): ?DOMElement
     {
-        return null === $tools || 0 === \count($tools)
+        return 0 === \count($tools)
             ? null
             : $this->simpleDomAppendChildren(
                 $this->getNormalizerFactory()->getDocument()->createElement('tools'),

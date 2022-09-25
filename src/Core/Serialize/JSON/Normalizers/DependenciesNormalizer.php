@@ -23,16 +23,16 @@ declare(strict_types=1);
 
 namespace CycloneDX\Core\Serialize\JSON\Normalizers;
 
-use CycloneDX\Core\Helpers\NullAssertionTrait;
+use CycloneDX\Core\_helpers\NullAssertionTrait;
 use CycloneDX\Core\Models\Bom;
 use CycloneDX\Core\Models\BomRef;
 use CycloneDX\Core\Models\Component;
-use CycloneDX\Core\Serialize\JSON\AbstractNormalizer;
+use CycloneDX\Core\Serialize\JSON\_BaseNormalizer;
 
 /**
  * @psalm-type Dependency = array{ref: string, dependsOn?: non-empty-list<string>}
  */
-class DependenciesNormalizer extends AbstractNormalizer
+class DependenciesNormalizer extends _BaseNormalizer
 {
     use NullAssertionTrait;
 
@@ -46,9 +46,9 @@ class DependenciesNormalizer extends AbstractNormalizer
      */
     public function normalize(Bom $bom): array
     {
-        $allComponents = $bom->getComponentRepository()->getComponents();
+        $allComponents = $bom->getComponents()->getItems();
 
-        $mainComponent = $bom->getMetaData()?->getComponent();
+        $mainComponent = $bom->getMetadata()->getComponent();
         if (null !== $mainComponent) {
             $allComponents[] = $mainComponent;
         }
@@ -61,12 +61,10 @@ class DependenciesNormalizer extends AbstractNormalizer
 
         $dependencies = [];
         foreach ($allComponents as $component) {
-            $componentDependencies = $component->getDependenciesBomRefRepository();
-            $dependenciesRefs = null === $componentDependencies
-                ? []
-                : array_filter($componentDependencies->getBomRefs(), $isKnownRef);
-
-            $dependency = $this->normalizeDependency($component->getBomRef(), ...$dependenciesRefs);
+            $dependency = $this->normalizeDependency(
+                $component->getBomRef(),
+                ...array_filter($component->getDependencies()->getItems(), $isKnownRef)
+            );
             if (null !== $dependency) {
                 $dependencies[] = $dependency;
             }
@@ -90,10 +88,9 @@ class DependenciesNormalizer extends AbstractNormalizer
         $deps = [];
         foreach ($dependencyRefs as $dependencyRef) {
             $dependencyRefValue = $dependencyRef->getValue();
-            if (null === $dependencyRefValue) {
-                continue;
+            if (null !== $dependencyRefValue) {
+                $deps[] = $dependencyRefValue;
             }
-            $deps[] = $dependencyRefValue;
         }
         if (!empty($deps)) {
             $dep['dependsOn'] = $deps;

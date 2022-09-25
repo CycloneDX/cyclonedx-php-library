@@ -23,17 +23,17 @@ declare(strict_types=1);
 
 namespace CycloneDX\Core\Serialize\DOM\Normalizers;
 
-use CycloneDX\Core\Helpers\SimpleDomTrait;
+use CycloneDX\Core\_helpers\SimpleDomTrait;
+use CycloneDX\Core\Collections\ExternalReferenceRepository;
+use CycloneDX\Core\Collections\HashDictionary;
 use CycloneDX\Core\Models\Tool;
-use CycloneDX\Core\Repositories\ExternalReferenceRepository;
-use CycloneDX\Core\Repositories\HashRepository;
-use CycloneDX\Core\Serialize\DOM\AbstractNormalizer;
+use CycloneDX\Core\Serialize\DOM\_BaseNormalizer;
 use DOMElement;
 
 /**
  * @author jkowalleck
  */
-class ToolNormalizer extends AbstractNormalizer
+class ToolNormalizer extends _BaseNormalizer
 {
     use SimpleDomTrait;
 
@@ -47,23 +47,25 @@ class ToolNormalizer extends AbstractNormalizer
                 $this->simpleDomSafeTextElement($doc, 'vendor', $tool->getVendor()),
                 $this->simpleDomSafeTextElement($doc, 'name', $tool->getName()),
                 $this->simpleDomSafeTextElement($doc, 'version', $tool->getVersion()),
-                $this->normalizeHashes($tool->getHashRepository()),
-                $this->normalizeExternalReferences($tool->getExternalReferenceRepository()),
+                $this->normalizeHashes($tool->getHashes()),
+                $this->normalizeExternalReferences($tool->getExternalReferences()),
             ]
         );
     }
 
-    private function normalizeHashes(?HashRepository $hashes): ?DOMElement
+    private function normalizeHashes(HashDictionary $hashes): ?DOMElement
     {
-        return null === $hashes || 0 === \count($hashes)
+        $factory = $this->getNormalizerFactory();
+
+        return 0 === \count($hashes)
             ? null
             : $this->simpleDomAppendChildren(
-                $this->getNormalizerFactory()->getDocument()->createElement('hashes'),
-                $this->getNormalizerFactory()->makeForHashRepository()->normalize($hashes)
+                $factory->getDocument()->createElement('hashes'),
+                $factory->makeForHashDictionary()->normalize($hashes)
             );
     }
 
-    private function normalizeExternalReferences(?ExternalReferenceRepository $externalReferenceRepository): ?DOMElement
+    private function normalizeExternalReferences(ExternalReferenceRepository $externalReferenceRepository): ?DOMElement
     {
         $factory = $this->getNormalizerFactory();
 
@@ -71,7 +73,7 @@ class ToolNormalizer extends AbstractNormalizer
             return null;
         }
 
-        return null === $externalReferenceRepository || 0 === \count($externalReferenceRepository)
+        return 0 === \count($externalReferenceRepository)
             ? null
             : $this->simpleDomAppendChildren(
                 $factory->getDocument()->createElement('externalReferences'),

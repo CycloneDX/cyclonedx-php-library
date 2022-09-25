@@ -27,9 +27,11 @@ use CycloneDX\Core\Spdx\License as SpdxLicenseValidator;
 
 abstract class SpdxLicenseValidatorSingleton
 {
-    /** @var SpdxLicenseValidator|null */
-    private static $instance;
+    private static ?SpdxLicenseValidator $instance = null;
 
+    /**
+     * @throws \RuntimeException if loading licenses failed
+     */
     public static function getInstance(): SpdxLicenseValidator
     {
         if (null === self::$instance) {
