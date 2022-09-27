@@ -29,6 +29,7 @@ use CycloneDX\Core\Models\License\LicenseExpression;
 use CycloneDX\Core\Serialization\JSON\NormalizerFactory;
 use CycloneDX\Core\Serialization\JSON\Normalizers\LicenseNormalizer;
 use CycloneDX\Core\Spec\Spec;
+use Generator;
 
 /**
  * @covers \CycloneDX\Core\Serialization\JSON\Normalizers\LicenseNormalizer
@@ -50,7 +51,7 @@ class LicenseNormalizerTest extends \PHPUnit\Framework\TestCase
         self::assertSame($expected, $actual);
     }
 
-    public function dpNormalize(): \Generator
+    public function dpNormalize(): Generator
     {
         yield 'license expression' => [
             $this->createConfiguredMock(LicenseExpression::class, [

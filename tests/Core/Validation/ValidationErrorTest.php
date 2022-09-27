@@ -24,6 +24,7 @@ declare(strict_types=1);
 namespace CycloneDX\Tests\Core\Validation;
 
 use CycloneDX\Core\Validation\ValidationError;
+use Exception;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -33,7 +34,7 @@ class ValidationErrorTest extends TestCase
 {
     public function testFromThrowable(): void
     {
-        $throwable = new \Exception('foo bar');
+        $throwable = new Exception('foo bar');
 
         $error = ValidationError::fromThrowable($throwable);
 

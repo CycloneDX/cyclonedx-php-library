@@ -25,7 +25,9 @@ namespace CycloneDX\Tests\Core\Enums;
 
 use CycloneDX\Core\Enums\Classification;
 use CycloneDX\Tests\_data\BomSpecData;
+use Generator;
 use PHPUnit\Framework\TestCase;
+use ReflectionClass;
 
 /**
  * @covers \CycloneDX\Core\Enums\Classification
@@ -41,15 +43,15 @@ class ClassificationTest extends TestCase
         self::assertSame($expected, Classification::isValidValue($value));
     }
 
-    public function dpKnownValues(): \Generator
+    public function dpKnownValues(): Generator
     {
-        $allValues = (new \ReflectionClass(Classification::class))->getConstants();
+        $allValues = (new ReflectionClass(Classification::class))->getConstants();
         foreach ($allValues as $value) {
             yield $value => [$value, true];
         }
     }
 
-    public function dpUnknownValue(): \Generator
+    public function dpUnknownValue(): Generator
     {
         yield 'invalid' => ['UnknownClassification', false];
     }
@@ -62,7 +64,7 @@ class ClassificationTest extends TestCase
         self::assertTrue(Classification::isValidValue($value));
     }
 
-    public function dpSchemaValues(): \Generator
+    public function dpSchemaValues(): Generator
     {
         $allValues = array_unique(array_merge(
             BomSpecData::getClassificationEnumForVersion('1.0'),

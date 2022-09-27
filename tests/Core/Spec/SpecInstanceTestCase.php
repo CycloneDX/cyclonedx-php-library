@@ -30,6 +30,7 @@ use CycloneDX\Core\Spec\Spec;
 use CycloneDX\Tests\_data\BomSpecData;
 use Generator;
 use PHPUnit\Framework\TestCase;
+use ReflectionClass;
 
 abstract class SpecInstanceTestCase extends TestCase
 {
@@ -88,7 +89,7 @@ abstract class SpecInstanceTestCase extends TestCase
     {
         yield 'unknown' => [uniqid('Classification', false), false];
         $known = BomSpecData::getClassificationEnumForVersion($this->getSpecVersion());
-        $values = (new \ReflectionClass(Classification::class))->getConstants();
+        $values = (new ReflectionClass(Classification::class))->getConstants();
         foreach ($values as $value) {
             yield $value => [$value, \in_array($value, $known, true)];
         }
@@ -107,7 +108,7 @@ abstract class SpecInstanceTestCase extends TestCase
     {
         yield 'unknown' => [uniqid('HashAlg', false), false];
         $known = BomSpecData::getHashAlgEnumForVersion($this->getSpecVersion());
-        $values = (new \ReflectionClass(HashAlgorithm::class))->getConstants();
+        $values = (new ReflectionClass(HashAlgorithm::class))->getConstants();
         foreach ($values as $value) {
             yield $value => [$value, \in_array($value, $known, true)];
         }
@@ -141,7 +142,7 @@ abstract class SpecInstanceTestCase extends TestCase
     {
         yield 'unknown' => [uniqid('ExternalReferenceType', false), false];
         $known = BomSpecData::getExternalReferenceTypeForVersion($this->getSpecVersion());
-        $values = (new \ReflectionClass(ExternalReferenceType::class))->getConstants();
+        $values = (new ReflectionClass(ExternalReferenceType::class))->getConstants();
         foreach ($values as $value) {
             yield $value => [$value, \in_array($value, $known, true)];
         }

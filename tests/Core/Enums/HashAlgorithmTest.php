@@ -25,7 +25,9 @@ namespace CycloneDX\Tests\Core\Enums;
 
 use CycloneDX\Core\Enums\HashAlgorithm;
 use CycloneDX\Tests\_data\BomSpecData;
+use Generator;
 use PHPUnit\Framework\TestCase;
+use ReflectionClass;
 
 /**
  * @covers \CycloneDX\Core\Enums\HashAlgorithm
@@ -41,15 +43,15 @@ class HashAlgorithmTest extends TestCase
         self::assertSame($expected, HashAlgorithm::isValidValue($value));
     }
 
-    public function dpKnownValues(): \Generator
+    public function dpKnownValues(): Generator
     {
-        $allValues = (new \ReflectionClass(HashAlgorithm::class))->getConstants();
+        $allValues = (new ReflectionClass(HashAlgorithm::class))->getConstants();
         foreach ($allValues as $value) {
             yield $value => [$value, true];
         }
     }
 
-    public function dpUnknownValue(): \Generator
+    public function dpUnknownValue(): Generator
     {
         yield 'invalid' => ['UnknownAlg', false];
     }
@@ -62,7 +64,7 @@ class HashAlgorithmTest extends TestCase
         self::assertTrue(HashAlgorithm::isValidValue($value));
     }
 
-    public function dpSchemaValues(): \Generator
+    public function dpSchemaValues(): Generator
     {
         $allValues = array_unique(array_merge(
             BomSpecData::getHashAlgEnumForVersion('1.0'),

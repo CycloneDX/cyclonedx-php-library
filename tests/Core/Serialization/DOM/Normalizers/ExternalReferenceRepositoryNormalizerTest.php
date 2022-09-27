@@ -28,7 +28,10 @@ use CycloneDX\Core\Models\ExternalReference;
 use CycloneDX\Core\Serialization\DOM\NormalizerFactory;
 use CycloneDX\Core\Serialization\DOM\Normalizers;
 use CycloneDX\Core\Spec\Spec;
+use DomainException;
 use DOMElement;
+use Generator;
+use UnexpectedValueException;
 
 /**
  * @covers \CycloneDX\Core\Serialization\DOM\Normalizers\ExternalReferenceRepositoryNormalizer
@@ -114,9 +117,9 @@ class ExternalReferenceRepositoryNormalizerTest extends \PHPUnit\Framework\TestC
         self::assertSame([], $actual);
     }
 
-    public function dpNormalizeSkipsOnThrow(): \Generator
+    public function dpNormalizeSkipsOnThrow(): Generator
     {
-        yield 'DomainException' => [\DomainException::class];
-        yield 'UnexpectedValueException' => [\UnexpectedValueException::class];
+        yield 'DomainException' => [DomainException::class];
+        yield 'UnexpectedValueException' => [UnexpectedValueException::class];
     }
 }

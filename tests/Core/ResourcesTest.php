@@ -24,7 +24,9 @@ declare(strict_types=1);
 namespace CycloneDX\Tests\Core;
 
 use CycloneDX\Core\Resources;
+use Generator;
 use PHPUnit\Framework\TestCase;
+use ReflectionClass;
 
 /**
  * @coversNothing
@@ -47,9 +49,9 @@ class ResourcesTest extends TestCase
         self::assertFileIsReadable($filePath);
     }
 
-    public function dpFiles(): \Generator
+    public function dpFiles(): Generator
     {
-        $constants = (new \ReflectionClass(Resources::class))->getConstants();
+        $constants = (new ReflectionClass(Resources::class))->getConstants();
         foreach ($constants as $name => $value) {
             if (str_starts_with($name, 'FILE')) {
                 yield $name => [$value];

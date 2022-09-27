@@ -27,6 +27,7 @@ use CycloneDX\Core\Serialization\DOM\NormalizerFactory;
 use CycloneDX\Core\Serialization\DOM\Normalizers;
 use CycloneDX\Core\Spec\Spec;
 use DomainException;
+use DOMDocument;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -47,7 +48,7 @@ class NormalizerFactoryTest extends TestCase
 
         $factory = new NormalizerFactory($spec);
         self::assertSame($spec, $factory->getSpec());
-        self::assertInstanceOf(\DOMDocument::class, $factory->getDocument());
+        self::assertInstanceOf(DOMDocument::class, $factory->getDocument());
 
         return $factory;
     }

@@ -27,6 +27,7 @@ use CycloneDX\Core\Models\Bom;
 use CycloneDX\Core\Serialization\XmlSerializer;
 use CycloneDX\Core\Spec\SpecFactory;
 use CycloneDX\Core\Validation\Validators\XmlValidator;
+use Exception;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -46,7 +47,7 @@ class SerializeToXmlTest extends TestCase
      *
      * @dataProvider \CycloneDX\Tests\_data\BomModelProvider::allBomTestData
      *
-     * @throws \Exception on validation failure
+     * @throws Exception on validation failure
      */
     public function testSchema11(Bom $bom): void
     {
@@ -70,7 +71,7 @@ class SerializeToXmlTest extends TestCase
      *
      * @dataProvider \CycloneDX\Tests\_data\BomModelProvider::allBomTestData
      *
-     * @throws \Exception on validation failure
+     * @throws Exception on validation failure
      */
     public function testSchema12(Bom $bom): void
     {
@@ -94,7 +95,7 @@ class SerializeToXmlTest extends TestCase
      *
      * @dataProvider \CycloneDX\Tests\_data\BomModelProvider::allBomTestData
      *
-     * @throws \Exception on validation failure
+     * @throws Exception on validation failure
      */
     public function testSchema13(Bom $bom): void
     {
@@ -118,7 +119,7 @@ class SerializeToXmlTest extends TestCase
      *
      * @dataProvider \CycloneDX\Tests\_data\BomModelProvider::allBomTestData
      *
-     * @throws \Exception on validation failure
+     * @throws Exception on validation failure
      */
     public function testSchema14(Bom $bom): void
     {

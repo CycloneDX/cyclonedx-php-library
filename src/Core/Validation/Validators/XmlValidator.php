@@ -30,6 +30,7 @@ use CycloneDX\Core\Validation\Errors\XmlValidationError;
 use CycloneDX\Core\Validation\Exceptions\FailedLoadingSchemaException;
 use DOMDocument;
 use DOMException;
+use LibXMLError;
 
 /**
  * @author jkowalleck
@@ -81,7 +82,7 @@ class XmlValidator extends BaseValidator
     /**
      * @throws FailedLoadingSchemaException
      */
-    private function validateDomWithSchema(DOMDocument $doc): ?\LibXMLError
+    private function validateDomWithSchema(DOMDocument $doc): ?LibXMLError
     {
         $schema = $this->getSchemaFile();
 

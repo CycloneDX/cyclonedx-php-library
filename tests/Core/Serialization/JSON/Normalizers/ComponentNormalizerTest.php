@@ -32,6 +32,7 @@ use CycloneDX\Core\Serialization\JSON\NormalizerFactory;
 use CycloneDX\Core\Serialization\JSON\Normalizers;
 use CycloneDX\Core\Spec\Spec;
 use DomainException;
+use Generator;
 use PackageUrl\PackageUrl;
 use PHPUnit\Framework\TestCase;
 
@@ -99,7 +100,7 @@ class ComponentNormalizerTest extends TestCase
         self::assertSame($expected, $actual);
     }
 
-    public function dptNormalizeMinimal(): \Generator
+    public function dptNormalizeMinimal(): Generator
     {
         yield 'mandatory Component Version' => [
             [

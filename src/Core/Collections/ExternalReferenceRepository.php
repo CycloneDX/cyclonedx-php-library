@@ -23,6 +23,7 @@ declare(strict_types=1);
 
 namespace CycloneDX\Core\Collections;
 
+use Countable;
 use CycloneDX\Core\Models\ExternalReference;
 
 /**
@@ -30,7 +31,7 @@ use CycloneDX\Core\Models\ExternalReference;
  *
  * @author jkowalleck
  */
-class ExternalReferenceRepository implements \Countable
+class ExternalReferenceRepository implements Countable
 {
     /**
      * @var ExternalReference[]

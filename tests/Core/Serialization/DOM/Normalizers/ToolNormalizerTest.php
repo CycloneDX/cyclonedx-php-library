@@ -23,6 +23,7 @@ declare(strict_types=1);
 
 namespace CycloneDX\Tests\Core\Serialization\DOM\Normalizers;
 
+use BadMethodCallException;
 use CycloneDX\Core\Collections\ExternalReferenceRepository;
 use CycloneDX\Core\Collections\HashDictionary;
 use CycloneDX\Core\Models\Tool;
@@ -149,10 +150,10 @@ class ToolNormalizerTest extends TestCase
 
         $HashDictNormalizer->expects(self::never())
             ->method('normalize')
-            ->willThrowException(new \BadMethodCallException());
+            ->willThrowException(new BadMethodCallException());
         $extRefRepoNormalizer->expects(self::never())
             ->method('normalize')
-            ->willThrowException(new \BadMethodCallException());
+            ->willThrowException(new BadMethodCallException());
 
         $actual = $normalizer->normalize($tool);
 

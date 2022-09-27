@@ -25,12 +25,13 @@ namespace CycloneDX\Tests\_traits;
 
 use DOMDocument;
 use DOMNode;
+use Exception;
 use PHPUnit\Framework\Assert;
 
 trait DomNodeAssertionTrait
 {
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     final protected static function assertDomNodeEqualsDomNode(DOMNode $expected, DomNode $actual): void
     {
@@ -43,7 +44,7 @@ trait DomNodeAssertionTrait
     }
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     final protected static function assertDomNodeEqualsString(DomNode $expected, string $actual): void
     {
@@ -55,7 +56,7 @@ trait DomNodeAssertionTrait
     }
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     final protected static function assertStringEqualsDomNode(string $expected, DOMNode $actual): void
     {

@@ -31,6 +31,8 @@ use CycloneDX\Core\Models\Component;
 use CycloneDX\Core\Models\Metadata;
 use CycloneDX\Core\Serialization\BaseSerializer;
 use CycloneDX\Core\Spec\Spec;
+use Exception;
+use Generator;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -87,7 +89,7 @@ class BaseSerializerTest extends TestCase
     public function testSerializeForwardsExceptionsFromNormalize(): void
     {
         $bom = $this->createStub(Bom::class);
-        $exception = $this->createMock(\Exception::class);
+        $exception = $this->createMock(Exception::class);
 
         $this->serializer->expects(self::once())
             ->method('normalize')
@@ -150,7 +152,7 @@ class BaseSerializerTest extends TestCase
         self::assertSame('foobar', $actual);
     }
 
-    public function dpBomWithRefs(): \Generator
+    public function dpBomWithRefs(): Generator
     {
         $dependencies = $this->createStub(BomRefRepository::class);
 

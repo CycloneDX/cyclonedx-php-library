@@ -24,6 +24,8 @@ declare(strict_types=1);
 namespace CycloneDX\Tests\Core\Models\License;
 
 use CycloneDX\Core\Models\License\LicenseExpression;
+use DomainException;
+use Generator;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -45,7 +47,7 @@ class LicenseExpressionTest extends TestCase
     {
         $expression = $this->dpInvalidLicenseExpressions()[0];
 
-        $this->expectException(\DomainException::class);
+        $this->expectException(DomainException::class);
         $this->expectExceptionMessageMatches('/invalid expression/i');
 
         new LicenseExpression("$expression");
@@ -67,7 +69,7 @@ class LicenseExpressionTest extends TestCase
         $expression = $this->dpInvalidLicenseExpressions()[0];
         $license = $this->createPartialMock(LicenseExpression::class, []);
 
-        $this->expectException(\DomainException::class);
+        $this->expectException(DomainException::class);
         $this->expectExceptionMessageMatches('/invalid expression/i');
 
         $license->setExpression("$expression");
@@ -82,7 +84,7 @@ class LicenseExpressionTest extends TestCase
         self::assertSame($expected, $isValid);
     }
 
-    public function dpIsValid(): \Generator
+    public function dpIsValid(): Generator
     {
         foreach ($this->dpValidLicenseExpressions() as $license) {
             yield $license => [$license, true];

@@ -32,6 +32,7 @@ use CycloneDX\Core\Serialization\DOM\Normalizers\MetaDataNormalizer;
 use CycloneDX\Core\Serialization\DOM\Normalizers\ToolRepositoryNormalizer;
 use CycloneDX\Core\Spec\Spec;
 use CycloneDX\Tests\_traits\DomNodeAssertionTrait;
+use DomainException;
 use DOMDocument;
 use PHPUnit\Framework\TestCase;
 
@@ -150,7 +151,7 @@ class MetadataNormalizerTest extends TestCase
         $componentFactory->expects(self::once())
             ->method('normalize')
             ->with($metaData->getComponent())
-            ->willThrowException(new \DomainException());
+            ->willThrowException(new DomainException());
 
         $actual = $normalizer->normalize($metaData);
 

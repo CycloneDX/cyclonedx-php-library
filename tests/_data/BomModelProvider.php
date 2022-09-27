@@ -40,6 +40,7 @@ use CycloneDX\Core\Models\License\LicenseExpression;
 use CycloneDX\Core\Models\Metadata;
 use CycloneDX\Core\Models\Tool;
 use Generator;
+use ReflectionClass;
 
 /**
  * common DataProvider.
@@ -209,7 +210,7 @@ abstract class BomModelProvider
     public static function bomWithComponentTypeAllKnown(): Generator
     {
         /** @psalm-var list<string> $known */
-        $known = array_values((new \ReflectionClass(Classification::class))->getConstants());
+        $known = array_values((new ReflectionClass(Classification::class))->getConstants());
         yield from self::bomWithComponentTypes(
             ...$known,
             ...BomSpecData::getClassificationEnumForVersion('1.0'),
@@ -464,7 +465,7 @@ abstract class BomModelProvider
     private static function allHashAlgorithms(): array
     {
         /** @psalm-var list<string> $known */
-        $known = array_values((new \ReflectionClass(HashAlgorithm::class))->getConstants());
+        $known = array_values((new ReflectionClass(HashAlgorithm::class))->getConstants());
 
         return array_values(
             array_unique(
@@ -720,7 +721,7 @@ abstract class BomModelProvider
     public static function externalReferencesForAllTypes(): Generator
     {
         /** @psalm-var list<string> $known */
-        $known = array_values((new \ReflectionClass(ExternalReferenceType::class))->getConstants());
+        $known = array_values((new ReflectionClass(ExternalReferenceType::class))->getConstants());
         $all = array_unique(
             array_merge(
                 $known,
