@@ -48,7 +48,7 @@ Code of v1 is in branch "[1.x](https://github.com/CycloneDX/cyclonedx-php-librar
   * `BomRef`, `BomRefRepository`
   * `Component`, `ComponentRepository`
   * `ExternalReference`, `ExternalReferenceRepository`
-  * `HashRepository`
+  * `HashDictionary`
   * `LicenseExpression`, 
     `DisjunctiveLicenseWithName` aka NamedLicense, `DisjunctiveLicenseWithId` aka SpdxLicense,
     `DisjunctiveLicenseRepository`
