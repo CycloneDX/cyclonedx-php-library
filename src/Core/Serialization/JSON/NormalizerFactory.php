@@ -94,9 +94,9 @@ class NormalizerFactory
         return new Normalizers\HashNormalizer($this);
     }
 
-    public function makeForMetaData(): Normalizers\MetaDataNormalizer
+    public function makeForMetadata(): Normalizers\MetadataNormalizer
     {
-        return new Normalizers\MetaDataNormalizer($this);
+        return new Normalizers\MetadataNormalizer($this);
     }
 
     public function makeForToolRepository(): Normalizers\ToolRepositoryNormalizer

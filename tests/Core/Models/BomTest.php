@@ -96,20 +96,20 @@ class BomTest extends TestCase
 
     // endregion version setter&getter
 
-    // region metaData setter&getter
+    // region metadata setter&getter
 
     /**
      * @depends testConstruct
      */
-    public function testMetaDataSetterGetter(Bom $bom): void
+    public function testMetadataSetterGetter(Bom $bom): void
     {
-        $metaData = $this->createStub(Metadata::class);
-        $actual = $bom->setMetadata($metaData);
+        $metadata = $this->createStub(Metadata::class);
+        $actual = $bom->setMetadata($metadata);
         self::assertSame($bom, $actual);
-        self::assertSame($metaData, $bom->getMetadata());
+        self::assertSame($metadata, $bom->getMetadata());
     }
 
-    // endregion metaData setter&getter
+    // endregion metadata setter&getter
 
     // region externalReferenceRepository setter&getter
 

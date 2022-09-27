@@ -21,48 +21,44 @@ declare(strict_types=1);
  * Copyright (c) OWASP Foundation. All Rights Reserved.
  */
 
-namespace CycloneDX\Core\Serialization\DOM\Normalizers;
+namespace CycloneDX\Core\Serialization\JSON\Normalizers;
 
-use CycloneDX\Core\_helpers\SimpleDomTrait;
+use CycloneDX\Core\_helpers\NullAssertionTrait;
 use CycloneDX\Core\Collections\ToolRepository;
 use CycloneDX\Core\Models\Component;
 use CycloneDX\Core\Models\Metadata;
-use CycloneDX\Core\Serialization\DOM\_BaseNormalizer;
-use DOMElement;
+use CycloneDX\Core\Serialization\JSON\_BaseNormalizer;
 
 /**
  * @author jkowalleck
  */
-class MetaDataNormalizer extends _BaseNormalizer
+class MetadataNormalizer extends _BaseNormalizer
 {
-    use SimpleDomTrait;
+    use NullAssertionTrait;
 
-    public function normalize(Metadata $metaData): DOMElement
+    public function normalize(Metadata $metadata): array
     {
-        return $this->simpleDomAppendChildren(
-            $this->getNormalizerFactory()->getDocument()->createElement('metadata'),
+        return array_filter(
             [
                 // timestamp
-                $this->normalizeTools($metaData->getTools()),
+                'tools' => $this->normalizeTools($metadata->getTools()),
                 // authors
-                $this->normalizeComponent($metaData->getComponent()),
+                'component' => $this->normalizeComponent($metadata->getComponent()),
                 // manufacture
                 // supplier
-            ]
+            ],
+            [$this, 'isNotNull']
         );
     }
 
-    private function normalizeTools(ToolRepository $tools): ?DOMElement
+    private function normalizeTools(ToolRepository $tools): ?array
     {
         return 0 === \count($tools)
             ? null
-            : $this->simpleDomAppendChildren(
-                $this->getNormalizerFactory()->getDocument()->createElement('tools'),
-                $this->getNormalizerFactory()->makeForToolRepository()->normalize($tools)
-            );
+            : $this->getNormalizerFactory()->makeForToolRepository()->normalize($tools);
     }
 
-    private function normalizeComponent(?Component $component): ?DOMElement
+    private function normalizeComponent(?Component $component): ?array
     {
         if (null === $component) {
             return null;

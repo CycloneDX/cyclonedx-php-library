@@ -54,7 +54,7 @@ class Spec1dot4Test extends SpecInstanceTestCase
         return true;
     }
 
-    public function shouldSupportMetaData(): bool
+    public function shouldSupportMetadata(): bool
     {
         return true;
     }

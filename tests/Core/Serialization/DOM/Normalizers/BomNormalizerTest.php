@@ -117,16 +117,16 @@ class BomNormalizerTest extends TestCase
             Spec::class,
             [
                 'getVersion' => '1.2',
-                'supportsMetaData' => true,
+                'supportsMetadata' => true,
             ]
         );
-        $metadataNormalizer = $this->createMock(Normalizers\MetaDataNormalizer::class);
+        $metadataNormalizer = $this->createMock(Normalizers\MetadataNormalizer::class);
         $factory = $this->createConfiguredMock(
             NormalizerFactory::class,
             [
                 'getSpec' => $spec,
                 'getDocument' => new DOMDocument(),
-                'makeForMetaData' => $metadataNormalizer,
+                'makeForMetadata' => $metadataNormalizer,
             ]
         );
         $normalizer = new Normalizers\BomNormalizer($factory);
@@ -141,13 +141,13 @@ class BomNormalizerTest extends TestCase
         $metadataNormalizer->expects(self::once())
             ->method('normalize')
             ->with($bom->getMetadata())
-            ->willReturn($factory->getDocument()->createElement('metadata', 'FakeMetaData'));
+            ->willReturn($factory->getDocument()->createElement('metadata', 'FakeMetadata'));
 
         $actual = $normalizer->normalize($bom);
 
         self::assertStringEqualsDomNode(
             '<bom xmlns="http://cyclonedx.org/schema/bom/1.2" version="23">'.
-            '<metadata>FakeMetaData</metadata>'.
+            '<metadata>FakeMetadata</metadata>'.
             '<components></components>'.
             '</bom>',
             $actual
@@ -160,16 +160,16 @@ class BomNormalizerTest extends TestCase
             Spec::class,
             [
                 'getVersion' => '1.2',
-                'supportsMetaData' => false,
+                'supportsMetadata' => false,
             ]
         );
-        $metadataNormalizer = $this->createMock(Normalizers\MetaDataNormalizer::class);
+        $metadataNormalizer = $this->createMock(Normalizers\MetadataNormalizer::class);
         $factory = $this->createConfiguredMock(
             NormalizerFactory::class,
             [
                 'getSpec' => $spec,
                 'getDocument' => new DOMDocument(),
-                'makeForMetaData' => $metadataNormalizer,
+                'makeForMetadata' => $metadataNormalizer,
             ]
         );
         $normalizer = new Normalizers\BomNormalizer($factory);
@@ -183,7 +183,7 @@ class BomNormalizerTest extends TestCase
 
         $metadataNormalizer->method('normalize')
             ->with($bom->getMetadata())
-            ->willReturn($factory->getDocument()->createElement('metadata', 'FakeMetaData'));
+            ->willReturn($factory->getDocument()->createElement('metadata', 'FakeMetadata'));
 
         $actual = $normalizer->normalize($bom);
 
@@ -296,7 +296,7 @@ class BomNormalizerTest extends TestCase
     {
         $spec = $this->createConfiguredMock(Spec::class, [
             'getVersion' => '1.2',
-            'supportsMetaData' => false,
+            'supportsMetadata' => false,
         ]);
         $extRefNormalizer = $this->createMock(Normalizers\ExternalReferenceRepositoryNormalizer::class);
         $factory = $this->createConfiguredMock(NormalizerFactory::class, [
@@ -352,7 +352,7 @@ class BomNormalizerTest extends TestCase
     {
         $spec = $this->createConfiguredMock(Spec::class, [
             'getVersion' => '1.2',
-            'supportsMetaData' => false,
+            'supportsMetadata' => false,
         ]);
         $extRefNormalizer = $this->createMock(Normalizers\ExternalReferenceRepositoryNormalizer::class);
         $factory = $this->createConfiguredMock(NormalizerFactory::class, [
