@@ -46,7 +46,7 @@ class BomNormalizer extends _BaseNormalizer
                 'bomFormat' => self::BOM_FORMAT,
                 'specVersion' => $factory->getSpec()->getVersion(),
                 'version' => $bom->getVersion(),
-                'metadata' => $this->normalizeMetaData($bom->getMetadata()),
+                'metadata' => $this->normalizeMetadata($bom->getMetadata()),
                 'components' => $factory->makeForComponentRepository()->normalize($bom->getComponents()),
                 'externalReferences' => $this->normalizeExternalReferences($bom),
                 'dependencies' => $this->normalizeDependencies($bom),
@@ -55,15 +55,15 @@ class BomNormalizer extends _BaseNormalizer
         );
     }
 
-    private function normalizeMetaData(Metadata $metaData): ?array
+    private function normalizeMetadata(Metadata $metadata): ?array
     {
         $factory = $this->getNormalizerFactory();
 
-        if (false === $factory->getSpec()->supportsMetaData()) {
+        if (false === $factory->getSpec()->supportsMetadata()) {
             return null;
         }
 
-        $data = $factory->makeForMetaData()->normalize($metaData);
+        $data = $factory->makeForMetadata()->normalize($metadata);
 
         return empty($data)
             ? null
@@ -76,7 +76,7 @@ class BomNormalizer extends _BaseNormalizer
 
         $extRefs = $bom->getExternalReferences();
 
-        if (false === $factory->getSpec()->supportsMetaData()) {
+        if (false === $factory->getSpec()->supportsMetadata()) {
             // prevent possible information loss: metadata cannot be rendered -> put it to bom
             $mcr = $bom->getMetadata()->getComponent()?->getExternalReferences();
             if (null !== $mcr) {

@@ -155,12 +155,12 @@ class NormalizerFactoryTest extends TestCase
     /**
      * @depends testConstructor
      *
-     * @uses \CycloneDX\Core\Serialization\DOM\Normalizers\MetaDataNormalizer
+     * @uses \CycloneDX\Core\Serialization\DOM\Normalizers\MetadataNormalizer
      */
-    public function testMakeForMetaData(NormalizerFactory $factory): void
+    public function testMakeForMetadata(NormalizerFactory $factory): void
     {
-        $normalizer = $factory->makeForMetaData();
-        self::assertInstanceOf(Normalizers\MetaDataNormalizer::class, $normalizer);
+        $normalizer = $factory->makeForMetadata();
+        self::assertInstanceOf(Normalizers\MetadataNormalizer::class, $normalizer);
         self::assertSame($factory, $normalizer->getNormalizerFactory());
     }
 

@@ -28,7 +28,7 @@ use CycloneDX\Core\Models\Component;
 use CycloneDX\Core\Models\Metadata;
 use CycloneDX\Core\Serialization\DOM\NormalizerFactory;
 use CycloneDX\Core\Serialization\DOM\Normalizers\ComponentNormalizer;
-use CycloneDX\Core\Serialization\DOM\Normalizers\MetaDataNormalizer;
+use CycloneDX\Core\Serialization\DOM\Normalizers\MetadataNormalizer;
 use CycloneDX\Core\Serialization\DOM\Normalizers\ToolRepositoryNormalizer;
 use CycloneDX\Core\Spec\Spec;
 use CycloneDX\Tests\_traits\DomNodeAssertionTrait;
@@ -37,7 +37,7 @@ use DOMDocument;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers \CycloneDX\Core\Serialization\DOM\Normalizers\MetaDataNormalizer
+ * @covers \CycloneDX\Core\Serialization\DOM\Normalizers\MetadataNormalizer
  * @covers \CycloneDX\Core\Serialization\DOM\_BaseNormalizer
  */
 class MetadataNormalizerTest extends TestCase
@@ -46,22 +46,22 @@ class MetadataNormalizerTest extends TestCase
 
     public function testNormalizeEmpty(): void
     {
-        $metaData = $this->createMock(Metadata::class);
+        $metadata = $this->createMock(Metadata::class);
         $spec = $this->createMock(Spec::class);
         $factory = $this->createConfiguredMock(
             NormalizerFactory::class,
             ['getSpec' => $spec, 'getDocument' => new DOMDocument()]
         );
-        $normalizer = new MetaDataNormalizer($factory);
+        $normalizer = new MetadataNormalizer($factory);
 
-        $actual = $normalizer->normalize($metaData);
+        $actual = $normalizer->normalize($metadata);
 
         self::assertStringEqualsDomNode('<metadata></metadata>', $actual);
     }
 
     public function testNormalizeTools(): void
     {
-        $metaData = $this->createConfiguredMock(
+        $metadata = $this->createConfiguredMock(
             Metadata::class,
             [
                 'getTools' => $this->createConfiguredMock(ToolRepository::class, ['count' => 2]),
@@ -77,14 +77,14 @@ class MetadataNormalizerTest extends TestCase
                 'makeForToolRepository' => $toolsRepoFactory,
             ]
         );
-        $normalizer = new MetaDataNormalizer($factory);
+        $normalizer = new MetadataNormalizer($factory);
 
         $toolsRepoFactory->expects(self::once())
             ->method('normalize')
-            ->with($metaData->getTools())
+            ->with($metadata->getTools())
             ->willReturn([$factory->getDocument()->createElement('FakeTool', 'dummy')]);
 
-        $actual = $normalizer->normalize($metaData);
+        $actual = $normalizer->normalize($metadata);
 
         self::assertStringEqualsDomNode(
             '<metadata><tools><FakeTool>dummy</FakeTool></tools></metadata>',
@@ -97,7 +97,7 @@ class MetadataNormalizerTest extends TestCase
      */
     public function testNormalizeComponent(): void
     {
-        $metaData = $this->createConfiguredMock(
+        $metadata = $this->createConfiguredMock(
             Metadata::class,
             [
                 'getComponent' => $this->createMock(Component::class),
@@ -113,14 +113,14 @@ class MetadataNormalizerTest extends TestCase
                 'makeForComponent' => $componentFactory,
             ]
         );
-        $normalizer = new MetaDataNormalizer($factory);
+        $normalizer = new MetadataNormalizer($factory);
 
         $componentFactory->expects(self::once())
             ->method('normalize')
-            ->with($metaData->getComponent())
+            ->with($metadata->getComponent())
             ->willReturn($factory->getDocument()->createElement('FakeComponent', 'dummy'));
 
-        $actual = $normalizer->normalize($metaData);
+        $actual = $normalizer->normalize($metadata);
 
         self::assertStringEqualsDomNode(
             '<metadata><FakeComponent>dummy</FakeComponent></metadata>',
@@ -130,7 +130,7 @@ class MetadataNormalizerTest extends TestCase
 
     public function testNormalizeComponentUnsupported(): void
     {
-        $metaData = $this->createConfiguredMock(
+        $metadata = $this->createConfiguredMock(
             Metadata::class,
             [
                 'getComponent' => $this->createMock(Component::class),
@@ -146,14 +146,14 @@ class MetadataNormalizerTest extends TestCase
                 'makeForComponent' => $componentFactory,
             ]
         );
-        $normalizer = new MetaDataNormalizer($factory);
+        $normalizer = new MetadataNormalizer($factory);
 
         $componentFactory->expects(self::once())
             ->method('normalize')
-            ->with($metaData->getComponent())
+            ->with($metadata->getComponent())
             ->willThrowException(new DomainException());
 
-        $actual = $normalizer->normalize($metaData);
+        $actual = $normalizer->normalize($metadata);
 
         self::assertStringEqualsDomNode(
             '<metadata></metadata>',

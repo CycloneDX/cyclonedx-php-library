@@ -175,9 +175,9 @@ abstract class BomModelProvider
      */
     public static function bomWithAllMetadata(): Generator
     {
-        yield from self::bomWithMetaDataPlain();
-        yield from self::bomWithMetaDataTools();
-        yield from self::bomWithMetaDataComponent();
+        yield from self::bomWithMetadataPlain();
+        yield from self::bomWithMetadataTools();
+        yield from self::bomWithMetadataComponent();
     }
 
     /**
@@ -644,7 +644,7 @@ abstract class BomModelProvider
      *
      * @psalm-return Generator<string, array{0:Bom}>
      */
-    private static function bomWithMetaDataPlain(): Generator
+    private static function bomWithMetadataPlain(): Generator
     {
         yield 'metadata: plain' => [
             (new Bom())->setMetadata(new Metadata()),
@@ -660,7 +660,7 @@ abstract class BomModelProvider
      *
      * @psalm-suppress MissingThrowsDocblock
      */
-    private static function bomWithMetaDataTools(): Generator
+    private static function bomWithMetadataTools(): Generator
     {
         yield 'metadata: empty tools' => [
             (new Bom())->setMetadata(
@@ -699,7 +699,7 @@ abstract class BomModelProvider
      *
      * @psalm-suppress MissingThrowsDocblock
      */
-    private static function bomWithMetaDataComponent(): Generator
+    private static function bomWithMetadataComponent(): Generator
     {
         yield 'metadata: minimal component' => [
             (new Bom())->setMetadata(

@@ -28,33 +28,33 @@ use CycloneDX\Core\Models\Component;
 use CycloneDX\Core\Models\Metadata;
 use CycloneDX\Core\Serialization\JSON\NormalizerFactory;
 use CycloneDX\Core\Serialization\JSON\Normalizers\ComponentNormalizer;
-use CycloneDX\Core\Serialization\JSON\Normalizers\MetaDataNormalizer;
+use CycloneDX\Core\Serialization\JSON\Normalizers\MetadataNormalizer;
 use CycloneDX\Core\Serialization\JSON\Normalizers\ToolRepositoryNormalizer;
 use CycloneDX\Core\Spec\Spec;
 use DomainException;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers \CycloneDX\Core\Serialization\JSON\Normalizers\MetaDataNormalizer
+ * @covers \CycloneDX\Core\Serialization\JSON\Normalizers\MetadataNormalizer
  * @covers \CycloneDX\Core\Serialization\JSON\_BaseNormalizer
  */
 class MetadataNormalizerTest extends TestCase
 {
     public function testNormalizeEmpty(): void
     {
-        $metaData = $this->createMock(Metadata::class);
+        $metadata = $this->createMock(Metadata::class);
         $spec = $this->createMock(Spec::class);
         $factory = $this->createConfiguredMock(NormalizerFactory::class, ['getSpec' => $spec]);
-        $normalizer = new MetaDataNormalizer($factory);
+        $normalizer = new MetadataNormalizer($factory);
 
-        $actual = $normalizer->normalize($metaData);
+        $actual = $normalizer->normalize($metadata);
 
         self::assertSame([], $actual);
     }
 
     public function testNormalizeTools(): void
     {
-        $metaData = $this->createConfiguredMock(
+        $metadata = $this->createConfiguredMock(
             Metadata::class,
             [
                 'getTools' => $this->createConfiguredMock(ToolRepository::class, ['count' => 2]),
@@ -69,14 +69,14 @@ class MetadataNormalizerTest extends TestCase
                 'makeForToolRepository' => $toolsRepoFactory,
             ]
         );
-        $normalizer = new MetaDataNormalizer($factory);
+        $normalizer = new MetadataNormalizer($factory);
 
         $toolsRepoFactory->expects(self::once())
             ->method('normalize')
-            ->with($metaData->getTools())
+            ->with($metadata->getTools())
             ->willReturn(['FakeTool' => 'dummy']);
 
-        $actual = $normalizer->normalize($metaData);
+        $actual = $normalizer->normalize($metadata);
 
         self::assertSame(
             ['tools' => ['FakeTool' => 'dummy']],
@@ -89,7 +89,7 @@ class MetadataNormalizerTest extends TestCase
      */
     public function testNormalizeComponent(): void
     {
-        $metaData = $this->createConfiguredMock(
+        $metadata = $this->createConfiguredMock(
             Metadata::class,
             [
                 'getComponent' => $this->createMock(Component::class),
@@ -104,14 +104,14 @@ class MetadataNormalizerTest extends TestCase
                 'makeForComponent' => $componentFactory,
             ]
         );
-        $normalizer = new MetaDataNormalizer($factory);
+        $normalizer = new MetadataNormalizer($factory);
 
         $componentFactory->expects(self::once())
             ->method('normalize')
-            ->with($metaData->getComponent())
+            ->with($metadata->getComponent())
             ->willReturn(['FakeComponent' => 'dummy']);
 
-        $actual = $normalizer->normalize($metaData);
+        $actual = $normalizer->normalize($metadata);
 
         self::assertSame(
             ['component' => ['FakeComponent' => 'dummy']],
@@ -121,7 +121,7 @@ class MetadataNormalizerTest extends TestCase
 
     public function testNormalizeComponentUnsupported(): void
     {
-        $metaData = $this->createConfiguredMock(
+        $metadata = $this->createConfiguredMock(
             Metadata::class,
             [
                 'getComponent' => $this->createMock(Component::class),
@@ -136,14 +136,14 @@ class MetadataNormalizerTest extends TestCase
                 'makeForComponent' => $componentFactory,
             ]
         );
-        $normalizer = new MetaDataNormalizer($factory);
+        $normalizer = new MetadataNormalizer($factory);
 
         $componentFactory->expects(self::once())
             ->method('normalize')
-            ->with($metaData->getComponent())
+            ->with($metadata->getComponent())
             ->willThrowException(new DomainException());
 
-        $actual = $normalizer->normalize($metaData);
+        $actual = $normalizer->normalize($metadata);
 
         self::assertSame([], $actual);
     }

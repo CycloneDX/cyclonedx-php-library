@@ -59,7 +59,7 @@ class BomNormalizer extends _BaseNormalizer
         $this->simpleDomAppendChildren(
             $element,
             [
-                $this->normalizeMetaData($bom->getMetadata()),
+                $this->normalizeMetadata($bom->getMetadata()),
                 $this->normalizeComponents($bom->getComponents()),
                 $this->normalizeExternalReferences($bom),
                 $this->normalizeDependencies($bom),
@@ -79,15 +79,15 @@ class BomNormalizer extends _BaseNormalizer
         );
     }
 
-    private function normalizeMetaData(Metadata $metaData): ?DOMElement
+    private function normalizeMetadata(Metadata $metadata): ?DOMElement
     {
         $factory = $this->getNormalizerFactory();
 
-        if (false === $factory->getSpec()->supportsMetaData()) {
+        if (false === $factory->getSpec()->supportsMetadata()) {
             return null;
         }
 
-        $elem = $factory->makeForMetaData()->normalize($metaData);
+        $elem = $factory->makeForMetadata()->normalize($metadata);
 
         return $elem->hasChildNodes()
             ? $elem
@@ -100,7 +100,7 @@ class BomNormalizer extends _BaseNormalizer
 
         $extRefs = $bom->getExternalReferences();
 
-        if (false === $factory->getSpec()->supportsMetaData()) {
+        if (false === $factory->getSpec()->supportsMetadata()) {
             // prevent possible information loss: metadata cannot be rendered -> put it to bom
             $mcr = $bom->getMetadata()->getComponent()?->getExternalReferences();
             if (null !== $mcr) {

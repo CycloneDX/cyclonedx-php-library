@@ -21,44 +21,48 @@ declare(strict_types=1);
  * Copyright (c) OWASP Foundation. All Rights Reserved.
  */
 
-namespace CycloneDX\Core\Serialization\JSON\Normalizers;
+namespace CycloneDX\Core\Serialization\DOM\Normalizers;
 
-use CycloneDX\Core\_helpers\NullAssertionTrait;
+use CycloneDX\Core\_helpers\SimpleDomTrait;
 use CycloneDX\Core\Collections\ToolRepository;
 use CycloneDX\Core\Models\Component;
 use CycloneDX\Core\Models\Metadata;
-use CycloneDX\Core\Serialization\JSON\_BaseNormalizer;
+use CycloneDX\Core\Serialization\DOM\_BaseNormalizer;
+use DOMElement;
 
 /**
  * @author jkowalleck
  */
-class MetaDataNormalizer extends _BaseNormalizer
+class MetadataNormalizer extends _BaseNormalizer
 {
-    use NullAssertionTrait;
+    use SimpleDomTrait;
 
-    public function normalize(Metadata $metaData): array
+    public function normalize(Metadata $metadata): DOMElement
     {
-        return array_filter(
+        return $this->simpleDomAppendChildren(
+            $this->getNormalizerFactory()->getDocument()->createElement('metadata'),
             [
                 // timestamp
-                'tools' => $this->normalizeTools($metaData->getTools()),
+                $this->normalizeTools($metadata->getTools()),
                 // authors
-                'component' => $this->normalizeComponent($metaData->getComponent()),
+                $this->normalizeComponent($metadata->getComponent()),
                 // manufacture
                 // supplier
-            ],
-            [$this, 'isNotNull']
+            ]
         );
     }
 
-    private function normalizeTools(ToolRepository $tools): ?array
+    private function normalizeTools(ToolRepository $tools): ?DOMElement
     {
         return 0 === \count($tools)
             ? null
-            : $this->getNormalizerFactory()->makeForToolRepository()->normalize($tools);
+            : $this->simpleDomAppendChildren(
+                $this->getNormalizerFactory()->getDocument()->createElement('tools'),
+                $this->getNormalizerFactory()->makeForToolRepository()->normalize($tools)
+            );
     }
 
-    private function normalizeComponent(?Component $component): ?array
+    private function normalizeComponent(?Component $component): ?DOMElement
     {
         if (null === $component) {
             return null;

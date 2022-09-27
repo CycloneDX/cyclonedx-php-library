@@ -37,31 +37,31 @@ class MetadataTest extends TestCase
 {
     public function testConstructor(): Metadata
     {
-        $metaData = new Metadata();
+        $metadata = new Metadata();
 
-        self::assertCount(0, $metaData->getTools());
-        self::assertNull($metaData->getComponent());
+        self::assertCount(0, $metadata->getTools());
+        self::assertNull($metadata->getComponent());
 
-        return $metaData;
+        return $metadata;
     }
 
     /**
      * @depends testConstructor
      */
-    public function testGetterSetterTools(Metadata $metaData): void
+    public function testGetterSetterTools(Metadata $metadata): void
     {
         $tools = $this->createStub(ToolRepository::class);
-        $metaData->setTools($tools);
-        self::assertSame($tools, $metaData->getTools());
+        $metadata->setTools($tools);
+        self::assertSame($tools, $metadata->getTools());
     }
 
     /**
      * @depends testConstructor
      */
-    public function testSetterSetterComponent(Metadata $metaData): void
+    public function testSetterSetterComponent(Metadata $metadata): void
     {
         $component = $this->createStub(Component::class);
-        $metaData->setComponent($component);
-        self::assertSame($component, $metaData->getComponent());
+        $metadata->setComponent($component);
+        self::assertSame($component, $metadata->getComponent());
     }
 }

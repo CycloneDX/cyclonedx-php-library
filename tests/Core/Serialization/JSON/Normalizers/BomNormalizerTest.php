@@ -39,7 +39,7 @@ use PHPUnit\Framework\TestCase;
  * @covers \CycloneDX\Core\Serialization\JSON\_BaseNormalizer
  *
  * @uses   \CycloneDX\Core\Serialization\JSON\Normalizers\DependenciesNormalizer
- * @uses   \CycloneDX\Core\Serialization\JSON\Normalizers\MetaDataNormalizer
+ * @uses   \CycloneDX\Core\Serialization\JSON\Normalizers\MetadataNormalizer
  */
 class BomNormalizerTest extends TestCase
 {
@@ -122,15 +122,15 @@ class BomNormalizerTest extends TestCase
             Spec::class,
             [
                 'getVersion' => '1.2',
-                'supportsMetaData' => true,
+                'supportsMetadata' => true,
             ]
         );
-        $metadataNormalizer = $this->createMock(Normalizers\MetaDataNormalizer::class);
+        $metadataNormalizer = $this->createMock(Normalizers\MetadataNormalizer::class);
         $factory = $this->createConfiguredMock(
             NormalizerFactory::class,
             [
                 'getSpec' => $spec,
-                'makeForMetaData' => $metadataNormalizer,
+                'makeForMetadata' => $metadataNormalizer,
             ]
         );
         $normalizer = new Normalizers\BomNormalizer($factory);
@@ -145,7 +145,7 @@ class BomNormalizerTest extends TestCase
         $metadataNormalizer->expects(self::once())
             ->method('normalize')
             ->with($bom->getMetadata())
-            ->willReturn(['FakeMetaData']);
+            ->willReturn(['FakeMetadata']);
 
         $actual = $normalizer->normalize($bom);
 
@@ -154,7 +154,7 @@ class BomNormalizerTest extends TestCase
                 'bomFormat' => 'CycloneDX',
                 'specVersion' => '1.2',
                 'version' => 23,
-                'metadata' => ['FakeMetaData'],
+                'metadata' => ['FakeMetadata'],
                 'components' => [],
             ],
             $actual
@@ -167,15 +167,15 @@ class BomNormalizerTest extends TestCase
             Spec::class,
             [
                 'getVersion' => '1.2',
-                'supportsMetaData' => true,
+                'supportsMetadata' => true,
             ]
         );
-        $metadataNormalizer = $this->createMock(Normalizers\MetaDataNormalizer::class);
+        $metadataNormalizer = $this->createMock(Normalizers\MetadataNormalizer::class);
         $factory = $this->createConfiguredMock(
             NormalizerFactory::class,
             [
                 'getSpec' => $spec,
-                'makeForMetaData' => $metadataNormalizer,
+                'makeForMetadata' => $metadataNormalizer,
             ]
         );
         $normalizer = new Normalizers\BomNormalizer($factory);
@@ -210,15 +210,15 @@ class BomNormalizerTest extends TestCase
             Spec::class,
             [
                 'getVersion' => '1.2',
-                'supportsMetaData' => false,
+                'supportsMetadata' => false,
             ]
         );
-        $metadataNormalizer = $this->createMock(Normalizers\MetaDataNormalizer::class);
+        $metadataNormalizer = $this->createMock(Normalizers\MetadataNormalizer::class);
         $factory = $this->createConfiguredMock(
             NormalizerFactory::class,
             [
                 'getSpec' => $spec,
-                'makeForMetaData' => $metadataNormalizer,
+                'makeForMetadata' => $metadataNormalizer,
             ]
         );
         $normalizer = new Normalizers\BomNormalizer($factory);
@@ -232,7 +232,7 @@ class BomNormalizerTest extends TestCase
 
         $metadataNormalizer->method('normalize')
             ->with($bom->getMetadata())
-            ->willReturn(['FakeMetaData']);
+            ->willReturn(['FakeMetadata']);
 
         $actual = $normalizer->normalize($bom);
 
@@ -352,7 +352,7 @@ class BomNormalizerTest extends TestCase
     {
         $spec = $this->createConfiguredMock(Spec::class, [
             'getVersion' => '1.2',
-            'supportsMetaData' => false,
+            'supportsMetadata' => false,
         ]);
         $extRefNormalizer = $this->createMock(Normalizers\ExternalReferenceRepositoryNormalizer::class);
         $factory = $this->createConfiguredMock(NormalizerFactory::class, [
@@ -410,7 +410,7 @@ class BomNormalizerTest extends TestCase
     {
         $spec = $this->createConfiguredMock(Spec::class, [
             'getVersion' => '1.2',
-            'supportsMetaData' => false,
+            'supportsMetadata' => false,
         ]);
         $extRefNormalizer = $this->createMock(Normalizers\ExternalReferenceRepositoryNormalizer::class);
         $factory = $this->createConfiguredMock(NormalizerFactory::class, [

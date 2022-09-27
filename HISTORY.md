@@ -28,6 +28,8 @@ API changes
   * Changed some methods to no longer throw `\InvalidArgumentException`. (via [#125])  
     PhpDoc annotations were updated, so that code analysis tools should pick up.
     This was possible by enforcing correct typing on PHP8 language level.
+  * BREAKING: Every occurrence of `[mM]etaData` with a capital "D" was renamed to `[mM]metadata` with a small "d". ([#133] via [#131], [#149])
+    This affected class names, method names, variable names, property names, file names, documentation - everything.
 * `\CycloneDX\Core\Enum` namespace
   * Added class constant `ExternalReferenceType::RELEASE_NOTES` to reflect CycloneDX v1.4 ([#57] via [#65])
 * `\CycloneDX\Core\Models` namespace
@@ -56,7 +58,7 @@ API changes
        * BREAKING: Removed this class (via [#125], [#131])
   * `MetaData` class
     * BREAKING: renamed class to `Metadata` ([#133] via [#131])  
-      Even though PHP is case-insensitive with class names, autoloaders are not. Therefore, this is considered a breaking change.
+      Even though PHP is case-insensitive with class names, autoloaders may be case-sensitive. Therefore, this is considered a breaking change.
     * BREAKING: changed methods `{get,set}Tools()` so that their parameter & return type is non-nullable, was nullable ([#66] via [#131])
   * `Tool` class
     * BREAKING: renamed methods `{get,set}ExternalReferenceRepository()` -> `{get,set}ExternalReferences()` ([#133] via [#131])  
@@ -137,6 +139,7 @@ API changes
 [#143]: https://github.com/CycloneDX/cyclonedx-php-library/pull/143
 [#144]: https://github.com/CycloneDX/cyclonedx-php-library/pull/144
 [#146]: https://github.com/CycloneDX/cyclonedx-php-library/pull/146
+[#149]: https://github.com/CycloneDX/cyclonedx-php-library/pull/149
 
 ## 1.6.3 - 2022-09-15
 
