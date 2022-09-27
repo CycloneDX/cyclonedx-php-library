@@ -28,6 +28,7 @@ use CycloneDX\Core\Models\ExternalReference;
 use CycloneDX\Core\Serialization\JSON\NormalizerFactory;
 use CycloneDX\Core\Serialization\JSON\Normalizers;
 use CycloneDX\Core\Spec\Spec;
+use DomainException;
 
 /**
  * @covers \CycloneDX\Core\Serialization\JSON\Normalizers\ExternalReferenceNormalizer
@@ -113,7 +114,7 @@ class ExternalReferenceNormalizerTest extends \PHPUnit\Framework\TestCase
             ->withConsecutive(['someType'], ['other'])
             ->willReturn(false);
 
-        $this->expectException(\DomainException::class);
+        $this->expectException(DomainException::class);
         $this->expectExceptionMessage('ExternalReference has unsupported type: someType');
 
         $normalizer->normalize($extRef);

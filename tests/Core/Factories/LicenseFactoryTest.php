@@ -29,6 +29,7 @@ use CycloneDX\Core\Models\License\DisjunctiveLicenseWithName;
 use CycloneDX\Core\Models\License\LicenseExpression;
 use CycloneDX\Core\Spdx\LicenseValidator as SpdxLicenseValidator;
 use DomainException;
+use Exception;
 use PHPUnit\Framework\TestCase;
 use UnexpectedValueException;
 
@@ -54,7 +55,7 @@ class LicenseFactoryTest extends TestCase
         $exception = null;
         try {
             $factory->getSpdxLicenseValidator();
-        } catch (\Exception $exception) {
+        } catch (Exception $exception) {
             // continue to assertions
         }
 

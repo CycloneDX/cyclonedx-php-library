@@ -31,6 +31,7 @@ use CycloneDX\Core\Serialization\DOM\Normalizers\LicenseNormalizer;
 use CycloneDX\Core\Spec\Spec;
 use CycloneDX\Tests\_traits\DomNodeAssertionTrait;
 use DOMDocument;
+use Generator;
 
 /**
  * @covers \CycloneDX\Core\Serialization\DOM\Normalizers\LicenseNormalizer
@@ -60,7 +61,7 @@ class LicenseNormalizerTest extends \PHPUnit\Framework\TestCase
         self::assertStringEqualsDomNode($expectedXML, $actual);
     }
 
-    public function dpNormalize(): \Generator
+    public function dpNormalize(): Generator
     {
         yield 'license expression' => [
             $this->createConfiguredMock(LicenseExpression::class, [

@@ -27,6 +27,7 @@ use CycloneDX\Core\Collections\ComponentRepository;
 use CycloneDX\Core\Collections\ExternalReferenceRepository;
 use CycloneDX\Core\Models\Bom;
 use CycloneDX\Core\Models\Metadata;
+use DomainException;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -89,7 +90,7 @@ class BomTest extends TestCase
     public function testVersionSetterInvalidValue(Bom $bom): void
     {
         $version = 0 - random_int(1, 255);
-        $this->expectException(\DomainException::class);
+        $this->expectException(DomainException::class);
         $bom->setVersion($version);
     }
 

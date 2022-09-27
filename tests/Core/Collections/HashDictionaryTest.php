@@ -25,6 +25,7 @@ namespace CycloneDX\Tests\Core\Collections;
 
 use CycloneDX\Core\Collections\HashDictionary;
 use CycloneDX\Core\Enums\HashAlgorithm;
+use DomainException;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -88,7 +89,7 @@ class HashDictionaryTest extends TestCase
     {
         $hashes = new HashDictionary();
 
-        $this->expectException(\DomainException::class);
+        $this->expectException(DomainException::class);
         $this->expectExceptionMessageMatches('/unknown hash algorithm/i');
 
         $hashes->set('unknownAlgorithm', 'foobar');

@@ -29,6 +29,7 @@ use CycloneDX\Core\Serialization\JSON\NormalizerFactory;
 use CycloneDX\Core\Serialization\JSON\Normalizers\ComponentNormalizer;
 use CycloneDX\Core\Serialization\JSON\Normalizers\ComponentRepositoryNormalizer;
 use CycloneDX\Core\Spec\Spec;
+use DomainException;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -91,7 +92,7 @@ class ComponentRepositoryNormalizerTest extends TestCase
 
         $componentNormalizer->expects(self::exactly(2))->method('normalize')
             ->withConsecutive([$component1], [$component2])
-            ->willThrowException(new \DomainException());
+            ->willThrowException(new DomainException());
 
         $got = $normalizer->normalize($components);
 

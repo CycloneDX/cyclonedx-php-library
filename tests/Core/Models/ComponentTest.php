@@ -30,6 +30,8 @@ use CycloneDX\Core\Collections\LicenseRepository;
 use CycloneDX\Core\Enums\Classification;
 use CycloneDX\Core\Models\BomRef;
 use CycloneDX\Core\Models\Component;
+use DomainException;
+use Generator;
 use PackageUrl\PackageUrl;
 use PHPUnit\Framework\TestCase;
 
@@ -110,7 +112,7 @@ class ComponentTest extends TestCase
      */
     public function testSetTypeWithUnknownValue(Component $component): void
     {
-        $this->expectException(\DomainException::class);
+        $this->expectException(DomainException::class);
         $component->setType('something unknown');
     }
 
@@ -185,7 +187,7 @@ class ComponentTest extends TestCase
         self::assertSame($expected, $component->getDescription());
     }
 
-    public function dpDescriptionSetterGetter(): \Generator
+    public function dpDescriptionSetterGetter(): Generator
     {
         $component = $this->testConstructor();
         yield 'null' => [$component, null, null];
@@ -209,7 +211,7 @@ class ComponentTest extends TestCase
         self::assertSame($expected, $component->getGroup());
     }
 
-    public function dpGroupSetterGetter(): \Generator
+    public function dpGroupSetterGetter(): Generator
     {
         $component = $this->testConstructor();
         yield 'null' => [$component, null, null];

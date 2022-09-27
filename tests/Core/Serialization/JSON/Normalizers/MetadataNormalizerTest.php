@@ -31,6 +31,7 @@ use CycloneDX\Core\Serialization\JSON\Normalizers\ComponentNormalizer;
 use CycloneDX\Core\Serialization\JSON\Normalizers\MetaDataNormalizer;
 use CycloneDX\Core\Serialization\JSON\Normalizers\ToolRepositoryNormalizer;
 use CycloneDX\Core\Spec\Spec;
+use DomainException;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -140,7 +141,7 @@ class MetadataNormalizerTest extends TestCase
         $componentFactory->expects(self::once())
             ->method('normalize')
             ->with($metaData->getComponent())
-            ->willThrowException(new \DomainException());
+            ->willThrowException(new DomainException());
 
         $actual = $normalizer->normalize($metaData);
 

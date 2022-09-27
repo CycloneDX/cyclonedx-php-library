@@ -24,6 +24,8 @@ declare(strict_types=1);
 namespace CycloneDX\Core\Validation\_helpers;
 
 use CycloneDX\Core\Resources;
+use JsonException;
+use stdClass;
 use Swaggest\JsonSchema;
 
 /**
@@ -38,7 +40,7 @@ class JsonSchemaRemoteRefProviderForSnapshotResources implements JsonSchema\Remo
     /**
      * {@inheritdoc}
      *
-     * @throws \JsonException
+     * @throws JsonException
      */
     public function getSchemaData($url)
     {
@@ -58,7 +60,7 @@ class JsonSchemaRemoteRefProviderForSnapshotResources implements JsonSchema\Remo
         $content = file_get_contents($filePath);
         \assert(\is_string($content));
         $data = json_decode($content, false, 512, \JSON_THROW_ON_ERROR);
-        \assert($data instanceof \stdClass);
+        \assert($data instanceof stdClass);
 
         return $data;
     }

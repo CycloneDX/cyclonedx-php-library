@@ -23,6 +23,7 @@ declare(strict_types=1);
 
 namespace CycloneDX\Core\Collections;
 
+use Countable;
 use CycloneDX\Core\Models\BomRef;
 
 /**
@@ -30,7 +31,7 @@ use CycloneDX\Core\Models\BomRef;
  *
  * @author jkowalleck
  */
-class BomRefRepository implements \Countable
+class BomRefRepository implements Countable
 {
     /**
      * @var BomRef[]

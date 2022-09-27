@@ -23,6 +23,7 @@ declare(strict_types=1);
 
 namespace CycloneDX\Core\Collections;
 
+use Countable;
 use CycloneDX\Core\Models\License\DisjunctiveLicenseWithId;
 use CycloneDX\Core\Models\License\DisjunctiveLicenseWithName;
 use CycloneDX\Core\Models\License\LicenseExpression;
@@ -34,7 +35,7 @@ use CycloneDX\Core\Models\License\LicenseExpression;
  *
  * @author jkowalleck
  */
-class LicenseRepository implements \Countable
+class LicenseRepository implements Countable
 {
     /**
      * @var DisjunctiveLicenseWithId[]|DisjunctiveLicenseWithName[]|LicenseExpression[]

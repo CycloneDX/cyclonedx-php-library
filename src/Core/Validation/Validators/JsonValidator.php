@@ -31,6 +31,7 @@ use CycloneDX\Core\Validation\Errors\JsonValidationError;
 use CycloneDX\Core\Validation\Exceptions\FailedLoadingSchemaException;
 use Exception;
 use JsonException;
+use stdClass;
 use Swaggest\JsonSchema;
 
 /**
@@ -71,7 +72,7 @@ class JsonValidator extends BaseValidator
      *
      * @SuppressWarnings(PHPMD.StaticAccess)
      */
-    public function validateData(\stdClass $data): ?JsonValidationError
+    public function validateData(stdClass $data): ?JsonValidationError
     {
         $contract = $this->getSchemaContract();
         try {
@@ -106,14 +107,14 @@ class JsonValidator extends BaseValidator
     /**
      * @throws JsonException if loading the JSON failed
      */
-    private function loadDataFromJson(string $json): \stdClass
+    private function loadDataFromJson(string $json): stdClass
     {
         try {
             $data = json_decode($json, false, 512, \JSON_THROW_ON_ERROR);
         } catch (Exception $exception) {
             throw new JsonException('loading failed', 0, $exception);
         }
-        \assert($data instanceof \stdClass);
+        \assert($data instanceof stdClass);
 
         return $data;
     }

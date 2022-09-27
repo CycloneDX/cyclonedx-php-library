@@ -27,6 +27,7 @@ use CycloneDX\Core\Collections\HashDictionary;
 use CycloneDX\Core\Serialization\DOM\NormalizerFactory;
 use CycloneDX\Core\Serialization\DOM\Normalizers\HashDictionaryNormalizer;
 use CycloneDX\Core\Serialization\DOM\Normalizers\HashNormalizer;
+use DomainException;
 use DOMDocument;
 use DOMElement;
 use PHPUnit\Framework\TestCase;
@@ -91,7 +92,7 @@ class HashDictionaryNormalizerTest extends TestCase
         $hashNormalizer->expects(self::exactly(3))
             ->method('normalize')
             ->withConsecutive(['alg1', 'cont1'], ['alg2', 'cont2'], ['alg3', 'cont3'])
-            ->willThrowException(new \DomainException());
+            ->willThrowException(new DomainException());
 
         $got = $normalizer->normalize($repo);
 

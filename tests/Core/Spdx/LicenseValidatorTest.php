@@ -26,6 +26,7 @@ namespace CycloneDX\Tests\Core\Spdx;
 use CycloneDX\Core\Spdx\LicenseValidator;
 use Generator;
 use PHPUnit\Framework\TestCase;
+use RuntimeException;
 
 /**
  * @covers  \CycloneDX\Core\Spdx\LicenseValidator
@@ -130,7 +131,7 @@ class LicenseValidatorTest extends TestCase
         $license = $this->createPartialMock(LicenseValidator::class, ['getResourcesFile']);
         $license->method('getResourcesFile')->willReturn($tempFilePath);
 
-        $this->expectException(\RuntimeException::class);
+        $this->expectException(RuntimeException::class);
         $this->expectExceptionMessageMatches('/malformed licenses file/i');
 
         $license->loadLicenses();
@@ -144,7 +145,7 @@ class LicenseValidatorTest extends TestCase
         $license = $this->createPartialMock(LicenseValidator::class, ['getResourcesFile']);
         $license->method('getResourcesFile')->willReturn($tempFilePath);
 
-        $this->expectException(\RuntimeException::class);
+        $this->expectException(RuntimeException::class);
         $this->expectExceptionMessageMatches('/missing licenses file/i');
 
         $license->loadLicenses();

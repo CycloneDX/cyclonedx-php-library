@@ -28,6 +28,7 @@ use CycloneDX\Core\Models\ExternalReference;
 use CycloneDX\Core\Serialization\JSON\NormalizerFactory;
 use CycloneDX\Core\Serialization\JSON\Normalizers;
 use CycloneDX\Core\Spec\Spec;
+use DomainException;
 
 /**
  * @covers \CycloneDX\Core\Serialization\JSON\Normalizers\ExternalReferenceRepositoryNormalizer
@@ -100,7 +101,7 @@ class ExternalReferenceRepositoryNormalizerTest extends \PHPUnit\Framework\TestC
 
         $externalReferenceNormalizer->expects(self::exactly(2))->method('normalize')
             ->withConsecutive([$extRef1], [$extRef2])
-            ->willThrowException(new \DomainException());
+            ->willThrowException(new DomainException());
 
         $actual = $normalizer->normalize($tools);
 

@@ -35,6 +35,7 @@ use CycloneDX\Core\Spec\Spec;
 use CycloneDX\Tests\_traits\DomNodeAssertionTrait;
 use DomainException;
 use DOMDocument;
+use Generator;
 use PackageUrl\PackageUrl;
 use PHPUnit\Framework\TestCase;
 
@@ -109,7 +110,7 @@ class ComponentNormalizerTest extends TestCase
         self::assertStringEqualsDomNode($expected, $actual);
     }
 
-    public function dbNormalizeMinimal(): \Generator
+    public function dbNormalizeMinimal(): Generator
     {
         yield 'mandatory ComponentVersion' => [
             '<component type="FakeType"><name>myName</name><version></version></component>',

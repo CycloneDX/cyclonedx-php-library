@@ -29,6 +29,9 @@ use CycloneDX\Core\Serialization\DOM\NormalizerFactory;
 use CycloneDX\Core\Serialization\DOM\Normalizers;
 use CycloneDX\Core\Spec\Spec;
 use CycloneDX\Tests\_traits\DomNodeAssertionTrait;
+use DomainException;
+use DOMDocument;
+use Exception;
 
 /**
  * @covers \CycloneDX\Core\Serialization\DOM\Normalizers\ExternalReferenceNormalizer
@@ -42,7 +45,7 @@ class ExternalReferenceNormalizerTest extends \PHPUnit\Framework\TestCase
     {
         $spec = $this->createMock(Spec::class);
         $normalizerFactory = $this->createConfiguredMock(NormalizerFactory::class, [
-            'getDocument' => new \DOMDocument(),
+            'getDocument' => new DOMDocument(),
             'getSPec' => $spec,
         ]);
         $normalizer = new Normalizers\ExternalReferenceNormalizer($normalizerFactory);
@@ -69,7 +72,7 @@ class ExternalReferenceNormalizerTest extends \PHPUnit\Framework\TestCase
     {
         $spec = $this->createMock(Spec::class);
         $normalizerFactory = $this->createConfiguredMock(NormalizerFactory::class, [
-            'getDocument' => new \DOMDocument(),
+            'getDocument' => new DOMDocument(),
             'getSpec' => $spec,
         ]);
         $normalizer = new Normalizers\ExternalReferenceNormalizer($normalizerFactory);
@@ -85,7 +88,7 @@ class ExternalReferenceNormalizerTest extends \PHPUnit\Framework\TestCase
             ->withConsecutive(['someType'], ['other'])
             ->willReturn(false);
 
-        $this->expectException(\DomainException::class);
+        $this->expectException(DomainException::class);
         $this->expectExceptionMessage('ExternalReference has unsupported type: someType');
 
         $normalizer->normalize($extRef);
@@ -95,7 +98,7 @@ class ExternalReferenceNormalizerTest extends \PHPUnit\Framework\TestCase
     {
         $spec = $this->createMock(Spec::class);
         $normalizerFactory = $this->createConfiguredMock(\CycloneDX\Core\Serialization\DOM\NormalizerFactory::class, [
-            'getDocument' => new \DOMDocument(),
+            'getDocument' => new DOMDocument(),
             'getSPec' => $spec,
         ]);
         $normalizer = new Normalizers\ExternalReferenceNormalizer($normalizerFactory);
@@ -124,7 +127,7 @@ class ExternalReferenceNormalizerTest extends \PHPUnit\Framework\TestCase
     {
         $spec = $this->createMock(Spec::class);
         $normalizerFactory = $this->createConfiguredMock(NormalizerFactory::class, [
-            'getDocument' => new \DOMDocument(),
+            'getDocument' => new DOMDocument(),
             'getSPec' => $spec,
         ]);
         $normalizer = new Normalizers\ExternalReferenceNormalizer($normalizerFactory);
@@ -157,7 +160,7 @@ class ExternalReferenceNormalizerTest extends \PHPUnit\Framework\TestCase
         $HashDictionaryNormalizer = $this->createMock(Normalizers\HashDictionaryNormalizer::class);
         $normalizerFactory = $this->createConfiguredMock(NormalizerFactory::class, [
             'getSpec' => $spec,
-            'getDocument' => new \DOMDocument(),
+            'getDocument' => new DOMDocument(),
             'makeForHashDictionary' => $HashDictionaryNormalizer,
         ]);
         $normalizer = new Normalizers\ExternalReferenceNormalizer($normalizerFactory);
@@ -188,7 +191,7 @@ class ExternalReferenceNormalizerTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @throws \Exception on assertion error
+     * @throws Exception on assertion error
      */
     public function testNormalizeHashesOmitIfEmpty(): void
     {
@@ -198,7 +201,7 @@ class ExternalReferenceNormalizerTest extends \PHPUnit\Framework\TestCase
         $HashDictionaryNormalizer = $this->createMock(Normalizers\HashDictionaryNormalizer::class);
         $normalizerFactory = $this->createConfiguredMock(NormalizerFactory::class, [
             'getSpec' => $spec,
-            'getDocument' => new \DOMDocument(),
+            'getDocument' => new DOMDocument(),
             'makeForHashDictionary' => $HashDictionaryNormalizer,
         ]);
         $normalizer = new Normalizers\ExternalReferenceNormalizer($normalizerFactory);
@@ -225,7 +228,7 @@ class ExternalReferenceNormalizerTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @throws \Exception on assertion error
+     * @throws Exception on assertion error
      */
     public function testNormalizeHashesOmitIfNotSupported(): void
     {
@@ -235,7 +238,7 @@ class ExternalReferenceNormalizerTest extends \PHPUnit\Framework\TestCase
         $HashDictionaryNormalizer = $this->createMock(Normalizers\HashDictionaryNormalizer::class);
         $normalizerFactory = $this->createConfiguredMock(NormalizerFactory::class, [
             'getSpec' => $spec,
-            'getDocument' => new \DOMDocument(),
+            'getDocument' => new DOMDocument(),
             'makeForHashDictionary' => $HashDictionaryNormalizer,
         ]);
         $normalizer = new Normalizers\ExternalReferenceNormalizer($normalizerFactory);
@@ -270,7 +273,7 @@ class ExternalReferenceNormalizerTest extends \PHPUnit\Framework\TestCase
     {
         $spec = $this->createMock(Spec::class);
         $normalizerFactory = $this->createConfiguredMock(NormalizerFactory::class, [
-            'getDocument' => new \DOMDocument(),
+            'getDocument' => new DOMDocument(),
             'getSpec' => $spec,
         ]);
         $normalizer = new Normalizers\ExternalReferenceNormalizer($normalizerFactory);

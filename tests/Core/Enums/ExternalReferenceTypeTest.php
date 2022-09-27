@@ -25,7 +25,9 @@ namespace CycloneDX\Tests\Core\Enums;
 
 use CycloneDX\Core\Enums\ExternalReferenceType;
 use CycloneDX\Tests\_data\BomSpecData;
+use Generator;
 use PHPUnit\Framework\TestCase;
+use ReflectionClass;
 
 /**
  * @covers \CycloneDX\Core\Enums\ExternalReferenceType
@@ -41,15 +43,15 @@ class ExternalReferenceTypeTest extends TestCase
         self::assertSame($expected, ExternalReferenceType::isValidValue($value));
     }
 
-    public function dpKnownValues(): \Generator
+    public function dpKnownValues(): Generator
     {
-        $allValues = (new \ReflectionClass(ExternalReferenceType::class))->getConstants();
+        $allValues = (new ReflectionClass(ExternalReferenceType::class))->getConstants();
         foreach ($allValues as $value) {
             yield $value => [$value, true];
         }
     }
 
-    public function dpUnknownValue(): \Generator
+    public function dpUnknownValue(): Generator
     {
         yield 'invalid' => ['UnknownExternalReferenceType', false];
     }
@@ -62,7 +64,7 @@ class ExternalReferenceTypeTest extends TestCase
         self::assertTrue(ExternalReferenceType::isValidValue($value));
     }
 
-    public function dpSchemaValues(): \Generator
+    public function dpSchemaValues(): Generator
     {
         $allValues = array_unique(array_merge(
             BomSpecData::getExternalReferenceTypeForVersion('1.1'),

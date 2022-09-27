@@ -23,6 +23,7 @@ declare(strict_types=1);
 
 namespace CycloneDX\Core\Collections;
 
+use Countable;
 use CycloneDX\Core\Enums\HashAlgorithm;
 use DomainException;
 
@@ -31,7 +32,7 @@ use DomainException;
  *
  * @author jkowalleck
  */
-class HashDictionary implements \Countable
+class HashDictionary implements Countable
 {
     /**
      * @var string[] dictionary of hashes

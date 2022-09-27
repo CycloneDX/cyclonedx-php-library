@@ -23,6 +23,7 @@ declare(strict_types=1);
 
 namespace CycloneDX\Core\Collections;
 
+use Countable;
 use CycloneDX\Core\Models\Tool;
 
 /**
@@ -30,7 +31,7 @@ use CycloneDX\Core\Models\Tool;
  *
  * @author jkowalleck
  */
-class ToolRepository implements \Countable
+class ToolRepository implements Countable
 {
     /**
      * @var Tool[]
