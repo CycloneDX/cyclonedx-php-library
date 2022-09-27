@@ -62,8 +62,8 @@ class BomNormalizerTest extends TestCase
 
         $actual = $normalizer->normalize($bom);
 
-        self::assertSame(
-            [
+        self::assertEquals(
+            (object) [
                 'bomFormat' => 'CycloneDX',
                 'specVersion' => '1.2',
                 'version' => 23,
@@ -100,8 +100,8 @@ class BomNormalizerTest extends TestCase
 
         $actual = $normalizer->normalize($bom);
 
-        self::assertSame(
-            [
+        self::assertEquals(
+            (object) [
                 'bomFormat' => 'CycloneDX',
                 'specVersion' => '1.2',
                 'version' => 23,
@@ -145,16 +145,16 @@ class BomNormalizerTest extends TestCase
         $metadataNormalizer->expects(self::once())
             ->method('normalize')
             ->with($bom->getMetadata())
-            ->willReturn(['FakeMetadata']);
+            ->willReturn((object) ['FakeMetadata' => true]);
 
         $actual = $normalizer->normalize($bom);
 
-        self::assertSame(
-            [
+        self::assertEquals(
+            (object) [
                 'bomFormat' => 'CycloneDX',
                 'specVersion' => '1.2',
                 'version' => 23,
-                'metadata' => ['FakeMetadata'],
+                'metadata' => (object) ['FakeMetadata' => true],
                 'components' => [],
             ],
             $actual
@@ -189,16 +189,17 @@ class BomNormalizerTest extends TestCase
 
         $metadataNormalizer->method('normalize')
             ->with($bom->getMetadata())
-            ->willReturn([/* empty */]);
+            ->willReturn((object) [/* empty */]);
 
         $actual = $normalizer->normalize($bom);
 
-        self::assertSame(
-            [
+        self::assertEquals(
+            (object) [
                 'bomFormat' => 'CycloneDX',
                 'specVersion' => '1.2',
                 'version' => 23,
                 'components' => [],
+                'metadata' => (object) [],
             ],
             $actual
         );
@@ -232,12 +233,12 @@ class BomNormalizerTest extends TestCase
 
         $metadataNormalizer->method('normalize')
             ->with($bom->getMetadata())
-            ->willReturn(['FakeMetadata']);
+            ->willReturn((object) ['FakeMetadata' => true]);
 
         $actual = $normalizer->normalize($bom);
 
-        self::assertSame(
-            [
+        self::assertEquals(
+            (object) [
                 'bomFormat' => 'CycloneDX',
                 'specVersion' => '1.2',
                 'version' => 23,
@@ -280,17 +281,17 @@ class BomNormalizerTest extends TestCase
         $dependencyNormalizer->expects(self::once())
             ->method('normalize')
             ->with($bom)
-            ->willReturn(['FakeDependencies' => 'dummy']);
+            ->willReturn(['FakeDependencies']);
 
         $actual = $normalizer->normalize($bom);
 
-        self::assertSame(
-            [
+        self::assertEquals(
+            (object) [
                 'bomFormat' => 'CycloneDX',
                 'specVersion' => '1.2',
                 'version' => 23,
                 'components' => [],
-                'dependencies' => ['FakeDependencies' => 'dummy'],
+                'dependencies' => ['FakeDependencies'],
             ],
             $actual
         );
@@ -329,8 +330,8 @@ class BomNormalizerTest extends TestCase
 
         $actual = $normalizer->normalize($bom);
 
-        self::assertSame(
-            [
+        self::assertEquals(
+            (object) [
                 'bomFormat' => 'CycloneDX',
                 'specVersion' => '1.2',
                 'version' => 23,
@@ -391,8 +392,8 @@ class BomNormalizerTest extends TestCase
 
         $actual = $normalizer->normalize($bom);
 
-        self::assertSame(
-            [
+        self::assertEquals(
+            (object) [
                 'bomFormat' => 'CycloneDX',
                 'specVersion' => '1.2',
                 'version' => 23,
@@ -412,10 +413,10 @@ class BomNormalizerTest extends TestCase
             'getVersion' => '1.2',
             'supportsMetadata' => false,
         ]);
-        $extRefNormalizer = $this->createMock(Normalizers\ExternalReferenceRepositoryNormalizer::class);
+        $extRefRepoNormalizer = $this->createMock(Normalizers\ExternalReferenceRepositoryNormalizer::class);
         $factory = $this->createConfiguredMock(NormalizerFactory::class, [
             'getSpec' => $spec,
-            'makeForExternalReferenceRepository' => $extRefNormalizer,
+            'makeForExternalReferenceRepository' => $extRefRepoNormalizer,
         ]);
         $normalizer = new Normalizers\BomNormalizer($factory);
         $extRef1 = $this->createStub(ExternalReference::class);
@@ -428,15 +429,15 @@ class BomNormalizerTest extends TestCase
             ]
         );
 
-        $extRefNormalizer->expects(self::once())
+        $extRefRepoNormalizer->expects(self::once())
             ->method('normalize')
             ->with($bom->getExternalReferences())
             ->willReturn([/* empty */]);
 
         $actual = $normalizer->normalize($bom);
 
-        self::assertSame(
-            [
+        self::assertEquals(
+            (object) [
                 'bomFormat' => 'CycloneDX',
                 'specVersion' => '1.2',
                 'version' => 23,

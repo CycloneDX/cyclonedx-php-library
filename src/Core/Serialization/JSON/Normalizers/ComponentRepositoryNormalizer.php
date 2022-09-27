@@ -32,7 +32,9 @@ use CycloneDX\Core\Serialization\JSON\_BaseNormalizer;
 class ComponentRepositoryNormalizer extends _BaseNormalizer
 {
     /**
-     * @psalm-return list<mixed>
+     * @return object[]
+     *
+     * @psalm-return list<object>
      */
     public function normalize(ComponentRepository $repo): array
     {

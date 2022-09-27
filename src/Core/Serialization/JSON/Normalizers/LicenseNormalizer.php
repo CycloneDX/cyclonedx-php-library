@@ -37,33 +37,33 @@ class LicenseNormalizer extends _BaseNormalizer
 {
     use NullAssertionTrait;
 
-    public function normalize(LicenseExpression|DisjunctiveLicenseWithId|DisjunctiveLicenseWithName $license): array
+    public function normalize(LicenseExpression|DisjunctiveLicenseWithId|DisjunctiveLicenseWithName $license): object
     {
         return $license instanceof LicenseExpression
             ? $this->normalizeExpression($license)
             : $this->normalizeDisjunctive($license);
     }
 
-    private function normalizeExpression(LicenseExpression $license): array
+    private function normalizeExpression(LicenseExpression $license): object
     {
         // TODO: IMPLEMENTED IF NEEDED: may throw, if not supported by the spec
         // $this->getNormalizerFactory()->getSpec()->supportsLicenseExpression()
 
-        return ['expression' => $license->getExpression()];
+        return (object) ['expression' => $license->getExpression()];
     }
 
     /**
      * @SuppressWarnings(PHPMD.ShortVariable) $id
      * @SuppressWarnings(PHPMD.StaticAccess)
      */
-    private function normalizeDisjunctive(DisjunctiveLicenseWithId|DisjunctiveLicenseWithName $license): array
+    private function normalizeDisjunctive(DisjunctiveLicenseWithId|DisjunctiveLicenseWithName $license): object
     {
         [$id, $name] = $license instanceof DisjunctiveLicenseWithId
             ? [$license->getId(), null]
             : [null, $license->getName()];
         $url = $license->getUrl();
 
-        return ['license' => array_filter(
+        return (object) ['license' => (object) array_filter(
             [
                 'id' => $id,
                 'name' => $name,

@@ -34,7 +34,7 @@ class HashNormalizer extends _BaseNormalizer
     /**
      * @throws DomainException
      */
-    public function normalize(string $algorithm, string $content): array
+    public function normalize(string $algorithm, string $content): object
     {
         $spec = $this->getNormalizerFactory()->getSpec();
         if (false === $spec->isSupportedHashAlgorithm($algorithm)) {
@@ -44,7 +44,7 @@ class HashNormalizer extends _BaseNormalizer
             throw new DomainException("Invalid hash content: $content", 2);
         }
 
-        return [
+        return (object) [
             'alg' => $algorithm,
             'content' => $content,
         ];

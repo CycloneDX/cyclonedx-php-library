@@ -32,9 +32,9 @@ use CycloneDX\Core\Serialization\JSON\_BaseNormalizer;
 class ToolRepositoryNormalizer extends _BaseNormalizer
 {
     /**
-     * @return array[]
+     * @return object[]
      *
-     * @psalm-return list<array>
+     * @psalm-return list<object>
      */
     public function normalize(ToolRepository $repo): array
     {
@@ -43,12 +43,9 @@ class ToolRepositoryNormalizer extends _BaseNormalizer
         $tools = [];
         foreach ($repo->getItems() as $tool) {
             try {
-                $item = $normalizer->normalize($tool);
+                $tools[] = $normalizer->normalize($tool);
             } catch (\DomainException) {
-                continue;
-            }
-            if (false === empty($item)) {
-                $tools[] = $item;
+                /* pass */
             }
         }
 

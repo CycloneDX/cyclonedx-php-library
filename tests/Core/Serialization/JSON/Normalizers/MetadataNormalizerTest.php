@@ -49,7 +49,7 @@ class MetadataNormalizerTest extends TestCase
 
         $actual = $normalizer->normalize($metadata);
 
-        self::assertSame([], $actual);
+        self::assertEquals((object) [], $actual);
     }
 
     public function testNormalizeTools(): void
@@ -74,12 +74,12 @@ class MetadataNormalizerTest extends TestCase
         $toolsRepoFactory->expects(self::once())
             ->method('normalize')
             ->with($metadata->getTools())
-            ->willReturn(['FakeTool' => 'dummy']);
+            ->willReturn(['FakeTool']);
 
         $actual = $normalizer->normalize($metadata);
 
-        self::assertSame(
-            ['tools' => ['FakeTool' => 'dummy']],
+        self::assertEquals(
+            (object) ['tools' => ['FakeTool']],
             $actual
         );
     }
@@ -109,12 +109,12 @@ class MetadataNormalizerTest extends TestCase
         $componentFactory->expects(self::once())
             ->method('normalize')
             ->with($metadata->getComponent())
-            ->willReturn(['FakeComponent' => 'dummy']);
+            ->willReturn((object) ['FakeComponent' => true]);
 
         $actual = $normalizer->normalize($metadata);
 
-        self::assertSame(
-            ['component' => ['FakeComponent' => 'dummy']],
+        self::assertEquals(
+            (object) ['component' => (object) ['FakeComponent' => true]],
             $actual
         );
     }
@@ -145,6 +145,6 @@ class MetadataNormalizerTest extends TestCase
 
         $actual = $normalizer->normalize($metadata);
 
-        self::assertSame([], $actual);
+        self::assertEquals((object) [], $actual);
     }
 }

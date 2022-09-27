@@ -31,7 +31,6 @@ use CycloneDX\Core\Models\Component;
 use CycloneDX\Core\Models\Metadata;
 use CycloneDX\Core\Serialization\JSON\NormalizerFactory;
 use CycloneDX\Core\Serialization\JSON\Normalizers\DependenciesNormalizer;
-use Exception;
 use Generator;
 use PHPUnit\Framework\TestCase;
 
@@ -58,8 +57,6 @@ class DependenciesNormalizerTest extends TestCase
     }
 
     /**
-     * @param string[] $expecteds
-     *
      * @dataProvider dpNormalize
      *
      * @uses         \CycloneDX\Core\Models\BomRef
@@ -69,28 +66,9 @@ class DependenciesNormalizerTest extends TestCase
         $actuals = $this->normalizer->normalize($bom);
 
         self::assertSameSize($expecteds, $actuals);
-
-        $missing = [];
         foreach ($expecteds as $expected) {
-            foreach ($actuals as $actual) {
-                try {
-                    self::assertEquals($expected, $actual);
-                    continue 2; // expected was found
-                } catch (Exception $exception) {
-                    // pass
-                }
-            }
-            $missing[] = $expected;
+            self::assertContainsEquals($expected, $actuals, print_r($actuals, true));
         }
-
-        self::assertCount(
-            0,
-            $missing,
-            sprintf("missing:\n%s\nin:\n%s",
-                print_r($missing, true),
-                print_r($actuals, true),
-            )
-        );
     }
 
     public function dpNormalize(): Generator
@@ -181,16 +159,16 @@ class DependenciesNormalizerTest extends TestCase
         yield 'with metadata' => [
             $bom,
             [
-                [
+                (object) [
                     'ref' => 'myRootComponent',
                     'dependsOn' => [
                         'ComponentWithDeps',
                         'ComponentWithoutDeps',
                     ],
                 ],
-                ['ref' => 'ComponentWithoutDeps'],
-                ['ref' => 'ComponentWithNoDeps'],
-                [
+                (object) ['ref' => 'ComponentWithoutDeps'],
+                (object) ['ref' => 'ComponentWithNoDeps'],
+                (object) [
                     'ref' => 'ComponentWithDeps',
                     'dependsOn' => [
                         'ComponentWithoutDeps',

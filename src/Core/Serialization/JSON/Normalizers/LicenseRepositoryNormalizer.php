@@ -31,6 +31,11 @@ use CycloneDX\Core\Serialization\JSON\_BaseNormalizer;
  */
 class LicenseRepositoryNormalizer extends _BaseNormalizer
 {
+    /**
+     * @return object[]
+     *
+     * @psalm-return list<object>
+     */
     public function normalize(LicenseRepository $repo): array
     {
         return array_map(

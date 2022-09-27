@@ -45,7 +45,7 @@ class ExternalReferenceNormalizer extends _BaseNormalizer
      *
      * @SuppressWarnings(PHPMD.StaticAccess)
      */
-    public function normalize(ExternalReference $externalReference): array
+    public function normalize(ExternalReference $externalReference): object
     {
         $url = $externalReference->getUrl();
         if (false === IriFormats::iriReference($url)) {
@@ -62,7 +62,7 @@ class ExternalReferenceNormalizer extends _BaseNormalizer
             }
         }
 
-        return array_filter(
+        return (object) array_filter(
             [
                 'type' => $type,
                 'url' => $url,

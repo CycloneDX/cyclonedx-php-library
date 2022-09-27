@@ -69,7 +69,7 @@ class ComponentNormalizerTest extends TestCase
     /**
      * @dataProvider dptNormalizeMinimal
      */
-    public function testNormalizeMinimal(array $expected, bool $requiresComponentVersion): void
+    public function testNormalizeMinimal(object $expected, bool $requiresComponentVersion): void
     {
         $component = $this->createConfiguredMock(
             Component::class,
@@ -97,13 +97,13 @@ class ComponentNormalizerTest extends TestCase
 
         $actual = $normalizer->normalize($component);
 
-        self::assertSame($expected, $actual);
+        self::assertEquals($expected, $actual);
     }
 
     public function dptNormalizeMinimal(): Generator
     {
         yield 'mandatory Component Version' => [
-            [
+            (object) [
                 'type' => 'FakeType',
                 'name' => 'foo',
                 'version' => '',
@@ -111,7 +111,7 @@ class ComponentNormalizerTest extends TestCase
             true,
         ];
         yield 'optional Component Version' => [
-            [
+            (object) [
                 'type' => 'FakeType',
                 'name' => 'foo',
             ],
@@ -169,7 +169,7 @@ class ComponentNormalizerTest extends TestCase
         $actual = $normalizer->normalize($component);
 
         self::assertEquals(
-            [
+            (object) [
                 'bom-ref' => 'myBomRef',
                 'type' => 'FakeType',
                 'name' => 'myName',
@@ -213,7 +213,7 @@ class ComponentNormalizerTest extends TestCase
 
         $got = $normalizer->normalize($component);
 
-        self::assertEquals([
+        self::assertEquals((object) [
             'type' => 'FakeType',
             'name' => 'myName',
             'licenses' => ['FakeLicenses'],
@@ -247,7 +247,7 @@ class ComponentNormalizerTest extends TestCase
 
         $got = $normalizer->normalize($component);
 
-        self::assertEquals([
+        self::assertEquals((object) [
             'type' => 'FakeType',
             'name' => 'myName',
         ], $got);
@@ -287,7 +287,7 @@ class ComponentNormalizerTest extends TestCase
 
         $actual = $normalizer->normalize($component);
 
-        self::assertSame([
+        self::assertEquals((object) [
             'type' => 'FakeType',
             'name' => 'myName',
             'externalReferences' => ['FakeExternalReference'],
@@ -326,7 +326,7 @@ class ComponentNormalizerTest extends TestCase
 
         $actual = $normalizer->normalize($component);
 
-        self::assertEquals([
+        self::assertEquals((object) [
             'type' => 'FakeType',
             'name' => 'myName',
         ], $actual);

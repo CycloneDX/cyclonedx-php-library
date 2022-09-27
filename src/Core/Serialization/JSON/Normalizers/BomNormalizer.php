@@ -37,11 +37,11 @@ class BomNormalizer extends _BaseNormalizer
 
     private const BOM_FORMAT = 'CycloneDX';
 
-    public function normalize(Bom $bom): array
+    public function normalize(Bom $bom): object
     {
         $factory = $this->getNormalizerFactory();
 
-        return array_filter(
+        return (object) array_filter(
             [
                 'bomFormat' => self::BOM_FORMAT,
                 'specVersion' => $factory->getSpec()->getVersion(),
@@ -55,7 +55,7 @@ class BomNormalizer extends _BaseNormalizer
         );
     }
 
-    private function normalizeMetadata(Metadata $metadata): ?array
+    private function normalizeMetadata(Metadata $metadata): ?object
     {
         $factory = $this->getNormalizerFactory();
 
@@ -63,11 +63,7 @@ class BomNormalizer extends _BaseNormalizer
             return null;
         }
 
-        $data = $factory->makeForMetadata()->normalize($metadata);
-
-        return empty($data)
-            ? null
-            : $data;
+        return $factory->makeForMetadata()->normalize($metadata);
     }
 
     private function normalizeExternalReferences(Bom $bom): ?array

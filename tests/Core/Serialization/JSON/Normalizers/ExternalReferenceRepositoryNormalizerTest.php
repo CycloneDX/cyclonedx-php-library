@@ -76,11 +76,11 @@ class ExternalReferenceRepositoryNormalizerTest extends \PHPUnit\Framework\TestC
         $externalReferenceNormalizer->expects(self::once())
             ->method('normalize')
             ->with($externalReference)
-            ->willReturn(['FakeExtRef' => 'dummy']);
+            ->willReturn((object) ['FakeExtRef' => true]);
 
         $actual = $normalizer->normalize($repo);
 
-        self::assertSame([['FakeExtRef' => 'dummy']], $actual);
+        self::assertEquals([(object) ['FakeExtRef' => true]], $actual);
     }
 
     public function testNormalizeSkipsOnThrow(): void

@@ -34,9 +34,9 @@ use UnexpectedValueException;
 class ExternalReferenceRepositoryNormalizer extends _BaseNormalizer
 {
     /**
-     * @return array[]
+     * @return object[]
      *
-     * @psalm-return list<array>
+     * @psalm-return list<object>
      */
     public function normalize(ExternalReferenceRepository $repo): array
     {
@@ -45,12 +45,9 @@ class ExternalReferenceRepositoryNormalizer extends _BaseNormalizer
         $externalReferences = [];
         foreach ($repo->getItems() as $externalReference) {
             try {
-                $item = $normalizer->normalize($externalReference);
+                $externalReferences[] = $normalizer->normalize($externalReference);
             } catch (DomainException|UnexpectedValueException) {
-                continue;
-            }
-            if (false === empty($item)) {
-                $externalReferences[] = $item;
+                /* pass */
             }
         }
 

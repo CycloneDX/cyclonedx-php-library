@@ -36,9 +36,9 @@ class MetadataNormalizer extends _BaseNormalizer
 {
     use NullAssertionTrait;
 
-    public function normalize(Metadata $metadata): array
+    public function normalize(Metadata $metadata): object
     {
-        return array_filter(
+        return (object) array_filter(
             [
                 // timestamp
                 'tools' => $this->normalizeTools($metadata->getTools()),
@@ -58,7 +58,7 @@ class MetadataNormalizer extends _BaseNormalizer
             : $this->getNormalizerFactory()->makeForToolRepository()->normalize($tools);
     }
 
-    private function normalizeComponent(?Component $component): ?array
+    private function normalizeComponent(?Component $component): ?object
     {
         if (null === $component) {
             return null;

@@ -36,9 +36,9 @@ class ToolNormalizer extends _BaseNormalizer
 {
     use NullAssertionTrait;
 
-    public function normalize(Tool $tool): array
+    public function normalize(Tool $tool): object
     {
-        return array_filter(
+        return (object) array_filter(
             [
                 'vendor' => $tool->getVendor(),
                 'name' => $tool->getName(),
