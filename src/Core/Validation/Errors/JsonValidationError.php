@@ -40,7 +40,7 @@ class JsonValidationError extends ValidationError
                 \JSON_PRETTY_PRINT | \JSON_UNESCAPED_SLASHES
             )
         );
-        $instance->debugError = $error;
+        $instance->error = $error;
 
         return $instance;
     }
