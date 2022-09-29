@@ -24,7 +24,7 @@ declare(strict_types=1);
 namespace CycloneDX\Core\Validation\Errors;
 
 use CycloneDX\Core\Validation\ValidationError;
-use \Opis\JsonSchema;
+use Opis\JsonSchema;
 
 /**
  * @author jkowalleck
@@ -37,7 +37,7 @@ class JsonValidationError extends ValidationError
         $instance = new static(
             json_encode(
                 $formatter->format($error, true),
-                JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES
+                \JSON_PRETTY_PRINT | \JSON_UNESCAPED_SLASHES
             )
         );
         $instance->debugError = $error;

@@ -25,14 +25,13 @@ namespace CycloneDX\Core\Validation\Validators;
 
 use CycloneDX\Core\Resources;
 use CycloneDX\Core\Spec\Version;
-use CycloneDX\Core\Validation\_helpers\JsonSchemaRemoteRefProviderForSnapshotResources;
 use CycloneDX\Core\Validation\BaseValidator;
 use CycloneDX\Core\Validation\Errors\JsonValidationError;
 use CycloneDX\Core\Validation\Exceptions\FailedLoadingSchemaException;
 use Exception;
 use JsonException;
-use stdClass;
 use Opis\JsonSchema;
+use stdClass;
 
 /**
  * @author jkowalleck
@@ -72,23 +71,21 @@ class JsonValidator extends BaseValidator
      */
     public function validateData(stdClass $data): ?JsonValidationError
     {
+        $schemaId = uniqid('http://cdx-php-lib/validating/', true);
+        $resolver = new JsonSchema\Resolvers\SchemaResolver();
+        $resolver->registerFile($schemaId, $this->getSchemaFile());
+        $resolver->registerPrefix('http://cyclonedx.org/schema/', Resources::ROOT);
         $validator = new JsonSchema\Validator();
-        $validator->loader()->setResolver($this->makeResolver());
+        $validator->setResolver($resolver);
         try {
-            $validationError = $validator->validate($data, /* TODO schema loader */)->error();
+            $validationError = $validator->validate($data, $schemaId)->error();
         } catch (Exception $error) {
             return JsonValidationError::fromThrowable($error);
         }
 
-        return $validationError === null
+        return null === $validationError
             ? null
             : JsonValidationError::fromSchemaValidationError($validationError);
-    }
-
-    public function makeResolver(): JsonSchema\Resolvers\SchemaResolver
-    {
-        /* TODO */
-        return new JsonSchema\Resolvers\SchemaResolver;
     }
 
     /**
