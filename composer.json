@@ -34,8 +34,8 @@
         "ext-dom": "*",
         "ext-json": "*",
         "ext-libxml": "*",
-        "package-url/packageurl-php": "^1.0",
-        "swaggest/json-schema": "^0.12.35"
+        "opis/json-schema": "^2.0",
+        "package-url/packageurl-php": "^1.0"
     },
     "require-dev": {
         "ext-simplexml": "*",
