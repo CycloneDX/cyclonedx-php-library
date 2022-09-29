@@ -32,7 +32,7 @@ use CycloneDX\Core\Validation\Exceptions\FailedLoadingSchemaException;
 use Exception;
 use JsonException;
 use stdClass;
-use Swaggest\JsonSchema;
+use Opis\JsonSchema;
 
 /**
  * @author jkowalleck
@@ -69,39 +69,26 @@ class JsonValidator extends BaseValidator
 
     /**
      * @throws FailedLoadingSchemaException
-     *
-     * @SuppressWarnings(PHPMD.StaticAccess)
      */
     public function validateData(stdClass $data): ?JsonValidationError
     {
-        $contract = $this->getSchemaContract();
+        $validator = new JsonSchema\Validator();
+        $validator->loader()->setResolver($this->makeResolver());
         try {
-            $contract->in($data);
-        } catch (JsonSchema\InvalidValue $error) {
-            return JsonValidationError::fromJsonSchemaInvalidValue($error);
+            $validationError = $validator->validate($data, /* TODO schema loader */)->error();
+        } catch (Exception $error) {
+            return JsonValidationError::fromThrowable($error);
         }
 
-        return null;
+        return $validationError === null
+            ? null
+            : JsonValidationError::fromSchemaValidationError($validationError);
     }
 
-    /**
-     * @throws FailedLoadingSchemaException
-     *
-     * @SuppressWarnings(PHPMD.StaticAccess)
-     */
-    private function getSchemaContract(): JsonSchema\SchemaContract
+    public function makeResolver(): JsonSchema\Resolvers\SchemaResolver
     {
-        $schemaFile = $this->getSchemaFile();
-        try {
-            return JsonSchema\Schema::import(
-                $schemaFile,
-                new JsonSchema\Context(new JsonSchemaRemoteRefProviderForSnapshotResources())
-            );
-            // @codeCoverageIgnoreStart
-        } catch (Exception $exception) {
-            throw new FailedLoadingSchemaException('import schema data failed', 0, $exception);
-        }
-        // @codeCoverageIgnoreEnd
+        /* TODO */
+        return new JsonSchema\Resolvers\SchemaResolver;
     }
 
     /**
@@ -112,7 +99,7 @@ class JsonValidator extends BaseValidator
         try {
             $data = json_decode($json, false, 512, \JSON_THROW_ON_ERROR);
         } catch (Exception $exception) {
-            throw new JsonException('loading failed', 0, $exception);
+            throw new JsonException('loading failed', previous: $exception);
         }
         \assert($data instanceof stdClass);
 
