@@ -42,7 +42,7 @@ class ComponentNormalizer extends _BaseNormalizer
     /**
      * @throws DomainException if component has unsupported type
      */
-    public function normalize(Component $component): array
+    public function normalize(Component $component): object
     {
         $spec = $this->getNormalizerFactory()->getSpec();
 
@@ -63,7 +63,7 @@ class ComponentNormalizer extends _BaseNormalizer
             ? $component->getBomRef()->getValue()
             : null;
 
-        return array_filter(
+        return (object) array_filter(
             [
                 'bom-ref' => $bomRef,
                 'type' => $type,

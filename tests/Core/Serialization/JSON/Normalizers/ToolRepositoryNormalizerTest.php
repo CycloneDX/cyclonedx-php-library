@@ -75,11 +75,11 @@ class ToolRepositoryNormalizerTest extends TestCase
 
         $toolNormalizer->expects(self::once())->method('normalize')
             ->with($tool)
-            ->willReturn(['FakeTool' => 'dummy']);
+            ->willReturn((object) ['FakeTool' => 'dummy']);
 
         $actual = $normalizer->normalize($tools);
 
-        self::assertSame([['FakeTool' => 'dummy']], $actual);
+        self::assertEquals([(object) ['FakeTool' => 'dummy']], $actual);
     }
 
     public function testNormalizeSkipsOnThrow(): void

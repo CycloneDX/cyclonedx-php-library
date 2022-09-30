@@ -29,9 +29,6 @@ use CycloneDX\Core\Models\BomRef;
 use CycloneDX\Core\Models\Component;
 use CycloneDX\Core\Serialization\JSON\_BaseNormalizer;
 
-/**
- * @psalm-type Dependency = array{ref: string, dependsOn?: non-empty-list<string>}
- */
 class DependenciesNormalizer extends _BaseNormalizer
 {
     use NullAssertionTrait;
@@ -40,9 +37,9 @@ class DependenciesNormalizer extends _BaseNormalizer
      * Only named {@see \CycloneDX\Core\Models\BomRef BomRefs} will be taken into account.
      * Make sure to use the {@see \CycloneDX\Core\Serialization\BomRefDiscriminator} before calling.
      *
-     * @return array[]
+     * @return object[]
      *
-     * @psalm-return list<Dependency>
+     * @psalm-return list<object>
      */
     public function normalize(Bom $bom): array
     {
@@ -73,17 +70,15 @@ class DependenciesNormalizer extends _BaseNormalizer
         return $dependencies;
     }
 
-    /**
-     * @psalm-return Dependency|null
-     */
-    private function normalizeDependency(BomRef $componentRef, BomRef ...$dependencyRefs): ?array
+    private function normalizeDependency(BomRef $componentRef, BomRef ...$dependencyRefs): ?object
     {
         $componentRefValue = $componentRef->getValue();
         if (null === $componentRefValue) {
             return null;
         }
 
-        $dep = ['ref' => $componentRefValue];
+        $dep = (object) [];
+        $dep->ref = $componentRefValue;
 
         $deps = [];
         foreach ($dependencyRefs as $dependencyRef) {
@@ -93,7 +88,7 @@ class DependenciesNormalizer extends _BaseNormalizer
             }
         }
         if (!empty($deps)) {
-            $dep['dependsOn'] = $deps;
+            $dep->dependsOn = $deps;
         }
 
         return $dep;

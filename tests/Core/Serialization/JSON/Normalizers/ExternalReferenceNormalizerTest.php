@@ -59,7 +59,7 @@ class ExternalReferenceNormalizerTest extends \PHPUnit\Framework\TestCase
 
         $actual = $normalizer->normalize($extRef);
 
-        self::assertSame([
+        self::assertEquals((object) [
             'type' => 'someType',
             'url' => 'someUrl',
             // comment omitted
@@ -89,7 +89,7 @@ class ExternalReferenceNormalizerTest extends \PHPUnit\Framework\TestCase
 
         $actual = $normalizer->normalize($extRef);
 
-        self::assertSame([
+        self::assertEquals((object) [
             'type' => 'other',
             'url' => 'someUrl',
             // comment omitted
@@ -167,7 +167,7 @@ class ExternalReferenceNormalizerTest extends \PHPUnit\Framework\TestCase
 
         $actual = $normalizer->normalize($extRef);
 
-        self::assertSame([
+        self::assertEquals((object) [
             'type' => 'someType',
             'url' => 'someUrl',
             'comment' => 'someComment',
@@ -204,7 +204,7 @@ class ExternalReferenceNormalizerTest extends \PHPUnit\Framework\TestCase
 
         $actual = $normalizer->normalize($extRef);
 
-        self::assertSame([
+        self::assertEquals((object) [
             'type' => 'someType',
             'url' => 'someUrl',
             'hashes' => ['NormalizedHashDictFake'],
@@ -238,7 +238,7 @@ class ExternalReferenceNormalizerTest extends \PHPUnit\Framework\TestCase
 
         $actual = $normalizer->normalize($extRef);
 
-        self::assertSame([
+        self::assertEquals((object) [
             'type' => 'someType',
             'url' => 'someUrl',
             // hashes is omitted
@@ -272,7 +272,7 @@ class ExternalReferenceNormalizerTest extends \PHPUnit\Framework\TestCase
 
         $actual = $normalizer->normalize($extRef);
 
-        self::assertSame([
+        self::assertEquals((object) [
             'type' => 'someType',
             'url' => 'someUrl',
             // hashes is omitted

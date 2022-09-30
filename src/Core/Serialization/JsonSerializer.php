@@ -54,13 +54,12 @@ class JsonSerializer extends BaseSerializer
         Version::v1dot4 => 'http://cyclonedx.org/schema/bom-1.4.schema.json',
     ];
 
-    private function getSchemaBase(): array
+    private function setSchemaBase(object $struct): void
     {
         $schema = self::SCHEMA[$this->getSpec()->getVersion()] ?? null;
-
-        return null === $schema
-            ? [] // @codeCoverageIgnore
-            : ['$schema' => $schema];
+        if (null !== $schema) {
+            $struct->{'$schema'} = $schema;
+        }
     }
 
     /**
@@ -68,12 +67,13 @@ class JsonSerializer extends BaseSerializer
      */
     protected function normalize(Bom $bom): string
     {
-        $schemaBase = $this->getSchemaBase();
         $data = (new JSON\NormalizerFactory($this->getSpec()))
             ->makeForBom()
             ->normalize($bom);
 
-        $json = json_encode(array_merge($schemaBase, $data), self::NORMALIZE_OPTIONS);
+        $this->setSchemaBase($data);
+
+        $json = json_encode($data, self::NORMALIZE_OPTIONS);
         \assert(false !== $json); // as option JSON_THROW_ON_ERROR is expected to be set
         \assert('' !== $json);
 

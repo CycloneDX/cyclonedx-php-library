@@ -31,6 +31,11 @@ use CycloneDX\Core\Serialization\JSON\_BaseNormalizer;
  */
 class HashDictionaryNormalizer extends _BaseNormalizer
 {
+    /**
+     * @return object[]
+     *
+     * @psalm-return list<object>
+     */
     public function normalize(HashDictionary $repo): array
     {
         $hashes = [];

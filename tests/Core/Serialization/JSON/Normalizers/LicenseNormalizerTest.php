@@ -40,7 +40,7 @@ class LicenseNormalizerTest extends \PHPUnit\Framework\TestCase
     /**
      * @dataProvider dpNormalize
      */
-    public function testNormalize(LicenseExpression|DisjunctiveLicenseWithId|DisjunctiveLicenseWithName $license, array $expected): void
+    public function testNormalize(LicenseExpression|DisjunctiveLicenseWithId|DisjunctiveLicenseWithName $license, object $expected): void
     {
         $spec = $this->createMock(Spec::class);
         $factory = $this->createConfiguredMock(NormalizerFactory::class, ['getSpec' => $spec]);
@@ -48,7 +48,7 @@ class LicenseNormalizerTest extends \PHPUnit\Framework\TestCase
 
         $actual = $normalizer->normalize($license);
 
-        self::assertSame($expected, $actual);
+        self::assertEquals($expected, $actual);
     }
 
     public function dpNormalize(): Generator
@@ -57,17 +57,19 @@ class LicenseNormalizerTest extends \PHPUnit\Framework\TestCase
             $this->createConfiguredMock(LicenseExpression::class, [
                 'getExpression' => 'MIT OR Apache-2.0',
             ]),
-            ['expression' => 'MIT OR Apache-2.0'],
+            (object) [
+                'expression' => 'MIT OR Apache-2.0',
+            ],
         ];
         yield 'SPDX license' => [
             $this->createConfiguredMock(DisjunctiveLicenseWithId::class, [
                 'getId' => 'MIT',
                 'getUrl' => 'https://foo.bar',
             ]),
-            [
-                'license' => [
-                'id' => 'MIT',
-                'url' => 'https://foo.bar',
+            (object) [
+                'license' => (object) [
+                    'id' => 'MIT',
+                    'url' => 'https://foo.bar',
                 ],
             ],
         ];
@@ -76,11 +78,11 @@ class LicenseNormalizerTest extends \PHPUnit\Framework\TestCase
                 'getName' => 'copyright by the crew',
                 'getUrl' => 'https://foo.bar',
             ]),
-            [
-                'license' => [
-                'name' => 'copyright by the crew',
-                'url' => 'https://foo.bar',
-                    ],
+            (object) [
+                'license' => (object) [
+                    'name' => 'copyright by the crew',
+                    'url' => 'https://foo.bar',
+                ],
             ],
         ];
     }

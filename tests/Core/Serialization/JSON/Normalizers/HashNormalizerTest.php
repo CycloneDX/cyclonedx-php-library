@@ -58,7 +58,7 @@ class HashNormalizerTest extends TestCase
 
         $normalized = $normalizer->normalize('foo', 'bar');
 
-        self::assertSame(['alg' => 'foo', 'content' => 'bar'], $normalized);
+        self::assertEquals((object) ['alg' => 'foo', 'content' => 'bar'], $normalized);
     }
 
     public function testNormalizeThrowOnUnsupportedAlgorithm(): void

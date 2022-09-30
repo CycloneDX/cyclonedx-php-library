@@ -48,16 +48,17 @@ class HashDictionaryNormalizerTest extends TestCase
         $hashNormalizer = $this->createMock(HashNormalizer::class);
         $factory = $this->createConfiguredMock(NormalizerFactory::class, ['makeForHash' => $hashNormalizer]);
         $normalizer = new HashDictionaryNormalizer($factory);
-        $repo = $this->createStub(HashDictionary::class);
-        $repo->method('getItems')->willReturn(['alg1' => 'content1', 'alg2' => 'content2']);
+        $repo = $this->createConfiguredMock(HashDictionary::class, [
+            'getItems' => ['alg1' => 'content1', 'alg2' => 'content2'],
+        ]);
 
         $hashNormalizer->expects(self::exactly(2))->method('normalize')
             ->withConsecutive(['alg1', 'content1'], ['alg2', 'content2'])
-            ->willReturnOnConsecutiveCalls(['dummy1'], ['dummy2']);
+            ->willReturnOnConsecutiveCalls((object) ['dummy1' => true], (object) ['dummy2' => true]);
 
         $normalized = $normalizer->normalize($repo);
 
-        self::assertSame([['dummy1'], ['dummy2']], $normalized);
+        self::assertEquals([(object) ['dummy1' => true], (object) ['dummy2' => true]], $normalized);
     }
 
     /**

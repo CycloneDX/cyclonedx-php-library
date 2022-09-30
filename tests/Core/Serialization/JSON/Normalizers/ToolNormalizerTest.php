@@ -50,7 +50,7 @@ class ToolNormalizerTest extends TestCase
 
         $actual = $normalizer->normalize($tool);
 
-        self::assertSame([], $actual);
+        self::assertEquals((object) [], $actual);
     }
 
     public function testNormalizeFull(): void
@@ -91,8 +91,8 @@ class ToolNormalizerTest extends TestCase
 
         $actual = $normalizer->normalize($tool);
 
-        self::assertSame(
-            [
+        self::assertEquals(
+            (object) [
                 'vendor' => 'myVendor',
                 'name' => 'myName',
                 'version' => 'myVersion',
@@ -139,8 +139,8 @@ class ToolNormalizerTest extends TestCase
 
         $actual = $normalizer->normalize($tool);
 
-        self::assertSame(
-            [],
+        self::assertEquals(
+            (object) [],
             $actual
         );
     }

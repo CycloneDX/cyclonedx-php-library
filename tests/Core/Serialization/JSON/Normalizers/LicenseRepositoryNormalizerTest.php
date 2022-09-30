@@ -70,10 +70,10 @@ class LicenseRepositoryNormalizerTest extends TestCase
 
         $licenseNormalizer->expects(self::once())->method('normalize')
             ->with($license)
-            ->willReturn(['FakeLicense' => true]);
+            ->willReturn((object) ['FakeLicense' => true]);
 
         $actual = $normalizer->normalize($licenses);
 
-        self::assertSame([['FakeLicense' => true]], $actual);
+        self::assertEquals([(object) ['FakeLicense' => true]], $actual);
     }
 }

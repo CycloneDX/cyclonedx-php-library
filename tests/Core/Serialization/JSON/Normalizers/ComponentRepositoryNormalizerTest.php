@@ -65,13 +65,14 @@ class ComponentRepositoryNormalizerTest extends TestCase
             'getItems' => [$component],
         ]);
 
-        $componentNormalizer->expects(self::once())->method('normalize')
+        $componentNormalizer->expects(self::once())
+            ->method('normalize')
             ->with($component)
-            ->willReturn(['FakeComponent']);
+            ->willReturn((object) ['FakeComponent' => true]);
 
         $got = $normalizer->normalize($components);
 
-        self::assertSame([['FakeComponent']], $got);
+        self::assertEquals([(object) ['FakeComponent' => true]], $got);
     }
 
     public function testNormalizeSkipsOnThrow(): void
