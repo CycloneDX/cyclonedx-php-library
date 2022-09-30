@@ -73,7 +73,7 @@ class JsonValidator extends BaseValidator
      */
     public function validateData(stdClass $data): ?JsonValidationError
     {
-        $schemaId = uniqid('http://cdx-php-lib/validating/', true);
+        $schemaId = uniqid('validate:cdx-php-lib#', true);
         $resolver = new JsonSchema\Resolvers\SchemaResolver();
         $resolver->registerFile($schemaId, $this->getSchemaFile());
         $resolver->registerPrefix('http://cyclonedx.org/schema/', Resources::ROOT);
