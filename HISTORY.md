@@ -108,7 +108,7 @@ API changes
     * `ExternalReferenceNormalizer` classes
       * Changed, so that it tries to convert unsupported types to "other", before it throws an `\DomainException` ([#137] via [#147])
   * `JSON\Normalizers\ExternalReferenceNormalizer` class
-    * Changed: method `normalize` now additionally may thor an `\DomainException` when the url is invalid to format "ini-reference" (via [#151])
+    * BREAKING: method `normalize` may throw `\UnexpectedValueException` when the url is invalid to format "ini-reference" (via [#151])
 * `\CycloneDX\Core\Spdx` namespace
   * BREAKING: renamed the class `License` -> `LicenseValidator` ([#133] via [#143])
 * `\CycloneDX\Core\Spec` namespace

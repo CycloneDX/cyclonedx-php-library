@@ -47,6 +47,12 @@ class ExternalReferenceNormalizer extends _BaseNormalizer
      */
     public function normalize(ExternalReference $externalReference): DOMElement
     {
+        $refURI = $externalReference->getUrl();
+        $anyURI = $this->encodeAnyUriBE($refURI);
+        if (null === $anyURI) {
+            throw new UnexpectedValueException("unable to make 'anyURI' from: $refURI");
+        }
+
         $factory = $this->getNormalizerFactory();
         $spec = $factory->getSpec();
 
@@ -57,14 +63,6 @@ class ExternalReferenceNormalizer extends _BaseNormalizer
             if (false === $spec->isSupportedExternalReferenceType($type)) {
                 throw new DomainException('ExternalReference has unsupported type: '.$externalReference->getType());
             }
-        }
-
-        $refURI = $externalReference->getUrl();
-        $anyURI = $this->encodeAnyUriBE($refURI);
-        if (null === $anyURI) {
-            // @codeCoverageIgnoreStart
-            throw new UnexpectedValueException("unable to make anyURI from: $refURI");
-            // @codeCoverageIgnoreEnd
         }
 
         $doc = $factory->getDocument();

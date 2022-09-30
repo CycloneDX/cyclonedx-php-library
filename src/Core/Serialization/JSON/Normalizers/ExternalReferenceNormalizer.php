@@ -30,6 +30,7 @@ use CycloneDX\Core\Models\ExternalReference;
 use CycloneDX\Core\Serialization\JSON\_BaseNormalizer;
 use DomainException;
 use Opis\JsonSchema\Formats\IriFormats;
+use UnexpectedValueException;
 
 /**
  * @author jkowalleck
@@ -39,8 +40,8 @@ class ExternalReferenceNormalizer extends _BaseNormalizer
     use NullAssertionTrait;
 
     /**
-     * @throws DomainException when the url is invalid to IriReference format
-     * @throws DomainException when the type was not supported by the spec
+     * @throws UnexpectedValueException when the url is invalid to IriReference format
+     * @throws DomainException          when the type was not supported by the spec
      *
      * @SuppressWarnings(PHPMD.StaticAccess)
      */
@@ -48,7 +49,7 @@ class ExternalReferenceNormalizer extends _BaseNormalizer
     {
         $url = $externalReference->getUrl();
         if (false === IriFormats::iriReference($url)) {
-            throw new DomainException("Url is invalid IriReference: $url");
+            throw new UnexpectedValueException("invalid to format 'IriReference': $url");
         }
 
         $spec = $this->getNormalizerFactory()->getSpec();

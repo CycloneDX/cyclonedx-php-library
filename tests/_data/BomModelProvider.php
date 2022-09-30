@@ -105,7 +105,7 @@ abstract class BomModelProvider
             ),
         ];
 
-        yield 'bom with ExternalReferences: malformed url - double#' => [
+        yield 'bom with ExternalReferences: malformed url - multiple #' => [
             (new Bom())->setExternalReferences(
                 new ExternalReferenceRepository(
                     new ExternalReference(ExternalReferenceType::OTHER,
