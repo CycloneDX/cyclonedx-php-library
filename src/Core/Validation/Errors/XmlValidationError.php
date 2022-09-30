@@ -32,32 +32,13 @@ use LibXMLError;
 class XmlValidationError extends ValidationError
 {
     /**
-     * keep for internal debug purposes.
-     */
-    private ?object $debugError = null;
-
-    /**
      * @internal as this function may be affected by breaking changes without notice
      */
     public static function fromLibXMLError(LibXMLError $error): static
     {
         $instance = new static($error->message);
-        $instance->debugError = $error;
+        $instance->error = $error;
 
         return $instance;
-    }
-
-    /**
-     * Accessor for debug purposes.
-     *
-     * @internal as this method may be affected by breaking changes without notice
-     *
-     * @codeCoverageIgnore
-     *
-     * @SuppressWarnings(PHPMD)
-     */
-    final public function debug_getError(): ?object
-    {
-        return $this->debugError;
     }
 }
