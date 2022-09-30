@@ -82,11 +82,11 @@ class JsonValidator extends BaseValidator
         $validator->setResolver($resolver);
         try {
             $validationError = $validator->validate($data, $schemaId)->error();
-        } catch (Throwable $error) {
             // @codeCoverageIgnoreStart
+        } catch (Throwable $error) {
             return JsonValidationError::fromThrowable($error);
-            // @codeCoverageIgnoreEnd
         }
+        // @codeCoverageIgnoreEnd
 
         return null === $validationError
             ? null
