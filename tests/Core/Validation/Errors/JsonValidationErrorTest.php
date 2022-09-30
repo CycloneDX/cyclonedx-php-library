@@ -24,6 +24,7 @@ declare(strict_types=1);
 namespace CycloneDX\Tests\Core\Validation\Errors;
 
 use CycloneDX\Core\Validation\Errors\JsonValidationError;
+use Opis\JsonSchema;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -33,14 +34,30 @@ use PHPUnit\Framework\TestCase;
 class JsonValidationErrorTest extends TestCase
 {
     /**
-     * @uses \Swaggest\JsonSchema\InvalidValue
+     * @uses \Opis\JsonSchema\Errors\ValidationError
+     * @uses \Opis\JsonSchema\Schemas\EmptySchema
+     * @uses \Opis\JsonSchema\Info\SchemaInfo
+     * @uses \Opis\JsonSchema\Info\DataInfo
      */
     public function testFromJsonSchemaInvalidValue(): void
     {
-        $errorJsonSchemaInvalidValue = new \Swaggest\JsonSchema\InvalidValue('foo bar', 1337);
+        $errorJsonSchemaInvalidValue = new JsonSchema\Errors\ValidationError(
+            'foo',
+            new JsonSchema\Schemas\EmptySchema(new JsonSchema\Info\SchemaInfo(false, null)),
+            new JsonSchema\Info\DataInfo(null, null, null),
+            'some error message'
+        );
 
-        $error = JsonValidationError::fromJsonSchemaInvalidValue($errorJsonSchemaInvalidValue);
+        $error = JsonValidationError::fromSchemaValidationError($errorJsonSchemaInvalidValue);
 
-        self::assertSame('foo bar', $error->getMessage());
+        $expected = <<<'error'
+            {
+                "/": [
+                    "some error message"
+                ]
+            }
+            error;
+
+        self::assertSame($expected, $error->getMessage());
     }
 }

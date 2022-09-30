@@ -29,6 +29,7 @@ use CycloneDX\Core\Enums\ExternalReferenceType;
 use CycloneDX\Core\Models\ExternalReference;
 use CycloneDX\Core\Serialization\JSON\_BaseNormalizer;
 use DomainException;
+use Opis\JsonSchema\Formats\IriFormats;
 
 /**
  * @author jkowalleck
@@ -38,10 +39,18 @@ class ExternalReferenceNormalizer extends _BaseNormalizer
     use NullAssertionTrait;
 
     /**
+     * @throws DomainException when the url is invalid to IriReference format
      * @throws DomainException when the type was not supported by the spec
+     *
+     * @SuppressWarnings(PHPMD.StaticAccess)
      */
     public function normalize(ExternalReference $externalReference): array
     {
+        $url = $externalReference->getUrl();
+        if (false === IriFormats::iriReference($url)) {
+            throw new DomainException("Url is invalid IriReference: $url");
+        }
+
         $spec = $this->getNormalizerFactory()->getSpec();
         $type = $externalReference->getType();
         if (false === $spec->isSupportedExternalReferenceType($type)) {
@@ -55,7 +64,7 @@ class ExternalReferenceNormalizer extends _BaseNormalizer
         return array_filter(
             [
                 'type' => $type,
-                'url' => $externalReference->getUrl(),
+                'url' => $url,
                 'comment' => $externalReference->getComment(),
                 'hashes' => $this->normalizeHashes($externalReference->getHashes()),
             ],

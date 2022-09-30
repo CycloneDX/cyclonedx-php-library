@@ -28,6 +28,7 @@ use CycloneDX\Core\Models\License\DisjunctiveLicenseWithId;
 use CycloneDX\Core\Models\License\DisjunctiveLicenseWithName;
 use CycloneDX\Core\Models\License\LicenseExpression;
 use CycloneDX\Core\Serialization\JSON\_BaseNormalizer;
+use Opis\JsonSchema\Formats\IriFormats;
 
 /**
  * @author jkowalleck
@@ -52,19 +53,23 @@ class LicenseNormalizer extends _BaseNormalizer
     }
 
     /**
-     * @SuppressWarnings(PHPMD.ShortVariable)
+     * @SuppressWarnings(PHPMD.ShortVariable) $id
+     * @SuppressWarnings(PHPMD.StaticAccess)
      */
     private function normalizeDisjunctive(DisjunctiveLicenseWithId|DisjunctiveLicenseWithName $license): array
     {
         [$id, $name] = $license instanceof DisjunctiveLicenseWithId
             ? [$license->getId(), null]
             : [null, $license->getName()];
+        $url = $license->getUrl();
 
         return ['license' => array_filter(
             [
                 'id' => $id,
                 'name' => $name,
-                'url' => $license->getUrl(),
+                'url' => null !== $url && IriFormats::iriReference($url)
+                    ? $url
+                    : null,
             ],
             [$this, 'isNotNull']
         )];

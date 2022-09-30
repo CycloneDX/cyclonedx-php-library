@@ -31,6 +31,9 @@ use Opis\JsonSchema;
  */
 class JsonValidationError extends ValidationError
 {
+    /**
+     * @uses \Opis\JsonSchema\Errors\ErrorFormatter
+     */
     public static function fromSchemaValidationError(JsonSchema\Errors\ValidationError $error): static
     {
         $formatter = new JsonSchema\Errors\ErrorFormatter();

@@ -68,6 +68,8 @@ class JsonValidator extends BaseValidator
 
     /**
      * @throws FailedLoadingSchemaException
+     *
+     * @SuppressWarnings(PHPMD.StaticAccess)
      */
     public function validateData(stdClass $data): ?JsonValidationError
     {
@@ -94,7 +96,7 @@ class JsonValidator extends BaseValidator
     private function loadDataFromJson(string $json): stdClass
     {
         try {
-            $data = json_decode($json, false, 512, \JSON_THROW_ON_ERROR);
+            $data = json_decode($json, false, 1024, \JSON_THROW_ON_ERROR);
         } catch (Exception $exception) {
             throw new JsonException('loading failed', previous: $exception);
         }
