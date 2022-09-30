@@ -60,7 +60,7 @@ class JsonSerializerTest extends TestCase
         self::assertJsonStringEqualsJsonString(
             <<<'JSON'
                 {
-                    "$schema": "http://cyclonedx.org/schema/bom-1.2a.schema.json",
+                    "$schema": "http://cyclonedx.org/schema/bom-1.2b.schema.json",
                     "bomFormat": "CycloneDX",
                     "specVersion": "1.2",
                     "version": 0,
@@ -96,7 +96,7 @@ class JsonSerializerTest extends TestCase
         self::assertJsonStringEqualsJsonString(
             <<<'JSON'
                 {
-                    "$schema": "http://cyclonedx.org/schema/bom-1.3.schema.json",
+                    "$schema": "http://cyclonedx.org/schema/bom-1.3a.schema.json",
                     "bomFormat": "CycloneDX",
                     "specVersion": "1.3",
                     "version": 0,

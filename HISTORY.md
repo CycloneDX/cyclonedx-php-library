@@ -107,16 +107,22 @@ API changes
         This is considered a non-breaking change, because the behaviour was already documented in the API, even though there was no need for an implementation before.
     * `ExternalReferenceNormalizer` classes
       * Changed, so that it tries to convert unsupported types to "other", before it throws an `\DomainException` ([#137] via [#147])
+  * `JSON\Normalizers\ExternalReferenceNormalizer` class
+    * BREAKING: method `normalize` may throw `\UnexpectedValueException` when the url is invalid to format "ini-reference" (via [#151])
 * `\CycloneDX\Core\Spdx` namespace
   * BREAKING: renamed the class `License` -> `LicenseValidator` ([#133] via [#143])
 * `\CycloneDX\Core\Spec` namespace
   * BREAKING: completely reworked everything ([#139] via [#142])  
     See the code base for references
 * `\CycloneDX\Core\Validation` namespace
-  * `{Json,Xml}Validator` classes
-    * Added support for CycloneDX v1.4` ([#57] via [#65])
+  * `XmlValidator` classes
+    * Added support for CycloneDX v1.4 ([#57] via [#65])
+  * `JsonValidator` classes
+    * Added support for CycloneDX v1.4 ([#57] via [#65])
+    * Utilizes a much more competent validation library than before ([#80] via [#151])
   * `JsonStrictValidator` class
     * Added support for CycloneDX v1.4 ([#57] via [#65])
+    * Utilizes a much more competent validation library than before ([#80] via [#151])
   * `ValidatorInterface` interface
     * BREAKING: renamed interface to `Validator` ([#133] via [#143])
 
@@ -126,6 +132,7 @@ API changes
 [#57]: https://github.com/CycloneDX/cyclonedx-php-library/issues/57
 [#65]: https://github.com/CycloneDX/cyclonedx-php-library/pull/65
 [#66]: https://github.com/CycloneDX/cyclonedx-php-library/issues/66
+[#80]: https://github.com/CycloneDX/cyclonedx-php-library/issues/80
 [#114]: https://github.com/CycloneDX/cyclonedx-php-library/issues/114
 [#118]: https://github.com/CycloneDX/cyclonedx-php-library/pull/118
 [#123]: https://github.com/CycloneDX/cyclonedx-php-library/pull/123
@@ -140,6 +147,7 @@ API changes
 [#144]: https://github.com/CycloneDX/cyclonedx-php-library/pull/144
 [#146]: https://github.com/CycloneDX/cyclonedx-php-library/pull/146
 [#149]: https://github.com/CycloneDX/cyclonedx-php-library/pull/149
+[#151]: https://github.com/CycloneDX/cyclonedx-php-library/pull/151
 
 ## 1.6.3 - 2022-09-15
 

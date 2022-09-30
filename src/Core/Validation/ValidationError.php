@@ -38,7 +38,7 @@ class ValidationError
     /**
      * keep for internal debug purposes.
      */
-    private ?object $error = null;
+    protected ?object $error = null;
 
     final protected function __construct(string $message)
     {

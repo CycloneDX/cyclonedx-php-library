@@ -29,6 +29,8 @@ use CycloneDX\Core\Serialization\JSON\NormalizerFactory;
 use CycloneDX\Core\Serialization\JSON\Normalizers;
 use CycloneDX\Core\Spec\Spec;
 use DomainException;
+use Generator;
+use UnexpectedValueException;
 
 /**
  * @covers \CycloneDX\Core\Serialization\JSON\Normalizers\ExternalReferenceNormalizer
@@ -118,6 +120,31 @@ class ExternalReferenceNormalizerTest extends \PHPUnit\Framework\TestCase
         $this->expectExceptionMessage('ExternalReference has unsupported type: someType');
 
         $normalizer->normalize($extRef);
+    }
+
+    /**
+     * @dataProvider dpThrowOnUnsupportedUrl
+     */
+    public function testThrowOnUnsupportedUrl(string $unsupportedURL): void
+    {
+        $spec = $this->createMock(Spec::class);
+        $normalizerFactory = $this->createConfiguredMock(NormalizerFactory::class, [
+            'getSPec' => $spec,
+        ]);
+        $normalizer = new Normalizers\ExternalReferenceNormalizer($normalizerFactory);
+        $extRef = $this->createConfiguredMock(ExternalReference::class, [
+            'getUrl' => $unsupportedURL,
+        ]);
+
+        $this->expectException(UnexpectedValueException::class);
+        $this->expectExceptionMessage("invalid to format 'IriReference': $unsupportedURL");
+
+        $normalizer->normalize($extRef);
+    }
+
+    public function dpThrowOnUnsupportedUrl(): Generator
+    {
+        yield 'multiple #' => ['https://example.com#foo#bar'];
     }
 
     public function testNormalizeComment(): void

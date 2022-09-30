@@ -24,7 +24,7 @@ declare(strict_types=1);
 namespace CycloneDX\Core\Validation\Errors;
 
 use CycloneDX\Core\Validation\ValidationError;
-use Swaggest\JsonSchema;
+use Opis\JsonSchema;
 
 /**
  * @author jkowalleck
@@ -32,13 +32,19 @@ use Swaggest\JsonSchema;
 class JsonValidationError extends ValidationError
 {
     /**
-     * @internal as this function may be affected by breaking changes without notice
-     *
-     * @psalm-suppress MoreSpecificReturnType
-     * @psalm-suppress LessSpecificReturnStatement
+     * @uses \Opis\JsonSchema\Errors\ErrorFormatter
      */
-    public static function fromJsonSchemaInvalidValue(JsonSchema\InvalidValue $error): static
+    public static function fromSchemaValidationError(JsonSchema\Errors\ValidationError $error): static
     {
-        return parent::fromThrowable($error);
+        $formatter = new JsonSchema\Errors\ErrorFormatter();
+        $instance = new static(
+            json_encode(
+                $formatter->format($error, true),
+                \JSON_PRETTY_PRINT | \JSON_UNESCAPED_SLASHES
+            )
+        );
+        $instance->error = $error;
+
+        return $instance;
     }
 }

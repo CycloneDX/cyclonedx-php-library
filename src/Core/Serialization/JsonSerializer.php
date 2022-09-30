@@ -49,8 +49,8 @@ class JsonSerializer extends BaseSerializer
      */
     private const SCHEMA = [
         Version::v1dot1 => null, // unsupported version
-        Version::v1dot2 => 'http://cyclonedx.org/schema/bom-1.2a.schema.json',
-        Version::v1dot3 => 'http://cyclonedx.org/schema/bom-1.3.schema.json',
+        Version::v1dot2 => 'http://cyclonedx.org/schema/bom-1.2b.schema.json',
+        Version::v1dot3 => 'http://cyclonedx.org/schema/bom-1.3a.schema.json',
         Version::v1dot4 => 'http://cyclonedx.org/schema/bom-1.4.schema.json',
     ];
 

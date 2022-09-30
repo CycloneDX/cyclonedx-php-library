@@ -32,6 +32,8 @@ use CycloneDX\Tests\_traits\DomNodeAssertionTrait;
 use DomainException;
 use DOMDocument;
 use Exception;
+use Generator;
+use UnexpectedValueException;
 
 /**
  * @covers \CycloneDX\Core\Serialization\DOM\Normalizers\ExternalReferenceNormalizer
@@ -66,6 +68,32 @@ class ExternalReferenceNormalizerTest extends \PHPUnit\Framework\TestCase
             '<reference type="someType"><url>someUrl</url></reference>',
             $actual
         );
+    }
+
+    /**
+     * @dataProvider dpThrowOnUnsupportedUrl
+     */
+    public function testThrowOnUnsupportedUrl(string $unsupportedURL): void
+    {
+        $spec = $this->createMock(Spec::class);
+        $normalizerFactory = $this->createConfiguredMock(NormalizerFactory::class, [
+            'getDocument' => new DOMDocument(),
+            'getSpec' => $spec,
+        ]);
+        $normalizer = new Normalizers\ExternalReferenceNormalizer($normalizerFactory);
+        $extRef = $this->createConfiguredMock(ExternalReference::class, [
+            'getUrl' => $unsupportedURL,
+        ]);
+
+        $this->expectException(UnexpectedValueException::class);
+        $this->expectExceptionMessage("unable to make 'anyURI' from: $unsupportedURL");
+
+        $normalizer->normalize($extRef);
+    }
+
+    public function dpThrowOnUnsupportedUrl(): Generator
+    {
+        yield 'multiple #' => ['https://example.com#foo#bar'];
     }
 
     public function testThrowOnUnsupportedRefType(): void

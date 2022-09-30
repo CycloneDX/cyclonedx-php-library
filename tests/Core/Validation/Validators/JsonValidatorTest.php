@@ -35,8 +35,6 @@ use stdClass;
 /**
  * @covers \CycloneDX\Core\Validation\Validators\JsonValidator
  * @covers \CycloneDX\Core\Validation\BaseValidator
- *
- * @uses   \CycloneDX\Core\Validation\_helpers\JsonSchemaRemoteRefProviderForSnapshotResources
  */
 class JsonValidatorTest extends TestCase
 {
@@ -54,7 +52,8 @@ class JsonValidatorTest extends TestCase
         $validator = $this->createPartialMock(JsonValidator::class, ['validateData']);
         $json = '{"dummy": "true"}';
 
-        $validator->expects(self::once())->method('validateData')
+        $validator->expects(self::once())
+            ->method('validateData')
             ->with(new IsInstanceOf(stdClass::class))
             ->willReturn(null);
 

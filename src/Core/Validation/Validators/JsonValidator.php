@@ -25,14 +25,14 @@ namespace CycloneDX\Core\Validation\Validators;
 
 use CycloneDX\Core\Resources;
 use CycloneDX\Core\Spec\Version;
-use CycloneDX\Core\Validation\_helpers\JsonSchemaRemoteRefProviderForSnapshotResources;
 use CycloneDX\Core\Validation\BaseValidator;
 use CycloneDX\Core\Validation\Errors\JsonValidationError;
 use CycloneDX\Core\Validation\Exceptions\FailedLoadingSchemaException;
 use Exception;
 use JsonException;
+use Opis\JsonSchema;
 use stdClass;
-use Swaggest\JsonSchema;
+use Throwable;
 
 /**
  * @author jkowalleck
@@ -74,34 +74,23 @@ class JsonValidator extends BaseValidator
      */
     public function validateData(stdClass $data): ?JsonValidationError
     {
-        $contract = $this->getSchemaContract();
+        $schemaId = uniqid('validate:cdx-php-lib?r=', true);
+        $resolver = new JsonSchema\Resolvers\SchemaResolver();
+        $resolver->registerFile($schemaId, $this->getSchemaFile());
+        $resolver->registerPrefix('http://cyclonedx.org/schema/', Resources::ROOT);
+        $validator = new JsonSchema\Validator();
+        $validator->setResolver($resolver);
         try {
-            $contract->in($data);
-        } catch (JsonSchema\InvalidValue $error) {
-            return JsonValidationError::fromJsonSchemaInvalidValue($error);
-        }
-
-        return null;
-    }
-
-    /**
-     * @throws FailedLoadingSchemaException
-     *
-     * @SuppressWarnings(PHPMD.StaticAccess)
-     */
-    private function getSchemaContract(): JsonSchema\SchemaContract
-    {
-        $schemaFile = $this->getSchemaFile();
-        try {
-            return JsonSchema\Schema::import(
-                $schemaFile,
-                new JsonSchema\Context(new JsonSchemaRemoteRefProviderForSnapshotResources())
-            );
+            $validationError = $validator->validate($data, $schemaId)->error();
             // @codeCoverageIgnoreStart
-        } catch (Exception $exception) {
-            throw new FailedLoadingSchemaException('import schema data failed', 0, $exception);
+        } catch (Throwable $error) {
+            return JsonValidationError::fromThrowable($error);
         }
         // @codeCoverageIgnoreEnd
+
+        return null === $validationError
+            ? null
+            : JsonValidationError::fromSchemaValidationError($validationError);
     }
 
     /**
@@ -110,9 +99,9 @@ class JsonValidator extends BaseValidator
     private function loadDataFromJson(string $json): stdClass
     {
         try {
-            $data = json_decode($json, false, 512, \JSON_THROW_ON_ERROR);
+            $data = json_decode($json, false, 1024, \JSON_THROW_ON_ERROR);
         } catch (Exception $exception) {
-            throw new JsonException('loading failed', 0, $exception);
+            throw new JsonException('loading failed', previous: $exception);
         }
         \assert($data instanceof stdClass);
 
