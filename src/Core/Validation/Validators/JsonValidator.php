@@ -32,6 +32,7 @@ use Exception;
 use JsonException;
 use Opis\JsonSchema;
 use stdClass;
+use Throwable;
 
 /**
  * @author jkowalleck
@@ -81,8 +82,10 @@ class JsonValidator extends BaseValidator
         $validator->setResolver($resolver);
         try {
             $validationError = $validator->validate($data, $schemaId)->error();
-        } catch (Exception $error) {
+        } catch (Throwable $error) {
+            // @codeCoverageIgnoreStart
             return JsonValidationError::fromThrowable($error);
+            // @codeCoverageIgnoreEnd
         }
 
         return null === $validationError
