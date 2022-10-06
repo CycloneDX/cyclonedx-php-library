@@ -21,22 +21,21 @@ declare(strict_types=1);
  * Copyright (c) OWASP Foundation. All Rights Reserved.
  */
 
-namespace CycloneDX\Core\Serialization\_helpers;
+namespace CycloneDX\Core\Serialization;
 
 use CycloneDX\Core\Models\Bom;
 use CycloneDX\Core\Models\BomRef;
-use CycloneDX\Core\Serialization\BomRefDiscriminator;
 use Exception;
 
 /**
- * @internal as this trait may be affected by breaking changes without notice
+ * @template TNormalized
  */
-trait SerializerNormalizeTrait
+abstract class BaseSerializer
 {
     /**
      * @return BomRef[]
      */
-    private function getAllBomRefs(Bom $bom): array
+    protected function getAllBomRefs(Bom $bom): array
     {
         $allBomRefs = [];
 
@@ -60,16 +59,30 @@ trait SerializerNormalizeTrait
      *
      * @uses \CycloneDX\Core\Serialization\BomRefDiscriminator
      *
-     * @return mixed depending on `@see $this->normalizerFactory->makeForBom()->normalize()`
+     * @psalm-return TNormalized
      */
     protected function normalize(Bom $bom): mixed
     {
         $bomRefDiscriminator = new BomRefDiscriminator(...$this->getAllBomRefs($bom));
         $bomRefDiscriminator->discriminate();
         try {
-            return $this->normalizerFactory->makeForBom()->normalize($bom);
+            return $this->_normalize($bom);
         } finally {
             $bomRefDiscriminator->reset();
         }
     }
+
+    /**
+     * @throws Exception
+     *
+     * @psalm-return TNormalized
+     */
+    abstract protected function _normalize(Bom $bom);
+
+    /**
+     * @throws Exception
+     *
+     * @psalm-return non-empty-string
+     */
+    abstract public function serialize(Bom $bom, bool $pretty = false): string;
 }

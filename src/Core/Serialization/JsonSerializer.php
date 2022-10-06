@@ -24,24 +24,15 @@ declare(strict_types=1);
 namespace CycloneDX\Core\Serialization;
 
 use CycloneDX\Core\Models\Bom;
-use CycloneDX\Core\Serialization\_helpers\SerializerNormalizeTrait;
 use CycloneDX\Core\Spec\Version;
-use Exception;
 
 /**
  * transform data models to JSON.
  *
- * @author jkowalleck
+ * @template-extends BaseSerializer<array>
  */
-class JsonSerializer
+class JsonSerializer extends BaseSerializer
 {
-    use SerializerNormalizeTrait;
-    private const SERIALIZE_OPTIONS = 0
-        | \JSON_THROW_ON_ERROR // prevent unexpected data
-        | \JSON_PRESERVE_ZERO_FRACTION // float/double not converted to int
-        | \JSON_UNESCAPED_SLASHES // urls become shorter
-    ;
-
     /**
      * JSON schema `$id` that is applied.
      *
@@ -56,26 +47,45 @@ class JsonSerializer
         Version::v1dot4 => 'http://cyclonedx.org/schema/bom-1.4.schema.json',
     ];
 
-    public function __construct(private JSON\NormalizerFactory $normalizerFactory)
-    {
+    /** @readonly  */
+    private int $jsonEncodeOptions;
+
+    public function __construct(
+        private JSON\NormalizerFactory $normalizerFactory,
+        int $jsonEncodeOptions = \JSON_UNESCAPED_SLASHES // urls become shorter
+    ) {
+        $this->jsonEncodeOptions = $jsonEncodeOptions
+            | \JSON_THROW_ON_ERROR // prevent unexpected data
+            | \JSON_PRESERVE_ZERO_FRACTION // float/double not converted to int
+        ;
     }
 
     /**
-     * @throws Exception
-     *
-     * @psalm-return non-empty-string
+     * @psalm-return array
      */
+    protected function _normalize(Bom $bom): array
+    {
+        return $this->normalizerFactory
+            ->makeForBom()
+            ->normalize($bom);
+    }
+
     public function serialize(Bom $bom, bool $pretty = false): string
     {
-        /** @var array $document */
+        /**
+         * @var array $document
+         *
+         * @psalm-suppress UnnecessaryVarAnnotation
+         */
         $document = $this->normalize($bom);
 
+        /** @var string|null $schema */
         $schema = self::SCHEMA[$this->normalizerFactory->getSpec()->getVersion()] ?? null;
         if (null !== $schema) {
             $document['$schema'] = $schema;
         }
 
-        $jsonEncodeOptions = self::SERIALIZE_OPTIONS;
+        $jsonEncodeOptions = $this->jsonEncodeOptions;
         if ($pretty) {
             $jsonEncodeOptions |= \JSON_PRETTY_PRINT;
         }

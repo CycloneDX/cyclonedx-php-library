@@ -24,20 +24,16 @@ declare(strict_types=1);
 namespace CycloneDX\Core\Serialization;
 
 use CycloneDX\Core\Models\Bom;
-use CycloneDX\Core\Serialization\_helpers\SerializerNormalizeTrait;
 use DOMDocument;
 use DOMElement;
-use Exception;
 
 /**
  * Transform data models to XML.
  *
- * @author jkowalleck
+ * @template-extends BaseSerializer<DOMElement>
  */
-class XmlSerializer
+class XmlSerializer extends BaseSerializer
 {
-    use SerializerNormalizeTrait;
-
     public function __construct(
         private DOM\NormalizerFactory $normalizerFactory,
         private string $xmlVersion = '1.0',
@@ -46,28 +42,15 @@ class XmlSerializer
     }
 
     /**
-     * @throws Exception
-     *
-     * @uses \CycloneDX\Core\Serialization\BomRefDiscriminator
+     * @psalm-return DOMElement
      */
-    protected function normalize(Bom $bom): DOMElement
+    protected function _normalize(Bom $bom): DOMElement
     {
-        $bomRefDiscriminator = new BomRefDiscriminator(...$this->getAllBomRefs($bom));
-        $bomRefDiscriminator->discriminate();
-        try {
-            return $this->normalizerFactory->makeForBom()->normalize($bom);
-        } finally {
-            $bomRefDiscriminator->reset();
-        }
+        return $this->normalizerFactory
+            ->makeForBom()
+            ->normalize($bom);
     }
 
-    /**
-     * @throws Exception
-     *
-     * @uses DOMDocument
-     *
-     * @psalm-return non-empty-string
-     */
     public function serialize(Bom $bom, bool $pretty = false): string
     {
         $document = new DOMDocument($this->xmlVersion, $this->xmlEncoding);
