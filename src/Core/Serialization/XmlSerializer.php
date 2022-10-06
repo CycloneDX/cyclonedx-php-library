@@ -30,7 +30,9 @@ use DOMElement;
 /**
  * Transform data models to XML.
  *
- * @template-extends BaseSerializer<DOMElement>
+ * @psalm-type TNormalizedBom=DOMElement
+ *
+ * @template-extends BaseSerializer<TNormalizedBom>
  */
 class XmlSerializer extends BaseSerializer
 {
@@ -42,21 +44,29 @@ class XmlSerializer extends BaseSerializer
     }
 
     /**
-     * @psalm-return DOMElement
+     * {@inheritDoc}
+
+     *
+     * @psalm-return TNormalizedBom
      */
-    protected function _normalize(Bom $bom): DOMElement
+    protected function _normalize(Bom $bom, bool $sortLists): DOMElement
     {
         return $this->normalizerFactory
             ->makeForBom()
             ->normalize($bom);
     }
 
-    public function serialize(Bom $bom, bool $pretty = false): string
+    /**
+     * {@inheritDoc}
+     *
+     * @psalm-param TNormalizedBom $normalizedBom
+     */
+    protected function _serialize($normalizedBom, bool $pretty): string
     {
         $document = new DOMDocument($this->xmlVersion, $this->xmlEncoding);
         $document->appendChild(
             $document->importNode(
-                $this->normalize($bom),
+                $normalizedBom,
                 true
             )
         );

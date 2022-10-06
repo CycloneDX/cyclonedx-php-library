@@ -28,9 +28,9 @@ use CycloneDX\Core\Models\BomRef;
 use Exception;
 
 /**
- * @template TNormalized
+ * @template TNormalizedBom
  */
-abstract class BaseSerializer
+abstract class BaseSerializer implements Serializer
 {
     /**
      * @return BomRef[]
@@ -55,34 +55,34 @@ abstract class BaseSerializer
     }
 
     /**
-     * @throws Exception
+     * {@inheritDoc}
      *
      * @uses \CycloneDX\Core\Serialization\BomRefDiscriminator
-     *
-     * @psalm-return TNormalized
      */
-    protected function normalize(Bom $bom): mixed
+    public function serialize(Bom $bom, bool $sortLists = false, bool $prettyPrint = false): string
     {
         $bomRefDiscriminator = new BomRefDiscriminator(...$this->getAllBomRefs($bom));
-        $bomRefDiscriminator->discriminate();
         try {
-            return $this->_normalize($bom);
+            $bomRefDiscriminator->discriminate();
+            $normalized = $this->_normalize($bom, $sortLists);
         } finally {
             $bomRefDiscriminator->reset();
         }
+
+        return $this->_serialize($normalized, $prettyPrint);
     }
 
     /**
      * @throws Exception
      *
-     * @psalm-return TNormalized
+     * @psalm-return TNormalizedBom
      */
-    abstract protected function _normalize(Bom $bom);
+    abstract protected function _normalize(Bom $bom, bool $sortLists);
 
     /**
      * @throws Exception
      *
-     * @psalm-return non-empty-string
+     * @psalm-param TNormalizedBom $normalizedBom
      */
-    abstract public function serialize(Bom $bom, bool $pretty = false): string;
+    abstract protected function _serialize($normalizedBom, bool $pretty): string;
 }

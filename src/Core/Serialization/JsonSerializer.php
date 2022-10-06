@@ -29,7 +29,9 @@ use CycloneDX\Core\Spec\Version;
 /**
  * transform data models to JSON.
  *
- * @template-extends BaseSerializer<array>
+ * @psalm-type TNormalizedBom=array
+ *
+ * @template-extends BaseSerializer<TNormalizedBom>
  */
 class JsonSerializer extends BaseSerializer
 {
@@ -61,28 +63,28 @@ class JsonSerializer extends BaseSerializer
     }
 
     /**
-     * @psalm-return array
+     * {@inheritDoc}
+     *
+     * @psalm-return TNormalizedBom
      */
-    protected function _normalize(Bom $bom): array
+    protected function _normalize(Bom $bom, bool $sortLists): array
     {
         return $this->normalizerFactory
             ->makeForBom()
             ->normalize($bom);
     }
 
-    public function serialize(Bom $bom, bool $pretty = false): string
+    /**
+     * {@inheritDoc}
+     *
+     * @psalm-param TNormalizedBom $normalizedBom
+     */
+    protected function _serialize($normalizedBom, bool $pretty): string
     {
-        /**
-         * @var array $document
-         *
-         * @psalm-suppress UnnecessaryVarAnnotation
-         */
-        $document = $this->normalize($bom);
-
         /** @var string|null $schema */
         $schema = self::SCHEMA[$this->normalizerFactory->getSpec()->getVersion()] ?? null;
         if (null !== $schema) {
-            $document['$schema'] = $schema;
+            $normalizedBom['$schema'] = $schema;
         }
 
         $jsonEncodeOptions = $this->jsonEncodeOptions;
@@ -90,7 +92,7 @@ class JsonSerializer extends BaseSerializer
             $jsonEncodeOptions |= \JSON_PRETTY_PRINT;
         }
 
-        $json = json_encode($document, $jsonEncodeOptions);
+        $json = json_encode($normalizedBom, $jsonEncodeOptions);
         \assert(false !== $json); // as option JSON_THROW_ON_ERROR is expected to be set
         \assert('' !== $json);
 

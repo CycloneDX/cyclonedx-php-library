@@ -21,26 +21,15 @@ declare(strict_types=1);
  * Copyright (c) OWASP Foundation. All Rights Reserved.
  */
 
-require_once __DIR__.'/../vendor/autoload.php';
+namespace CycloneDX\Core\Serialization;
 
-// Example how to serialize a Bom to JSON / XML.
+use CycloneDX\Core\Models\Bom;
+use Exception;
 
-$bom = new \CycloneDX\Core\Models\Bom();
-$bom->getComponents()->addItems(
-    new \CycloneDX\Core\Models\Component(
-        \CycloneDX\Core\Enums\Classification::LIBRARY,
-        'myComponent'
-    )
-);
-
-$spec = \CycloneDX\Core\Spec\SpecFactory::make1dot4();
-
-$serializedJSON = (new \CycloneDX\Core\Serialization\JsonSerializer(
-    new \CycloneDX\Core\Serialization\JSON\NormalizerFactory($spec))
-)->serialize($bom);
-echo $serializedJSON, \PHP_EOL;
-
-$serializedXML = (new \CycloneDX\Core\Serialization\XmlSerializer(
-    new \CycloneDX\Core\Serialization\DOM\NormalizerFactory($spec))
-)->serialize($bom);
-echo $serializedXML, \PHP_EOL;
+interface Serializer
+{
+    /**
+     * @throws Exception
+     */
+    public function serialize(Bom $bom, bool $sortLists = false, bool $prettyPrint = false): string;
+}
