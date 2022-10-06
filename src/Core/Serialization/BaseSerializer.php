@@ -27,6 +27,8 @@ use CycloneDX\Core\Models\Bom;
 use CycloneDX\Core\Models\BomRef;
 use Exception;
 
+// @TODO use a data object for NormalizerOptions & SerializerOptions
+
 /**
  * @template TNormalizedBom
  */

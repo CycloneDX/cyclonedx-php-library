@@ -51,6 +51,7 @@ class XmlSerializer extends BaseSerializer
      */
     protected function _normalize(Bom $bom, bool $sortLists): DOMElement
     {
+        // @TODO implement $sortLists
         return $this->normalizerFactory
             ->makeForBom()
             ->normalize($bom);

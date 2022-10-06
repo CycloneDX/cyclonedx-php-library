@@ -69,6 +69,7 @@ class JsonSerializer extends BaseSerializer
      */
     protected function _normalize(Bom $bom, bool $sortLists): array
     {
+        // @TODO implement $sortLists
         return $this->normalizerFactory
             ->makeForBom()
             ->normalize($bom);
