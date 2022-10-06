@@ -21,55 +21,18 @@ declare(strict_types=1);
  * Copyright (c) OWASP Foundation. All Rights Reserved.
  */
 
-namespace CycloneDX\Core\Serialization;
+namespace CycloneDX\Core\Serialization\_helpers;
 
 use CycloneDX\Core\Models\Bom;
 use CycloneDX\Core\Models\BomRef;
-use CycloneDX\Core\Spec\Spec;
+use CycloneDX\Core\Serialization\BomRefDiscriminator;
+use Exception;
 
 /**
- * @author jkowalleck
+ * @internal as this trait may be affected by breaking changes without notice
  */
-abstract class BaseSerializer implements SerializerInterface
+trait SerializerNormalizeTrait
 {
-    /**
-     * @readonly
-     */
-    private Spec $spec;
-
-    public function __construct(Spec $spec)
-    {
-        $this->spec = $spec;
-    }
-
-    public function getSpec(): Spec
-    {
-        return $this->spec;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function serialize(Bom $bom): string
-    {
-        $bomRefDiscriminator = new BomRefDiscriminator(...$this->getAllBomRefs($bom));
-        $bomRefDiscriminator->discriminate();
-        try {
-            return $this->normalize($bom);
-        } finally {
-            $bomRefDiscriminator->reset();
-        }
-    }
-
-    /**
-     * Normalize the Bom to a string.
-     *
-     * May throw implementation-dependent Exceptions.
-     *
-     * @psalm-return non-empty-string
-     */
-    abstract protected function normalize(Bom $bom): string;
-
     /**
      * @return BomRef[]
      */
@@ -90,5 +53,23 @@ abstract class BaseSerializer implements SerializerInterface
         }
 
         return $allBomRefs;
+    }
+
+    /**
+     * @throws Exception
+     *
+     * @uses \CycloneDX\Core\Serialization\BomRefDiscriminator
+     *
+     * @return mixed depending on `@see $this->normalizerFactory->makeForBom()->normalize()`
+     */
+    protected function normalize(Bom $bom): mixed
+    {
+        $bomRefDiscriminator = new BomRefDiscriminator(...$this->getAllBomRefs($bom));
+        $bomRefDiscriminator->discriminate();
+        try {
+            return $this->normalizerFactory->makeForBom()->normalize($bom);
+        } finally {
+            $bomRefDiscriminator->reset();
+        }
     }
 }

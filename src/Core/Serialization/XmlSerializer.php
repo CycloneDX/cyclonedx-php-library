@@ -23,41 +23,66 @@ declare(strict_types=1);
 
 namespace CycloneDX\Core\Serialization;
 
-use CycloneDX\Core\_helpers\SimpleDomTrait;
 use CycloneDX\Core\Models\Bom;
-use DomainException;
+use CycloneDX\Core\Serialization\_helpers\SerializerNormalizeTrait;
 use DOMDocument;
+use DOMElement;
+use Exception;
 
 /**
  * Transform data models to XML.
  *
  * @author jkowalleck
  */
-class XmlSerializer extends BaseSerializer
+class XmlSerializer
 {
-    use SimpleDomTrait;
+    use SerializerNormalizeTrait;
 
-    private const XML_VERSION = '1.0';
-    private const XML_ENCODING = 'UTF-8';
+    public function __construct(
+        private DOM\NormalizerFactory $normalizerFactory,
+        private string $xmlVersion = '1.0',
+        private string $xmlEncoding = 'UTF-8'
+    ) {
+    }
 
     /**
-     * @throws DomainException if something was not supported
+     * @throws Exception
+     *
+     * @uses \CycloneDX\Core\Serialization\BomRefDiscriminator
      */
-    protected function normalize(Bom $bom): string
+    protected function normalize(Bom $bom): DOMElement
     {
-        $document = new DOMDocument(self::XML_VERSION, self::XML_ENCODING);
+        $bomRefDiscriminator = new BomRefDiscriminator(...$this->getAllBomRefs($bom));
+        $bomRefDiscriminator->discriminate();
+        try {
+            return $this->normalizerFactory->makeForBom()->normalize($bom);
+        } finally {
+            $bomRefDiscriminator->reset();
+        }
+    }
+
+    /**
+     * @throws Exception
+     *
+     * @uses DOMDocument
+     *
+     * @psalm-return non-empty-string
+     */
+    public function serialize(Bom $bom, bool $pretty = false): string
+    {
+        $document = new DOMDocument($this->xmlVersion, $this->xmlEncoding);
         $document->appendChild(
             $document->importNode(
-                (new DOM\NormalizerFactory($this->getSpec()))
-                    ->makeForBom()
-                    ->normalize($bom),
+                $this->normalize($bom),
                 true
             )
         );
 
-        $document->formatOutput = true;
+        if ($pretty) {
+            $document->formatOutput = true;
+            // option LIBXML_NOEMPTYTAG might lead to errors in consumers
+        }
 
-        // option LIBXML_NOEMPTYTAG might lead to errors in consumers
         $xml = $document->saveXML();
         \assert(false !== $xml);
         \assert('' !== $xml);

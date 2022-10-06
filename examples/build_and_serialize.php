@@ -35,10 +35,14 @@ $bom->getComponents()->addItems(
 
 $spec = \CycloneDX\Core\Spec\SpecFactory::make1dot4();
 
-$jsonSerializer = new \CycloneDX\Core\Serialization\JsonSerializer($spec);
-$serializedJSON = $jsonSerializer->serialize($bom);
+$serializedJSON = (
+new \CycloneDX\Core\Serialization\JsonSerializer(
+    new \CycloneDX\Core\Serialization\JSON\NormalizerFactory($spec))
+)->serialize($bom, pretty: true);
 echo $serializedJSON, \PHP_EOL;
 
-$xmlSerializer = new \CycloneDX\Core\Serialization\XmlSerializer($spec);
-$serializedXML = $xmlSerializer->serialize($bom);
+$serializedXML = (
+new \CycloneDX\Core\Serialization\XmlSerializer(
+    new \CycloneDX\Core\Serialization\DOM\NormalizerFactory($spec))
+)->serialize($bom, pretty: true);
 echo $serializedXML, \PHP_EOL;

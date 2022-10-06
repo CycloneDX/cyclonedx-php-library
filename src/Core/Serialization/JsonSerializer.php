@@ -24,28 +24,30 @@ declare(strict_types=1);
 namespace CycloneDX\Core\Serialization;
 
 use CycloneDX\Core\Models\Bom;
+use CycloneDX\Core\Serialization\_helpers\SerializerNormalizeTrait;
 use CycloneDX\Core\Spec\Version;
-use DomainException;
+use Exception;
 
 /**
  * transform data models to JSON.
  *
  * @author jkowalleck
  */
-class JsonSerializer extends BaseSerializer
+class JsonSerializer
 {
-    private const NORMALIZE_OPTIONS =
-        \JSON_THROW_ON_ERROR // prevent unexpected data
+    use SerializerNormalizeTrait;
+    private const SERIALIZE_OPTIONS = 0
+        | \JSON_THROW_ON_ERROR // prevent unexpected data
         | \JSON_PRESERVE_ZERO_FRACTION // float/double not converted to int
         | \JSON_UNESCAPED_SLASHES // urls become shorter
-        | \JSON_PRETTY_PRINT;
+    ;
 
     /**
      * JSON schema `$id` that is applied.
      *
      * @var string[]|null[]
      *
-     * @psalm-var array<Version::*, ?string>
+     * @psalm-var  array<Version::*,?string>
      */
     private const SCHEMA = [
         Version::v1dot1 => null, // unsupported version
@@ -54,26 +56,31 @@ class JsonSerializer extends BaseSerializer
         Version::v1dot4 => 'http://cyclonedx.org/schema/bom-1.4.schema.json',
     ];
 
-    private function getSchemaBase(): array
+    public function __construct(private JSON\NormalizerFactory $normalizerFactory)
     {
-        $schema = self::SCHEMA[$this->getSpec()->getVersion()] ?? null;
-
-        return null === $schema
-            ? [] // @codeCoverageIgnore
-            : ['$schema' => $schema];
     }
 
     /**
-     * @throws DomainException if something was not supported
+     * @throws Exception
+     *
+     * @psalm-return non-empty-string
      */
-    protected function normalize(Bom $bom): string
+    public function serialize(Bom $bom, bool $pretty = false): string
     {
-        $schemaBase = $this->getSchemaBase();
-        $data = (new JSON\NormalizerFactory($this->getSpec()))
-            ->makeForBom()
-            ->normalize($bom);
+        /** @var array $document */
+        $document = $this->normalize($bom);
 
-        $json = json_encode(array_merge($schemaBase, $data), self::NORMALIZE_OPTIONS);
+        $schema = self::SCHEMA[$this->normalizerFactory->getSpec()->getVersion()] ?? null;
+        if (null !== $schema) {
+            $document['$schema'] = $schema;
+        }
+
+        $jsonEncodeOptions = self::SERIALIZE_OPTIONS;
+        if ($pretty) {
+            $jsonEncodeOptions |= \JSON_PRETTY_PRINT;
+        }
+
+        $json = json_encode($document, $jsonEncodeOptions);
         \assert(false !== $json); // as option JSON_THROW_ON_ERROR is expected to be set
         \assert('' !== $json);
 
