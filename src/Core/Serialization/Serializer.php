@@ -30,6 +30,8 @@ interface Serializer
 {
     /**
      * @throws Exception
+     *
+     * @SuppressWarnings(PHPMD.BooleanArgumentFlag)
      */
-    public function serialize(Bom $bom, bool $sortLists = false, bool $prettyPrint = false): string;
+    public function serialize(Bom $bom, bool $prettyPrint = false): string;
 }

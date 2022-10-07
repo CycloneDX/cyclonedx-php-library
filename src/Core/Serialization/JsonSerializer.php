@@ -27,7 +27,7 @@ use CycloneDX\Core\Models\Bom;
 use CycloneDX\Core\Spec\Version;
 
 /**
- * transform data models to JSON.
+ * Transform data models to JSON.
  *
  * @psalm-type TNormalizedBom=array
  *
@@ -67,9 +67,8 @@ class JsonSerializer extends BaseSerializer
      *
      * @psalm-return TNormalizedBom
      */
-    protected function _normalize(Bom $bom, bool $sortLists): array
+    protected function realNormalize(Bom $bom): array
     {
-        // @TODO implement $sortLists
         return $this->normalizerFactory
             ->makeForBom()
             ->normalize($bom);
@@ -79,8 +78,10 @@ class JsonSerializer extends BaseSerializer
      * {@inheritDoc}
      *
      * @psalm-param TNormalizedBom $normalizedBom
+     *
+     * @psalm-return non-empty-string
      */
-    protected function _serialize($normalizedBom, bool $pretty): string
+    protected function realSerialize($normalizedBom, bool $pretty): string
     {
         /** @var string|null $schema */
         $schema = self::SCHEMA[$this->normalizerFactory->getSpec()->getVersion()] ?? null;

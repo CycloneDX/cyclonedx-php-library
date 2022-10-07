@@ -27,8 +27,6 @@ use CycloneDX\Core\Models\Bom;
 use CycloneDX\Core\Models\BomRef;
 use Exception;
 
-// @TODO use a data object for NormalizerOptions & SerializerOptions
-
 /**
  * @template TNormalizedBom
  */
@@ -37,17 +35,14 @@ abstract class BaseSerializer implements Serializer
     /**
      * @return BomRef[]
      */
-    protected function getAllBomRefs(Bom $bom): array
+    final protected function getAllBomRefs(Bom $bom): array
     {
         $allBomRefs = [];
-
         $allComponents = $bom->getComponents()->getItems();
-
         $metadataComponent = $bom->getMetadata()->getComponent();
         if (null !== $metadataComponent) {
             $allComponents[] = $metadataComponent;
         }
-
         foreach ($allComponents as $component) {
             $allBomRefs[] = $component->getBomRef();
             array_push($allBomRefs, ...$component->getDependencies()->getItems());
@@ -57,34 +52,53 @@ abstract class BaseSerializer implements Serializer
     }
 
     /**
-     * {@inheritDoc}
+     * @throws Exception
+     *
+     * @psalm-return TNormalizedBom
      *
      * @uses \CycloneDX\Core\Serialization\BomRefDiscriminator
      */
-    public function serialize(Bom $bom, bool $sortLists = false, bool $prettyPrint = false): string
+    final protected function normalize(BOM $bom)
     {
         $bomRefDiscriminator = new BomRefDiscriminator(...$this->getAllBomRefs($bom));
+        $bomRefDiscriminator->discriminate();
         try {
-            $bomRefDiscriminator->discriminate();
-            $normalized = $this->_normalize($bom, $sortLists);
+            return $this->realNormalize($bom);
         } finally {
             $bomRefDiscriminator->reset();
         }
-
-        return $this->_serialize($normalized, $prettyPrint);
     }
 
     /**
+     * {@inheritDoc}
+     **
+     * @SuppressWarnings(PHPMD.BooleanArgumentFlag)
+     */
+    final public function serialize(Bom $bom, bool $prettyPrint = false): string
+    {
+        return $this->realSerialize(
+            $this->normalize($bom),
+            $prettyPrint
+        );
+    }
+
+    /**
+     * Normalize an BOM to the data structure that {@see realSerialize} can handle.
+     *
      * @throws Exception
      *
      * @psalm-return TNormalizedBom
      */
-    abstract protected function _normalize(Bom $bom, bool $sortLists);
+    abstract protected function realNormalize(Bom $bom);
 
     /**
+     * Serialize a {@see realNormalize normalized} version of {@see Bom}.
+     *
      * @throws Exception
      *
      * @psalm-param TNormalizedBom $normalizedBom
+     *
+     * @SuppressWarnings(PHPMD.BooleanArgumentFlag)
      */
-    abstract protected function _serialize($normalizedBom, bool $pretty): string;
+    abstract protected function realSerialize($normalizedBom, bool $pretty): string;
 }

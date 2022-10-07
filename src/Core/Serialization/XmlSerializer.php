@@ -49,9 +49,8 @@ class XmlSerializer extends BaseSerializer
      *
      * @psalm-return TNormalizedBom
      */
-    protected function _normalize(Bom $bom, bool $sortLists): DOMElement
+    protected function realNormalize(Bom $bom): DOMElement
     {
-        // @TODO implement $sortLists
         return $this->normalizerFactory
             ->makeForBom()
             ->normalize($bom);
@@ -61,8 +60,10 @@ class XmlSerializer extends BaseSerializer
      * {@inheritDoc}
      *
      * @psalm-param TNormalizedBom $normalizedBom
+     *
+     * @psalm-return non-empty-string
      */
-    protected function _serialize($normalizedBom, bool $pretty): string
+    protected function realSerialize($normalizedBom, bool $pretty): string
     {
         $document = new DOMDocument($this->xmlVersion, $this->xmlEncoding);
         $document->appendChild(
@@ -74,9 +75,9 @@ class XmlSerializer extends BaseSerializer
 
         if ($pretty) {
             $document->formatOutput = true;
-            // option LIBXML_NOEMPTYTAG might lead to errors in consumers
         }
 
+        // option LIBXML_NOEMPTYTAG might lead to errors in consumers
         $xml = $document->saveXML();
         \assert(false !== $xml);
         \assert('' !== $xml);
