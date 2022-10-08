@@ -41,12 +41,14 @@ $rootComponent->getDependencies()->addItems($component->getBomRef());
 
 $spec = \CycloneDX\Core\Spec\SpecFactory::make1dot4();
 
+$prettyPrint = false;
+
 $serializedJSON = (new \CycloneDX\Core\Serialization\JsonSerializer(
     new \CycloneDX\Core\Serialization\JSON\NormalizerFactory($spec))
-)->serialize($bom);
+)->serialize($bom, $prettyPrint);
 echo $serializedJSON, \PHP_EOL;
 
 $serializedXML = (new \CycloneDX\Core\Serialization\XmlSerializer(
     new \CycloneDX\Core\Serialization\DOM\NormalizerFactory($spec))
-)->serialize($bom);
+)->serialize($bom, $prettyPrint);
 echo $serializedXML, \PHP_EOL;
