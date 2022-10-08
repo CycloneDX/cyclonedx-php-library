@@ -36,11 +36,22 @@ use DOMElement;
  */
 class XmlSerializer extends BaseSerializer
 {
+    /** @readonly */
+    private DOM\NormalizerFactory $normalizerFactory;
+
+    /** @readonly */
+    private string $xmlVersion;
+    /** @readonly */
+    private string $xmlEncoding;
+
     public function __construct(
-        private DOM\NormalizerFactory $normalizerFactory,
-        private string $xmlVersion = '1.0',
-        private string $xmlEncoding = 'UTF-8'
+        DOM\NormalizerFactory $normalizerFactory,
+        string $xmlVersion = '1.0',
+        string $xmlEncoding = 'UTF-8'
     ) {
+        $this->normalizerFactory = $normalizerFactory;
+        $this->xmlVersion = $xmlVersion;
+        $this->xmlEncoding = $xmlEncoding;
     }
 
     /**

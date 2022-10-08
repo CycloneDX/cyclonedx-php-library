@@ -49,11 +49,18 @@ class JsonSerializer extends BaseSerializer
         Version::v1dot4 => 'http://cyclonedx.org/schema/bom-1.4.schema.json',
     ];
 
-    /** @readonly  */
+    /** @readonly */
     private JSON\NormalizerFactory $normalizerFactory;
 
-    /** @readonly  */
-    private int $jsonEncodeOptions;
+    /**
+     * Bitmask consisting of JSON_*.
+     *
+     * @readonly
+     */
+    private int $jsonEncodeOptions = 0
+        | \JSON_THROW_ON_ERROR // prevent unexpected data
+        | \JSON_PRESERVE_ZERO_FRACTION // float/double not converted to int
+    ;
 
     /**
      * @param int $jsonEncodeOptions Bitmask consisting of JSON_*
@@ -63,10 +70,7 @@ class JsonSerializer extends BaseSerializer
         int $jsonEncodeOptions = \JSON_UNESCAPED_SLASHES // urls become shorter
     ) {
         $this->normalizerFactory = $normalizerFactory;
-        $this->jsonEncodeOptions = $jsonEncodeOptions
-            | \JSON_THROW_ON_ERROR // prevent unexpected data
-            | \JSON_PRESERVE_ZERO_FRACTION // float/double not converted to int
-        ;
+        $this->jsonEncodeOptions |= $jsonEncodeOptions;
     }
 
     /**
@@ -101,7 +105,7 @@ class JsonSerializer extends BaseSerializer
             $jsonEncodeOptions |= \JSON_PRETTY_PRINT;
         }
 
-        $json = json_encode($normalizedBom, $jsonEncodeOptions, PHP_INT_MAX);
+        $json = json_encode($normalizedBom, $jsonEncodeOptions);
         \assert(false !== $json); // as option JSON_THROW_ON_ERROR is expected to be set
         \assert('' !== $json);
 
