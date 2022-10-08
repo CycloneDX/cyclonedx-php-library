@@ -27,7 +27,7 @@ require_once __DIR__.'/../vendor/autoload.php';
 
 $bom = new \CycloneDX\Core\Models\Bom();
 $bom->getMetadata()->setComponent(
-    new \CycloneDX\Core\Models\Component(
+    $rootComponent = new \CycloneDX\Core\Models\Component(
         \CycloneDX\Core\Enums\Classification::APPLICATION,
         'myApp'
     )
@@ -37,7 +37,7 @@ $component = new \CycloneDX\Core\Models\Component(
     'myComponent'
 );
 $bom->getComponents()->addItems($component);
-$bom->getMetadata()->getComponent()->getDependencies()->addItems($component->getBomRef());
+$rootComponent->getDependencies()->addItems($component->getBomRef());
 
 $spec = \CycloneDX\Core\Spec\SpecFactory::make1dot4();
 
