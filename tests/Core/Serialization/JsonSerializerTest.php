@@ -23,17 +23,85 @@ declare(strict_types=1);
 
 namespace CycloneDX\Tests\Core\Serialization;
 
+use CycloneDX\Core\Models\Bom;
+use CycloneDX\Core\Serialization\JSON;
+use CycloneDX\Core\Serialization\JsonSerializer;
+use CycloneDX\Core\Spec\Spec;
+use CycloneDX\Core\Spec\Version;
+use Generator;
 use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \CycloneDX\Core\Serialization\JsonSerializer
- *
- * @TODO
+ * @uses   \CycloneDX\Core\Serialization\BaseSerializer
+ * @uses   \CycloneDX\Core\Serialization\BomRefDiscriminator
  */
 class JsonSerializerTest extends TestCase
 {
-    public function testTodo(): void
+    /**
+     * @dataProvider dpSerializeStructure
+     */
+    public function testSerialize(int $jsonEncodeFlags, ?bool $prettyPrint, array $normalized, string $expected): void
     {
-        $this->markTestSkipped('TODO');
+        $bom = $this->createStub(Bom::class);
+        $bomNormalizer = $this->createMock(JSON\Normalizers\BomNormalizer::class);
+        $normalizerFactory = $this->createConfiguredMock(JSON\NormalizerFactory::class, [
+            'makeForBom' => $bomNormalizer
+        ]);
+        $bomNormalizer->method('normalize')
+            ->with($bom)
+            ->willReturn($normalized);
+        $serializer = new JsonSerializer($normalizerFactory, $jsonEncodeFlags);
+
+        $actual = $serializer->serialize($bom, $prettyPrint);
+
+        self::assertSame($expected, $actual);
+    }
+
+    public function dpSerializeStructure(): Generator
+    {
+        $normalizedDummy = uniqid('normalized', true);
+        $normalizedDummyJson = json_encode($normalizedDummy);
+
+        yield 'plain' => [
+            0, null,
+            ['normalized' => $normalizedDummy],
+            '{"normalized":' . $normalizedDummyJson . '}'
+        ];
+        yield 'JSON_UNESCAPED_SLASHES' => [
+            JSON_UNESCAPED_SLASHES, null,
+            ['normalized' => 'some/slash'],
+            '{"normalized":"some/slash"}'
+        ];
+
+        yield 'pretty=false' => [
+            0, false,
+            ['normalized' => $normalizedDummy],
+            '{"normalized":'.$normalizedDummyJson.'}'
+        ];
+
+        yield 'pretty=true' => [
+            0, true,
+            ['normalized' => $normalizedDummy],
+            '{'."\n".'    "normalized": '.$normalizedDummyJson."\n}"
+        ];
+
+        yield 'pretty=null, JSON_PRETTY_PRINT' => [
+            JSON_PRETTY_PRINT, null,
+            ['normalized' => $normalizedDummy],
+            '{'."\n".'    "normalized": '.$normalizedDummyJson."\n}"
+        ];
+
+        yield 'pretty=false, JSON_PRETTY_PRINT' => [
+            JSON_PRETTY_PRINT, false,
+            ['normalized' => $normalizedDummy],
+            '{"normalized":'.$normalizedDummyJson.'}'
+        ];
+
+        yield 'pretty=true, JSON_PRETTY_PRINT' => [
+            JSON_PRETTY_PRINT, true,
+            ['normalized' => $normalizedDummy],
+            '{'."\n".'    "normalized": '.$normalizedDummyJson."\n}"
+        ];
     }
 }

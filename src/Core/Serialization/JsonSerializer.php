@@ -38,20 +38,6 @@ use CycloneDX\Core\Spec\Version;
 class JsonSerializer extends BaseSerializer
 {
     /**
-     * JSON schema `$id` that is applied.
-     *
-     * @var string[]|null[]
-     *
-     * @psalm-var  array<Version::*,?string>
-     */
-    private const SCHEMA = [
-        Version::v1dot1 => null, // unsupported version
-        Version::v1dot2 => 'http://cyclonedx.org/schema/bom-1.2b.schema.json',
-        Version::v1dot3 => 'http://cyclonedx.org/schema/bom-1.3a.schema.json',
-        Version::v1dot4 => 'http://cyclonedx.org/schema/bom-1.4.schema.json',
-    ];
-
-    /**
      * List of allowed options for $jsonEncodeFlags.
      * Some flags will break the output...
      *
@@ -116,17 +102,9 @@ class JsonSerializer extends BaseSerializer
      */
     protected function realNormalize(Bom $bom): array
     {
-        $normalizedBom = $this->normalizerFactory
+        return $this->normalizerFactory
             ->makeForBom()
             ->normalize($bom);
-
-        /** @var string|null $schema */
-        $schema = self::SCHEMA[$this->normalizerFactory->getSpec()->getVersion()] ?? null;
-        if (null !== $schema) {
-            $normalizedBom['$schema'] = $schema;
-        }
-
-        return $normalizedBom;
     }
 
     /**
