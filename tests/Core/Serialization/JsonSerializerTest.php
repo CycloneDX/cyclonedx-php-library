@@ -67,10 +67,17 @@ class JsonSerializerTest extends TestCase
             ['normalized' => $normalizedDummy],
             '{"normalized":'.$normalizedDummyJson.'}',
         ];
-        yield 'JSON_UNESCAPED_SLASHES' => [
+
+        yield 'full float must not become an integer' => [
+            0, null,
+            ['normalized' => 23.0],
+            '{"normalized":23.0}',
+        ];
+
+        yield 'JSON_UNESCAPED_SLASHES is supported' => [
             \JSON_UNESCAPED_SLASHES, null,
-            ['normalized' => 'some/slash'],
-            '{"normalized":"some/slash"}',
+            ['normalized' => "some/slash/$normalizedDummy"],
+            '{"normalized":"some/slash/'.$normalizedDummy.'"}',
         ];
 
         yield 'pretty=false' => [
