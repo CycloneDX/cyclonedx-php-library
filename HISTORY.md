@@ -81,17 +81,20 @@ API changes
 * `\CycloneDX\Core\Serialize` namespace
   * Overall
     * BREAKING: renamed namespace to `Serialization` ([#5] via [#146])
-  * `BaseSerializer` class
-    * BREAKING: removed deprecated method `setSpec()` (via [#144])
-  * `BaseValidator` class
-    * BREAKING: removed deprecated method `setSpec()` (via [#144])
+  * `SerializerInterface` interface
+    * BREAKING: renamed to `Serializer` ([#133] via [#155])
+    * BREAKING: existing method `serialize()` got a new optional parameter `$prettyPrint` (via [#155])
+  * `BaseSerializer` abstract class
+    * BREAKING: complete redesign (via [#155])
+  * `{Json,Xml}Serializer` class
+    * BREAKING: complete redesign (via [#155])
   * `{DOM,JSON}\NormalizerFactory` classes
     * BREAKING: removed method `makeForLicenseExpression()` (via [#131])
     * BREAKING: removed method `makeForDisjunctiveLicense()` (via [#131])
     * BREAKING: removed method `makeForDisjunctiveLicenseRepository()` (via [#131])
     * BREAKING: removed method `makeForHashRepositonary()` - use `makeForHashDictionary()` instead ([#133] via [#131])
     * BREAKING: removed method `setSpec()` (via [#131])
-    * Added new method `makeForHashDictionary()` ([#133] via [#131])
+    * Added method `makeForHashDictionary()` ([#133] via [#131])
     * Added method `makeForLicense()` (via [#131])
     * Added method `makeForLicenseRepository()` (via [#131])
   * `{DOM,JSON}\Normalizers` namespaces
@@ -115,16 +118,17 @@ API changes
   * BREAKING: completely reworked everything ([#139] via [#142])  
     See the code base for references
 * `\CycloneDX\Core\Validation` namespace
-  * `XmlValidator` classes
-    * Added support for CycloneDX v1.4 ([#57] via [#65])
-  * `JsonValidator` classes
-    * Added support for CycloneDX v1.4 ([#57] via [#65])
-    * Utilizes a much more competent validation library than before ([#80] via [#151])
-  * `JsonStrictValidator` class
-    * Added support for CycloneDX v1.4 ([#57] via [#65])
-    * Utilizes a much more competent validation library than before ([#80] via [#151])
+  * `BaseValidator` class
+    * BREAKING: removed deprecated method `setSpec()` (via [#144])
   * `ValidatorInterface` interface
     * BREAKING: renamed interface to `Validator` ([#133] via [#143])
+  * `Validators\{Json,Xml}Validator` classes
+    * Added support for CycloneDX v1.4 ([#57] via [#65])
+  * `Validators\JsonValidator` classes
+    * Utilizes a much more competent validation library than before ([#80] via [#151])
+  * `Validators\JsonStrictValidator` class
+    * Added support for CycloneDX v1.4 ([#57] via [#65])
+    * Utilizes a much more competent validation library than before ([#80] via [#151])
 
 [#5]: https://github.com/CycloneDX/cyclonedx-php-library/issues/5
 [#6]: https://github.com/CycloneDX/cyclonedx-php-library/issues/6
@@ -148,6 +152,7 @@ API changes
 [#146]: https://github.com/CycloneDX/cyclonedx-php-library/pull/146
 [#149]: https://github.com/CycloneDX/cyclonedx-php-library/pull/149
 [#151]: https://github.com/CycloneDX/cyclonedx-php-library/pull/151
+[#155]: https://github.com/CycloneDX/cyclonedx-php-library/pull/155
 
 ## 1.6.3 - 2022-09-15
 

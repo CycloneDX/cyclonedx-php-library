@@ -29,6 +29,11 @@ use Exception;
 interface Serializer
 {
     /**
+     * Serialize a {@see Bom} to {@see string}.
+     *
+     * @param Bom  $bom         the bom to serialize
+     * @param bool $prettyPrint whether to beatify the resulting string
+     *
      * @throws Exception
      *
      * @SuppressWarnings(PHPMD.BooleanArgumentFlag)
