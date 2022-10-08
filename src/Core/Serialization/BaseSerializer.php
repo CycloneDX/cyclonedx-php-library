@@ -35,7 +35,7 @@ abstract class BaseSerializer implements Serializer
     /**
      * @return BomRef[]
      */
-    final protected function getAllBomRefs(Bom $bom): array
+    private function getAllBomRefs(Bom $bom): array
     {
         $allBomRefs = [];
         $allComponents = $bom->getComponents()->getItems();
@@ -58,10 +58,12 @@ abstract class BaseSerializer implements Serializer
      *
      * @uses \CycloneDX\Core\Serialization\BomRefDiscriminator
      */
-    final protected function normalize(BOM $bom)
+    private function normalize(BOM $bom)
     {
         $bomRefDiscriminator = new BomRefDiscriminator(...$this->getAllBomRefs($bom));
         $bomRefDiscriminator->discriminate();
+        // This IS NOT the place to put meaning to the BomRef values. This would be out of scope.
+        // This IS the place to make BomRef values (temporary) unique in their own document scope.
         try {
             return $this->realNormalize($bom);
         } finally {
@@ -71,7 +73,7 @@ abstract class BaseSerializer implements Serializer
 
     /**
      * {@inheritDoc}
-     **
+     *
      * @SuppressWarnings(PHPMD.BooleanArgumentFlag)
      */
     final public function serialize(Bom $bom, bool $prettyPrint = false): string

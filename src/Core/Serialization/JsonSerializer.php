@@ -50,12 +50,19 @@ class JsonSerializer extends BaseSerializer
     ];
 
     /** @readonly  */
+    private JSON\NormalizerFactory $normalizerFactory;
+
+    /** @readonly  */
     private int $jsonEncodeOptions;
 
+    /**
+     * @param int $jsonEncodeOptions Bitmask consisting of JSON_*
+     */
     public function __construct(
-        private JSON\NormalizerFactory $normalizerFactory,
+        JSON\NormalizerFactory $normalizerFactory,
         int $jsonEncodeOptions = \JSON_UNESCAPED_SLASHES // urls become shorter
     ) {
+        $this->normalizerFactory = $normalizerFactory;
         $this->jsonEncodeOptions = $jsonEncodeOptions
             | \JSON_THROW_ON_ERROR // prevent unexpected data
             | \JSON_PRESERVE_ZERO_FRACTION // float/double not converted to int
@@ -94,7 +101,7 @@ class JsonSerializer extends BaseSerializer
             $jsonEncodeOptions |= \JSON_PRETTY_PRINT;
         }
 
-        $json = json_encode($normalizedBom, $jsonEncodeOptions);
+        $json = json_encode($normalizedBom, $jsonEncodeOptions, PHP_INT_MAX);
         \assert(false !== $json); // as option JSON_THROW_ON_ERROR is expected to be set
         \assert('' !== $json);
 
