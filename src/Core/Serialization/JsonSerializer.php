@@ -24,7 +24,6 @@ declare(strict_types=1);
 namespace CycloneDX\Core\Serialization;
 
 use CycloneDX\Core\Models\Bom;
-use CycloneDX\Core\Spec\Version;
 
 /**
  * Transform data models to JSON.

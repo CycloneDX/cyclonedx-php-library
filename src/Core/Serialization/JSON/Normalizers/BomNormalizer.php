@@ -39,6 +39,7 @@ class BomNormalizer extends _BaseNormalizer
     private const BOM_FORMAT = 'CycloneDX';
 
     private const SCHEMA = [
+        Version::v1dot1 => null,
         Version::v1dot2 => 'http://cyclonedx.org/schema/bom-1.2b.schema.json',
         Version::v1dot3 => 'http://cyclonedx.org/schema/bom-1.3a.schema.json',
         Version::v1dot4 => 'http://cyclonedx.org/schema/bom-1.4.schema.json',

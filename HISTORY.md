@@ -110,6 +110,8 @@ API changes
         This is considered a non-breaking change, because the behaviour was already documented in the API, even though there was no need for an implementation before.
     * `ExternalReferenceNormalizer` classes
       * Changed, so that it tries to convert unsupported types to "other", before it throws an `\DomainException` ([#137] via [#147])
+  * `JSON\Normalizers\BomNormalizer` class
+    * Changed: method `normalize`'s result data contains also the `$schema` (via [#155])
   * `JSON\Normalizers\ExternalReferenceNormalizer` class
     * BREAKING: method `normalize` may throw `\UnexpectedValueException` when the url is invalid to format "ini-reference" (via [#151])
 * `\CycloneDX\Core\Spdx` namespace
