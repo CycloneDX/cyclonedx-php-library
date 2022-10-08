@@ -57,20 +57,20 @@ class JsonSerializer extends BaseSerializer
      *
      * @readonly
      */
-    private int $jsonEncodeOptions = 0
+    private int $jsonEncodeFlags = 0
         | \JSON_THROW_ON_ERROR // prevent unexpected data
         | \JSON_PRESERVE_ZERO_FRACTION // float/double not converted to int
     ;
 
     /**
-     * @param int $jsonEncodeOptions Bitmask consisting of JSON_*
+     * @param int $jsonEncodeFlags Bitmask consisting of JSON_*
      */
     public function __construct(
         JSON\NormalizerFactory $normalizerFactory,
-        int $jsonEncodeOptions = \JSON_UNESCAPED_SLASHES // urls become shorter
+        int $jsonEncodeFlags = \JSON_UNESCAPED_SLASHES // urls become shorter
     ) {
         $this->normalizerFactory = $normalizerFactory;
-        $this->jsonEncodeOptions |= $jsonEncodeOptions;
+        $this->jsonEncodeFlags |= $jsonEncodeFlags;
     }
 
     /**
@@ -100,12 +100,12 @@ class JsonSerializer extends BaseSerializer
             $normalizedBom['$schema'] = $schema;
         }
 
-        $jsonEncodeOptions = $this->jsonEncodeOptions;
+        $jsonEncodeFlags = $this->jsonEncodeFlags;
         if ($pretty) {
-            $jsonEncodeOptions |= \JSON_PRETTY_PRINT;
+            $jsonEncodeFlags |= \JSON_PRETTY_PRINT;
         }
 
-        $json = json_encode($normalizedBom, $jsonEncodeOptions);
+        $json = json_encode($normalizedBom, $jsonEncodeFlags);
         \assert(false !== $json); // as option JSON_THROW_ON_ERROR is expected to be set
         \assert('' !== $json);
 
