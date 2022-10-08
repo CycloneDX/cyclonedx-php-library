@@ -56,7 +56,6 @@ class XmlSerializer extends BaseSerializer
 
     /**
      * {@inheritDoc}
-
      *
      * @psalm-return TNormalizedBom
      */
@@ -74,7 +73,7 @@ class XmlSerializer extends BaseSerializer
      *
      * @psalm-return non-empty-string
      */
-    protected function realSerialize($normalizedBom, bool $pretty): string
+    protected function realSerialize($normalizedBom, ?bool $pretty): string
     {
         $document = new DOMDocument($this->xmlVersion, $this->xmlEncoding);
         $document->appendChild(
@@ -84,7 +83,7 @@ class XmlSerializer extends BaseSerializer
             )
         );
 
-        if ($pretty) {
+        if (true === $pretty) {
             $document->formatOutput = true;
         }
 

@@ -32,6 +32,8 @@ use CycloneDX\Core\Spec\Version;
  * @psalm-type TNormalizedBom=array
  *
  * @template-extends BaseSerializer<TNormalizedBom>
+ *
+ * @SuppressWarnings(PHPMD.ConstantNamingConventions)
  */
 class JsonSerializer extends BaseSerializer
 {
@@ -49,28 +51,62 @@ class JsonSerializer extends BaseSerializer
         Version::v1dot4 => 'http://cyclonedx.org/schema/bom-1.4.schema.json',
     ];
 
+    /**
+     * List of allowed options for $jsonEncodeFlags.
+     * Some flags will break the output...
+     *
+     * Bitmask consisting of JSON_*.
+     *
+     * @see https://www.php.net/manual/en/json.constants.php
+     */
+    private const JsonEncodeFlagsAllowedOptions = 0
+        | \JSON_HEX_TAG
+        | \JSON_HEX_AMP
+        | \JSON_HEX_APOS
+        | \JSON_HEX_QUOT
+        | \JSON_PRETTY_PRINT
+        | \JSON_UNESCAPED_SLASHES
+        | \JSON_UNESCAPED_UNICODE
+    ;
+
+    /**
+     * List of mandatory options for $jsonEncodeFlags.
+     *
+     * Bitmask consisting of JSON_*.
+     *
+     * @see https://www.php.net/manual/en/json.constants.php
+     */
+    private const JsonEncodeFlagsDefaultOptions = 0
+        | \JSON_UNESCAPED_SLASHES // urls become shorter
+    ;
+
     /** @readonly */
     private JSON\NormalizerFactory $normalizerFactory;
 
     /**
+     * Flags for {@see json_encode}.
+     *
      * Bitmask consisting of JSON_*.
+     *
+     * @see https://www.php.net/manual/en/json.constants.php
      *
      * @readonly
      */
     private int $jsonEncodeFlags = 0
+        // These defaults are required to have valid output.
         | \JSON_THROW_ON_ERROR // prevent unexpected data
         | \JSON_PRESERVE_ZERO_FRACTION // float/double not converted to int
     ;
 
     /**
-     * @param int $jsonEncodeFlags Bitmask consisting of JSON_*
+     * @param int $jsonEncodeFlags Bitmask consisting of JSON_*. see {@see JsonEncodeFlagsAllowedOptions}
      */
     public function __construct(
         JSON\NormalizerFactory $normalizerFactory,
-        int $jsonEncodeFlags = \JSON_UNESCAPED_SLASHES // urls become shorter
+        int $jsonEncodeFlags = self::JsonEncodeFlagsDefaultOptions
     ) {
         $this->normalizerFactory = $normalizerFactory;
-        $this->jsonEncodeFlags |= $jsonEncodeFlags;
+        $this->jsonEncodeFlags |= $jsonEncodeFlags & self::JsonEncodeFlagsAllowedOptions;
     }
 
     /**
@@ -92,7 +128,7 @@ class JsonSerializer extends BaseSerializer
      *
      * @psalm-return non-empty-string
      */
-    protected function realSerialize($normalizedBom, bool $pretty): string
+    protected function realSerialize($normalizedBom, ?bool $pretty): string
     {
         /** @var string|null $schema */
         $schema = self::SCHEMA[$this->normalizerFactory->getSpec()->getVersion()] ?? null;
@@ -101,7 +137,7 @@ class JsonSerializer extends BaseSerializer
         }
 
         $jsonEncodeFlags = $this->jsonEncodeFlags;
-        if ($pretty) {
+        if (true === $pretty) {
             $jsonEncodeFlags |= \JSON_PRETTY_PRINT;
         }
 

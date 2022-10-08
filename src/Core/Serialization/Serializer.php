@@ -32,11 +32,11 @@ interface Serializer
      * Serialize a {@see Bom} to {@see string}.
      *
      * @param Bom  $bom         the bom to serialize
-     * @param bool $prettyPrint whether to beatify the resulting string
+     * @param bool $prettyPrint whether to beatify the resulting string. A `null` value means no preference.
      *
      * @throws Exception
      *
      * @SuppressWarnings(PHPMD.BooleanArgumentFlag)
      */
-    public function serialize(Bom $bom, bool $prettyPrint = false): string;
+    public function serialize(Bom $bom, ?bool $prettyPrint = null): string;
 }
