@@ -73,7 +73,7 @@ class XmlSerializer extends BaseSerializer
      *
      * @psalm-return non-empty-string
      */
-    protected function realSerialize($normalizedBom, ?bool $pretty): string
+    protected function realSerialize($normalizedBom, ?bool $prettyPrint): string
     {
         $document = new DOMDocument($this->xmlVersion, $this->xmlEncoding);
         $document->appendChild(
@@ -83,8 +83,8 @@ class XmlSerializer extends BaseSerializer
             )
         );
 
-        if (true === $pretty) {
-            $document->formatOutput = true;
+        if (null !== $prettyPrint) {
+            $document->formatOutput = $prettyPrint;
         }
 
         // option LIBXML_NOEMPTYTAG might lead to errors in consumers

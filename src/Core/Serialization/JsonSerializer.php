@@ -116,9 +116,17 @@ class JsonSerializer extends BaseSerializer
      */
     protected function realNormalize(Bom $bom): array
     {
-        return $this->normalizerFactory
+        $normalizedBom = $this->normalizerFactory
             ->makeForBom()
             ->normalize($bom);
+
+        /** @var string|null $schema */
+        $schema = self::SCHEMA[$this->normalizerFactory->getSpec()->getVersion()] ?? null;
+        if (null !== $schema) {
+            $normalizedBom['$schema'] = $schema;
+        }
+
+        return $normalizedBom;
     }
 
     /**
@@ -128,18 +136,14 @@ class JsonSerializer extends BaseSerializer
      *
      * @psalm-return non-empty-string
      */
-    protected function realSerialize($normalizedBom, ?bool $pretty): string
+    protected function realSerialize($normalizedBom, ?bool $prettyPrint): string
     {
-        /** @var string|null $schema */
-        $schema = self::SCHEMA[$this->normalizerFactory->getSpec()->getVersion()] ?? null;
-        if (null !== $schema) {
-            $normalizedBom['$schema'] = $schema;
-        }
-
-        $jsonEncodeFlags = $this->jsonEncodeFlags;
-        if (true === $pretty) {
-            $jsonEncodeFlags |= \JSON_PRETTY_PRINT;
-        }
+        $jsonEncodeFlags = match ($prettyPrint) {
+            // reminder: JSON_PRETTY_PRINT could be in $this->jsonEncodeFlags already
+            null => $this->jsonEncodeFlags,
+            true => $this->jsonEncodeFlags | \JSON_PRETTY_PRINT,
+            false => $this->jsonEncodeFlags & ~\JSON_PRETTY_PRINT,
+        };
 
         $json = json_encode($normalizedBom, $jsonEncodeFlags);
         \assert(false !== $json); // as option JSON_THROW_ON_ERROR is expected to be set

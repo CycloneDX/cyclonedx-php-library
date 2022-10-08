@@ -85,7 +85,7 @@ abstract class BaseSerializer implements Serializer
     }
 
     /**
-     * Normalize an BOM to the data structure that {@see realSerialize} can handle.
+     * Normalize a {@see Bom} to the data structure that {@see realSerialize} can handle.
      *
      * @throws Exception
      *
@@ -94,7 +94,7 @@ abstract class BaseSerializer implements Serializer
     abstract protected function realNormalize(Bom $bom);
 
     /**
-     * Serialize a {@see realNormalize normalized} version of {@see Bom}.
+     * Serialize a {@see realNormalize normalized} version of a {@see Bom}.
      *
      * @throws Exception
      *
@@ -102,5 +102,5 @@ abstract class BaseSerializer implements Serializer
      *
      * @SuppressWarnings(PHPMD.BooleanArgumentFlag)
      */
-    abstract protected function realSerialize($normalizedBom, ?bool $pretty): string;
+    abstract protected function realSerialize($normalizedBom, ?bool $prettyPrint): string;
 }
