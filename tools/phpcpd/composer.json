@@ -1,0 +1,17 @@
+{
+    "name": "tools/phpcpd",
+    "description": "PHP Copy/Paste Detector",
+    "type": "metapackage",
+    "require-dev": {
+        "roave/security-advisories": "dev-latest",
+        "sebastian/phpcpd": "^6.0"
+    },
+    "prefer-stable": true,
+    "config": {
+        "allow-plugins": {
+            "composer/package-versions-deprecated": false
+        },
+        "preferred-install": "dist",
+        "sort-packages": true
+    }
+}
