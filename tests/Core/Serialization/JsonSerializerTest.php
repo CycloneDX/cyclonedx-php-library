@@ -24,122 +24,90 @@ declare(strict_types=1);
 namespace CycloneDX\Tests\Core\Serialization;
 
 use CycloneDX\Core\Models\Bom;
+use CycloneDX\Core\Serialization\JSON;
 use CycloneDX\Core\Serialization\JsonSerializer;
-use CycloneDX\Core\Spec\Spec;
+use Generator;
 use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \CycloneDX\Core\Serialization\JsonSerializer
  *
  * @uses   \CycloneDX\Core\Serialization\BaseSerializer
+ * @uses   \CycloneDX\Core\Serialization\BomRefDiscriminator
  */
 class JsonSerializerTest extends TestCase
 {
     /**
-     * @uses   \CycloneDX\Core\Serialization\JSON\_BaseNormalizer
-     * @uses   \CycloneDX\Core\Serialization\JSON\NormalizerFactory
-     * @uses   \CycloneDX\Core\Serialization\JSON\Normalizers\BomNormalizer
-     * @uses   \CycloneDX\Core\Serialization\JSON\Normalizers\ComponentRepositoryNormalizer
-     * @uses   \CycloneDX\Core\Serialization\JSON\Normalizers\ComponentNormalizer
-     * @uses   \CycloneDX\Core\Serialization\BomRefDiscriminator
+     * @dataProvider dpSerializeStructure
      */
-    public function testSerialize12(): void
+    public function testSerialize(int $jsonEncodeFlags, ?bool $prettyPrint, array $normalized, string $expected): void
     {
-        $spec = $this->createConfiguredMock(
-            Spec::class,
-            [
-                'getVersion' => '1.2',
-                'isSupportedFormat' => true,
-            ]
-        );
-        $serializer = new JsonSerializer($spec);
         $bom = $this->createStub(Bom::class);
+        $bomNormalizer = $this->createMock(JSON\Normalizers\BomNormalizer::class);
+        $normalizerFactory = $this->createConfiguredMock(JSON\NormalizerFactory::class, [
+            'makeForBom' => $bomNormalizer,
+        ]);
+        $bomNormalizer->method('normalize')
+            ->with($bom)
+            ->willReturn($normalized);
+        $serializer = new JsonSerializer($normalizerFactory, $jsonEncodeFlags);
 
-        $actual = $serializer->serialize($bom);
+        $actual = $serializer->serialize($bom, $prettyPrint);
 
-        self::assertJsonStringEqualsJsonString(
-            <<<'JSON'
-                {
-                    "$schema": "http://cyclonedx.org/schema/bom-1.2b.schema.json",
-                    "bomFormat": "CycloneDX",
-                    "specVersion": "1.2",
-                    "version": 0,
-                    "components": []
-                }
-                JSON,
-            $actual
-        );
+        self::assertSame($expected, $actual);
     }
 
-    /**
-     * @uses   \CycloneDX\Core\Serialization\JSON\_BaseNormalizer
-     * @uses   \CycloneDX\Core\Serialization\JSON\NormalizerFactory
-     * @uses   \CycloneDX\Core\Serialization\JSON\Normalizers\BomNormalizer
-     * @uses   \CycloneDX\Core\Serialization\JSON\Normalizers\ComponentRepositoryNormalizer
-     * @uses   \CycloneDX\Core\Serialization\JSON\Normalizers\ComponentNormalizer
-     * @uses   \CycloneDX\Core\Serialization\BomRefDiscriminator
-     */
-    public function testSerialize13(): void
+    public function dpSerializeStructure(): Generator
     {
-        $spec = $this->createConfiguredMock(
-            Spec::class,
-            [
-                'getVersion' => '1.3',
-                'isSupportedFormat' => true,
-            ]
-        );
-        $serializer = new JsonSerializer($spec);
-        $bom = $this->createStub(Bom::class);
+        $normalizedDummy = uniqid('normalized', true);
+        $normalizedDummyJson = json_encode($normalizedDummy);
 
-        $actual = $serializer->serialize($bom);
+        yield 'plain' => [
+            0, null,
+            ['normalized' => $normalizedDummy],
+            '{"normalized":'.$normalizedDummyJson.'}',
+        ];
 
-        self::assertJsonStringEqualsJsonString(
-            <<<'JSON'
-                {
-                    "$schema": "http://cyclonedx.org/schema/bom-1.3a.schema.json",
-                    "bomFormat": "CycloneDX",
-                    "specVersion": "1.3",
-                    "version": 0,
-                    "components": []
-                }
-                JSON,
-            $actual
-        );
-    }
+        yield 'full float must not become an integer' => [
+            0, null,
+            ['normalized' => 23.0],
+            '{"normalized":23.0}',
+        ];
 
-    /**
-     * @uses   \CycloneDX\Core\Serialization\JSON\_BaseNormalizer
-     * @uses   \CycloneDX\Core\Serialization\JSON\NormalizerFactory
-     * @uses   \CycloneDX\Core\Serialization\JSON\Normalizers\BomNormalizer
-     * @uses   \CycloneDX\Core\Serialization\JSON\Normalizers\ComponentRepositoryNormalizer
-     * @uses   \CycloneDX\Core\Serialization\JSON\Normalizers\ComponentNormalizer
-     * @uses   \CycloneDX\Core\Serialization\BomRefDiscriminator
-     */
-    public function testSerialize14(): void
-    {
-        $spec = $this->createConfiguredMock(
-            Spec::class,
-            [
-                'getVersion' => '1.4',
-                'isSupportedFormat' => true,
-            ]
-        );
-        $serializer = new JsonSerializer($spec);
-        $bom = $this->createStub(Bom::class);
+        yield 'JSON_UNESCAPED_SLASHES is supported' => [
+            \JSON_UNESCAPED_SLASHES, null,
+            ['normalized' => "some/slash/$normalizedDummy"],
+            '{"normalized":"some/slash/'.$normalizedDummy.'"}',
+        ];
 
-        $actual = $serializer->serialize($bom);
+        yield 'pretty=false' => [
+            0, false,
+            ['normalized' => $normalizedDummy],
+            '{"normalized":'.$normalizedDummyJson.'}',
+        ];
 
-        self::assertJsonStringEqualsJsonString(
-            <<<'JSON'
-                {
-                    "$schema": "http://cyclonedx.org/schema/bom-1.4.schema.json",
-                    "bomFormat": "CycloneDX",
-                    "specVersion": "1.4",
-                    "version": 0,
-                    "components": []
-                }
-                JSON,
-            $actual
-        );
+        yield 'pretty=true' => [
+            0, true,
+            ['normalized' => $normalizedDummy],
+            '{'."\n".'    "normalized": '.$normalizedDummyJson."\n}",
+        ];
+
+        yield 'pretty=null, JSON_PRETTY_PRINT' => [
+            \JSON_PRETTY_PRINT, null,
+            ['normalized' => $normalizedDummy],
+            '{'."\n".'    "normalized": '.$normalizedDummyJson."\n}",
+        ];
+
+        yield 'pretty=false, JSON_PRETTY_PRINT' => [
+            \JSON_PRETTY_PRINT, false,
+            ['normalized' => $normalizedDummy],
+            '{"normalized":'.$normalizedDummyJson.'}',
+        ];
+
+        yield 'pretty=true, JSON_PRETTY_PRINT' => [
+            \JSON_PRETTY_PRINT, true,
+            ['normalized' => $normalizedDummy],
+            '{'."\n".'    "normalized": '.$normalizedDummyJson."\n}",
+        ];
     }
 }

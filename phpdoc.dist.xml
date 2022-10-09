@@ -15,7 +15,10 @@
                 <path>src</path>
             </source>
             <default-package-name>CycloneDX Library</default-package-name>
-            <include-source>false</include-source>
+            <ignore-tags>
+                <ignore-tag>SuppressWarnings</ignore-tag>
+                <ignore-tag>psalm-suppress</ignore-tag>
+            </ignore-tags>
         </api>
     </version>
 </phpdocumentor>

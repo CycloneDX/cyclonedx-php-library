@@ -27,6 +27,7 @@ use CycloneDX\Core\_helpers\NullAssertionTrait;
 use CycloneDX\Core\Models\Bom;
 use CycloneDX\Core\Models\Metadata;
 use CycloneDX\Core\Serialization\JSON\_BaseNormalizer;
+use CycloneDX\Core\Spec\Version;
 
 /**
  * @author jkowalleck
@@ -37,12 +38,20 @@ class BomNormalizer extends _BaseNormalizer
 
     private const BOM_FORMAT = 'CycloneDX';
 
+    private const SCHEMA = [
+        Version::v1dot1 => null,
+        Version::v1dot2 => 'http://cyclonedx.org/schema/bom-1.2b.schema.json',
+        Version::v1dot3 => 'http://cyclonedx.org/schema/bom-1.3a.schema.json',
+        Version::v1dot4 => 'http://cyclonedx.org/schema/bom-1.4.schema.json',
+    ];
+
     public function normalize(Bom $bom): array
     {
         $factory = $this->getNormalizerFactory();
 
         return array_filter(
             [
+                '$schema' => self::SCHEMA[$factory->getSpec()->getVersion()] ?? null,
                 'bomFormat' => self::BOM_FORMAT,
                 'specVersion' => $factory->getSpec()->getVersion(),
                 'version' => $bom->getVersion(),

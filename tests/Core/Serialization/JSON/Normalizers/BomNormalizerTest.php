@@ -64,6 +64,7 @@ class BomNormalizerTest extends TestCase
 
         self::assertSame(
             [
+                '$schema' => 'http://cyclonedx.org/schema/bom-1.2b.schema.json',
                 'bomFormat' => 'CycloneDX',
                 'specVersion' => '1.2',
                 'version' => 23,
@@ -102,6 +103,7 @@ class BomNormalizerTest extends TestCase
 
         self::assertSame(
             [
+                '$schema' => 'http://cyclonedx.org/schema/bom-1.2b.schema.json',
                 'bomFormat' => 'CycloneDX',
                 'specVersion' => '1.2',
                 'version' => 23,
@@ -151,6 +153,7 @@ class BomNormalizerTest extends TestCase
 
         self::assertSame(
             [
+                '$schema' => 'http://cyclonedx.org/schema/bom-1.2b.schema.json',
                 'bomFormat' => 'CycloneDX',
                 'specVersion' => '1.2',
                 'version' => 23,
@@ -195,6 +198,7 @@ class BomNormalizerTest extends TestCase
 
         self::assertSame(
             [
+                '$schema' => 'http://cyclonedx.org/schema/bom-1.2b.schema.json',
                 'bomFormat' => 'CycloneDX',
                 'specVersion' => '1.2',
                 'version' => 23,
@@ -238,6 +242,7 @@ class BomNormalizerTest extends TestCase
 
         self::assertSame(
             [
+                '$schema' => 'http://cyclonedx.org/schema/bom-1.2b.schema.json',
                 'bomFormat' => 'CycloneDX',
                 'specVersion' => '1.2',
                 'version' => 23,
@@ -286,6 +291,7 @@ class BomNormalizerTest extends TestCase
 
         self::assertSame(
             [
+                '$schema' => 'http://cyclonedx.org/schema/bom-1.2b.schema.json',
                 'bomFormat' => 'CycloneDX',
                 'specVersion' => '1.2',
                 'version' => 23,
@@ -331,6 +337,7 @@ class BomNormalizerTest extends TestCase
 
         self::assertSame(
             [
+                '$schema' => 'http://cyclonedx.org/schema/bom-1.2b.schema.json',
                 'bomFormat' => 'CycloneDX',
                 'specVersion' => '1.2',
                 'version' => 23,
@@ -393,6 +400,7 @@ class BomNormalizerTest extends TestCase
 
         self::assertSame(
             [
+                '$schema' => 'http://cyclonedx.org/schema/bom-1.2b.schema.json',
                 'bomFormat' => 'CycloneDX',
                 'specVersion' => '1.2',
                 'version' => 23,
@@ -437,6 +445,7 @@ class BomNormalizerTest extends TestCase
 
         self::assertSame(
             [
+                '$schema' => 'http://cyclonedx.org/schema/bom-1.2b.schema.json',
                 'bomFormat' => 'CycloneDX',
                 'specVersion' => '1.2',
                 'version' => 23,

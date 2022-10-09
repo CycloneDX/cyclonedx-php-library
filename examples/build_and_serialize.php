@@ -26,19 +26,31 @@ require_once __DIR__.'/../vendor/autoload.php';
 // Example how to serialize a Bom to JSON / XML.
 
 $bom = new \CycloneDX\Core\Models\Bom();
-$bom->getComponents()->addItems(
-    new \CycloneDX\Core\Models\Component(
-        \CycloneDX\Core\Enums\Classification::LIBRARY,
-        'myComponent'
+$bom->getMetadata()->setComponent(
+    $rootComponent = new \CycloneDX\Core\Models\Component(
+        \CycloneDX\Core\Enums\Classification::APPLICATION,
+        'myApp'
     )
 );
+$component = new \CycloneDX\Core\Models\Component(
+    \CycloneDX\Core\Enums\Classification::LIBRARY,
+    'myComponent'
+);
+$bom->getComponents()->addItems($component);
+$rootComponent->getDependencies()->addItems($component->getBomRef());
 
 $spec = \CycloneDX\Core\Spec\SpecFactory::make1dot4();
 
-$jsonSerializer = new \CycloneDX\Core\Serialization\JsonSerializer($spec);
-$serializedJSON = $jsonSerializer->serialize($bom);
+$prettyPrint = false;
+
+$jsonSerializer = new \CycloneDX\Core\Serialization\JsonSerializer(
+    new \CycloneDX\Core\Serialization\JSON\NormalizerFactory($spec)
+);
+$serializedJSON = $jsonSerializer->serialize($bom, $prettyPrint);
 echo $serializedJSON, \PHP_EOL;
 
-$xmlSerializer = new \CycloneDX\Core\Serialization\XmlSerializer($spec);
-$serializedXML = $xmlSerializer->serialize($bom);
+$xmlSerializer = new \CycloneDX\Core\Serialization\XmlSerializer(
+    new \CycloneDX\Core\Serialization\DOM\NormalizerFactory($spec)
+);
+$serializedXML = $xmlSerializer->serialize($bom, $prettyPrint);
 echo $serializedXML, \PHP_EOL;

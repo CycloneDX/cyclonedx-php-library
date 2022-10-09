@@ -24,6 +24,7 @@ declare(strict_types=1);
 namespace CycloneDX\Tests\Core;
 
 use CycloneDX\Core\Models\Bom;
+use CycloneDX\Core\Serialization\DOM;
 use CycloneDX\Core\Serialization\XmlSerializer;
 use CycloneDX\Core\Spec\SpecFactory;
 use CycloneDX\Core\Validation\Validators\XmlValidator;
@@ -52,7 +53,7 @@ class SerializeToXmlTest extends TestCase
     public function testSchema11(Bom $bom): void
     {
         $spec = SpecFactory::make1dot1();
-        $serializer = new XmlSerializer($spec);
+        $serializer = new XmlSerializer(new DOM\NormalizerFactory($spec));
         $validator = new XmlValidator($spec);
 
         $xml = $serializer->serialize($bom);
@@ -76,7 +77,7 @@ class SerializeToXmlTest extends TestCase
     public function testSchema12(Bom $bom): void
     {
         $spec = SpecFactory::make1dot2();
-        $serializer = new XmlSerializer($spec);
+        $serializer = new XmlSerializer(new DOM\NormalizerFactory($spec));
         $validator = new XmlValidator($spec);
 
         $xml = $serializer->serialize($bom);
@@ -100,7 +101,7 @@ class SerializeToXmlTest extends TestCase
     public function testSchema13(Bom $bom): void
     {
         $spec = SpecFactory::make1dot3();
-        $serializer = new XmlSerializer($spec);
+        $serializer = new XmlSerializer(new DOM\NormalizerFactory($spec));
         $validator = new XmlValidator($spec);
 
         $xml = $serializer->serialize($bom);
@@ -124,7 +125,7 @@ class SerializeToXmlTest extends TestCase
     public function testSchema14(Bom $bom): void
     {
         $spec = SpecFactory::make1dot4();
-        $serializer = new XmlSerializer($spec);
+        $serializer = new XmlSerializer(new DOM\NormalizerFactory($spec));
         $validator = new XmlValidator($spec);
 
         $xml = $serializer->serialize($bom);

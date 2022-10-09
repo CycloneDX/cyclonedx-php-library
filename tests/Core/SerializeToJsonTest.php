@@ -24,6 +24,7 @@ declare(strict_types=1);
 namespace CycloneDX\Tests\Core;
 
 use CycloneDX\Core\Models\Bom;
+use CycloneDX\Core\Serialization\JSON;
 use CycloneDX\Core\Serialization\JsonSerializer;
 use CycloneDX\Core\Spec\SpecFactory;
 use CycloneDX\Core\Validation\Validators\JsonStrictValidator;
@@ -43,15 +44,16 @@ class SerializeToJsonTest extends TestCase
     // region Spec 1.1
 
     /**
-     * Schema 1.1 is not specified for JSON.
+     * Schema 1.1 is not specified as JSON.
      */
     public function testSerialization11(): void
     {
         $spec = SpecFactory::make1dot1();
-        $serializer = new JsonSerializer($spec);
 
         $this->expectException(DomainException::class);
-        $this->expectExceptionMessageMatches('/unsupported format/i');
+        $this->expectExceptionMessageMatches('/unsupported format "JSON"/i');
+
+        $serializer = new JsonSerializer(new Json\NormalizerFactory($spec));
 
         $serializer->serialize(new Bom());
     }
@@ -71,7 +73,7 @@ class SerializeToJsonTest extends TestCase
     public function testSchema12(Bom $bom): void
     {
         $spec = SpecFactory::make1dot2();
-        $serializer = new JsonSerializer($spec);
+        $serializer = new JsonSerializer(new Json\NormalizerFactory($spec));
         $validator = new JsonStrictValidator($spec);
 
         $json = $serializer->serialize($bom);
@@ -96,7 +98,7 @@ class SerializeToJsonTest extends TestCase
     public function testSchema13(Bom $bom): void
     {
         $spec = SpecFactory::make1dot3();
-        $serializer = new JsonSerializer($spec);
+        $serializer = new JsonSerializer(new Json\NormalizerFactory($spec));
         $validator = new JsonStrictValidator($spec);
 
         $json = $serializer->serialize($bom);
@@ -121,7 +123,7 @@ class SerializeToJsonTest extends TestCase
     public function testSchema14(Bom $bom): void
     {
         $spec = SpecFactory::make1dot4();
-        $serializer = new JsonSerializer($spec);
+        $serializer = new JsonSerializer(new Json\NormalizerFactory($spec));
         $validator = new JsonStrictValidator($spec);
 
         $json = $serializer->serialize($bom);

@@ -23,39 +23,57 @@ declare(strict_types=1);
 
 namespace CycloneDX\Core\Serialization;
 
-use CycloneDX\Core\_helpers\SimpleDomTrait;
 use CycloneDX\Core\Models\Bom;
-use DomainException;
 use DOMDocument;
+use DOMElement;
 
 /**
  * Transform data models to XML.
  *
- * @author jkowalleck
+ * @psalm-type TNormalizedBom=DOMElement
+ *
+ * @template-extends BaseSerializer<TNormalizedBom>
  */
 class XmlSerializer extends BaseSerializer
 {
-    use SimpleDomTrait;
+    /** @readonly */
+    private DOM\NormalizerFactory $normalizerFactory;
 
-    private const XML_VERSION = '1.0';
-    private const XML_ENCODING = 'UTF-8';
+    /** @readonly */
+    private string $xmlVersion;
+    /** @readonly */
+    private string $xmlEncoding;
 
-    /**
-     * @throws DomainException if something was not supported
-     */
-    protected function normalize(Bom $bom): string
+    public function __construct(
+        DOM\NormalizerFactory $normalizerFactory,
+        string $xmlVersion = '1.0',
+        string $xmlEncoding = 'UTF-8'
+    ) {
+        $this->normalizerFactory = $normalizerFactory;
+        $this->xmlVersion = $xmlVersion;
+        $this->xmlEncoding = $xmlEncoding;
+    }
+
+    protected function realNormalize(Bom $bom): DOMElement
     {
-        $document = new DOMDocument(self::XML_VERSION, self::XML_ENCODING);
+        return $this->normalizerFactory
+            ->makeForBom()
+            ->normalize($bom);
+    }
+
+    protected function realSerialize($normalizedBom, ?bool $prettyPrint): string
+    {
+        $document = new DOMDocument($this->xmlVersion, $this->xmlEncoding);
         $document->appendChild(
             $document->importNode(
-                (new DOM\NormalizerFactory($this->getSpec()))
-                    ->makeForBom()
-                    ->normalize($bom),
+                $normalizedBom,
                 true
             )
         );
 
-        $document->formatOutput = true;
+        if (null !== $prettyPrint) {
+            $document->formatOutput = $prettyPrint;
+        }
 
         // option LIBXML_NOEMPTYTAG might lead to errors in consumers
         $xml = $document->saveXML();

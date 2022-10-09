@@ -25,65 +25,29 @@ namespace CycloneDX\Core\Serialization;
 
 use CycloneDX\Core\Models\Bom;
 use CycloneDX\Core\Models\BomRef;
-use CycloneDX\Core\Spec\Spec;
+use Exception;
 
 /**
- * @author jkowalleck
+ * @template TNormalizedBom
  */
-abstract class BaseSerializer implements SerializerInterface
+abstract class BaseSerializer implements Serializer
 {
     /**
-     * @readonly
-     */
-    private Spec $spec;
-
-    public function __construct(Spec $spec)
-    {
-        $this->spec = $spec;
-    }
-
-    public function getSpec(): Spec
-    {
-        return $this->spec;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function serialize(Bom $bom): string
-    {
-        $bomRefDiscriminator = new BomRefDiscriminator(...$this->getAllBomRefs($bom));
-        $bomRefDiscriminator->discriminate();
-        try {
-            return $this->normalize($bom);
-        } finally {
-            $bomRefDiscriminator->reset();
-        }
-    }
-
-    /**
-     * Normalize the Bom to a string.
+     * Get a list of all {@see \CycloneDX\Core\Models\BomRef} in {@see \CycloneDX\Core\Models\Bom}.
+     * The list might contain duplicates.
      *
-     * May throw implementation-dependent Exceptions.
-     *
-     * @psalm-return non-empty-string
-     */
-    abstract protected function normalize(Bom $bom): string;
-
-    /**
      * @return BomRef[]
+     *
+     * @psalm-return list<BomRef>
      */
     private function getAllBomRefs(Bom $bom): array
     {
         $allBomRefs = [];
-
         $allComponents = $bom->getComponents()->getItems();
-
         $metadataComponent = $bom->getMetadata()->getComponent();
         if (null !== $metadataComponent) {
             $allComponents[] = $metadataComponent;
         }
-
         foreach ($allComponents as $component) {
             $allBomRefs[] = $component->getBomRef();
             array_push($allBomRefs, ...$component->getDependencies()->getItems());
@@ -91,4 +55,62 @@ abstract class BaseSerializer implements SerializerInterface
 
         return $allBomRefs;
     }
+
+    /**
+     * Normalize for serialization.
+     *
+     * Also utilizes {@see \CycloneDX\Core\Serialization\BomRefDiscriminator}
+     * to guarantee that each BomRef has a unique value.
+     *
+     * @throws Exception
+     *
+     * @return TNormalizedBom a version of the Bom that was normalized for serialization
+     */
+    private function normalize(BOM $bom)
+    {
+        $bomRefDiscriminator = new BomRefDiscriminator(...$this->getAllBomRefs($bom));
+        $bomRefDiscriminator->discriminate();
+        // This IS NOT the place to put meaning to the BomRef values. This would be out of scope.
+        // This IS the place to make BomRef values (temporary) unique in their own document scope.
+        try {
+            return $this->realNormalize($bom);
+        } finally {
+            $bomRefDiscriminator->reset();
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @SuppressWarnings(PHPMD.BooleanArgumentFlag)
+     */
+    final public function serialize(Bom $bom, ?bool $prettyPrint = null): string
+    {
+        return $this->realSerialize(
+            $this->normalize($bom),
+            $prettyPrint
+        );
+    }
+
+    /**
+     * Normalize a {@see \CycloneDX\Core\Models\Bom} to the data structure that {@see realSerialize()} can handle.
+     *
+     * @throws Exception
+     *
+     * @return TNormalizedBom a version of the Bom that was normalized for serialization
+     */
+    abstract protected function realNormalize(Bom $bom);
+    // no typehint for return type, as it is not actually `mixed` but a templated type.
+
+    /**
+     * Serialize a {@see realNormalize() normalized} version of a {@see \CycloneDX\Core\Models\Bom}.
+     *
+     * @param TNormalizedBom $normalizedBom a version of the Bom that was normalized for serialization
+     *
+     * @throws Exception
+     *
+     * @SuppressWarnings(PHPMD.BooleanArgumentFlag)
+     */
+    abstract protected function realSerialize($normalizedBom, ?bool $prettyPrint): string;
+    // no typehint for `$normalizedBom` parameter, as it is not actually `mixed` but a templated type.
 }

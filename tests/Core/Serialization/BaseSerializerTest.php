@@ -30,10 +30,10 @@ use CycloneDX\Core\Models\BomRef;
 use CycloneDX\Core\Models\Component;
 use CycloneDX\Core\Models\Metadata;
 use CycloneDX\Core\Serialization\BaseSerializer;
-use CycloneDX\Core\Spec\Spec;
 use Exception;
 use Generator;
 use PHPUnit\Framework\TestCase;
+use Throwable;
 
 /**
  * @covers \CycloneDX\Core\Serialization\BaseSerializer
@@ -42,63 +42,57 @@ use PHPUnit\Framework\TestCase;
  */
 class BaseSerializerTest extends TestCase
 {
-    /**
-     * @var BaseSerializer|\PHPUnit\Framework\MockObject\MockObject
-     */
-    private $serializer;
-
-    /**
-     * @var Spec|\PHPUnit\Framework\MockObject\MockObject
-     */
-    private $spec;
-
-    protected function setUp(): void
+    public function testSerialize(): void
     {
-        $this->spec = $this->createMock(Spec::class);
-        $this->serializer = $this->getMockForAbstractClass(BaseSerializer::class, [$this->spec]);
+        $prettyPrint = [null, true, false][random_int(0, 2)];
+        $normalized = uniqid('normalized', true);
+        $serialized = uniqid('serialized', true);
+        $bom = $this->createStub(Bom::class);
+        $serializer = $this->getMockForAbstractClass(BaseSerializer::class);
+        $serializer->expects(self::once())
+            ->method('realNormalize')
+            ->with($bom)
+            ->willReturn($normalized);
+        $serializer->expects(self::once())
+            ->method('realSerialize')
+            ->with($normalized, $prettyPrint)
+            ->willReturn($serialized);
+
+        $actual = $serializer->serialize($bom, $prettyPrint);
+
+        self::assertSame($serialized, $actual);
     }
 
-    public function testGetSpec(): void
-    {
-        self::assertSame(
-            $this->spec,
-            $this->serializer->getSpec()
-        );
-    }
-
-    /**
-     * @uses         \CycloneDX\Core\Models\BomRef
-     */
-    public function testSerializeCallsNormalize(): void
+    public function testSerializeForwardsExceptionsFromRealNormalize(): void
     {
         $bom = $this->createStub(Bom::class);
+        $exception = $this->createStub(Exception::class);
+        $serializer = $this->getMockForAbstractClass(BaseSerializer::class);
+        $serializer->expects(self::once())
+            ->method('realNormalize')
+            ->willThrowException($exception);
+        $serializer->expects(self::never())
+            ->method('realSerialize');
 
-        $this->serializer->expects(self::once())
-            ->method('normalize')
-            ->with($bom)
-            ->willReturn('foobar');
+        $this->expectExceptionObject($exception);
 
-        $actual = $this->serializer->serialize($bom);
-
-        self::assertSame('foobar', $actual);
+        $serializer->serialize($bom);
     }
 
-    /**
-     * @uses         \CycloneDX\Core\Models\BomRef
-     */
-    public function testSerializeForwardsExceptionsFromNormalize(): void
+    public function testSerializeForwardsExceptionsFromRealSerializer(): void
     {
+        $exception = $this->createStub(Exception::class);
         $bom = $this->createStub(Bom::class);
-        $exception = $this->createMock(Exception::class);
-
-        $this->serializer->expects(self::once())
-            ->method('normalize')
-            ->with($bom)
+        $serializer = $this->getMockForAbstractClass(BaseSerializer::class);
+        $serializer->expects(self::once())
+            ->method('realNormalize');
+        $serializer->expects(self::once())
+            ->method('realSerialize')
             ->willThrowException($exception);
 
         $this->expectExceptionObject($exception);
 
-        $this->serializer->serialize($bom);
+        $serializer->serialize($bom);
     }
 
     /**
@@ -116,14 +110,15 @@ class BaseSerializerTest extends TestCase
         foreach ($allBomRefs as $bomRef) {
             $allBomRefsValuesOriginal[] = [$bomRef, $bomRef->getValue()];
         }
-
         $allBomRefsValuesOnNormalize = [];
-
-        $this->serializer->expects(self::once())
-            ->method('normalize')
+        $normalized = uniqid('normalized', true);
+        $serialized = uniqid('serialized', true);
+        $serializer = $this->getMockForAbstractClass(BaseSerializer::class);
+        $serializer->expects(self::once())
+            ->method('realNormalize')
             ->with($bom)
             ->willReturnCallback(
-                function () use ($allBomRefsValuesOriginal, &$allBomRefsValuesOnNormalize) {
+                function () use ($allBomRefsValuesOriginal, &$allBomRefsValuesOnNormalize, $normalized) {
                     /**
                      * @var BomRef $bomRef
                      */
@@ -131,16 +126,19 @@ class BaseSerializerTest extends TestCase
                         $allBomRefsValuesOnNormalize[] = [$bomRef, $bomRef->getValue()];
                     }
 
-                    return 'foobar';
+                    return $normalized;
                 }
             );
+        $serializer->expects(self::once())
+            ->method('realSerialize')
+            ->with($normalized)
+            ->willReturn($serialized);
 
-        $actual = $this->serializer->serialize($bom);
+        $actual = $serializer->serialize($bom);
 
         foreach ($allBomRefsValuesOriginal as [$bomRef, $bomRefValueOriginal]) {
             self::assertSame($bomRefValueOriginal, $bomRef->getValue());
         }
-
         $valuesOnNormalize = array_column($allBomRefsValuesOnNormalize, 1);
         self::assertSameSize(
             $valuesOnNormalize,
@@ -148,8 +146,61 @@ class BaseSerializerTest extends TestCase
             'some values were found not unique in:'.\PHP_EOL.
             print_r($valuesOnNormalize, true)
         );
+        self::assertSame($serialized, $actual);
+    }
 
-        self::assertSame('foobar', $actual);
+    /**
+     * @param BomRef[] $allBomRefs
+     *
+     * @dataProvider dpBomWithRefs
+     *
+     * @covers       \CycloneDX\Core\Serialization\BomRefDiscriminator
+     *
+     * @uses         \CycloneDX\Core\Models\BomRef
+     */
+    public function testSerializeUsesUniqueBomRefsAndResetThemOnThrow(Bom $bom, array $allBomRefs): void
+    {
+        $allBomRefsValuesOriginal = [];
+        foreach ($allBomRefs as $bomRef) {
+            $allBomRefsValuesOriginal[] = [$bomRef, $bomRef->getValue()];
+        }
+        $allBomRefsValuesOnNormalize = [];
+        $exception = $this->createStub(Exception::class);
+        $serializer = $this->getMockForAbstractClass(BaseSerializer::class);
+        $serializer->expects(self::once())
+            ->method('realNormalize')
+            ->with($bom)
+            ->willReturnCallback(
+                function () use ($allBomRefsValuesOriginal, &$allBomRefsValuesOnNormalize, $exception): void {
+                    /**
+                     * @var BomRef $bomRef
+                     */
+                    foreach ($allBomRefsValuesOriginal as [$bomRef]) {
+                        $allBomRefsValuesOnNormalize[] = [$bomRef, $bomRef->getValue()];
+                    }
+
+                    throw $exception;
+                }
+            );
+
+        $caught = null;
+        try {
+            $serializer->serialize($bom);
+        } catch (Throwable $caught) {
+            // pass on
+        }
+
+        self::assertSame($exception, $caught);
+        foreach ($allBomRefsValuesOriginal as [$bomRef, $bomRefValueOriginal]) {
+            self::assertSame($bomRefValueOriginal, $bomRef->getValue());
+        }
+        $valuesOnNormalize = array_column($allBomRefsValuesOnNormalize, 1);
+        self::assertSameSize(
+            $valuesOnNormalize,
+            array_unique($valuesOnNormalize, \SORT_STRING),
+            'some values were found not unique in:'.\PHP_EOL.
+            print_r($valuesOnNormalize, true)
+        );
     }
 
     public function dpBomWithRefs(): Generator

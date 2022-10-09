@@ -24,18 +24,19 @@ declare(strict_types=1);
 namespace CycloneDX\Core\Serialization;
 
 use CycloneDX\Core\Models\Bom;
+use Exception;
 
-/**
- * @author jkowalleck
- */
-interface SerializerInterface
+interface Serializer
 {
     /**
-     * Serialize a {@see \CycloneDX\Core\Models\Bom} to string.
+     * Serialize a {@see \CycloneDX\Core\Models\Bom} to {@see string}.
      *
-     * May throw implementation-dependent Exceptions.
+     * @param Bom  $bom         the BOM to serialize
+     * @param bool $prettyPrint whether to beatify the resulting string. A `null` value means no preference.
      *
-     * @psalm-return non-empty-string
+     * @throws Exception
+     *
+     * @SuppressWarnings(PHPMD.BooleanArgumentFlag)
      */
-    public function serialize(Bom $bom): string;
+    public function serialize(Bom $bom, ?bool $prettyPrint = null): string;
 }

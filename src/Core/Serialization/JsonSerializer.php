@@ -24,56 +24,93 @@ declare(strict_types=1);
 namespace CycloneDX\Core\Serialization;
 
 use CycloneDX\Core\Models\Bom;
-use CycloneDX\Core\Spec\Version;
-use DomainException;
 
 /**
- * transform data models to JSON.
+ * Transform data models to JSON.
  *
- * @author jkowalleck
+ * @psalm-type TNormalizedBom=array
+ *
+ * @template-extends BaseSerializer<TNormalizedBom>
+ *
+ * @SuppressWarnings(PHPMD.ConstantNamingConventions)
  */
 class JsonSerializer extends BaseSerializer
 {
-    private const NORMALIZE_OPTIONS =
-        \JSON_THROW_ON_ERROR // prevent unexpected data
-        | \JSON_PRESERVE_ZERO_FRACTION // float/double not converted to int
-        | \JSON_UNESCAPED_SLASHES // urls become shorter
-        | \JSON_PRETTY_PRINT;
+    /**
+     * List of allowed options for $jsonEncodeFlags.
+     * Some flags will break the output...
+     *
+     * Bitmask consisting of JSON_*.
+     *
+     * @see https://www.php.net/manual/en/json.constants.php
+     */
+    private const JsonEncodeFlagsAllowedOptions = 0
+        | \JSON_HEX_TAG
+        | \JSON_HEX_AMP
+        | \JSON_HEX_APOS
+        | \JSON_HEX_QUOT
+        | \JSON_PRETTY_PRINT
+        | \JSON_UNESCAPED_SLASHES
+        | \JSON_UNESCAPED_UNICODE
+    ;
 
     /**
-     * JSON schema `$id` that is applied.
+     * List of mandatory options for $jsonEncodeFlags.
      *
-     * @var string[]|null[]
+     * Bitmask consisting of JSON_*.
      *
-     * @psalm-var array<Version::*, ?string>
+     * @see https://www.php.net/manual/en/json.constants.php
      */
-    private const SCHEMA = [
-        Version::v1dot1 => null, // unsupported version
-        Version::v1dot2 => 'http://cyclonedx.org/schema/bom-1.2b.schema.json',
-        Version::v1dot3 => 'http://cyclonedx.org/schema/bom-1.3a.schema.json',
-        Version::v1dot4 => 'http://cyclonedx.org/schema/bom-1.4.schema.json',
-    ];
+    private const JsonEncodeFlagsDefaultOptions = 0
+        | \JSON_UNESCAPED_SLASHES // urls become shorter
+    ;
 
-    private function getSchemaBase(): array
-    {
-        $schema = self::SCHEMA[$this->getSpec()->getVersion()] ?? null;
+    /** @readonly */
+    private JSON\NormalizerFactory $normalizerFactory;
 
-        return null === $schema
-            ? [] // @codeCoverageIgnore
-            : ['$schema' => $schema];
+    /**
+     * Flags for {@see \json_encode()}.
+     *
+     * Bitmask consisting of JSON_*.
+     *
+     * @see https://www.php.net/manual/en/json.constants.php
+     *
+     * @readonly
+     */
+    private int $jsonEncodeFlags = 0
+        // These defaults are required to have valid output.
+        | \JSON_THROW_ON_ERROR // prevent unexpected data
+        | \JSON_PRESERVE_ZERO_FRACTION // float/double not converted to int
+    ;
+
+    /**
+     * @param int $jsonEncodeFlags Bitmask consisting of JSON_*. see {@see JsonEncodeFlagsAllowedOptions}
+     */
+    public function __construct(
+        JSON\NormalizerFactory $normalizerFactory,
+        int $jsonEncodeFlags = self::JsonEncodeFlagsDefaultOptions
+    ) {
+        $this->normalizerFactory = $normalizerFactory;
+        $this->jsonEncodeFlags |= $jsonEncodeFlags & self::JsonEncodeFlagsAllowedOptions;
     }
 
-    /**
-     * @throws DomainException if something was not supported
-     */
-    protected function normalize(Bom $bom): string
+    protected function realNormalize(Bom $bom): array
     {
-        $schemaBase = $this->getSchemaBase();
-        $data = (new JSON\NormalizerFactory($this->getSpec()))
+        return $this->normalizerFactory
             ->makeForBom()
             ->normalize($bom);
+    }
 
-        $json = json_encode(array_merge($schemaBase, $data), self::NORMALIZE_OPTIONS);
+    protected function realSerialize($normalizedBom, ?bool $prettyPrint): string
+    {
+        $jsonEncodeFlags = match ($prettyPrint) {
+            // reminder: JSON_PRETTY_PRINT could be in $this->jsonEncodeFlags already
+            null => $this->jsonEncodeFlags,
+            true => $this->jsonEncodeFlags | \JSON_PRETTY_PRINT,
+            false => $this->jsonEncodeFlags & ~\JSON_PRETTY_PRINT,
+        };
+
+        $json = json_encode($normalizedBom, $jsonEncodeFlags);
         \assert(false !== $json); // as option JSON_THROW_ON_ERROR is expected to be set
         \assert('' !== $json);
 
