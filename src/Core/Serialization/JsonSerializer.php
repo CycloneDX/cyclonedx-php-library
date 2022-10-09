@@ -69,7 +69,7 @@ class JsonSerializer extends BaseSerializer
     private JSON\NormalizerFactory $normalizerFactory;
 
     /**
-     * Flags for {@see json_encode}.
+     * Flags for {@see \json_encode()}.
      *
      * Bitmask consisting of JSON_*.
      *
@@ -94,11 +94,6 @@ class JsonSerializer extends BaseSerializer
         $this->jsonEncodeFlags |= $jsonEncodeFlags & self::JsonEncodeFlagsAllowedOptions;
     }
 
-    /**
-     * {@inheritDoc}
-     *
-     * @psalm-return TNormalizedBom
-     */
     protected function realNormalize(Bom $bom): array
     {
         return $this->normalizerFactory
@@ -106,13 +101,6 @@ class JsonSerializer extends BaseSerializer
             ->normalize($bom);
     }
 
-    /**
-     * {@inheritDoc}
-     *
-     * @psalm-param TNormalizedBom $normalizedBom
-     *
-     * @psalm-return non-empty-string
-     */
     protected function realSerialize($normalizedBom, ?bool $prettyPrint): string
     {
         $jsonEncodeFlags = match ($prettyPrint) {

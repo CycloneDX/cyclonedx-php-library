@@ -29,7 +29,7 @@ use Exception;
 interface Serializer
 {
     /**
-     * Serialize a {@see Bom} to {@see string}.
+     * Serialize a {@see \CycloneDX\Core\Models\Bom} to {@see string}.
      *
      * @param Bom  $bom         the bom to serialize
      * @param bool $prettyPrint whether to beatify the resulting string. A `null` value means no preference.

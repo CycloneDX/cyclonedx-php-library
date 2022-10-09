@@ -52,11 +52,14 @@ abstract class BaseSerializer implements Serializer
     }
 
     /**
+     * Normalize for serialization.
+     *
+     * Also utilizes {@see \CycloneDX\Core\Serialization\BomRefDiscriminator}
+     * to guarantee that each BomRef has a unique value.
+     *
      * @throws Exception
      *
      * @psalm-return TNormalizedBom
-     *
-     * @uses \CycloneDX\Core\Serialization\BomRefDiscriminator
      */
     private function normalize(BOM $bom)
     {
@@ -85,20 +88,20 @@ abstract class BaseSerializer implements Serializer
     }
 
     /**
-     * Normalize a {@see Bom} to the data structure that {@see realSerialize} can handle.
+     * Normalize a {@see \CycloneDX\Core\Models\Bom} to the data structure that {@see realSerialize()} can handle.
      *
      * @throws Exception
      *
-     * @psalm-return TNormalizedBom
+     * @return TNormalizedBom a version of the Bom that was normalized for serialization
      */
     abstract protected function realNormalize(Bom $bom);
 
     /**
-     * Serialize a {@see realNormalize normalized} version of a {@see Bom}.
+     * Serialize a {@see realNormalize() normalized} version of a {@see \CycloneDX\Core\Models\Bom}.
+     *
+     * @param TNormalizedBom $normalizedBom a version of the Bom that was normalized for serialization
      *
      * @throws Exception
-     *
-     * @psalm-param TNormalizedBom $normalizedBom
      *
      * @SuppressWarnings(PHPMD.BooleanArgumentFlag)
      */

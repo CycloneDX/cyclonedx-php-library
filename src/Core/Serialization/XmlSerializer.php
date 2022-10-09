@@ -54,11 +54,6 @@ class XmlSerializer extends BaseSerializer
         $this->xmlEncoding = $xmlEncoding;
     }
 
-    /**
-     * {@inheritDoc}
-     *
-     * @psalm-return TNormalizedBom
-     */
     protected function realNormalize(Bom $bom): DOMElement
     {
         return $this->normalizerFactory
@@ -66,13 +61,6 @@ class XmlSerializer extends BaseSerializer
             ->normalize($bom);
     }
 
-    /**
-     * {@inheritDoc}
-     *
-     * @psalm-param TNormalizedBom $normalizedBom
-     *
-     * @psalm-return non-empty-string
-     */
     protected function realSerialize($normalizedBom, ?bool $prettyPrint): string
     {
         $document = new DOMDocument($this->xmlVersion, $this->xmlEncoding);
