@@ -43,12 +43,14 @@ $spec = \CycloneDX\Core\Spec\SpecFactory::make1dot4();
 
 $prettyPrint = false;
 
-$serializedJSON = (new \CycloneDX\Core\Serialization\JsonSerializer(
-    new \CycloneDX\Core\Serialization\JSON\NormalizerFactory($spec))
-)->serialize($bom, $prettyPrint);
+$jsonSerializer = new \CycloneDX\Core\Serialization\JsonSerializer(
+    new \CycloneDX\Core\Serialization\JSON\NormalizerFactory($spec)
+);
+$serializedJSON = $jsonSerializer->serialize($bom, $prettyPrint);
 echo $serializedJSON, \PHP_EOL;
 
-$serializedXML = (new \CycloneDX\Core\Serialization\XmlSerializer(
-    new \CycloneDX\Core\Serialization\DOM\NormalizerFactory($spec))
-)->serialize($bom, $prettyPrint);
+$xmlSerializer = new \CycloneDX\Core\Serialization\XmlSerializer(
+    new \CycloneDX\Core\Serialization\DOM\NormalizerFactory($spec)
+);
+$serializedXML = $xmlSerializer->serialize($bom, $prettyPrint);
 echo $serializedXML, \PHP_EOL;
