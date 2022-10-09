@@ -23,17 +23,77 @@ declare(strict_types=1);
 
 namespace CycloneDX\Tests\Core\Serialization;
 
+use CycloneDX\Core\Models\Bom;
+use CycloneDX\Core\Serialization\DOM;
+use CycloneDX\Core\Serialization\XmlSerializer;
+use DOMDocument;
+use DOMElement;
+use Generator;
 use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \CycloneDX\Core\Serialization\XmlSerializer
  *
- * @TODO
+ * @uses   \CycloneDX\Core\Serialization\BaseSerializer
+ * @uses   \CycloneDX\Core\Serialization\BomRefDiscriminator
  */
 class XmlSerializerTest extends TestCase
 {
-    public function testTodo(): void
+    /**
+     * @dataProvider dpSerializeStructure
+     */
+    public function testSerialize(string $xmlVersion, string $xmlEncoding, ?bool $prettyPrint, DOMElement $normalized, string $expected): void
     {
-        $this->markTestSkipped('TODO');
+        $bom = $this->createStub(Bom::class);
+        $bomNormalizer = $this->createMock(DOM\Normalizers\BomNormalizer::class);
+        $normalizerFactory = $this->createConfiguredMock(DOM\NormalizerFactory::class, [
+            'makeForBom' => $bomNormalizer,
+        ]);
+        $bomNormalizer->method('normalize')
+            ->with($bom)
+            ->willReturn($normalized);
+        $serializer = new XmlSerializer($normalizerFactory, $xmlVersion, $xmlEncoding);
+
+        $actual = $serializer->serialize($bom, $prettyPrint);
+
+        self::assertSame($expected, $actual);
+    }
+
+    public function dpSerializeStructure(): Generator
+    {
+        $doc = new DOMDocument();
+        $dummyText = uniqid('normalized', true);
+        $xmlNS = 'normalized';
+        $normalizedDummy = $doc->createElementNS($xmlNS, 'dummyElement');
+        $normalizedDummy->appendChild($doc->createElement($xmlNS, $dummyText));
+
+        yield 'plain xml1.1 ISO-8859-1' => [
+            '1.1', 'ISO-8859-1', null,
+            $normalizedDummy,
+            <<<"XML"
+                <?xml version="1.1" encoding="ISO-8859-1"?>
+                <dummyElement xmlns="normalized"><normalized>$dummyText</normalized></dummyElement>\n
+                XML,
+        ];
+
+        yield 'pretty=false' => [
+            '1.0', 'UTF-8', false,
+            $normalizedDummy,
+            <<<"XML"
+                <?xml version="1.0" encoding="UTF-8"?>
+                <dummyElement xmlns="normalized"><normalized>$dummyText</normalized></dummyElement>\n
+                XML,
+        ];
+
+        yield 'pretty=true' => [
+            '1.0', 'UTF-8', true,
+            $normalizedDummy,
+            <<<"XML"
+                <?xml version="1.0" encoding="UTF-8"?>
+                <dummyElement xmlns="normalized">
+                  <normalized>$dummyText</normalized>
+                </dummyElement>\n
+                XML,
+        ];
     }
 }
