@@ -90,6 +90,12 @@ $bom->getComponents()->addItems(
 );
 ```
 
+## API documentation
+
+There is no pre-rendered documentation at the time.  
+Instead, there is a prepared config for [phpDoc3](https://docs.phpdoc.org/guide/getting-started/index.html)
+that you can use to generate the docs for yourself.
+
 ## Conflicts
 
 Due to the fact that this library was split out of [`/src/Core` of cyclonedx-php-composer (346e6200fb2f5086061b15c2ee44f540893ce97d)](https://github.com/CycloneDX/cyclonedx-php-composer/tree/346e6200fb2f5086061b15c2ee44f540893ce97d/src/Core)  

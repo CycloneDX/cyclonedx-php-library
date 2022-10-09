@@ -31,7 +31,7 @@ interface Serializer
     /**
      * Serialize a {@see \CycloneDX\Core\Models\Bom} to {@see string}.
      *
-     * @param Bom  $bom         the bom to serialize
+     * @param Bom  $bom         the BOM to serialize
      * @param bool $prettyPrint whether to beatify the resulting string. A `null` value means no preference.
      *
      * @throws Exception

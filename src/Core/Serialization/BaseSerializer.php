@@ -33,7 +33,12 @@ use Exception;
 abstract class BaseSerializer implements Serializer
 {
     /**
+     * Get a list of all {@see \CycloneDX\Core\Models\BomRef} in {@see \CycloneDX\Core\Models\Bom}.
+     * The list might contain duplicates.
+     *
      * @return BomRef[]
+     *
+     * @psalm-return list<BomRef>
      */
     private function getAllBomRefs(Bom $bom): array
     {
@@ -59,7 +64,7 @@ abstract class BaseSerializer implements Serializer
      *
      * @throws Exception
      *
-     * @psalm-return TNormalizedBom
+     * @return TNormalizedBom a version of the Bom that was normalized for serialization
      */
     private function normalize(BOM $bom)
     {
@@ -95,6 +100,7 @@ abstract class BaseSerializer implements Serializer
      * @return TNormalizedBom a version of the Bom that was normalized for serialization
      */
     abstract protected function realNormalize(Bom $bom);
+    // no typehint for return type, as it is not actually `mixed` but a templated type.
 
     /**
      * Serialize a {@see realNormalize() normalized} version of a {@see \CycloneDX\Core\Models\Bom}.
@@ -106,4 +112,5 @@ abstract class BaseSerializer implements Serializer
      * @SuppressWarnings(PHPMD.BooleanArgumentFlag)
      */
     abstract protected function realSerialize($normalizedBom, ?bool $prettyPrint): string;
+    // no typehint for `$normalizedBom` parameter, as it is not actually `mixed` but a templated type.
 }
