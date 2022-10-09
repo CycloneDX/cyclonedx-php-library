@@ -93,7 +93,7 @@ $bom->getComponents()->addItems(
 ## API documentation
 
 There is no pre-rendered documentation at the time.  
-Instead, there are code annotations, so that your IDE and tools may pick up the documentation when you use it downstream.
+Instead, there are code annotations, so that your IDE and tools may pick up the documentation when you use this library downstream.
 
 Additionally, there is a prepared config for [phpDoc3](https://docs.phpdoc.org/guide/getting-started/index.html)
 that you can use to generate the docs for yourself.  
