@@ -26,6 +26,9 @@ namespace CycloneDX\Core\Serialization;
 use CycloneDX\Core\Models\Bom;
 use Exception;
 
+/**
+ * @author jkowalleck
+ */
 interface Serializer
 {
     /**

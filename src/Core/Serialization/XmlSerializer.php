@@ -33,6 +33,8 @@ use DOMElement;
  * @psalm-type TNormalizedBom=DOMElement
  *
  * @template-extends BaseSerializer<TNormalizedBom>
+ *
+ * @author jkowalleck
  */
 class XmlSerializer extends BaseSerializer
 {

@@ -29,6 +29,8 @@ use Exception;
 
 /**
  * @template TNormalizedBom
+ *
+ * @author jkowalleck
  */
 abstract class BaseSerializer implements Serializer
 {

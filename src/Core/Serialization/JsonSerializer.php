@@ -33,6 +33,8 @@ use CycloneDX\Core\Models\Bom;
  * @template-extends BaseSerializer<TNormalizedBom>
  *
  * @SuppressWarnings(PHPMD.ConstantNamingConventions)
+ *
+ * @author jkowalleck
  */
 class JsonSerializer extends BaseSerializer
 {
