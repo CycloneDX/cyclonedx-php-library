@@ -39,6 +39,8 @@ interface Serializer
      *
      * @throws Exception
      *
+     * @psalm-return non-empty-string
+     *
      * @SuppressWarnings(PHPMD.BooleanArgumentFlag)
      */
     public function serialize(Bom $bom, ?bool $prettyPrint = null): string;

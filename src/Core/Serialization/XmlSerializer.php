@@ -63,7 +63,7 @@ class XmlSerializer extends BaseSerializer
             ->normalize($bom);
     }
 
-    protected function realSerialize($normalizedBom, ?bool $prettyPrint): string
+    protected function realSerialize(/* DOMElement */ $normalizedBom, ?bool $prettyPrint): string
     {
         $document = new DOMDocument($this->xmlVersion, $this->xmlEncoding);
         $document->appendChild(

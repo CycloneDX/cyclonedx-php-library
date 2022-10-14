@@ -101,7 +101,7 @@ abstract class BaseSerializer implements Serializer
      *
      * @return TNormalizedBom a version of the Bom that was normalized for serialization
      */
-    abstract protected function realNormalize(Bom $bom);
+    abstract protected function realNormalize(Bom $bom) /* : TNormalizedBom */;
     // no typehint for return type, as it is not actually `mixed` but a templated type.
 
     /**
@@ -111,8 +111,10 @@ abstract class BaseSerializer implements Serializer
      *
      * @throws Exception
      *
+     * @psalm-return non-empty-string
+     *
      * @SuppressWarnings(PHPMD.BooleanArgumentFlag)
      */
-    abstract protected function realSerialize($normalizedBom, ?bool $prettyPrint): string;
+    abstract protected function realSerialize(/* TNormalizedBom */ $normalizedBom, ?bool $prettyPrint): string;
     // no typehint for `$normalizedBom` parameter, as it is not actually `mixed` but a templated type.
 }

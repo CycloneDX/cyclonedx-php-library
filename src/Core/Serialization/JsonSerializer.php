@@ -103,7 +103,7 @@ class JsonSerializer extends BaseSerializer
             ->normalize($bom);
     }
 
-    protected function realSerialize($normalizedBom, ?bool $prettyPrint): string
+    protected function realSerialize(/* array */ $normalizedBom, ?bool $prettyPrint): string
     {
         $jsonEncodeFlags = match ($prettyPrint) {
             // reminder: JSON_PRETTY_PRINT could be in $this->jsonEncodeFlags already
