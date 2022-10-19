@@ -24,6 +24,7 @@ declare(strict_types=1);
 namespace CycloneDX\Core\Serialization\DOM\Normalizers;
 
 use CycloneDX\Core\_helpers\SimpleDomTrait;
+use CycloneDX\Core\Collections\PropertyRepository;
 use CycloneDX\Core\Collections\ToolRepository;
 use CycloneDX\Core\Models\Component;
 use CycloneDX\Core\Models\Metadata;
@@ -48,6 +49,7 @@ class MetadataNormalizer extends _BaseNormalizer
                 $this->normalizeComponent($metadata->getComponent()),
                 // manufacture
                 // supplier
+                $this->normalizeProperties($metadata->getProperties()),
             ]
         );
     }
@@ -73,5 +75,17 @@ class MetadataNormalizer extends _BaseNormalizer
         } catch (\DomainException) {
             return null;
         }
+    }
+
+    private function normalizeProperties(PropertyRepository $properties): ?DOMElement
+    {
+        // TODO check if spec allows element
+
+        return 0 === \count($properties)
+            ? null
+            : $this->simpleDomAppendChildren(
+                $this->getNormalizerFactory()->getDocument()->createElement('properties'),
+                [] // TODO
+            );
     }
 }
