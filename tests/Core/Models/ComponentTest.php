@@ -27,6 +27,7 @@ use CycloneDX\Core\Collections\BomRefRepository;
 use CycloneDX\Core\Collections\ExternalReferenceRepository;
 use CycloneDX\Core\Collections\HashDictionary;
 use CycloneDX\Core\Collections\LicenseRepository;
+use CycloneDX\Core\Collections\PropertyRepository;
 use CycloneDX\Core\Enums\Classification;
 use CycloneDX\Core\Models\BomRef;
 use CycloneDX\Core\Models\Component;
@@ -40,12 +41,13 @@ use PHPUnit\Framework\TestCase;
  *
  * @covers \CycloneDX\Core\Models\Component
  *
- * @uses   \CycloneDX\Core\Enums\Classification::isValidValue
- * @uses   \CycloneDX\Core\Models\BomRef::__construct
- * @uses  \CycloneDX\Core\Collections\LicenseRepository
+ * @uses \CycloneDX\Core\Enums\Classification::isValidValue
+ * @uses \CycloneDX\Core\Models\BomRef::__construct
+ * @uses \CycloneDX\Core\Collections\LicenseRepository
  * @uses \CycloneDX\Core\Collections\HashDictionary
  * @uses \CycloneDX\Core\Collections\ExternalReferenceRepository
  * @uses \CycloneDX\Core\Collections\BomRefRepository
+ * @uses \CycloneDX\Core\Collections\PropertyRepository
  */
 class ComponentTest extends TestCase
 {
@@ -71,6 +73,7 @@ class ComponentTest extends TestCase
         self::assertNull($component->getPackageUrl());
         self::assertSame($type, $component->getType());
         self::assertNull($component->getVersion());
+        self::assertCount(0, $component->getProperties());
 
         return $component;
     }
@@ -255,6 +258,20 @@ class ComponentTest extends TestCase
     }
 
     // endregion externalReferenceRepository setter&getter
+
+    // region properties setter&getter
+
+    /**
+     * @depends testConstructor
+     */
+    public function testGetterSetterProperties(Component $component): void
+    {
+        $properties = $this->createStub(PropertyRepository::class);
+        $component->setProperties($properties);
+        self::assertSame($properties, $component->getProperties());
+    }
+
+    // endregion properties setter&getter
 
     // region clone
 

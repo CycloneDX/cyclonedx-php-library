@@ -39,6 +39,7 @@ use PHPUnit\Framework\TestCase;
  * @uses \CycloneDX\Core\Models\Metadata
  * @uses \CycloneDX\Core\Collections\ToolRepository
  * @uses \CycloneDX\Core\Collections\ExternalReferenceRepository
+ * @uses \CycloneDX\Core\Collections\PropertyRepository
  */
 class BomTest extends TestCase
 {

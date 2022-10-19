@@ -23,6 +23,7 @@ declare(strict_types=1);
 
 namespace CycloneDX\Core\Models;
 
+use CycloneDX\Core\Collections\PropertyRepository;
 use CycloneDX\Core\Collections\ToolRepository;
 
 /**
@@ -39,6 +40,17 @@ class Metadata
      * The component that the BOM describes.
      */
     private ?Component $component = null;
+
+    /**
+     * Provides the ability to document properties in a name-value store. This provides flexibility to include data not
+     * officially supported in the standard without having to use additional namespaces or create extensions.
+     * Unlike key-value stores, properties support duplicate names, each potentially having different values.
+     *
+     * Property names of interest to the general public are encouraged to be registered in the
+     * {@link https://github.com/CycloneDX/cyclonedx-property-taxonomy CycloneDX Property Taxonomy}.
+     * Formal registration is OPTIONAL.
+     */
+    private PropertyRepository $properties;
 
     public function getTools(): ToolRepository
     {
@@ -70,8 +82,24 @@ class Metadata
         return $this;
     }
 
+    public function getProperties(): PropertyRepository
+    {
+        return $this->properties;
+    }
+
+    /**
+     * @return $this
+     */
+    public function setProperties(PropertyRepository $properties): self
+    {
+        $this->properties = $properties;
+
+        return $this;
+    }
+
     public function __construct()
     {
         $this->tools = new ToolRepository();
+        $this->properties = new PropertyRepository();
     }
 }

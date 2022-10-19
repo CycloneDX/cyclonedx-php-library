@@ -23,6 +23,7 @@ declare(strict_types=1);
 
 namespace CycloneDX\Tests\Core\Models;
 
+use CycloneDX\Core\Collections\PropertyRepository;
 use CycloneDX\Core\Collections\ToolRepository;
 use CycloneDX\Core\Models\Component;
 use CycloneDX\Core\Models\Metadata;
@@ -32,6 +33,7 @@ use PHPUnit\Framework\TestCase;
  * @covers \CycloneDX\Core\Models\Metadata
  *
  * @uses \CycloneDX\Core\Collections\ToolRepository
+ * @uses \CycloneDX\Core\Collections\PropertyRepository
  */
 class MetadataTest extends TestCase
 {
@@ -41,6 +43,7 @@ class MetadataTest extends TestCase
 
         self::assertCount(0, $metadata->getTools());
         self::assertNull($metadata->getComponent());
+        self::assertCount(0, $metadata->getProperties());
 
         return $metadata;
     }
@@ -58,10 +61,20 @@ class MetadataTest extends TestCase
     /**
      * @depends testConstructor
      */
-    public function testSetterSetterComponent(Metadata $metadata): void
+    public function testGetterSetterComponent(Metadata $metadata): void
     {
         $component = $this->createStub(Component::class);
         $metadata->setComponent($component);
         self::assertSame($component, $metadata->getComponent());
+    }
+
+    /**
+     * @depends testConstructor
+     */
+    public function testGetterSetterProperties(Metadata $metadata): void
+    {
+        $properties = $this->createStub(PropertyRepository::class);
+        $metadata->setProperties($properties);
+        self::assertSame($properties, $metadata->getProperties());
     }
 }
