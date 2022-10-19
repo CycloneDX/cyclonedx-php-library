@@ -29,6 +29,7 @@ namespace CycloneDX\Core\Serialization\JSON;
  * @author jkowalleck
  *
  * @SuppressWarnings(PHPMD.CamelCaseClassName)
+ * @SuppressWarnings(PHPMD.NumberOfChildren)
  */
 abstract class _BaseNormalizer
 {
