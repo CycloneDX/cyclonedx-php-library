@@ -158,7 +158,7 @@ class ComponentNormalizer extends _BaseNormalizer
             ? null
             : $this->simpleDomAppendChildren(
                 $this->getNormalizerFactory()->getDocument()->createElement('properties'),
-                [] // TODO
+                $this->getNormalizerFactory()->makeForPropertyRepository()->normalize($properties)
             );
     }
 }

@@ -135,4 +135,14 @@ class NormalizerFactory
     {
         return new Normalizers\ExternalReferenceRepositoryNormalizer($this);
     }
+
+    public function makeForPropertyRepository(): Normalizers\PropertyRepositoryNormalizer
+    {
+        return new Normalizers\PropertyRepositoryNormalizer($this);
+    }
+
+    public function makeForProperty(): Normalizers\PropertyNormalizer
+    {
+        return new Normalizers\PropertyNormalizer($this);
+    }
 }

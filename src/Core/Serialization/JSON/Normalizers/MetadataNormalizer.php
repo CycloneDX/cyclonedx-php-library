@@ -79,6 +79,6 @@ class MetadataNormalizer extends _BaseNormalizer
 
         return 0 === \count($properties)
             ? null
-            : []; // TODO
+            : $this->getNormalizerFactory()->makeForPropertyRepository()->normalize($properties);
     }
 }
