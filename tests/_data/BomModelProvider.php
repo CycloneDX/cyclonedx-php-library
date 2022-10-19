@@ -27,6 +27,7 @@ use CycloneDX\Core\Collections\ComponentRepository;
 use CycloneDX\Core\Collections\ExternalReferenceRepository;
 use CycloneDX\Core\Collections\HashDictionary;
 use CycloneDX\Core\Collections\LicenseRepository;
+use CycloneDX\Core\Collections\PropertyRepository;
 use CycloneDX\Core\Collections\ToolRepository;
 use CycloneDX\Core\Enums\Classification;
 use CycloneDX\Core\Enums\ExternalReferenceType;
@@ -38,6 +39,7 @@ use CycloneDX\Core\Models\License\DisjunctiveLicenseWithId;
 use CycloneDX\Core\Models\License\DisjunctiveLicenseWithName;
 use CycloneDX\Core\Models\License\LicenseExpression;
 use CycloneDX\Core\Models\Metadata;
+use CycloneDX\Core\Models\Property;
 use CycloneDX\Core\Models\Tool;
 use Generator;
 use ReflectionClass;
@@ -164,6 +166,7 @@ abstract class BomModelProvider
         yield from self::bomWithComponentHashAlgorithmsAllKnown();
         yield from self::bomWithComponentWithExternalReferences();
         yield from self::bomWithComponentTypeAllKnown();
+        yield from self::bomWithComponentWithProperties();
     }
 
     /**
@@ -178,6 +181,7 @@ abstract class BomModelProvider
         yield from self::bomWithMetadataPlain();
         yield from self::bomWithMetadataTools();
         yield from self::bomWithMetadataComponent();
+        yield from self::bomWithMetadataProperties();
     }
 
     /**
@@ -251,6 +255,30 @@ abstract class BomModelProvider
                 ),
             ];
         }
+    }
+
+    /**
+     * BOM with externalReferences.
+     *
+     * @return Generator<Bom[]>
+     *
+     * @psalm-return Generator<string, array{0:Bom}>
+     *
+     * @psalm-suppress MissingThrowsDocblock
+     */
+    public static function bomWithComponentWithProperties(): Generator
+    {
+        yield 'component with some properties' => [
+            (new Bom())->setComponents(
+                new ComponentRepository(
+                    (new Component(Classification::LIBRARY, 'dummy'))
+                        ->setProperties(new PropertyRepository(
+                            new Property('somePropertyName', 'somePropertyValue-1'),
+                            new Property('somePropertyName', 'somePropertyValue-2'),
+                        ))
+                )
+            ),
+        ];
     }
 
     /**
@@ -707,6 +735,29 @@ abstract class BomModelProvider
                     new Component(
                         Classification::APPLICATION,
                         'foo'
+                    )
+                )
+            ),
+        ];
+    }
+
+    /**
+     * BOMs with plain metadata that has some properties..
+     *
+     * @return Generator<Bom[]>
+     *
+     * @psalm-return Generator<string, array{0:Bom}>
+     *
+     * @psalm-suppress MissingThrowsDocblock
+     */
+    private static function bomWithMetadataProperties(): Generator
+    {
+        yield 'metadata: someProperties' => [
+            (new Bom())->setMetadata(
+                (new Metadata())->setProperties(
+                    new PropertyRepository(
+                        new Property('somePropertyName', 'somePropertyValue1-1'),
+                        new Property('somePropertyName', 'somePropertyValue1-2')
                     )
                 )
             ),

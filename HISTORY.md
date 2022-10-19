@@ -19,8 +19,8 @@ All notable changes to this project will be documented in this file.
     This is considered a non-breaking change, because the types were already correctly annotated.  
     This was possible due to PHP74's features and php8's UnionType language feature.
   * Migrated internals to PHP8 language features. ([#114] via [#125])
-  
-API changes
+
+### API changes v2
 
 * Overall
   * BREAKING: Enforced the use of concrete UnionTypes instead of protocols/interfaces/abstracts. ([#114] via [#125])  
@@ -138,13 +138,13 @@ API changes
     * Added support for CycloneDX v1.4 ([#57] via [#65])
     * Utilizes a much more competent validation library than before ([#80] via [#151])
 
-[#5]: https://github.com/CycloneDX/cyclonedx-php-library/issues/5
-[#6]: https://github.com/CycloneDX/cyclonedx-php-library/issues/6
-[#27]: https://github.com/CycloneDX/cyclonedx-php-library/issues/27
-[#57]: https://github.com/CycloneDX/cyclonedx-php-library/issues/57
-[#65]: https://github.com/CycloneDX/cyclonedx-php-library/pull/65
-[#66]: https://github.com/CycloneDX/cyclonedx-php-library/issues/66
-[#80]: https://github.com/CycloneDX/cyclonedx-php-library/issues/80
+[#5]:   https://github.com/CycloneDX/cyclonedx-php-library/issues/5
+[#6]:   https://github.com/CycloneDX/cyclonedx-php-library/issues/6
+[#27]:  https://github.com/CycloneDX/cyclonedx-php-library/issues/27
+[#57]:  https://github.com/CycloneDX/cyclonedx-php-library/issues/57
+[#65]:  https://github.com/CycloneDX/cyclonedx-php-library/pull/65
+[#66]:  https://github.com/CycloneDX/cyclonedx-php-library/issues/66
+[#80]:  https://github.com/CycloneDX/cyclonedx-php-library/issues/80
 [#114]: https://github.com/CycloneDX/cyclonedx-php-library/issues/114
 [#118]: https://github.com/CycloneDX/cyclonedx-php-library/pull/118
 [#123]: https://github.com/CycloneDX/cyclonedx-php-library/pull/123
