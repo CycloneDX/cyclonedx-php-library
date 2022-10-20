@@ -116,6 +116,8 @@ abstract class SpecFactory
             false,
             true,
             false,
+            false,
+            false,
         );
     }
 
@@ -179,6 +181,8 @@ abstract class SpecFactory
             false,
             true,
             false,
+            false,
+            false,
         );
     }
 
@@ -241,7 +245,10 @@ abstract class SpecFactory
             true,
             true,
             true,
-            false
+            false,
+
+            true,
+            true,
         );
     }
 
@@ -305,6 +312,9 @@ abstract class SpecFactory
             true,
             true,
             false,
+            true,
+
+            true,
             true,
         );
     }

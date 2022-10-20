@@ -24,6 +24,7 @@ declare(strict_types=1);
 namespace CycloneDX\Core\Serialization\JSON\Normalizers;
 
 use CycloneDX\Core\_helpers\NullAssertionTrait;
+use CycloneDX\Core\Collections\PropertyRepository;
 use CycloneDX\Core\Collections\ToolRepository;
 use CycloneDX\Core\Models\Component;
 use CycloneDX\Core\Models\Metadata;
@@ -46,6 +47,7 @@ class MetadataNormalizer extends _BaseNormalizer
                 'component' => $this->normalizeComponent($metadata->getComponent()),
                 // manufacture
                 // supplier
+                'properties' => $this->normalizeProperties($metadata->getProperties()),
             ],
             [$this, 'isNotNull']
         );
@@ -69,5 +71,16 @@ class MetadataNormalizer extends _BaseNormalizer
         } catch (\DomainException) {
             return null;
         }
+    }
+
+    private function normalizeProperties(PropertyRepository $properties): ?array
+    {
+        if (false === $this->getNormalizerFactory()->getSpec()->supportsMetadataProperties()) {
+            return null;
+        }
+
+        return 0 === \count($properties)
+            ? null
+            : $this->getNormalizerFactory()->makeForPropertyRepository()->normalize($properties);
     }
 }

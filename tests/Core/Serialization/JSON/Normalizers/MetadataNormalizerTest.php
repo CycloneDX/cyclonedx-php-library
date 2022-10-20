@@ -23,13 +23,12 @@ declare(strict_types=1);
 
 namespace CycloneDX\Tests\Core\Serialization\JSON\Normalizers;
 
+use CycloneDX\Core\Collections\PropertyRepository;
 use CycloneDX\Core\Collections\ToolRepository;
 use CycloneDX\Core\Models\Component;
 use CycloneDX\Core\Models\Metadata;
 use CycloneDX\Core\Serialization\JSON\NormalizerFactory;
-use CycloneDX\Core\Serialization\JSON\Normalizers\ComponentNormalizer;
-use CycloneDX\Core\Serialization\JSON\Normalizers\MetadataNormalizer;
-use CycloneDX\Core\Serialization\JSON\Normalizers\ToolRepositoryNormalizer;
+use CycloneDX\Core\Serialization\JSON\Normalizers;
 use CycloneDX\Core\Spec\Spec;
 use DomainException;
 use PHPUnit\Framework\TestCase;
@@ -45,7 +44,7 @@ class MetadataNormalizerTest extends TestCase
         $metadata = $this->createMock(Metadata::class);
         $spec = $this->createMock(Spec::class);
         $factory = $this->createConfiguredMock(NormalizerFactory::class, ['getSpec' => $spec]);
-        $normalizer = new MetadataNormalizer($factory);
+        $normalizer = new Normalizers\MetadataNormalizer($factory);
 
         $actual = $normalizer->normalize($metadata);
 
@@ -61,7 +60,7 @@ class MetadataNormalizerTest extends TestCase
             ]
         );
         $spec = $this->createMock(Spec::class);
-        $toolsRepoFactory = $this->createMock(ToolRepositoryNormalizer::class);
+        $toolsRepoFactory = $this->createMock(Normalizers\ToolRepositoryNormalizer::class);
         $factory = $this->createConfiguredMock(
             NormalizerFactory::class,
             [
@@ -69,7 +68,7 @@ class MetadataNormalizerTest extends TestCase
                 'makeForToolRepository' => $toolsRepoFactory,
             ]
         );
-        $normalizer = new MetadataNormalizer($factory);
+        $normalizer = new Normalizers\MetadataNormalizer($factory);
 
         $toolsRepoFactory->expects(self::once())
             ->method('normalize')
@@ -96,7 +95,7 @@ class MetadataNormalizerTest extends TestCase
             ]
         );
         $spec = $this->createMock(Spec::class);
-        $componentFactory = $this->createMock(ComponentNormalizer::class);
+        $componentFactory = $this->createMock(Normalizers\ComponentNormalizer::class);
         $factory = $this->createConfiguredMock(
             NormalizerFactory::class,
             [
@@ -104,7 +103,7 @@ class MetadataNormalizerTest extends TestCase
                 'makeForComponent' => $componentFactory,
             ]
         );
-        $normalizer = new MetadataNormalizer($factory);
+        $normalizer = new Normalizers\MetadataNormalizer($factory);
 
         $componentFactory->expects(self::once())
             ->method('normalize')
@@ -128,7 +127,7 @@ class MetadataNormalizerTest extends TestCase
             ]
         );
         $spec = $this->createMock(Spec::class);
-        $componentFactory = $this->createMock(ComponentNormalizer::class);
+        $componentFactory = $this->createMock(Normalizers\ComponentNormalizer::class);
         $factory = $this->createConfiguredMock(
             NormalizerFactory::class,
             [
@@ -136,12 +135,74 @@ class MetadataNormalizerTest extends TestCase
                 'makeForComponent' => $componentFactory,
             ]
         );
-        $normalizer = new MetadataNormalizer($factory);
+        $normalizer = new Normalizers\MetadataNormalizer($factory);
 
         $componentFactory->expects(self::once())
             ->method('normalize')
             ->with($metadata->getComponent())
             ->willThrowException(new DomainException());
+
+        $actual = $normalizer->normalize($metadata);
+
+        self::assertSame([], $actual);
+    }
+
+    /**
+     * @uses \CycloneDX\Core\Serialization\JSON\Normalizers\PropertyRepositoryNormalizer
+     */
+    public function testNormalizeProperties(): void
+    {
+        $metadata = $this->createConfiguredMock(
+            Metadata::class,
+            [
+                'getProperties' => $this->createConfiguredMock(PropertyRepository::class, ['count' => 2]),
+            ]
+        );
+        $spec = $this->createConfiguredMock(Spec::class, ['supportsMetadataProperties' => true]);
+        $repoNormalizer = $this->createMock(Normalizers\PropertyRepositoryNormalizer::class);
+        $factory = $this->createConfiguredMock(
+            NormalizerFactory::class,
+            [
+                'getSpec' => $spec,
+                'makeForPropertyRepository' => $repoNormalizer,
+            ]
+        );
+        $normalizer = new Normalizers\MetadataNormalizer($factory);
+
+        $repoNormalizer->expects(self::once())
+            ->method('normalize')
+            ->with($metadata->getProperties())
+            ->willReturn([['FakeProperty' => 'dummy']]);
+
+        $actual = $normalizer->normalize($metadata);
+
+        self::assertSame(
+            ['properties' => [['FakeProperty' => 'dummy']]],
+            $actual
+        );
+    }
+
+    /**
+     * @uses \CycloneDX\Core\Serialization\JSON\Normalizers\PropertyRepositoryNormalizer
+     */
+    public function testNormalizePropertiesOmitWhenEmpty(): void
+    {
+        $metadata = $this->createConfiguredMock(
+            Metadata::class,
+            [
+                'getProperties' => $this->createConfiguredMock(PropertyRepository::class, ['count' => 0]),
+            ]
+        );
+        $spec = $this->createConfiguredMock(Spec::class, ['supportsMetadataProperties' => true]);
+        $repoNormalizer = $this->createMock(Normalizers\PropertyRepositoryNormalizer::class);
+        $factory = $this->createConfiguredMock(
+            NormalizerFactory::class,
+            [
+                'getSpec' => $spec,
+                'makeForPropertyRepository' => $repoNormalizer,
+            ]
+        );
+        $normalizer = new Normalizers\MetadataNormalizer($factory);
 
         $actual = $normalizer->normalize($metadata);
 

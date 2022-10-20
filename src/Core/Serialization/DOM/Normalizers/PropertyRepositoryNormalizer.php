@@ -21,32 +21,35 @@ declare(strict_types=1);
  * Copyright (c) OWASP Foundation. All Rights Reserved.
  */
 
-namespace CycloneDX\Core\Serialization\JSON;
+namespace CycloneDX\Core\Serialization\DOM\Normalizers;
+
+use CycloneDX\Core\Collections\PropertyRepository;
+use CycloneDX\Core\Serialization\DOM\_BaseNormalizer;
+use DOMElement;
 
 /**
- * @internal as this class may be affected by breaking changes without notice
- *
  * @author jkowalleck
- *
- * @SuppressWarnings(PHPMD.CamelCaseClassName)
- * @SuppressWarnings(PHPMD.NumberOfChildren)
  */
-abstract class _BaseNormalizer
+class PropertyRepositoryNormalizer extends _BaseNormalizer
 {
     /**
-     * @readonly
+     * @return DOMElement[]
+     *
+     * @psalm-return list<DOMElement>
      */
-    private NormalizerFactory $normalizerFactory;
-
-    public function __construct(NormalizerFactory $normalizerFactory)
+    public function normalize(PropertyRepository $repo): array
     {
-        $this->normalizerFactory = $normalizerFactory;
-    }
+        $normalizer = $this->getNormalizerFactory()->makeForProperty();
 
-    public function getNormalizerFactory(): NormalizerFactory
-    {
-        return $this->normalizerFactory;
-    }
+        $properties = [];
+        foreach ($repo->getItems() as $property) {
+            try {
+                $properties[] = $normalizer->normalize($property);
+            } catch (\DomainException) {
+                // pass
+            }
+        }
 
-    // intention to implement a "public function normalize" that accepts an object, and returns a normalized object
+        return $properties;
+    }
 }

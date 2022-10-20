@@ -21,32 +21,31 @@ declare(strict_types=1);
  * Copyright (c) OWASP Foundation. All Rights Reserved.
  */
 
-namespace CycloneDX\Core\Serialization\JSON;
+namespace CycloneDX\Core\Serialization\JSON\Normalizers;
+
+use CycloneDX\Core\Models\Property;
+use CycloneDX\Core\Serialization\JSON\_BaseNormalizer;
+use DomainException;
 
 /**
- * @internal as this class may be affected by breaking changes without notice
- *
  * @author jkowalleck
- *
- * @SuppressWarnings(PHPMD.CamelCaseClassName)
- * @SuppressWarnings(PHPMD.NumberOfChildren)
  */
-abstract class _BaseNormalizer
+class PropertyNormalizer extends _BaseNormalizer
 {
     /**
-     * @readonly
+     * @throws DomainException if property's name is empty
      */
-    private NormalizerFactory $normalizerFactory;
-
-    public function __construct(NormalizerFactory $normalizerFactory)
+    public function normalize(Property $property): array
     {
-        $this->normalizerFactory = $normalizerFactory;
-    }
+        $name = $property->getName();
+        if ('' === $name) {
+            // this implementation detail is optional
+            throw new DomainException('empty name');
+        }
 
-    public function getNormalizerFactory(): NormalizerFactory
-    {
-        return $this->normalizerFactory;
+        return [
+            'name' => $name,
+            'value' => $property->getValue(),
+        ];
     }
-
-    // intention to implement a "public function normalize" that accepts an object, and returns a normalized object
 }

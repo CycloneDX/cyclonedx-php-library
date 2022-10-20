@@ -26,6 +26,7 @@ namespace CycloneDX\Tests\Core\Serialization\JSON\Normalizers;
 use CycloneDX\Core\Collections\ExternalReferenceRepository;
 use CycloneDX\Core\Collections\HashDictionary;
 use CycloneDX\Core\Collections\LicenseRepository;
+use CycloneDX\Core\Collections\PropertyRepository;
 use CycloneDX\Core\Models\BomRef;
 use CycloneDX\Core\Models\Component;
 use CycloneDX\Core\Serialization\JSON\NormalizerFactory;
@@ -333,4 +334,83 @@ class ComponentNormalizerTest extends TestCase
     }
 
     // endregion normalize ExternalReferences
+
+    /**
+     * @uses \CycloneDX\Core\Serialization\DOM\Normalizers\PropertyRepositoryNormalizer
+     */
+    public function testNormalizeProperties(): void
+    {
+        $component = $this->createConfiguredMock(
+            Component::class,
+            [
+                'getName' => 'myName',
+                'getType' => 'FakeType',
+                'getProperties' => $this->createConfiguredMock(PropertyRepository::class, ['count' => 2]),
+            ]
+        );
+        $spec = $this->createConfiguredMock(Spec::class, ['supportsComponentProperties' => true]);
+        $repoNormalizer = $this->createMock(Normalizers\PropertyRepositoryNormalizer::class);
+        $factory = $this->createConfiguredMock(
+            NormalizerFactory::class,
+            [
+                'getSpec' => $spec,
+                'makeForPropertyRepository' => $repoNormalizer,
+            ]
+        );
+        $normalizer = new Normalizers\ComponentNormalizer($factory);
+
+        $spec->expects(self::once())
+            ->method('isSupportedComponentType')
+            ->with('FakeType')
+            ->willReturn(true);
+        $repoNormalizer->expects(self::once())
+            ->method('normalize')
+            ->with($component->getProperties())
+            ->willReturn([['FakeProperty' => 'dummy']]);
+
+        $actual = $normalizer->normalize($component);
+
+        self::assertEquals([
+            'type' => 'FakeType',
+            'name' => 'myName',
+            'properties' => [['FakeProperty' => 'dummy']],
+        ], $actual);
+    }
+
+    /**
+     * @uses \CycloneDX\Core\Serialization\JSON\Normalizers\PropertyRepositoryNormalizer
+     */
+    public function testNormalizePropertiesOmitWhenEmpty(): void
+    {
+        $component = $this->createConfiguredMock(
+            Component::class,
+            [
+                'getName' => 'myName',
+                'getType' => 'FakeType',
+                'getProperties' => $this->createConfiguredMock(PropertyRepository::class, ['count' => 0]),
+            ]
+        );
+        $spec = $this->createConfiguredMock(Spec::class, ['supportsComponentProperties' => true]);
+        $repoNormalizer = $this->createMock(Normalizers\PropertyRepositoryNormalizer::class);
+        $factory = $this->createConfiguredMock(
+            NormalizerFactory::class,
+            [
+                'getSpec' => $spec,
+                'makeForPropertyRepository' => $repoNormalizer,
+            ]
+        );
+        $normalizer = new Normalizers\ComponentNormalizer($factory);
+
+        $spec->expects(self::once())
+            ->method('isSupportedComponentType')
+            ->with('FakeType')
+            ->willReturn(true);
+
+        $actual = $normalizer->normalize($component);
+
+        self::assertEquals([
+            'type' => 'FakeType',
+            'name' => 'myName',
+        ], $actual);
+    }
 }

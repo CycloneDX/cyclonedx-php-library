@@ -27,6 +27,7 @@ use CycloneDX\Core\_helpers\NullAssertionTrait;
 use CycloneDX\Core\Collections\ExternalReferenceRepository;
 use CycloneDX\Core\Collections\HashDictionary;
 use CycloneDX\Core\Collections\LicenseRepository;
+use CycloneDX\Core\Collections\PropertyRepository;
 use CycloneDX\Core\Models\Component;
 use CycloneDX\Core\Serialization\JSON\_BaseNormalizer;
 use DomainException;
@@ -77,6 +78,7 @@ class ComponentNormalizer extends _BaseNormalizer
                 'hashes' => $this->normalizeHashes($component->getHashes()),
                 'purl' => $this->normalizePurl($component->getPackageUrl()),
                 'externalReferences' => $this->normalizeExternalReferences($component->getExternalReferences()),
+                'properties' => $this->normalizeProperties($component->getProperties()),
             ],
             [$this, 'isNotNull']
         );
@@ -108,5 +110,16 @@ class ComponentNormalizer extends _BaseNormalizer
         return 0 === \count($extRefs)
             ? null
             : $this->getNormalizerFactory()->makeForExternalReferenceRepository()->normalize($extRefs);
+    }
+
+    private function normalizeProperties(PropertyRepository $properties): ?array
+    {
+        if (false === $this->getNormalizerFactory()->getSpec()->supportsComponentProperties()) {
+            return null;
+        }
+
+        return 0 === \count($properties)
+            ? null
+            : $this->getNormalizerFactory()->makeForPropertyRepository()->normalize($properties);
     }
 }

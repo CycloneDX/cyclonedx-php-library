@@ -32,7 +32,7 @@ use Generator;
 use PHPUnit\Framework\TestCase;
 use ReflectionClass;
 
-abstract class SpecInstanceTestCase extends TestCase
+abstract class SpecBaseTestCase extends TestCase
 {
     abstract protected function getSpec(): Spec;
 
@@ -203,4 +203,20 @@ abstract class SpecInstanceTestCase extends TestCase
     }
 
     abstract public function shouldSupportToolExternalReferences(): bool;
+
+    final public function testSupportsMetadataProperties(): void
+    {
+        $isSupported = $this->getSpec()->supportsMetadataProperties();
+        self::assertSame($this->shouldSupportMetadataProperties(), $isSupported);
+    }
+
+    abstract public function shouldSupportMetadataProperties(): bool;
+
+    final public function testSupportsComponentProperties(): void
+    {
+        $isSupported = $this->getSpec()->supportsComponentProperties();
+        self::assertSame($this->shouldSupportComponentProperties(), $isSupported);
+    }
+
+    abstract public function shouldSupportComponentProperties(): bool;
 }

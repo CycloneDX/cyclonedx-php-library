@@ -28,6 +28,7 @@ use CycloneDX\Core\_helpers\XmlTrait;
 use CycloneDX\Core\Collections\ExternalReferenceRepository;
 use CycloneDX\Core\Collections\HashDictionary;
 use CycloneDX\Core\Collections\LicenseRepository;
+use CycloneDX\Core\Collections\PropertyRepository;
 use CycloneDX\Core\Models\Component;
 use CycloneDX\Core\Serialization\DOM\_BaseNormalizer;
 use DomainException;
@@ -96,6 +97,7 @@ class ComponentNormalizer extends _BaseNormalizer
                 // modified
                 // pedigree
                 $this->normalizeExternalReferences($component->getExternalReferences()),
+                $this->normalizeProperties($component->getProperties()),
                 // components
             ]
         );
@@ -145,6 +147,20 @@ class ComponentNormalizer extends _BaseNormalizer
             : $this->simpleDomAppendChildren(
                 $factory->getDocument()->createElement('externalReferences'),
                 $factory->makeForExternalReferenceRepository()->normalize($extRefs)
+            );
+    }
+
+    private function normalizeProperties(PropertyRepository $properties): ?DOMElement
+    {
+        if (false === $this->getNormalizerFactory()->getSpec()->supportsComponentProperties()) {
+            return null;
+        }
+
+        return 0 === \count($properties)
+            ? null
+            : $this->simpleDomAppendChildren(
+                $this->getNormalizerFactory()->getDocument()->createElement('properties'),
+                $this->getNormalizerFactory()->makeForPropertyRepository()->normalize($properties)
             );
     }
 }
