@@ -222,4 +222,28 @@ class NormalizerFactoryTest extends TestCase
         self::assertInstanceOf(Normalizers\ExternalReferenceRepositoryNormalizer::class, $normalizer);
         self::assertSame($factory, $normalizer->getNormalizerFactory());
     }
+
+    /**
+     * @depends testConstructor
+     *
+     * @uses    \CycloneDX\Core\Serialization\JSON\Normalizers\PropertyNormalizer
+     */
+    public function testMakeForProperty(NormalizerFactory $factory): void
+    {
+        $normalizer = $factory->makeForProperty();
+        self::assertInstanceOf(Normalizers\PropertyNormalizer::class, $normalizer);
+        self::assertSame($factory, $normalizer->getNormalizerFactory());
+    }
+
+    /**
+     * @depends testConstructor
+     *
+     * @uses    \CycloneDX\Core\Serialization\JSON\Normalizers\PropertyRepositoryNormalizer
+     */
+    public function testMakeForPropertyRepository(NormalizerFactory $factory): void
+    {
+        $normalizer = $factory->makeForPropertyRepository();
+        self::assertInstanceOf(Normalizers\PropertyRepositoryNormalizer::class, $normalizer);
+        self::assertSame($factory, $normalizer->getNormalizerFactory());
+    }
 }

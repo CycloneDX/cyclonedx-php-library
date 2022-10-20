@@ -32,7 +32,7 @@ use CycloneDX\Core\Spec\SpecFactory;
  *
  * @uses \CycloneDX\Core\Spec\SpecFactory
  */
-class Spec1dot4Test extends SpecInstanceTestCase
+class Spec1dot4Test extends SpecBaseTestCase
 {
     protected function getSpec(): Spec
     {
@@ -80,6 +80,16 @@ class Spec1dot4Test extends SpecInstanceTestCase
     }
 
     public function shouldSupportToolExternalReferences(): bool
+    {
+        return true;
+    }
+
+    public function shouldSupportMetadataProperties(): bool
+    {
+        return true;
+    }
+
+    public function shouldSupportComponentProperties(): bool
     {
         return true;
     }

@@ -26,11 +26,13 @@ namespace CycloneDX\Tests\Core\Serialization\DOM\Normalizers;
 use CycloneDX\Core\Collections\ExternalReferenceRepository;
 use CycloneDX\Core\Collections\HashDictionary;
 use CycloneDX\Core\Collections\LicenseRepository;
+use CycloneDX\Core\Collections\PropertyRepository;
 use CycloneDX\Core\Models\BomRef;
 use CycloneDX\Core\Models\Component;
 use CycloneDX\Core\Models\License\DisjunctiveLicenseWithName;
 use CycloneDX\Core\Serialization\DOM\NormalizerFactory;
 use CycloneDX\Core\Serialization\DOM\Normalizers;
+use CycloneDX\Core\Serialization\DOM\Normalizers\PropertyRepositoryNormalizer;
 use CycloneDX\Core\Spec\Spec;
 use CycloneDX\Tests\_traits\DomNodeAssertionTrait;
 use DomainException;
@@ -357,4 +359,82 @@ class ComponentNormalizerTest extends TestCase
     }
 
     // endregion normalize ExternalReferences
+
+    public function testNormalizeProperties(): void
+    {
+        $component = $this->createConfiguredMock(
+            Component::class,
+            [
+                'getName' => 'myName',
+                'getType' => 'FakeType',
+                'getProperties' => $this->createConfiguredMock(PropertyRepository::class, ['count' => 2]),
+            ]
+        );
+        $spec = $this->createConfiguredMock(Spec::class, [
+            'supportsComponentProperties' => true,
+        ]);
+        $propertiesNormalizer = $this->createMock(PropertyRepositoryNormalizer::class);
+        $factory = $this->createConfiguredMock(
+            NormalizerFactory::class,
+            [
+                'getSpec' => $spec,
+                'getDocument' => new DOMDocument(),
+                'makeForPropertyRepository' => $propertiesNormalizer,
+            ]
+        );
+        $normalizer = new Normalizers\ComponentNormalizer($factory);
+
+        $propertiesNormalizer->expects(self::once())
+            ->method('normalize')
+            ->with($component->getProperties())
+            ->willReturn(
+                [$factory->getDocument()->createElement('FakeProperties', 'dummy')]);
+        $spec->expects(self::once())
+            ->method('isSupportedComponentType')
+            ->with('FakeType')
+            ->willReturn(true);
+
+        $actual = $normalizer->normalize($component);
+
+        self::assertStringEqualsDomNode(
+            '<component type="FakeType"><name>myName</name><properties><FakeProperties>dummy</FakeProperties></properties></component>',
+            $actual
+        );
+    }
+
+    public function testNormalizePropertiesOmitEmpty(): void
+    {
+        $component = $this->createConfiguredMock(
+            Component::class,
+            [
+                'getName' => 'myName',
+                'getType' => 'FakeType',
+                'getProperties' => $this->createConfiguredMock(PropertyRepository::class, ['count' => 0]),
+            ]
+        );
+        $spec = $this->createConfiguredMock(Spec::class, [
+            'supportsComponentProperties' => true,
+        ]);
+        $propertiesNormalizer = $this->createMock(PropertyRepositoryNormalizer::class);
+        $factory = $this->createConfiguredMock(
+            NormalizerFactory::class,
+            [
+                'getSpec' => $spec,
+                'getDocument' => new DOMDocument(),
+                'makeForPropertyRepository' => $propertiesNormalizer,
+            ]
+        );
+        $normalizer = new Normalizers\ComponentNormalizer($factory);
+        $spec->expects(self::once())
+            ->method('isSupportedComponentType')
+            ->with('FakeType')
+            ->willReturn(true);
+
+        $actual = $normalizer->normalize($component);
+
+        self::assertStringEqualsDomNode(
+            '<component type="FakeType"><name>myName</name></component>',
+            $actual
+        );
+    }
 }

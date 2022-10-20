@@ -114,7 +114,9 @@ class ComponentNormalizer extends _BaseNormalizer
 
     private function normalizeProperties(PropertyRepository $properties): ?array
     {
-        // TODO check if spec allows element
+        if (false === $this->getNormalizerFactory()->getSpec()->supportsComponentProperties()) {
+            return null;
+        }
 
         return 0 === \count($properties)
             ? null

@@ -62,6 +62,8 @@ class Spec
         private bool $bExternalReferenceHashes,
         private bool $bComponentVersionMandatory,
         private bool $bToolExternalReferences,
+        private bool $bMetadataProperties,
+        private bool $bComponentProperties,
     ) {
     }
 
@@ -131,5 +133,15 @@ class Spec
     public function supportsToolExternalReferences(): bool
     {
         return $this->bToolExternalReferences;
+    }
+
+    public function supportsMetadataProperties(): bool
+    {
+        return $this->bMetadataProperties;
+    }
+
+    public function supportsComponentProperties(): bool
+    {
+        return $this->bComponentProperties;
     }
 }

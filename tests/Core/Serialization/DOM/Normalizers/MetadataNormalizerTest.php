@@ -23,13 +23,12 @@ declare(strict_types=1);
 
 namespace CycloneDX\Tests\Core\Serialization\DOM\Normalizers;
 
+use CycloneDX\Core\Collections\PropertyRepository;
 use CycloneDX\Core\Collections\ToolRepository;
 use CycloneDX\Core\Models\Component;
 use CycloneDX\Core\Models\Metadata;
 use CycloneDX\Core\Serialization\DOM\NormalizerFactory;
-use CycloneDX\Core\Serialization\DOM\Normalizers\ComponentNormalizer;
-use CycloneDX\Core\Serialization\DOM\Normalizers\MetadataNormalizer;
-use CycloneDX\Core\Serialization\DOM\Normalizers\ToolRepositoryNormalizer;
+use CycloneDX\Core\Serialization\DOM\Normalizers;
 use CycloneDX\Core\Spec\Spec;
 use CycloneDX\Tests\_traits\DomNodeAssertionTrait;
 use DomainException;
@@ -52,7 +51,7 @@ class MetadataNormalizerTest extends TestCase
             NormalizerFactory::class,
             ['getSpec' => $spec, 'getDocument' => new DOMDocument()]
         );
-        $normalizer = new MetadataNormalizer($factory);
+        $normalizer = new Normalizers\MetadataNormalizer($factory);
 
         $actual = $normalizer->normalize($metadata);
 
@@ -68,7 +67,7 @@ class MetadataNormalizerTest extends TestCase
             ]
         );
         $spec = $this->createMock(Spec::class);
-        $toolsRepoFactory = $this->createMock(ToolRepositoryNormalizer::class);
+        $toolsRepoFactory = $this->createMock(Normalizers\ToolRepositoryNormalizer::class);
         $factory = $this->createConfiguredMock(
             NormalizerFactory::class,
             [
@@ -77,7 +76,7 @@ class MetadataNormalizerTest extends TestCase
                 'makeForToolRepository' => $toolsRepoFactory,
             ]
         );
-        $normalizer = new MetadataNormalizer($factory);
+        $normalizer = new Normalizers\MetadataNormalizer($factory);
 
         $toolsRepoFactory->expects(self::once())
             ->method('normalize')
@@ -104,21 +103,22 @@ class MetadataNormalizerTest extends TestCase
             ]
         );
         $spec = $this->createMock(Spec::class);
-        $componentFactory = $this->createMock(ComponentNormalizer::class);
+        $componentNormalizer = $this->createMock(Normalizers\ComponentNormalizer::class);
         $factory = $this->createConfiguredMock(
             NormalizerFactory::class,
             [
                 'getSpec' => $spec,
                 'getDocument' => new DOMDocument(),
-                'makeForComponent' => $componentFactory,
+                'makeForComponent' => $componentNormalizer,
             ]
         );
-        $normalizer = new MetadataNormalizer($factory);
+        $normalizer = new Normalizers\MetadataNormalizer($factory);
 
-        $componentFactory->expects(self::once())
+        $componentNormalizer->expects(self::once())
             ->method('normalize')
             ->with($metadata->getComponent())
-            ->willReturn($factory->getDocument()->createElement('FakeComponent', 'dummy'));
+            ->willReturn(
+                $factory->getDocument()->createElement('FakeComponent', 'dummy'));
 
         $actual = $normalizer->normalize($metadata);
 
@@ -137,21 +137,87 @@ class MetadataNormalizerTest extends TestCase
             ]
         );
         $spec = $this->createMock(Spec::class);
-        $componentFactory = $this->createMock(ComponentNormalizer::class);
+        $componentNormalizer = $this->createMock(Normalizers\ComponentNormalizer::class);
         $factory = $this->createConfiguredMock(
             NormalizerFactory::class,
             [
                 'getSpec' => $spec,
                 'getDocument' => new DOMDocument(),
-                'makeForComponent' => $componentFactory,
+                'makeForComponent' => $componentNormalizer,
             ]
         );
-        $normalizer = new MetadataNormalizer($factory);
+        $normalizer = new Normalizers\MetadataNormalizer($factory);
 
-        $componentFactory->expects(self::once())
+        $componentNormalizer->expects(self::once())
             ->method('normalize')
             ->with($metadata->getComponent())
             ->willThrowException(new DomainException());
+
+        $actual = $normalizer->normalize($metadata);
+
+        self::assertStringEqualsDomNode(
+            '<metadata></metadata>',
+            $actual
+        );
+    }
+
+    public function testNormalizeProperties(): void
+    {
+        $metadata = $this->createConfiguredMock(
+            Metadata::class,
+            [
+                'getProperties' => $this->createConfiguredMock(PropertyRepository::class, ['count' => 2]),
+            ]
+        );
+        $spec = $this->createConfiguredMock(Spec::class, [
+            'supportsMetadataProperties' => true,
+        ]);
+        $propertiesNormalizer = $this->createMock(Normalizers\PropertyRepositoryNormalizer::class);
+        $factory = $this->createConfiguredMock(
+            NormalizerFactory::class,
+            [
+                'getSpec' => $spec,
+                'getDocument' => new DOMDocument(),
+                'makeForPropertyRepository' => $propertiesNormalizer,
+            ]
+        );
+        $normalizer = new Normalizers\MetadataNormalizer($factory);
+
+        $propertiesNormalizer->expects(self::once())
+            ->method('normalize')
+            ->with($metadata->getProperties())
+            ->willReturn(
+                [$factory->getDocument()->createElement('FakeProperties', 'dummy')]);
+
+        $actual = $normalizer->normalize($metadata);
+
+        self::assertStringEqualsDomNode(
+            '<metadata><properties><FakeProperties>dummy</FakeProperties></properties></metadata>',
+            $actual
+        );
+    }
+
+    public function testNormalizePropertiesOmitEmpty(): void
+    {
+        $metadata = $this->createConfiguredMock(
+            Metadata::class,
+            [
+                'getProperties' => $this->createConfiguredMock(PropertyRepository::class, ['count' => 0]),
+            ]
+        );
+        $spec = $this->createConfiguredMock(Spec::class, [
+            'supportsMetadataProperties' => true,
+        ]);
+        $propertiesNormalizer = $this->createMock(Normalizers\PropertyRepositoryNormalizer::class);
+        $factory = $this->createConfiguredMock(
+            NormalizerFactory::class,
+            [
+                'getSpec' => $spec,
+                'getDocument' => new DOMDocument(),
+                'makeForPropertyRepository' => $propertiesNormalizer,
+            ]
+        );
+        $normalizer = new Normalizers\MetadataNormalizer($factory);
 
         $actual = $normalizer->normalize($metadata);
 

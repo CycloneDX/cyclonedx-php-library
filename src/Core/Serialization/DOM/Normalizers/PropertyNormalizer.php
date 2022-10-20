@@ -50,7 +50,8 @@ class PropertyNormalizer extends _BaseNormalizer
         }
 
         $element = $this->simpleDomSafeTextElement($doc, 'property', $property->getValue(), false);
-        assert(null !== $element);
+        \assert(null !== $element);
+
         return $this->simpleDomSetAttributes(
             $element,
             ['name' => $name]
