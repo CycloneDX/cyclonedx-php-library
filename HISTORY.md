@@ -37,7 +37,7 @@ All notable changes to this project will be documented in this file.
   * Added class constant `ExternalReferenceType::RELEASE_NOTES` to reflect CycloneDX v1.4 ([#57] via [#65])
 * `CycloneDX\Core\Factories` namespace
   * `LicenseFactory` class
-    * Breaking: removed method `makeDisjunctiveFromExpression()` ([#163] vial [#])
+    * Breaking: removed method `makeDisjunctiveFromExpression()` ([#163] vial [#166])
 * `\CycloneDX\Core\Models` namespace
   * `Bom` class
     * BREAKING: renamed methods `{get,set}ComponentRepository()` -> `{get,set}Components()` ([#133] via [#131])
@@ -166,6 +166,7 @@ All notable changes to this project will be documented in this file.
 [#155]: https://github.com/CycloneDX/cyclonedx-php-library/pull/155
 [#163]: https://github.com/CycloneDX/cyclonedx-php-library/issues/163
 [#165]: https://github.com/CycloneDX/cyclonedx-php-library/pull/165
+[#166]: https://github.com/CycloneDX/cyclonedx-php-library/pull/166
 
 ## 1.6.3 - 2022-09-15
 
