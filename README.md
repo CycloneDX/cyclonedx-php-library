@@ -50,7 +50,7 @@ Code of v1 is in branch "[1.x](https://github.com/CycloneDX/cyclonedx-php-librar
   * `ExternalReference`, `ExternalReferenceRepository`
   * `HashDictionary`
   * `LicenseExpression`, 
-    `DisjunctiveLicenseWithName` aka NamedLicense, `DisjunctiveLicenseWithId` aka SpdxLicense,
+    `NamedLicense`, `DisjunctiveLicenseWithId` aka SpdxLicense,
     `DisjunctiveLicenseRepository`
   * `Metadata`
   * `Tool`, `ToolRepository`

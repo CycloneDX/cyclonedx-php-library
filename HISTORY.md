@@ -62,7 +62,9 @@ All notable changes to this project will be documented in this file.
       and changed parameter & return type to non-nullable, was nullable ([#66] via [#131])
   * `Licenses` namespace
     * `AbstractDisjunctiveLicense`
-       * BREAKING: Removed this class (via [#125], [#131])
+       * BREAKING: removed this class (via [#125], [#131])
+    * `DisjunctiveLicenseWithName` class 
+      * BREAKING: renamed class to `NamedLicense` ([#164] via [#168])
   * `MetaData` class
     * BREAKING: renamed class to `Metadata` ([#133] via [#131])  
       Even though PHP is case-insensitive with class names, autoloaders may be case-sensitive. Therefore, this is considered a breaking change.
@@ -165,8 +167,10 @@ All notable changes to this project will be documented in this file.
 [#151]: https://github.com/CycloneDX/cyclonedx-php-library/pull/151
 [#155]: https://github.com/CycloneDX/cyclonedx-php-library/pull/155
 [#163]: https://github.com/CycloneDX/cyclonedx-php-library/issues/163
+[#164]: https://github.com/CycloneDX/cyclonedx-php-library/issues/164
 [#165]: https://github.com/CycloneDX/cyclonedx-php-library/pull/165
 [#166]: https://github.com/CycloneDX/cyclonedx-php-library/pull/166
+[#168]: https://github.com/CycloneDX/cyclonedx-php-library/pull/168
 
 ## 1.6.3 - 2022-09-15
 

@@ -36,8 +36,8 @@ use CycloneDX\Core\Models\Bom;
 use CycloneDX\Core\Models\Component;
 use CycloneDX\Core\Models\ExternalReference;
 use CycloneDX\Core\Models\License\DisjunctiveLicenseWithId;
-use CycloneDX\Core\Models\License\DisjunctiveLicenseWithName;
 use CycloneDX\Core\Models\License\LicenseExpression;
+use CycloneDX\Core\Models\License\NamedLicense;
 use CycloneDX\Core\Models\Metadata;
 use CycloneDX\Core\Models\Property;
 use CycloneDX\Core\Models\Tool;
@@ -411,7 +411,7 @@ abstract class BomModelProvider
                     (new Component(Classification::LIBRARY, 'name'))
                         ->setLicenses(
                             new LicenseRepository(
-                                new DisjunctiveLicenseWithName($license)
+                                new NamedLicense($license)
                             )
                         )
                 )
@@ -457,7 +457,7 @@ abstract class BomModelProvider
                     (new Component(Classification::LIBRARY, 'name'))
                         ->setLicenses(
                             new LicenseRepository(
-                                (new DisjunctiveLicenseWithName('some text'))
+                                (new NamedLicense('some text'))
                                     ->setUrl('https://example.com/license'),
                             )
                         )

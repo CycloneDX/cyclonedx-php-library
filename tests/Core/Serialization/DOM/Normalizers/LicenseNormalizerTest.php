@@ -24,8 +24,8 @@ declare(strict_types=1);
 namespace CycloneDX\Tests\Core\Serialization\DOM\Normalizers;
 
 use CycloneDX\Core\Models\License\DisjunctiveLicenseWithId;
-use CycloneDX\Core\Models\License\DisjunctiveLicenseWithName;
 use CycloneDX\Core\Models\License\LicenseExpression;
+use CycloneDX\Core\Models\License\NamedLicense;
 use CycloneDX\Core\Serialization\DOM\NormalizerFactory;
 use CycloneDX\Core\Serialization\DOM\Normalizers\LicenseNormalizer;
 use CycloneDX\Core\Spec\Spec;
@@ -44,7 +44,7 @@ class LicenseNormalizerTest extends \PHPUnit\Framework\TestCase
     /**
      * @dataProvider dpNormalize
      */
-    public function testNormalize(LicenseExpression|DisjunctiveLicenseWithId|DisjunctiveLicenseWithName $license, string $expectedXML): void
+    public function testNormalize(LicenseExpression|DisjunctiveLicenseWithId|NamedLicense $license, string $expectedXML): void
     {
         $spec = $this->createMock(Spec::class);
         $factory = $this->createConfiguredMock(
@@ -80,7 +80,7 @@ class LicenseNormalizerTest extends \PHPUnit\Framework\TestCase
             '</license>',
         ];
         yield 'named license' => [
-            $this->createConfiguredMock(DisjunctiveLicenseWithName::class, [
+            $this->createConfiguredMock(NamedLicense::class, [
                 'getName' => 'copyright by the crew',
                 'getUrl' => 'https://foo.bar',
             ]),

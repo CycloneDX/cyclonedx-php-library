@@ -24,8 +24,8 @@ declare(strict_types=1);
 namespace CycloneDX\Core\Factories;
 
 use CycloneDX\Core\Models\License\DisjunctiveLicenseWithId;
-use CycloneDX\Core\Models\License\DisjunctiveLicenseWithName;
 use CycloneDX\Core\Models\License\LicenseExpression;
+use CycloneDX\Core\Models\License\NamedLicense;
 use CycloneDX\Core\Spdx\LicenseValidator as SpdxLicenseValidator;
 use DomainException;
 use UnexpectedValueException;
@@ -57,7 +57,7 @@ class LicenseFactory
         return $this;
     }
 
-    public function makeFromString(string $license): DisjunctiveLicenseWithName|DisjunctiveLicenseWithId|LicenseExpression
+    public function makeFromString(string $license): NamedLicense|DisjunctiveLicenseWithId|LicenseExpression
     {
         try {
             return $this->makeExpression($license);
@@ -74,7 +74,7 @@ class LicenseFactory
         return new LicenseExpression($license);
     }
 
-    public function makeDisjunctive(string $license): DisjunctiveLicenseWithId|DisjunctiveLicenseWithName
+    public function makeDisjunctive(string $license): DisjunctiveLicenseWithId|NamedLicense
     {
         try {
             return $this->makeDisjunctiveWithId($license);
@@ -94,8 +94,8 @@ class LicenseFactory
         return DisjunctiveLicenseWithId::makeValidated($license, $this->getSpdxLicenseValidator());
     }
 
-    public function makeDisjunctiveWithName(string $license): DisjunctiveLicenseWithName
+    public function makeDisjunctiveWithName(string $license): NamedLicense
     {
-        return new DisjunctiveLicenseWithName($license);
+        return new NamedLicense($license);
     }
 }
