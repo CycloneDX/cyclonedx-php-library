@@ -186,21 +186,4 @@ class LicenseFactoryTest extends TestCase
         self::assertSame('foo and friends (c) 2342', $got->getName());
         self::assertNull($got->getUrl());
     }
-
-    /**
-     * @uses \CycloneDX\Core\Models\License\DisjunctiveLicenseWithName
-     * @uses \CycloneDX\Core\Collections\LicenseRepository
-     */
-    public function testMakeDisjunctiveFromExpression(): void
-    {
-        $factory = new LicenseFactory();
-        $expression = $this->createConfiguredMock(LicenseExpression::class, ['getExpression' => 'foo']);
-
-        $got = $factory->makeDisjunctiveFromExpression($expression);
-        $licenses = $got->getItems();
-
-        self::assertCount(1, $licenses);
-        self::assertInstanceOf(DisjunctiveLicenseWithName::class, $licenses[0]);
-        self::assertSame('foo', $licenses[0]->getName());
-    }
 }

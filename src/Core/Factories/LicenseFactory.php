@@ -23,7 +23,6 @@ declare(strict_types=1);
 
 namespace CycloneDX\Core\Factories;
 
-use CycloneDX\Core\Collections\LicenseRepository;
 use CycloneDX\Core\Models\License\DisjunctiveLicenseWithId;
 use CycloneDX\Core\Models\License\DisjunctiveLicenseWithName;
 use CycloneDX\Core\Models\License\LicenseExpression;
@@ -98,15 +97,5 @@ class LicenseFactory
     public function makeDisjunctiveWithName(string $license): DisjunctiveLicenseWithName
     {
         return new DisjunctiveLicenseWithName($license);
-    }
-
-    public function makeDisjunctiveFromExpression(LicenseExpression $license): LicenseRepository
-    {
-        // simple wrapper for now, unless we have a sophisticated method to actually split licenses
-        return new LicenseRepository(
-            $this->makeDisjunctiveWithName(
-                $license->getExpression()
-            )
-        );
     }
 }

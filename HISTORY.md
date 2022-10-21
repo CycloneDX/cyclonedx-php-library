@@ -20,21 +20,24 @@ All notable changes to this project will be documented in this file.
     This was possible due to PHP74's features and php8's UnionType language feature.
   * Migrated internals to PHP8 language features. ([#114] via [#125])
 
-### API changes v2
+### API changes v2 - the details
 
 * Overall
-  * BREAKING: Enforced the use of concrete UnionTypes instead of protocols/interfaces/abstracts. ([#114] via [#125])  
+  * BREAKING: enforced the use of concrete UnionTypes instead of protocols/interfaces/abstracts. ([#114] via [#125])  
     Affected the usages of no longer public `\CycloneDX\Core\Models\License\AbstractDisjunctiveLicense` and methods that used license-related classes.
     This was possible due to PHP8's UnionType language feature.
   * Changed some methods to no longer throw `\InvalidArgumentException`. (via [#125])  
     PhpDoc annotations were updated, so that code analysis tools should pick up.
     This was possible by enforcing correct typing on PHP8 language level.
-  * BREAKING: Every occurrence of `[mM]etaData` with a capital "D" was renamed to `[mM]metadata` with a small "d". ([#133] via [#131], [#149])
+  * BREAKING: every occurrence of `{M,m}etaData` with a capital "D" was renamed to `{M,m}etadata` with a small "d". ([#133] via [#131], [#149])
     This affected class names, method names, variable names, property names, file names, documentation - everything.
 * `\CycloneDX\Core\Collections` namespace
   * Added new class `PropertyRepository`. (via [#165])
 * `\CycloneDX\Core\Enum` namespace
   * Added class constant `ExternalReferenceType::RELEASE_NOTES` to reflect CycloneDX v1.4 ([#57] via [#65])
+* `CycloneDX\Core\Factories` namespace
+  * `LicenseFactory` class
+    * Breaking: removed method `makeDisjunctiveFromExpression()` ([#163] vial [#])
 * `\CycloneDX\Core\Models` namespace
   * `Bom` class
     * BREAKING: renamed methods `{get,set}ComponentRepository()` -> `{get,set}Components()` ([#133] via [#131])
@@ -74,7 +77,7 @@ All notable changes to this project will be documented in this file.
 * `\CycloneDX\Core\Repositories` namespace
   * Overall:
     * BREAKING: renamed the namespace to `\CycloneDX\Core\Collections` ([#133] via [#131])
-    * BREAKING: streamlined all classes, renamed all getters to `getItems` and all setters to `setItems`. ([#133] via [#131])  
+    * BREAKING: streamlined all classes, renamed all getters to `getItems()` and all setters to `setItems()`. ([#133] via [#131])  
       In addition, the method arguments were renamed to generic `$items`.
   * `DisjunctiveLicenseRepository` class
     * BREAKING: renamed the class to `\CycloneDX\Core\Collections\LicenseRepository` (via [#131])
@@ -117,9 +120,9 @@ All notable changes to this project will be documented in this file.
     * `ExternalReferenceNormalizer` classes
       * Changed, so that it tries to convert unsupported types to "other", before it throws an `\DomainException` ([#137] via [#147])
   * `JSON\Normalizers\BomNormalizer` class
-    * Changed: method `normalize`'s result data may contain the `$schema` string (via [#155])
+    * Changed: method `normalize()`'s result data may contain the `$schema` string (via [#155])
   * `JSON\Normalizers\ExternalReferenceNormalizer` class
-    * BREAKING: method `normalize` may throw `\UnexpectedValueException` when the url is invalid to format "ini-reference" (via [#151])
+    * BREAKING: method `normalize()` may throw `\UnexpectedValueException` when the url is invalid to format "ini-reference" (via [#151])
 * `\CycloneDX\Core\Spdx` namespace
   * BREAKING: renamed the class `License` -> `LicenseValidator` ([#133] via [#143])
 * `\CycloneDX\Core\Spec` namespace
@@ -161,6 +164,7 @@ All notable changes to this project will be documented in this file.
 [#149]: https://github.com/CycloneDX/cyclonedx-php-library/pull/149
 [#151]: https://github.com/CycloneDX/cyclonedx-php-library/pull/151
 [#155]: https://github.com/CycloneDX/cyclonedx-php-library/pull/155
+[#163]: https://github.com/CycloneDX/cyclonedx-php-library/issues/163
 [#165]: https://github.com/CycloneDX/cyclonedx-php-library/pull/165
 
 ## 1.6.3 - 2022-09-15
