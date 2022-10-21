@@ -101,6 +101,7 @@ class HashDictionary implements Countable
         if (false === HashAlgorithm::isValidValue($algorithm)) {
             throw new DomainException("Unknown hash algorithm: $algorithm");
         }
+
         if (null === $content) {
             unset($this->items[$algorithm]);
         } else {
