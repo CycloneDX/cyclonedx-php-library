@@ -113,7 +113,7 @@ class LicenseValidator
              */
             ['enum' => $licenses] = json_decode($json, true, 3, \JSON_THROW_ON_ERROR);
         } catch (JsonException $exception) {
-            throw new RuntimeException("Malformed licenses file: $file", 0, $exception);
+            throw new RuntimeException("Malformed licenses file: $file", previous: $exception);
         }
 
         $this->licenses = [];

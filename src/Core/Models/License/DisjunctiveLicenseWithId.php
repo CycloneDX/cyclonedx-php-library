@@ -69,9 +69,9 @@ class DisjunctiveLicenseWithId
      */
     public static function makeValidated(string $id, LicenseValidator $spdxLicenseValidator): self
     {
-        $validId = $spdxLicenseValidator->getLicense($id)
-            ?? throw new DomainException("Invalid SPDX license: $id");
-
-        return new self($validId);
+        return new self(
+            $spdxLicenseValidator->getLicense($id)
+            ?? throw new DomainException("Invalid SPDX license: $id")
+        );
     }
 }

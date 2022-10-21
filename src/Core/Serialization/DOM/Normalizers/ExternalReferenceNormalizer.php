@@ -48,10 +48,8 @@ class ExternalReferenceNormalizer extends _BaseNormalizer
     public function normalize(ExternalReference $externalReference): DOMElement
     {
         $refURI = $externalReference->getUrl();
-        $anyURI = $this->encodeAnyUriBE($refURI);
-        if (null === $anyURI) {
-            throw new UnexpectedValueException("unable to make 'anyURI' from: $refURI");
-        }
+        $anyURI = $this->encodeAnyUriBE($refURI)
+            ?? throw new UnexpectedValueException("unable to make 'anyURI' from: $refURI");
 
         $factory = $this->getNormalizerFactory();
         $spec = $factory->getSpec();
