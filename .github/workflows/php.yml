@@ -26,7 +26,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ "ubuntu-latest" ]
+        os:
+          - "ubuntu-latest"
         php:
           - "8.1" # highest supported
           - "8.0" # lowest supported
@@ -61,7 +62,8 @@ jobs:
           coverage: pcov,xdebug
       - name: Get composer cache directory
         id: composer-cache
-        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+        shell: bash
+        run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
       - name: Cache dependencies
         # see https://github.com/actions/cache
         uses: actions/cache@v3
@@ -133,7 +135,7 @@ jobs:
           coverage: none
       - name: Get composer cache directory
         id: composer-cache
-        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+        run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
       - name: Cache dependencies
         # see https://github.com/actions/cache
         uses: actions/cache@v3
@@ -189,7 +191,7 @@ jobs:
           coverage: none
       - name: Get composer cache directory
         id: composer-cache
-        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+        run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
       - name: Cache dependencies
         # see https://github.com/actions/cache
         uses: actions/cache@v3
@@ -227,7 +229,7 @@ jobs:
           coverage: none
       - name: Get composer cache directory
         id: composer-cache
-        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+        run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
       - name: Cache dependencies
         # see https://github.com/actions/cache
         uses: actions/cache@v3
@@ -263,7 +265,7 @@ jobs:
           coverage: none
       - name: Get composer cache directory
         id: composer-cache
-        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+        run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
       - name: Cache dependencies
         # see https://github.com/actions/cache
         uses: actions/cache@v3
@@ -301,7 +303,7 @@ jobs:
           coverage: none
       - name: Get composer cache directory
         id: composer-cache
-        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+        run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
       - name: Cache dependencies
         # see https://github.com/actions/cache
         uses: actions/cache@v3
@@ -340,7 +342,7 @@ jobs:
           coverage: none
       - name: Get composer cache directory
         id: composer-cache
-        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+        run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
       - name: Cache dependencies
         # see https://github.com/actions/cache
         uses: actions/cache@v3
