@@ -24,9 +24,9 @@ declare(strict_types=1);
 namespace CycloneDX\Core\Serialization\JSON\Normalizers;
 
 use CycloneDX\Core\_helpers\NullAssertionTrait;
-use CycloneDX\Core\Models\License\DisjunctiveLicenseWithId;
-use CycloneDX\Core\Models\License\DisjunctiveLicenseWithName;
 use CycloneDX\Core\Models\License\LicenseExpression;
+use CycloneDX\Core\Models\License\NamedLicense;
+use CycloneDX\Core\Models\License\SpdxLicense;
 use CycloneDX\Core\Serialization\JSON\_BaseNormalizer;
 use Opis\JsonSchema\Formats\IriFormats;
 
@@ -37,7 +37,7 @@ class LicenseNormalizer extends _BaseNormalizer
 {
     use NullAssertionTrait;
 
-    public function normalize(LicenseExpression|DisjunctiveLicenseWithId|DisjunctiveLicenseWithName $license): array
+    public function normalize(LicenseExpression|SpdxLicense|NamedLicense $license): array
     {
         return $license instanceof LicenseExpression
             ? $this->normalizeExpression($license)
@@ -56,9 +56,9 @@ class LicenseNormalizer extends _BaseNormalizer
      * @SuppressWarnings(PHPMD.ShortVariable) $id
      * @SuppressWarnings(PHPMD.StaticAccess)
      */
-    private function normalizeDisjunctive(DisjunctiveLicenseWithId|DisjunctiveLicenseWithName $license): array
+    private function normalizeDisjunctive(SpdxLicense|NamedLicense $license): array
     {
-        [$id, $name] = $license instanceof DisjunctiveLicenseWithId
+        [$id, $name] = $license instanceof SpdxLicense
             ? [$license->getId(), null]
             : [null, $license->getName()];
         $url = $license->getUrl();

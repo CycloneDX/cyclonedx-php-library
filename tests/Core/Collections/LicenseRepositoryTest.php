@@ -24,14 +24,14 @@ declare(strict_types=1);
 namespace CycloneDX\Tests\Core\Collections;
 
 use CycloneDX\Core\Collections\LicenseRepository;
-use CycloneDX\Core\Models\License\DisjunctiveLicenseWithId;
-use CycloneDX\Core\Models\License\DisjunctiveLicenseWithName;
+use CycloneDX\Core\Models\License\NamedLicense;
+use CycloneDX\Core\Models\License\SpdxLicense;
 use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \CycloneDX\Core\Collections\LicenseRepository
  */
-class DisjunctiveLicenseRepositoryTest extends TestCase
+class LicenseRepositoryTest extends TestCase
 {
     public function testEmptyConstructor(): void
     {
@@ -43,8 +43,8 @@ class DisjunctiveLicenseRepositoryTest extends TestCase
 
     public function testNonEmptyConstruct(): void
     {
-        $license1 = $this->createStub(DisjunctiveLicenseWithId::class);
-        $license2 = $this->createStub(DisjunctiveLicenseWithName::class);
+        $license1 = $this->createStub(SpdxLicense::class);
+        $license2 = $this->createStub(NamedLicense::class);
 
         $repo = new LicenseRepository($license1, $license2, $license1, $license2);
 
@@ -56,9 +56,9 @@ class DisjunctiveLicenseRepositoryTest extends TestCase
 
     public function testAddAndGetItems(): void
     {
-        $license1 = $this->createStub(DisjunctiveLicenseWithName::class);
-        $license2 = $this->createStub(DisjunctiveLicenseWithId::class);
-        $license3 = $this->createStub(DisjunctiveLicenseWithName::class);
+        $license1 = $this->createStub(NamedLicense::class);
+        $license2 = $this->createStub(SpdxLicense::class);
+        $license3 = $this->createStub(NamedLicense::class);
         $repo = new LicenseRepository($license1, $license2);
 
         $actual = $repo->addItems($license2, $license3, $license3);

@@ -28,7 +28,7 @@ namespace CycloneDX\Core\Models\License;
  *
  * @author jkowalleck
  */
-class DisjunctiveLicenseWithName
+class NamedLicense
 {
     use _DisjunctiveLicenseBase;
 

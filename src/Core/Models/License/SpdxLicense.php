@@ -33,7 +33,7 @@ use DomainException;
  *
  * @author jkowalleck
  */
-class DisjunctiveLicenseWithId
+class SpdxLicense
 {
     use _DisjunctiveLicenseBase;
 

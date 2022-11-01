@@ -29,7 +29,7 @@ use CycloneDX\Core\Collections\LicenseRepository;
 use CycloneDX\Core\Collections\PropertyRepository;
 use CycloneDX\Core\Models\BomRef;
 use CycloneDX\Core\Models\Component;
-use CycloneDX\Core\Models\License\DisjunctiveLicenseWithName;
+use CycloneDX\Core\Models\License\NamedLicense;
 use CycloneDX\Core\Serialization\DOM\NormalizerFactory;
 use CycloneDX\Core\Serialization\DOM\Normalizers;
 use CycloneDX\Core\Serialization\DOM\Normalizers\PropertyRepositoryNormalizer;
@@ -138,7 +138,7 @@ class ComponentNormalizerTest extends TestCase
                 'getType' => 'FakeType',
                 'getGroup' => 'myGroup',
                 'getDescription' => 'my description',
-                'getLicenses' => $this->createConfiguredMock(LicenseRepository::class, ['count' => 1, 'getItems' => [$this->createMock(DisjunctiveLicenseWithName::class)]]),
+                'getLicenses' => $this->createConfiguredMock(LicenseRepository::class, ['count' => 1, 'getItems' => [$this->createMock(NamedLicense::class)]]),
                 'getHashes' => $this->createConfiguredMock(HashDictionary::class, ['count' => 1]),
                 'getPackageUrl' => $this->createConfiguredMock(
                     PackageUrl::class,

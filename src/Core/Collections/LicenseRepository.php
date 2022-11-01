@@ -24,13 +24,13 @@ declare(strict_types=1);
 namespace CycloneDX\Core\Collections;
 
 use Countable;
-use CycloneDX\Core\Models\License\DisjunctiveLicenseWithId;
-use CycloneDX\Core\Models\License\DisjunctiveLicenseWithName;
 use CycloneDX\Core\Models\License\LicenseExpression;
+use CycloneDX\Core\Models\License\NamedLicense;
+use CycloneDX\Core\Models\License\SpdxLicense;
 
 /**
- * Unique collection of {@see \CycloneDX\Core\Models\License\DisjunctiveLicenseWithId},
- * {@see \CycloneDX\Core\Models\License\DisjunctiveLicenseWithName} and
+ * Unique collection of {@see \CycloneDX\Core\Models\License\SpdxLicense},
+ * {@see \CycloneDX\Core\Models\License\NamedLicense} and
  * {@see \CycloneDX\Core\Models\License\LicenseExpression}.
  *
  * @author jkowalleck
@@ -38,16 +38,16 @@ use CycloneDX\Core\Models\License\LicenseExpression;
 class LicenseRepository implements Countable
 {
     /**
-     * @var DisjunctiveLicenseWithId[]|DisjunctiveLicenseWithName[]|LicenseExpression[]
+     * @var SpdxLicense[]|NamedLicense[]|LicenseExpression[]
      *
-     * @psalm-var list<DisjunctiveLicenseWithId|DisjunctiveLicenseWithName|LicenseExpression>
+     * @psalm-var list<SpdxLicense|NamedLicense|LicenseExpression>
      */
     private array $items = [];
 
     /**
      * Unsupported Licenses are filtered out silently.
      */
-    public function __construct(DisjunctiveLicenseWithId|DisjunctiveLicenseWithName|LicenseExpression ...$items)
+    public function __construct(SpdxLicense|NamedLicense|LicenseExpression ...$items)
     {
         $this->addItems(...$items);
     }
@@ -58,7 +58,7 @@ class LicenseRepository implements Countable
      *
      * @return $this
      */
-    public function addItems(DisjunctiveLicenseWithId|DisjunctiveLicenseWithName|LicenseExpression ...$items): self
+    public function addItems(SpdxLicense|NamedLicense|LicenseExpression ...$items): self
     {
         foreach ($items as $item) {
             if (\in_array($item, $this->items, true)) {
@@ -71,9 +71,9 @@ class LicenseRepository implements Countable
     }
 
     /**
-     * @return DisjunctiveLicenseWithId[]|DisjunctiveLicenseWithName[]|LicenseExpression[]
+     * @return SpdxLicense[]|NamedLicense[]|LicenseExpression[]
      *
-     * @psalm-return list<DisjunctiveLicenseWithId|DisjunctiveLicenseWithName|LicenseExpression>
+     * @psalm-return list<SpdxLicense|NamedLicense|LicenseExpression>
      */
     public function getItems(): array
     {
