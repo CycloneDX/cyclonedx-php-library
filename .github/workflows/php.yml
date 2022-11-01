@@ -26,16 +26,11 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os:
-          - "ubuntu-latest"
+        os: [ "ubuntu-latest" ]
         php:
-          - "8.1" # highest supported
-          - "8.0" # lowest supported
+          - "8.1"   # highest supported
+          - "8.0"   # lowest supported
         dependencies: [ "lowest", "highest" ]
-        exclude:
-          - # unstable combinations: `Swaggest\JsonSchema` on php8.1 - throws PHP Deprecated warnings
-            php: "8.1"
-            dependencies: "lowest"
         include:
           - # Windows highest
             os: windows-latest
@@ -45,7 +40,7 @@ jobs:
             os: macos-latest
             php: "8.1"
             dependencies: "highest"
-    timeout-minutes: 30
+    timeout-minutes: 10
     steps:
       - name: Checkout
         # see https://github.com/actions/checkout
@@ -108,7 +103,7 @@ jobs:
   code-checker:
     name: Code analysis (${{ matrix.php }}, ${{ matrix.dependencies }})
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 10
     env:
       REPORTS_ARTIFACT: types-reports
     strategy:
@@ -176,7 +171,7 @@ jobs:
   composer-unused:
     name: ComposerUnused
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 10
     steps:
       - name: Checkout
         # see https://github.com/actions/checkout
@@ -214,7 +209,7 @@ jobs:
   composer-require-checker:
     name: ComposerRequireChecker
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 10
     steps:
       - name: Checkout
         # see https://github.com/actions/checkout
@@ -250,7 +245,7 @@ jobs:
   coding-standards:
     name: Coding Standards
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 10
     steps:
       - name: Checkout
         # see https://github.com/actions/checkout
@@ -289,7 +284,7 @@ jobs:
   composer-normalize:
     name: Composer normalize
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 10
     steps:
       - name: Checkout
         # see https://github.com/actions/checkout
@@ -328,7 +323,7 @@ jobs:
   phpmd:
     name: PHP Mess Detector
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 10
     steps:
       - name: Checkout
         # see https://github.com/actions/checkout

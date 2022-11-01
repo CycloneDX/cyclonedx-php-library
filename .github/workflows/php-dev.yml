@@ -40,7 +40,7 @@ jobs:
         php:
           - "8.1"   # highest supported
           - "8.0"   # lowest supported
-    timeout-minutes: 30
+    timeout-minutes: 10
     steps:
       - name: Checkout
         # see https://github.com/actions/checkout
