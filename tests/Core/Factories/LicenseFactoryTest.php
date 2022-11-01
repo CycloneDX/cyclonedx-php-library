@@ -24,9 +24,9 @@ declare(strict_types=1);
 namespace CycloneDX\Tests\Core\Factories;
 
 use CycloneDX\Core\Factories\LicenseFactory;
-use CycloneDX\Core\Models\License\DisjunctiveLicenseWithId;
 use CycloneDX\Core\Models\License\LicenseExpression;
 use CycloneDX\Core\Models\License\NamedLicense;
+use CycloneDX\Core\Models\License\SpdxLicense;
 use CycloneDX\Core\Spdx\LicenseValidator as SpdxLicenseValidator;
 use DomainException;
 use Exception;
@@ -122,13 +122,13 @@ class LicenseFactoryTest extends TestCase
 
     public function testMakeDisjunctiveIsId(): void
     {
-        $factory = $this->createPartialMock(LicenseFactory::class, ['makeDisjunctiveWithId', 'makeDisjunctiveWithName']);
-        $license = $this->createStub(DisjunctiveLicenseWithId::class);
+        $factory = $this->createPartialMock(LicenseFactory::class, ['makeSpdxLicense', 'makeNamedLicense']);
+        $license = $this->createStub(SpdxLicense::class);
 
-        $factory->expects(self::once())->method('makeDisjunctiveWithId')
+        $factory->expects(self::once())->method('makeSpdxLicense')
             ->with('FooBar')
             ->willReturn($license);
-        $factory->expects(self::never())->method('makeDisjunctiveWithName');
+        $factory->expects(self::never())->method('makeNamedLicense');
 
         $got = $factory->makeDisjunctive('FooBar');
 
@@ -137,13 +137,13 @@ class LicenseFactoryTest extends TestCase
 
     public function testMakeDisjunctiveIsName(): void
     {
-        $factory = $this->createPartialMock(LicenseFactory::class, ['makeDisjunctiveWithId', 'makeDisjunctiveWithName']);
+        $factory = $this->createPartialMock(LicenseFactory::class, ['makeSpdxLicense', 'makeNamedLicense']);
         $license = $this->createStub(NamedLicense::class);
 
-        $factory->expects(self::once())->method('makeDisjunctiveWithId')
+        $factory->expects(self::once())->method('makeSpdxLicense')
             ->with('FooBar')
             ->willThrowException(new DomainException());
-        $factory->expects(self::once())->method('makeDisjunctiveWithName')
+        $factory->expects(self::once())->method('makeNamedLicense')
             ->with('FooBar')
             ->willReturn($license);
 
@@ -153,9 +153,9 @@ class LicenseFactoryTest extends TestCase
     }
 
     /**
-     * @uses \CycloneDX\Core\Models\License\DisjunctiveLicenseWithId
+     * @uses \CycloneDX\Core\Models\License\SpdxLicense
      */
-    public function testMakeDisjunctiveWithId(): void
+    public function testMakeSpdxLicense(): void
     {
         $spdxLicenseValidator = $this->createMock(SpdxLicenseValidator::class);
         $spdxLicenseValidator->method('getLicenses')
@@ -168,7 +168,7 @@ class LicenseFactoryTest extends TestCase
             ->willReturn('FooBar');
         $factory = new LicenseFactory($spdxLicenseValidator);
 
-        $got = $factory->makeDisjunctiveWithId('foobar');
+        $got = $factory->makeSpdxLicense('foobar');
 
         self::assertSame('FooBar', $got->getId());
         self::assertNull($got->getUrl());
@@ -177,11 +177,11 @@ class LicenseFactoryTest extends TestCase
     /**
      *  @uses \CycloneDX\Core\Models\License\NamedLicense
      */
-    public function testMakeDisjunctiveWithName(): void
+    public function testMakeNamedLicense(): void
     {
         $factory = new LicenseFactory();
 
-        $got = $factory->makeDisjunctiveWithName('foo and friends (c) 2342');
+        $got = $factory->makeNamedLicense('foo and friends (c) 2342');
 
         self::assertSame('foo and friends (c) 2342', $got->getName());
         self::assertNull($got->getUrl());

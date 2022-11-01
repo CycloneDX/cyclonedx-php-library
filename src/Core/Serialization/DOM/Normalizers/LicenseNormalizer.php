@@ -25,9 +25,9 @@ namespace CycloneDX\Core\Serialization\DOM\Normalizers;
 
 use CycloneDX\Core\_helpers\SimpleDomTrait;
 use CycloneDX\Core\_helpers\XmlTrait;
-use CycloneDX\Core\Models\License\DisjunctiveLicenseWithId;
 use CycloneDX\Core\Models\License\LicenseExpression;
 use CycloneDX\Core\Models\License\NamedLicense;
+use CycloneDX\Core\Models\License\SpdxLicense;
 use CycloneDX\Core\Serialization\DOM\_BaseNormalizer;
 use DOMElement;
 
@@ -39,7 +39,7 @@ class LicenseNormalizer extends _BaseNormalizer
     use SimpleDomTrait;
     use XmlTrait;
 
-    public function normalize(LicenseExpression|DisjunctiveLicenseWithId|NamedLicense $license): DOMElement
+    public function normalize(LicenseExpression|SpdxLicense|NamedLicense $license): DOMElement
     {
         return $license instanceof LicenseExpression
             ? $this->normalizeExpression($license)
@@ -64,9 +64,9 @@ class LicenseNormalizer extends _BaseNormalizer
     /**
      * @SuppressWarnings(PHPMD.ShortVariable)
      */
-    private function normalizeDisjunctive(DisjunctiveLicenseWithId|NamedLicense $license): DOMElement
+    private function normalizeDisjunctive(SpdxLicense|NamedLicense $license): DOMElement
     {
-        [$id, $name] = $license instanceof DisjunctiveLicenseWithId
+        [$id, $name] = $license instanceof SpdxLicense
             ? [$license->getId(), null]
             : [null, $license->getName()];
 

@@ -23,23 +23,23 @@ declare(strict_types=1);
 
 namespace CycloneDX\Tests\Core\Models\License;
 
-use CycloneDX\Core\Models\License\DisjunctiveLicenseWithId;
+use CycloneDX\Core\Models\License\SpdxLicense;
 use CycloneDX\Core\Spdx\LicenseValidator;
 use DomainException;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers \CycloneDX\Core\Models\License\DisjunctiveLicenseWithId
+ * @covers \CycloneDX\Core\Models\License\SpdxLicense
  */
-class DisjunctiveLicenseWithIdTest extends TestCase
+class SpdxLicenseTest extends TestCase
 {
-    public function testConstruct(): DisjunctiveLicenseWithId
+    public function testConstruct(): SpdxLicense
     {
         $spdxLicenseValidator = $this->createMock(LicenseValidator::class);
         $spdxLicenseValidator->method('validate')->with('foo')->willReturn(true);
         $spdxLicenseValidator->method('getLicense')->with('foo')->willReturn('bar');
 
-        $license = DisjunctiveLicenseWithId::makeValidated('foo', $spdxLicenseValidator);
+        $license = SpdxLicense::makeValidated('foo', $spdxLicenseValidator);
 
         self::assertSame('bar', $license->getId());
         self::assertNull($license->getUrl());
@@ -56,13 +56,13 @@ class DisjunctiveLicenseWithIdTest extends TestCase
         $this->expectException(DomainException::class);
         $this->expectExceptionMessageMatches('/invalid SPDX license/i');
 
-        DisjunctiveLicenseWithId::makeValidated('foo', $spdxLicenseValidator);
+        SpdxLicense::makeValidated('foo', $spdxLicenseValidator);
     }
 
     /**
      * @depends testConstruct
      */
-    public function testSetAndGetUrl(DisjunctiveLicenseWithId $license): DisjunctiveLicenseWithId
+    public function testSetAndGetUrl(SpdxLicense $license): SpdxLicense
     {
         $url = uniqid('url', true);
         $license->setUrl($url);
@@ -74,7 +74,7 @@ class DisjunctiveLicenseWithIdTest extends TestCase
     /**
      * @depends testSetAndGetUrl
      */
-    public function testSetUrlNull(DisjunctiveLicenseWithId $license): void
+    public function testSetUrlNull(SpdxLicense $license): void
     {
         $license->setUrl(null);
         self::assertNull($license->getUrl());

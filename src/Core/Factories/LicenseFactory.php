@@ -23,9 +23,9 @@ declare(strict_types=1);
 
 namespace CycloneDX\Core\Factories;
 
-use CycloneDX\Core\Models\License\DisjunctiveLicenseWithId;
 use CycloneDX\Core\Models\License\LicenseExpression;
 use CycloneDX\Core\Models\License\NamedLicense;
+use CycloneDX\Core\Models\License\SpdxLicense;
 use CycloneDX\Core\Spdx\LicenseValidator as SpdxLicenseValidator;
 use DomainException;
 use UnexpectedValueException;
@@ -50,6 +50,9 @@ class LicenseFactory
             ?? throw new UnexpectedValueException('Missing spdxLicenseValidator');
     }
 
+    /**
+     * @psalm-assert SpdxLicenseValidator $this->spdxLicenseValidator
+     */
     public function setSpdxLicenseValidator(SpdxLicenseValidator $spdxLicenseValidator): self
     {
         $this->spdxLicenseValidator = $spdxLicenseValidator;
@@ -57,7 +60,11 @@ class LicenseFactory
         return $this;
     }
 
-    public function makeFromString(string $license): NamedLicense|DisjunctiveLicenseWithId|LicenseExpression
+    /**
+     * @see makeExpression()
+     * @see makeDisjunctive()
+     */
+    public function makeFromString(string $license): NamedLicense|SpdxLicense|LicenseExpression
     {
         try {
             return $this->makeExpression($license);
@@ -74,12 +81,16 @@ class LicenseFactory
         return new LicenseExpression($license);
     }
 
-    public function makeDisjunctive(string $license): DisjunctiveLicenseWithId|NamedLicense
+    /**
+     * @see makeSpdxLicense()
+     * @see makeNamedLicense()
+     */
+    public function makeDisjunctive(string $license): SpdxLicense|NamedLicense
     {
         try {
-            return $this->makeDisjunctiveWithId($license);
+            return $this->makeSpdxLicense($license);
         } catch (UnexpectedValueException|DomainException) {
-            return $this->makeDisjunctiveWithName($license);
+            return $this->makeNamedLicense($license);
         }
     }
 
@@ -89,12 +100,12 @@ class LicenseFactory
      *
      * @SuppressWarnings(PHPMD.StaticAccess)
      */
-    public function makeDisjunctiveWithId(string $license): DisjunctiveLicenseWithId
+    public function makeSpdxLicense(string $license): SpdxLicense
     {
-        return DisjunctiveLicenseWithId::makeValidated($license, $this->getSpdxLicenseValidator());
+        return SpdxLicense::makeValidated($license, $this->getSpdxLicenseValidator());
     }
 
-    public function makeDisjunctiveWithName(string $license): NamedLicense
+    public function makeNamedLicense(string $license): NamedLicense
     {
         return new NamedLicense($license);
     }

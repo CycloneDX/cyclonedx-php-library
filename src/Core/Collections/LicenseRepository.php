@@ -24,12 +24,12 @@ declare(strict_types=1);
 namespace CycloneDX\Core\Collections;
 
 use Countable;
-use CycloneDX\Core\Models\License\DisjunctiveLicenseWithId;
 use CycloneDX\Core\Models\License\LicenseExpression;
 use CycloneDX\Core\Models\License\NamedLicense;
+use CycloneDX\Core\Models\License\SpdxLicense;
 
 /**
- * Unique collection of {@see \CycloneDX\Core\Models\License\DisjunctiveLicenseWithId},
+ * Unique collection of {@see \CycloneDX\Core\Models\License\SpdxLicense},
  * {@see \CycloneDX\Core\Models\License\NamedLicense} and
  * {@see \CycloneDX\Core\Models\License\LicenseExpression}.
  *
@@ -38,16 +38,16 @@ use CycloneDX\Core\Models\License\NamedLicense;
 class LicenseRepository implements Countable
 {
     /**
-     * @var DisjunctiveLicenseWithId[]|NamedLicense[]|LicenseExpression[]
+     * @var SpdxLicense[]|NamedLicense[]|LicenseExpression[]
      *
-     * @psalm-var list<DisjunctiveLicenseWithId|NamedLicense|LicenseExpression>
+     * @psalm-var list<SpdxLicense|NamedLicense|LicenseExpression>
      */
     private array $items = [];
 
     /**
      * Unsupported Licenses are filtered out silently.
      */
-    public function __construct(DisjunctiveLicenseWithId|NamedLicense|LicenseExpression ...$items)
+    public function __construct(SpdxLicense|NamedLicense|LicenseExpression ...$items)
     {
         $this->addItems(...$items);
     }
@@ -58,7 +58,7 @@ class LicenseRepository implements Countable
      *
      * @return $this
      */
-    public function addItems(DisjunctiveLicenseWithId|NamedLicense|LicenseExpression ...$items): self
+    public function addItems(SpdxLicense|NamedLicense|LicenseExpression ...$items): self
     {
         foreach ($items as $item) {
             if (\in_array($item, $this->items, true)) {
@@ -71,9 +71,9 @@ class LicenseRepository implements Countable
     }
 
     /**
-     * @return DisjunctiveLicenseWithId[]|NamedLicense[]|LicenseExpression[]
+     * @return SpdxLicense[]|NamedLicense[]|LicenseExpression[]
      *
-     * @psalm-return list<DisjunctiveLicenseWithId|NamedLicense|LicenseExpression>
+     * @psalm-return list<SpdxLicense|NamedLicense|LicenseExpression>
      */
     public function getItems(): array
     {
