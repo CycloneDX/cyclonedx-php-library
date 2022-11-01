@@ -23,7 +23,7 @@ declare(strict_types=1);
 
 namespace CycloneDX\Core\Spec;
 
-use CycloneDX\Core\Enums\Classification;
+use CycloneDX\Core\Enums\ComponentType;
 use CycloneDX\Core\Enums\ExternalReferenceType;
 use CycloneDX\Core\Enums\HashAlgorithm;
 use DomainException;
@@ -75,12 +75,12 @@ abstract class SpecFactory
                 Format::XML,
             ],
             [
-                Classification::APPLICATION,
-                Classification::FRAMEWORK,
-                Classification::LIBRARY,
-                Classification::OPERATING_SYSTEMS,
-                Classification::DEVICE,
-                Classification::FILE,
+                ComponentType::APPLICATION,
+                ComponentType::FRAMEWORK,
+                ComponentType::LIBRARY,
+                ComponentType::OPERATING_SYSTEMS,
+                ComponentType::DEVICE,
+                ComponentType::FILE,
             ],
             [
                 HashAlgorithm::MD5,
@@ -133,14 +133,14 @@ abstract class SpecFactory
                 Format::JSON,
             ],
             [
-                Classification::APPLICATION,
-                Classification::FRAMEWORK,
-                Classification::LIBRARY,
-                Classification::OPERATING_SYSTEMS,
-                Classification::DEVICE,
-                Classification::FILE,
-                Classification::CONTAINER,
-                Classification::FIRMWARE,
+                ComponentType::APPLICATION,
+                ComponentType::FRAMEWORK,
+                ComponentType::LIBRARY,
+                ComponentType::OPERATING_SYSTEMS,
+                ComponentType::DEVICE,
+                ComponentType::FILE,
+                ComponentType::CONTAINER,
+                ComponentType::FIRMWARE,
             ],
             [
                 HashAlgorithm::MD5,
@@ -198,14 +198,14 @@ abstract class SpecFactory
                 Format::JSON,
             ],
             [
-                Classification::APPLICATION,
-                Classification::FRAMEWORK,
-                Classification::LIBRARY,
-                Classification::OPERATING_SYSTEMS,
-                Classification::DEVICE,
-                Classification::FILE,
-                Classification::CONTAINER,
-                Classification::FIRMWARE,
+                ComponentType::APPLICATION,
+                ComponentType::FRAMEWORK,
+                ComponentType::LIBRARY,
+                ComponentType::OPERATING_SYSTEMS,
+                ComponentType::DEVICE,
+                ComponentType::FILE,
+                ComponentType::CONTAINER,
+                ComponentType::FIRMWARE,
             ],
             [
                 HashAlgorithm::MD5,
@@ -264,14 +264,14 @@ abstract class SpecFactory
                 Format::JSON,
             ],
             [
-                Classification::APPLICATION,
-                Classification::FRAMEWORK,
-                Classification::LIBRARY,
-                Classification::OPERATING_SYSTEMS,
-                Classification::DEVICE,
-                Classification::FILE,
-                Classification::CONTAINER,
-                Classification::FIRMWARE,
+                ComponentType::APPLICATION,
+                ComponentType::FRAMEWORK,
+                ComponentType::LIBRARY,
+                ComponentType::OPERATING_SYSTEMS,
+                ComponentType::DEVICE,
+                ComponentType::FILE,
+                ComponentType::CONTAINER,
+                ComponentType::FIRMWARE,
             ],
             [
                 HashAlgorithm::MD5,

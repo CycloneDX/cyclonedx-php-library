@@ -29,7 +29,7 @@ use CycloneDX\Core\Collections\HashDictionary;
 use CycloneDX\Core\Collections\LicenseRepository;
 use CycloneDX\Core\Collections\PropertyRepository;
 use CycloneDX\Core\Collections\ToolRepository;
-use CycloneDX\Core\Enums\Classification;
+use CycloneDX\Core\Enums\ComponentType;
 use CycloneDX\Core\Enums\ExternalReferenceType;
 use CycloneDX\Core\Enums\HashAlgorithm;
 use CycloneDX\Core\Models\Bom;
@@ -198,14 +198,14 @@ abstract class BomModelProvider
         yield 'component: plain' => [
             (new Bom())->setComponents(
                 new ComponentRepository(
-                    new Component(Classification::LIBRARY, 'name')
+                    new Component(ComponentType::LIBRARY, 'name')
                 )
             ),
         ];
     }
 
     /**
-     * BOMs with all classification types known.
+     * BOMs with all ComponentTypes known.
      *
      * @return Generator<Bom[]>
      *
@@ -214,7 +214,7 @@ abstract class BomModelProvider
     public static function bomWithComponentTypeAllKnown(): Generator
     {
         /** @psalm-var list<string> $known */
-        $known = array_values((new ReflectionClass(Classification::class))->getConstants());
+        $known = array_values((new ReflectionClass(ComponentType::class))->getConstants());
         yield from self::bomWithComponentTypes(
             ...$known,
             ...BomSpecData::getClassificationEnumForVersion('1.0'),
@@ -239,7 +239,7 @@ abstract class BomModelProvider
         yield 'component with empty ExternalReferences' => [
             (new Bom())->setComponents(
                 new ComponentRepository(
-                    (new Component(Classification::LIBRARY, 'dummy'))
+                    (new Component(ComponentType::LIBRARY, 'dummy'))
                         ->setExternalReferences(new ExternalReferenceRepository())
                 )
             ),
@@ -249,7 +249,7 @@ abstract class BomModelProvider
             yield "component with $label" => [
                 (new Bom())->setComponents(
                     new ComponentRepository(
-                        (new Component(Classification::LIBRARY, 'dummy'))
+                        (new Component(ComponentType::LIBRARY, 'dummy'))
                             ->setExternalReferences(new ExternalReferenceRepository($extRef))
                     )
                 ),
@@ -271,7 +271,7 @@ abstract class BomModelProvider
         yield 'component with some properties' => [
             (new Bom())->setComponents(
                 new ComponentRepository(
-                    (new Component(Classification::LIBRARY, 'dummy'))
+                    (new Component(ComponentType::LIBRARY, 'dummy'))
                         ->setProperties(new PropertyRepository(
                             new Property('somePropertyName', 'somePropertyValue-1'),
                             new Property('somePropertyName', 'somePropertyValue-2'),
@@ -379,7 +379,7 @@ abstract class BomModelProvider
         yield "component license: $license" => [
             (new Bom())->setComponents(
                 new ComponentRepository(
-                    (new Component(Classification::LIBRARY, 'name'))
+                    (new Component(ComponentType::LIBRARY, 'name'))
                         ->setLicenses(
                             new LicenseRepository(
                                 SpdxLicense::makeValidated(
@@ -408,7 +408,7 @@ abstract class BomModelProvider
         yield 'component license: random' => [
             (new Bom())->setComponents(
                 new ComponentRepository(
-                    (new Component(Classification::LIBRARY, 'name'))
+                    (new Component(ComponentType::LIBRARY, 'name'))
                         ->setLicenses(
                             new LicenseRepository(
                                 new NamedLicense($license)
@@ -431,7 +431,7 @@ abstract class BomModelProvider
         yield 'component license expression' => [
             (new Bom())->setComponents(
                 new ComponentRepository(
-                    (new Component(Classification::LIBRARY, 'name'))
+                    (new Component(ComponentType::LIBRARY, 'name'))
                         ->setLicenses(
                             new LicenseRepository(
                                 new LicenseExpression('(Foo or Bar)')
@@ -454,7 +454,7 @@ abstract class BomModelProvider
         yield 'component license with URL' => [
             (new Bom())->setComponents(
                 new ComponentRepository(
-                    (new Component(Classification::LIBRARY, 'name'))
+                    (new Component(ComponentType::LIBRARY, 'name'))
                         ->setLicenses(
                             new LicenseRepository(
                                 (new NamedLicense('some text'))
@@ -481,7 +481,7 @@ abstract class BomModelProvider
                 (new Bom())->setComponents(
                     new ComponentRepository(
                         (
-                            new Component(Classification::LIBRARY, 'name')
+                            new Component(ComponentType::LIBRARY, 'name')
                         )->setVersion($version),
                     )
                 ),
@@ -598,7 +598,7 @@ abstract class BomModelProvider
             yield "component hash alg: $hashAlgorithm" => [
                 (new Bom())->setComponents(
                     new ComponentRepository(
-                        (new Component(Classification::LIBRARY, 'name'))
+                        (new Component(ComponentType::LIBRARY, 'name'))
                             ->setHashes(
                                 new HashDictionary([$hashAlgorithm => '12345678901234567890123456789012'])
                             )
@@ -622,7 +622,7 @@ abstract class BomModelProvider
         yield 'component description: none' => [
             (new Bom())->setComponents(
                 new ComponentRepository(
-                    (new Component(Classification::LIBRARY, 'name'))
+                    (new Component(ComponentType::LIBRARY, 'name'))
                         ->setDescription(null)
                 )
             ),
@@ -630,7 +630,7 @@ abstract class BomModelProvider
         yield 'component description: empty' => [
             (new Bom())->setComponents(
                 new ComponentRepository(
-                    (new Component(Classification::LIBRARY, 'name'))
+                    (new Component(ComponentType::LIBRARY, 'name'))
                         ->setDescription('')
                 )
             ),
@@ -638,7 +638,7 @@ abstract class BomModelProvider
         yield 'component description: random' => [
             (new Bom())->setComponents(
                 new ComponentRepository(
-                    (new Component(Classification::LIBRARY, 'name'))
+                    (new Component(ComponentType::LIBRARY, 'name'))
                         ->setDescription(bin2hex(random_bytes(32)))
                 )
             ),
@@ -646,7 +646,7 @@ abstract class BomModelProvider
         yield 'component description: spaces' => [
             (new Bom())->setComponents(
                 new ComponentRepository(
-                    (new Component(Classification::LIBRARY, 'name'))
+                    (new Component(ComponentType::LIBRARY, 'name'))
                         ->setDescription("\ta  test   ")
                 )
             ),
@@ -654,7 +654,7 @@ abstract class BomModelProvider
         yield 'component description: XML special chars' => [
             (new Bom())->setComponents(
                 new ComponentRepository(
-                    (new Component(Classification::LIBRARY, 'name'))
+                    (new Component(ComponentType::LIBRARY, 'name'))
                         ->setDescription(
                             'this & that'. // an & that is not an XML entity
                             '<strong>html<strong>'. // things that might cause schema-invalid XML
@@ -733,7 +733,7 @@ abstract class BomModelProvider
             (new Bom())->setMetadata(
                 (new Metadata())->setComponent(
                     new Component(
-                        Classification::APPLICATION,
+                        ComponentType::APPLICATION,
                         'foo'
                     )
                 )

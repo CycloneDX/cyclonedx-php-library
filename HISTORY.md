@@ -32,9 +32,12 @@ All notable changes to this project will be documented in this file.
   * BREAKING: every occurrence of `{M,m}etaData` with a capital "D" was renamed to `{M,m}etadata` with a small "d". ([#133] via [#131], [#149])
     This affected class names, method names, variable names, property names, file names, documentation - everything.
 * `\CycloneDX\Core\Collections` namespace
-  * Added new class `PropertyRepository`. (via [#165])
+  * Added new class `PropertyRepository` (via [#165])
 * `\CycloneDX\Core\Enum` namespace
-  * Added class constant `ExternalReferenceType::RELEASE_NOTES` to reflect CycloneDX v1.4 ([#57] via [#65])
+  * `Classification` class
+    * BREAKING: renamed class to `ComponentType` (via [#170])
+  * `ExternalReferenceType` class
+    * Added class constant `::RELEASE_NOTES` to reflect CycloneDX v1.4 ([#57] via [#65])
 * `CycloneDX\Core\Factories` namespace
   * `LicenseFactory` class
     * Breaking: removed method `makeDisjunctiveFromExpression()` ([#163] vial [#166])
@@ -89,7 +92,7 @@ All notable changes to this project will be documented in this file.
     * BREAKING: renamed the class to `\CycloneDX\Core\Collections\LicenseRepository` (via [#131])
     * BREAKING: added the capability to also aggregate instances of class `Models\LicenseExpression`. (via [#131])
       Therefore, various getters and setters and the constructor changed their signatures,
-      was usage of `Models\License\AbstractDisjunctiveLicense` only.
+      was usage of `\CycloneDX\Core\Models\License\AbstractDisjunctiveLicense` only.
   * `HashRepository` class
     * BREAKING: renamed to `\CycloneDX\Core\Collections\HashDictionary` ([#133] via [#131])
     * BREAKING: renamed all methods and changed all method signatures to match the overall streamlined scheme ([#133] via [#131])
@@ -175,6 +178,7 @@ All notable changes to this project will be documented in this file.
 [#165]: https://github.com/CycloneDX/cyclonedx-php-library/pull/165
 [#166]: https://github.com/CycloneDX/cyclonedx-php-library/pull/166
 [#168]: https://github.com/CycloneDX/cyclonedx-php-library/pull/168
+[#170]: https://github.com/CycloneDX/cyclonedx-php-library/pull/170
 
 ## 1.6.3 - 2022-09-15
 

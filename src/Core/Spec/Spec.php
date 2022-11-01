@@ -23,7 +23,7 @@ declare(strict_types=1);
 
 namespace CycloneDX\Core\Spec;
 
-use CycloneDX\Core\Enums\Classification;
+use CycloneDX\Core\Enums\ComponentType;
 use CycloneDX\Core\Enums\ExternalReferenceType;
 use CycloneDX\Core\Enums\HashAlgorithm;
 
@@ -42,7 +42,7 @@ class Spec
     /**
      * @psalm-param Version::* $sVersion
      * @psalm-param list<Format::*> $lFormats
-     * @psalm-param list<Classification::*> $lComponentTypes
+     * @psalm-param list<ComponentType::*> $lComponentTypes
      * @psalm-param list<HashAlgorithm::*> $lHashAlgorithms
      * @psalm-param list<ExternalReferenceType::*> $lExternalReferenceTypes
      *
@@ -80,9 +80,9 @@ class Spec
         return \in_array($format, $this->lFormats, true);
     }
 
-    public function isSupportedComponentType(string $classification): bool
+    public function isSupportedComponentType(string $componentType): bool
     {
-        return \in_array($classification, $this->lComponentTypes, true);
+        return \in_array($componentType, $this->lComponentTypes, true);
     }
 
     public function isSupportedHashAlgorithm(string $alg): bool

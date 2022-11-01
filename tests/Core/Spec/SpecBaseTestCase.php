@@ -23,7 +23,7 @@ declare(strict_types=1);
 
 namespace CycloneDX\Tests\Core\Spec;
 
-use CycloneDX\Core\Enums\Classification;
+use CycloneDX\Core\Enums\ComponentType;
 use CycloneDX\Core\Enums\ExternalReferenceType;
 use CycloneDX\Core\Enums\HashAlgorithm;
 use CycloneDX\Core\Spec\Spec;
@@ -87,9 +87,9 @@ abstract class SpecBaseTestCase extends TestCase
 
     final public function dpIsSupportedComponentType(): Generator
     {
-        yield 'unknown' => [uniqid('Classification', false), false];
+        yield 'unknown' => [uniqid('ComponentType', false), false];
         $known = BomSpecData::getClassificationEnumForVersion($this->getSpecVersion());
-        $values = (new ReflectionClass(Classification::class))->getConstants();
+        $values = (new ReflectionClass(ComponentType::class))->getConstants();
         foreach ($values as $value) {
             yield $value => [$value, \in_array($value, $known, true)];
         }

@@ -40,7 +40,7 @@ Code of v1 is in branch "[1.x](https://github.com/CycloneDX/cyclonedx-php-librar
 ## Capabilities
 
 * Enums for the following use cases:
-  * `Classification` aka ComponentType
+  * `ComponentType`
   * `ExternalReferenceType`
   * `HashAlgorithm`
 * Data models for the following use cases:
@@ -84,7 +84,7 @@ See extended [examples].
 $bom = new \CycloneDX\Core\Models\Bom();
 $bom->getComponents()->addItems(
     new \CycloneDX\Core\Models\Component(
-        \CycloneDX\Core\Enums\Classification::LIBRARY,
+        \CycloneDX\Core\Enums\ComponentType::LIBRARY,
         'myComponent'
     )
 );
