@@ -36,7 +36,7 @@ use ReflectionClass;
  *
  * @author jkowalleck
  */
-abstract class Classification
+abstract class ComponentType
 {
     public const APPLICATION = 'application';
     public const FRAMEWORK = 'framework';

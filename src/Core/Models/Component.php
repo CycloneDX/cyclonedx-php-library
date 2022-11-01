@@ -28,7 +28,7 @@ use CycloneDX\Core\Collections\ExternalReferenceRepository;
 use CycloneDX\Core\Collections\HashDictionary;
 use CycloneDX\Core\Collections\LicenseRepository;
 use CycloneDX\Core\Collections\PropertyRepository;
-use CycloneDX\Core\Enums\Classification;
+use CycloneDX\Core\Enums\ComponentType;
 use DomainException;
 use PackageUrl\PackageUrl;
 
@@ -78,7 +78,7 @@ class Component
      * Refer to the {@link https://cyclonedx.org/schema/bom/1.1 bom:classification documentation}
      * for information describing each one.
      *
-     * @psalm-var Classification::*
+     * @psalm-var ComponentType::*
      *
      * @psalm-suppress PropertyNotSetInConstructor
      */
@@ -193,7 +193,7 @@ class Component
     }
 
     /**
-     * @psalm-return Classification::*
+     * @psalm-return ComponentType::*
      */
     public function getType(): string
     {
@@ -201,9 +201,9 @@ class Component
     }
 
     /**
-     * @param string $type A valid {@see \CycloneDX\Core\Enums\Classification}
+     * @param string $type A valid {@see \CycloneDX\Core\Enums\ComponentType}
      *
-     * @psalm-assert Classification::* $type
+     * @psalm-assert ComponentType::* $type
      *
      * @throws DomainException if value is unknown
      *
@@ -213,7 +213,7 @@ class Component
      */
     public function setType(string $type): self
     {
-        $this->type = Classification::isValidValue($type)
+        $this->type = ComponentType::isValidValue($type)
             ? $type
             : throw new DomainException("Invalid type: $type");
 
@@ -343,7 +343,7 @@ class Component
     }
 
     /**
-     * @psalm-assert Classification::* $type
+     * @psalm-assert ComponentType::* $type
      *
      * @throws DomainException if type is unknown
      */

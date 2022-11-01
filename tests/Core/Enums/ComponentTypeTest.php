@@ -23,16 +23,16 @@ declare(strict_types=1);
 
 namespace CycloneDX\Tests\Core\Enums;
 
-use CycloneDX\Core\Enums\Classification;
+use CycloneDX\Core\Enums\ComponentType;
 use CycloneDX\Tests\_data\BomSpecData;
 use Generator;
 use PHPUnit\Framework\TestCase;
 use ReflectionClass;
 
 /**
- * @covers \CycloneDX\Core\Enums\Classification
+ * @covers \CycloneDX\Core\Enums\ComponentType
  */
-class ClassificationTest extends TestCase
+class ComponentTypeTest extends TestCase
 {
     /**
      * @dataProvider dpKnownValues
@@ -40,12 +40,12 @@ class ClassificationTest extends TestCase
      */
     public function testIsValidValue(string $value, bool $expected): void
     {
-        self::assertSame($expected, Classification::isValidValue($value));
+        self::assertSame($expected, ComponentType::isValidValue($value));
     }
 
     public function dpKnownValues(): Generator
     {
-        $allValues = (new ReflectionClass(Classification::class))->getConstants();
+        $allValues = (new ReflectionClass(ComponentType::class))->getConstants();
         foreach ($allValues as $value) {
             yield $value => [$value, true];
         }
@@ -53,7 +53,7 @@ class ClassificationTest extends TestCase
 
     public function dpUnknownValue(): Generator
     {
-        yield 'invalid' => ['UnknownClassification', false];
+        yield 'invalid' => ['UnknownComponentType', false];
     }
 
     /**
@@ -61,7 +61,7 @@ class ClassificationTest extends TestCase
      */
     public function testIsValidKnowsAllSchemaValues(string $value): void
     {
-        self::assertTrue(Classification::isValidValue($value));
+        self::assertTrue(ComponentType::isValidValue($value));
     }
 
     public function dpSchemaValues(): Generator

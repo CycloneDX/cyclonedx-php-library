@@ -28,7 +28,7 @@ use CycloneDX\Core\Collections\ExternalReferenceRepository;
 use CycloneDX\Core\Collections\HashDictionary;
 use CycloneDX\Core\Collections\LicenseRepository;
 use CycloneDX\Core\Collections\PropertyRepository;
-use CycloneDX\Core\Enums\Classification;
+use CycloneDX\Core\Enums\ComponentType;
 use CycloneDX\Core\Models\BomRef;
 use CycloneDX\Core\Models\Component;
 use DomainException;
@@ -41,7 +41,7 @@ use PHPUnit\Framework\TestCase;
  *
  * @covers \CycloneDX\Core\Models\Component
  *
- * @uses \CycloneDX\Core\Enums\Classification::isValidValue
+ * @uses \CycloneDX\Core\Enums\ComponentType::isValidValue
  * @uses \CycloneDX\Core\Models\BomRef::__construct
  * @uses \CycloneDX\Core\Collections\LicenseRepository
  * @uses \CycloneDX\Core\Collections\HashDictionary
@@ -52,12 +52,12 @@ use PHPUnit\Framework\TestCase;
 class ComponentTest extends TestCase
 {
     /**
-     * @uses \CycloneDX\Core\Enums\Classification::isValidValue
+     * @uses \CycloneDX\Core\Enums\ComponentType::isValidValue
      * @uses \CycloneDX\Core\Models\BomRef
      */
     public function testConstructor(): Component
     {
-        $type = Classification::LIBRARY;
+        $type = ComponentType::LIBRARY;
         $name = bin2hex(random_bytes(random_int(23, 255)));
 
         $component = new Component($type, $name);
@@ -99,11 +99,11 @@ class ComponentTest extends TestCase
     /**
      * @depends testConstructor
      *
-     * @uses \CycloneDX\Core\Enums\Classification::isValidValue()
+     * @uses \CycloneDX\Core\Enums\ComponentType::isValidValue()
      */
     public function testTypeSetterGetter(Component $component): void
     {
-        $type = Classification::LIBRARY;
+        $type = ComponentType::LIBRARY;
         $component->setType($type);
         self::assertSame($type, $component->getType());
     }
@@ -111,7 +111,7 @@ class ComponentTest extends TestCase
     /**
      * @depends testConstructor
      *
-     * @uses \CycloneDX\Core\Enums\Classification::isValidValue()
+     * @uses \CycloneDX\Core\Enums\ComponentType::isValidValue()
      */
     public function testSetTypeWithUnknownValue(Component $component): void
     {
