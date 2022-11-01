@@ -29,9 +29,10 @@ use CycloneDX\Core\Models\License\NamedLicense;
 use CycloneDX\Core\Models\License\SpdxLicense;
 
 /**
- * Unique collection of {@see \CycloneDX\Core\Models\License\SpdxLicense},
- * {@see \CycloneDX\Core\Models\License\NamedLicense} and
- * {@see \CycloneDX\Core\Models\License\LicenseExpression}.
+ * Unique collection of:
+ * - {@see \CycloneDX\Core\Models\License\SpdxLicense}
+ * - {@see \CycloneDX\Core\Models\License\NamedLicense}
+ * - {@see \CycloneDX\Core\Models\License\LicenseExpression}
  *
  * @author jkowalleck
  */
@@ -44,17 +45,13 @@ class LicenseRepository implements Countable
      */
     private array $items = [];
 
-    /**
-     * Unsupported Licenses are filtered out silently.
-     */
     public function __construct(SpdxLicense|NamedLicense|LicenseExpression ...$items)
     {
         $this->addItems(...$items);
     }
 
     /**
-     * Add supported licenses.
-     * Unsupported Licenses are filtered out silently.
+     * Add licenses.
      *
      * @return $this
      */

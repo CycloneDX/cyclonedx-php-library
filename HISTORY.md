@@ -38,6 +38,8 @@ All notable changes to this project will be documented in this file.
 * `CycloneDX\Core\Factories` namespace
   * `LicenseFactory` class
     * Breaking: removed method `makeDisjunctiveFromExpression()` ([#163] vial [#166])
+    * Breaking: renamed method `makeDisjunctiveWithId()` -> `makeSpdxLicense()` ([#164] vial [#168])
+    * Breaking: renamed method `makeDisjunctiveWithName()` -> `makeNamedLicense()` ([#164] vial [#168])
 * `\CycloneDX\Core\Models` namespace
   * `Bom` class
     * BREAKING: renamed methods `{get,set}ComponentRepository()` -> `{get,set}Components()` ([#133] via [#131])
@@ -65,6 +67,8 @@ All notable changes to this project will be documented in this file.
        * BREAKING: removed this class (via [#125], [#131])
     * `DisjunctiveLicenseWithName` class 
       * BREAKING: renamed class to `NamedLicense` ([#164] via [#168])
+    * `DisjunctiveLicenseWithId` class
+      * BREAKING: renamed class to `SpdxLicense` ([#164] via [#168])
   * `MetaData` class
     * BREAKING: renamed class to `Metadata` ([#133] via [#131])  
       Even though PHP is case-insensitive with class names, autoloaders may be case-sensitive. Therefore, this is considered a breaking change.
