@@ -29,7 +29,7 @@ use PHPUnit\Framework\TestCase;
 /**
  * @covers \CycloneDX\Core\Spec\SpecFactory
  *
- * @uses   \CycloneDX\Core\Spec\Spec
+ * @uses   \CycloneDX\Core\Spec\_Spec
  */
 class SpecFactoryTest extends TestCase
 {

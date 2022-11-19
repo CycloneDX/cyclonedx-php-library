@@ -28,7 +28,7 @@ use CycloneDX\Core\Spec\Spec;
 use CycloneDX\Core\Spec\SpecFactory;
 
 /**
- * @covers \CycloneDX\Core\Spec\Spec
+ * @covers \CycloneDX\Core\Spec\_Spec
  *
  * @uses \CycloneDX\Core\Spec\SpecFactory
  */

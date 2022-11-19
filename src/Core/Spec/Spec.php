@@ -23,125 +23,41 @@ declare(strict_types=1);
 
 namespace CycloneDX\Core\Spec;
 
-use CycloneDX\Core\Enums\ComponentType;
-use CycloneDX\Core\Enums\ExternalReferenceType;
-use CycloneDX\Core\Enums\HashAlgorithm;
-
 /**
- * This class is not for public use.
  * See {@see SpecFactory Specification Factory} to get prepared instances.
- *
- * @internal as this trait may be affected by breaking changes without notice
- *
- * @SuppressWarnings(PHPMD.LongVariable)
  *
  * @author jkowalleck
  */
-class Spec
+interface Spec
 {
-    /**
-     * @psalm-param Version::* $sVersion
-     * @psalm-param list<Format::*> $lFormats
-     * @psalm-param list<ComponentType::*> $lComponentTypes
-     * @psalm-param list<HashAlgorithm::*> $lHashAlgorithms
-     * @psalm-param list<ExternalReferenceType::*> $lExternalReferenceTypes
-     *
-     * @SuppressWarnings(PHPMD.ExcessiveParameterList)
-     */
-    public function __construct(
-        private string $sVersion,
-        private array $lFormats,
-        private array $lComponentTypes,
-        private array $lHashAlgorithms,
-        private string $sHashContentRegex,
-        private array $lExternalReferenceTypes,
-        private bool $bLicenseExpression,
-        private bool $bMetadata,
-        private bool $bBomRef,
-        private bool $bDependencies,
-        private bool $bExternalReferenceHashes,
-        private bool $bComponentVersionMandatory,
-        private bool $bToolExternalReferences,
-        private bool $bMetadataProperties,
-        private bool $bComponentProperties,
-    ) {
-    }
+    /** @psalm-return Version::* */
+    public function getVersion(): string;
 
-    /**
-     * @psalm-return Version::*
-     */
-    public function getVersion(): string
-    {
-        return $this->sVersion;
-    }
+    public function isSupportedFormat(string $format): bool;
 
-    public function isSupportedFormat(string $format): bool
-    {
-        return \in_array($format, $this->lFormats, true);
-    }
+    public function isSupportedComponentType(string $componentType): bool;
 
-    public function isSupportedComponentType(string $componentType): bool
-    {
-        return \in_array($componentType, $this->lComponentTypes, true);
-    }
+    public function isSupportedHashAlgorithm(string $alg): bool;
 
-    public function isSupportedHashAlgorithm(string $alg): bool
-    {
-        return \in_array($alg, $this->lHashAlgorithms, true);
-    }
+    public function isSupportedHashContent(string $content): bool;
 
-    public function isSupportedHashContent(string $content): bool
-    {
-        return 1 === preg_match($this->sHashContentRegex, $content);
-    }
+    public function isSupportedExternalReferenceType(string $referenceType): bool;
 
-    public function isSupportedExternalReferenceType(string $referenceType): bool
-    {
-        return \in_array($referenceType, $this->lExternalReferenceTypes, true);
-    }
+    public function supportsLicenseExpression(): bool;
 
-    public function supportsLicenseExpression(): bool
-    {
-        return $this->bLicenseExpression;
-    }
+    public function supportsMetadata(): bool;
 
-    public function supportsMetadata(): bool
-    {
-        return $this->bMetadata;
-    }
+    public function supportsBomRef(): bool;
 
-    public function supportsBomRef(): bool
-    {
-        return $this->bBomRef;
-    }
+    public function supportsDependencies(): bool;
 
-    public function supportsDependencies(): bool
-    {
-        return $this->bDependencies;
-    }
+    public function supportsExternalReferenceHashes(): bool;
 
-    public function supportsExternalReferenceHashes(): bool
-    {
-        return $this->bExternalReferenceHashes;
-    }
+    public function requiresComponentVersion(): bool;
 
-    public function requiresComponentVersion(): bool
-    {
-        return $this->bComponentVersionMandatory;
-    }
+    public function supportsToolExternalReferences(): bool;
 
-    public function supportsToolExternalReferences(): bool
-    {
-        return $this->bToolExternalReferences;
-    }
+    public function supportsMetadataProperties(): bool;
 
-    public function supportsMetadataProperties(): bool
-    {
-        return $this->bMetadataProperties;
-    }
-
-    public function supportsComponentProperties(): bool
-    {
-        return $this->bComponentProperties;
-    }
+    public function supportsComponentProperties(): bool;
 }

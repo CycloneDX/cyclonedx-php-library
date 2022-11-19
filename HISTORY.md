@@ -135,7 +135,7 @@ All notable changes to this project will be documented in this file.
 * `\CycloneDX\Core\Spdx` namespace
   * BREAKING: renamed the class `License` -> `LicenseValidator` ([#133] via [#143])
 * `\CycloneDX\Core\Spec` namespace
-  * BREAKING: completely reworked everything ([#139] via [#142])  
+  * BREAKING: completely reworked everything ([#139] via [#142], [#174])  
     See the code base for references
 * `\CycloneDX\Core\Validation` namespace
   * `BaseValidator` class
@@ -179,6 +179,7 @@ All notable changes to this project will be documented in this file.
 [#166]: https://github.com/CycloneDX/cyclonedx-php-library/pull/166
 [#168]: https://github.com/CycloneDX/cyclonedx-php-library/pull/168
 [#170]: https://github.com/CycloneDX/cyclonedx-php-library/pull/170
+[#174]: https://github.com/CycloneDX/cyclonedx-php-library/pull/174
 
 ## 1.6.3 - 2022-09-15
 

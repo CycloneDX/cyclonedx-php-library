@@ -69,7 +69,7 @@ abstract class SpecFactory
      */
     public static function make1dot1(): Spec
     {
-        return new Spec(
+        return new _Spec(
             Version::v1dot1,
             [
                 Format::XML,
@@ -126,7 +126,7 @@ abstract class SpecFactory
      */
     public static function make1dot2(): Spec
     {
-        return new Spec(
+        return new _Spec(
             Version::v1dot2,
             [
                 Format::XML,
@@ -191,7 +191,7 @@ abstract class SpecFactory
      */
     public static function make1dot3(): Spec
     {
-        return new Spec(
+        return new _Spec(
             Version::v1dot3,
             [
                 Format::XML,
@@ -246,7 +246,6 @@ abstract class SpecFactory
             true,
             true,
             false,
-
             true,
             true,
         );
@@ -257,7 +256,7 @@ abstract class SpecFactory
      */
     public static function make1dot4(): Spec
     {
-        return new Spec(
+        return new _Spec(
             Version::v1dot4,
             [
                 Format::XML,
@@ -313,7 +312,6 @@ abstract class SpecFactory
             true,
             false,
             true,
-
             true,
             true,
         );
