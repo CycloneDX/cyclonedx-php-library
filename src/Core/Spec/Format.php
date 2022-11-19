@@ -24,7 +24,7 @@ declare(strict_types=1);
 namespace CycloneDX\Core\Spec;
 
 /**
- * @internal as this class may be affected by breaking changes without notice
+ * Spec format enum.
  *
  * @author jkowalleck
  */
