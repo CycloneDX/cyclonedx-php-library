@@ -3,9 +3,9 @@
     "description": "composer-unused",
     "type": "metapackage",
     "require-dev": {
-        "composer/composer": "^2.1.12",
         "icanhazstring/composer-unused": "0.8.4",
-        "roave/security-advisories": "dev-latest"
+        "roave/security-advisories": "dev-latest",
+        "symfony/property-access": "^5.4 || ^6"
     },
     "prefer-stable": true,
     "config": {
