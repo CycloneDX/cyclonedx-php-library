@@ -114,7 +114,6 @@ class JsonSerializer extends BaseSerializer
 
         $json = json_encode($normalizedBom, $jsonEncodeFlags);
         \assert(false !== $json); // as option JSON_THROW_ON_ERROR is expected to be set
-        \assert('' !== $json);
 
         return $json;
     }
