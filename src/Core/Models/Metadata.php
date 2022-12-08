@@ -25,7 +25,7 @@ namespace CycloneDX\Core\Models;
 
 use CycloneDX\Core\Collections\PropertyRepository;
 use CycloneDX\Core\Collections\ToolRepository;
-use DateTime;
+use DateTimeInterface;
 
 /**
  * @author jkowalleck
@@ -35,7 +35,7 @@ class Metadata
     /**
      * The date and time (timestamp) when the BOM was created.
      */
-    private ?DateTime $timestamp = null;
+    private ?DateTimeInterface $timestamp = null;
 
     /**
      * The tool(s) used in the creation of the BOM.
@@ -58,7 +58,7 @@ class Metadata
      */
     private PropertyRepository $properties;
 
-    public function getTimestamp(): ?DateTime
+    public function getTimestamp(): ?DateTimeInterface
     {
         return $this->timestamp;
     }
@@ -66,7 +66,7 @@ class Metadata
     /**
      * @return $this
      */
-    public function setTimestamp(?DateTime $timestamp): self
+    public function setTimestamp(?DateTimeInterface $timestamp): self
     {
         $this->timestamp = $timestamp;
 

@@ -31,6 +31,7 @@ use CycloneDX\Core\Serialization\JSON\NormalizerFactory;
 use CycloneDX\Core\Serialization\JSON\Normalizers;
 use CycloneDX\Core\Spec\Spec;
 use DateTime;
+use DateTimeZone;
 use DomainException;
 use PHPUnit\Framework\TestCase;
 
@@ -54,8 +55,8 @@ class MetadataNormalizerTest extends TestCase
 
     public function testNormalizeTimestamp(): void
     {
-        $fakeDate = 'just-now';
-        $timestamp = $this->createMock(DateTime::class);
+        $timeZone = new DateTimeZone('Pacific/Nauru');
+        $timestamp = new DateTime('2000-01-01 00:00:00', $timeZone);
         $metadata = $this->createConfiguredMock(
             Metadata::class,
             ['getTimestamp' => $timestamp]
@@ -67,15 +68,17 @@ class MetadataNormalizerTest extends TestCase
         );
         $normalizer = new Normalizers\MetadataNormalizer($factory);
 
-        $timestamp->method('format')
-            ->with('c')
-            ->willReturn($fakeDate);
-
         $actual = $normalizer->normalize($metadata);
 
         self::assertSame(
-            ['timestamp' => $fakeDate],
-            $actual
+            ['timestamp' => '1999-12-31T12:00:00Z'],
+            $actual,
+            'not the expected Zulu time'
+        );
+        self::assertSame(
+            '2000-01-01T00:00:00+12:00',
+            $timestamp->format('c'),
+            'timestamp was modified'
         );
     }
 

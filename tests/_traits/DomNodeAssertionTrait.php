@@ -58,12 +58,12 @@ trait DomNodeAssertionTrait
     /**
      * @throws Exception
      */
-    final protected static function assertStringEqualsDomNode(string $expected, DOMNode $actual): void
+    final protected static function assertStringEqualsDomNode(string $expected, DOMNode $actual, string $message = ''): void
     {
         $container = new DOMDocument();
 
         $actualNode = $container->appendChild($container->importNode($actual, true));
 
-        Assert::assertSame($expected, $actualNode->C14N());
+        Assert::assertSame($expected, $actualNode->C14N(), $message);
     }
 }
