@@ -41,6 +41,8 @@ use CycloneDX\Core\Models\License\SpdxLicense;
 use CycloneDX\Core\Models\Metadata;
 use CycloneDX\Core\Models\Property;
 use CycloneDX\Core\Models\Tool;
+use DateTime;
+use DateTimeZone;
 use Generator;
 use ReflectionClass;
 
@@ -179,6 +181,7 @@ abstract class BomModelProvider
     public static function bomWithAllMetadata(): Generator
     {
         yield from self::bomWithMetadataPlain();
+        yield from self::bomWithMetadataTimestamp();
         yield from self::bomWithMetadataTools();
         yield from self::bomWithMetadataComponent();
         yield from self::bomWithMetadataProperties();
@@ -676,6 +679,27 @@ abstract class BomModelProvider
     {
         yield 'metadata: plain' => [
             (new Bom())->setMetadata(new Metadata()),
+        ];
+    }
+
+    /**
+     * BOMs with metadata with timestamp.
+     *
+     * @return Generator<Bom[]>
+     *
+     * @psalm-return Generator<string, array{0:Bom}>
+     */
+    private static function bomWithMetadataTimestamp(): Generator
+    {
+        yield 'metadata: 1984-12-25T08:15Z' => [
+            (new Bom())->setMetadata((new Metadata())->setTimestamp(
+                new DateTime('1984-12-25 08:15:00', new DateTimeZone('utc'))
+            )),
+        ];
+        yield 'metadata: Timestamp 2010-01-28T15:00:00-09:00' => [
+            (new Bom())->setMetadata((new Metadata())->setTimestamp(
+                new DateTime('2010-01-28 15:00:00', new DateTimeZone('-09:00'))
+            )),
         ];
     }
 

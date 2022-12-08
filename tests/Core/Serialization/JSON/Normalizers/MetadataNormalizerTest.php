@@ -30,6 +30,7 @@ use CycloneDX\Core\Models\Metadata;
 use CycloneDX\Core\Serialization\JSON\NormalizerFactory;
 use CycloneDX\Core\Serialization\JSON\Normalizers;
 use CycloneDX\Core\Spec\Spec;
+use DateTime;
 use DomainException;
 use PHPUnit\Framework\TestCase;
 
@@ -49,6 +50,33 @@ class MetadataNormalizerTest extends TestCase
         $actual = $normalizer->normalize($metadata);
 
         self::assertSame([], $actual);
+    }
+
+    public function testNormalizeTimestamp(): void
+    {
+        $fakeDate = 'just-now';
+        $timestamp = $this->createMock(DateTime::class);
+        $metadata = $this->createConfiguredMock(
+            Metadata::class,
+            ['getTimestamp' => $timestamp]
+        );
+        $spec = $this->createMock(Spec::class);
+        $factory = $this->createConfiguredMock(
+            NormalizerFactory::class,
+            ['getSpec' => $spec]
+        );
+        $normalizer = new Normalizers\MetadataNormalizer($factory);
+
+        $timestamp->method('format')
+            ->with('c')
+            ->willReturn($fakeDate);
+
+        $actual = $normalizer->normalize($metadata);
+
+        self::assertSame(
+            ['timestamp' => $fakeDate],
+            $actual
+        );
     }
 
     public function testNormalizeTools(): void

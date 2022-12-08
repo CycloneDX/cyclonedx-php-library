@@ -41,7 +41,7 @@ class MetadataNormalizer extends _BaseNormalizer
     {
         return array_filter(
             [
-                // timestamp
+                'timestamp' => $metadata->getTimestamp()?->format('c'),
                 'tools' => $this->normalizeTools($metadata->getTools()),
                 // authors
                 'component' => $this->normalizeComponent($metadata->getComponent()),

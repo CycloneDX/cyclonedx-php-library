@@ -40,10 +40,12 @@ class MetadataNormalizer extends _BaseNormalizer
 
     public function normalize(Metadata $metadata): DOMElement
     {
+        $document = $this->getNormalizerFactory()->getDocument();
+
         return $this->simpleDomAppendChildren(
             $this->getNormalizerFactory()->getDocument()->createElement('metadata'),
             [
-                // timestamp
+                $this->simpleDomSafeTextElement($document, 'timestamp', $metadata->getTimestamp()?->format('c')),
                 $this->normalizeTools($metadata->getTools()),
                 // authors
                 $this->normalizeComponent($metadata->getComponent()),
