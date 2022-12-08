@@ -88,7 +88,7 @@ $bom->getComponents()->addItems(
 );
 ```
 
-## API documentation
+## API Documentation
 
 There is no pre-rendered documentation at the time.  
 Instead, there are code annotations, so that your IDE and tools may pick up the documentation when you use this library downstream.
