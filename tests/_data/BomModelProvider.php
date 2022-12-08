@@ -41,7 +41,7 @@ use CycloneDX\Core\Models\License\SpdxLicense;
 use CycloneDX\Core\Models\Metadata;
 use CycloneDX\Core\Models\Property;
 use CycloneDX\Core\Models\Tool;
-use DateTime;
+use DateTimeImmutable;
 use DateTimeZone;
 use Generator;
 use ReflectionClass;
@@ -693,12 +693,12 @@ abstract class BomModelProvider
     {
         yield 'metadata: 1984-12-25T08:15Z' => [
             (new Bom())->setMetadata((new Metadata())->setTimestamp(
-                new DateTime('1984-12-25 08:15:00', new DateTimeZone('utc'))
+                new DateTimeImmutable('1984-12-25 08:15:00', new DateTimeZone('utc'))
             )),
         ];
         yield 'metadata: Timestamp 2010-01-28T15:00:00-09:00' => [
             (new Bom())->setMetadata((new Metadata())->setTimestamp(
-                new DateTime('2010-01-28 15:00:00', new DateTimeZone('-09:00'))
+                new DateTimeImmutable('2010-01-28 15:00:00', new DateTimeZone('-09:00'))
             )),
         ];
     }

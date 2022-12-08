@@ -29,6 +29,9 @@ use CycloneDX\Core\Collections\ToolRepository;
 use CycloneDX\Core\Models\Component;
 use CycloneDX\Core\Models\Metadata;
 use CycloneDX\Core\Serialization\DOM\_BaseNormalizer;
+use DateTime;
+use DateTimeInterface;
+use DateTimeZone;
 use DOMElement;
 
 /**
@@ -40,12 +43,10 @@ class MetadataNormalizer extends _BaseNormalizer
 
     public function normalize(Metadata $metadata): DOMElement
     {
-        $document = $this->getNormalizerFactory()->getDocument();
-
         return $this->simpleDomAppendChildren(
             $this->getNormalizerFactory()->getDocument()->createElement('metadata'),
             [
-                $this->simpleDomSafeTextElement($document, 'timestamp', $metadata->getTimestamp()?->format('c')),
+                $this->normalizeTimestamp($metadata->getTimestamp()),
                 $this->normalizeTools($metadata->getTools()),
                 // authors
                 $this->normalizeComponent($metadata->getComponent()),
@@ -53,6 +54,23 @@ class MetadataNormalizer extends _BaseNormalizer
                 // supplier
                 $this->normalizeProperties($metadata->getProperties()),
             ]
+        );
+    }
+
+    private function normalizeTimestamp(?DateTimeInterface $timestamp): ?DOMElement
+    {
+        if (null === $timestamp) {
+            return null;
+        }
+
+        $dtZulu = DateTime::createFromInterface($timestamp)
+            ->setTimezone(new DateTimeZone('UTC'))
+            ->format('Y-m-d\\TH:i:sp');
+
+        return $this->simpleDomSafeTextElement(
+            $this->getNormalizerFactory()->getDocument(),
+            'timestamp',
+            $dtZulu
         );
     }
 

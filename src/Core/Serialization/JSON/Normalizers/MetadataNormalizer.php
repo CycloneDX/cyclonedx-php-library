@@ -29,6 +29,9 @@ use CycloneDX\Core\Collections\ToolRepository;
 use CycloneDX\Core\Models\Component;
 use CycloneDX\Core\Models\Metadata;
 use CycloneDX\Core\Serialization\JSON\_BaseNormalizer;
+use DateTime;
+use DateTimeInterface;
+use DateTimeZone;
 
 /**
  * @author jkowalleck
@@ -41,7 +44,7 @@ class MetadataNormalizer extends _BaseNormalizer
     {
         return array_filter(
             [
-                'timestamp' => $metadata->getTimestamp()?->format('c'),
+                'timestamp' => $this->normalizeTimestamp($metadata->getTimestamp()),
                 'tools' => $this->normalizeTools($metadata->getTools()),
                 // authors
                 'component' => $this->normalizeComponent($metadata->getComponent()),
@@ -51,6 +54,17 @@ class MetadataNormalizer extends _BaseNormalizer
             ],
             [$this, 'isNotNull']
         );
+    }
+
+    private function normalizeTimestamp(?DateTimeInterface $timestamp): ?string
+    {
+        if (null === $timestamp) {
+            return null;
+        }
+
+        return DateTime::createFromInterface($timestamp)
+            ->setTimezone(new DateTimeZone('UTC'))
+            ->format('Y-m-d\\TH:i:sp');
     }
 
     private function normalizeTools(ToolRepository $tools): ?array

@@ -77,7 +77,7 @@ All notable changes to this project will be documented in this file.
       Even though PHP is case-insensitive with class names, autoloaders may be case-sensitive. Therefore, this is considered a breaking change.
     * BREAKING: changed methods `{get,set}Tools()` so that their parameter & return type is non-nullable, was nullable ([#66] via [#131])
     * Added new methods `{get,set}Properties()` (via [#165])
-    * Added new methods `{get,set}Timestamp()` (via [#180])
+    * Added new methods `{get,set}Timestamp()` (via [#180], [#])
   * Added new class `Property`. (via [#165])
   * `Tool` class
     * BREAKING: renamed methods `{get,set}ExternalReferenceRepository()` -> `{get,set}ExternalReferences()` ([#133] via [#131])  
