@@ -25,12 +25,18 @@ namespace CycloneDX\Core\Models;
 
 use CycloneDX\Core\Collections\PropertyRepository;
 use CycloneDX\Core\Collections\ToolRepository;
+use DateTime;
 
 /**
  * @author jkowalleck
  */
 class Metadata
 {
+    /**
+     * The date and time (timestamp) when the BOM was created.
+     */
+    private ?DateTime $timestamp = null;
+
     /**
      * The tool(s) used in the creation of the BOM.
      */
@@ -51,6 +57,21 @@ class Metadata
      * Formal registration is OPTIONAL.
      */
     private PropertyRepository $properties;
+
+    public function getTimestamp(): ?DateTime
+    {
+        return $this->timestamp;
+    }
+
+    /**
+     * @return $this
+     */
+    public function setTimestamp(?DateTime $timestamp): self
+    {
+        $this->timestamp = $timestamp;
+
+        return $this;
+    }
 
     public function getTools(): ToolRepository
     {

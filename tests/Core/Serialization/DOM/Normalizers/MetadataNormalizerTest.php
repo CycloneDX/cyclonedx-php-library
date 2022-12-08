@@ -31,6 +31,7 @@ use CycloneDX\Core\Serialization\DOM\NormalizerFactory;
 use CycloneDX\Core\Serialization\DOM\Normalizers;
 use CycloneDX\Core\Spec\Spec;
 use CycloneDX\Tests\_traits\DomNodeAssertionTrait;
+use DateTime;
 use DomainException;
 use DOMDocument;
 use PHPUnit\Framework\TestCase;
@@ -56,6 +57,36 @@ class MetadataNormalizerTest extends TestCase
         $actual = $normalizer->normalize($metadata);
 
         self::assertStringEqualsDomNode('<metadata></metadata>', $actual);
+    }
+
+    public function testNormalizeTimestamp(): void
+    {
+        $fakeDate = 'just-now';
+        $timestamp = $this->createMock(DateTime::class);
+        $metadata = $this->createConfiguredMock(
+            Metadata::class,
+            ['getTimestamp' => $timestamp]
+        );
+        $spec = $this->createMock(Spec::class);
+        $factory = $this->createConfiguredMock(
+            NormalizerFactory::class,
+            [
+                'getSpec' => $spec,
+                'getDocument' => new DOMDocument(),
+            ]
+        );
+        $normalizer = new Normalizers\MetadataNormalizer($factory);
+
+        $timestamp->method('format')
+            ->with('c')
+            ->willReturn($fakeDate);
+
+        $actual = $normalizer->normalize($metadata);
+
+        self::assertStringEqualsDomNode(
+            "<metadata><timestamp>$fakeDate</timestamp></metadata>",
+            $actual
+        );
     }
 
     public function testNormalizeTools(): void

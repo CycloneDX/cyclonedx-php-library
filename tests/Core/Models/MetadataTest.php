@@ -27,6 +27,7 @@ use CycloneDX\Core\Collections\PropertyRepository;
 use CycloneDX\Core\Collections\ToolRepository;
 use CycloneDX\Core\Models\Component;
 use CycloneDX\Core\Models\Metadata;
+use DateTime;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -41,11 +42,22 @@ class MetadataTest extends TestCase
     {
         $metadata = new Metadata();
 
+        self::assertNull($metadata->getTimestamp());
         self::assertCount(0, $metadata->getTools());
         self::assertNull($metadata->getComponent());
         self::assertCount(0, $metadata->getProperties());
 
         return $metadata;
+    }
+
+    /**
+     * @depends testConstructor
+     */
+    public function testGetterSetterTimestamp(Metadata $metadata): void
+    {
+        $timestamp = $this->createStub(DateTime::class);
+        $metadata->setTimestamp($timestamp);
+        self::assertSame($timestamp, $metadata->getTimestamp());
     }
 
     /**
