@@ -77,6 +77,7 @@ All notable changes to this project will be documented in this file.
       Even though PHP is case-insensitive with class names, autoloaders may be case-sensitive. Therefore, this is considered a breaking change.
     * BREAKING: changed methods `{get,set}Tools()` so that their parameter & return type is non-nullable, was nullable ([#66] via [#131])
     * Added new methods `{get,set}Properties()` (via [#165])
+    * Added new methods `{get,set}Timestamp()` (via [#180])
   * Added new class `Property`. (via [#165])
   * `Tool` class
     * BREAKING: renamed methods `{get,set}ExternalReferenceRepository()` -> `{get,set}ExternalReferences()` ([#133] via [#131])  
@@ -180,6 +181,7 @@ All notable changes to this project will be documented in this file.
 [#168]: https://github.com/CycloneDX/cyclonedx-php-library/pull/168
 [#170]: https://github.com/CycloneDX/cyclonedx-php-library/pull/170
 [#174]: https://github.com/CycloneDX/cyclonedx-php-library/pull/174
+[#180]: https://github.com/CycloneDX/cyclonedx-php-library/pull/180
 
 ## 1.6.3 - 2022-09-15
 
