@@ -92,6 +92,12 @@ class Component
     private ?string $description = null;
 
     /**
+     * The person(s) or organization(s) that authored the component
+     * @psalm-var non-empty-string|null
+     */
+    private ?string $author = null;
+
+    /**
      * Package-URL (PURL).
      *
      * The purl, if specified, must be valid and conform to the specification
@@ -233,6 +239,23 @@ class Component
         $this->description = '' === $description
             ? null
             : $description;
+
+        return $this;
+    }
+
+    public function getAuthor(): ?string
+    {
+        return $this->author;
+    }
+
+    /**
+     * @return $this
+     */
+    public function setAuthor(?string $author): self
+    {
+        $this->author = '' === $author
+            ? null
+            : $author;
 
         return $this;
     }

@@ -65,6 +65,7 @@ class ComponentTest extends TestCase
         self::assertInstanceOf(BomRef::class, $component->getBomRef());
         self::assertCount(0, $component->getDependencies());
         self::assertNull($component->getDescription());
+        self::assertNull($component->getAuthor());
         self::assertCount(0, $component->getExternalReferences());
         self::assertNull($component->getGroup());
         self::assertCount(0, $component->getHashes());
@@ -200,6 +201,30 @@ class ComponentTest extends TestCase
     }
 
     // endregion description setter&getter
+
+    // region author setter&getter
+
+    /**
+     * @dataProvider dpAuthorSetterGetter
+     */
+    public function testAuthorSetterGetter(Component $component, ?string $author, ?string $expected): void
+    {
+        $setOn = $component->setAuthor($author);
+
+        self::assertSame($component, $setOn);
+        self::assertSame($expected, $component->getAuthor());
+    }
+
+    public function dpAuthorSetterGetter(): Generator
+    {
+        $component = $this->testConstructor();
+        yield 'null' => [$component, null, null];
+        yield 'empty string' => [$component, '', null];
+        $group = bin2hex(random_bytes(32));
+        yield 'non-empty-string' => [$component, $group, $group];
+    }
+
+    // endregion author setter&getter
 
     // region group setter&getter
 
