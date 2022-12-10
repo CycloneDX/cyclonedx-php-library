@@ -88,6 +88,7 @@ class ComponentNormalizerTest extends TestCase
                 'getType' => 'FakeType',
                 'getGroup' => null,
                 'getDescription' => null,
+                'getAuthor' => null,
                 'getLicenses' => $this->createStub(LicenseRepository::class),
                 'getHashes' => $this->createStub(HashDictionary::class),
                 'getPackageUrl' => null,
@@ -138,6 +139,7 @@ class ComponentNormalizerTest extends TestCase
                 'getType' => 'FakeType',
                 'getGroup' => 'myGroup',
                 'getDescription' => 'my description',
+                'getAuthor' => 'Jan Kowalleck',
                 'getLicenses' => $this->createConfiguredMock(LicenseRepository::class, ['count' => 1, 'getItems' => [$this->createMock(NamedLicense::class)]]),
                 'getHashes' => $this->createConfiguredMock(HashDictionary::class, ['count' => 1]),
                 'getPackageUrl' => $this->createConfiguredMock(
@@ -150,6 +152,7 @@ class ComponentNormalizerTest extends TestCase
             Spec::class,
             [
                 'supportsBomRef' => true,
+                'supportsComponentAuthor' => true,
             ]
         );
         $licenseRepoNormalizer = $this->createMock(Normalizers\LicenseRepositoryNormalizer::class);
@@ -182,6 +185,7 @@ class ComponentNormalizerTest extends TestCase
 
         self::assertStringEqualsDomNode(
             '<component bom-ref="myBomRef" type="FakeType">'.
+            '<author>Jan Kowalleck</author>'.
             '<group>myGroup</group>'.
             '<name>myName</name>'.
             '<version>some-version</version>'.

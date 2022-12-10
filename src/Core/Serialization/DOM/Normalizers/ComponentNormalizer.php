@@ -79,6 +79,10 @@ class ComponentNormalizer extends _BaseNormalizer
                 ]
             ),
             [
+                // supplier
+                $spec->supportsComponentAuthor()
+                    ? $this->simpleDomSafeTextElement($document, 'author', $component->getAuthor())
+                    : null,
                 // publisher
                 $this->simpleDomSafeTextElement($document, 'group', $group),
                 $this->simpleDomSafeTextElement($document, 'name', $name),
@@ -94,6 +98,7 @@ class ComponentNormalizer extends _BaseNormalizer
                 // copyright
                 // cpe
                 $this->normalizePurl($component->getPackageUrl()),
+                // swid
                 // modified
                 // pedigree
                 $this->normalizeExternalReferences($component->getExternalReferences()),

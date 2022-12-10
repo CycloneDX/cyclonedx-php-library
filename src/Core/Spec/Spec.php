@@ -24,7 +24,7 @@ declare(strict_types=1);
 namespace CycloneDX\Core\Spec;
 
 /**
- * See {@see SpecFactory Specification Factory} to get prepared instances.
+ * See {@see \CycloneDX\Core\Spec\SpecFactory Specification Factory} to get prepared instances.
  *
  * @author jkowalleck
  */
@@ -58,6 +58,8 @@ interface Spec
     public function supportsToolExternalReferences(): bool;
 
     public function supportsMetadataProperties(): bool;
+
+    public function supportsComponentAuthor(): bool;
 
     public function supportsComponentProperties(): bool;
 }

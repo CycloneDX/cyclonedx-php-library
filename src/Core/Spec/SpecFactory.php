@@ -29,7 +29,7 @@ use CycloneDX\Core\Enums\HashAlgorithm;
 use DomainException;
 
 /**
- * Factory for {@see Spec Specification} objects.
+ * Factory for {@see \CycloneDX\Core\Spec\Spec Specification} objects.
  */
 abstract class SpecFactory
 {
@@ -47,7 +47,7 @@ abstract class SpecFactory
     */
 
     /**
-     * Create the appropriate {@see Spec Specification} based on {@see Version}.
+     * Create the appropriate {@see \CycloneDX\Core\Spec\Spec Specification} based on {@see \CycloneDX\Core\Spec\Version}.
      *
      * @psalm-assert Version::* $version
      *
@@ -65,7 +65,7 @@ abstract class SpecFactory
     }
 
     /**
-     * Create the {@see Spec Specification} based on {@see Version::v1dot1}.
+     * Create the {@see \CycloneDX\Core\Spec\Spec Specification} based on {@see \CycloneDX\Core\Spec\Version::v1dot1}.
      */
     public static function make1dot1(): Spec
     {
@@ -118,11 +118,12 @@ abstract class SpecFactory
             false,
             false,
             false,
+            false,
         );
     }
 
     /**
-     * Create the {@see Spec Specification} based on {@see Version::v1dot2}.
+     * Create the {@see \CycloneDX\Core\Spec\Spec Specification} based on {@see \CycloneDX\Core\Spec\Version::v1dot2}.
      */
     public static function make1dot2(): Spec
     {
@@ -182,12 +183,13 @@ abstract class SpecFactory
             true,
             false,
             false,
+            true,
             false,
         );
     }
 
     /**
-     * Create the {@see Spec Specification} based on {@see Version::v1dot3}.
+     * Create the {@see \CycloneDX\Core\Spec\Spec Specification} based on {@see \CycloneDX\Core\Spec\Version::v1dot3}.
      */
     public static function make1dot3(): Spec
     {
@@ -248,11 +250,12 @@ abstract class SpecFactory
             false,
             true,
             true,
+            true,
         );
     }
 
     /**
-     * Create the {@see Spec Specification} based on {@see Version::v1dot4}.
+     * Create the {@see \CycloneDX\Core\Spec\Spec Specification} based on {@see \CycloneDX\Core\Spec\Version::v1dot4}.
      */
     public static function make1dot4(): Spec
     {
@@ -311,6 +314,7 @@ abstract class SpecFactory
             true,
             true,
             false,
+            true,
             true,
             true,
             true,
