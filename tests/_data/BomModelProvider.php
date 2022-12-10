@@ -159,7 +159,7 @@ abstract class BomModelProvider
         yield from self::bomWithComponentPlain();
         yield from self::bomWithComponentVersion();
         yield from self::bomWithComponentDescription();
-
+        yield from self::bomWithComponentAuthor();
         yield from self::bomWithComponentLicenseId();
         yield from self::bomWithComponentLicenseName();
         yield from self::bomWithComponentLicenseExpression();
@@ -659,6 +659,63 @@ abstract class BomModelProvider
                 new ComponentRepository(
                     (new Component(ComponentType::LIBRARY, 'name'))
                         ->setDescription(
+                            'this & that'. // an & that is not an XML entity
+                            '<strong>html<strong>'. // things that might cause schema-invalid XML
+                            'bar ]]><[CDATA[baz]]> foo' // unexpected CDATA end
+                        )
+                )
+            ),
+        ];
+    }
+
+    /**
+     * BOMs with components that have an author.
+     *
+     * @return Generator<Bom[]>
+     *
+     * @psalm-return Generator<string, array{0:Bom}>
+     *
+     * @psalm-suppress MissingThrowsDocblock
+     */
+    private static function bomWithComponentAuthor(): Generator
+    {
+        yield 'component author: none' => [
+            (new Bom())->setComponents(
+                new ComponentRepository(
+                    (new Component(ComponentType::LIBRARY, 'name'))
+                        ->setAuthor(null)
+                )
+            ),
+        ];
+        yield 'component author: empty' => [
+            (new Bom())->setComponents(
+                new ComponentRepository(
+                    (new Component(ComponentType::LIBRARY, 'name'))
+                        ->setAuthor('')
+                )
+            ),
+        ];
+        yield 'component author: random' => [
+            (new Bom())->setComponents(
+                new ComponentRepository(
+                    (new Component(ComponentType::LIBRARY, 'name'))
+                        ->setAuthor(bin2hex(random_bytes(32)))
+                )
+            ),
+        ];
+        yield 'component author: spaces' => [
+            (new Bom())->setComponents(
+                new ComponentRepository(
+                    (new Component(ComponentType::LIBRARY, 'name'))
+                        ->setAuthor("\ta  test   ")
+                )
+            ),
+        ];
+        yield 'component author: XML special chars' => [
+            (new Bom())->setComponents(
+                new ComponentRepository(
+                    (new Component(ComponentType::LIBRARY, 'name'))
+                        ->setAuthor(
                             'this & that'. // an & that is not an XML entity
                             '<strong>html<strong>'. // things that might cause schema-invalid XML
                             'bar ]]><[CDATA[baz]]> foo' // unexpected CDATA end

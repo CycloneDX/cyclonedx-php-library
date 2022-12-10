@@ -29,12 +29,13 @@ use CycloneDX\Core\Enums\HashAlgorithm;
 
 /**
  * This class is not for public use.
- * See {@see SpecFactory Specification Factory} to get prepared instances.
+ * See {@see \CycloneDX\Core\Spec\SpecFactory Specification Factory} to get prepared instances.
  *
  * @internal as this trait may be affected by breaking changes without notice
  *
  * @SuppressWarnings(PHPMD.LongVariable)
  * @SuppressWarnings(PHPMD.CamelCaseClassName)
+ * @SuppressWarnings(PHPMD.TooManyPublicMethods)
  *
  * @author jkowalleck
  */
@@ -64,6 +65,7 @@ class _Spec implements Spec
         private bool $bComponentVersionMandatory,
         private bool $bToolExternalReferences,
         private bool $bMetadataProperties,
+        private bool $bComponentAuthor,
         private bool $bComponentProperties,
     ) {
     }
@@ -136,6 +138,11 @@ class _Spec implements Spec
     public function supportsMetadataProperties(): bool
     {
         return $this->bMetadataProperties;
+    }
+
+    public function supportsComponentAuthor(): bool
+    {
+        return $this->bComponentAuthor;
     }
 
     public function supportsComponentProperties(): bool

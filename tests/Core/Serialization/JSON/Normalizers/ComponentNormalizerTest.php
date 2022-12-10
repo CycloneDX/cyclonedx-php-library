@@ -80,6 +80,7 @@ class ComponentNormalizerTest extends TestCase
                 'getType' => 'FakeType',
                 'getGroup' => null,
                 'getDescription' => null,
+                'getAuthor' => null,
                 'getLicenses' => $this->createStub(LicenseRepository::class),
                 'getHashes' => $this->createStub(HashDictionary::class),
                 'getPackageUrl' => null,
@@ -134,6 +135,7 @@ class ComponentNormalizerTest extends TestCase
                 'getType' => 'FakeType',
                 'getGroup' => 'myGroup',
                 'getDescription' => 'my description',
+                'getAuthor' => 'Jan Kowalleck',
                 'getLicenses' => $this->createConfiguredMock(LicenseRepository::class, ['count' => 1]),
                 'getHashes' => $this->createConfiguredMock(HashDictionary::class, ['count' => 1]),
                 'getPackageUrl' => $this->createConfiguredMock(
@@ -177,6 +179,7 @@ class ComponentNormalizerTest extends TestCase
                 'version' => 'some-version',
                 'group' => 'myGroup',
                 'description' => 'my description',
+                'author' => 'Jan Kowalleck',
                 'hashes' => ['FakeHashes'],
                 'licenses' => ['FakeLicenses'],
                 'purl' => 'FakePURL',

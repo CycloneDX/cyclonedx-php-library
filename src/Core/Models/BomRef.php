@@ -29,7 +29,7 @@ namespace CycloneDX\Core\Models;
  * Class is currently final, to enforce proper usage.
  *
  * Implementation is intended to prevent memory leaks.
- * See ../../../docs/dev/decisions/BomDependencyDataModel.md
+ * See {@link file://../../../docs/dev/decisions/BomDependencyDataModel.md BomDependencyDataModel docs}
  *
  * @author jkowalleck
  */

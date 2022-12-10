@@ -61,6 +61,7 @@ All notable changes to this project will be documented in this file.
       and changed it work with class `LicenseRepository` only, was working with various `Models\License\*` types. ([#66] via [#131])
     * BREAKING: Changed class property `version` to optional now, to reflect CycloneDX v1.4. ([#27] via [#118], [#131])  
       This affects constructor arguments, and affects methods `{get,set}Version()`.
+    * Added `{get,set}Author()` ([#184] via[#185])
     * Added `{get,set}Properties()` (via [#165])
   * `ExternalReference` class
     * BREAKING: renamed methods `{get,set}HashRepository()` -> `{get,set}Hashes()` ([#133] via [#131])  
@@ -183,6 +184,7 @@ All notable changes to this project will be documented in this file.
 [#174]: https://github.com/CycloneDX/cyclonedx-php-library/pull/174
 [#180]: https://github.com/CycloneDX/cyclonedx-php-library/pull/180
 [#181]: https://github.com/CycloneDX/cyclonedx-php-library/pull/181
+[#185]: https://github.com/CycloneDX/cyclonedx-php-library/pull/185
 
 ## 1.6.3 - 2022-09-15
 

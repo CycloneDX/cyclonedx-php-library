@@ -42,7 +42,7 @@ class Component
      * An optional identifier which can be used to reference the component elsewhere in the BOM. Every bom-ref should be unique.
      *
      * Implementation is intended to prevent memory leaks.
-     * See ../../../docs/dev/decisions/BomDependencyDataModel.md
+     * See {@link file://../../../docs/dev/decisions/BomDependencyDataModel.md BomDependencyDataModel docs}
      *
      * @readonly
      */
@@ -92,6 +92,13 @@ class Component
     private ?string $description = null;
 
     /**
+     * The person(s) or organization(s) that authored the component.
+     *
+     * @psalm-var non-empty-string|null
+     */
+    private ?string $author = null;
+
+    /**
      * Package-URL (PURL).
      *
      * The purl, if specified, must be valid and conform to the specification
@@ -113,7 +120,7 @@ class Component
      * References to dependencies.
      *
      * Implementation is intended to prevent memory leaks.
-     * See ../../../docs/dev/decisions/BomDependencyDataModel.md
+     * See {@link file://../../../docs/dev/decisions/BomDependencyDataModel.md BomDependencyDataModel docs}
      */
     private BomRefRepository $dependencies;
 
@@ -146,7 +153,7 @@ class Component
     }
 
     /**
-     * shorthand for `{@see getBomRef()}->{@see BomRef::setValue() setValue()}`.
+     * shorthand for `->getBomRef()->setValue()`.
      *
      * @return $this
      */
@@ -233,6 +240,23 @@ class Component
         $this->description = '' === $description
             ? null
             : $description;
+
+        return $this;
+    }
+
+    public function getAuthor(): ?string
+    {
+        return $this->author;
+    }
+
+    /**
+     * @return $this
+     */
+    public function setAuthor(?string $author): self
+    {
+        $this->author = '' === $author
+            ? null
+            : $author;
 
         return $this;
     }
