@@ -92,7 +92,8 @@ class Component
     private ?string $description = null;
 
     /**
-     * The person(s) or organization(s) that authored the component
+     * The person(s) or organization(s) that authored the component.
+     *
      * @psalm-var non-empty-string|null
      */
     private ?string $author = null;
