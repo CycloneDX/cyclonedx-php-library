@@ -42,7 +42,7 @@ class Component
      * An optional identifier which can be used to reference the component elsewhere in the BOM. Every bom-ref should be unique.
      *
      * Implementation is intended to prevent memory leaks.
-     * See ../../../docs/dev/decisions/BomDependencyDataModel.md
+     * See {@link file://../../../docs/dev/decisions/BomDependencyDataModel.md BomDependencyDataModel docs}
      *
      * @readonly
      */
@@ -120,7 +120,7 @@ class Component
      * References to dependencies.
      *
      * Implementation is intended to prevent memory leaks.
-     * See ../../../docs/dev/decisions/BomDependencyDataModel.md
+     * See {@link file://../../../docs/dev/decisions/BomDependencyDataModel.md BomDependencyDataModel docs}
      */
     private BomRefRepository $dependencies;
 
@@ -153,7 +153,7 @@ class Component
     }
 
     /**
-     * shorthand for `{@see getBomRef()}->{@see BomRef::setValue() setValue()}`.
+     * shorthand for `->getBomRef()->setValue()`.
      *
      * @return $this
      */
