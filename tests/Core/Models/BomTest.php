@@ -45,13 +45,11 @@ class BomTest extends TestCase
 {
     public function testConstruct(): Bom
     {
-        $components = $this->createStub(ComponentRepository::class);
-
-        $bom = new Bom($components);
+        $bom = new Bom();
 
         self::assertNull($bom->getSerialNumber());
         self::assertSame(1, $bom->getVersion());
-        self::assertSame($components, $bom->getComponents());
+        self::assertCount(0, $bom->getComponents());
         self::assertCount(0, $bom->getExternalReferences());
         self::assertEquals(new Metadata(), $bom->getMetadata());
 

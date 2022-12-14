@@ -45,6 +45,7 @@ All notable changes to this project will be documented in this file.
     * Breaking: renamed method `makeDisjunctiveWithName()` -> `makeNamedLicense()` ([#164] vial [#168])
 * `\CycloneDX\Core\Models` namespace
   * `Bom` class
+    * BREAKING: changed constructor to no longer accept components ([#187] via [#188])
     * BREAKING: renamed methods `{get,set}ComponentRepository()` -> `{get,set}Components()` ([#133] via [#131])
     * BREAKING: renamed methods `{get,set}ExternalReferenceRepository()` -> `{get,set}ExternalReferences()` ([#133] via [#131])  
       and changed parameter & return type to non-nullable, was nullable ([#66] via [#131])
@@ -187,6 +188,8 @@ All notable changes to this project will be documented in this file.
 [#181]: https://github.com/CycloneDX/cyclonedx-php-library/pull/181
 [#185]: https://github.com/CycloneDX/cyclonedx-php-library/pull/185
 [#186]: https://github.com/CycloneDX/cyclonedx-php-library/pull/186
+[#187]: https://github.com/CycloneDX/cyclonedx-php-library/issues/187
+[#188]: https://github.com/CycloneDX/cyclonedx-php-library/pull/188
 
 ## 1.6.3 - 2022-09-15
 
