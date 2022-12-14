@@ -33,6 +33,21 @@ use DomainException;
  */
 class Bom
 {
+    // Property `bomFormat` is not part of model, it is runtime information.
+
+    // Property `specVersion` is not part of model, it is runtime information.
+
+    /**
+     * Every BOM generated SHOULD have a unique serial number, even if the contents of the BOM have not changed over time.
+     * If specified, the serial number MUST conform to RFC-4122.
+     * Use of serial numbers are RECOMMENDED.
+     *
+     * pattern: ^urn:uuid:[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
+     *
+     * @psalm-var non-empty-string|null
+     */
+    private ?string $serialNumber = null;
+
     /**
      * @psalm-suppress PropertyNotSetInConstructor
      */
@@ -56,11 +71,50 @@ class Bom
      */
     private ExternalReferenceRepository $externalReferences;
 
+    // Property `dependencies` is not part of this model, but part of `Component` and other models.
+    // The dependency graph can be normalized on render-time, no need to store it in the bom model.
+
     public function __construct(?ComponentRepository $components = null)
     {
         $this->setComponents($components ?? new ComponentRepository());
         $this->externalReferences = new ExternalReferenceRepository();
         $this->metadata = new Metadata();
+    }
+
+    /**
+     * @psalm-return non-empty-string|null
+     */
+    public function getSerialNumber(): ?string
+    {
+        return $this->serialNumber;
+    }
+
+    /**
+     * @param string|null $serialNumber an empty value or a valid urn:uuid
+     *
+     * @throws DomainException if version is neither empty nor a valid urn:uuid
+     *
+     * @return $this
+     */
+    public function setSerialNumber(?string $serialNumber): self
+    {
+        if ('' === $serialNumber) {
+            $serialNumber = null;
+        }
+        if (null !== $serialNumber && !self::isValidSerialNumber($serialNumber)) {
+            throw new DomainException("Invalid value: $serialNumber");
+        }
+        $this->serialNumber = $serialNumber;
+
+        return $this;
+    }
+
+    private static function isValidSerialNumber(string $serialNumber): bool
+    {
+        return 1 === preg_match(
+            '/^urn:uuid:[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/',
+            $serialNumber
+        );
     }
 
     public function getComponents(): ComponentRepository

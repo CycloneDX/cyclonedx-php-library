@@ -54,6 +54,7 @@ class BomNormalizer extends _BaseNormalizer
                 '$schema' => self::SCHEMA[$factory->getSpec()->getVersion()] ?? null,
                 'bomFormat' => self::BOM_FORMAT,
                 'specVersion' => $factory->getSpec()->getVersion(),
+                'serialNumber' => $bom->getSerialNumber(),
                 'version' => $bom->getVersion(),
                 'metadata' => $this->normalizeMetadata($bom->getMetadata()),
                 'components' => $factory->makeForComponentRepository()->normalize($bom->getComponents()),

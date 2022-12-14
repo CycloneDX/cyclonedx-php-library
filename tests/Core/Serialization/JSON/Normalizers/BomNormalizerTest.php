@@ -56,6 +56,7 @@ class BomNormalizerTest extends TestCase
         $bom = $this->createConfiguredMock(
             Bom::class,
             [
+                'getSerialNumber' => 'urn:uuid:12345678-dead-1337-beef-123456789012',
                 'getVersion' => 23,
             ]
         );
@@ -67,6 +68,7 @@ class BomNormalizerTest extends TestCase
                 '$schema' => 'http://cyclonedx.org/schema/bom-1.2b.schema.json',
                 'bomFormat' => 'CycloneDX',
                 'specVersion' => '1.2',
+                'serialNumber' => 'urn:uuid:12345678-dead-1337-beef-123456789012',
                 'version' => 23,
                 'components' => [],
             ],
@@ -89,7 +91,7 @@ class BomNormalizerTest extends TestCase
         $bom = $this->createConfiguredMock(
             Bom::class,
             [
-                'getVersion' => 23,
+                'getVersion' => 42,
                 'getComponents' => $this->createStub(ComponentRepository::class),
             ]
         );
@@ -106,7 +108,7 @@ class BomNormalizerTest extends TestCase
                 '$schema' => 'http://cyclonedx.org/schema/bom-1.2b.schema.json',
                 'bomFormat' => 'CycloneDX',
                 'specVersion' => '1.2',
-                'version' => 23,
+                'version' => 42,
                 'components' => ['FakeComponents'],
             ],
             $actual
@@ -139,7 +141,7 @@ class BomNormalizerTest extends TestCase
         $bom = $this->createConfiguredMock(
             Bom::class,
             [
-                'getVersion' => 23,
+                'getVersion' => 1337,
                 'getMetadata' => $this->createStub(Metadata::class),
             ]
         );
@@ -156,7 +158,7 @@ class BomNormalizerTest extends TestCase
                 '$schema' => 'http://cyclonedx.org/schema/bom-1.2b.schema.json',
                 'bomFormat' => 'CycloneDX',
                 'specVersion' => '1.2',
-                'version' => 23,
+                'version' => 1337,
                 'metadata' => ['FakeMetadata'],
                 'components' => [],
             ],
@@ -185,7 +187,7 @@ class BomNormalizerTest extends TestCase
         $bom = $this->createConfiguredMock(
             Bom::class,
             [
-                'getVersion' => 23,
+                'getVersion' => 1,
                 'getMetadata' => $this->createStub(Metadata::class),
             ]
         );
@@ -201,7 +203,7 @@ class BomNormalizerTest extends TestCase
                 '$schema' => 'http://cyclonedx.org/schema/bom-1.2b.schema.json',
                 'bomFormat' => 'CycloneDX',
                 'specVersion' => '1.2',
-                'version' => 23,
+                'version' => 1,
                 'components' => [],
             ],
             $actual
@@ -229,7 +231,7 @@ class BomNormalizerTest extends TestCase
         $bom = $this->createConfiguredMock(
             Bom::class,
             [
-                'getVersion' => 23,
+                'getVersion' => 1,
                 'getMetadata' => $this->createStub(Metadata::class),
             ]
         );
@@ -245,7 +247,7 @@ class BomNormalizerTest extends TestCase
                 '$schema' => 'http://cyclonedx.org/schema/bom-1.2b.schema.json',
                 'bomFormat' => 'CycloneDX',
                 'specVersion' => '1.2',
-                'version' => 23,
+                'version' => 1,
                 'components' => [],
             ],
             $actual
@@ -277,7 +279,7 @@ class BomNormalizerTest extends TestCase
         $bom = $this->createConfiguredMock(
             Bom::class,
             [
-                'getVersion' => 23,
+                'getVersion' => 1,
                 'getMetadata' => $this->createStub(Metadata::class),
             ]
         );
@@ -294,7 +296,7 @@ class BomNormalizerTest extends TestCase
                 '$schema' => 'http://cyclonedx.org/schema/bom-1.2b.schema.json',
                 'bomFormat' => 'CycloneDX',
                 'specVersion' => '1.2',
-                'version' => 23,
+                'version' => 1,
                 'components' => [],
                 'dependencies' => ['FakeDependencies' => 'dummy'],
             ],
@@ -323,7 +325,7 @@ class BomNormalizerTest extends TestCase
         $bom = $this->createConfiguredMock(
             Bom::class,
             [
-                'getVersion' => 23,
+                'getVersion' => 1,
                 'getMetadata' => $this->createStub(Metadata::class),
             ]
         );
@@ -340,7 +342,7 @@ class BomNormalizerTest extends TestCase
                 '$schema' => 'http://cyclonedx.org/schema/bom-1.2b.schema.json',
                 'bomFormat' => 'CycloneDX',
                 'specVersion' => '1.2',
-                'version' => 23,
+                'version' => 1,
                 'components' => [],
                 // 'dependencies' is unset,
             ],

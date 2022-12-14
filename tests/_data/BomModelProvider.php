@@ -61,11 +61,8 @@ abstract class BomModelProvider
     public static function allBomTestData(): Generator
     {
         yield from self::bomPlain();
-
         yield from self::bomWithAllComponents();
-
         yield from self::bomWithAllMetadata();
-
         yield from self::bomWithExternalReferences();
     }
 
@@ -81,7 +78,8 @@ abstract class BomModelProvider
     public static function bomPlain(): Generator
     {
         yield 'bom plain' => [new Bom()];
-        yield 'bom plain v23' => [(new Bom())->setVersion(23)];
+        yield 'bom plain with version' => [(new Bom())->setVersion(23)];
+        yield 'bom plain with serialNumber' => [(new Bom())->setSerialNumber('urn:uuid:3e671687-395b-41f5-a30f-a58921a69b79')];
     }
 
     /**
