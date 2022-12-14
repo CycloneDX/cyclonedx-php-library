@@ -49,6 +49,7 @@ class BomTest extends TestCase
 
         $bom = new Bom($components);
 
+        self::assertNull($bom->getSerialNumber());
         self::assertSame(1, $bom->getVersion());
         self::assertSame($components, $bom->getComponents());
         self::assertCount(0, $bom->getExternalReferences());
@@ -56,6 +57,45 @@ class BomTest extends TestCase
 
         return $bom;
     }
+
+    // region serialNumber setter&getter
+
+    /**
+     * @depends testConstruct
+     */
+    public function testSerialNumber(Bom $bom): Bom
+    {
+        $serialNumber = 'urn:uuid:3e671687-395b-41f5-a30f-a58921a69b79';
+        $setOn = $bom->setSerialNumber($serialNumber);
+
+        self::assertSame($bom, $setOn);
+        self::assertSame($serialNumber, $bom->getSerialNumber());
+
+        return $bom;
+    }
+
+    /**
+     * @depends testSerialNumber
+     */
+    public function testSerialNumberEmptyString(Bom $bom): void
+    {
+        $setOn = $bom->setSerialNumber('');
+
+        self::assertSame($bom, $setOn);
+        self::assertNull($bom->getSerialNumber());
+    }
+
+    /**
+     * @depends testSerialNumber
+     */
+    public function testSerialNumberEmptyStringInvalidValue(Bom $bom): void
+    {
+        $serialNumber = uniqid('invalid-value', true);
+        $this->expectException(DomainException::class);
+        $bom->setSerialNumber($serialNumber);
+    }
+
+    // endregion serialNumber setter&getter
 
     // region components setter&getter&modifiers
 

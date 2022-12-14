@@ -52,7 +52,7 @@ class BomNormalizer extends _BaseNormalizer
             $element,
             [
                 'version' => $bom->getVersion(),
-                // serialNumber
+                'serialNumber' => $bom->getSerialNumber(),
             ]
         );
 

@@ -59,6 +59,7 @@ class BomNormalizerTest extends TestCase
         $bom = $this->createConfiguredMock(
             Bom::class,
             [
+                'getSerialNumber' => 'urn:uuid:12345678-dead-1337-beef-123456789012',
                 'getVersion' => 23,
             ]
         );
@@ -66,7 +67,7 @@ class BomNormalizerTest extends TestCase
         $actual = $normalizer->normalize($bom);
 
         self::assertStringEqualsDomNode(
-            '<bom xmlns="http://cyclonedx.org/schema/bom/1.2" version="23">'.
+            '<bom xmlns="http://cyclonedx.org/schema/bom/1.2" serialNumber="urn:uuid:12345678-dead-1337-beef-123456789012" version="23">'.
             '<components></components>'.
             '</bom>',
             $actual
@@ -89,7 +90,7 @@ class BomNormalizerTest extends TestCase
         $bom = $this->createConfiguredMock(
             Bom::class,
             [
-                'getVersion' => 23,
+                'getVersion' => 42,
                 'getComponents' => $this->createStub(ComponentRepository::class),
             ]
         );
@@ -102,7 +103,7 @@ class BomNormalizerTest extends TestCase
         $actual = $normalizer->normalize($bom);
 
         self::assertStringEqualsDomNode(
-            '<bom xmlns="http://cyclonedx.org/schema/bom/1.2" version="23">'.
+            '<bom xmlns="http://cyclonedx.org/schema/bom/1.2" version="42">'.
             '<components><FakeComponent>dummy</FakeComponent></components>'.
             '</bom>',
             $actual
@@ -133,7 +134,7 @@ class BomNormalizerTest extends TestCase
         $bom = $this->createConfiguredMock(
             Bom::class,
             [
-                'getVersion' => 23,
+                'getVersion' => 1337,
                 'getMetadata' => $this->createStub(Metadata::class),
             ]
         );
@@ -146,7 +147,7 @@ class BomNormalizerTest extends TestCase
         $actual = $normalizer->normalize($bom);
 
         self::assertStringEqualsDomNode(
-            '<bom xmlns="http://cyclonedx.org/schema/bom/1.2" version="23">'.
+            '<bom xmlns="http://cyclonedx.org/schema/bom/1.2" version="1337">'.
             '<metadata>FakeMetadata</metadata>'.
             '<components></components>'.
             '</bom>',
@@ -176,7 +177,7 @@ class BomNormalizerTest extends TestCase
         $bom = $this->createConfiguredMock(
             Bom::class,
             [
-                'getVersion' => 23,
+                'getVersion' => 1,
                 'getMetadata' => $this->createStub(Metadata::class),
             ]
         );
@@ -188,7 +189,7 @@ class BomNormalizerTest extends TestCase
         $actual = $normalizer->normalize($bom);
 
         self::assertStringEqualsDomNode(
-            '<bom xmlns="http://cyclonedx.org/schema/bom/1.2" version="23">'.
+            '<bom xmlns="http://cyclonedx.org/schema/bom/1.2" version="1">'.
             '<components></components>'.
             '</bom>',
             $actual
