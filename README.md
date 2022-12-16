@@ -118,7 +118,8 @@ See the [LICENSE][license_file] file for the full license.
 [contributing_file]: https://github.com/CycloneDX/cyclonedx-php-library/blob/master/CONTRIBUTING.md
 [examples]: https://github.com/CycloneDX/cyclonedx-php-library/tree/master/examples
 
-[shield_gh-workflow-test]: https://img.shields.io/github/workflow/status/CycloneDX/cyclonedx-php-library/PHP%20CI/master?logo=GitHub&logoColor=white "build"
+[shield_gh-workflow-test]:  https://img.shields.io/github/actions/workflow/status/CycloneDX/cyclonedx-php-library/php.yml?branch=master&logo=GitHub&logoColor=white
+"build"
 [shield_packagist-version]: https://img.shields.io/packagist/v/cyclonedx/cyclonedx-library?logo=Packagist&logoColor=white "packagist"
 [shield_license]: https://img.shields.io/github/license/CycloneDX/cyclonedx-php-library?logo=open%20source%20initiative&logoColor=white "license"
 [shield_website]: https://img.shields.io/badge/https://-cyclonedx.org-blue.svg "homepage"
