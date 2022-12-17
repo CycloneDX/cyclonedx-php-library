@@ -74,9 +74,9 @@ class Bom
     // Property `dependencies` is not part of this model, but part of `Component` and other models.
     // The dependency graph can be normalized on render-time, no need to store it in the bom model.
 
-    public function __construct(?ComponentRepository $components = null)
+    public function __construct()
     {
-        $this->setComponents($components ?? new ComponentRepository());
+        $this->components = new ComponentRepository();
         $this->externalReferences = new ExternalReferenceRepository();
         $this->metadata = new Metadata();
     }
