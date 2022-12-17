@@ -266,7 +266,7 @@ class Component
         return $this->licenses;
     }
 
-    /***
+    /**
      * @return $this
      */
     public function setLicenses(LicenseRepository $licenses): self

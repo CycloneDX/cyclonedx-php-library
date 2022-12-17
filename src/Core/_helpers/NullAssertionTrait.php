@@ -31,6 +31,8 @@ namespace CycloneDX\Core\_helpers;
 trait NullAssertionTrait
 {
     /**
+     * @psalm-pure
+     *
      * @psalm-assert-if-true !null $value
      */
     private function isNotNull(mixed $value): bool

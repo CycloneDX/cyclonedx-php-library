@@ -28,7 +28,9 @@ use CycloneDX\Core\Enums\HashAlgorithm;
 use DomainException;
 
 /**
- * Dictionary of {@see \CycloneDX\Core\Enums\HashAlgorithm} => `$content:string`.
+ * Dictionary of {@see \CycloneDX\Core\Enums\HashAlgorithm} => HashContent.
+ *
+ * @psalm-type HashContent=string
  *
  * @author jkowalleck
  */
@@ -37,7 +39,7 @@ class HashDictionary implements Countable
     /**
      * @var string[] dictionary of hashes
      *
-     * @psalm-var  array<HashAlgorithm::*,string>
+     * @psalm-var  array<HashAlgorithm::*,HashContent>
      */
     private array $items = [];
 
@@ -46,7 +48,7 @@ class HashDictionary implements Countable
      *
      * @param string[] $items dictionary of hashes. Valid keys are {@see \CycloneDX\Core\Enums\HashAlgorithm}
      *
-     * @psalm-param array<string,string> $items
+     * @psalm-param array<string|HashAlgorithm::*,string|HashContent> $items
      */
     public function __construct(array $items = [])
     {
@@ -59,7 +61,7 @@ class HashDictionary implements Countable
      *
      * @param string[] $items dictionary of hashes. Valid keys are {@see \CycloneDX\Core\Enums\HashAlgorithm}
      *
-     * @psalm-param array<string,string> $items
+     * @psalm-param array<string|HashAlgorithm::*,string|HashContent> $items
      *
      * @return $this
      */
@@ -79,7 +81,7 @@ class HashDictionary implements Countable
     /**
      * @return string[] dictionary of hashes
      *
-     * @psalm-return array<HashAlgorithm::*,string>
+     * @psalm-return array<HashAlgorithm::*,HashContent>
      */
     public function getItems(): array
     {
@@ -105,6 +107,7 @@ class HashDictionary implements Countable
         if (null === $content) {
             unset($this->items[$algorithm]);
         } else {
+            // no validation. content is schema-specific and may vary from CycloneDX spec to another.
             $this->items[$algorithm] = $content;
         }
 

@@ -109,6 +109,9 @@ class Bom
         return $this;
     }
 
+    /**
+     * @psalm-pure
+     */
     private static function isValidSerialNumber(string $serialNumber): bool
     {
         return 1 === preg_match(
@@ -159,6 +162,8 @@ class Bom
     }
 
     /**
+     * @psalm-pure
+     *
      * @psalm-assert-if-true positive-int $version
      */
     private static function isValidVersion(int $version): bool
