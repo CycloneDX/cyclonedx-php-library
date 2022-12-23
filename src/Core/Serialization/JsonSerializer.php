@@ -28,7 +28,7 @@ use CycloneDX\Core\Models\Bom;
 /**
  * Transform data models to JSON.
  *
- * @psalm-type TNormalizedBom=array
+ * @psalm-type TNormalizedBom = array<string, mixed>
  *
  * @template-extends BaseSerializer<TNormalizedBom>
  *

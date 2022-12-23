@@ -30,7 +30,7 @@ use DOMElement;
 /**
  * Transform data models to XML.
  *
- * @psalm-type TNormalizedBom=DOMElement
+ * @psalm-type TNormalizedBom = DOMElement
  *
  * @template-extends BaseSerializer<TNormalizedBom>
  *

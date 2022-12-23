@@ -30,7 +30,7 @@ use DomainException;
 /**
  * Dictionary of {@see \CycloneDX\Core\Enums\HashAlgorithm} => HashContent.
  *
- * @psalm-type HashContent=string
+ * @psalm-type HashContent = string
  *
  * @author jkowalleck
  */
