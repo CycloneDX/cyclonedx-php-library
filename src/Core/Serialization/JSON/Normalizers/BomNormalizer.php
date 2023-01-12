@@ -45,15 +45,19 @@ class BomNormalizer extends _BaseNormalizer
         Version::v1dot4 => 'http://cyclonedx.org/schema/bom-1.4.schema.json',
     ];
 
+    /**
+     * @psalm-return array<string, mixed>
+     */
     public function normalize(Bom $bom): array
     {
         $factory = $this->getNormalizerFactory();
+        $specVersion = $factory->getSpec()->getVersion();
 
         return array_filter(
             [
-                '$schema' => self::SCHEMA[$factory->getSpec()->getVersion()] ?? null,
+                '$schema' => self::SCHEMA[$specVersion] ?? null,
                 'bomFormat' => self::BOM_FORMAT,
-                'specVersion' => $factory->getSpec()->getVersion(),
+                'specVersion' => $specVersion,
                 'serialNumber' => $bom->getSerialNumber(),
                 'version' => $bom->getVersion(),
                 'metadata' => $this->normalizeMetadata($bom->getMetadata()),
