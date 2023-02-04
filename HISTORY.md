@@ -9,6 +9,7 @@ All notable changes to this project will be documented in this file.
 * BREAKING
   * Removed support for PHP v7.3. ([#6]   via [#125])
   * Removed support for PHP v7.4. ([#114] via [#125])
+  * Removed support for PHP v8.0. (via [#])
   * Changed models' aggregation properties to be no longer optional. ([#66] via [#131])
   * Streamlined repository data structures to follow a common method naming scheme. (via [#131])
 * Added
