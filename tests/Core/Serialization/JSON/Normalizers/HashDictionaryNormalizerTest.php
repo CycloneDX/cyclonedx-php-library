@@ -24,6 +24,7 @@ declare(strict_types=1);
 namespace CycloneDX\Tests\Core\Serialization\JSON\Normalizers;
 
 use CycloneDX\Core\Collections\HashDictionary;
+use CycloneDX\Core\Enums\HashAlgorithm;
 use CycloneDX\Core\Serialization\JSON\NormalizerFactory;
 use CycloneDX\Core\Serialization\JSON\Normalizers\HashDictionaryNormalizer;
 use CycloneDX\Core\Serialization\JSON\Normalizers\HashNormalizer;
@@ -49,10 +50,10 @@ class HashDictionaryNormalizerTest extends TestCase
         $factory = $this->createConfiguredMock(NormalizerFactory::class, ['makeForHash' => $hashNormalizer]);
         $normalizer = new HashDictionaryNormalizer($factory);
         $repo = $this->createStub(HashDictionary::class);
-        $repo->method('getItems')->willReturn(['alg1' => 'content1', 'alg2' => 'content2']);
+        $repo->method('getItems')->willReturn([[HashAlgorithm::MD5, 'content1'], [HashAlgorithm::SHA_1, 'content2']]);
 
         $hashNormalizer->expects(self::exactly(2))->method('normalize')
-            ->withConsecutive(['alg1', 'content1'], ['alg2', 'content2'])
+            ->withConsecutive([HashAlgorithm::MD5, 'content1'], [HashAlgorithm::SHA_1, 'content2'])
             ->willReturnOnConsecutiveCalls(['dummy1'], ['dummy2']);
 
         $normalized = $normalizer->normalize($repo);
@@ -70,12 +71,12 @@ class HashDictionaryNormalizerTest extends TestCase
         $normalizer = new HashDictionaryNormalizer($factory);
 
         $repo = $this->createConfiguredMock(HashDictionary::class, [
-            'getItems' => ['alg1' => 'cont1', 'alg2' => 'cont2'],
+            'getItems' => [[HashAlgorithm::MD5, 'cont1'], [HashAlgorithm::SHA_1, 'cont2']],
         ]);
 
         $hashNormalizer->expects(self::exactly(2))
             ->method('normalize')
-            ->withConsecutive(['alg1', 'cont1'], ['alg2', 'cont2'])
+            ->withConsecutive([HashAlgorithm::MD5, 'cont1'], [HashAlgorithm::SHA_1, 'cont2'])
             ->willThrowException(new DomainException());
 
         $got = $normalizer->normalize($repo);

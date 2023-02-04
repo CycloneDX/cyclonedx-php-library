@@ -25,58 +25,62 @@ namespace CycloneDX\Tests\Core\Collections;
 
 use CycloneDX\Core\Collections\HashDictionary;
 use CycloneDX\Core\Enums\HashAlgorithm;
-use DomainException;
 use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \CycloneDX\Core\Collections\HashDictionary
- *
- * @uses \CycloneDX\Core\Enums\HashAlgorithm::isValidValue()
  */
 class HashDictionaryTest extends TestCase
 {
     public function testNonEmptyConstructor(): void
     {
-        $hashes = new HashDictionary([HashAlgorithm::MD5 => 'foobar']);
+        $hashes = new HashDictionary([HashAlgorithm::MD5, 'foobar']);
 
         self::assertCount(1, $hashes);
-        self::assertArrayHasKey(HashAlgorithm::MD5, $hashes->getItems());
-        self::assertSame('foobar', $hashes->getItems()[HashAlgorithm::MD5]);
+        self::assertContains([HashAlgorithm::MD5, 'foobar'], $hashes->getItems());
         self::assertSame('foobar', $hashes->get(HashAlgorithm::MD5));
     }
 
     public function testAddHash(): void
     {
-        $hashes = new HashDictionary([HashAlgorithm::SHA_1 => 'foo']);
+        $hashes = new HashDictionary([HashAlgorithm::SHA_1, 'foo']);
 
         $hashes->set(HashAlgorithm::MD5, 'bar');
 
         self::assertCount(2, $hashes);
-        self::assertArrayHasKey(HashAlgorithm::MD5, $hashes->getItems());
-        self::assertSame('bar', $hashes->getItems()[HashAlgorithm::MD5]);
+        self::assertContains([HashAlgorithm::MD5, 'bar'], $hashes->getItems());
         self::assertSame('bar', $hashes->get(HashAlgorithm::MD5));
     }
 
     public function testUpdateHash(): void
     {
-        $hashes = new HashDictionary([HashAlgorithm::MD5 => 'foo', HashAlgorithm::SHA_1 => 'foo']);
+        $hashes = new HashDictionary([HashAlgorithm::MD5, 'foo'], [HashAlgorithm::SHA_1,  'foo']);
 
         $hashes->set(HashAlgorithm::MD5, 'bar');
 
         self::assertCount(2, $hashes);
-        self::assertArrayHasKey(HashAlgorithm::MD5, $hashes->getItems());
-        self::assertSame('bar', $hashes->getItems()[HashAlgorithm::MD5]);
+        self::assertContains([HashAlgorithm::MD5, 'bar'], $hashes->getItems());
         self::assertSame('bar', $hashes->get(HashAlgorithm::MD5));
     }
 
-    public function testUnsetHash(): void
+    public function testUnsetHashWithNull(): void
     {
-        $hashes = new HashDictionary([HashAlgorithm::MD5 => 'foo', HashAlgorithm::SHA_1 => 'foo']);
+        $hashes = new HashDictionary([HashAlgorithm::MD5, 'foo'], [HashAlgorithm::SHA_1, 'foo']);
         $hashes->set(HashAlgorithm::MD5, null);
 
         self::assertNull($hashes->get(HashAlgorithm::MD5));
         self::assertCount(1, $hashes);
-        self::assertSame([HashAlgorithm::SHA_1 => 'foo'], $hashes->getItems());
+        self::assertSame([[HashAlgorithm::SHA_1, 'foo']], $hashes->getItems());
+    }
+
+    public function testUnsetHashWithEmptyString(): void
+    {
+        $hashes = new HashDictionary([HashAlgorithm::MD5, 'foo'], [HashAlgorithm::SHA_1, 'foo']);
+        $hashes->set(HashAlgorithm::MD5, '');
+
+        self::assertNull($hashes->get(HashAlgorithm::MD5));
+        self::assertCount(1, $hashes);
+        self::assertSame([[HashAlgorithm::SHA_1, 'foo']], $hashes->getItems());
     }
 
     public function testGetUnknownHash(): void
@@ -85,25 +89,18 @@ class HashDictionaryTest extends TestCase
         self::assertNull($hashes->get(HashAlgorithm::MD5));
     }
 
-    public function testSetUnknownHashAlgorithmThrows(): void
-    {
-        $hashes = new HashDictionary();
-
-        $this->expectException(DomainException::class);
-        $this->expectExceptionMessageMatches('/unknown hash algorithm/i');
-
-        $hashes->set('unknownAlgorithm', 'foobar');
-    }
-
     public function testSetGetHashes(): void
     {
-        $hashes = new HashDictionary([HashAlgorithm::SHA_256 => 'barbar']);
-
-        $hashes->setItems([HashAlgorithm::MD5 => 'foobar', 'unknownAlgorithm' => 'foobar']);
+        $hashes = new HashDictionary([HashAlgorithm::SHA_256, 'barbar']);
+        $hashes->setItems([HashAlgorithm::MD5, 'foobar']);
+        $hashes->set(HashAlgorithm::SHA_1, 'lol');
         $got = $hashes->getItems();
 
-        self::assertCount(2, $got);
-        self::assertSame('barbar', $got[HashAlgorithm::SHA_256]);
-        self::assertSame('foobar', $got[HashAlgorithm::MD5]);
+        self::assertCount(3, $got);
+        self::assertSame([
+            [HashAlgorithm::SHA_256, 'barbar'],
+            [HashAlgorithm::MD5, 'foobar'],
+            [HashAlgorithm::SHA_1, 'lol'],
+        ], $got);
     }
 }

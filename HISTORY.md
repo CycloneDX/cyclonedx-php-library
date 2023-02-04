@@ -9,8 +9,10 @@ All notable changes to this project will be documented in this file.
 * BREAKING
   * Removed support for PHP v7.3. ([#6]   via [#125])
   * Removed support for PHP v7.4. ([#114] via [#125])
+  * Removed support for PHP v8.0. (via [#204])
   * Changed models' aggregation properties to be no longer optional. ([#66] via [#131])
   * Streamlined repository data structures to follow a common method naming scheme. (via [#131])
+  * Enum classes were converted to native PHP Enums ([#140] via [#204])
 * Added
   * Support for CycloneDX v1.4 ([#57] via [#65], [#118], [#123])
   * Support for [properties](https://cyclonedx.org/use-cases/#properties--name-value-store) in data models (via [#165])
@@ -36,8 +38,15 @@ All notable changes to this project will be documented in this file.
 * `\CycloneDX\Core\Enum` namespace
   * `Classification` class
     * BREAKING: renamed class to `ComponentType` (via [#170])
+    * BREAKING: became a native PHP enum ([#140] via [#204])
+    * BREAKING: method `isValidValue()` was removed (via [#204])
   * `ExternalReferenceType` class
-    * Added class constant `::RELEASE_NOTES` to reflect CycloneDX v1.4 ([#57] via [#65])
+    * BREAKING: became a native PHP enum ([#140] via [#204])
+    * BREAKING: method `isValidValue()` was removed (via [#204])
+    * Added enum case `RELEASE_NOTES` to reflect CycloneDX v1.4 ([#57] via [#65])
+  * `HashAlgorithm` class
+    * BREAKING: became a native PHP enum ([#140] via [#204])
+    * BREAKING: method `isValidValue()` was removed (via [#204])
 * `CycloneDX\Core\Factories` namespace
   * `LicenseFactory` class
     * Breaking: removed method `makeDisjunctiveFromExpression()` ([#163] vial [#166])
@@ -61,13 +70,17 @@ All notable changes to this project will be documented in this file.
       and changed parameter & return type to non-nullable, was nullable ([#66] via [#131])
     * BREAKING: renamed methods `{get,set}License()` -> `{get,set}Licenses()` (via [#131])  
       and changed it work with class `LicenseRepository` only, was working with various `Models\License\*` types. ([#66] via [#131])
-    * BREAKING: Changed class property `version` to optional now, to reflect CycloneDX v1.4. ([#27] via [#118], [#131])  
+    * BREAKING: changed class property `version` to be optional, to reflect CycloneDX v1.4. ([#27] via [#118], [#131])  
       This affects constructor arguments, and affects methods `{get,set}Version()`.
+    * BREAKING: changed property `type` to be of type `\CycloneDX\Core\Enum\ComponentType` ([#140] via [#204])
+      This affects constructor arguments, and affects methods `{get,set}Type()`.
     * Added `{get,set}Author()` ([#184] via [#185])
     * Added `{get,set}Properties()` (via [#165])
   * `ExternalReference` class
     * BREAKING: renamed methods `{get,set}HashRepository()` -> `{get,set}Hashes()` ([#133] via [#131])  
       and changed parameter & return type to non-nullable, was nullable ([#66] via [#131])
+    * BREAKING: changed property `type` to be of type `\CycloneDX\Core\Enum\ExternalReferenceType` ([#140] via [#204])
+      This affects constructor arguments, and affects methods `{get,set}Type()`.
   * `Licenses` namespace
     * `AbstractDisjunctiveLicense`
        * BREAKING: removed this class (via [#125], [#131])
@@ -100,6 +113,7 @@ All notable changes to this project will be documented in this file.
   * `HashRepository` class
     * BREAKING: renamed to `\CycloneDX\Core\Collections\HashDictionary` ([#133] via [#131])
     * BREAKING: renamed all methods and changed all method signatures to match the overall streamlined scheme ([#133] via [#131])
+    * BREAKING: changed all method signatures to enable handling of enum type `\CycloneDX\Core\Enum\HashAlgorithm` ([#140] via [#204])
 * `\CycloneDX\Core\Serialize` namespace
   * Overall
     * BREAKING: renamed namespace to `Serialization` ([#5] via [#146])
@@ -125,6 +139,7 @@ All notable changes to this project will be documented in this file.
     * BREAKING: removed classes `DisjunctiveLicenseRepositoryNormalizer` (via [#131]) 
     * BREAKING: renamed classes `HashRepositoryNormalizer` -> `HashDictionaryNormalizer` ([#133] via [#131])
       and changed signatures to accept `Models\HashDictionary` instead of `Models\HashRepository`
+    * BREAKING: changed signatures of class `HashNormalizer` to accept enum `\CycloneDX\Core\Enum\HashAlgorithm` ([#140] via [#204])
     * Added new classes `LicenseNormalizer` that can normalize every existing license model (via [#131])
     * Added new classes `LicenseRepositoryNormalizer` that can normalize `LicenseRepository` (via [#131])
     * `ExternalReferenceNormalizer` classes
@@ -139,7 +154,7 @@ All notable changes to this project will be documented in this file.
 * `\CycloneDX\Core\Spdx` namespace
   * BREAKING: renamed the class `License` -> `LicenseValidator` ([#133] via [#143])
 * `\CycloneDX\Core\Spec` namespace
-  * BREAKING: completely reworked everything ([#139] via [#142], [#174])  
+  * BREAKING: completely reworked everything ([#139] via [#142], [#174], [#204])  
     See the code base for references
 * `\CycloneDX\Core\Validation` namespace
   * `BaseValidator` class
@@ -170,6 +185,7 @@ All notable changes to this project will be documented in this file.
 [#133]: https://github.com/CycloneDX/cyclonedx-php-library/pull/133
 [#137]: https://github.com/CycloneDX/cyclonedx-php-library/issues/137
 [#139]: https://github.com/CycloneDX/cyclonedx-php-library/issues/139
+[#140]: https://github.com/CycloneDX/cyclonedx-php-library/issues/140
 [#142]: https://github.com/CycloneDX/cyclonedx-php-library/pull/142
 [#143]: https://github.com/CycloneDX/cyclonedx-php-library/pull/143
 [#144]: https://github.com/CycloneDX/cyclonedx-php-library/pull/144
@@ -190,6 +206,7 @@ All notable changes to this project will be documented in this file.
 [#186]: https://github.com/CycloneDX/cyclonedx-php-library/pull/186
 [#187]: https://github.com/CycloneDX/cyclonedx-php-library/issues/187
 [#188]: https://github.com/CycloneDX/cyclonedx-php-library/pull/188
+[#204]: https://github.com/CycloneDX/cyclonedx-php-library/pull/204
 
 ## 1.6.3 - 2022-09-15
 

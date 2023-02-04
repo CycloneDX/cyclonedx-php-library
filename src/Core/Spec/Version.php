@@ -28,10 +28,10 @@ namespace CycloneDX\Core\Spec;
  *
  * @SuppressWarnings(PHPMD.ConstantNamingConventions)
  */
-abstract class Version
+enum Version: string
 {
-    public const v1dot1 = '1.1';
-    public const v1dot2 = '1.2';
-    public const v1dot3 = '1.3';
-    public const v1dot4 = '1.4';
+    case v1dot1 = '1.1';
+    case v1dot2 = '1.2';
+    case v1dot3 = '1.3';
+    case v1dot4 = '1.4';
 }

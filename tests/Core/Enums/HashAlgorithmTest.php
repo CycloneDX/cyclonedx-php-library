@@ -27,7 +27,6 @@ use CycloneDX\Core\Enums\HashAlgorithm;
 use CycloneDX\Tests\_data\BomSpecData;
 use Generator;
 use PHPUnit\Framework\TestCase;
-use ReflectionClass;
 
 /**
  * @covers \CycloneDX\Core\Enums\HashAlgorithm
@@ -35,33 +34,11 @@ use ReflectionClass;
 class HashAlgorithmTest extends TestCase
 {
     /**
-     * @dataProvider dpKnownValues
-     * @dataProvider dpUnknownValue
-     */
-    public function testIsValidValue(string $value, bool $expected): void
-    {
-        self::assertSame($expected, HashAlgorithm::isValidValue($value));
-    }
-
-    public function dpKnownValues(): Generator
-    {
-        $allValues = (new ReflectionClass(HashAlgorithm::class))->getConstants();
-        foreach ($allValues as $value) {
-            yield $value => [$value, true];
-        }
-    }
-
-    public function dpUnknownValue(): Generator
-    {
-        yield 'invalid' => ['UnknownAlg', false];
-    }
-
-    /**
      * @dataProvider dpSchemaValues
      */
-    public function testIsValidKnowsAllSchemaValues(string $value): void
+    public function testHaseCaseForSchemaValue(string $value): void
     {
-        self::assertTrue(HashAlgorithm::isValidValue($value));
+        self::assertNotNull(HashAlgorithm::tryFrom($value));
     }
 
     public function dpSchemaValues(): Generator

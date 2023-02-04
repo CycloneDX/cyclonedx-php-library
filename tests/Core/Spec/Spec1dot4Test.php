@@ -26,6 +26,7 @@ namespace CycloneDX\Tests\Core\Spec;
 use CycloneDX\Core\Spec\Format;
 use CycloneDX\Core\Spec\Spec;
 use CycloneDX\Core\Spec\SpecFactory;
+use CycloneDX\Core\Spec\Version;
 
 /**
  * @covers \CycloneDX\Core\Spec\_Spec
@@ -39,9 +40,9 @@ class Spec1dot4Test extends SpecBaseTestCase
         return SpecFactory::make1dot4();
     }
 
-    protected function getSpecVersion(): string
+    protected function getSpecVersion(): Version
     {
-        return '1.4';
+        return Version::v1dot4;
     }
 
     protected function shouldSupportFormats(): array

@@ -31,7 +31,6 @@ use CycloneDX\Core\Collections\PropertyRepository;
 use CycloneDX\Core\Enums\ComponentType;
 use CycloneDX\Core\Models\BomRef;
 use CycloneDX\Core\Models\Component;
-use DomainException;
 use Generator;
 use PackageUrl\PackageUrl;
 use PHPUnit\Framework\TestCase;
@@ -41,7 +40,6 @@ use PHPUnit\Framework\TestCase;
  *
  * @covers \CycloneDX\Core\Models\Component
  *
- * @uses \CycloneDX\Core\Enums\ComponentType::isValidValue
  * @uses \CycloneDX\Core\Models\BomRef::__construct
  * @uses \CycloneDX\Core\Collections\LicenseRepository
  * @uses \CycloneDX\Core\Collections\HashDictionary
@@ -52,7 +50,6 @@ use PHPUnit\Framework\TestCase;
 class ComponentTest extends TestCase
 {
     /**
-     * @uses \CycloneDX\Core\Enums\ComponentType::isValidValue
      * @uses \CycloneDX\Core\Models\BomRef
      */
     public function testConstructor(): Component
@@ -99,25 +96,12 @@ class ComponentTest extends TestCase
 
     /**
      * @depends testConstructor
-     *
-     * @uses \CycloneDX\Core\Enums\ComponentType::isValidValue()
      */
     public function testTypeSetterGetter(Component $component): void
     {
         $type = ComponentType::LIBRARY;
         $component->setType($type);
         self::assertSame($type, $component->getType());
-    }
-
-    /**
-     * @depends testConstructor
-     *
-     * @uses \CycloneDX\Core\Enums\ComponentType::isValidValue()
-     */
-    public function testSetTypeWithUnknownValue(Component $component): void
-    {
-        $this->expectException(DomainException::class);
-        $component->setType('something unknown');
     }
 
     // endregion type getter&setter

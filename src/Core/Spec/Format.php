@@ -28,8 +28,9 @@ namespace CycloneDX\Core\Spec;
  *
  * @author jkowalleck
  */
-abstract class Format
+enum Format
 {
-    public const XML = 'XML';
-    public const JSON = 'JSON';
+    case XML;
+    case JSON;
+    case ProtoBuff;
 }

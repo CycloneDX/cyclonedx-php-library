@@ -26,20 +26,18 @@ namespace CycloneDX\Tests\Core\Spec;
 use CycloneDX\Core\Enums\ComponentType;
 use CycloneDX\Core\Enums\ExternalReferenceType;
 use CycloneDX\Core\Enums\HashAlgorithm;
+use CycloneDX\Core\Spec\Format;
 use CycloneDX\Core\Spec\Spec;
+use CycloneDX\Core\Spec\Version;
 use CycloneDX\Tests\_data\BomSpecData;
 use Generator;
 use PHPUnit\Framework\TestCase;
-use ReflectionClass;
 
 abstract class SpecBaseTestCase extends TestCase
 {
     abstract protected function getSpec(): Spec;
 
-    /**
-     * @psalm-return \CycloneDX\Core\Spec\Version::*
-     */
-    abstract protected function getSpecVersion(): string;
+    abstract protected function getSpecVersion(): Version;
 
     final public function testVersionMatches(): void
     {
@@ -62,7 +60,7 @@ abstract class SpecBaseTestCase extends TestCase
     /**
      * @dataProvider dpIsSupportsFormat
      */
-    final public function testIsSupportedFormat(string $format, bool $expected): void
+    final public function testIsSupportedFormat(Format $format, bool $expected): void
     {
         $isSupported = $this->getSpec()->isSupportedFormat($format);
         self::assertSame($expected, $isSupported);
@@ -70,16 +68,16 @@ abstract class SpecBaseTestCase extends TestCase
 
     final public function dpIsSupportsFormat(): Generator
     {
-        yield 'unknown' => [uniqid('Format', false), false];
-        foreach ($this->shouldSupportFormats() as $format) {
-            yield $format => [$format, true];
+        $should = $this->shouldSupportFormats();
+        foreach (Format::cases() as $format) {
+            yield $format->name => [$format, \in_array($format, $should, true)];
         }
     }
 
     /**
      * @dataProvider dpIsSupportedComponentType
      */
-    final public function testIsSupportedComponentType(string $value, bool $expected): void
+    final public function testIsSupportedComponentType(ComponentType $value, bool $expected): void
     {
         $isSupported = $this->getSpec()->isSupportedComponentType($value);
         self::assertSame($expected, $isSupported);
@@ -87,18 +85,17 @@ abstract class SpecBaseTestCase extends TestCase
 
     final public function dpIsSupportedComponentType(): Generator
     {
-        yield 'unknown' => [uniqid('ComponentType', false), false];
-        $known = BomSpecData::getClassificationEnumForVersion($this->getSpecVersion());
-        $values = (new ReflectionClass(ComponentType::class))->getConstants();
+        $known = BomSpecData::getClassificationEnumForVersion($this->getSpecVersion()->value);
+        $values = ComponentType::cases();
         foreach ($values as $value) {
-            yield $value => [$value, \in_array($value, $known, true)];
+            yield $value->name => [$value, \in_array($value->value, $known, true)];
         }
     }
 
     /**
      * @dataProvider dpIsSupportedHashAlgorithm
      */
-    final public function testIsSupportedHashAlgorithm(string $value, bool $expected): void
+    final public function testIsSupportedHashAlgorithm(HashAlgorithm $value, bool $expected): void
     {
         $isSupported = $this->getSpec()->isSupportedHashAlgorithm($value);
         self::assertSame($expected, $isSupported);
@@ -106,11 +103,10 @@ abstract class SpecBaseTestCase extends TestCase
 
     final public function dpIsSupportedHashAlgorithm(): Generator
     {
-        yield 'unknown' => [uniqid('HashAlg', false), false];
-        $known = BomSpecData::getHashAlgEnumForVersion($this->getSpecVersion());
-        $values = (new ReflectionClass(HashAlgorithm::class))->getConstants();
+        $known = BomSpecData::getHashAlgEnumForVersion($this->getSpecVersion()->value);
+        $values = HashAlgorithm::cases();
         foreach ($values as $value) {
-            yield $value => [$value, \in_array($value, $known, true)];
+            yield $value->name => [$value, \in_array($value->value, $known, true)];
         }
     }
 
@@ -132,7 +128,7 @@ abstract class SpecBaseTestCase extends TestCase
     /**
      * @dataProvider dpIsSupportedExternalReferenceType
      */
-    final public function testIsSupportedExternalReferenceType(string $value, bool $expected): void
+    final public function testIsSupportedExternalReferenceType(ExternalReferenceType $value, bool $expected): void
     {
         $isSupported = $this->getSpec()->isSupportedExternalReferenceType($value);
         self::assertSame($expected, $isSupported);
@@ -140,11 +136,10 @@ abstract class SpecBaseTestCase extends TestCase
 
     final public function dpIsSupportedExternalReferenceType(): Generator
     {
-        yield 'unknown' => [uniqid('ExternalReferenceType', false), false];
-        $known = BomSpecData::getExternalReferenceTypeForVersion($this->getSpecVersion());
-        $values = (new ReflectionClass(ExternalReferenceType::class))->getConstants();
+        $known = BomSpecData::getExternalReferenceTypeForVersion($this->getSpecVersion()->value);
+        $values = ExternalReferenceType::cases();
         foreach ($values as $value) {
-            yield $value => [$value, \in_array($value, $known, true)];
+            yield $value->name => [$value, \in_array($value->value, $known, true)];
         }
     }
 

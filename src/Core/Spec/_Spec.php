@@ -42,16 +42,15 @@ use CycloneDX\Core\Enums\HashAlgorithm;
 class _Spec implements Spec
 {
     /**
-     * @psalm-param Version::* $sVersion
-     * @psalm-param list<Format::*> $lFormats
-     * @psalm-param list<ComponentType::*> $lComponentTypes
-     * @psalm-param list<HashAlgorithm::*> $lHashAlgorithms
-     * @psalm-param list<ExternalReferenceType::*> $lExternalReferenceTypes
+     * @psalm-param list<Format> $lFormats
+     * @psalm-param list<ComponentType> $lComponentTypes
+     * @psalm-param list<HashAlgorithm> $lHashAlgorithms
+     * @psalm-param list<ExternalReferenceType> $lExternalReferenceTypes
      *
      * @SuppressWarnings(PHPMD.ExcessiveParameterList)
      */
     public function __construct(
-        private string $sVersion,
+        private Version $version,
         private array $lFormats,
         private array $lComponentTypes,
         private array $lHashAlgorithms,
@@ -70,22 +69,22 @@ class _Spec implements Spec
     ) {
     }
 
-    public function getVersion(): string
+    public function getVersion(): Version
     {
-        return $this->sVersion;
+        return $this->version;
     }
 
-    public function isSupportedFormat(string $format): bool
+    public function isSupportedFormat(Format $format): bool
     {
         return \in_array($format, $this->lFormats, true);
     }
 
-    public function isSupportedComponentType(string $componentType): bool
+    public function isSupportedComponentType(ComponentType $componentType): bool
     {
         return \in_array($componentType, $this->lComponentTypes, true);
     }
 
-    public function isSupportedHashAlgorithm(string $alg): bool
+    public function isSupportedHashAlgorithm(HashAlgorithm $alg): bool
     {
         return \in_array($alg, $this->lHashAlgorithms, true);
     }
@@ -95,7 +94,7 @@ class _Spec implements Spec
         return 1 === preg_match($this->sHashContentRegex, $content);
     }
 
-    public function isSupportedExternalReferenceType(string $referenceType): bool
+    public function isSupportedExternalReferenceType(ExternalReferenceType $referenceType): bool
     {
         return \in_array($referenceType, $this->lExternalReferenceTypes, true);
     }

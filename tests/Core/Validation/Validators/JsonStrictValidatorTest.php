@@ -24,6 +24,7 @@ declare(strict_types=1);
 namespace CycloneDX\Tests\Core\Validation\Validators;
 
 use CycloneDX\Core\Spec\Spec;
+use CycloneDX\Core\Spec\Version;
 use CycloneDX\Core\Validation\Errors\JsonValidationError;
 use CycloneDX\Core\Validation\Exceptions\FailedLoadingSchemaException;
 use CycloneDX\Core\Validation\Validators\JsonStrictValidator;
@@ -79,7 +80,7 @@ class JsonStrictValidatorTest extends TestCase
 
     public function testValidateStringThrowsWhenNotParseable(): void
     {
-        $spec = $this->createConfiguredMock(Spec::class, ['getVersion' => '1.2']);
+        $spec = $this->createConfiguredMock(Spec::class, ['getVersion' => Version::v1dot2]);
         $validator = new JsonStrictValidator($spec);
         $json = '{"dummy":';
 
@@ -91,7 +92,7 @@ class JsonStrictValidatorTest extends TestCase
 
     public function testValidateDataPasses(): void
     {
-        $spec = $this->createConfiguredMock(Spec::class, ['getVersion' => '1.2']);
+        $spec = $this->createConfiguredMock(Spec::class, ['getVersion' => Version::v1dot2]);
         $validator = new JsonStrictValidator($spec);
         $data = (object) [
             'bomFormat' => 'CycloneDX',
@@ -122,7 +123,7 @@ class JsonStrictValidatorTest extends TestCase
      */
     public function testValidateDataFails(): void
     {
-        $spec = $this->createConfiguredMock(Spec::class, ['getVersion' => '1.2']);
+        $spec = $this->createConfiguredMock(Spec::class, ['getVersion' => Version::v1dot2]);
         $validator = new JsonStrictValidator($spec);
         $data = (object) [
             'bomFormat' => 'CycloneDX',
@@ -155,7 +156,7 @@ class JsonStrictValidatorTest extends TestCase
 
     public function testValidateDataThrowsOnSchemaFileUnknown(): void
     {
-        $spec = $this->createConfiguredMock(Spec::class, ['getVersion' => 'unknown']);
+        $spec = $this->createConfiguredMock(Spec::class, ['getVersion' => Version::v1dot1]);
         $validator = new JsonStrictValidator($spec);
 
         $this->expectException(FailedLoadingSchemaException::class);

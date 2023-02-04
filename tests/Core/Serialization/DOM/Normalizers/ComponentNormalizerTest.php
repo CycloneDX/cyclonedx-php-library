@@ -27,6 +27,7 @@ use CycloneDX\Core\Collections\ExternalReferenceRepository;
 use CycloneDX\Core\Collections\HashDictionary;
 use CycloneDX\Core\Collections\LicenseRepository;
 use CycloneDX\Core\Collections\PropertyRepository;
+use CycloneDX\Core\Enums\ComponentType;
 use CycloneDX\Core\Models\BomRef;
 use CycloneDX\Core\Models\Component;
 use CycloneDX\Core\Models\License\NamedLicense;
@@ -56,7 +57,7 @@ class ComponentNormalizerTest extends TestCase
             Component::class,
             [
                 'getName' => 'foo',
-                'getType' => 'FakeType',
+                'getType' => ComponentType::LIBRARY,
                 'getVersion' => 'v1.33.7',
             ]
         );
@@ -66,7 +67,7 @@ class ComponentNormalizerTest extends TestCase
 
         $spec->expects(self::once())
             ->method('isSupportedComponentType')
-            ->with('FakeType')
+            ->with(ComponentType::LIBRARY)
             ->willReturn(false);
 
         $this->expectException(DomainException::class);
@@ -85,7 +86,7 @@ class ComponentNormalizerTest extends TestCase
             [
                 'getName' => 'myName',
                 'getVersion' => null,
-                'getType' => 'FakeType',
+                'getType' => ComponentType::LIBRARY,
                 'getGroup' => null,
                 'getDescription' => null,
                 'getAuthor' => null,
@@ -103,7 +104,7 @@ class ComponentNormalizerTest extends TestCase
 
         $spec->expects(self::once())
             ->method('isSupportedComponentType')
-            ->with('FakeType')
+            ->with(ComponentType::LIBRARY)
             ->willReturn(true);
         $spec->method('requiresComponentVersion')
             ->willReturn($requiresComponentVersion);
@@ -116,11 +117,11 @@ class ComponentNormalizerTest extends TestCase
     public function dbNormalizeMinimal(): Generator
     {
         yield 'mandatory ComponentVersion' => [
-            '<component type="FakeType"><name>myName</name><version></version></component>',
+            '<component type="library"><name>myName</name><version></version></component>',
             true,
         ];
         yield 'optional ComponentVersion' => [
-            '<component type="FakeType"><name>myName</name></component>',
+            '<component type="library"><name>myName</name></component>',
             false,
         ];
     }
@@ -136,7 +137,7 @@ class ComponentNormalizerTest extends TestCase
                 'getBomRef' => new BomRef('myBomRef'),
                 'getName' => 'myName',
                 'getVersion' => 'some-version',
-                'getType' => 'FakeType',
+                'getType' => ComponentType::LIBRARY,
                 'getGroup' => 'myGroup',
                 'getDescription' => 'my description',
                 'getAuthor' => 'Jan Kowalleck',
@@ -170,7 +171,7 @@ class ComponentNormalizerTest extends TestCase
 
         $spec->expects(self::once())
             ->method('isSupportedComponentType')
-            ->with('FakeType')
+            ->with(ComponentType::LIBRARY)
             ->willReturn(true);
         $licenseRepoNormalizer->expects(self::once())
             ->method('normalize')
@@ -184,7 +185,7 @@ class ComponentNormalizerTest extends TestCase
         $actual = $normalizer->normalize($component);
 
         self::assertStringEqualsDomNode(
-            '<component bom-ref="myBomRef" type="FakeType">'.
+            '<component bom-ref="myBomRef" type="library">'.
             '<author>Jan Kowalleck</author>'.
             '<group>myGroup</group>'.
             '<name>myName</name>'.
@@ -204,7 +205,7 @@ class ComponentNormalizerTest extends TestCase
             Component::class,
             [
                 'getName' => 'myName',
-                'getType' => 'FakeType',
+                'getType' => ComponentType::LIBRARY,
                 'getLicenses' => $this->createConfiguredMock(LicenseRepository::class, ['count' => 1]),
             ]
         );
@@ -222,7 +223,7 @@ class ComponentNormalizerTest extends TestCase
 
         $spec->expects(self::once())
             ->method('isSupportedComponentType')
-            ->with('FakeType')
+            ->with(ComponentType::LIBRARY)
             ->willReturn(true);
         $licenseRepoNormalizer->expects(self::once())
             ->method('normalize')
@@ -232,7 +233,7 @@ class ComponentNormalizerTest extends TestCase
         $got = $normalizer->normalize($component);
 
         self::assertStringEqualsDomNode(
-            '<component type="FakeType">'.
+            '<component type="library">'.
             '<name>myName</name>'.
             '<licenses><FakeLicense>dummy</FakeLicense></licenses>'.
             '</component>',
@@ -246,7 +247,7 @@ class ComponentNormalizerTest extends TestCase
             Component::class,
             [
                 'getName' => 'myName',
-                'getType' => 'FakeType',
+                'getType' => ComponentType::LIBRARY,
                 'getLicenses' => $this->createConfiguredMock(LicenseRepository::class, ['count' => 0]),
             ]
         );
@@ -264,7 +265,7 @@ class ComponentNormalizerTest extends TestCase
 
         $spec->expects(self::once())
             ->method('isSupportedComponentType')
-            ->with('FakeType')
+            ->with(ComponentType::LIBRARY)
             ->willReturn(true);
         $licenseRepoNormalizer->expects(self::never())
             ->method('normalize');
@@ -272,7 +273,7 @@ class ComponentNormalizerTest extends TestCase
         $got = $normalizer->normalize($component);
 
         self::assertStringEqualsDomNode(
-            '<component type="FakeType">'.
+            '<component type="library">'.
             '<name>myName</name>'.
             '</component>',
             $got
@@ -287,7 +288,7 @@ class ComponentNormalizerTest extends TestCase
             Component::class,
             [
                 'getName' => 'myName',
-                'getType' => 'FakeType',
+                'getType' => ComponentType::LIBRARY,
                 'getExternalReferences' => $this->createConfiguredMock(ExternalReferenceRepository::class, ['count' => 1]),
             ]
         );
@@ -305,7 +306,7 @@ class ComponentNormalizerTest extends TestCase
 
         $spec->expects(self::once())
             ->method('isSupportedComponentType')
-            ->with('FakeType')
+            ->with(ComponentType::LIBRARY)
             ->willReturn(true);
         $externalReferenceRepositoryNormalizer->expects(self::once())
             ->method('normalize')
@@ -315,7 +316,7 @@ class ComponentNormalizerTest extends TestCase
         $actual = $normalizer->normalize($component);
 
         self::assertStringEqualsDomNode(
-            '<component type="FakeType">'.
+            '<component type="library">'.
             '<name>myName</name>'.
             '<externalReferences><FakeExternalReference>dummy</FakeExternalReference></externalReferences>'.
             '</component>',
@@ -329,7 +330,7 @@ class ComponentNormalizerTest extends TestCase
             Component::class,
             [
                 'getName' => 'myName',
-                'getType' => 'FakeType',
+                'getType' => ComponentType::LIBRARY,
                 'getExternalReferences' => $this->createConfiguredMock(ExternalReferenceRepository::class, ['count' => 0]),
             ]
         );
@@ -347,7 +348,7 @@ class ComponentNormalizerTest extends TestCase
 
         $spec->expects(self::once())
             ->method('isSupportedComponentType')
-            ->with('FakeType')
+            ->with(ComponentType::LIBRARY)
             ->willReturn(true);
         $externalReferenceRepositoryNormalizer->expects(self::never())
             ->method('normalize');
@@ -355,7 +356,7 @@ class ComponentNormalizerTest extends TestCase
         $actual = $normalizer->normalize($component);
 
         self::assertStringEqualsDomNode(
-            '<component type="FakeType">'.
+            '<component type="library">'.
             '<name>myName</name>'.
             '</component>',
             $actual
@@ -370,7 +371,7 @@ class ComponentNormalizerTest extends TestCase
             Component::class,
             [
                 'getName' => 'myName',
-                'getType' => 'FakeType',
+                'getType' => ComponentType::LIBRARY,
                 'getProperties' => $this->createConfiguredMock(PropertyRepository::class, ['count' => 2]),
             ]
         );
@@ -395,13 +396,13 @@ class ComponentNormalizerTest extends TestCase
                 [$factory->getDocument()->createElement('FakeProperties', 'dummy')]);
         $spec->expects(self::once())
             ->method('isSupportedComponentType')
-            ->with('FakeType')
+            ->with(ComponentType::LIBRARY)
             ->willReturn(true);
 
         $actual = $normalizer->normalize($component);
 
         self::assertStringEqualsDomNode(
-            '<component type="FakeType"><name>myName</name><properties><FakeProperties>dummy</FakeProperties></properties></component>',
+            '<component type="library"><name>myName</name><properties><FakeProperties>dummy</FakeProperties></properties></component>',
             $actual
         );
     }
@@ -412,7 +413,7 @@ class ComponentNormalizerTest extends TestCase
             Component::class,
             [
                 'getName' => 'myName',
-                'getType' => 'FakeType',
+                'getType' => ComponentType::LIBRARY,
                 'getProperties' => $this->createConfiguredMock(PropertyRepository::class, ['count' => 0]),
             ]
         );
@@ -431,13 +432,13 @@ class ComponentNormalizerTest extends TestCase
         $normalizer = new Normalizers\ComponentNormalizer($factory);
         $spec->expects(self::once())
             ->method('isSupportedComponentType')
-            ->with('FakeType')
+            ->with(ComponentType::LIBRARY)
             ->willReturn(true);
 
         $actual = $normalizer->normalize($component);
 
         self::assertStringEqualsDomNode(
-            '<component type="FakeType"><name>myName</name></component>',
+            '<component type="library"><name>myName</name></component>',
             $actual
         );
     }

@@ -53,14 +53,15 @@ abstract class SpecFactory
      *
      * @throws DomainException when $version was unsupported
      */
-    public static function makeForVersion(string $version): Spec
+    public static function makeForVersion(Version $version): Spec
     {
         return match ($version) {
             Version::v1dot1 => self::make1dot1(),
             Version::v1dot2 => self::make1dot2(),
             Version::v1dot3 => self::make1dot3(),
             Version::v1dot4 => self::make1dot4(),
-            default => throw new DomainException("unsupported version: $version"),
+            /* just in case fallback */
+            default => throw new DomainException("unsupported version: $version->name"),
         };
     }
 

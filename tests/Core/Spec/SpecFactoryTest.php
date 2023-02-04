@@ -24,6 +24,7 @@ declare(strict_types=1);
 namespace CycloneDX\Tests\Core\Spec;
 
 use CycloneDX\Core\Spec\SpecFactory;
+use CycloneDX\Core\Spec\Version;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -36,28 +37,28 @@ class SpecFactoryTest extends TestCase
     public function test11(): void
     {
         $spec = SpecFactory::make1dot1();
-        self::assertSame('1.1', $spec->getVersion());
-        self::assertEquals($spec, SpecFactory::makeForVersion('1.1'));
+        self::assertSame(Version::v1dot1, $spec->getVersion());
+        self::assertEquals($spec, SpecFactory::makeForVersion(Version::v1dot1));
     }
 
     public function test12(): void
     {
         $spec = SpecFactory::make1dot2();
-        self::assertSame('1.2', $spec->getVersion());
-        self::assertEquals($spec, SpecFactory::makeForVersion('1.2'));
+        self::assertSame(Version::v1dot2, $spec->getVersion());
+        self::assertEquals($spec, SpecFactory::makeForVersion(Version::v1dot2));
     }
 
     public function test13(): void
     {
         $spec = SpecFactory::make1dot3();
-        self::assertSame('1.3', $spec->getVersion());
-        self::assertEquals($spec, SpecFactory::makeForVersion('1.3'));
+        self::assertSame(Version::v1dot3, $spec->getVersion());
+        self::assertEquals($spec, SpecFactory::makeForVersion(Version::v1dot3));
     }
 
     public function test14(): void
     {
         $spec = SpecFactory::make1dot4();
-        self::assertSame('1.4', $spec->getVersion());
-        self::assertEquals($spec, SpecFactory::makeForVersion('1.4'));
+        self::assertSame(Version::v1dot4, $spec->getVersion());
+        self::assertEquals($spec, SpecFactory::makeForVersion(Version::v1dot4));
     }
 }

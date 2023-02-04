@@ -24,7 +24,6 @@ declare(strict_types=1);
 namespace CycloneDX\Core\Validation;
 
 use CycloneDX\Core\Spec\Spec;
-use CycloneDX\Core\Spec\Version;
 
 /**
  * @author jkowalleck
@@ -52,9 +51,9 @@ abstract class BaseValidator implements Validator
     protected function getSchemaFile(): string
     {
         $specVersion = $this->spec->getVersion();
-        $schemaFile = static::listSchemaFiles()[$specVersion] ?? null;
+        $schemaFile = static::listSchemaFiles()[$specVersion->value] ?? null;
         if (false === \is_string($schemaFile)) {
-            throw new Exceptions\FailedLoadingSchemaException("Schema file unknown for specVersion: $specVersion");
+            throw new Exceptions\FailedLoadingSchemaException("Schema file unknown for specVersion: $specVersion->name");
         }
         if (is_file($schemaFile) && is_readable($schemaFile)) {
             return realpath($schemaFile);
@@ -65,9 +64,9 @@ abstract class BaseValidator implements Validator
     }
 
     /**
-     * @return string[]|null[]
+     * @return string[]|null[] dictionary ala `[ CycloneDX\Core\Spec\Version::value() => string ]`
      *
-     * @psalm-return array<Version::*, ?string>
+     * @psalm-return array<string, ?string>
      */
     abstract protected static function listSchemaFiles(): array;
 }
