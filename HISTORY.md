@@ -9,7 +9,7 @@ All notable changes to this project will be documented in this file.
 * BREAKING
   * Removed support for PHP v7.3. ([#6]   via [#125])
   * Removed support for PHP v7.4. ([#114] via [#125])
-  * Removed support for PHP v8.0. (via [#])
+  * Removed support for PHP v8.0. (via [#204])
   * Changed models' aggregation properties to be no longer optional. ([#66] via [#131])
   * Streamlined repository data structures to follow a common method naming scheme. (via [#131])
 * Added
@@ -191,6 +191,7 @@ All notable changes to this project will be documented in this file.
 [#186]: https://github.com/CycloneDX/cyclonedx-php-library/pull/186
 [#187]: https://github.com/CycloneDX/cyclonedx-php-library/issues/187
 [#188]: https://github.com/CycloneDX/cyclonedx-php-library/pull/188
+[#204]: https://github.com/CycloneDX/cyclonedx-php-library/pull/204
 
 ## 1.6.3 - 2022-09-15
 
