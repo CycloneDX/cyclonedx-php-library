@@ -31,95 +31,84 @@ use DomainException;
  * Dictionary of {@see \CycloneDX\Core\Enums\HashAlgorithm} => HashContent.
  *
  * @psalm-type HashContent = string
- *
+ * @psalm-type HashAlgorithmContentTuple = array{0:HashAlgorithm,1:HashContent}
  * @author jkowalleck
  */
 class HashDictionary implements Countable
 {
     /**
-     * @var string[] dictionary of hashes
-     *
-     * @psalm-var  array<HashAlgorithm::*,HashContent>
+     * @psalm-var  array<string,HashAlgorithmContentTuple>
      */
     private array $items = [];
 
     /**
      * Ignores unknown hash algorithms.
      *
-     * @param string[] $items dictionary of hashes. Valid keys are {@see \CycloneDX\Core\Enums\HashAlgorithm}
+     * @param array $items list of tuples of [{@see \CycloneDX\Core\Enums\HashAlgorithm} `$algorithm`, string `$content`].
      *
-     * @psalm-param array<string|HashAlgorithm::*,string|HashContent> $items
+     * @psalm-param array<HashAlgorithmContentTuple> $items
      */
-    public function __construct(array $items = [])
+    public function __construct(array ...$items)
     {
-        $this->setItems($items);
+        $this->setItems(...$items);
     }
 
     /**
      * Set the hashes.
      * Ignores unknown hash algorithms.
      *
-     * @param string[] $items dictionary of hashes. Valid keys are {@see \CycloneDX\Core\Enums\HashAlgorithm}
+     * @param array $items list of tuples of [{@see \CycloneDX\Core\Enums\HashAlgorithm} `$algorithm`, string `$content`].
      *
-     * @psalm-param array<string|HashAlgorithm::*,string|HashContent> $items
+     * @psalm-param array<HashAlgorithmContentTuple> $items
      *
      * @return $this
      */
-    public function setItems(array $items): self
+    public function setItems(array ...$items): self
     {
-        foreach ($items as $algorithm => $content) {
-            try {
+        foreach ($items as [$algorithm, $content]) {
                 $this->set($algorithm, $content);
-            } catch (DomainException) {
-                // pass
-            }
         }
 
         return $this;
     }
 
     /**
-     * @return string[] dictionary of hashes
+     * @return array[] list of tuples of [{@see \CycloneDX\Core\Enums\HashAlgorithm} `$algorithm`, string `$content`]
      *
-     * @psalm-return array<HashAlgorithm::*,HashContent>
+     * @psalm-return list<HashAlgorithmContentTuple>
      */
     public function getItems(): array
     {
-        return $this->items;
+        return array_values($this->items);
     }
 
     /**
-     * @psalm-assert HashAlgorithm::* $algorithm
-     *
-     * @throws DomainException if $algorithm is not in {@see \CycloneDX\Core\Enums\HashAlgorithm}'s constants list
-     *
      * @return $this
      *
-     * @SuppressWarnings(PHPMD.StaticAccess)
      * @SuppressWarnings(PHPMD.ElseExpression)
      */
-    public function set(string $algorithm, ?string $content): self
+    public function set(HashAlgorithm $algorithm, ?string $content): self
     {
-        if (false === HashAlgorithm::isValidValue($algorithm)) {
-            throw new DomainException("Unknown hash algorithm: $algorithm");
-        }
-
-        if (null === $content) {
-            unset($this->items[$algorithm]);
+        $key = self::makeDictKey($algorithm);
+        if (null === $content || '' === $content) {
+            unset($this->items[$key]);
         } else {
             // no validation. content is schema-specific and may vary from CycloneDX spec to another.
-            $this->items[$algorithm] = $content;
+            $this->items[$key] = [$algorithm, $content];
         }
 
         return $this;
     }
 
-    /**
-     * @psalm-param HashAlgorithm::*|string $algorithm
-     */
-    public function get(string $algorithm): ?string
+    public function get(HashAlgorithm $algorithm): ?string
     {
-        return $this->items[$algorithm] ?? null;
+        return $this->items[self::makeDictKey($algorithm)][1]
+            ?? null;
+    }
+
+    /** @psalm-pure  */
+    private static function makeDictKey(HashAlgorithm $algorithm): string {
+        return $algorithm->value;
     }
 
     /**

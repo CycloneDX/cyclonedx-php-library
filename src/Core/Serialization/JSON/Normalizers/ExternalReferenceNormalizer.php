@@ -58,13 +58,13 @@ class ExternalReferenceNormalizer extends _BaseNormalizer
             // prevent information-loss -> try transfer to OTHER
             $type = ExternalReferenceType::OTHER;
             if (false === $spec->isSupportedExternalReferenceType($type)) {
-                throw new DomainException('ExternalReference has unsupported type: '.$externalReference->getType());
+                throw new DomainException('ExternalReference has unsupported type: '.$externalReference->getType()->name);
             }
         }
 
         return array_filter(
             [
-                'type' => $type,
+                'type' => $type->value,
                 'url' => $url,
                 'comment' => $externalReference->getComment(),
                 'hashes' => $this->normalizeHashes($externalReference->getHashes()),

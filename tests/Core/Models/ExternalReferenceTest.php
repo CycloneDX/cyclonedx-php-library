@@ -32,7 +32,6 @@ use PHPUnit\Framework\TestCase;
 /**
  * @covers \CycloneDX\Core\Models\ExternalReference
  *
- * @uses \CycloneDX\Core\Enums\ExternalReferenceType::isValidValue()
  * @uses  \CycloneDX\Core\Collections\HashDictionary
  */
 class ExternalReferenceTest extends TestCase
@@ -59,21 +58,6 @@ class ExternalReferenceTest extends TestCase
         $got = $extRef->setType(ExternalReferenceType::CHAT);
         $this->assertSame($extRef, $got);
         $this->assertSame(ExternalReferenceType::CHAT, $extRef->getType());
-    }
-
-    public function testConstructorWithInvalidType(): void
-    {
-        $this->expectException(DomainException::class);
-        new ExternalReference('something else', 'https://localhost/dummy');
-    }
-
-    /**
-     * @depends testConstructor
-     */
-    public function testTypeSetterWithInvalidType(ExternalReference $extRef): void
-    {
-        $this->expectException(DomainException::class);
-        $extRef->setType('something else');
     }
 
     // endregion test Type

@@ -33,48 +33,39 @@ use ReflectionClass;
  *
  * @author jkowalleck
  */
-abstract class ExternalReferenceType
+enum ExternalReferenceType: string
 {
     /** Version Control System */
-    public const VCS = 'vcs';
+    case VCS = 'vcs';
     /** Issue or defect tracking system, or an Application Lifecycle Management (ALM) system */
-    public const ISSUE_TRACKER = 'issue-tracker';
+    case ISSUE_TRACKER = 'issue-tracker';
     /** Website */
-    public const WEBSITE = 'website';
+    case WEBSITE = 'website';
     /** Security advisories */
-    public const ADVISORIES = 'advisories';
+    case ADVISORIES = 'advisories';
     /** Bill-of-material document (CycloneDX, SPDX, SWID, etc) */
-    public const BOM = 'bom';
+    case BOM = 'bom';
     /** Mailing list or discussion group */
-    public const MAILING_LIST = 'mailing-list';
+    case MAILING_LIST = 'mailing-list';
     /** Social media account */
-    public const SOCIAL = 'social';
+    case SOCIAL = 'social';
     /** Real-time chat platform */
-    public const CHAT = 'chat';
+    case CHAT = 'chat';
     /** Documentation, guides, or how-to instructions */
-    public const DOCUMENTATION = 'documentation';
+    case DOCUMENTATION = 'documentation';
     /** Community or commercial support */
-    public const SUPPORT = 'support';
+    case SUPPORT = 'support';
     /*** Direct or repository download location.*/
-    public const DISTRIBUTION = 'distribution';
+    case DISTRIBUTION = 'distribution';
     /** The URL to the license file. If a license URL has been defined in the licensenode, it should also be defined as an external reference for completeness. */
-    public const LICENSE = 'license';
+    case LICENSE = 'license';
     /** Build-system specific meta file (i.e. pom.xml, package.json, .nuspec, etc). */
-    public const BUILD_META = 'build-meta';
+    case BUILD_META = 'build-meta';
     /** URL to an automated build system. */
-    public const BUILD_SYSTEM = 'build-system';
+    case BUILD_SYSTEM = 'build-system';
     /** URL to release notes. */
-    public const RELEASE_NOTES = 'release-notes';
+    case RELEASE_NOTES = 'release-notes';
     /** Use this if no other types accurately describe the purpose of the external reference. */
-    public const OTHER = 'other';
+    case OTHER = 'other';
 
-    /**
-     * @psalm-assert-if-true self::* $value
-     */
-    public static function isValidValue(string $value): bool
-    {
-        $values = (new ReflectionClass(self::class))->getConstants();
-
-        return \in_array($value, $values, true);
-    }
 }

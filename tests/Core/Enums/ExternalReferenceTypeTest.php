@@ -35,33 +35,11 @@ use ReflectionClass;
 class ExternalReferenceTypeTest extends TestCase
 {
     /**
-     * @dataProvider dpKnownValues
-     * @dataProvider dpUnknownValue
-     */
-    public function testIsValidValue(string $value, bool $expected): void
-    {
-        self::assertSame($expected, ExternalReferenceType::isValidValue($value));
-    }
-
-    public function dpKnownValues(): Generator
-    {
-        $allValues = (new ReflectionClass(ExternalReferenceType::class))->getConstants();
-        foreach ($allValues as $value) {
-            yield $value => [$value, true];
-        }
-    }
-
-    public function dpUnknownValue(): Generator
-    {
-        yield 'invalid' => ['UnknownExternalReferenceType', false];
-    }
-
-    /**
      * @dataProvider dpSchemaValues
      */
-    public function testIsValidKnowsAllSchemaValues(string $value): void
+    public function testHaseCaseForSchemaValue(string $value): void
     {
-        self::assertTrue(ExternalReferenceType::isValidValue($value));
+        self::assertNotNull(ExternalReferenceType::tryFrom($value));
     }
 
     public function dpSchemaValues(): Generator

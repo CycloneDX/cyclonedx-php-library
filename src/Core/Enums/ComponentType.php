@@ -23,7 +23,6 @@ declare(strict_types=1);
 
 namespace CycloneDX\Core\Enums;
 
-use ReflectionClass;
 
 /**
  * Classification - aka ComponentType.
@@ -36,24 +35,14 @@ use ReflectionClass;
  *
  * @author jkowalleck
  */
-abstract class ComponentType
+enum ComponentType: string
 {
-    public const APPLICATION = 'application';
-    public const FRAMEWORK = 'framework';
-    public const LIBRARY = 'library';
-    public const OPERATING_SYSTEMS = 'operating-system';
-    public const DEVICE = 'device';
-    public const FILE = 'file';
-    public const CONTAINER = 'container';
-    public const FIRMWARE = 'firmware';
-
-    /**
-     * @psalm-assert-if-true self::* $value
-     */
-    public static function isValidValue(string $value): bool
-    {
-        $values = (new ReflectionClass(self::class))->getConstants();
-
-        return \in_array($value, $values, true);
-    }
+    case APPLICATION = 'application';
+    case FRAMEWORK = 'framework';
+    case LIBRARY = 'library';
+    case OPERATING_SYSTEMS = 'operating-system';
+    case DEVICE = 'device';
+    case FILE = 'file';
+    case CONTAINER = 'container';
+    case FIRMWARE = 'firmware';
 }

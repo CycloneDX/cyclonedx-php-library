@@ -24,6 +24,7 @@ declare(strict_types=1);
 namespace CycloneDX\Tests\Core\Serialization\DOM\Normalizers;
 
 use CycloneDX\Core\Collections\HashDictionary;
+use CycloneDX\Core\Enums\ExternalReferenceType;
 use CycloneDX\Core\Models\ExternalReference;
 use CycloneDX\Core\Serialization\DOM\NormalizerFactory;
 use CycloneDX\Core\Serialization\DOM\Normalizers;
@@ -53,19 +54,19 @@ class ExternalReferenceNormalizerTest extends \PHPUnit\Framework\TestCase
         $normalizer = new Normalizers\ExternalReferenceNormalizer($normalizerFactory);
         $extRef = $this->createConfiguredMock(ExternalReference::class, [
             'getUrl' => 'someUrl',
-            'getType' => 'someType',
+            'getType' => ExternalReferenceType::BOM,
             'getComment' => null,
             'getHashes' => $this->createStub(HashDictionary::class),
         ]);
 
         $spec->method('isSupportedExternalReferenceType')
-            ->with('someType')
+            ->with(ExternalReferenceType::BOM)
             ->willReturn(true);
 
         $actual = $normalizer->normalize($extRef);
 
         self::assertStringEqualsDomNode(
-            '<reference type="someType"><url>someUrl</url></reference>',
+            '<reference type="bom"><url>someUrl</url></reference>',
             $actual
         );
     }
@@ -106,18 +107,18 @@ class ExternalReferenceNormalizerTest extends \PHPUnit\Framework\TestCase
         $normalizer = new Normalizers\ExternalReferenceNormalizer($normalizerFactory);
         $extRef = $this->createConfiguredMock(ExternalReference::class, [
             'getUrl' => '..',
-            'getType' => 'someType',
+            'getType' => ExternalReferenceType::BOM,
             'getComment' => null,
             'getHashes' => $this->createStub(HashDictionary::class),
         ]);
 
         $spec->expects(self::exactly(2))
             ->method('isSupportedExternalReferenceType')
-            ->withConsecutive(['someType'], ['other'])
+            ->withConsecutive([ExternalReferenceType::BOM], [ExternalReferenceType::OTHER])
             ->willReturn(false);
 
         $this->expectException(DomainException::class);
-        $this->expectExceptionMessage('ExternalReference has unsupported type: someType');
+        $this->expectExceptionMessage('ExternalReference has unsupported type: BOM');
 
         $normalizer->normalize($extRef);
     }
@@ -131,16 +132,16 @@ class ExternalReferenceNormalizerTest extends \PHPUnit\Framework\TestCase
         ]);
         $normalizer = new Normalizers\ExternalReferenceNormalizer($normalizerFactory);
         $extRef = $this->createConfiguredMock(ExternalReference::class, [
-            'getType' => 'someType',
+            'getType' => ExternalReferenceType::BOM,
             'getUrl' => 'someUrl',
         ]);
 
         $spec->expects(self::exactly(2))
             ->method('isSupportedExternalReferenceType')
-            ->withConsecutive(['someType'], ['other'])
+            ->withConsecutive([ExternalReferenceType::BOM], [ExternalReferenceType::OTHER])
             ->willReturnMap([
-                ['someType', false],
-                ['other', true],
+                [ExternalReferenceType::BOM, false],
+                [ExternalReferenceType::OTHER, true],
             ]);
 
         $actual = $normalizer->normalize($extRef);
@@ -161,19 +162,19 @@ class ExternalReferenceNormalizerTest extends \PHPUnit\Framework\TestCase
         $normalizer = new Normalizers\ExternalReferenceNormalizer($normalizerFactory);
         $extRef = $this->createConfiguredMock(ExternalReference::class, [
             'getUrl' => 'someUrl',
-            'getType' => 'someType',
+            'getType' => ExternalReferenceType::BOM,
             'getComment' => 'someComment',
             'getHashes' => $this->createStub(HashDictionary::class),
         ]);
 
         $spec->method('isSupportedExternalReferenceType')
-            ->with('someType')
+            ->with(ExternalReferenceType::BOM)
             ->willReturn(true);
 
         $actual = $normalizer->normalize($extRef);
 
         self::assertStringEqualsDomNode(
-            '<reference type="someType"><url>someUrl</url><comment>someComment</comment></reference>',
+            '<reference type="bom"><url>someUrl</url><comment>someComment</comment></reference>',
             $actual
         );
     }
@@ -194,13 +195,13 @@ class ExternalReferenceNormalizerTest extends \PHPUnit\Framework\TestCase
         $normalizer = new Normalizers\ExternalReferenceNormalizer($normalizerFactory);
         $extRef = $this->createConfiguredMock(ExternalReference::class, [
             'getUrl' => 'someUrl',
-            'getType' => 'someType',
+            'getType' => ExternalReferenceType::BOM,
             'getComment' => null,
             'getHashes' => $this->createConfiguredMock(HashDictionary::class, ['count' => 1]),
         ]);
 
         $spec->method('isSupportedExternalReferenceType')
-            ->with('someType')
+            ->with(ExternalReferenceType::BOM)
             ->willReturn(true);
         $HashDictionaryNormalizer->expects(self::once())
             ->method('normalize')
@@ -210,7 +211,7 @@ class ExternalReferenceNormalizerTest extends \PHPUnit\Framework\TestCase
         $actual = $normalizer->normalize($extRef);
 
         self::assertStringEqualsDomNode(
-            '<reference type="someType">'.
+            '<reference type="bom">'.
             '<url>someUrl</url>'.
             '<hashes><FakeHash>dummy</FakeHash></hashes>'.
             '</reference>',
@@ -235,13 +236,13 @@ class ExternalReferenceNormalizerTest extends \PHPUnit\Framework\TestCase
         $normalizer = new Normalizers\ExternalReferenceNormalizer($normalizerFactory);
         $extRef = $this->createConfiguredMock(ExternalReference::class, [
             'getUrl' => 'someUrl',
-            'getType' => 'someType',
+            'getType' => ExternalReferenceType::BOM,
             'getComment' => null,
             'getHashes' => $this->createStub(HashDictionary::class),
         ]);
 
         $spec->method('isSupportedExternalReferenceType')
-            ->with('someType')
+            ->with(ExternalReferenceType::BOM)
             ->willReturn(true);
         $HashDictionaryNormalizer->expects(self::never())
             ->method('normalize')
@@ -250,7 +251,7 @@ class ExternalReferenceNormalizerTest extends \PHPUnit\Framework\TestCase
         $actual = $normalizer->normalize($extRef);
 
         self::assertStringEqualsDomNode(
-            '<reference type="someType"><url>someUrl</url></reference>',
+            '<reference type="bom"><url>someUrl</url></reference>',
             $actual
         );
     }
@@ -272,13 +273,13 @@ class ExternalReferenceNormalizerTest extends \PHPUnit\Framework\TestCase
         $normalizer = new Normalizers\ExternalReferenceNormalizer($normalizerFactory);
         $extRef = $this->createConfiguredMock(ExternalReference::class, [
             'getUrl' => 'someUrl',
-            'getType' => 'someType',
+            'getType' => ExternalReferenceType::BOM,
             'getComment' => null,
             'getHashes' => $this->createConfiguredMock(HashDictionary::class, ['count' => 1]),
         ]);
 
         $spec->method('isSupportedExternalReferenceType')
-            ->with('someType')
+            ->with(ExternalReferenceType::BOM)
             ->willReturn(true);
         $HashDictionaryNormalizer->expects(self::never())
             ->method('normalize')
@@ -287,7 +288,7 @@ class ExternalReferenceNormalizerTest extends \PHPUnit\Framework\TestCase
         $actual = $normalizer->normalize($extRef);
 
         self::assertStringEqualsDomNode(
-            '<reference type="someType"><url>someUrl</url></reference>',
+            '<reference type="bom"><url>someUrl</url></reference>',
             $actual
         );
     }
@@ -307,20 +308,20 @@ class ExternalReferenceNormalizerTest extends \PHPUnit\Framework\TestCase
         $normalizer = new Normalizers\ExternalReferenceNormalizer($normalizerFactory);
         $extRef = $this->createConfiguredMock(ExternalReference::class, [
             'getUrl' => $rawUrl,
-            'getType' => 'someType',
+            'getType' => ExternalReferenceType::BOM,
             'getComment' => null,
             'getHashes' => $this->createStub(HashDictionary::class),
         ]);
 
         $spec->expects(self::atLeastOnce())
             ->method('isSupportedExternalReferenceType')
-            ->with('someType')
+            ->with(ExternalReferenceType::BOM)
             ->willReturn(true);
 
         $actual = $normalizer->normalize($extRef);
 
         self::assertStringEqualsDomNode(
-            '<reference type="someType"><url>'.htmlspecialchars($encodedUrl).'</url></reference>',
+            '<reference type="bom"><url>'.htmlspecialchars($encodedUrl).'</url></reference>',
             $actual
         );
     }

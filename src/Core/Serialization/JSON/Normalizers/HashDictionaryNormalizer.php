@@ -36,11 +36,11 @@ class HashDictionaryNormalizer extends _BaseNormalizer
         $hashes = [];
 
         $normalizer = $this->getNormalizerFactory()->makeForHash();
-        foreach ($repo->getItems() as $algorithm => $content) {
+        foreach ($repo->getItems() as [$algorithm , $content]) {
             try {
                 $hashes[] = $normalizer->normalize($algorithm, $content);
             } catch (\DomainException) {
-                // pass
+                /* pass */
             }
         }
 

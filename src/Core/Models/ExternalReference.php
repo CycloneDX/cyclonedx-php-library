@@ -39,11 +39,9 @@ class ExternalReference
      * Specifies the type of external reference. There are built-in types to describe common
      * references. If a type does not exist for the reference being referred to, use the "other" type.
      *
-     * @psalm-var ExternalReferenceType::*
-     *
      * @psalm-suppress PropertyNotSetInConstructor
      */
-    private string $type;
+    private ExternalReferenceType $type;
 
     /**
      * The URL to the external reference.
@@ -59,30 +57,18 @@ class ExternalReference
 
     private HashDictionary $hashes;
 
-    /**
-     * @psalm-return  ExternalReferenceType::*
-     */
-    public function getType(): string
+    public function getType(): ExternalReferenceType
     {
         return $this->type;
     }
 
     /**
-     * @param string $type A valid {@see \CycloneDX\Core\Enums\ExternalReferenceType}
-     *
-     * @psalm-assert ExternalReferenceType::* $type
-     *
-     * @throws DomainException if value is unknown
-     *
      * @return $this
      *
-     * @SuppressWarnings(PHPMD.StaticAccess)
      */
-    public function setType(string $type): self
+    public function setType(ExternalReferenceType $type): self
     {
-        $this->type = ExternalReferenceType::isValidValue($type)
-            ? $type
-            : throw new DomainException("Invalid type: $type");
+        $this->type = $type;
 
         return $this;
     }
@@ -132,12 +118,7 @@ class ExternalReference
         return $this;
     }
 
-    /**
-     * @psalm-assert ExternalReferenceType::* $type
-     *
-     * @throws DomainException if type is unknown
-     */
-    public function __construct(string $type, string $url)
+    public function __construct(ExternalReferenceType $type, string $url)
     {
         $this->setType($type);
         $this->setUrl($url);

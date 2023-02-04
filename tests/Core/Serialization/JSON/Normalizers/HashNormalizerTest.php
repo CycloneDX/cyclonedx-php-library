@@ -23,6 +23,7 @@ declare(strict_types=1);
 
 namespace CycloneDX\Tests\Core\Serialization\JSON\Normalizers;
 
+use CycloneDX\Core\Enums\HashAlgorithm;
 use CycloneDX\Core\Serialization\JSON\NormalizerFactory;
 use CycloneDX\Core\Serialization\JSON\Normalizers\HashNormalizer;
 use CycloneDX\Core\Spec\Spec;
@@ -56,9 +57,9 @@ class HashNormalizerTest extends TestCase
             )
         );
 
-        $normalized = $normalizer->normalize('foo', 'bar');
+        $normalized = $normalizer->normalize(HashAlgorithm::SHA_1, 'bar');
 
-        self::assertSame(['alg' => 'foo', 'content' => 'bar'], $normalized);
+        self::assertSame(['alg' => 'SHA-1', 'content' => 'bar'], $normalized);
     }
 
     public function testNormalizeThrowOnUnsupportedAlgorithm(): void
@@ -78,7 +79,7 @@ class HashNormalizerTest extends TestCase
         $this->expectException(DomainException::class);
         $this->expectExceptionMessageMatches('/invalid hash algorithm/i');
 
-        $normalizer->normalize('foo', 'bar');
+        $normalizer->normalize(HashAlgorithm::MD5, 'bar');
     }
 
     public function testNormalizeThrowOnUnsupportedContent(): void
@@ -98,6 +99,6 @@ class HashNormalizerTest extends TestCase
         $this->expectException(DomainException::class);
         $this->expectExceptionMessageMatches('/invalid hash content/i');
 
-        $normalizer->normalize('foo', 'bar');
+        $normalizer->normalize(HashAlgorithm::MD5, 'bar');
     }
 }

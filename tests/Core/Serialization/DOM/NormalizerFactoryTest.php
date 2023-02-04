@@ -26,6 +26,7 @@ namespace CycloneDX\Tests\Core\Serialization\DOM;
 use CycloneDX\Core\Serialization\DOM\NormalizerFactory;
 use CycloneDX\Core\Serialization\DOM\Normalizers;
 use CycloneDX\Core\Spec\Spec;
+use CycloneDX\Core\Spec\Version;
 use DomainException;
 use DOMDocument;
 use PHPUnit\Framework\TestCase;
@@ -58,6 +59,7 @@ class NormalizerFactoryTest extends TestCase
         $spec = $this->createConfiguredMock(
             Spec::class,
             [
+                'getVersion' => Version::v1dot4,
                 'isSupportedFormat' => false,
             ]
         );

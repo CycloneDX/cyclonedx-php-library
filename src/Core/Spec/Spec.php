@@ -23,6 +23,10 @@ declare(strict_types=1);
 
 namespace CycloneDX\Core\Spec;
 
+use CycloneDX\Core\Enums\ComponentType;
+use CycloneDX\Core\Enums\ExternalReferenceType;
+use CycloneDX\Core\Enums\HashAlgorithm;
+
 /**
  * See {@see \CycloneDX\Core\Spec\SpecFactory Specification Factory} to get prepared instances.
  *
@@ -30,18 +34,18 @@ namespace CycloneDX\Core\Spec;
  */
 interface Spec
 {
-    /** @psalm-return Version::* */
-    public function getVersion(): string;
 
-    public function isSupportedFormat(string $format): bool;
+    public function getVersion(): Version;
 
-    public function isSupportedComponentType(string $componentType): bool;
+    public function isSupportedFormat(Format $format): bool;
 
-    public function isSupportedHashAlgorithm(string $alg): bool;
+    public function isSupportedComponentType(ComponentType $componentType): bool;
+
+    public function isSupportedHashAlgorithm(HashAlgorithm $alg): bool;
 
     public function isSupportedHashContent(string $content): bool;
 
-    public function isSupportedExternalReferenceType(string $referenceType): bool;
+    public function isSupportedExternalReferenceType(ExternalReferenceType $referenceType): bool;
 
     public function supportsLicenseExpression(): bool;
 

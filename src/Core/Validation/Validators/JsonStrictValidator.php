@@ -39,10 +39,10 @@ class JsonStrictValidator extends JsonValidator
     protected static function listSchemaFiles(): array
     {
         return [
-            Version::v1dot1 => null, // unsupported version
-            Version::v1dot2 => Resources::FILE_CDX_JSON_STRICT_SCHEMA_1_2,
-            Version::v1dot3 => Resources::FILE_CDX_JSON_STRICT_SCHEMA_1_3,
-            Version::v1dot4 => Resources::FILE_CDX_JSON_SCHEMA_1_4, // 1.4 is already strict
+            Version::v1dot1->name => null, // unsupported version
+            Version::v1dot2->name => Resources::FILE_CDX_JSON_STRICT_SCHEMA_1_2,
+            Version::v1dot3->name => Resources::FILE_CDX_JSON_STRICT_SCHEMA_1_3,
+            Version::v1dot4->name => Resources::FILE_CDX_JSON_SCHEMA_1_4, // 1.4 is already strict
         ];
     }
 }

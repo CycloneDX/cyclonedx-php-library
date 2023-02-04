@@ -49,7 +49,7 @@ class NormalizerFactory
     {
         $this->spec = $spec->isSupportedFormat(self::FORMAT)
             ? $spec
-            : throw new DomainException('Unsupported format "'.self::FORMAT.'" for spec '.$spec->getVersion());
+            : throw new DomainException('Unsupported format "'.self::FORMAT->name.'" for spec '.$spec->getVersion()->name);
     }
 
     public function getSpec(): Spec

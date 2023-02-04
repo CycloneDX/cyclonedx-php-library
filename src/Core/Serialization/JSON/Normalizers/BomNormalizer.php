@@ -38,12 +38,16 @@ class BomNormalizer extends _BaseNormalizer
 
     private const BOM_FORMAT = 'CycloneDX';
 
-    private const SCHEMA = [
-        Version::v1dot1 => null,
-        Version::v1dot2 => 'http://cyclonedx.org/schema/bom-1.2b.schema.json',
-        Version::v1dot3 => 'http://cyclonedx.org/schema/bom-1.3a.schema.json',
-        Version::v1dot4 => 'http://cyclonedx.org/schema/bom-1.4.schema.json',
-    ];
+    /** @psalm-pure  */
+    private function getSchema(Version $version): ?string
+    {
+        return match ($version) {
+            Version::v1dot2 => 'http://cyclonedx.org/schema/bom-1.2b.schema.json',
+            Version::v1dot3 => 'http://cyclonedx.org/schema/bom-1.3a.schema.json',
+            Version::v1dot4 => 'http://cyclonedx.org/schema/bom-1.4.schema.json',
+            default => null,
+        };
+    }
 
     /**
      * @psalm-return array<string, mixed>
@@ -55,9 +59,9 @@ class BomNormalizer extends _BaseNormalizer
 
         return array_filter(
             [
-                '$schema' => self::SCHEMA[$specVersion] ?? null,
+                '$schema' => $this->getSchema($specVersion) ?? null,
                 'bomFormat' => self::BOM_FORMAT,
-                'specVersion' => $specVersion,
+                'specVersion' => $specVersion->value,
                 'serialNumber' => $bom->getSerialNumber(),
                 'version' => $bom->getVersion(),
                 'metadata' => $this->normalizeMetadata($bom->getMetadata()),

@@ -57,7 +57,7 @@ class ComponentNormalizer extends _BaseNormalizer
             if (null !== $version) {
                 $reportFQN .= "@$version";
             }
-            throw new DomainException("Component '$reportFQN' has unsupported type: $type");
+            throw new DomainException("Component '$reportFQN' has unsupported type: $type->name");
         }
 
         $bomRef = $spec->supportsBomRef()
@@ -67,7 +67,7 @@ class ComponentNormalizer extends _BaseNormalizer
         return array_filter(
             [
                 'bom-ref' => $bomRef,
-                'type' => $type,
+                'type' => $type->value,
                 'name' => $name,
                 'version' => null === $version && $spec->requiresComponentVersion()
                     ? ''

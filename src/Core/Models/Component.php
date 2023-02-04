@@ -78,11 +78,9 @@ class Component
      * Refer to the {@link https://cyclonedx.org/schema/bom/1.1 bom:classification documentation}
      * for information describing each one.
      *
-     * @psalm-var ComponentType::*
-     *
      * @psalm-suppress PropertyNotSetInConstructor
      */
-    private string $type;
+    private ComponentType $type;
 
     /**
      * Specifies a description for the component.
@@ -199,30 +197,17 @@ class Component
         return $this;
     }
 
-    /**
-     * @psalm-return ComponentType::*
-     */
-    public function getType(): string
+    public function getType(): ComponentType
     {
         return $this->type;
     }
 
     /**
-     * @param string $type A valid {@see \CycloneDX\Core\Enums\ComponentType}
-     *
-     * @psalm-assert ComponentType::* $type
-     *
-     * @throws DomainException if value is unknown
-     *
      * @return $this
-     *
-     * @SuppressWarnings(PHPMD.StaticAccess)
      */
-    public function setType(string $type): self
+    public function setType(ComponentType $type): self
     {
-        $this->type = ComponentType::isValidValue($type)
-            ? $type
-            : throw new DomainException("Invalid type: $type");
+        $this->type = $type;
 
         return $this;
     }
@@ -367,11 +352,9 @@ class Component
     }
 
     /**
-     * @psalm-assert ComponentType::* $type
-     *
      * @throws DomainException if type is unknown
      */
-    public function __construct(string $type, string $name)
+    public function __construct(ComponentType $type, string $name)
     {
         $this->setType($type);
         $this->setName($name);

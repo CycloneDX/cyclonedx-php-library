@@ -214,8 +214,7 @@ abstract class BomModelProvider
      */
     public static function bomWithComponentTypeAllKnown(): Generator
     {
-        /** @psalm-var list<string> $known */
-        $known = array_values((new ReflectionClass(ComponentType::class))->getConstants());
+        $known = array_map(static function (ComponentType $c) { return $c->value; },  ComponentType::cases());
         yield from self::bomWithComponentTypes(
             ...$known,
             ...BomSpecData::getClassificationEnumForVersion('1.0'),
@@ -355,10 +354,11 @@ abstract class BomModelProvider
     {
         $types = array_unique($types, \SORT_STRING);
         foreach ($types as $type) {
-            yield "component types: $type" => [
+            $type = ComponentType::from($type);
+            yield "component types: $type->name" => [
                 (new Bom())->setComponents(
                     new ComponentRepository(
-                        new Component($type, "dummy_$type")
+                        new Component($type, "dummy_$type->name")
                     )
                 ),
             ];
@@ -493,8 +493,7 @@ abstract class BomModelProvider
     /** @psalm-return list<string> */
     private static function allHashAlgorithms(): array
     {
-        /** @psalm-var list<string> $known */
-        $known = array_values((new ReflectionClass(HashAlgorithm::class))->getConstants());
+        $known = array_map(static function (HashAlgorithm $ha) { return $ha->value; } , HashAlgorithm::cases());
 
         return array_values(
             array_unique(
@@ -596,12 +595,13 @@ abstract class BomModelProvider
     {
         $hashAlgorithms = array_unique($hashAlgorithms, \SORT_STRING);
         foreach ($hashAlgorithms as $hashAlgorithm) {
-            yield "component hash alg: $hashAlgorithm" => [
+            $hashAlgorithm = HashAlgorithm::from($hashAlgorithm);
+            yield "component hash alg: $hashAlgorithm->name" => [
                 (new Bom())->setComponents(
                     new ComponentRepository(
                         (new Component(ComponentType::LIBRARY, 'name'))
                             ->setHashes(
-                                new HashDictionary([$hashAlgorithm => '12345678901234567890123456789012'])
+                                new HashDictionary([$hashAlgorithm , '12345678901234567890123456789012'])
                             )
                     )
                 ),
@@ -785,7 +785,7 @@ abstract class BomModelProvider
                             ->setName('myTool')
                             ->setVersion('toolVersion')
                             ->setHashes(
-                                new HashDictionary([HashAlgorithm::MD5 => '12345678901234567890123456789012'])
+                                new HashDictionary([HashAlgorithm::MD5, '12345678901234567890123456789012'])
                             )->setExternalReferences(
                                 new ExternalReferenceRepository(
                                     new ExternalReference(ExternalReferenceType::OTHER, 'https://acme.com')
@@ -850,8 +850,7 @@ abstract class BomModelProvider
      */
     public static function externalReferencesForAllTypes(): Generator
     {
-        /** @psalm-var list<string> $known */
-        $known = array_values((new ReflectionClass(ExternalReferenceType::class))->getConstants());
+        $known = array_map(static function (ExternalReferenceType $ert) { return $ert->value; }, ExternalReferenceType::cases());
         $all = array_unique(
             array_merge(
                 $known,
@@ -861,9 +860,12 @@ abstract class BomModelProvider
                 BomSpecData::getExternalReferenceTypeForVersion('1.4'),
             )
         );
-
         foreach ($all as $type) {
-            yield "externalReferenceType: $type" => new ExternalReference($type, ".../types/{$type}.txt");
+            $type = ExternalReferenceType::tryFrom($type);
+            if (null !== $type)
+            {
+                yield "externalReferenceType: $type->name" => new ExternalReference($type, ".../types/{$type->name}.txt");
+            }
         }
     }
 
@@ -878,9 +880,10 @@ abstract class BomModelProvider
     {
         $type = ExternalReferenceType::OTHER;
         foreach (self::allHashAlgorithms() as $algorithm) {
-            yield "externalReferenceHash: $algorithm" => (new ExternalReference(
-                $type, ".../algorithm/{$algorithm}.txt"
-            ))->setHashes(new HashDictionary([$algorithm => '12345678901234567890123456789012']));
+            $algorithm = HashAlgorithm::from($algorithm);
+            yield "externalReferenceHash: $algorithm->name" => (new ExternalReference(
+                $type, ".../algorithm/{$algorithm->name}.txt"
+            ))->setHashes(new HashDictionary([$algorithm, '12345678901234567890123456789012']));
         }
     }
 }

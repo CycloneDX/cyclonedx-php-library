@@ -52,9 +52,9 @@ abstract class BaseValidator implements Validator
     protected function getSchemaFile(): string
     {
         $specVersion = $this->spec->getVersion();
-        $schemaFile = static::listSchemaFiles()[$specVersion] ?? null;
+        $schemaFile = static::listSchemaFiles()[$specVersion->name] ?? null;
         if (false === \is_string($schemaFile)) {
-            throw new Exceptions\FailedLoadingSchemaException("Schema file unknown for specVersion: $specVersion");
+            throw new Exceptions\FailedLoadingSchemaException("Schema file unknown for specVersion: $specVersion->name");
         }
         if (is_file($schemaFile) && is_readable($schemaFile)) {
             return realpath($schemaFile);
@@ -67,7 +67,7 @@ abstract class BaseValidator implements Validator
     /**
      * @return string[]|null[]
      *
-     * @psalm-return array<Version::*, ?string>
+     * @psalm-return array<string, ?string>
      */
     abstract protected static function listSchemaFiles(): array;
 }

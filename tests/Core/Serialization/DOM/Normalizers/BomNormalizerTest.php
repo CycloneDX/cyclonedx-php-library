@@ -32,6 +32,7 @@ use CycloneDX\Core\Models\Metadata;
 use CycloneDX\Core\Serialization\DOM\NormalizerFactory;
 use CycloneDX\Core\Serialization\DOM\Normalizers;
 use CycloneDX\Core\Spec\Spec;
+use CycloneDX\Core\Spec\Version;
 use CycloneDX\Tests\_traits\DomNodeAssertionTrait;
 use DOMDocument;
 use PHPUnit\Framework\TestCase;
@@ -47,7 +48,7 @@ class BomNormalizerTest extends TestCase
 
     public function testNormalize(): void
     {
-        $spec = $this->createConfiguredMock(Spec::class, ['getVersion' => '1.2']);
+        $spec = $this->createConfiguredMock(Spec::class, ['getVersion' => Version::v1dot2]);
         $factory = $this->createConfiguredMock(
             NormalizerFactory::class,
             [
@@ -76,7 +77,7 @@ class BomNormalizerTest extends TestCase
 
     public function testNormalizeComponents(): void
     {
-        $spec = $this->createConfiguredMock(Spec::class, ['getVersion' => '1.2']);
+        $spec = $this->createConfiguredMock(Spec::class, ['getVersion' => Version::v1dot2]);
         $componentsNormalizer = $this->createMock(Normalizers\ComponentRepositoryNormalizer::class);
         $factory = $this->createConfiguredMock(
             NormalizerFactory::class,
@@ -117,7 +118,7 @@ class BomNormalizerTest extends TestCase
         $spec = $this->createConfiguredMock(
             Spec::class,
             [
-                'getVersion' => '1.2',
+                'getVersion' => Version::v1dot2,
                 'supportsMetadata' => true,
             ]
         );
@@ -160,7 +161,7 @@ class BomNormalizerTest extends TestCase
         $spec = $this->createConfiguredMock(
             Spec::class,
             [
-                'getVersion' => '1.2',
+                'getVersion' => Version::v1dot2,
                 'supportsMetadata' => false,
             ]
         );
@@ -205,7 +206,7 @@ class BomNormalizerTest extends TestCase
         $spec = $this->createConfiguredMock(
             Spec::class,
             [
-                'getVersion' => '1.2',
+                'getVersion' => Version::v1dot2,
                 'supportsDependencies' => true,
             ]
         );
@@ -248,7 +249,7 @@ class BomNormalizerTest extends TestCase
         $spec = $this->createConfiguredMock(
             Spec::class,
             [
-                'getVersion' => '1.2',
+                'getVersion' => Version::v1dot2,
                 'supportsDependencies' => true,
             ]
         );
@@ -296,7 +297,7 @@ class BomNormalizerTest extends TestCase
     public function testNormalizeExternalReferencesMergedIfUnsupportedMetadata(): void
     {
         $spec = $this->createConfiguredMock(Spec::class, [
-            'getVersion' => '1.2',
+            'getVersion' => Version::v1dot2,
             'supportsMetadata' => false,
         ]);
         $extRefNormalizer = $this->createMock(Normalizers\ExternalReferenceRepositoryNormalizer::class);
@@ -352,7 +353,7 @@ class BomNormalizerTest extends TestCase
     public function testNormalizeExternalReferencesOmittedWHenEmpty(): void
     {
         $spec = $this->createConfiguredMock(Spec::class, [
-            'getVersion' => '1.2',
+            'getVersion' => Version::v1dot2,
             'supportsMetadata' => false,
         ]);
         $extRefNormalizer = $this->createMock(Normalizers\ExternalReferenceRepositoryNormalizer::class);
