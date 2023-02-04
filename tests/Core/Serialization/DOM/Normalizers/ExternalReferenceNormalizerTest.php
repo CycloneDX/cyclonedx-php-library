@@ -92,7 +92,7 @@ class ExternalReferenceNormalizerTest extends \PHPUnit\Framework\TestCase
         $normalizer->normalize($extRef);
     }
 
-    public function dpThrowOnUnsupportedUrl(): Generator
+    public static function dpThrowOnUnsupportedUrl(): Generator
     {
         yield 'multiple #' => ['https://example.com#foo#bar'];
     }

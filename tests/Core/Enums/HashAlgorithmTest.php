@@ -41,7 +41,7 @@ class HashAlgorithmTest extends TestCase
         self::assertNotNull(HashAlgorithm::tryFrom($value));
     }
 
-    public function dpSchemaValues(): Generator
+    public static function dpSchemaValues(): Generator
     {
         $allValues = array_unique(array_merge(
             BomSpecData::getHashAlgEnumForVersion('1.0'),

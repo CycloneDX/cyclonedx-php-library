@@ -58,7 +58,7 @@ class BomRefRepositoryTest extends TestCase
         }
     }
 
-    public function dpNonEmptyConstructor(): Generator
+    public static function dpNonEmptyConstructor(): Generator
     {
         $r1 = new BomRef();
         $r2 = new BomRef();
@@ -98,7 +98,7 @@ class BomRefRepositoryTest extends TestCase
         }
     }
 
-    public function dpAddBomRef(): Generator
+    public static function dpAddBomRef(): Generator
     {
         $r1 = new BomRef();
         $r2 = new BomRef();

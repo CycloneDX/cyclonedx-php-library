@@ -117,7 +117,7 @@ class ExternalReferenceRepositoryNormalizerTest extends \PHPUnit\Framework\TestC
         self::assertSame([], $actual);
     }
 
-    public function dpNormalizeSkipsOnThrow(): Generator
+    public static function dpNormalizeSkipsOnThrow(): Generator
     {
         yield 'DomainException' => [DomainException::class];
         yield 'UnexpectedValueException' => [UnexpectedValueException::class];

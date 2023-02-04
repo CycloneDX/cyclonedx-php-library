@@ -41,7 +41,7 @@ class ComponentTypeTest extends TestCase
         self::assertNotNull(ComponentType::tryFrom($value));
     }
 
-    public function dpSchemaValues(): Generator
+    public static function dpSchemaValues(): Generator
     {
         $allValues = array_unique(array_merge(
             BomSpecData::getClassificationEnumForVersion('1.0'),

@@ -119,7 +119,7 @@ abstract class SpecBaseTestCase extends TestCase
         self::assertSame($expected, $isSupported);
     }
 
-    final public function dpIsSupportedHashContent(): Generator
+    final public static function dpIsSupportedHashContent(): Generator
     {
         yield 'crap' => ['this is an invalid hash', false];
         yield 'valid sha1' => ['a052cfe45093f1c2d26bd854d06aa370ceca3b38', true];

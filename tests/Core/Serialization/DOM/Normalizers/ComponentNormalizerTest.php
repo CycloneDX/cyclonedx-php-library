@@ -114,7 +114,7 @@ class ComponentNormalizerTest extends TestCase
         self::assertStringEqualsDomNode($expected, $actual);
     }
 
-    public function dbNormalizeMinimal(): Generator
+    public static function dbNormalizeMinimal(): Generator
     {
         yield 'mandatory ComponentVersion' => [
             '<component type="library"><name>myName</name><version></version></component>',

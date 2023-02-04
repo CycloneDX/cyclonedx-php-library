@@ -41,7 +41,7 @@ class ExternalReferenceTypeTest extends TestCase
         self::assertNotNull(ExternalReferenceType::tryFrom($value));
     }
 
-    public function dpSchemaValues(): Generator
+    public static function dpSchemaValues(): Generator
     {
         $allValues = array_unique(array_merge(
             BomSpecData::getExternalReferenceTypeForVersion('1.1'),

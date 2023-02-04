@@ -49,7 +49,7 @@ class ResourcesTest extends TestCase
         self::assertFileIsReadable($filePath);
     }
 
-    public function dpFiles(): Generator
+    public static function dpFiles(): Generator
     {
         $constants = (new ReflectionClass(Resources::class))->getConstants();
         foreach ($constants as $name => $value) {

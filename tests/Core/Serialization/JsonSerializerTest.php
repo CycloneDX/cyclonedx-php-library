@@ -57,7 +57,7 @@ class JsonSerializerTest extends TestCase
         self::assertSame($expected, $actual);
     }
 
-    public function dpSerializeStructure(): Generator
+    public static function dpSerializeStructure(): Generator
     {
         $normalizedDummy = uniqid('normalized', true);
         $normalizedDummyJson = json_encode($normalizedDummy);

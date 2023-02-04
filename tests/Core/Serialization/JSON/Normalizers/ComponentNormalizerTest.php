@@ -103,7 +103,7 @@ class ComponentNormalizerTest extends TestCase
         self::assertSame($expected, $actual);
     }
 
-    public function dptNormalizeMinimal(): Generator
+    public static function dptNormalizeMinimal(): Generator
     {
         yield 'mandatory Component Version' => [
             [

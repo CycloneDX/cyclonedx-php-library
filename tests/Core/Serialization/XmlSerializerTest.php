@@ -59,7 +59,7 @@ class XmlSerializerTest extends TestCase
         self::assertSame($expected, $actual);
     }
 
-    public function dpSerializeStructure(): Generator
+    public static function dpSerializeStructure(): Generator
     {
         $doc = new DOMDocument();
         $dummyText = uniqid('normalized', true);
