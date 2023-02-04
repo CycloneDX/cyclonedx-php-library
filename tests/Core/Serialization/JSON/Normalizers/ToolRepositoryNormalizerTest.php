@@ -98,8 +98,8 @@ class ToolRepositoryNormalizerTest extends TestCase
             'getItems' => [$tool1, $tool2],
         ]);
 
-        $toolNormalizer->expects(self::exactly(2))->method('normalize')
-            ->withConsecutive([$tool1], [$tool2])
+        $toolNormalizer->expects(self::exactly(2))
+            ->method('normalize')
             ->willThrowException(new DomainException());
 
         $actual = $normalizer->normalize($tools);

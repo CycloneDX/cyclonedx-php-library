@@ -90,8 +90,8 @@ class ComponentRepositoryNormalizerTest extends TestCase
             'getItems' => [$component1, $component2],
         ]);
 
-        $componentNormalizer->expects(self::exactly(2))->method('normalize')
-            ->withConsecutive([$component1], [$component2])
+        $componentNormalizer->expects(self::exactly(2))
+            ->method('normalize')
             ->willThrowException(new DomainException());
 
         $got = $normalizer->normalize($components);

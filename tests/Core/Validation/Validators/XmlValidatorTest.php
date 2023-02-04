@@ -200,10 +200,11 @@ class XmlValidatorTest extends TestCase
         );
     }
 
-    public function testValidateDomThrowsOnSchemaFileUnknown(): void
+    /**
+     * 'skipped, unless there is a version that does not support XML.
+     */
+    public function skip_testValidateDomThrowsOnSchemaFileUnknown(): void
     {
-        self::markTestSkipped('skipped, unless there is a version that does not support XML');
-
         $spec = $this->createConfiguredMock(Spec::class, ['getVersion' => 'unknown']);
         $validator = new XmlValidator($spec);
         $doc = $this->createPartialMock(DOMDocument::class, ['schemaValidate']);

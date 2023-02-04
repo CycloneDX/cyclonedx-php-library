@@ -108,8 +108,8 @@ class ExternalReferenceRepositoryNormalizerTest extends \PHPUnit\Framework\TestC
             'getItems' => [$extRef1, $extRef2],
         ]);
 
-        $externalReferenceNormalizer->expects(self::exactly(2))->method('normalize')
-            ->withConsecutive([$extRef1], [$extRef2])
+        $externalReferenceNormalizer->expects(self::exactly(2))
+            ->method('normalize')
             ->willThrowException(new $exceptionClass());
 
         $actual = $normalizer->normalize($tools);

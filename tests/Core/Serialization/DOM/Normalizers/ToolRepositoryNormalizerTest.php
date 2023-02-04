@@ -100,7 +100,6 @@ class ToolRepositoryNormalizerTest extends TestCase
 
         $toolNormalizer->expects(self::exactly(2))
             ->method('normalize')
-            ->withConsecutive([$tool1], [$tool2])
             ->willThrowException(new DomainException());
 
         $actual = $normalizer->normalize($tools);

@@ -114,8 +114,10 @@ class ExternalReferenceNormalizerTest extends \PHPUnit\Framework\TestCase
 
         $spec->expects(self::exactly(2))
             ->method('isSupportedExternalReferenceType')
-            ->withConsecutive([ExternalReferenceType::BOM], [ExternalReferenceType::OTHER])
-            ->willReturn(false);
+            ->willReturnMap([
+                [ExternalReferenceType::BOM, false],
+                [ExternalReferenceType::OTHER, false],
+            ]);
 
         $this->expectException(DomainException::class);
         $this->expectExceptionMessage('ExternalReference has unsupported type: BOM');
@@ -138,7 +140,6 @@ class ExternalReferenceNormalizerTest extends \PHPUnit\Framework\TestCase
 
         $spec->expects(self::exactly(2))
             ->method('isSupportedExternalReferenceType')
-            ->withConsecutive([ExternalReferenceType::BOM], [ExternalReferenceType::OTHER])
             ->willReturnMap([
                 [ExternalReferenceType::BOM, false],
                 [ExternalReferenceType::OTHER, true],
@@ -296,7 +297,7 @@ class ExternalReferenceNormalizerTest extends \PHPUnit\Framework\TestCase
     // endregion normalize hashes
 
     /**
-     * @dataProvider \CycloneDX\Tests\_data\XmlAnyUriData::dpEncodeAnyUri()
+     * @dataProvider \CycloneDX\Tests\_data\XmlAnyUriData::dpEncodeAnyUri
      */
     public function testNormalizeUrlEncodeAnyUri(string $rawUrl, string $encodedUrl): void
     {
