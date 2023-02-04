@@ -63,7 +63,7 @@ class HashDictionaryNormalizerTest extends TestCase
         $dummy2 = $this->createStub(DOMElement::class);
         $normalizer = new HashDictionaryNormalizer($factory);
         $repo = $this->createStub(HashDictionary::class);
-        $repo->method('getItems')->willReturn([[HashAlgorithm::MD5 , 'content1'],[ HashAlgorithm::SHA_1 , 'content2']]);
+        $repo->method('getItems')->willReturn([[HashAlgorithm::MD5, 'content1'], [HashAlgorithm::SHA_1, 'content2']]);
 
         $hashNormalizer->expects(self::exactly(2))->method('normalize')
             ->withConsecutive([HashAlgorithm::MD5, 'content1'], [HashAlgorithm::SHA_1, 'content2'])
@@ -88,9 +88,9 @@ class HashDictionaryNormalizerTest extends TestCase
             [
                 'getItems' => [
                     [HashAlgorithm::MD5, 'cont1'],
-                    [ HashAlgorithm::SHA_1 , 'cont2'],
-                    [ HashAlgorithm::SHA_256 , 'cont3']
-            ]
+                    [HashAlgorithm::SHA_1, 'cont2'],
+                    [HashAlgorithm::SHA_256, 'cont3'],
+            ],
             ]
         );
 

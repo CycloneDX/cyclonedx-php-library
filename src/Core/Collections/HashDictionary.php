@@ -25,13 +25,13 @@ namespace CycloneDX\Core\Collections;
 
 use Countable;
 use CycloneDX\Core\Enums\HashAlgorithm;
-use DomainException;
 
 /**
  * Dictionary of {@see \CycloneDX\Core\Enums\HashAlgorithm} => HashContent.
  *
  * @psalm-type HashContent = string
  * @psalm-type HashAlgorithmContentTuple = array{0:HashAlgorithm,1:HashContent}
+ *
  * @author jkowalleck
  */
 class HashDictionary implements Countable
@@ -44,7 +44,7 @@ class HashDictionary implements Countable
     /**
      * Ignores unknown hash algorithms.
      *
-     * @param array $items list of tuples of [{@see \CycloneDX\Core\Enums\HashAlgorithm} `$algorithm`, string `$content`].
+     * @param array $items list of tuples of [{@see \CycloneDX\Core\Enums\HashAlgorithm} `$algorithm`, string `$content`]
      *
      * @psalm-param array<HashAlgorithmContentTuple> $items
      */
@@ -57,7 +57,7 @@ class HashDictionary implements Countable
      * Set the hashes.
      * Ignores unknown hash algorithms.
      *
-     * @param array $items list of tuples of [{@see \CycloneDX\Core\Enums\HashAlgorithm} `$algorithm`, string `$content`].
+     * @param array $items list of tuples of [{@see \CycloneDX\Core\Enums\HashAlgorithm} `$algorithm`, string `$content`]
      *
      * @psalm-param array<HashAlgorithmContentTuple> $items
      *
@@ -66,7 +66,7 @@ class HashDictionary implements Countable
     public function setItems(array ...$items): self
     {
         foreach ($items as [$algorithm, $content]) {
-                $this->set($algorithm, $content);
+            $this->set($algorithm, $content);
         }
 
         return $this;
@@ -107,7 +107,8 @@ class HashDictionary implements Countable
     }
 
     /** @psalm-pure  */
-    private static function makeDictKey(HashAlgorithm $algorithm): string {
+    private static function makeDictKey(HashAlgorithm $algorithm): string
+    {
         return $algorithm->value;
     }
 

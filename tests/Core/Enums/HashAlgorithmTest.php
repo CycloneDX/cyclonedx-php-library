@@ -27,14 +27,12 @@ use CycloneDX\Core\Enums\HashAlgorithm;
 use CycloneDX\Tests\_data\BomSpecData;
 use Generator;
 use PHPUnit\Framework\TestCase;
-use ReflectionClass;
 
 /**
  * @covers \CycloneDX\Core\Enums\HashAlgorithm
  */
 class HashAlgorithmTest extends TestCase
 {
-
     /**
      * @dataProvider dpSchemaValues
      */

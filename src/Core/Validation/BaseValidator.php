@@ -24,7 +24,6 @@ declare(strict_types=1);
 namespace CycloneDX\Core\Validation;
 
 use CycloneDX\Core\Spec\Spec;
-use CycloneDX\Core\Spec\Version;
 
 /**
  * @author jkowalleck

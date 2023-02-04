@@ -27,7 +27,6 @@ use CycloneDX\Core\Enums\ExternalReferenceType;
 use CycloneDX\Tests\_data\BomSpecData;
 use Generator;
 use PHPUnit\Framework\TestCase;
-use ReflectionClass;
 
 /**
  * @covers \CycloneDX\Core\Enums\ExternalReferenceType

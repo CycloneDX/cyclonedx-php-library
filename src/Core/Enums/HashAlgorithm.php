@@ -23,7 +23,6 @@ declare(strict_types=1);
 
 namespace CycloneDX\Core\Enums;
 
-
 /**
  * See {@link https://cyclonedx.org/schema/bom/1.0 Schema 1.0} for `hashAlg`.
  * See {@link https://cyclonedx.org/schema/bom/1.1 Schema 1.1} for `hashAlg`.
@@ -47,5 +46,4 @@ enum HashAlgorithm: string
     case BLAKE2B_384 = 'BLAKE2b-384';
     case BLAKE2B_512 = 'BLAKE2b-512';
     case BLAKE3 = 'BLAKE3';
-
 }

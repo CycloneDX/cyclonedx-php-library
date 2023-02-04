@@ -32,7 +32,6 @@ use CycloneDX\Core\Spec\Version;
 use CycloneDX\Tests\_data\BomSpecData;
 use Generator;
 use PHPUnit\Framework\TestCase;
-use ReflectionClass;
 
 abstract class SpecBaseTestCase extends TestCase
 {
@@ -71,7 +70,7 @@ abstract class SpecBaseTestCase extends TestCase
     {
         $should = $this->shouldSupportFormats();
         foreach (Format::cases() as $format) {
-            yield $format->name => [$format, in_array($format, $should, true)];
+            yield $format->name => [$format, \in_array($format, $should, true)];
         }
     }
 

@@ -50,7 +50,7 @@ class HashDictionaryNormalizerTest extends TestCase
         $factory = $this->createConfiguredMock(NormalizerFactory::class, ['makeForHash' => $hashNormalizer]);
         $normalizer = new HashDictionaryNormalizer($factory);
         $repo = $this->createStub(HashDictionary::class);
-        $repo->method('getItems')->willReturn([[HashAlgorithm::MD5, 'content1'], [HashAlgorithm::SHA_1 , 'content2']]);
+        $repo->method('getItems')->willReturn([[HashAlgorithm::MD5, 'content1'], [HashAlgorithm::SHA_1, 'content2']]);
 
         $hashNormalizer->expects(self::exactly(2))->method('normalize')
             ->withConsecutive([HashAlgorithm::MD5, 'content1'], [HashAlgorithm::SHA_1, 'content2'])
@@ -71,7 +71,7 @@ class HashDictionaryNormalizerTest extends TestCase
         $normalizer = new HashDictionaryNormalizer($factory);
 
         $repo = $this->createConfiguredMock(HashDictionary::class, [
-            'getItems' => [[HashAlgorithm::MD5 , 'cont1'], [HashAlgorithm::SHA_1, 'cont2']],
+            'getItems' => [[HashAlgorithm::MD5, 'cont1'], [HashAlgorithm::SHA_1, 'cont2']],
         ]);
 
         $hashNormalizer->expects(self::exactly(2))

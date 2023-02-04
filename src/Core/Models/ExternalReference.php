@@ -25,7 +25,6 @@ namespace CycloneDX\Core\Models;
 
 use CycloneDX\Core\Collections\HashDictionary;
 use CycloneDX\Core\Enums\ExternalReferenceType;
-use DomainException;
 
 /**
  * External references provide a way to document systems, sites, and information that may be relevant
@@ -64,7 +63,6 @@ class ExternalReference
 
     /**
      * @return $this
-     *
      */
     public function setType(ExternalReferenceType $type): self
     {

@@ -31,7 +31,6 @@ use CycloneDX\Core\Collections\PropertyRepository;
 use CycloneDX\Core\Enums\ComponentType;
 use CycloneDX\Core\Models\BomRef;
 use CycloneDX\Core\Models\Component;
-use DomainException;
 use Generator;
 use PackageUrl\PackageUrl;
 use PHPUnit\Framework\TestCase;
@@ -97,7 +96,6 @@ class ComponentTest extends TestCase
 
     /**
      * @depends testConstructor
-     *
      */
     public function testTypeSetterGetter(Component $component): void
     {

@@ -25,12 +25,10 @@ namespace CycloneDX\Tests\Core\Collections;
 
 use CycloneDX\Core\Collections\HashDictionary;
 use CycloneDX\Core\Enums\HashAlgorithm;
-use DomainException;
 use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \CycloneDX\Core\Collections\HashDictionary
- *
  */
 class HashDictionaryTest extends TestCase
 {
@@ -56,7 +54,7 @@ class HashDictionaryTest extends TestCase
 
     public function testUpdateHash(): void
     {
-        $hashes = new HashDictionary([HashAlgorithm::MD5, 'foo'], [HashAlgorithm::SHA_1 ,  'foo']);
+        $hashes = new HashDictionary([HashAlgorithm::MD5, 'foo'], [HashAlgorithm::SHA_1,  'foo']);
 
         $hashes->set(HashAlgorithm::MD5, 'bar');
 
@@ -67,7 +65,7 @@ class HashDictionaryTest extends TestCase
 
     public function testUnsetHashWithNull(): void
     {
-        $hashes = new HashDictionary([HashAlgorithm::MD5 , 'foo'],[ HashAlgorithm::SHA_1 , 'foo']);
+        $hashes = new HashDictionary([HashAlgorithm::MD5, 'foo'], [HashAlgorithm::SHA_1, 'foo']);
         $hashes->set(HashAlgorithm::MD5, null);
 
         self::assertNull($hashes->get(HashAlgorithm::MD5));
@@ -77,7 +75,7 @@ class HashDictionaryTest extends TestCase
 
     public function testUnsetHashWithEmptyString(): void
     {
-        $hashes = new HashDictionary([HashAlgorithm::MD5 , 'foo'],[ HashAlgorithm::SHA_1 , 'foo']);
+        $hashes = new HashDictionary([HashAlgorithm::MD5, 'foo'], [HashAlgorithm::SHA_1, 'foo']);
         $hashes->set(HashAlgorithm::MD5, '');
 
         self::assertNull($hashes->get(HashAlgorithm::MD5));
@@ -94,14 +92,14 @@ class HashDictionaryTest extends TestCase
     public function testSetGetHashes(): void
     {
         $hashes = new HashDictionary([HashAlgorithm::SHA_256, 'barbar']);
-        $hashes->setItems([HashAlgorithm::MD5 , 'foobar']);
+        $hashes->setItems([HashAlgorithm::MD5, 'foobar']);
         $hashes->set(HashAlgorithm::SHA_1, 'lol');
         $got = $hashes->getItems();
 
         self::assertCount(3, $got);
         self::assertSame([
             [HashAlgorithm::SHA_256, 'barbar'],
-            [HashAlgorithm::MD5 , 'foobar'],
+            [HashAlgorithm::MD5, 'foobar'],
             [HashAlgorithm::SHA_1, 'lol'],
         ], $got);
     }

@@ -23,8 +23,6 @@ declare(strict_types=1);
 
 namespace CycloneDX\Core\Enums;
 
-use ReflectionClass;
-
 /**
  * See {@link https://cyclonedx.org/schema/bom/1.1 Schema 1.1} for `externalReferenceType`.
  * See {@link https://cyclonedx.org/schema/bom/1.2 Schema 1.2} for `externalReferenceType`.
@@ -35,37 +33,36 @@ use ReflectionClass;
  */
 enum ExternalReferenceType: string
 {
-    /** Version Control System */
+    /* Version Control System */
     case VCS = 'vcs';
-    /** Issue or defect tracking system, or an Application Lifecycle Management (ALM) system */
+    /* Issue or defect tracking system, or an Application Lifecycle Management (ALM) system */
     case ISSUE_TRACKER = 'issue-tracker';
-    /** Website */
+    /* Website */
     case WEBSITE = 'website';
-    /** Security advisories */
+    /* Security advisories */
     case ADVISORIES = 'advisories';
-    /** Bill-of-material document (CycloneDX, SPDX, SWID, etc) */
+    /* Bill-of-material document (CycloneDX, SPDX, SWID, etc) */
     case BOM = 'bom';
-    /** Mailing list or discussion group */
+    /* Mailing list or discussion group */
     case MAILING_LIST = 'mailing-list';
-    /** Social media account */
+    /* Social media account */
     case SOCIAL = 'social';
-    /** Real-time chat platform */
+    /* Real-time chat platform */
     case CHAT = 'chat';
-    /** Documentation, guides, or how-to instructions */
+    /* Documentation, guides, or how-to instructions */
     case DOCUMENTATION = 'documentation';
-    /** Community or commercial support */
+    /* Community or commercial support */
     case SUPPORT = 'support';
     /*** Direct or repository download location.*/
     case DISTRIBUTION = 'distribution';
-    /** The URL to the license file. If a license URL has been defined in the licensenode, it should also be defined as an external reference for completeness. */
+    /* The URL to the license file. If a license URL has been defined in the licensenode, it should also be defined as an external reference for completeness. */
     case LICENSE = 'license';
-    /** Build-system specific meta file (i.e. pom.xml, package.json, .nuspec, etc). */
+    /* Build-system specific meta file (i.e. pom.xml, package.json, .nuspec, etc). */
     case BUILD_META = 'build-meta';
-    /** URL to an automated build system. */
+    /* URL to an automated build system. */
     case BUILD_SYSTEM = 'build-system';
-    /** URL to release notes. */
+    /* URL to release notes. */
     case RELEASE_NOTES = 'release-notes';
-    /** Use this if no other types accurately describe the purpose of the external reference. */
+    /* Use this if no other types accurately describe the purpose of the external reference. */
     case OTHER = 'other';
-
 }

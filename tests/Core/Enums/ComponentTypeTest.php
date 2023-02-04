@@ -27,14 +27,12 @@ use CycloneDX\Core\Enums\ComponentType;
 use CycloneDX\Tests\_data\BomSpecData;
 use Generator;
 use PHPUnit\Framework\TestCase;
-use ReflectionClass;
 
 /**
  * @covers \CycloneDX\Core\Enums\ComponentType
  */
 class ComponentTypeTest extends TestCase
 {
-
     /**
      * @dataProvider dpSchemaValues
      */

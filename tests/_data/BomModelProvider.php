@@ -44,7 +44,6 @@ use CycloneDX\Core\Models\Tool;
 use DateTimeImmutable;
 use DateTimeZone;
 use Generator;
-use ReflectionClass;
 
 /**
  * common DataProvider.
@@ -214,7 +213,7 @@ abstract class BomModelProvider
      */
     public static function bomWithComponentTypeAllKnown(): Generator
     {
-        $known = array_map(static function (ComponentType $c) { return $c->value; },  ComponentType::cases());
+        $known = array_map(static fn (ComponentType $c) => $c->value, ComponentType::cases());
         yield from self::bomWithComponentTypes(
             ...$known,
             ...BomSpecData::getClassificationEnumForVersion('1.0'),
@@ -493,7 +492,7 @@ abstract class BomModelProvider
     /** @psalm-return list<string> */
     private static function allHashAlgorithms(): array
     {
-        $known = array_map(static function (HashAlgorithm $ha) { return $ha->value; } , HashAlgorithm::cases());
+        $known = array_map(static fn (HashAlgorithm $ha) => $ha->value, HashAlgorithm::cases());
 
         return array_values(
             array_unique(
@@ -601,7 +600,7 @@ abstract class BomModelProvider
                     new ComponentRepository(
                         (new Component(ComponentType::LIBRARY, 'name'))
                             ->setHashes(
-                                new HashDictionary([$hashAlgorithm , '12345678901234567890123456789012'])
+                                new HashDictionary([$hashAlgorithm, '12345678901234567890123456789012'])
                             )
                     )
                 ),
@@ -850,7 +849,7 @@ abstract class BomModelProvider
      */
     public static function externalReferencesForAllTypes(): Generator
     {
-        $known = array_map(static function (ExternalReferenceType $ert) { return $ert->value; }, ExternalReferenceType::cases());
+        $known = array_map(static fn (ExternalReferenceType $ert) => $ert->value, ExternalReferenceType::cases());
         $all = array_unique(
             array_merge(
                 $known,
@@ -862,8 +861,7 @@ abstract class BomModelProvider
         );
         foreach ($all as $type) {
             $type = ExternalReferenceType::tryFrom($type);
-            if (null !== $type)
-            {
+            if (null !== $type) {
                 yield "externalReferenceType: $type->name" => new ExternalReference($type, ".../types/{$type->name}.txt");
             }
         }

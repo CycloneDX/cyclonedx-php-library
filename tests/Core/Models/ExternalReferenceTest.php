@@ -26,7 +26,6 @@ namespace CycloneDX\Tests\Core\Models;
 use CycloneDX\Core\Collections\HashDictionary;
 use CycloneDX\Core\Enums\ExternalReferenceType;
 use CycloneDX\Core\Models\ExternalReference;
-use DomainException;
 use PHPUnit\Framework\TestCase;
 
 /**

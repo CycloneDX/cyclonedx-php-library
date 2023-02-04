@@ -34,7 +34,6 @@ use CycloneDX\Core\Enums\HashAlgorithm;
  */
 interface Spec
 {
-
     public function getVersion(): Version;
 
     public function isSupportedFormat(Format $format): bool;

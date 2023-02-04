@@ -30,7 +30,7 @@ namespace CycloneDX\Core\Spec;
  */
 enum Format
 {
-    case XML ;
-    case JSON ;
-    case ProtoBuff ;
+    case XML;
+    case JSON;
+    case ProtoBuff;
 }
