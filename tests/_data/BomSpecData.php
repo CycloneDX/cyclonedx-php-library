@@ -24,13 +24,12 @@ declare(strict_types=1);
 namespace CycloneDX\Tests\_data;
 
 use Generator;
+use SimpleXMLElement;
 
 use function PHPUnit\Framework\assertFileExists;
 use function PHPUnit\Framework\assertIsArray;
 use function PHPUnit\Framework\assertIsString;
 use function PHPUnit\Framework\assertNotCount;
-
-use SimpleXMLElement;
 
 abstract class BomSpecData
 {
