@@ -65,7 +65,7 @@ class ComponentNormalizer extends _BaseNormalizer
         }
 
         $bomRef = $spec->supportsBomRef()
-            ? $component->getBomRef()->getValue()
+            ? $component->bomRef->getValue()
             : null;
 
         $document = $factory->getDocument();

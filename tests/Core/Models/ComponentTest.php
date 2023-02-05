@@ -59,7 +59,7 @@ class ComponentTest extends TestCase
 
         $component = new Component($type, $name);
 
-        self::assertInstanceOf(BomRef::class, $component->getBomRef());
+        self::assertInstanceOf(BomRef::class, $component->bomRef);
         self::assertCount(0, $component->getDependencies());
         self::assertNull($component->getDescription());
         self::assertNull($component->getAuthor());
@@ -84,7 +84,7 @@ class ComponentTest extends TestCase
      */
     public function testSetBomRefValue(Component $component): void
     {
-        $bomRef = $component->getBomRef();
+        $bomRef = $component->bomRef;
         self::assertNull($bomRef->getValue());
 
         $component->setBomRefValue('foo');
@@ -294,7 +294,7 @@ class ComponentTest extends TestCase
 
         self::assertEquals($component, $actual);
         self::assertSame('foobar', $component->getDescription());
-        self::assertNotSame($component->getBomRef(), $actual->getBomRef());
+        self::assertNotSame($component->bomRef, $actual->bomRef);
     }
 
     // endregion clone

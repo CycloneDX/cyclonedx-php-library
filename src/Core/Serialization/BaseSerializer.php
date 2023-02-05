@@ -51,7 +51,7 @@ abstract class BaseSerializer implements Serializer
             $allComponents[] = $metadataComponent;
         }
         foreach ($allComponents as $component) {
-            $allBomRefs[] = $component->getBomRef();
+            $allBomRefs[] = $component->bomRef;
             array_push($allBomRefs, ...$component->getDependencies()->getItems());
         }
 

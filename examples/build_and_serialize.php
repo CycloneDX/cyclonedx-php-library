@@ -37,7 +37,7 @@ $component = new \CycloneDX\Core\Models\Component(
     'myComponent'
 );
 $bom->getComponents()->addItems($component);
-$rootComponent->getDependencies()->addItems($component->getBomRef());
+$rootComponent->getDependencies()->addItems($component->bomRef);
 
 $spec = \CycloneDX\Core\Spec\SpecFactory::make1dot4();
 

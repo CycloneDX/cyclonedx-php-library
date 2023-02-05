@@ -44,9 +44,8 @@ class Component
      * Implementation is intended to prevent memory leaks.
      * See {@link file://../../../docs/dev/decisions/BomDependencyDataModel.md BomDependencyDataModel docs}
      *
-     * @readonly
      */
-    private BomRef $bomRef;
+    readonly public BomRef $bomRef;
 
     /**
      * The name of the component. This will often be a shortened, single name
@@ -145,13 +144,10 @@ class Component
      */
     private PropertyRepository $properties;
 
-    public function getBomRef(): BomRef
-    {
-        return $this->bomRef;
-    }
-
     /**
-     * shorthand for `->getBomRef()->setValue()`.
+     * Shorthand for `->bomRef->setValue()`.
+     *
+     * Purpose: convenient setter-like method that allows call chaining.
      *
      * @return $this
      */

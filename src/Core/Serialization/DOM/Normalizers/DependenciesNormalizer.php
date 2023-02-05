@@ -52,7 +52,7 @@ class DependenciesNormalizer extends _BaseNormalizer
         }
 
         $allComponentRefs = array_map(
-            static fn (Component $component): BomRef => $component->getBomRef(),
+            static fn (Component $component): BomRef => $component->bomRef,
             $allComponents
         );
         $isKnownRef = static fn (BomRef $ref): bool => \in_array($ref, $allComponentRefs, true);
@@ -60,7 +60,7 @@ class DependenciesNormalizer extends _BaseNormalizer
         $dependencies = [];
         foreach ($allComponents as $component) {
             $dependency = $this->normalizeDependency(
-                $component->getBomRef(),
+                $component->bomRef,
                 ...array_filter($component->getDependencies()->getItems(), $isKnownRef)
             );
             if (null !== $dependency) {

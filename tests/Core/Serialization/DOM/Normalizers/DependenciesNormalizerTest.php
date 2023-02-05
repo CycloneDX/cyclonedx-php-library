@@ -139,8 +139,8 @@ class DependenciesNormalizerTest extends TestCase
                     BomRefRepository::class,
                     [
                         'getItems' => [
-                            $componentWithoutDeps->getBomRef(),
-                            $componentWithNoDeps->getBomRef(),
+                            $componentWithoutDeps->bomRef,
+                            $componentWithNoDeps->bomRef,
                         ],
                     ]
                 ),
@@ -154,9 +154,9 @@ class DependenciesNormalizerTest extends TestCase
                     BomRefRepository::class,
                     [
                         'getItems' => [
-                            $componentWithDeps->getBomRef(),
-                            $componentWithoutDeps->getBomRef(),
-                            $componentWithoutBomRefValue->getBomRef(),
+                            $componentWithDeps->bomRef,
+                            $componentWithoutDeps->bomRef,
+                            $componentWithoutBomRefValue->bomRef,
                             new BomRef('SomethingOutsideOfTheActualBom'),
                         ],
                     ]
