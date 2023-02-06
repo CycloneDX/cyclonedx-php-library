@@ -43,10 +43,8 @@ class Component
      *
      * Implementation is intended to prevent memory leaks.
      * See {@link file://../../../docs/dev/decisions/BomDependencyDataModel.md BomDependencyDataModel docs}
-     *
-     * @readonly
      */
-    private BomRef $bomRef;
+    private readonly BomRef $bomRef;
 
     /**
      * The name of the component. This will often be a shortened, single name

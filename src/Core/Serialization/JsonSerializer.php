@@ -39,10 +39,11 @@ use CycloneDX\Core\Models\Bom;
 class JsonSerializer extends BaseSerializer
 {
     /**
-     * List of allowed options for $jsonEncodeFlags.
-     * Some flags will break the output...
+     * List of allowed options for {@see jsonEncodeFlags}.
      *
      * Bitmask consisting of JSON_*.
+     *
+     * Some JSON flags could break the output, so they are not whitelisted.
      *
      * @see https://www.php.net/manual/en/json.constants.php
      */
@@ -57,6 +58,20 @@ class JsonSerializer extends BaseSerializer
     ;
 
     /**
+     * Defaults of {@see $jsonEncodeFlags}.
+     *
+     * Bitmask consisting of JSON_*.
+     *
+     * These defaults are required to have valid output in the end.
+     *
+     * @see https://www.php.net/manual/en/json.constants.php
+     */
+    private const JsonEncodeFlagsDefaults = 0
+        | \JSON_THROW_ON_ERROR // prevent unexpected data
+        | \JSON_PRESERVE_ZERO_FRACTION // float/double not converted to int
+    ;
+
+    /**
      * List of mandatory options for $jsonEncodeFlags.
      *
      * Bitmask consisting of JSON_*.
@@ -67,8 +82,7 @@ class JsonSerializer extends BaseSerializer
         | \JSON_UNESCAPED_SLASHES // urls become shorter
     ;
 
-    /** @readonly */
-    private JSON\NormalizerFactory $normalizerFactory;
+    private readonly JSON\NormalizerFactory $normalizerFactory;
 
     /**
      * Flags for {@see \json_encode()}.
@@ -76,14 +90,8 @@ class JsonSerializer extends BaseSerializer
      * Bitmask consisting of JSON_*.
      *
      * @see https://www.php.net/manual/en/json.constants.php
-     *
-     * @readonly
      */
-    private int $jsonEncodeFlags = 0
-        // These defaults are required to have valid output.
-        | \JSON_THROW_ON_ERROR // prevent unexpected data
-        | \JSON_PRESERVE_ZERO_FRACTION // float/double not converted to int
-    ;
+    private readonly int $jsonEncodeFlags;
 
     /**
      * @param int $jsonEncodeFlags Bitmask consisting of JSON_*. see {@see JsonEncodeFlagsAllowedOptions}
@@ -93,7 +101,8 @@ class JsonSerializer extends BaseSerializer
         int $jsonEncodeFlags = self::JsonEncodeFlagsDefaultOptions
     ) {
         $this->normalizerFactory = $normalizerFactory;
-        $this->jsonEncodeFlags |= $jsonEncodeFlags & self::JsonEncodeFlagsAllowedOptions;
+        $this->jsonEncodeFlags = self::JsonEncodeFlagsDefaults
+            | ($jsonEncodeFlags & self::JsonEncodeFlagsAllowedOptions);
     }
 
     protected function realNormalize(Bom $bom): array

@@ -30,10 +30,7 @@ use CycloneDX\Core\Spec\Spec;
  */
 abstract class BaseValidator implements Validator
 {
-    /**
-     * @readonly
-     */
-    private Spec $spec;
+    private readonly Spec $spec;
 
     public function __construct(Spec $spec)
     {

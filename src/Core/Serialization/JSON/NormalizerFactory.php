@@ -37,10 +37,7 @@ class NormalizerFactory
 {
     public const FORMAT = Format::JSON;
 
-    /**
-     * @readonly
-     */
-    private Spec $spec;
+    private readonly Spec $spec;
 
     /**
      * @throws DomainException when the spec does not support JSON format
