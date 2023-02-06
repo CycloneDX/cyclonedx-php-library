@@ -59,6 +59,15 @@ class BomRefTest extends TestCase
     }
 
     /**
+     * @depends testConstructSetsValue
+     */
+    public function testSetValueEmptyIsNull(BomRef $bomRef): void
+    {
+        $bomRef->setValue('');
+        self::assertNull($bomRef->getValue());
+    }
+
+    /**
      * @depends testConstructValueDefaultsToNull
      */
     public function testSetValue(BomRef $bomRef): void

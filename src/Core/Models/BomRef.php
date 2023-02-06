@@ -35,13 +35,15 @@ namespace CycloneDX\Core\Models;
  */
 final class BomRef
 {
+    /** @psalm-var non-empty-string|null  */
     private ?string $value;
 
     public function __construct(?string $value = null)
     {
-        $this->value = $value;
+        $this->setValue($value);
     }
 
+    /** @psalm-return non-empty-string|null */
     public function getValue(): ?string
     {
         return $this->value;
@@ -52,7 +54,9 @@ final class BomRef
      */
     public function setValue(?string $value): self
     {
-        $this->value = $value;
+        $this->value = '' === $value
+            ? null
+            : $value;
 
         return $this;
     }
