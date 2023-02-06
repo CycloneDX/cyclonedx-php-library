@@ -33,10 +33,7 @@ namespace CycloneDX\Core\Serialization\DOM;
  */
 abstract class _BaseNormalizer
 {
-    /**
-     * @readonly
-     */
-    private NormalizerFactory $normalizerFactory;
+    private readonly NormalizerFactory $normalizerFactory;
 
     public function __construct(NormalizerFactory $normalizerFactory)
     {

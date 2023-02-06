@@ -38,15 +38,9 @@ class NormalizerFactory
 {
     public const FORMAT = Format::XML;
 
-    /**
-     * @readonly
-     */
-    private Spec $spec;
+    private readonly Spec $spec;
 
-    /**
-     * @readonly
-     */
-    private DOMDocument $document;
+    private readonly DOMDocument $document;
 
     /**
      * @throws DomainException when the spec does not support XML format

@@ -38,13 +38,10 @@ use DOMElement;
  */
 class XmlSerializer extends BaseSerializer
 {
-    /** @readonly */
-    private DOM\NormalizerFactory $normalizerFactory;
+    private readonly DOM\NormalizerFactory $normalizerFactory;
 
-    /** @readonly */
-    private string $xmlVersion;
-    /** @readonly */
-    private string $xmlEncoding;
+    private readonly string $xmlVersion;
+    private readonly string $xmlEncoding;
 
     public function __construct(
         DOM\NormalizerFactory $normalizerFactory,

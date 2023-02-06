@@ -30,10 +30,7 @@ use Throwable;
  */
 class ValidationError
 {
-    /**
-     * @readonly
-     */
-    private string $message;
+    private readonly string $message;
 
     /**
      * keep for internal debug purposes.
