@@ -151,20 +151,20 @@ class ComponentTest extends TestCase
     // region description setter&getter
 
     #[\PHPUnit\Framework\Attributes\DataProvider('dpDescriptionSetterGetter')]
-    public function testDescriptionSetterGetter(Component $component, ?string $description, ?string $expected): void
+    public function testDescriptionSetterGetter(?string $description, ?string $expected): void
     {
+        $component = new Component(ComponentType::CONTAINER, 'foo');
         $actual = $component->setDescription($description);
         self::assertSame($component, $actual);
         self::assertSame($expected, $component->getDescription());
     }
 
-    public function dpDescriptionSetterGetter(): Generator
+    public static function dpDescriptionSetterGetter(): Generator
     {
-        $component = clone $this->testConstructor();
-        yield 'null' => [clone $component, null, null];
-        yield 'empty string' => [clone $component, '', null];
+        yield 'null' => [null, null];
+        yield 'empty string' => ['', null];
         $description = bin2hex(random_bytes(32));
-        yield 'non-empty-string' => [clone $component, $description, $description];
+        yield 'non-empty-string' => [$description, $description];
     }
 
     // endregion description setter&getter
@@ -172,20 +172,20 @@ class ComponentTest extends TestCase
     // region author setter&getter
 
     #[\PHPUnit\Framework\Attributes\DataProvider('dpAuthorSetterGetter')]
-    public function testAuthorSetterGetter(Component $component, ?string $author, ?string $expected): void
+    public function testAuthorSetterGetter(?string $author, ?string $expected): void
     {
+        $component = new Component(ComponentType::CONTAINER, 'foo');
         $actual = $component->setAuthor($author);
         self::assertSame($component, $actual);
         self::assertSame($expected, $component->getAuthor());
     }
 
-    public function dpAuthorSetterGetter(): Generator
+    public static function dpAuthorSetterGetter(): Generator
     {
-        $component = clone $this->testConstructor();
-        yield 'null' => [clone $component, null, null];
-        yield 'empty string' => [clone $component, '', null];
+        yield 'null' => [null, null];
+        yield 'empty string' => ['', null];
         $author = bin2hex(random_bytes(32));
-        yield 'non-empty-string' => [clone $component, $author, $author];
+        yield 'non-empty-string' => [$author, $author];
     }
 
     // endregion author setter&getter
@@ -193,20 +193,20 @@ class ComponentTest extends TestCase
     // region group setter&getter
 
     #[\PHPUnit\Framework\Attributes\DataProvider('dpGroupSetterGetter')]
-    public function testGroupSetterGetter(Component $component, ?string $group, ?string $expected): void
+    public function testGroupSetterGetter(?string $group, ?string $expected): void
     {
+        $component = new Component(ComponentType::CONTAINER, 'foo');
         $actual = $component->setGroup($group);
         self::assertSame($component, $actual);
         self::assertSame($expected, $component->getGroup());
     }
 
-    public function dpGroupSetterGetter(): Generator
+    public static function dpGroupSetterGetter(): Generator
     {
-        $component = clone $this->testConstructor();
-        yield 'null' => [clone $component, null, null];
-        yield 'empty string' => [clone $component, '', null];
+        yield 'null' => [ null, null];
+        yield 'empty string' => [ '', null];
         $group = bin2hex(random_bytes(32));
-        yield 'non-empty-string' => [clone $component, $group, $group];
+        yield 'non-empty-string' => [ $group, $group];
     }
 
     // endregion group setter&getter
