@@ -70,10 +70,11 @@ class ComponentRepositoryTest extends TestCase
     }
 
     /**
-     * @param Component[] $expected
+     * @param Component[] $expectedFindings
      *
-     * @dataProvider dpFindComponents
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('dpFindComponents')]
+
     public function testFindItem(
         ComponentRepository $repo,
         string $findName,

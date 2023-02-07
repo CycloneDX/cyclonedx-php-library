@@ -69,9 +69,10 @@ class DependenciesNormalizerTest extends TestCase
     /**
      * @param string[] $expecteds
      *
-     * @dataProvider dpNormalize
      *
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('dpNormalize')]
+
     public function testNormalize(Bom $bom, array $expecteds): void
     {
         $actuals = $this->normalizer->normalize($bom);

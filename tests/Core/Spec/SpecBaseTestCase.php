@@ -57,9 +57,8 @@ abstract class SpecBaseTestCase extends TestCase
         return $formats;
     }
 
-    /**
-     * @dataProvider dpIsSupportsFormat
-     */
+
+     #[\PHPUnit\Framework\Attributes\DataProvider('dpIsSupportsFormat')]
     final public function testIsSupportedFormat(Format $format, bool $expected): void
     {
         $isSupported = $this->getSpec()->isSupportedFormat($format);
@@ -74,9 +73,8 @@ abstract class SpecBaseTestCase extends TestCase
         }
     }
 
-    /**
-     * @dataProvider dpIsSupportedComponentType
-     */
+
+     #[\PHPUnit\Framework\Attributes\DataProvider('dpIsSupportedComponentType')]
     final public function testIsSupportedComponentType(ComponentType $value, bool $expected): void
     {
         $isSupported = $this->getSpec()->isSupportedComponentType($value);
@@ -92,9 +90,8 @@ abstract class SpecBaseTestCase extends TestCase
         }
     }
 
-    /**
-     * @dataProvider dpIsSupportedHashAlgorithm
-     */
+     #[\PHPUnit\Framework\Attributes\DataProvider('dpIsSupportedHashAlgorithm')]
+
     final public function testIsSupportedHashAlgorithm(HashAlgorithm $value, bool $expected): void
     {
         $isSupported = $this->getSpec()->isSupportedHashAlgorithm($value);
@@ -110,9 +107,8 @@ abstract class SpecBaseTestCase extends TestCase
         }
     }
 
-    /**
-     * @dataProvider dpIsSupportedHashContent
-     */
+     #[\PHPUnit\Framework\Attributes\DataProvider('dpIsSupportedHashContent')]
+
     final public function testIsSupportedHashContent(string $value, bool $expected): void
     {
         $isSupported = $this->getSpec()->isSupportedHashContent($value);
@@ -125,9 +121,8 @@ abstract class SpecBaseTestCase extends TestCase
         yield 'valid sha1' => ['a052cfe45093f1c2d26bd854d06aa370ceca3b38', true];
     }
 
-    /**
-     * @dataProvider dpIsSupportedExternalReferenceType
-     */
+
+     #[\PHPUnit\Framework\Attributes\DataProvider('dpIsSupportedExternalReferenceType')]
     final public function testIsSupportedExternalReferenceType(ExternalReferenceType $value, bool $expected): void
     {
         $isSupported = $this->getSpec()->isSupportedExternalReferenceType($value);

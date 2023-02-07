@@ -39,9 +39,8 @@ class LicenseNormalizerTest extends \PHPUnit\Framework\TestCase
 {
     use DomNodeAssertionTrait;
 
-    /**
-     * @dataProvider dpNormalize
-     */
+     #[\PHPUnit\Framework\Attributes\DataProvider('dpNormalize')]
+
     public function testNormalize(LicenseExpression|SpdxLicense|NamedLicense $license, string $expectedXML): void
     {
         $spec = $this->createMock(Spec::class);

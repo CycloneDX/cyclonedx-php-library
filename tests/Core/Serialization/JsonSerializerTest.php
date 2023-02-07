@@ -35,8 +35,9 @@ use PHPUnit\Framework\TestCase;
 class JsonSerializerTest extends TestCase
 {
     /**
-     * @dataProvider dpSerializeStructure
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('dpSerializeStructure')]
+
     public function testSerialize(int $jsonEncodeFlags, ?bool $prettyPrint, array $normalized, string $expected): void
     {
         $bom = $this->createStub(Bom::class);

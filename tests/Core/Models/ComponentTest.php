@@ -156,9 +156,8 @@ class ComponentTest extends TestCase
 
     // region description setter&getter
 
-    /**
-     * @dataProvider dpDescriptionSetterGetter
-     */
+     #[\PHPUnit\Framework\Attributes\DataProvider('dpDescriptionSetterGetter')]
+
     public function testDescriptionSetterGetter(Component $component, ?string $description, ?string $expected): void
     {
         $setOn = $component->setDescription($description);
@@ -180,9 +179,8 @@ class ComponentTest extends TestCase
 
     // region author setter&getter
 
-    /**
-     * @dataProvider dpAuthorSetterGetter
-     */
+     #[\PHPUnit\Framework\Attributes\DataProvider('dpAuthorSetterGetter')]
+
     public function testAuthorSetterGetter(Component $component, ?string $author, ?string $expected): void
     {
         $setOn = $component->setAuthor($author);
@@ -204,9 +202,8 @@ class ComponentTest extends TestCase
 
     // region group setter&getter
 
-    /**
-     * @dataProvider dpGroupSetterGetter
-     */
+     #[\PHPUnit\Framework\Attributes\DataProvider('dpGroupSetterGetter')]
+
     public function testGroupSetterGetter(Component $component, ?string $group, ?string $expected): void
     {
         $setOn = $component->setGroup($group);

@@ -83,10 +83,11 @@ class ExternalReferenceRepositoryNormalizerTest extends \PHPUnit\Framework\TestC
     }
 
     /**
-     * @dataProvider dpNormalizeSkipsOnThrow
      *
      * @psalm-param class-string<\Exception> $exceptionClass
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('dpNormalizeSkipsOnThrow')]
+
     public function testNormalizeSkipsOnThrow(string $exceptionClass): void
     {
         $spec = $this->createStub(Spec::class);

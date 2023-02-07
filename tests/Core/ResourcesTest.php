@@ -38,9 +38,8 @@ class ResourcesTest extends TestCase
         self::assertDirectoryIsReadable($root);
     }
 
-    /**
-     * @dataProvider dpFiles
-     */
+     #[\PHPUnit\Framework\Attributes\DataProvider('dpFiles')]
+
     public function testFileIsReadable(string $filePath): void
     {
         self::assertFileExists($filePath);

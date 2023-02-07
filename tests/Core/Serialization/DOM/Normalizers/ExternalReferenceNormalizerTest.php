@@ -70,9 +70,8 @@ class ExternalReferenceNormalizerTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @dataProvider dpThrowOnUnsupportedUrl
-     */
+     #[\PHPUnit\Framework\Attributes\DataProvider('dpThrowOnUnsupportedUrl')]
+
     public function testThrowOnUnsupportedUrl(string $unsupportedURL): void
     {
         $spec = $this->createMock(Spec::class);

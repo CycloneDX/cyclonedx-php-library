@@ -32,8 +32,9 @@ use PHPUnit\Framework\TestCase;
 class ExternalReferenceTypeTest extends TestCase
 {
     /**
-     * @dataProvider dpSchemaValues
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('dpSchemaValues')]
+
     public function testHaseCaseForSchemaValue(string $value): void
     {
         self::assertNotNull(ExternalReferenceType::tryFrom($value));

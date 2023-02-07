@@ -32,8 +32,9 @@ use PHPUnit\Framework\TestCase;
 class HashAlgorithmTest extends TestCase
 {
     /**
-     * @dataProvider dpSchemaValues
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('dpSchemaValues')]
+
     public function testHaseCaseForSchemaValue(string $value): void
     {
         self::assertNotNull(HashAlgorithm::tryFrom($value));

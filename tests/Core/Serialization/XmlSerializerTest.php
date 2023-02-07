@@ -40,8 +40,9 @@ use PHPUnit\Framework\TestCase;
 class XmlSerializerTest extends TestCase
 {
     /**
-     * @dataProvider dpSerializeStructure
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('dpSerializeStructure')]
+
     public function testSerialize(string $xmlVersion, string $xmlEncoding, ?bool $prettyPrint, DOMElement $normalized, string $expected): void
     {
         $bom = $this->createStub(Bom::class);
