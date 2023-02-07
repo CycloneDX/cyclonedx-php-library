@@ -39,7 +39,6 @@
     },
     "require-dev": {
         "ext-simplexml": "*",
-        "phpunit/phpunit": "10.0.5",
         "roave/security-advisories": "dev-latest"
     },
     "prefer-stable": true,
@@ -80,6 +79,7 @@
             "@composer -dtools/phpmd update",
             "@composer -dtools/psalm update",
             "@composer -dtools/infection update",
+            "@composer -dtools/phpunit update",
             "@composer update"
         ],
         "normalize": "@composer -dtools/composer-normalize normalize --diff $PWD/composer.json",
@@ -99,7 +99,7 @@
         "test:cs-fixer": "@php tools/php-cs-fixer/vendor/friendsofphp/php-cs-fixer/php-cs-fixer fix --dry-run --diff",
         "test:infection": "@php -d zend.assertions=1 -d assert.exception=1 -d display_errors=On -d error_reporting=-1 -d log_errors_max_len=0 -d memory_limit=-1 -d xdebug.mode=coverage -d pcov.enabled=1 -d pcov.directory=src tools/infection/vendor/infection/infection/bin/infection ",
         "test:phpmd": "@php tools/phpmd/vendor/phpmd/phpmd/src/bin/phpmd src ansi .phpmd.rules.dist.xml",
-        "test:phpunit": "@php -d zend.assertions=1 -d assert.exception=1 -d display_errors=On -d error_reporting=-1 -d log_errors_max_len=0 -d memory_limit=-1 -d xdebug.mode=coverage -d pcov.enabled=1 -d pcov.directory=src vendor/phpunit/phpunit/phpunit",
+        "test:phpunit": "@php -d zend.assertions=1 -d assert.exception=1 -d display_errors=On -d error_reporting=-1 -d log_errors_max_len=0 -d memory_limit=-1 -d xdebug.mode=coverage -d pcov.enabled=1 -d pcov.directory=src tools/phpunit/vendor/phpunit/phpunit/phpunit",
         "test:psalm": "@php tools/psalm/vendor/vimeo/psalm/psalm"
     },
     "scripts-descriptions": {
