@@ -57,7 +57,7 @@ class SpdxLicenseTest extends TestCase
         SpdxLicense::makeValidated('foo', $spdxLicenseValidator);
     }
 
-     #[\PHPUnit\Framework\Attributes\DependsUsingShallowClone('testConstruct')]
+    #[\PHPUnit\Framework\Attributes\DependsUsingShallowClone('testConstruct')]
     public function testSetAndGetUrl(SpdxLicense $license): SpdxLicense
     {
         $url = uniqid('url', true);
@@ -67,7 +67,7 @@ class SpdxLicenseTest extends TestCase
         return $license;
     }
 
-     #[\PHPUnit\Framework\Attributes\DependsUsingShallowClone('testSetAndGetUrl')]
+    #[\PHPUnit\Framework\Attributes\DependsUsingShallowClone('testSetAndGetUrl')]
     public function testSetUrlNull(SpdxLicense $license): void
     {
         $license->setUrl(null);

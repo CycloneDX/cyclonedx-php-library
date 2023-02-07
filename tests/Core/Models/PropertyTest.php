@@ -42,7 +42,7 @@ class PropertyTest extends TestCase
         return $property;
     }
 
-     #[\PHPUnit\Framework\Attributes\DependsUsingShallowClone('testConstruct')]
+    #[\PHPUnit\Framework\Attributes\DependsUsingShallowClone('testConstruct')]
     public function testSetterGetterName(Property $property): void
     {
         $name = uniqid('testingName', true);
@@ -52,7 +52,7 @@ class PropertyTest extends TestCase
         self::assertSame($name, $property->getName());
     }
 
-     #[\PHPUnit\Framework\Attributes\DependsUsingShallowClone('testConstruct')]
+    #[\PHPUnit\Framework\Attributes\DependsUsingShallowClone('testConstruct')]
     public function testSetterGetterValue(Property $property): void
     {
         $value = uniqid('testingValue', true);

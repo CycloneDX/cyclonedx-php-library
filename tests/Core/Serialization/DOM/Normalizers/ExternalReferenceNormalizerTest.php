@@ -68,7 +68,7 @@ class ExternalReferenceNormalizerTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-     #[\PHPUnit\Framework\Attributes\DataProvider('dpThrowOnUnsupportedUrl')]
+    #[\PHPUnit\Framework\Attributes\DataProvider('dpThrowOnUnsupportedUrl')]
     public function testThrowOnUnsupportedUrl(string $unsupportedURL): void
     {
         $spec = $this->createMock(Spec::class);
@@ -285,7 +285,7 @@ class ExternalReferenceNormalizerTest extends \PHPUnit\Framework\TestCase
 
     // endregion normalize hashes
 
-     #[\PHPUnit\Framework\Attributes\DataProviderExternal(\CycloneDX\Tests\_data\XmlAnyUriData::class, 'dpEncodeAnyUri')]
+    #[\PHPUnit\Framework\Attributes\DataProviderExternal(\CycloneDX\Tests\_data\XmlAnyUriData::class, 'dpEncodeAnyUri')]
     public function testNormalizeUrlEncodeAnyUri(string $rawUrl, string $encodedUrl): void
     {
         $spec = $this->createMock(Spec::class);

@@ -46,7 +46,7 @@ class ExternalReferenceTest extends TestCase
 
     // region test Type
 
-     #[\PHPUnit\Framework\Attributes\DependsUsingShallowClone('testConstructor')]
+    #[\PHPUnit\Framework\Attributes\DependsUsingShallowClone('testConstructor')]
     public function testTypeSetterAndGetter(ExternalReference $extRef): void
     {
         $this->assertNotSame(ExternalReferenceType::CHAT, $extRef->getType());
@@ -59,7 +59,7 @@ class ExternalReferenceTest extends TestCase
 
     // region test Url
 
-     #[\PHPUnit\Framework\Attributes\DependsUsingShallowClone('testConstructor')]
+    #[\PHPUnit\Framework\Attributes\DependsUsingShallowClone('testConstructor')]
     public function testUrlSetterAndGetter(ExternalReference $extRef): void
     {
         $this->assertNotSame('ftp://localhost/foobar', $extRef->getUrl());
@@ -68,7 +68,7 @@ class ExternalReferenceTest extends TestCase
         $this->assertSame('ftp://localhost/foobar', $extRef->getUrl());
     }
 
-     #[\PHPUnit\Framework\Attributes\DependsUsingShallowClone('testConstructor')]
+    #[\PHPUnit\Framework\Attributes\DependsUsingShallowClone('testConstructor')]
     public function testUrlSetterWithURN(ExternalReference $extRef): void
     {
         $this->assertNotSame('urn:uuid:bdd819e6-ee8f-42d7-a4d0-166ff44d51e8', $extRef->getUrl());
@@ -81,7 +81,7 @@ class ExternalReferenceTest extends TestCase
 
     // region test Comment
 
-     #[\PHPUnit\Framework\Attributes\DependsUsingShallowClone('testConstructor')]
+    #[\PHPUnit\Framework\Attributes\DependsUsingShallowClone('testConstructor')]
     public function testCommentSetterAndGetter(ExternalReference $extRef): void
     {
         $this->assertNotSame('foobar', $extRef->getComment());
@@ -94,7 +94,7 @@ class ExternalReferenceTest extends TestCase
 
     // region test Comment
 
-     #[\PHPUnit\Framework\Attributes\DependsUsingShallowClone('testConstructor')]
+    #[\PHPUnit\Framework\Attributes\DependsUsingShallowClone('testConstructor')]
     public function testHashesSetterAndGetter(ExternalReference $extRef): void
     {
         $hashes = $this->createStub(HashDictionary::class);

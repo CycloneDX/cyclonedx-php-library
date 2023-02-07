@@ -47,7 +47,7 @@ class MetadataTest extends TestCase
         return $metadata;
     }
 
-     #[\PHPUnit\Framework\Attributes\DependsUsingShallowClone('testConstructor')]
+    #[\PHPUnit\Framework\Attributes\DependsUsingShallowClone('testConstructor')]
     public function testGetterSetterTimestamp(Metadata $metadata): void
     {
         $timestamp = $this->createStub(DateTime::class);
@@ -57,7 +57,7 @@ class MetadataTest extends TestCase
         self::assertSame($timestamp, $metadata->getTimestamp());
     }
 
-     #[\PHPUnit\Framework\Attributes\DependsUsingShallowClone('testConstructor')]
+    #[\PHPUnit\Framework\Attributes\DependsUsingShallowClone('testConstructor')]
     public function testGetterSetterTools(Metadata $metadata): void
     {
         $tools = $this->createStub(ToolRepository::class);
@@ -66,7 +66,7 @@ class MetadataTest extends TestCase
         self::assertSame($tools, $metadata->getTools());
     }
 
-     #[\PHPUnit\Framework\Attributes\DependsUsingShallowClone('testConstructor')]
+    #[\PHPUnit\Framework\Attributes\DependsUsingShallowClone('testConstructor')]
     public function testGetterSetterComponent(Metadata $metadata): void
     {
         $component = $this->createStub(Component::class);
@@ -76,7 +76,7 @@ class MetadataTest extends TestCase
         self::assertSame($component, $metadata->getComponent());
     }
 
-     #[\PHPUnit\Framework\Attributes\DependsUsingShallowClone('testConstructor')]
+    #[\PHPUnit\Framework\Attributes\DependsUsingShallowClone('testConstructor')]
     public function testGetterSetterProperties(Metadata $metadata): void
     {
         $properties = $this->createStub(PropertyRepository::class);

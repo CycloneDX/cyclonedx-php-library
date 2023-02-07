@@ -68,7 +68,7 @@ class ComponentTest extends TestCase
         return $component;
     }
 
-     #[\PHPUnit\Framework\Attributes\DependsUsingShallowClone('testConstructor')]
+    #[\PHPUnit\Framework\Attributes\DependsUsingShallowClone('testConstructor')]
     public function testSetBomRefValue(Component $component): void
     {
         $bomRef = $component->getBomRef();
@@ -80,7 +80,7 @@ class ComponentTest extends TestCase
 
     // region type getter&setter
 
-     #[\PHPUnit\Framework\Attributes\DependsUsingShallowClone('testConstructor')]
+    #[\PHPUnit\Framework\Attributes\DependsUsingShallowClone('testConstructor')]
     public function testTypeSetterGetter(Component $component): void
     {
         $type = ComponentType::FILE;
@@ -94,7 +94,7 @@ class ComponentTest extends TestCase
 
     // region version setter&getter
 
-     #[\PHPUnit\Framework\Attributes\DependsUsingShallowClone('testConstructor')]
+    #[\PHPUnit\Framework\Attributes\DependsUsingShallowClone('testConstructor')]
     public function testVersionSetterGetter(Component $component): void
     {
         $version = uniqid('v', true);
@@ -108,7 +108,7 @@ class ComponentTest extends TestCase
 
     // region licenses setter&getter
 
-     #[\PHPUnit\Framework\Attributes\DependsUsingShallowClone('testConstructor')]
+    #[\PHPUnit\Framework\Attributes\DependsUsingShallowClone('testConstructor')]
     public function testLicensesSetterGetter(Component $component): void
     {
         $licenses = $this->createStub(LicenseRepository::class);
@@ -122,7 +122,7 @@ class ComponentTest extends TestCase
 
     // region hashes setter&getter
 
-     #[\PHPUnit\Framework\Attributes\DependsUsingShallowClone('testConstructor')]
+    #[\PHPUnit\Framework\Attributes\DependsUsingShallowClone('testConstructor')]
     public function testHashesSetterGetter(Component $component): void
     {
         $hashes = $this->createStub(HashDictionary::class);
@@ -136,7 +136,7 @@ class ComponentTest extends TestCase
 
     // region packageUrl setter&getter
 
-     #[\PHPUnit\Framework\Attributes\DependsUsingShallowClone('testConstructor')]
+    #[\PHPUnit\Framework\Attributes\DependsUsingShallowClone('testConstructor')]
     public function testPackageUrlSetterGetter(Component $component): void
     {
         $url = $this->createMock(PackageUrl::class);
@@ -150,7 +150,7 @@ class ComponentTest extends TestCase
 
     // region description setter&getter
 
-     #[\PHPUnit\Framework\Attributes\DataProvider('dpDescriptionSetterGetter')]
+    #[\PHPUnit\Framework\Attributes\DataProvider('dpDescriptionSetterGetter')]
     public function testDescriptionSetterGetter(Component $component, ?string $description, ?string $expected): void
     {
         $actual = $component->setDescription($description);
@@ -171,7 +171,7 @@ class ComponentTest extends TestCase
 
     // region author setter&getter
 
-     #[\PHPUnit\Framework\Attributes\DataProvider('dpAuthorSetterGetter')]
+    #[\PHPUnit\Framework\Attributes\DataProvider('dpAuthorSetterGetter')]
     public function testAuthorSetterGetter(Component $component, ?string $author, ?string $expected): void
     {
         $actual = $component->setAuthor($author);
@@ -192,7 +192,7 @@ class ComponentTest extends TestCase
 
     // region group setter&getter
 
-     #[\PHPUnit\Framework\Attributes\DataProvider('dpGroupSetterGetter')]
+    #[\PHPUnit\Framework\Attributes\DataProvider('dpGroupSetterGetter')]
     public function testGroupSetterGetter(Component $component, ?string $group, ?string $expected): void
     {
         $actual = $component->setGroup($group);
@@ -213,7 +213,7 @@ class ComponentTest extends TestCase
 
     // region dependenciesBomRefRepository setter&getter
 
-     #[\PHPUnit\Framework\Attributes\DependsUsingShallowClone('testConstructor')]
+    #[\PHPUnit\Framework\Attributes\DependsUsingShallowClone('testConstructor')]
     public function testDependenciesBomRefRepositorySetterGetter(Component $component): void
     {
         $repo = $this->createMock(BomRefRepository::class);
@@ -227,7 +227,7 @@ class ComponentTest extends TestCase
 
     // region externalReferenceRepository setter&getter
 
-     #[\PHPUnit\Framework\Attributes\DependsUsingShallowClone('testConstructor')]
+    #[\PHPUnit\Framework\Attributes\DependsUsingShallowClone('testConstructor')]
     public function testExternalReferenceRepositorySetterGetter(Component $component): void
     {
         $extRefRepo = $this->createStub(ExternalReferenceRepository::class);
@@ -241,7 +241,7 @@ class ComponentTest extends TestCase
 
     // region properties setter&getter
 
-     #[\PHPUnit\Framework\Attributes\DependsUsingShallowClone('testConstructor')]
+    #[\PHPUnit\Framework\Attributes\DependsUsingShallowClone('testConstructor')]
     public function testGetterSetterProperties(Component $component): void
     {
         $properties = $this->createStub(PropertyRepository::class);
@@ -255,7 +255,7 @@ class ComponentTest extends TestCase
 
     // region clone
 
-     #[\PHPUnit\Framework\Attributes\DependsUsingShallowClone('testConstructor')]
+    #[\PHPUnit\Framework\Attributes\DependsUsingShallowClone('testConstructor')]
     public function testCloneHasOwnBom(Component $component): void
     {
         $component->setDescription('foobar');

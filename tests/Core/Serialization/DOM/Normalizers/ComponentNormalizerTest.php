@@ -75,7 +75,7 @@ class ComponentNormalizerTest extends TestCase
         $normalizer->normalize($component);
     }
 
-     #[\PHPUnit\Framework\Attributes\DataProvider('dbNormalizeMinimal')]
+    #[\PHPUnit\Framework\Attributes\DataProvider('dbNormalizeMinimal')]
     public function testNormalizeMinimal(string $expected, bool $requiresComponentVersion): void
     {
         $component = $this->createConfiguredMock(

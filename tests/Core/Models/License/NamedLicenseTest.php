@@ -38,14 +38,14 @@ class NamedLicenseTest extends TestCase
         return $license;
     }
 
-     #[\PHPUnit\Framework\Attributes\DependsUsingShallowClone('testConstruct')]
+    #[\PHPUnit\Framework\Attributes\DependsUsingShallowClone('testConstruct')]
     public function testSetName(NamedLicense $license): void
     {
         $license->setName('bar');
         self::assertSame('bar', $license->getName());
     }
 
-     #[\PHPUnit\Framework\Attributes\DependsUsingShallowClone('testConstruct')]
+    #[\PHPUnit\Framework\Attributes\DependsUsingShallowClone('testConstruct')]
     public function testSetAndGetUrl(NamedLicense $license): NamedLicense
     {
         $url = uniqid('url', true);
@@ -55,7 +55,7 @@ class NamedLicenseTest extends TestCase
         return $license;
     }
 
-     #[\PHPUnit\Framework\Attributes\DependsUsingShallowClone('testSetAndGetUrl')]
+    #[\PHPUnit\Framework\Attributes\DependsUsingShallowClone('testSetAndGetUrl')]
     public function testSetUrlNull(NamedLicense $license): void
     {
         $license->setUrl(null);

@@ -46,7 +46,7 @@ class ToolTest extends TestCase
         return $tool;
     }
 
-     #[\PHPUnit\Framework\Attributes\DependsUsingShallowClone('testConstruct')]
+    #[\PHPUnit\Framework\Attributes\DependsUsingShallowClone('testConstruct')]
     public function testSetterGetterVersion(Tool $tool): void
     {
         $version = 'v1.2.3';
@@ -56,7 +56,7 @@ class ToolTest extends TestCase
         self::assertSame($version, $tool->getVersion());
     }
 
-     #[\PHPUnit\Framework\Attributes\DependsUsingShallowClone('testConstruct')]
+    #[\PHPUnit\Framework\Attributes\DependsUsingShallowClone('testConstruct')]
     public function testSetterGetterVendor(Tool $tool): void
     {
         $vendor = 'myVendor';
@@ -66,7 +66,7 @@ class ToolTest extends TestCase
         self::assertSame($vendor, $tool->getVendor());
     }
 
-     #[\PHPUnit\Framework\Attributes\DependsUsingShallowClone('testConstruct')]
+    #[\PHPUnit\Framework\Attributes\DependsUsingShallowClone('testConstruct')]
     public function testSetterGetterName(Tool $tool): void
     {
         $name = 'myName';
@@ -76,7 +76,7 @@ class ToolTest extends TestCase
         self::assertSame($name, $tool->getName());
     }
 
-     #[\PHPUnit\Framework\Attributes\DependsUsingShallowClone('testConstruct')]
+    #[\PHPUnit\Framework\Attributes\DependsUsingShallowClone('testConstruct')]
     public function testSetterGetterHashDictionary(Tool $tool): void
     {
         $hashes = $this->createStub(HashDictionary::class);
@@ -86,7 +86,7 @@ class ToolTest extends TestCase
         self::assertSame($hashes, $tool->getHashes());
     }
 
-     #[\PHPUnit\Framework\Attributes\DependsUsingShallowClone('testConstruct')]
+    #[\PHPUnit\Framework\Attributes\DependsUsingShallowClone('testConstruct')]
     public function testSetterGetterExternalReferenceRepository(Tool $tool): void
     {
         $extRefs = $this->createStub(ExternalReferenceRepository::class);
