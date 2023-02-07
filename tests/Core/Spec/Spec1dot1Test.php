@@ -72,7 +72,7 @@ class Spec1dot1Test extends SpecBaseTestCase
         return false;
     }
 
-    public static  function shouldRequireComponentVersion(): bool
+    public static function shouldRequireComponentVersion(): bool
     {
         return true;
     }

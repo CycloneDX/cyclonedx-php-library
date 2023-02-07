@@ -203,10 +203,10 @@ class ComponentTest extends TestCase
 
     public static function dpGroupSetterGetter(): Generator
     {
-        yield 'null' => [ null, null];
-        yield 'empty string' => [ '', null];
+        yield 'null' => [null, null];
+        yield 'empty string' => ['', null];
         $group = bin2hex(random_bytes(32));
-        yield 'non-empty-string' => [ $group, $group];
+        yield 'non-empty-string' => [$group, $group];
     }
 
     // endregion group setter&getter

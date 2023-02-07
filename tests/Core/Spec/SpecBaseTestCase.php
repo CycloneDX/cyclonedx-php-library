@@ -147,7 +147,7 @@ abstract class SpecBaseTestCase extends TestCase
         self::assertSame(static::shouldSupportMetadata(), $isSupported);
     }
 
-    abstract protected static  function shouldSupportMetadata(): bool;
+    abstract protected static function shouldSupportMetadata(): bool;
 
     final public function testSupportsBomRef(): void
     {
