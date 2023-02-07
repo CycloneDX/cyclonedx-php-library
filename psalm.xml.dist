@@ -15,7 +15,5 @@
     <projectFiles>
         <directory name="src"/>
         <directory name="examples"/>
-        <directory name="tests/_data"/>
-        <directory name="tests/_traits"/>
     </projectFiles>
 </psalm>
