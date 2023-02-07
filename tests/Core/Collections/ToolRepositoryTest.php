@@ -27,9 +27,7 @@ use CycloneDX\Core\Collections\ToolRepository;
 use CycloneDX\Core\Models\Tool;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \CycloneDX\Core\Collections\ToolRepository
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Collections\ToolRepository::class)]
 class ToolRepositoryTest extends TestCase
 {
     public function testEmptyConstructor(): void

@@ -33,9 +33,7 @@ use Exception;
 use PHPUnit\Framework\TestCase;
 use UnexpectedValueException;
 
-/**
- * @covers \CycloneDX\Core\Factories\LicenseFactory
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Factories\LicenseFactory::class)]
 class LicenseFactoryTest extends TestCase
 {
     public function testConstructorWithValidator(): LicenseFactory

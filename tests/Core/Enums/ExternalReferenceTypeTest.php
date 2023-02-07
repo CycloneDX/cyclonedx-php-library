@@ -28,9 +28,7 @@ use CycloneDX\Tests\_data\BomSpecData;
 use Generator;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \CycloneDX\Core\Enums\ExternalReferenceType
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Enums\ExternalReferenceType::class)]
 class ExternalReferenceTypeTest extends TestCase
 {
     /**

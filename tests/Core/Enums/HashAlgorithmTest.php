@@ -28,9 +28,7 @@ use CycloneDX\Tests\_data\BomSpecData;
 use Generator;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \CycloneDX\Core\Enums\HashAlgorithm
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Enums\HashAlgorithm::class)]
 class HashAlgorithmTest extends TestCase
 {
     /**

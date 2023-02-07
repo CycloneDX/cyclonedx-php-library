@@ -27,9 +27,7 @@ use CycloneDX\Core\Validation\ValidationError;
 use Exception;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \CycloneDX\Core\Validation\ValidationError
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Validation\ValidationError::class)]
 class ValidationErrorTest extends TestCase
 {
     public function testFromThrowable(): void

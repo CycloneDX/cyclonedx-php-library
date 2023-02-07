@@ -28,9 +28,7 @@ use CycloneDX\Core\Spdx\LicenseValidator;
 use DomainException;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \CycloneDX\Core\Models\License\SpdxLicense
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Models\License\SpdxLicense::class)]
 class SpdxLicenseTest extends TestCase
 {
     public function testConstruct(): SpdxLicense

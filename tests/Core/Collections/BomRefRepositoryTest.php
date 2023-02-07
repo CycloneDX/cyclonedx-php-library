@@ -28,9 +28,7 @@ use CycloneDX\Core\Models\BomRef;
 use Generator;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \CycloneDX\Core\Collections\BomRefRepository
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Collections\BomRefRepository::class)]
 class BomRefRepositoryTest extends TestCase
 {
     public function testEmptyConstructor(): void

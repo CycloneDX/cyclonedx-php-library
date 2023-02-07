@@ -26,9 +26,7 @@ namespace CycloneDX\Tests\Core\Models;
 use CycloneDX\Core\Models\Property;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \CycloneDX\Core\Models\Property
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Models\Property::class)]
 class PropertyTest extends TestCase
 {
     public function testConstruct(): Property

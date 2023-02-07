@@ -32,9 +32,7 @@ use DomainException;
 use Exception;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @coversNothing
- */
+#[\PHPUnit\Framework\Attributes\CoversNothing]
 class SerializeToJsonTest extends TestCase
 {
     // region Spec 1.0
@@ -67,8 +65,6 @@ class SerializeToJsonTest extends TestCase
      * This test might require online-connectivity.
      *
      * @dataProvider \CycloneDX\Tests\_data\BomModelProvider::allBomTestData
-     *
-     * @throws Exception on validation failure
      */
     public function testSchema12(Bom $bom): void
     {
@@ -92,8 +88,6 @@ class SerializeToJsonTest extends TestCase
      * This test might require online-connectivity.
      *
      * @dataProvider \CycloneDX\Tests\_data\BomModelProvider::allBomTestData
-     *
-     * @throws Exception on validation failure
      */
     public function testSchema13(Bom $bom): void
     {

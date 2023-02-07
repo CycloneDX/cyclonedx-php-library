@@ -26,9 +26,7 @@ namespace CycloneDX\Tests\Core\Models;
 use CycloneDX\Core\Models\BomRef;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \CycloneDX\Core\Models\BomRef
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Models\BomRef::class)]
 class BomRefTest extends TestCase
 {
     public function testConstructValueDefaultsToNull(): BomRef

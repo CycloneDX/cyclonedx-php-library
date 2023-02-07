@@ -28,9 +28,7 @@ use DomainException;
 use Generator;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \CycloneDX\Core\Models\License\LicenseExpression
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Models\License\LicenseExpression::class)]
 class LicenseExpressionTest extends TestCase
 {
     public function testConstructAndGet(): void

@@ -28,9 +28,7 @@ use CycloneDX\Tests\_data\BomSpecData;
 use Generator;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \CycloneDX\Core\Enums\ComponentType
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Enums\ComponentType::class)]
 class ComponentTypeTest extends TestCase
 {
     /**

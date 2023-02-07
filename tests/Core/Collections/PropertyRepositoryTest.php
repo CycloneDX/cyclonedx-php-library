@@ -27,9 +27,7 @@ use CycloneDX\Core\Collections\PropertyRepository;
 use CycloneDX\Core\Models\Property;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \CycloneDX\Core\Collections\PropertyRepository
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Collections\PropertyRepository::class)]
 class PropertyRepositoryTest extends TestCase
 {
     public function testEmptyConstructor(): void

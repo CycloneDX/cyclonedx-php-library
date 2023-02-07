@@ -28,9 +28,7 @@ use Generator;
 use PHPUnit\Framework\TestCase;
 use ReflectionClass;
 
-/**
- * @coversNothing
- */
+#[\PHPUnit\Framework\Attributes\CoversNothing]
 class ResourcesTest extends TestCase
 {
     public function testRootDirIsReadable(): void

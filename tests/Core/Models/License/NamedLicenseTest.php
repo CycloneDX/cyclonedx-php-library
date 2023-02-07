@@ -26,9 +26,7 @@ namespace CycloneDX\Tests\Core\Models\License;
 use CycloneDX\Core\Models\License\NamedLicense;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \CycloneDX\Core\Models\License\NamedLicense
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Models\License\NamedLicense::class)]
 class NamedLicenseTest extends TestCase
 {
     public function testConstruct(): NamedLicense
