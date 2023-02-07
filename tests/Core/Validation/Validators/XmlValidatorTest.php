@@ -35,6 +35,9 @@ use PHPUnit\Framework\TestCase;
 
 #[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Validation\Validators\XmlValidator::class)]
 #[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Validation\BaseValidator::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Validation\Errors\XmlValidationError::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Validation\ValidationError::class)]
+
 class XmlValidatorTest extends TestCase
 {
     public function testConstructor(): XmlValidator
@@ -118,8 +121,6 @@ class XmlValidatorTest extends TestCase
     }
 
     /**
-     * @uses \CycloneDX\Core\Validation\Errors\XmlValidationError
-     * @uses \CycloneDX\Core\Validation\ValidationError
      */
     public function testValidateDomFails(): void
     {
@@ -160,8 +161,6 @@ class XmlValidatorTest extends TestCase
     }
 
     /**
-     * @uses \CycloneDX\Core\Validation\Errors\XmlValidationError
-     * @uses \CycloneDX\Core\Validation\ValidationError
      */
     public function testValidateDomThrowsOnDuplicateBomRef(): void
     {

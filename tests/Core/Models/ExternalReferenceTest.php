@@ -28,12 +28,9 @@ use CycloneDX\Core\Enums\ExternalReferenceType;
 use CycloneDX\Core\Models\ExternalReference;
 use PHPUnit\Framework\TestCase;
 
-/**
- *
- * *
- * @uses  \CycloneDX\Core\Collections\HashDictionary
- */
+
 #[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Models\ExternalReference::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Collections\HashDictionary::class)]
 class ExternalReferenceTest extends TestCase
 {
     public function testConstructor(): ExternalReference

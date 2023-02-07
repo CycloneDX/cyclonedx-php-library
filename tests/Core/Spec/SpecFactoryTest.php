@@ -29,9 +29,9 @@ use PHPUnit\Framework\TestCase;
 
 /**
  *
- * @uses   \CycloneDX\Core\Spec\_Spec
  */
 #[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Spec\SpecFactory::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Spec\_Spec::class)]
 class SpecFactoryTest extends TestCase
 {
     public function test11(): void

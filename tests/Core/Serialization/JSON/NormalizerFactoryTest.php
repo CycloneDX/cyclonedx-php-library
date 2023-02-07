@@ -30,11 +30,24 @@ use CycloneDX\Core\Spec\Version;
 use DomainException;
 use PHPUnit\Framework\TestCase;
 
-/**
- *
- * @uses   \CycloneDX\Core\Serialization\JSON\_BaseNormalizer
- */
 #[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Serialization\JSON\NormalizerFactory::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Serialization\JSON\_BaseNormalizer::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Serialization\JSON\Normalizers\ComponentRepositoryNormalizer::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Serialization\JSON\Normalizers\BomNormalizer::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Serialization\JSON\Normalizers\LicenseNormalizer::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Serialization\JSON\Normalizers\LicenseRepositoryNormalizer::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Serialization\JSON\Normalizers\HashDictionaryNormalizer::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Serialization\JSON\Normalizers\ComponentNormalizer::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Serialization\JSON\Normalizers\HashNormalizer::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Serialization\JSON\Normalizers\MetadataNormalizer::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Serialization\JSON\Normalizers\ToolRepositoryNormalizer::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Serialization\JSON\Normalizers\ToolNormalizer::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Serialization\JSON\Normalizers\ToolNormalizer::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Serialization\JSON\Normalizers\DependenciesNormalizer::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Serialization\JSON\Normalizers\ExternalReferenceNormalizer::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Serialization\JSON\Normalizers\ExternalReferenceRepositoryNormalizer::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Serialization\JSON\Normalizers\PropertyNormalizer::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Serialization\JSON\Normalizers\PropertyRepositoryNormalizer::class)]
 class NormalizerFactoryTest extends TestCase
 {
     public function testConstructor(): NormalizerFactory
@@ -71,7 +84,6 @@ class NormalizerFactoryTest extends TestCase
     /**
      * @depends testConstructor
      *
-     * @uses    \CycloneDX\Core\Serialization\JSON\Normalizers\ComponentRepositoryNormalizer
      */
     public function testMakeForComponentRepository(NormalizerFactory $factory): void
     {
@@ -83,7 +95,6 @@ class NormalizerFactoryTest extends TestCase
     /**
      * @depends testConstructor
      *
-     * @uses    \CycloneDX\Core\Serialization\JSON\Normalizers\BomNormalizer
      */
     public function testMakeForBom(NormalizerFactory $factory): void
     {
@@ -95,7 +106,6 @@ class NormalizerFactoryTest extends TestCase
     /**
      * @depends testConstructor
      *
-     * @uses    \CycloneDX\Core\Serialization\JSON\Normalizers\LicenseNormalizer
      */
     public function testMakeForLicense(NormalizerFactory $factory): void
     {
@@ -107,7 +117,6 @@ class NormalizerFactoryTest extends TestCase
     /**
      * @depends testConstructor
      *
-     * @uses    \CycloneDX\Core\Serialization\JSON\Normalizers\LicenseRepositoryNormalizer
      */
     public function testMakeForLicenseRepository(NormalizerFactory $factory): void
     {
@@ -119,7 +128,6 @@ class NormalizerFactoryTest extends TestCase
     /**
      * @depends testConstructor
      *
-     * @uses    \CycloneDX\Core\Serialization\JSON\Normalizers\HashDictionaryNormalizer
      */
     public function testMakeForHashDictionary(NormalizerFactory $factory): void
     {
@@ -131,7 +139,6 @@ class NormalizerFactoryTest extends TestCase
     /**
      * @depends testConstructor
      *
-     * @uses    \CycloneDX\Core\Serialization\JSON\Normalizers\ComponentNormalizer
      */
     public function testMakeForComponent(NormalizerFactory $factory): void
     {
@@ -143,7 +150,6 @@ class NormalizerFactoryTest extends TestCase
     /**
      * @depends testConstructor
      *
-     * @uses    \CycloneDX\Core\Serialization\JSON\Normalizers\HashNormalizer
      */
     public function testMakeForHash(NormalizerFactory $factory): void
     {
@@ -155,7 +161,6 @@ class NormalizerFactoryTest extends TestCase
     /**
      * @depends testConstructor
      *
-     * @uses    \CycloneDX\Core\Serialization\JSON\Normalizers\MetadataNormalizer
      */
     public function testMakeForMetadata(NormalizerFactory $factory): void
     {
@@ -167,7 +172,6 @@ class NormalizerFactoryTest extends TestCase
     /**
      * @depends testConstructor
      *
-     * @uses    \CycloneDX\Core\Serialization\JSON\Normalizers\ToolRepositoryNormalizer
      */
     public function testMakeForToolRepository(NormalizerFactory $factory): void
     {
@@ -179,7 +183,6 @@ class NormalizerFactoryTest extends TestCase
     /**
      * @depends testConstructor
      *
-     * @uses    \CycloneDX\Core\Serialization\JSON\Normalizers\ToolNormalizer
      */
     public function testMakeForTool(NormalizerFactory $factory): void
     {
@@ -191,8 +194,6 @@ class NormalizerFactoryTest extends TestCase
     /**
      * @depends testConstructor
      *
-     * @uses    \CycloneDX\Core\Serialization\JSON\Normalizers\ToolNormalizer
-     * @uses    \CycloneDX\Core\Serialization\JSON\Normalizers\DependenciesNormalizer
      */
     public function testMakeForDependencies(NormalizerFactory $factory): void
     {
@@ -204,7 +205,6 @@ class NormalizerFactoryTest extends TestCase
     /**
      * @depends testConstructor
      *
-     * @uses    \CycloneDX\Core\Serialization\JSON\Normalizers\ExternalReferenceNormalizer
      */
     public function testMakeForExternalReference(NormalizerFactory $factory): void
     {
@@ -216,7 +216,6 @@ class NormalizerFactoryTest extends TestCase
     /**
      * @depends testConstructor
      *
-     * @uses    \CycloneDX\Core\Serialization\JSON\Normalizers\ExternalReferenceRepositoryNormalizer
      */
     public function testMakeForExternalReferenceRepository(NormalizerFactory $factory): void
     {
@@ -228,7 +227,6 @@ class NormalizerFactoryTest extends TestCase
     /**
      * @depends testConstructor
      *
-     * @uses    \CycloneDX\Core\Serialization\JSON\Normalizers\PropertyNormalizer
      */
     public function testMakeForProperty(NormalizerFactory $factory): void
     {
@@ -240,7 +238,6 @@ class NormalizerFactoryTest extends TestCase
     /**
      * @depends testConstructor
      *
-     * @uses    \CycloneDX\Core\Serialization\JSON\Normalizers\PropertyRepositoryNormalizer
      */
     public function testMakeForPropertyRepository(NormalizerFactory $factory): void
     {

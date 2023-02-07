@@ -36,6 +36,9 @@ use stdClass;
 
 #[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Validation\Validators\JsonValidator::class)]
 #[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Validation\BaseValidator::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Validation\Errors\JsonValidationError::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Validation\ValidationError::class)]
+
 class JsonValidatorTest extends TestCase
 {
     public function testConstructor(): JsonValidator
@@ -123,8 +126,6 @@ class JsonValidatorTest extends TestCase
     }
 
     /**
-     * @uses \CycloneDX\Core\Validation\Errors\JsonValidationError
-     * @uses \CycloneDX\Core\Validation\ValidationError
      */
     public function testValidateDataFails(): void
     {

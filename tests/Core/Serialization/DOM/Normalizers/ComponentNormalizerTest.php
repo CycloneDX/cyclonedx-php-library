@@ -46,6 +46,7 @@ use PHPUnit\Framework\TestCase;
 #[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Serialization\DOM\Normalizers\ComponentNormalizer::class)]
 #[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Serialization\DOM\_BaseNormalizer::class)]
 #[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\_helpers\SimpleDomTrait::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Models\BomRef::class)]
 class ComponentNormalizerTest extends TestCase
 {
     use DomNodeAssertionTrait;
@@ -125,9 +126,6 @@ class ComponentNormalizerTest extends TestCase
         ];
     }
 
-    /**
-     * @uses \CycloneDX\Core\Models\BomRef
-     */
     public function testNormalizeFull(): void
     {
         $component = $this->createConfiguredMock(

@@ -29,12 +29,9 @@ use CycloneDX\Core\Serialization\JsonSerializer;
 use Generator;
 use PHPUnit\Framework\TestCase;
 
-/**
- *  *
- * @uses   \CycloneDX\Core\Serialization\BaseSerializer
- * @uses   \CycloneDX\Core\Serialization\BomRefDiscriminator
- */
 #[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Serialization\JsonSerializer::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Serialization\BaseSerializer::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Serialization\BomRefDiscriminator::class)]
 class JsonSerializerTest extends TestCase
 {
     /**

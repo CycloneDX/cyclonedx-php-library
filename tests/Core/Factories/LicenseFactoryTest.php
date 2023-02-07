@@ -34,6 +34,9 @@ use PHPUnit\Framework\TestCase;
 use UnexpectedValueException;
 
 #[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Factories\LicenseFactory::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Models\License\LicenseExpression::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Models\License\SpdxLicense::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Models\License\NamedLicense::class)]
 class LicenseFactoryTest extends TestCase
 {
     public function testConstructorWithValidator(): LicenseFactory
@@ -104,10 +107,6 @@ class LicenseFactoryTest extends TestCase
 
         self::assertSame($license, $got);
     }
-
-    /**
-     * @uses \CycloneDX\Core\Models\License\LicenseExpression
-     */
     public function testMakeExpression(): void
     {
         $factory = new LicenseFactory();
@@ -150,9 +149,6 @@ class LicenseFactoryTest extends TestCase
         self::assertSame($license, $actual);
     }
 
-    /**
-     * @uses \CycloneDX\Core\Models\License\SpdxLicense
-     */
     public function testMakeSpdxLicense(): void
     {
         $spdxLicenseValidator = $this->createMock(SpdxLicenseValidator::class);
@@ -172,9 +168,6 @@ class LicenseFactoryTest extends TestCase
         self::assertNull($got->getUrl());
     }
 
-    /**
-     *  @uses \CycloneDX\Core\Models\License\NamedLicense
-     */
     public function testMakeNamedLicense(): void
     {
         $factory = new LicenseFactory();

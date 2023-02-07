@@ -40,6 +40,7 @@ use PHPUnit\Framework\TestCase;
 
 #[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Serialization\DOM\Normalizers\DependenciesNormalizer::class)]
 #[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Serialization\DOM\_BaseNormalizer::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Models\BomRef::class)]
 class DependenciesNormalizerTest extends TestCase
 {
     use DomNodeAssertionTrait;
@@ -70,7 +71,6 @@ class DependenciesNormalizerTest extends TestCase
      *
      * @dataProvider dpNormalize
      *
-     * @uses         \CycloneDX\Core\Models\BomRef
      */
     public function testNormalize(Bom $bom, array $expecteds): void
     {

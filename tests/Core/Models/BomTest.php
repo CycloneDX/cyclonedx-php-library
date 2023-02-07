@@ -30,17 +30,13 @@ use CycloneDX\Core\Models\Metadata;
 use DomainException;
 use PHPUnit\Framework\TestCase;
 
-/**
- * Class BomTest.
- *
- *
- * @uses \CycloneDX\Core\Collections\ComponentRepository
- * @uses \CycloneDX\Core\Models\Metadata
- * @uses \CycloneDX\Core\Collections\ToolRepository
- * @uses \CycloneDX\Core\Collections\ExternalReferenceRepository
- * @uses \CycloneDX\Core\Collections\PropertyRepository
- */
+
 #[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Models\Bom::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Collections\ComponentRepository::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Models\Metadata::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Collections\ToolRepository::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Collections\ExternalReferenceRepository::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Collections\PropertyRepository::class)]
 class BomTest extends TestCase
 {
     public function testConstruct(): Bom

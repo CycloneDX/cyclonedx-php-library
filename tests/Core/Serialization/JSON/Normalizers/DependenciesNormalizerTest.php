@@ -38,6 +38,7 @@ use PHPUnit\Framework\TestCase;
 
 #[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Serialization\JSON\Normalizers\DependenciesNormalizer::class)]
 #[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Serialization\JSON\_BaseNormalizer::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Models\BomRef::class)]
 class DependenciesNormalizerTest extends TestCase
 {
     /**
@@ -61,7 +62,6 @@ class DependenciesNormalizerTest extends TestCase
      *
      * @dataProvider dpNormalize
      *
-     * @uses         \CycloneDX\Core\Models\BomRef
      */
     public function testNormalize(Bom $bom, array $expecteds): void
     {

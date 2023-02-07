@@ -37,6 +37,7 @@ use Throwable;
 
 #[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Serialization\BaseSerializer::class)]
 #[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Serialization\BomRefDiscriminator::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Models\BomRef::class)]
 class BaseSerializerTest extends TestCase
 {
     public function testSerialize(): void
@@ -98,7 +99,6 @@ class BaseSerializerTest extends TestCase
      * @dataProvider dpBomWithRefs
      *
      *
-     * @uses         \CycloneDX\Core\Models\BomRef
      */
     public function testSerializeUsesUniqueBomRefsAndResetThemAfterwards(Bom $bom, array $allBomRefs): void
     {
@@ -151,7 +151,6 @@ class BaseSerializerTest extends TestCase
      * @dataProvider dpBomWithRefs
      *
      *
-     * @uses         \CycloneDX\Core\Models\BomRef
      */
     public function testSerializeUsesUniqueBomRefsAndResetThemOnThrow(Bom $bom, array $allBomRefs): void
     {

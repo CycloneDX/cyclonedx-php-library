@@ -35,24 +35,15 @@ use Generator;
 use PackageUrl\PackageUrl;
 use PHPUnit\Framework\TestCase;
 
-/**
- * Class ComponentTest.
- *
- *
- *
- * @uses \CycloneDX\Core\Models\BomRef::__construct
- * @uses \CycloneDX\Core\Collections\LicenseRepository
- * @uses \CycloneDX\Core\Collections\HashDictionary
- * @uses \CycloneDX\Core\Collections\ExternalReferenceRepository
- * @uses \CycloneDX\Core\Collections\BomRefRepository
- * @uses \CycloneDX\Core\Collections\PropertyRepository
- */
 #[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Models\Component::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Models\BomRef::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Collections\LicenseRepository::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Collections\HashDictionary::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Collections\ExternalReferenceRepository::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Collections\BomRefRepository::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Collections\PropertyRepository::class)]
 class ComponentTest extends TestCase
 {
-    /**
-     * @uses \CycloneDX\Core\Models\BomRef
-     */
     public function testConstructor(): Component
     {
         $type = ComponentType::LIBRARY;

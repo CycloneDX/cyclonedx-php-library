@@ -33,12 +33,9 @@ use DomainException;
 use DOMElement;
 use PHPUnit\Framework\TestCase;
 
-/**
- *
- * @uses \CycloneDX\Core\Serialization\DOM\Normalizers\ToolNormalizer
- */
 #[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Serialization\DOM\Normalizers\ToolRepositoryNormalizer::class)]
 #[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Serialization\DOM\_BaseNormalizer::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Serialization\DOM\Normalizers\ToolNormalizer::class)]
 class ToolRepositoryNormalizerTest extends TestCase
 {
     public function testNormalizeEmpty(): void

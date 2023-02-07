@@ -33,17 +33,12 @@ use DOMElement;
 use Generator;
 use UnexpectedValueException;
 
-/**
- *
- * @uses \CycloneDX\Core\Serialization\DOM\Normalizers\ExternalReferenceNormalizer
- */
 #[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Serialization\DOM\Normalizers\ExternalReferenceRepositoryNormalizer::class)]
 #[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Serialization\DOM\_BaseNormalizer::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Serialization\DOM\Normalizers\ExternalReferenceNormalizer::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Serialization\DOM\Normalizers\ToolNormalizer::class)]
 class ExternalReferenceRepositoryNormalizerTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @uses \CycloneDX\Core\Serialization\DOM\Normalizers\ToolNormalizer
-     */
     public function testNormalizeEmpty(): void
     {
         $spec = $this->createStub(Spec::class);

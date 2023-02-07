@@ -36,11 +36,9 @@ use CycloneDX\Tests\_traits\DomNodeAssertionTrait;
 use DOMDocument;
 use PHPUnit\Framework\TestCase;
 
-/**
- *
- * @uses   \CycloneDX\Core\Serialization\DOM\_BaseNormalizer
- */
 #[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Serialization\DOM\Normalizers\ToolNormalizer::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Serialization\DOM\_BaseNormalizer::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Serialization\DOM\Normalizers\HashDictionaryNormalizer::class)]
 class ToolNormalizerTest extends TestCase
 {
     use DomNodeAssertionTrait;
@@ -66,9 +64,6 @@ class ToolNormalizerTest extends TestCase
         );
     }
 
-    /**
-     * @uses \CycloneDX\Core\Serialization\DOM\Normalizers\HashDictionaryNormalizer
-     */
     public function testNormalizeFull(): void
     {
         $tool = $this->createConfiguredMock(

@@ -33,10 +33,10 @@ use PHPUnit\Framework\TestCase;
 
 /**
  *  *
- * @uses   \CycloneDX\Core\Serialization\BaseSerializer
- * @uses   \CycloneDX\Core\Serialization\BomRefDiscriminator
  */
 #[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Serialization\XmlSerializer::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Serialization\BaseSerializer::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Serialization\BomRefDiscriminator::class)]
 class XmlSerializerTest extends TestCase
 {
     /**

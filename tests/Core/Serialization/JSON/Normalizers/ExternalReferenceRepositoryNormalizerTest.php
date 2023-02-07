@@ -30,17 +30,13 @@ use CycloneDX\Core\Serialization\JSON\Normalizers;
 use CycloneDX\Core\Spec\Spec;
 use DomainException;
 
-/**
- *
- * @uses \CycloneDX\Core\Serialization\JSON\Normalizers\ExternalReferenceNormalizer
- */
 #[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Serialization\JSON\Normalizers\ExternalReferenceRepositoryNormalizer::class)]
 #[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Serialization\JSON\_BaseNormalizer::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Serialization\JSON\Normalizers\ExternalReferenceNormalizer::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Serialization\JSON\Normalizers\ToolNormalizer::class)]
+
 class ExternalReferenceRepositoryNormalizerTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @uses \CycloneDX\Core\Serialization\JSON\Normalizers\ToolNormalizer
-     */
     public function testNormalizeEmpty(): void
     {
         $spec = $this->createStub(Spec::class);

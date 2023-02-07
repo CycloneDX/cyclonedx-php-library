@@ -28,11 +28,9 @@ use CycloneDX\Core\Collections\HashDictionary;
 use CycloneDX\Core\Models\Tool;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @uses \CycloneDX\Core\Collections\HashDictionary
- * @uses \CycloneDX\Core\Collections\ExternalReferenceRepository
- */
 #[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Models\Tool::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Collections\HashDictionary::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Collections\ExternalReferenceRepository::class)]
 class ToolTest extends TestCase
 {
     public function testConstruct(): Tool
