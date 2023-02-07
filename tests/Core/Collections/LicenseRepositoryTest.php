@@ -28,9 +28,7 @@ use CycloneDX\Core\Models\License\NamedLicense;
 use CycloneDX\Core\Models\License\SpdxLicense;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \CycloneDX\Core\Collections\LicenseRepository
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Collections\LicenseRepository::class)]
 class LicenseRepositoryTest extends TestCase
 {
     public function testEmptyConstructor(): void

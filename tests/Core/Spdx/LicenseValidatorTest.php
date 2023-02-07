@@ -28,9 +28,7 @@ use Generator;
 use PHPUnit\Framework\TestCase;
 use RuntimeException;
 
-/**
- * @covers  \CycloneDX\Core\Spdx\LicenseValidator
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Spdx\LicenseValidator::class)]
 class LicenseValidatorTest extends TestCase
 {
     /**
@@ -66,9 +64,7 @@ class LicenseValidatorTest extends TestCase
         self::assertSame($expected, array_values($licenses));
     }
 
-    /**
-     * @dataProvider validLicense
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('validLicense')]
     public function testValidate(string $identifier): void
     {
         $valid = $this->license->validate($identifier);
@@ -82,9 +78,7 @@ class LicenseValidatorTest extends TestCase
         self::assertFalse($valid);
     }
 
-    /**
-     * @dataProvider validLicense
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('validLicense')]
     public function testGetLicense(string $identifier): void
     {
         $license = $this->license->getLicense($identifier);

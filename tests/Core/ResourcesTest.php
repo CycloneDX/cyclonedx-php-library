@@ -28,9 +28,7 @@ use Generator;
 use PHPUnit\Framework\TestCase;
 use ReflectionClass;
 
-/**
- * @coversNothing
- */
+#[\PHPUnit\Framework\Attributes\CoversNothing]
 class ResourcesTest extends TestCase
 {
     public function testRootDirIsReadable(): void
@@ -40,16 +38,14 @@ class ResourcesTest extends TestCase
         self::assertDirectoryIsReadable($root);
     }
 
-    /**
-     * @dataProvider dpFiles
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('dpFiles')]
     public function testFileIsReadable(string $filePath): void
     {
         self::assertFileExists($filePath);
         self::assertFileIsReadable($filePath);
     }
 
-    public function dpFiles(): Generator
+    public static function dpFiles(): Generator
     {
         $constants = (new ReflectionClass(Resources::class))->getConstants();
         foreach ($constants as $name => $value) {

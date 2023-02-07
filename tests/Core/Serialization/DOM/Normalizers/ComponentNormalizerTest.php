@@ -42,11 +42,10 @@ use Generator;
 use PackageUrl\PackageUrl;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \CycloneDX\Core\Serialization\DOM\Normalizers\ComponentNormalizer
- * @covers \CycloneDX\Core\Serialization\DOM\_BaseNormalizer
- * @covers \CycloneDX\Core\_helpers\SimpleDomTrait
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Serialization\DOM\Normalizers\ComponentNormalizer::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Serialization\DOM\_BaseNormalizer::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\_helpers\SimpleDomTrait::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Models\BomRef::class)]
 class ComponentNormalizerTest extends TestCase
 {
     use DomNodeAssertionTrait;
@@ -76,9 +75,7 @@ class ComponentNormalizerTest extends TestCase
         $normalizer->normalize($component);
     }
 
-    /**
-     * @dataProvider dbNormalizeMinimal
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('dbNormalizeMinimal')]
     public function testNormalizeMinimal(string $expected, bool $requiresComponentVersion): void
     {
         $component = $this->createConfiguredMock(
@@ -114,7 +111,7 @@ class ComponentNormalizerTest extends TestCase
         self::assertStringEqualsDomNode($expected, $actual);
     }
 
-    public function dbNormalizeMinimal(): Generator
+    public static function dbNormalizeMinimal(): Generator
     {
         yield 'mandatory ComponentVersion' => [
             '<component type="library"><name>myName</name><version></version></component>',
@@ -126,9 +123,6 @@ class ComponentNormalizerTest extends TestCase
         ];
     }
 
-    /**
-     * @uses \CycloneDX\Core\Models\BomRef
-     */
     public function testNormalizeFull(): void
     {
         $component = $this->createConfiguredMock(

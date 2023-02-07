@@ -31,17 +31,12 @@ use DOMElement;
 use Generator;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \CycloneDX\Core\Serialization\XmlSerializer
- *
- * @uses   \CycloneDX\Core\Serialization\BaseSerializer
- * @uses   \CycloneDX\Core\Serialization\BomRefDiscriminator
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Serialization\XmlSerializer::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Serialization\BaseSerializer::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Serialization\BomRefDiscriminator::class)]
 class XmlSerializerTest extends TestCase
 {
-    /**
-     * @dataProvider dpSerializeStructure
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('dpSerializeStructure')]
     public function testSerialize(string $xmlVersion, string $xmlEncoding, ?bool $prettyPrint, DOMElement $normalized, string $expected): void
     {
         $bom = $this->createStub(Bom::class);
@@ -59,7 +54,7 @@ class XmlSerializerTest extends TestCase
         self::assertSame($expected, $actual);
     }
 
-    public function dpSerializeStructure(): Generator
+    public static function dpSerializeStructure(): Generator
     {
         $doc = new DOMDocument();
         $dummyText = uniqid('normalized', true);

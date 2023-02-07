@@ -34,11 +34,8 @@ use CycloneDX\Core\Serialization\JSON\Normalizers\ToolNormalizer;
 use CycloneDX\Core\Spec\Spec;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \CycloneDX\Core\Serialization\JSON\Normalizers\ToolNormalizer
- *
- * @uses   \CycloneDX\Core\Serialization\JSON\_BaseNormalizer
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Serialization\JSON\Normalizers\ToolNormalizer::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Serialization\JSON\_BaseNormalizer::class)]
 class ToolNormalizerTest extends TestCase
 {
     public function testNormalizeEmpty(): void

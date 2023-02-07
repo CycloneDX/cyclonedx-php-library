@@ -31,10 +31,8 @@ use CycloneDX\Core\Serialization\JSON\Normalizers\HashNormalizer;
 use DomainException;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \CycloneDX\Core\Serialization\JSON\Normalizers\HashDictionaryNormalizer
- * @covers \CycloneDX\Core\Serialization\JSON\_BaseNormalizer
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Serialization\JSON\Normalizers\HashDictionaryNormalizer::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Serialization\JSON\_BaseNormalizer::class)]
 class HashDictionaryNormalizerTest extends TestCase
 {
     public function testConstructor(): void
@@ -52,18 +50,18 @@ class HashDictionaryNormalizerTest extends TestCase
         $repo = $this->createStub(HashDictionary::class);
         $repo->method('getItems')->willReturn([[HashAlgorithm::MD5, 'content1'], [HashAlgorithm::SHA_1, 'content2']]);
 
-        $hashNormalizer->expects(self::exactly(2))->method('normalize')
-            ->withConsecutive([HashAlgorithm::MD5, 'content1'], [HashAlgorithm::SHA_1, 'content2'])
-            ->willReturnOnConsecutiveCalls(['dummy1'], ['dummy2']);
+        $hashNormalizer->expects(self::exactly(2))
+            ->method('normalize')
+            ->willReturnMap([
+                [HashAlgorithm::MD5, 'content1', ['dummy1']],
+                [HashAlgorithm::SHA_1, 'content2', ['dummy2']],
+            ]);
 
         $normalized = $normalizer->normalize($repo);
 
         self::assertSame([['dummy1'], ['dummy2']], $normalized);
     }
 
-    /**
-     * @depends testConstructor
-     */
     public function testNormalizeSkipOnThrow(): void
     {
         $hashNormalizer = $this->createMock(HashNormalizer::class);
@@ -76,7 +74,6 @@ class HashDictionaryNormalizerTest extends TestCase
 
         $hashNormalizer->expects(self::exactly(2))
             ->method('normalize')
-            ->withConsecutive([HashAlgorithm::MD5, 'cont1'], [HashAlgorithm::SHA_1, 'cont2'])
             ->willThrowException(new DomainException());
 
         $got = $normalizer->normalize($repo);

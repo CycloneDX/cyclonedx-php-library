@@ -27,10 +27,8 @@ use CycloneDX\Core\Validation\Errors\XmlValidationError;
 use LibXMLError;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \CycloneDX\Core\Validation\Errors\XmlValidationError
- * @covers \CycloneDX\Core\Validation\ValidationError
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Validation\Errors\XmlValidationError::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Validation\ValidationError::class)]
 class XmlValidationErrorTest extends TestCase
 {
     public function testFromLibXMLError(): void

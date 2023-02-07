@@ -28,9 +28,7 @@ use CycloneDX\Core\Spdx\LicenseValidator;
 use DomainException;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \CycloneDX\Core\Models\License\SpdxLicense
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Models\License\SpdxLicense::class)]
 class SpdxLicenseTest extends TestCase
 {
     public function testConstruct(): SpdxLicense
@@ -59,9 +57,7 @@ class SpdxLicenseTest extends TestCase
         SpdxLicense::makeValidated('foo', $spdxLicenseValidator);
     }
 
-    /**
-     * @depends testConstruct
-     */
+    #[\PHPUnit\Framework\Attributes\DependsUsingShallowClone('testConstruct')]
     public function testSetAndGetUrl(SpdxLicense $license): SpdxLicense
     {
         $url = uniqid('url', true);
@@ -71,9 +67,7 @@ class SpdxLicenseTest extends TestCase
         return $license;
     }
 
-    /**
-     * @depends testSetAndGetUrl
-     */
+    #[\PHPUnit\Framework\Attributes\DependsUsingShallowClone('testSetAndGetUrl')]
     public function testSetUrlNull(SpdxLicense $license): void
     {
         $license->setUrl(null);

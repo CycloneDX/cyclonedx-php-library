@@ -29,17 +29,12 @@ use CycloneDX\Core\Serialization\JsonSerializer;
 use Generator;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \CycloneDX\Core\Serialization\JsonSerializer
- *
- * @uses   \CycloneDX\Core\Serialization\BaseSerializer
- * @uses   \CycloneDX\Core\Serialization\BomRefDiscriminator
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Serialization\JsonSerializer::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Serialization\BaseSerializer::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Serialization\BomRefDiscriminator::class)]
 class JsonSerializerTest extends TestCase
 {
-    /**
-     * @dataProvider dpSerializeStructure
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('dpSerializeStructure')]
     public function testSerialize(int $jsonEncodeFlags, ?bool $prettyPrint, array $normalized, string $expected): void
     {
         $bom = $this->createStub(Bom::class);
@@ -57,7 +52,7 @@ class JsonSerializerTest extends TestCase
         self::assertSame($expected, $actual);
     }
 
-    public function dpSerializeStructure(): Generator
+    public static function dpSerializeStructure(): Generator
     {
         $normalizedDummy = uniqid('normalized', true);
         $normalizedDummyJson = json_encode($normalizedDummy);

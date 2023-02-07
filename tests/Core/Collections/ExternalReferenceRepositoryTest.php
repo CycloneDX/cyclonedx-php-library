@@ -27,9 +27,7 @@ use CycloneDX\Core\Collections\ExternalReferenceRepository;
 use CycloneDX\Core\Models\ExternalReference;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \CycloneDX\Core\Collections\ExternalReferenceRepository
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Collections\ExternalReferenceRepository::class)]
 class ExternalReferenceRepositoryTest extends TestCase
 {
     public function testEmptyConstructor(): void

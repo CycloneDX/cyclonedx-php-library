@@ -37,11 +37,11 @@ use CycloneDX\Tests\_traits\DomNodeAssertionTrait;
 use DOMDocument;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \CycloneDX\Core\Serialization\DOM\Normalizers\BomNormalizer
- * @covers \CycloneDX\Core\Serialization\DOM\_BaseNormalizer
- * @covers \CycloneDX\Core\_helpers\SimpleDomTrait
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Serialization\DOM\Normalizers\BomNormalizer::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Serialization\DOM\_BaseNormalizer::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\_helpers\SimpleDomTrait::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Collections\ExternalReferenceRepository::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Collections\ExternalReferenceRepository::class)]
 class BomNormalizerTest extends TestCase
 {
     use DomNodeAssertionTrait;
@@ -291,9 +291,6 @@ class BomNormalizerTest extends TestCase
 
     // region external references
 
-    /**
-     * @uses \CycloneDX\Core\Collections\ExternalReferenceRepository
-     */
     public function testNormalizeExternalReferencesMergedIfUnsupportedMetadata(): void
     {
         $spec = $this->createConfiguredMock(Spec::class, [
@@ -347,9 +344,6 @@ class BomNormalizerTest extends TestCase
         );
     }
 
-    /**
-     * @uses \CycloneDX\Core\Collections\ExternalReferenceRepository
-     */
     public function testNormalizeExternalReferencesOmittedWHenEmpty(): void
     {
         $spec = $this->createConfiguredMock(Spec::class, [

@@ -35,13 +35,13 @@ use CycloneDX\Core\Spec\Spec;
 use CycloneDX\Core\Spec\Version;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \CycloneDX\Core\Serialization\JSON\Normalizers\BomNormalizer
- * @covers \CycloneDX\Core\Serialization\JSON\_BaseNormalizer
- *
- * @uses   \CycloneDX\Core\Serialization\JSON\Normalizers\DependenciesNormalizer
- * @uses   \CycloneDX\Core\Serialization\JSON\Normalizers\MetadataNormalizer
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Serialization\JSON\Normalizers\BomNormalizer::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Serialization\JSON\_BaseNormalizer::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Serialization\JSON\Normalizers\DependenciesNormalizer::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Serialization\JSON\Normalizers\MetadataNormalizer::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\_helpers\NullAssertionTrait::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Collections\ExternalReferenceRepository::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Collections\ExternalReferenceRepository::class)]
 class BomNormalizerTest extends TestCase
 {
     public function testNormalize(): void
@@ -118,9 +118,6 @@ class BomNormalizerTest extends TestCase
 
     // region metadata
 
-    /**
-     * @uses \CycloneDX\Core\_helpers\NullAssertionTrait
-     */
     public function testNormalizeMetadata(): void
     {
         $spec = $this->createConfiguredMock(
@@ -355,9 +352,6 @@ class BomNormalizerTest extends TestCase
 
     // region external references
 
-    /**
-     * @uses \CycloneDX\Core\Collections\ExternalReferenceRepository
-     */
     public function testNormalizeExternalReferencesMergedIfUnsupportedMetadata(): void
     {
         $spec = $this->createConfiguredMock(Spec::class, [
@@ -414,9 +408,6 @@ class BomNormalizerTest extends TestCase
         );
     }
 
-    /**
-     * @uses \CycloneDX\Core\Collections\ExternalReferenceRepository
-     */
     public function testNormalizeExternalReferencesOmittedWHenEmpty(): void
     {
         $spec = $this->createConfiguredMock(Spec::class, [

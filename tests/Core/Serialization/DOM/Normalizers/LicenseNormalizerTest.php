@@ -33,19 +33,21 @@ use CycloneDX\Tests\_traits\DomNodeAssertionTrait;
 use DOMDocument;
 use Generator;
 
-/**
- * @covers \CycloneDX\Core\Serialization\DOM\Normalizers\LicenseNormalizer
- * @covers \CycloneDX\Core\Serialization\DOM\_BaseNormalizer
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Serialization\DOM\Normalizers\LicenseNormalizer::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Serialization\DOM\_BaseNormalizer::class)]
 class LicenseNormalizerTest extends \PHPUnit\Framework\TestCase
 {
     use DomNodeAssertionTrait;
 
     /**
-     * @dataProvider dpNormalize
+     * @psalm-param class-string<LicenseExpression|SpdxLicense|NamedLicense> $licenseClass
+     * @psalm-param array<string,mixed> $licenseConfig
      */
-    public function testNormalize(LicenseExpression|SpdxLicense|NamedLicense $license, string $expectedXML): void
+    #[\PHPUnit\Framework\Attributes\DataProvider('dpNormalize')]
+    public function testNormalize(string $licenseClass, array $licenseConfig, string $expectedXML): void
     {
+        /** @var (LicenseExpression|SpdxLicense|NamedLicense)&\PHPUnit\Framework\MockObject\MockObject */
+        $license = $this->createConfiguredMock($licenseClass, $licenseConfig);
         $spec = $this->createMock(Spec::class);
         $factory = $this->createConfiguredMock(
             NormalizerFactory::class,
@@ -61,29 +63,29 @@ class LicenseNormalizerTest extends \PHPUnit\Framework\TestCase
         self::assertStringEqualsDomNode($expectedXML, $actual);
     }
 
-    public function dpNormalize(): Generator
+    public static function dpNormalize(): Generator
     {
         yield 'license expression' => [
-            $this->createConfiguredMock(LicenseExpression::class, [
+            LicenseExpression::class, [
                 'getExpression' => 'MIT OR Apache-2.0',
-            ]),
+            ],
             '<expression>MIT OR Apache-2.0</expression>',
         ];
         yield 'SPDX license' => [
-            $this->createConfiguredMock(SpdxLicense::class, [
+            SpdxLicense::class, [
                 'getId' => 'MIT',
                 'getUrl' => 'https://foo.bar',
-            ]),
+            ],
             '<license>'.
             '<id>MIT</id>'.
             '<url>https://foo.bar</url>'.
             '</license>',
         ];
         yield 'named license' => [
-            $this->createConfiguredMock(NamedLicense::class, [
+            NamedLicense::class, [
                 'getName' => 'copyright by the crew',
                 'getUrl' => 'https://foo.bar',
-            ]),
+            ],
             '<license>'.
             '<name>copyright by the crew</name>'.
             '<url>https://foo.bar</url>'.

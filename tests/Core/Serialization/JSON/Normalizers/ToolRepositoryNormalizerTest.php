@@ -32,15 +32,11 @@ use CycloneDX\Core\Spec\Spec;
 use DomainException;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \CycloneDX\Core\Serialization\JSON\Normalizers\ToolRepositoryNormalizer
- * @covers \CycloneDX\Core\Serialization\JSON\_BaseNormalizer
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Serialization\JSON\Normalizers\ToolRepositoryNormalizer::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Serialization\JSON\_BaseNormalizer::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Serialization\JSON\Normalizers\ToolNormalizer::class)]
 class ToolRepositoryNormalizerTest extends TestCase
 {
-    /**
-     * @uses \CycloneDX\Core\Serialization\JSON\Normalizers\ToolNormalizer
-     */
     public function testNormalizeEmpty(): void
     {
         $spec = $this->createStub(Spec::class);
@@ -98,8 +94,8 @@ class ToolRepositoryNormalizerTest extends TestCase
             'getItems' => [$tool1, $tool2],
         ]);
 
-        $toolNormalizer->expects(self::exactly(2))->method('normalize')
-            ->withConsecutive([$tool1], [$tool2])
+        $toolNormalizer->expects(self::exactly(2))
+            ->method('normalize')
             ->willThrowException(new DomainException());
 
         $actual = $normalizer->normalize($tools);

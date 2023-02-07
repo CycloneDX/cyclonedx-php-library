@@ -35,10 +35,9 @@ use Exception;
 use Generator;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \CycloneDX\Core\Serialization\JSON\Normalizers\DependenciesNormalizer
- * @covers \CycloneDX\Core\Serialization\JSON\_BaseNormalizer
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Serialization\JSON\Normalizers\DependenciesNormalizer::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Serialization\JSON\_BaseNormalizer::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Models\BomRef::class)]
 class DependenciesNormalizerTest extends TestCase
 {
     /**
@@ -59,11 +58,8 @@ class DependenciesNormalizerTest extends TestCase
 
     /**
      * @param string[] $expecteds
-     *
-     * @dataProvider dpNormalize
-     *
-     * @uses         \CycloneDX\Core\Models\BomRef
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('dpNormalize')]
     public function testNormalize(Bom $bom, array $expecteds): void
     {
         $actuals = $this->normalizer->normalize($bom);

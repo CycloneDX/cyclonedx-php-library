@@ -33,17 +33,12 @@ use DOMElement;
 use Generator;
 use UnexpectedValueException;
 
-/**
- * @covers \CycloneDX\Core\Serialization\DOM\Normalizers\ExternalReferenceRepositoryNormalizer
- * @covers \CycloneDX\Core\Serialization\DOM\_BaseNormalizer
- *
- * @uses \CycloneDX\Core\Serialization\DOM\Normalizers\ExternalReferenceNormalizer
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Serialization\DOM\Normalizers\ExternalReferenceRepositoryNormalizer::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Serialization\DOM\_BaseNormalizer::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Serialization\DOM\Normalizers\ExternalReferenceNormalizer::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Serialization\DOM\Normalizers\ToolNormalizer::class)]
 class ExternalReferenceRepositoryNormalizerTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @uses \CycloneDX\Core\Serialization\DOM\Normalizers\ToolNormalizer
-     */
     public function testNormalizeEmpty(): void
     {
         $spec = $this->createStub(Spec::class);
@@ -88,10 +83,9 @@ class ExternalReferenceRepositoryNormalizerTest extends \PHPUnit\Framework\TestC
     }
 
     /**
-     * @dataProvider dpNormalizeSkipsOnThrow
-     *
      * @psalm-param class-string<\Exception> $exceptionClass
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('dpNormalizeSkipsOnThrow')]
     public function testNormalizeSkipsOnThrow(string $exceptionClass): void
     {
         $spec = $this->createStub(Spec::class);
@@ -108,8 +102,8 @@ class ExternalReferenceRepositoryNormalizerTest extends \PHPUnit\Framework\TestC
             'getItems' => [$extRef1, $extRef2],
         ]);
 
-        $externalReferenceNormalizer->expects(self::exactly(2))->method('normalize')
-            ->withConsecutive([$extRef1], [$extRef2])
+        $externalReferenceNormalizer->expects(self::exactly(2))
+            ->method('normalize')
             ->willThrowException(new $exceptionClass());
 
         $actual = $normalizer->normalize($tools);
@@ -117,7 +111,7 @@ class ExternalReferenceRepositoryNormalizerTest extends \PHPUnit\Framework\TestC
         self::assertSame([], $actual);
     }
 
-    public function dpNormalizeSkipsOnThrow(): Generator
+    public static function dpNormalizeSkipsOnThrow(): Generator
     {
         yield 'DomainException' => [DomainException::class];
         yield 'UnexpectedValueException' => [UnexpectedValueException::class];

@@ -38,10 +38,11 @@ use Generator;
 use PackageUrl\PackageUrl;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \CycloneDX\Core\Serialization\JSON\Normalizers\ComponentNormalizer
- * @covers \CycloneDX\Core\Serialization\JSON\_BaseNormalizer
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Serialization\JSON\Normalizers\ComponentNormalizer::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Serialization\JSON\_BaseNormalizer::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Models\BomRef::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Serialization\DOM\Normalizers\PropertyRepositoryNormalizer::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Serialization\JSON\Normalizers\PropertyRepositoryNormalizer::class)]
 class ComponentNormalizerTest extends TestCase
 {
     public function testNormalizeThrowsOnUnsupportedType(): void
@@ -68,9 +69,7 @@ class ComponentNormalizerTest extends TestCase
         $normalizer->normalize($component);
     }
 
-    /**
-     * @dataProvider dptNormalizeMinimal
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('dptNormalizeMinimal')]
     public function testNormalizeMinimal(array $expected, bool $requiresComponentVersion): void
     {
         $component = $this->createConfiguredMock(
@@ -103,7 +102,7 @@ class ComponentNormalizerTest extends TestCase
         self::assertSame($expected, $actual);
     }
 
-    public function dptNormalizeMinimal(): Generator
+    public static function dptNormalizeMinimal(): Generator
     {
         yield 'mandatory Component Version' => [
             [
@@ -122,9 +121,6 @@ class ComponentNormalizerTest extends TestCase
         ];
     }
 
-    /**
-     * @uses \CycloneDX\Core\Models\BomRef
-     */
     public function testNormalizeFull(): void
     {
         $component = $this->createConfiguredMock(
@@ -339,9 +335,6 @@ class ComponentNormalizerTest extends TestCase
 
     // endregion normalize ExternalReferences
 
-    /**
-     * @uses \CycloneDX\Core\Serialization\DOM\Normalizers\PropertyRepositoryNormalizer
-     */
     public function testNormalizeProperties(): void
     {
         $component = $this->createConfiguredMock(
@@ -381,9 +374,6 @@ class ComponentNormalizerTest extends TestCase
         ], $actual);
     }
 
-    /**
-     * @uses \CycloneDX\Core\Serialization\JSON\Normalizers\PropertyRepositoryNormalizer
-     */
     public function testNormalizePropertiesOmitWhenEmpty(): void
     {
         $component = $this->createConfiguredMock(

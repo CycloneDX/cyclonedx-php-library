@@ -32,14 +32,11 @@ use CycloneDX\Core\Spec\Spec;
 use CycloneDX\Tests\_traits\DomNodeAssertionTrait;
 use DomainException;
 use DOMDocument;
-use Exception;
 use Generator;
 use UnexpectedValueException;
 
-/**
- * @covers \CycloneDX\Core\Serialization\DOM\Normalizers\ExternalReferenceNormalizer
- * @covers \CycloneDX\Core\Serialization\DOM\_BaseNormalizer
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Serialization\DOM\Normalizers\ExternalReferenceNormalizer::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Serialization\DOM\_BaseNormalizer::class)]
 class ExternalReferenceNormalizerTest extends \PHPUnit\Framework\TestCase
 {
     use DomNodeAssertionTrait;
@@ -71,9 +68,7 @@ class ExternalReferenceNormalizerTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @dataProvider dpThrowOnUnsupportedUrl
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('dpThrowOnUnsupportedUrl')]
     public function testThrowOnUnsupportedUrl(string $unsupportedURL): void
     {
         $spec = $this->createMock(Spec::class);
@@ -92,7 +87,7 @@ class ExternalReferenceNormalizerTest extends \PHPUnit\Framework\TestCase
         $normalizer->normalize($extRef);
     }
 
-    public function dpThrowOnUnsupportedUrl(): Generator
+    public static function dpThrowOnUnsupportedUrl(): Generator
     {
         yield 'multiple #' => ['https://example.com#foo#bar'];
     }
@@ -114,8 +109,10 @@ class ExternalReferenceNormalizerTest extends \PHPUnit\Framework\TestCase
 
         $spec->expects(self::exactly(2))
             ->method('isSupportedExternalReferenceType')
-            ->withConsecutive([ExternalReferenceType::BOM], [ExternalReferenceType::OTHER])
-            ->willReturn(false);
+            ->willReturnMap([
+                [ExternalReferenceType::BOM, false],
+                [ExternalReferenceType::OTHER, false],
+            ]);
 
         $this->expectException(DomainException::class);
         $this->expectExceptionMessage('ExternalReference has unsupported type: BOM');
@@ -138,7 +135,6 @@ class ExternalReferenceNormalizerTest extends \PHPUnit\Framework\TestCase
 
         $spec->expects(self::exactly(2))
             ->method('isSupportedExternalReferenceType')
-            ->withConsecutive([ExternalReferenceType::BOM], [ExternalReferenceType::OTHER])
             ->willReturnMap([
                 [ExternalReferenceType::BOM, false],
                 [ExternalReferenceType::OTHER, true],
@@ -219,9 +215,6 @@ class ExternalReferenceNormalizerTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @throws Exception on assertion error
-     */
     public function testNormalizeHashesOmitIfEmpty(): void
     {
         $spec = $this->createConfiguredMock(Spec::class, [
@@ -256,9 +249,6 @@ class ExternalReferenceNormalizerTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @throws Exception on assertion error
-     */
     public function testNormalizeHashesOmitIfNotSupported(): void
     {
         $spec = $this->createConfiguredMock(Spec::class, [
@@ -295,9 +285,7 @@ class ExternalReferenceNormalizerTest extends \PHPUnit\Framework\TestCase
 
     // endregion normalize hashes
 
-    /**
-     * @dataProvider \CycloneDX\Tests\_data\XmlAnyUriData::dpEncodeAnyUri()
-     */
+    #[\PHPUnit\Framework\Attributes\DataProviderExternal(\CycloneDX\Tests\_data\XmlAnyUriData::class, 'dpEncodeAnyUri')]
     public function testNormalizeUrlEncodeAnyUri(string $rawUrl, string $encodedUrl): void
     {
         $spec = $this->createMock(Spec::class);

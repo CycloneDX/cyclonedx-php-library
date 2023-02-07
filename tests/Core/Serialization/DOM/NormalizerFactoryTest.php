@@ -31,11 +31,23 @@ use DomainException;
 use DOMDocument;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \CycloneDX\Core\Serialization\DOM\NormalizerFactory
- *
- * @uses   \CycloneDX\Core\Serialization\DOM\_BaseNormalizer
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Serialization\DOM\NormalizerFactory::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Serialization\DOM\_BaseNormalizer::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Serialization\DOM\Normalizers\ComponentRepositoryNormalizer::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Serialization\DOM\Normalizers\BomNormalizer::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Serialization\DOM\Normalizers\LicenseNormalizer::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Serialization\DOM\Normalizers\LicenseRepositoryNormalizer::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Serialization\DOM\Normalizers\HashDictionaryNormalizer::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Serialization\DOM\Normalizers\ComponentNormalizer::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Serialization\DOM\Normalizers\HashNormalizer::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Serialization\DOM\Normalizers\MetadataNormalizer::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Serialization\DOM\Normalizers\ToolRepositoryNormalizer::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Serialization\DOM\Normalizers\ToolNormalizer::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Serialization\DOM\Normalizers\ToolNormalizer::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Serialization\DOM\Normalizers\ExternalReferenceNormalizer::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Serialization\DOM\Normalizers\ExternalReferenceRepositoryNormalizer::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Serialization\DOM\Normalizers\PropertyNormalizer::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Serialization\DOM\Normalizers\PropertyRepositoryNormalizer::class)]
 class NormalizerFactoryTest extends TestCase
 {
     public function testConstructor(): NormalizerFactory
@@ -70,11 +82,7 @@ class NormalizerFactoryTest extends TestCase
         new NormalizerFactory($spec);
     }
 
-    /**
-     * @depends testConstructor
-     *
-     * @uses \CycloneDX\Core\Serialization\DOM\Normalizers\ComponentRepositoryNormalizer
-     */
+    #[\PHPUnit\Framework\Attributes\Depends('testConstructor')]
     public function testMakeForComponentRepository(NormalizerFactory $factory): void
     {
         $normalizer = $factory->makeForComponentRepository();
@@ -82,11 +90,7 @@ class NormalizerFactoryTest extends TestCase
         self::assertSame($factory, $normalizer->getNormalizerFactory());
     }
 
-    /**
-     * @depends testConstructor
-     *
-     * @uses \CycloneDX\Core\Serialization\DOM\Normalizers\BomNormalizer
-     */
+    #[\PHPUnit\Framework\Attributes\Depends('testConstructor')]
     public function testMakeForBom(NormalizerFactory $factory): void
     {
         $normalizer = $factory->makeForBom();
@@ -94,11 +98,7 @@ class NormalizerFactoryTest extends TestCase
         self::assertSame($factory, $normalizer->getNormalizerFactory());
     }
 
-    /**
-     * @depends testConstructor
-     *
-     * @uses \CycloneDX\Core\Serialization\DOM\Normalizers\LicenseNormalizer
-     */
+    #[\PHPUnit\Framework\Attributes\Depends('testConstructor')]
     public function testMakeForLicense(NormalizerFactory $factory): void
     {
         $normalizer = $factory->makeForLicense();
@@ -106,11 +106,7 @@ class NormalizerFactoryTest extends TestCase
         self::assertSame($factory, $normalizer->getNormalizerFactory());
     }
 
-    /**
-     * @depends testConstructor
-     *
-     * @uses \CycloneDX\Core\Serialization\DOM\Normalizers\LicenseRepositoryNormalizer
-     */
+    #[\PHPUnit\Framework\Attributes\Depends('testConstructor')]
     public function testMakeForDisjunctiveLicense(NormalizerFactory $factory): void
     {
         $normalizer = $factory->makeForLicenseRepository();
@@ -118,11 +114,7 @@ class NormalizerFactoryTest extends TestCase
         self::assertSame($factory, $normalizer->getNormalizerFactory());
     }
 
-    /**
-     * @depends testConstructor
-     *
-     * @uses \CycloneDX\Core\Serialization\DOM\Normalizers\HashDictionaryNormalizer
-     */
+    #[\PHPUnit\Framework\Attributes\Depends('testConstructor')]
     public function testMakeForHashDictionary(NormalizerFactory $factory): void
     {
         $normalizer = $factory->makeForHashDictionary();
@@ -130,11 +122,7 @@ class NormalizerFactoryTest extends TestCase
         self::assertSame($factory, $normalizer->getNormalizerFactory());
     }
 
-    /**
-     * @depends testConstructor
-     *
-     * @uses \CycloneDX\Core\Serialization\DOM\Normalizers\ComponentNormalizer
-     */
+    #[\PHPUnit\Framework\Attributes\Depends('testConstructor')]
     public function testMakeForComponent(NormalizerFactory $factory): void
     {
         $normalizer = $factory->makeForComponent();
@@ -142,11 +130,7 @@ class NormalizerFactoryTest extends TestCase
         self::assertSame($factory, $normalizer->getNormalizerFactory());
     }
 
-    /**
-     * @depends testConstructor
-     *
-     * @uses \CycloneDX\Core\Serialization\DOM\Normalizers\HashNormalizer
-     */
+    #[\PHPUnit\Framework\Attributes\Depends('testConstructor')]
     public function testMakeForHash(NormalizerFactory $factory): void
     {
         $normalizer = $factory->makeForHash();
@@ -154,11 +138,7 @@ class NormalizerFactoryTest extends TestCase
         self::assertSame($factory, $normalizer->getNormalizerFactory());
     }
 
-    /**
-     * @depends testConstructor
-     *
-     * @uses \CycloneDX\Core\Serialization\DOM\Normalizers\MetadataNormalizer
-     */
+    #[\PHPUnit\Framework\Attributes\Depends('testConstructor')]
     public function testMakeForMetadata(NormalizerFactory $factory): void
     {
         $normalizer = $factory->makeForMetadata();
@@ -166,11 +146,7 @@ class NormalizerFactoryTest extends TestCase
         self::assertSame($factory, $normalizer->getNormalizerFactory());
     }
 
-    /**
-     * @depends testConstructor
-     *
-     * @uses \CycloneDX\Core\Serialization\DOM\Normalizers\ToolRepositoryNormalizer
-     */
+    #[\PHPUnit\Framework\Attributes\Depends('testConstructor')]
     public function testMakeForToolRepository(NormalizerFactory $factory): void
     {
         $normalizer = $factory->makeForToolRepository();
@@ -178,11 +154,7 @@ class NormalizerFactoryTest extends TestCase
         self::assertSame($factory, $normalizer->getNormalizerFactory());
     }
 
-    /**
-     * @depends testConstructor
-     *
-     * @uses \CycloneDX\Core\Serialization\DOM\Normalizers\ToolNormalizer
-     */
+    #[\PHPUnit\Framework\Attributes\Depends('testConstructor')]
     public function testMakeForTool(NormalizerFactory $factory): void
     {
         $normalizer = $factory->makeForTool();
@@ -190,11 +162,7 @@ class NormalizerFactoryTest extends TestCase
         self::assertSame($factory, $normalizer->getNormalizerFactory());
     }
 
-    /**
-     * @depends testConstructor
-     *
-     * @uses \CycloneDX\Core\Serialization\DOM\Normalizers\ToolNormalizer
-     */
+    #[\PHPUnit\Framework\Attributes\Depends('testConstructor')]
     public function testMakeForDependencies(NormalizerFactory $factory): void
     {
         $normalizer = $factory->makeForDependencies();
@@ -202,11 +170,7 @@ class NormalizerFactoryTest extends TestCase
         self::assertSame($factory, $normalizer->getNormalizerFactory());
     }
 
-    /**
-     * @depends testConstructor
-     *
-     * @uses    \CycloneDX\Core\Serialization\DOM\Normalizers\ExternalReferenceNormalizer
-     */
+    #[\PHPUnit\Framework\Attributes\Depends('testConstructor')]
     public function testMakeForExternalReference(NormalizerFactory $factory): void
     {
         $normalizer = $factory->makeForExternalReference();
@@ -214,11 +178,7 @@ class NormalizerFactoryTest extends TestCase
         self::assertSame($factory, $normalizer->getNormalizerFactory());
     }
 
-    /**
-     * @depends testConstructor
-     *
-     * @uses    \CycloneDX\Core\Serialization\DOM\Normalizers\ExternalReferenceRepositoryNormalizer
-     */
+    #[\PHPUnit\Framework\Attributes\Depends('testConstructor')]
     public function testMakeForExternalReferenceRepository(NormalizerFactory $factory): void
     {
         $normalizer = $factory->makeForExternalReferenceRepository();
@@ -226,11 +186,7 @@ class NormalizerFactoryTest extends TestCase
         self::assertSame($factory, $normalizer->getNormalizerFactory());
     }
 
-    /**
-     * @depends testConstructor
-     *
-     * @uses    \CycloneDX\Core\Serialization\DOM\Normalizers\PropertyNormalizer
-     */
+    #[\PHPUnit\Framework\Attributes\Depends('testConstructor')]
     public function testMakeForProperty(NormalizerFactory $factory): void
     {
         $normalizer = $factory->makeForProperty();
@@ -238,11 +194,7 @@ class NormalizerFactoryTest extends TestCase
         self::assertSame($factory, $normalizer->getNormalizerFactory());
     }
 
-    /**
-     * @depends testConstructor
-     *
-     * @uses    \CycloneDX\Core\Serialization\DOM\Normalizers\PropertyRepositoryNormalizer
-     */
+    #[\PHPUnit\Framework\Attributes\Depends('testConstructor')]
     public function testMakeForPropertyRepository(NormalizerFactory $factory): void
     {
         $normalizer = $factory->makeForPropertyRepository();

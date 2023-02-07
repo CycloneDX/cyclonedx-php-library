@@ -26,9 +26,7 @@ namespace CycloneDX\Tests\Core\Models;
 use CycloneDX\Core\Models\Property;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \CycloneDX\Core\Models\Property
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Models\Property::class)]
 class PropertyTest extends TestCase
 {
     public function testConstruct(): Property
@@ -44,23 +42,23 @@ class PropertyTest extends TestCase
         return $property;
     }
 
-    /**
-     * @depends testConstruct
-     */
+    #[\PHPUnit\Framework\Attributes\DependsUsingShallowClone('testConstruct')]
     public function testSetterGetterName(Property $property): void
     {
         $name = uniqid('testingName', true);
-        $property->setName($name);
+        self::assertNotSame($name, $property->getName());
+        $actual = $property->setName($name);
+        self::assertSame($actual, $property);
         self::assertSame($name, $property->getName());
     }
 
-    /**
-     * @depends testConstruct
-     */
+    #[\PHPUnit\Framework\Attributes\DependsUsingShallowClone('testConstruct')]
     public function testSetterGetterValue(Property $property): void
     {
         $value = uniqid('testingValue', true);
-        $property->setValue($value);
+        self::assertNotSame($value, $property->getValue());
+        $actual = $property->setValue($value);
+        self::assertSame($actual, $property);
         self::assertSame($value, $property->getValue());
     }
 }

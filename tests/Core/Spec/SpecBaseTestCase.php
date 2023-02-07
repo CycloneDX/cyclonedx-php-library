@@ -35,21 +35,21 @@ use PHPUnit\Framework\TestCase;
 
 abstract class SpecBaseTestCase extends TestCase
 {
-    abstract protected function getSpec(): Spec;
+    abstract protected static function getSpec(): Spec;
 
-    abstract protected function getSpecVersion(): Version;
+    abstract protected static function getSpecVersion(): Version;
 
     final public function testVersionMatches(): void
     {
-        $version = $this->getSpec()->getVersion();
-        self::assertSame($this->getSpecVersion(), $version);
+        $version = static::getSpec()->getVersion();
+        self::assertSame(static::getSpecVersion(), $version);
     }
 
-    abstract protected function shouldSupportFormats(): array;
+    abstract protected static function shouldSupportFormats(): array;
 
     final public function testKnownFormats(): array
     {
-        $formats = $this->shouldSupportFormats();
+        $formats = static::shouldSupportFormats();
 
         self::assertIsArray($formats);
         self::assertNotEmpty($formats);
@@ -57,86 +57,76 @@ abstract class SpecBaseTestCase extends TestCase
         return $formats;
     }
 
-    /**
-     * @dataProvider dpIsSupportsFormat
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('dpIsSupportsFormat')]
     final public function testIsSupportedFormat(Format $format, bool $expected): void
     {
-        $isSupported = $this->getSpec()->isSupportedFormat($format);
+        $isSupported = static::getSpec()->isSupportedFormat($format);
         self::assertSame($expected, $isSupported);
     }
 
-    final public function dpIsSupportsFormat(): Generator
+    final public static function dpIsSupportsFormat(): Generator
     {
-        $should = $this->shouldSupportFormats();
+        $should = static::shouldSupportFormats();
         foreach (Format::cases() as $format) {
             yield $format->name => [$format, \in_array($format, $should, true)];
         }
     }
 
-    /**
-     * @dataProvider dpIsSupportedComponentType
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('dpIsSupportedComponentType')]
     final public function testIsSupportedComponentType(ComponentType $value, bool $expected): void
     {
-        $isSupported = $this->getSpec()->isSupportedComponentType($value);
+        $isSupported = static::getSpec()->isSupportedComponentType($value);
         self::assertSame($expected, $isSupported);
     }
 
-    final public function dpIsSupportedComponentType(): Generator
+    final public static function dpIsSupportedComponentType(): Generator
     {
-        $known = BomSpecData::getClassificationEnumForVersion($this->getSpecVersion()->value);
+        $known = BomSpecData::getClassificationEnumForVersion(static::getSpecVersion()->value);
         $values = ComponentType::cases();
         foreach ($values as $value) {
             yield $value->name => [$value, \in_array($value->value, $known, true)];
         }
     }
 
-    /**
-     * @dataProvider dpIsSupportedHashAlgorithm
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('dpIsSupportedHashAlgorithm')]
     final public function testIsSupportedHashAlgorithm(HashAlgorithm $value, bool $expected): void
     {
-        $isSupported = $this->getSpec()->isSupportedHashAlgorithm($value);
+        $isSupported = static::getSpec()->isSupportedHashAlgorithm($value);
         self::assertSame($expected, $isSupported);
     }
 
-    final public function dpIsSupportedHashAlgorithm(): Generator
+    final public static function dpIsSupportedHashAlgorithm(): Generator
     {
-        $known = BomSpecData::getHashAlgEnumForVersion($this->getSpecVersion()->value);
+        $known = BomSpecData::getHashAlgEnumForVersion(static::getSpecVersion()->value);
         $values = HashAlgorithm::cases();
         foreach ($values as $value) {
             yield $value->name => [$value, \in_array($value->value, $known, true)];
         }
     }
 
-    /**
-     * @dataProvider dpIsSupportedHashContent
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('dpIsSupportedHashContent')]
     final public function testIsSupportedHashContent(string $value, bool $expected): void
     {
-        $isSupported = $this->getSpec()->isSupportedHashContent($value);
+        $isSupported = static::getSpec()->isSupportedHashContent($value);
         self::assertSame($expected, $isSupported);
     }
 
-    final public function dpIsSupportedHashContent(): Generator
+    final public static function dpIsSupportedHashContent(): Generator
     {
         yield 'crap' => ['this is an invalid hash', false];
         yield 'valid sha1' => ['a052cfe45093f1c2d26bd854d06aa370ceca3b38', true];
     }
 
-    /**
-     * @dataProvider dpIsSupportedExternalReferenceType
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('dpIsSupportedExternalReferenceType')]
     final public function testIsSupportedExternalReferenceType(ExternalReferenceType $value, bool $expected): void
     {
-        $isSupported = $this->getSpec()->isSupportedExternalReferenceType($value);
+        $isSupported = static::getSpec()->isSupportedExternalReferenceType($value);
         self::assertSame($expected, $isSupported);
     }
 
-    final public function dpIsSupportedExternalReferenceType(): Generator
+    final public static function dpIsSupportedExternalReferenceType(): Generator
     {
-        $known = BomSpecData::getExternalReferenceTypeForVersion($this->getSpecVersion()->value);
+        $known = BomSpecData::getExternalReferenceTypeForVersion(static::getSpecVersion()->value);
         $values = ExternalReferenceType::cases();
         foreach ($values as $value) {
             yield $value->name => [$value, \in_array($value->value, $known, true)];
@@ -145,73 +135,73 @@ abstract class SpecBaseTestCase extends TestCase
 
     final public function testSupportsLicenseExpression(): void
     {
-        $isSupported = $this->getSpec()->supportsLicenseExpression();
-        self::assertSame($this->shouldSupportLicenseExpression(), $isSupported);
+        $isSupported = static::getSpec()->supportsLicenseExpression();
+        self::assertSame(static::shouldSupportLicenseExpression(), $isSupported);
     }
 
-    abstract public function shouldSupportLicenseExpression(): bool;
+    abstract protected static function shouldSupportLicenseExpression(): bool;
 
     final public function testSupportsMetadata(): void
     {
-        $isSupported = $this->getSpec()->supportsMetadata();
-        self::assertSame($this->shouldSupportMetadata(), $isSupported);
+        $isSupported = static::getSpec()->supportsMetadata();
+        self::assertSame(static::shouldSupportMetadata(), $isSupported);
     }
 
-    abstract public function shouldSupportMetadata(): bool;
+    abstract protected static function shouldSupportMetadata(): bool;
 
     final public function testSupportsBomRef(): void
     {
-        $isSupported = $this->getSpec()->supportsBomRef();
-        self::assertSame($this->shouldSupportBomRef(), $isSupported);
+        $isSupported = static::getSpec()->supportsBomRef();
+        self::assertSame(static::shouldSupportBomRef(), $isSupported);
     }
 
-    abstract public function shouldSupportBomRef(): bool;
+    abstract protected static function shouldSupportBomRef(): bool;
 
     final public function testSupportsDependencies(): void
     {
-        $isSupported = $this->getSpec()->supportsDependencies();
-        self::assertSame($this->shouldSupportDependencies(), $isSupported);
+        $isSupported = static::getSpec()->supportsDependencies();
+        self::assertSame(static::shouldSupportDependencies(), $isSupported);
     }
 
-    abstract public function shouldSupportDependencies(): bool;
+    abstract protected static function shouldSupportDependencies(): bool;
 
-    final public function testSupportsExternalReferenceHashes(): void
+    final public static function testSupportsExternalReferenceHashes(): void
     {
-        $isSupported = $this->getSpec()->supportsExternalReferenceHashes();
-        self::assertSame($this->shouldSupportExternalReferenceHashes(), $isSupported);
+        $isSupported = static::getSpec()->supportsExternalReferenceHashes();
+        self::assertSame(static::shouldSupportExternalReferenceHashes(), $isSupported);
     }
 
-    abstract public function shouldSupportExternalReferenceHashes(): bool;
+    abstract protected static function shouldSupportExternalReferenceHashes(): bool;
 
     final public function testRequiresComponentVersion(): void
     {
-        $isSupported = $this->getSpec()->requiresComponentVersion();
-        self::assertSame($this->shouldRequireComponentVersion(), $isSupported);
+        $isSupported = static::getSpec()->requiresComponentVersion();
+        self::assertSame(static::shouldRequireComponentVersion(), $isSupported);
     }
 
-    abstract public function shouldRequireComponentVersion(): bool;
+    abstract protected static function shouldRequireComponentVersion(): bool;
 
     final public function testSupportsToolExternalReferences(): void
     {
-        $isSupported = $this->getSpec()->supportsToolExternalReferences();
-        self::assertSame($this->shouldSupportToolExternalReferences(), $isSupported);
+        $isSupported = static::getSpec()->supportsToolExternalReferences();
+        self::assertSame(static::shouldSupportToolExternalReferences(), $isSupported);
     }
 
-    abstract public function shouldSupportToolExternalReferences(): bool;
+    abstract protected static function shouldSupportToolExternalReferences(): bool;
 
     final public function testSupportsMetadataProperties(): void
     {
-        $isSupported = $this->getSpec()->supportsMetadataProperties();
-        self::assertSame($this->shouldSupportMetadataProperties(), $isSupported);
+        $isSupported = static::getSpec()->supportsMetadataProperties();
+        self::assertSame(static::shouldSupportMetadataProperties(), $isSupported);
     }
 
-    abstract public function shouldSupportMetadataProperties(): bool;
+    abstract protected static function shouldSupportMetadataProperties(): bool;
 
     final public function testSupportsComponentProperties(): void
     {
-        $isSupported = $this->getSpec()->supportsComponentProperties();
-        self::assertSame($this->shouldSupportComponentProperties(), $isSupported);
+        $isSupported = static::getSpec()->supportsComponentProperties();
+        self::assertSame(static::shouldSupportComponentProperties(), $isSupported);
     }
 
-    abstract public function shouldSupportComponentProperties(): bool;
+    abstract protected static function shouldSupportComponentProperties(): bool;
 }

@@ -33,11 +33,11 @@ use PHPUnit\Framework\Constraint\IsInstanceOf;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 
-/**
- * @covers \CycloneDX\Core\Validation\Validators\JsonStrictValidator
- * @covers \CycloneDX\Core\Validation\Validators\JsonValidator
- * @covers \CycloneDX\Core\Validation\BaseValidator
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Validation\Validators\JsonStrictValidator::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Validation\Validators\JsonValidator::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Validation\BaseValidator::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Validation\Errors\JsonValidationError::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Validation\ValidationError::class)]
 class JsonStrictValidatorTest extends TestCase
 {
     public function testConstructor(): JsonStrictValidator
@@ -117,10 +117,6 @@ class JsonStrictValidatorTest extends TestCase
         self::assertNull($error);
     }
 
-    /**
-     * @uses \CycloneDX\Core\Validation\Errors\JsonValidationError
-     * @uses \CycloneDX\Core\Validation\ValidationError
-     */
     public function testValidateDataFails(): void
     {
         $spec = $this->createConfiguredMock(Spec::class, ['getVersion' => Version::v1dot2]);

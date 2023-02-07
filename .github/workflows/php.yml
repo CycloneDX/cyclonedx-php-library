@@ -18,7 +18,25 @@ env:
   REPORTS_DIR: CI_reports
 
 jobs:
-  tests:
+  composer-validate:
+    name: composer validate
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        # see https://github.com/actions/checkout
+        uses: actions/checkout@v3
+      - name: Setup PHP
+        # see https://github.com/shivammathur/setup-php
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ env.PHP_VERSION_LATEST }}
+          extensions: ${{ env.PHP_PROJECT_EXT }}
+          tools: composer:v2
+          coverage: none
+      - name: Validate composer.json and composer.lock
+        run: composer validate --no-interaction
+  phpunit:
     name: Tests (${{ matrix.os}}, ${{ matrix.php }}, ${{ matrix.dependencies }})
     runs-on: ${{ matrix.os }}
     env:
@@ -61,7 +79,7 @@ jobs:
           php-version: ${{ matrix.php }}
           extensions: ${{ env.PHP_PROJECT_EXT }}
           tools: composer:v2
-          coverage: pcov,xdebug
+          coverage: xdebug
       - name: Get composer cache directory
         id: composer-cache
         shell: bash
@@ -76,10 +94,9 @@ jobs:
             composer-${{ github.job }}-${{ runner.os }}-${{ matrix.php }}-${{ matrix.dependencies }}-
             composer-${{ github.job }}-${{ runner.os }}-${{ matrix.php }}-
             composer-${{ github.job }}-${{ runner.os }}-
-      - name: Validate composer.json and composer.lock
-        run: >
-          composer validate
-          --no-interaction
+      - name: Install PHPUnit
+        run: composer install --prefer-dist --no-interaction --no-progress
+        working-directory: tools/phpunit
       - name: Install lowest dependencies
         if: ${{ matrix.dependencies == 'lowest' }}
         run: |
@@ -96,7 +113,8 @@ jobs:
           -d memory_limit=-1
           -d xdebug.mode=coverage
           -d pcov.enabled=1 -d pcov.directory=src
-          vendor/phpunit/phpunit/phpunit
+          tools/phpunit/vendor/phpunit/phpunit/phpunit
+          --no-progress
           --log-junit=${{ env.REPORTS_DIR }}/tests.${{ matrix.os }}_php${{ matrix.php }}_${{ matrix.dependencies }}.junit.xml
           --coverage-clover=${{ env.REPORTS_DIR }}/coverage.${{ matrix.os}}_php${{ matrix.php }}_${{ matrix.dependencies }}.clover.xml
       - name: Artifact reports

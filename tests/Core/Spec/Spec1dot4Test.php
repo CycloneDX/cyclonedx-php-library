@@ -28,69 +28,66 @@ use CycloneDX\Core\Spec\Spec;
 use CycloneDX\Core\Spec\SpecFactory;
 use CycloneDX\Core\Spec\Version;
 
-/**
- * @covers \CycloneDX\Core\Spec\_Spec
- *
- * @uses \CycloneDX\Core\Spec\SpecFactory
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Spec\_Spec::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Spec\SpecFactory::class)]
 class Spec1dot4Test extends SpecBaseTestCase
 {
-    protected function getSpec(): Spec
+    protected static function getSpec(): Spec
     {
         return SpecFactory::make1dot4();
     }
 
-    protected function getSpecVersion(): Version
+    protected static function getSpecVersion(): Version
     {
         return Version::v1dot4;
     }
 
-    protected function shouldSupportFormats(): array
+    protected static function shouldSupportFormats(): array
     {
         return [Format::XML, Format::JSON];
     }
 
-    public function shouldSupportLicenseExpression(): bool
+    protected static function shouldSupportLicenseExpression(): bool
     {
         return true;
     }
 
-    public function shouldSupportMetadata(): bool
+    protected static function shouldSupportMetadata(): bool
     {
         return true;
     }
 
-    public function shouldSupportBomRef(): bool
+    protected static function shouldSupportBomRef(): bool
     {
         return true;
     }
 
-    public function shouldSupportDependencies(): bool
+    protected static function shouldSupportDependencies(): bool
     {
         return true;
     }
 
-    public function shouldSupportExternalReferenceHashes(): bool
+    protected static function shouldSupportExternalReferenceHashes(): bool
     {
         return true;
     }
 
-    public function shouldRequireComponentVersion(): bool
+    protected static function shouldRequireComponentVersion(): bool
     {
         return false;
     }
 
-    public function shouldSupportToolExternalReferences(): bool
+    protected static function shouldSupportToolExternalReferences(): bool
     {
         return true;
     }
 
-    public function shouldSupportMetadataProperties(): bool
+    protected static function shouldSupportMetadataProperties(): bool
     {
         return true;
     }
 
-    public function shouldSupportComponentProperties(): bool
+    protected static function shouldSupportComponentProperties(): bool
     {
         return true;
     }

@@ -33,11 +33,9 @@ use DomainException;
 use DOMElement;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \CycloneDX\Core\Serialization\DOM\Normalizers\ComponentRepositoryNormalizer
- * @covers \CycloneDX\Core\Serialization\DOM\_BaseNormalizer
- * @covers \CycloneDX\Core\_helpers\SimpleDomTrait
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Serialization\DOM\Normalizers\ComponentRepositoryNormalizer::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Serialization\DOM\_BaseNormalizer::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\_helpers\SimpleDomTrait::class)]
 class ComponentRepositoryNormalizerTest extends TestCase
 {
     public function testNormalizeEmpty(): void
@@ -93,8 +91,8 @@ class ComponentRepositoryNormalizerTest extends TestCase
             'getItems' => [$component1, $component2],
         ]);
 
-        $componentNormalizer->expects(self::exactly(2))->method('normalize')
-            ->withConsecutive([$component1], [$component2])
+        $componentNormalizer->expects(self::exactly(2))
+            ->method('normalize')
             ->willThrowException(new DomainException());
 
         $got = $normalizer->normalize($components);

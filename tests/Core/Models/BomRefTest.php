@@ -26,9 +26,7 @@ namespace CycloneDX\Tests\Core\Models;
 use CycloneDX\Core\Models\BomRef;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \CycloneDX\Core\Models\BomRef
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Models\BomRef::class)]
 class BomRefTest extends TestCase
 {
     public function testConstructValueDefaultsToNull(): BomRef
@@ -49,27 +47,21 @@ class BomRefTest extends TestCase
         return $bomRef;
     }
 
-    /**
-     * @depends testConstructSetsValue
-     */
+    #[\PHPUnit\Framework\Attributes\DependsUsingShallowClone('testConstructSetsValue')]
     public function testSetValueNull(BomRef $bomRef): void
     {
         $bomRef->setValue(null);
         self::assertNull($bomRef->getValue());
     }
 
-    /**
-     * @depends testConstructSetsValue
-     */
+    #[\PHPUnit\Framework\Attributes\DependsUsingShallowClone('testConstructSetsValue')]
     public function testSetValueEmptyIsNull(BomRef $bomRef): void
     {
         $bomRef->setValue('');
         self::assertNull($bomRef->getValue());
     }
 
-    /**
-     * @depends testConstructValueDefaultsToNull
-     */
+    #[\PHPUnit\Framework\Attributes\DependsUsingShallowClone('testConstructValueDefaultsToNull')]
     public function testSetValue(BomRef $bomRef): void
     {
         $bomRef->setValue('asdewqe');

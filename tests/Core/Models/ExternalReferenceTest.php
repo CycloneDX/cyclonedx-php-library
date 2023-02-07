@@ -28,11 +28,8 @@ use CycloneDX\Core\Enums\ExternalReferenceType;
 use CycloneDX\Core\Models\ExternalReference;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \CycloneDX\Core\Models\ExternalReference
- *
- * @uses  \CycloneDX\Core\Collections\HashDictionary
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Models\ExternalReference::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Collections\HashDictionary::class)]
 class ExternalReferenceTest extends TestCase
 {
     public function testConstructor(): ExternalReference
@@ -49,11 +46,10 @@ class ExternalReferenceTest extends TestCase
 
     // region test Type
 
-    /**
-     * @depends testConstructor
-     */
+    #[\PHPUnit\Framework\Attributes\DependsUsingShallowClone('testConstructor')]
     public function testTypeSetterAndGetter(ExternalReference $extRef): void
     {
+        $this->assertNotSame(ExternalReferenceType::CHAT, $extRef->getType());
         $got = $extRef->setType(ExternalReferenceType::CHAT);
         $this->assertSame($extRef, $got);
         $this->assertSame(ExternalReferenceType::CHAT, $extRef->getType());
@@ -63,21 +59,19 @@ class ExternalReferenceTest extends TestCase
 
     // region test Url
 
-    /**
-     * @depends testConstructor
-     */
+    #[\PHPUnit\Framework\Attributes\DependsUsingShallowClone('testConstructor')]
     public function testUrlSetterAndGetter(ExternalReference $extRef): void
     {
+        $this->assertNotSame('ftp://localhost/foobar', $extRef->getUrl());
         $got = $extRef->setUrl('ftp://localhost/foobar');
         $this->assertSame($extRef, $got);
         $this->assertSame('ftp://localhost/foobar', $extRef->getUrl());
     }
 
-    /**
-     * @depends testConstructor
-     */
+    #[\PHPUnit\Framework\Attributes\DependsUsingShallowClone('testConstructor')]
     public function testUrlSetterWithURN(ExternalReference $extRef): void
     {
+        $this->assertNotSame('urn:uuid:bdd819e6-ee8f-42d7-a4d0-166ff44d51e8', $extRef->getUrl());
         $got = $extRef->setUrl('urn:uuid:bdd819e6-ee8f-42d7-a4d0-166ff44d51e8');
         $this->assertSame($extRef, $got);
         $this->assertSame('urn:uuid:bdd819e6-ee8f-42d7-a4d0-166ff44d51e8', $extRef->getUrl());
@@ -87,11 +81,10 @@ class ExternalReferenceTest extends TestCase
 
     // region test Comment
 
-    /**
-     * @depends testConstructor
-     */
+    #[\PHPUnit\Framework\Attributes\DependsUsingShallowClone('testConstructor')]
     public function testCommentSetterAndGetter(ExternalReference $extRef): void
     {
+        $this->assertNotSame('foobar', $extRef->getComment());
         $got = $extRef->setComment('foobar');
         $this->assertSame($extRef, $got);
         $this->assertSame('foobar', $extRef->getComment());
@@ -101,12 +94,11 @@ class ExternalReferenceTest extends TestCase
 
     // region test Comment
 
-    /**
-     * @depends testConstructor
-     */
+    #[\PHPUnit\Framework\Attributes\DependsUsingShallowClone('testConstructor')]
     public function testHashesSetterAndGetter(ExternalReference $extRef): void
     {
         $hashes = $this->createStub(HashDictionary::class);
+        $this->assertNotSame($hashes, $extRef->getHashes());
         $got = $extRef->setHashes($hashes);
         $this->assertSame($extRef, $got);
         $this->assertSame($hashes, $extRef->getHashes());

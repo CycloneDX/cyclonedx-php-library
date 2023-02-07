@@ -27,9 +27,7 @@ use CycloneDX\Core\Collections\HashDictionary;
 use CycloneDX\Core\Enums\HashAlgorithm;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \CycloneDX\Core\Collections\HashDictionary
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Collections\HashDictionary::class)]
 class HashDictionaryTest extends TestCase
 {
     public function testNonEmptyConstructor(): void

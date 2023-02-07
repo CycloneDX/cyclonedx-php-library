@@ -28,9 +28,7 @@ use CycloneDX\Core\Models\Component;
 use Generator;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \CycloneDX\Core\Collections\ComponentRepository
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Collections\ComponentRepository::class)]
 class ComponentRepositoryTest extends TestCase
 {
     public function testEmptyConstructor(): void
@@ -72,10 +70,9 @@ class ComponentRepositoryTest extends TestCase
     }
 
     /**
-     * @param Component[] $expected
-     *
-     * @dataProvider dpFindComponents
+     * @param Component[] $expectedFindings
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('dpFindComponents')]
     public function testFindItem(
         ComponentRepository $repo,
         string $findName,

@@ -28,20 +28,16 @@ use CycloneDX\Tests\_data\BomSpecData;
 use Generator;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \CycloneDX\Core\Enums\ExternalReferenceType
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Enums\ExternalReferenceType::class)]
 class ExternalReferenceTypeTest extends TestCase
 {
-    /**
-     * @dataProvider dpSchemaValues
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('dpSchemaValues')]
     public function testHaseCaseForSchemaValue(string $value): void
     {
         self::assertNotNull(ExternalReferenceType::tryFrom($value));
     }
 
-    public function dpSchemaValues(): Generator
+    public static function dpSchemaValues(): Generator
     {
         $allValues = array_unique(array_merge(
             BomSpecData::getExternalReferenceTypeForVersion('1.1'),

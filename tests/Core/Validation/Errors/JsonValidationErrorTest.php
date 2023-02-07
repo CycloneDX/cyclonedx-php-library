@@ -27,18 +27,14 @@ use CycloneDX\Core\Validation\Errors\JsonValidationError;
 use Opis\JsonSchema;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \CycloneDX\Core\Validation\Errors\JsonValidationError
- * @covers \CycloneDX\Core\Validation\ValidationError
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Validation\Errors\JsonValidationError::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Validation\ValidationError::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\Opis\JsonSchema\Errors\ValidationError::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\Opis\JsonSchema\Schemas\EmptySchema::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\Opis\JsonSchema\Info\SchemaInfo::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\Opis\JsonSchema\Info\DataInfo::class)]
 class JsonValidationErrorTest extends TestCase
 {
-    /**
-     * @uses \Opis\JsonSchema\Errors\ValidationError
-     * @uses \Opis\JsonSchema\Schemas\EmptySchema
-     * @uses \Opis\JsonSchema\Info\SchemaInfo
-     * @uses \Opis\JsonSchema\Info\DataInfo
-     */
     public function testFromJsonSchemaInvalidValue(): void
     {
         $errorJsonSchemaInvalidValue = new JsonSchema\Errors\ValidationError(

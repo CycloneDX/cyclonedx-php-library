@@ -35,11 +35,9 @@ use Generator;
 use PHPUnit\Framework\TestCase;
 use Throwable;
 
-/**
- * @covers \CycloneDX\Core\Serialization\BaseSerializer
- *
- * @uses   \CycloneDX\Core\Serialization\BomRefDiscriminator
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Serialization\BaseSerializer::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Serialization\BomRefDiscriminator::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Models\BomRef::class)]
 class BaseSerializerTest extends TestCase
 {
     public function testSerialize(): void
@@ -97,13 +95,8 @@ class BaseSerializerTest extends TestCase
 
     /**
      * @param BomRef[] $allBomRefs
-     *
-     * @dataProvider dpBomWithRefs
-     *
-     * @covers       \CycloneDX\Core\Serialization\BomRefDiscriminator
-     *
-     * @uses         \CycloneDX\Core\Models\BomRef
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('dpBomWithRefs')]
     public function testSerializeUsesUniqueBomRefsAndResetThemAfterwards(Bom $bom, array $allBomRefs): void
     {
         $allBomRefsValuesOriginal = [];
@@ -151,13 +144,8 @@ class BaseSerializerTest extends TestCase
 
     /**
      * @param BomRef[] $allBomRefs
-     *
-     * @dataProvider dpBomWithRefs
-     *
-     * @covers       \CycloneDX\Core\Serialization\BomRefDiscriminator
-     *
-     * @uses         \CycloneDX\Core\Models\BomRef
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('dpBomWithRefs')]
     public function testSerializeUsesUniqueBomRefsAndResetThemOnThrow(Bom $bom, array $allBomRefs): void
     {
         $allBomRefsValuesOriginal = [];
@@ -187,7 +175,7 @@ class BaseSerializerTest extends TestCase
         try {
             $serializer->serialize($bom);
         } catch (Throwable $caught) {
-            // pass on
+            /* pass on */
         }
 
         self::assertSame($exception, $caught);

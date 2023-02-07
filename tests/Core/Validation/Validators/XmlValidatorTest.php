@@ -33,10 +33,10 @@ use DOMException;
 use PHPUnit\Framework\Constraint\IsInstanceOf;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers   \CycloneDX\Core\Validation\Validators\XmlValidator
- * @covers   \CycloneDX\Core\Validation\BaseValidator
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Validation\Validators\XmlValidator::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Validation\BaseValidator::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Validation\Errors\XmlValidationError::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Validation\ValidationError::class)]
 class XmlValidatorTest extends TestCase
 {
     public function testConstructor(): XmlValidator
@@ -119,10 +119,6 @@ class XmlValidatorTest extends TestCase
         self::assertNull($error);
     }
 
-    /**
-     * @uses \CycloneDX\Core\Validation\Errors\XmlValidationError
-     * @uses \CycloneDX\Core\Validation\ValidationError
-     */
     public function testValidateDomFails(): void
     {
         $spec = $this->createConfiguredMock(Spec::class, ['getVersion' => Version::v1dot2]);
@@ -161,10 +157,6 @@ class XmlValidatorTest extends TestCase
         );
     }
 
-    /**
-     * @uses \CycloneDX\Core\Validation\Errors\XmlValidationError
-     * @uses \CycloneDX\Core\Validation\ValidationError
-     */
     public function testValidateDomThrowsOnDuplicateBomRef(): void
     {
         $spec = $this->createConfiguredMock(Spec::class, ['getVersion' => Version::v1dot2]);
@@ -202,9 +194,9 @@ class XmlValidatorTest extends TestCase
 
     public function testValidateDomThrowsOnSchemaFileUnknown(): void
     {
-        self::markTestSkipped('skipped, unless there is a version that does not support XML');
+        self::markTestSkipped('skipped, unless there is a version that does not support XML.');
 
-        $spec = $this->createConfiguredMock(Spec::class, ['getVersion' => 'unknown']);
+        $spec = $this->createConfiguredMock(Spec::class, ['getVersion' => Version::v1dot1]);
         $validator = new XmlValidator($spec);
         $doc = $this->createPartialMock(DOMDocument::class, ['schemaValidate']);
 

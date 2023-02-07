@@ -28,14 +28,12 @@ use DomainException;
 use Generator;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \CycloneDX\Core\Models\License\LicenseExpression
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Models\License\LicenseExpression::class)]
 class LicenseExpressionTest extends TestCase
 {
     public function testConstructAndGet(): void
     {
-        $expression = $this->dpValidLicenseExpressions()[0];
+        $expression = self::dpValidLicenseExpressions()[0];
 
         $license = new LicenseExpression("$expression");
         $got = $license->getExpression();
@@ -45,7 +43,7 @@ class LicenseExpressionTest extends TestCase
 
     public function testConstructThrowsOnUnknownExpression(): void
     {
-        $expression = $this->dpInvalidLicenseExpressions()[0];
+        $expression = self::dpInvalidLicenseExpressions()[0];
 
         $this->expectException(DomainException::class);
         $this->expectExceptionMessageMatches('/invalid expression/i');
@@ -55,7 +53,7 @@ class LicenseExpressionTest extends TestCase
 
     public function testSetAndGetExpression(): void
     {
-        $expression = $this->dpValidLicenseExpressions()[0];
+        $expression = self::dpValidLicenseExpressions()[0];
         $license = $this->createPartialMock(LicenseExpression::class, []);
 
         $license->setExpression("$expression");
@@ -66,7 +64,7 @@ class LicenseExpressionTest extends TestCase
 
     public function testSetThrowsOnUnknownExpression(): void
     {
-        $expression = $this->dpInvalidLicenseExpressions()[0];
+        $expression = self::dpInvalidLicenseExpressions()[0];
         $license = $this->createPartialMock(LicenseExpression::class, []);
 
         $this->expectException(DomainException::class);
@@ -75,26 +73,24 @@ class LicenseExpressionTest extends TestCase
         $license->setExpression("$expression");
     }
 
-    /**
-     * @dataProvider dpIsValid
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('dpIsValid')]
     public function testIsValid(string $expression, $expected): void
     {
         $isValid = LicenseExpression::isValid($expression);
         self::assertSame($expected, $isValid);
     }
 
-    public function dpIsValid(): Generator
+    public static function dpIsValid(): Generator
     {
-        foreach ($this->dpValidLicenseExpressions() as $license) {
+        foreach (self::dpValidLicenseExpressions() as $license) {
             yield $license => [$license, true];
         }
-        foreach ($this->dpInvalidLicenseExpressions() as $license) {
+        foreach (self::dpInvalidLicenseExpressions() as $license) {
             yield $license => [$license, false];
         }
     }
 
-    public function dpValidLicenseExpressions()
+    public static function dpValidLicenseExpressions()
     {
         return [
             '(MIT or Apache-2)',
@@ -102,7 +98,7 @@ class LicenseExpressionTest extends TestCase
             ];
     }
 
-    public function dpInvalidLicenseExpressions()
+    public static function dpInvalidLicenseExpressions()
     {
         return [
             'MIT',
