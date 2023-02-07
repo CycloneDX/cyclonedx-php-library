@@ -32,62 +32,62 @@ use CycloneDX\Core\Spec\Version;
 #[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Spec\SpecFactory::class)]
 class Spec1dot2Test extends SpecBaseTestCase
 {
-    protected function getSpec(): Spec
+    protected static function getSpec(): Spec
     {
         return SpecFactory::make1dot2();
     }
 
-    protected function getSpecVersion(): Version
+    protected static function getSpecVersion(): Version
     {
         return Version::v1dot2;
     }
 
-    protected function shouldSupportFormats(): array
+    protected static function shouldSupportFormats(): array
     {
         return [Format::XML, Format::JSON];
     }
 
-    public function shouldSupportLicenseExpression(): bool
+    protected static function shouldSupportLicenseExpression(): bool
     {
         return true;
     }
 
-    public function shouldSupportMetadata(): bool
+    protected static function shouldSupportMetadata(): bool
     {
         return true;
     }
 
-    public function shouldSupportBomRef(): bool
+    protected static function shouldSupportBomRef(): bool
     {
         return true;
     }
 
-    public function shouldSupportDependencies(): bool
+    protected static function shouldSupportDependencies(): bool
     {
         return true;
     }
 
-    public function shouldSupportExternalReferenceHashes(): bool
+    protected static function shouldSupportExternalReferenceHashes(): bool
     {
         return false;
     }
 
-    public function shouldRequireComponentVersion(): bool
+    protected static function shouldRequireComponentVersion(): bool
     {
         return true;
     }
 
-    public function shouldSupportToolExternalReferences(): bool
+    protected static function shouldSupportToolExternalReferences(): bool
     {
         return false;
     }
 
-    public function shouldSupportMetadataProperties(): bool
+    protected static function shouldSupportMetadataProperties(): bool
     {
         return false;
     }
 
-    public function shouldSupportComponentProperties(): bool
+    protected static function shouldSupportComponentProperties(): bool
     {
         return false;
     }
