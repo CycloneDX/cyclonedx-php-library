@@ -19,7 +19,7 @@ env:
 
 jobs:
   composer-validate:
-    name: composer validate
+    name: Composer Validate
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -37,7 +37,7 @@ jobs:
       - name: Validate composer.json and composer.lock
         run: composer validate --no-interaction
   phpunit:
-    name: Tests (${{ matrix.os}}, ${{ matrix.php }}, ${{ matrix.dependencies }})
+    name: PHPUnit (${{ matrix.os}}, ${{ matrix.php }}, ${{ matrix.dependencies }})
     runs-on: ${{ matrix.os }}
     env:
       REPORTS_ARTIFACT: tests-reports
@@ -126,7 +126,7 @@ jobs:
           path: ${{ env.REPORTS_DIR }}
           if-no-files-found: error
   code-checker:
-    name: Code analysis (${{ matrix.php }}, ${{ matrix.dependencies }})
+    name: Code Analysis (${{ matrix.php }}, ${{ matrix.dependencies }})
     runs-on: ubuntu-latest
     timeout-minutes: 10
     env:
