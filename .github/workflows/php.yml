@@ -113,7 +113,7 @@ jobs:
           -d memory_limit=-1
           -d xdebug.mode=coverage
           -d pcov.enabled=1 -d pcov.directory=src
-          vendor/phpunit/phpunit/phpunit
+          tools/phpunit/vendor/phpunit/phpunit/phpunit
           --no-progress
           --log-junit=${{ env.REPORTS_DIR }}/tests.${{ matrix.os }}_php${{ matrix.php }}_${{ matrix.dependencies }}.junit.xml
           --coverage-clover=${{ env.REPORTS_DIR }}/coverage.${{ matrix.os}}_php${{ matrix.php }}_${{ matrix.dependencies }}.clover.xml
