@@ -35,9 +35,15 @@ use Generator;
 #[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Serialization\JSON\_BaseNormalizer::class)]
 class LicenseNormalizerTest extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @psalm-param class-string<LicenseExpression|SpdxLicense|NamedLicense> $licenseClass
+     * @psalm-param array<string, mixed> $licenseMockConf
+     */
     #[\PHPUnit\Framework\Attributes\DataProvider('dpNormalize')]
-    public function testNormalize(LicenseExpression|SpdxLicense|NamedLicense $license, array $expected): void
+    public function testNormalize(string $licenseClass, array $licenseMockConf, array $expected): void
     {
+        /** @var (LicenseExpression|SpdxLicense|NamedLicense)&\PHPUnit\Framework\MockObject\MockObject */
+        $license = $this->createConfiguredMock($licenseClass, $licenseMockConf);
         $spec = $this->createMock(Spec::class);
         $factory = $this->createConfiguredMock(NormalizerFactory::class, ['getSpec' => $spec]);
         $normalizer = new LicenseNormalizer($factory);
@@ -47,19 +53,19 @@ class LicenseNormalizerTest extends \PHPUnit\Framework\TestCase
         self::assertSame($expected, $actual);
     }
 
-    public function dpNormalize(): Generator
+    public static function dpNormalize(): Generator
     {
         yield 'license expression' => [
-            $this->createConfiguredMock(LicenseExpression::class, [
+            LicenseExpression::class, [
                 'getExpression' => 'MIT OR Apache-2.0',
-            ]),
+            ],
             ['expression' => 'MIT OR Apache-2.0'],
         ];
         yield 'SPDX license' => [
-            $this->createConfiguredMock(SpdxLicense::class, [
+            SpdxLicense::class, [
                 'getId' => 'MIT',
                 'getUrl' => 'https://foo.bar',
-            ]),
+            ],
             [
                 'license' => [
                 'id' => 'MIT',
@@ -68,10 +74,10 @@ class LicenseNormalizerTest extends \PHPUnit\Framework\TestCase
             ],
         ];
         yield 'named license' => [
-            $this->createConfiguredMock(NamedLicense::class, [
+            NamedLicense::class, [
                 'getName' => 'copyright by the crew',
                 'getUrl' => 'https://foo.bar',
-            ]),
+            ],
             [
                 'license' => [
                 'name' => 'copyright by the crew',

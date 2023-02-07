@@ -175,7 +175,7 @@ class BaseSerializerTest extends TestCase
         try {
             $serializer->serialize($bom);
         } catch (Throwable $caught) {
-            // pass on
+            /* pass on */
         }
 
         self::assertSame($exception, $caught);
