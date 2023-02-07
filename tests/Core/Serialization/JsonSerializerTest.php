@@ -30,11 +30,11 @@ use Generator;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers \CycloneDX\Core\Serialization\JsonSerializer
- *
+ *  *
  * @uses   \CycloneDX\Core\Serialization\BaseSerializer
  * @uses   \CycloneDX\Core\Serialization\BomRefDiscriminator
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Serialization\JsonSerializer::class)]
 class JsonSerializerTest extends TestCase
 {
     /**

@@ -31,11 +31,11 @@ use DateTime;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers \CycloneDX\Core\Models\Metadata
  *
  * @uses \CycloneDX\Core\Collections\ToolRepository
  * @uses \CycloneDX\Core\Collections\PropertyRepository
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Models\Metadata::class)]
 class MetadataTest extends TestCase
 {
     public function testConstructor(): Metadata

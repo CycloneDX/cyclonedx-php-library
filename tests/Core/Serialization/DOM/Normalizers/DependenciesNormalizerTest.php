@@ -37,10 +37,9 @@ use Exception;
 use Generator;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \CycloneDX\Core\Serialization\DOM\Normalizers\DependenciesNormalizer
- * @covers \CycloneDX\Core\Serialization\DOM\_BaseNormalizer
- */
+
+#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Serialization\DOM\Normalizers\DependenciesNormalizer::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Serialization\DOM\_BaseNormalizer::class)]
 class DependenciesNormalizerTest extends TestCase
 {
     use DomNodeAssertionTrait;

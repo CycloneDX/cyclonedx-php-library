@@ -33,10 +33,9 @@ use DomainException;
 use Generator;
 use UnexpectedValueException;
 
-/**
- * @covers \CycloneDX\Core\Serialization\JSON\Normalizers\ExternalReferenceNormalizer
- * @covers \CycloneDX\Core\Serialization\JSON\_BaseNormalizer
- */
+
+#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Serialization\JSON\Normalizers\ExternalReferenceNormalizer::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Serialization\JSON\_BaseNormalizer::class)]
 class ExternalReferenceNormalizerTest extends \PHPUnit\Framework\TestCase
 {
     public function testNormalizeTypeAndUrl(): void

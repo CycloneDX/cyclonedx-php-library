@@ -34,11 +34,11 @@ use Generator;
 use UnexpectedValueException;
 
 /**
- * @covers \CycloneDX\Core\Serialization\DOM\Normalizers\ExternalReferenceRepositoryNormalizer
- * @covers \CycloneDX\Core\Serialization\DOM\_BaseNormalizer
  *
  * @uses \CycloneDX\Core\Serialization\DOM\Normalizers\ExternalReferenceNormalizer
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Serialization\DOM\Normalizers\ExternalReferenceRepositoryNormalizer::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Serialization\DOM\_BaseNormalizer::class)]
 class ExternalReferenceRepositoryNormalizerTest extends \PHPUnit\Framework\TestCase
 {
     /**

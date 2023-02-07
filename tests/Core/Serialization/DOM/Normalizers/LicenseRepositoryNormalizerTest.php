@@ -33,10 +33,8 @@ use CycloneDX\Tests\_traits\DomNodeAssertionTrait;
 use DOMElement;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \CycloneDX\Core\Serialization\DOM\Normalizers\LicenseRepositoryNormalizer
- * @covers \CycloneDX\Core\Serialization\DOM\_BaseNormalizer
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Serialization\DOM\Normalizers\LicenseRepositoryNormalizer::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Serialization\DOM\_BaseNormalizer::class)]
 class LicenseRepositoryNormalizerTest extends TestCase
 {
     use DomNodeAssertionTrait;

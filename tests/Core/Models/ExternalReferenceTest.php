@@ -29,10 +29,11 @@ use CycloneDX\Core\Models\ExternalReference;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers \CycloneDX\Core\Models\ExternalReference
  *
+ * *
  * @uses  \CycloneDX\Core\Collections\HashDictionary
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Models\ExternalReference::class)]
 class ExternalReferenceTest extends TestCase
 {
     public function testConstructor(): ExternalReference

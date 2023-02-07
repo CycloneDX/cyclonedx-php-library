@@ -27,10 +27,8 @@ use CycloneDX\Core\Validation\Errors\JsonValidationError;
 use Opis\JsonSchema;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \CycloneDX\Core\Validation\Errors\JsonValidationError
- * @covers \CycloneDX\Core\Validation\ValidationError
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Validation\Errors\JsonValidationError::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Validation\ValidationError::class)]
 class JsonValidationErrorTest extends TestCase
 {
     /**

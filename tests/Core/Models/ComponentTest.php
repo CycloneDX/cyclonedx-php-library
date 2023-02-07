@@ -38,7 +38,7 @@ use PHPUnit\Framework\TestCase;
 /**
  * Class ComponentTest.
  *
- * @covers \CycloneDX\Core\Models\Component
+ *
  *
  * @uses \CycloneDX\Core\Models\BomRef::__construct
  * @uses \CycloneDX\Core\Collections\LicenseRepository
@@ -47,6 +47,7 @@ use PHPUnit\Framework\TestCase;
  * @uses \CycloneDX\Core\Collections\BomRefRepository
  * @uses \CycloneDX\Core\Collections\PropertyRepository
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Models\Component::class)]
 class ComponentTest extends TestCase
 {
     /**

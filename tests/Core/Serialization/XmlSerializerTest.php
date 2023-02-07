@@ -32,11 +32,11 @@ use Generator;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers \CycloneDX\Core\Serialization\XmlSerializer
- *
+ *  *
  * @uses   \CycloneDX\Core\Serialization\BaseSerializer
  * @uses   \CycloneDX\Core\Serialization\BomRefDiscriminator
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Serialization\XmlSerializer::class)]
 class XmlSerializerTest extends TestCase
 {
     /**

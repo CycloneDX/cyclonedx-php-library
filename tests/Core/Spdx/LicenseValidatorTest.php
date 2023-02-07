@@ -28,9 +28,7 @@ use Generator;
 use PHPUnit\Framework\TestCase;
 use RuntimeException;
 
-/**
- * @covers  \CycloneDX\Core\Spdx\LicenseValidator
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Spdx\LicenseValidator::class)]
 class LicenseValidatorTest extends TestCase
 {
     /**

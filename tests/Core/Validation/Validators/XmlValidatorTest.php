@@ -33,10 +33,8 @@ use DOMException;
 use PHPUnit\Framework\Constraint\IsInstanceOf;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers   \CycloneDX\Core\Validation\Validators\XmlValidator
- * @covers   \CycloneDX\Core\Validation\BaseValidator
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Validation\Validators\XmlValidator::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Validation\BaseValidator::class)]
 class XmlValidatorTest extends TestCase
 {
     public function testConstructor(): XmlValidator

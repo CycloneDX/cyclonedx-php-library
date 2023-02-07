@@ -31,10 +31,10 @@ use DomainException;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers \CycloneDX\Core\Serialization\JSON\NormalizerFactory
  *
  * @uses   \CycloneDX\Core\Serialization\JSON\_BaseNormalizer
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Serialization\JSON\NormalizerFactory::class)]
 class NormalizerFactoryTest extends TestCase
 {
     public function testConstructor(): NormalizerFactory

@@ -33,7 +33,6 @@ use PHPUnit\Framework\TestCase;
 /**
  * Class BomTest.
  *
- * @covers \CycloneDX\Core\Models\Bom
  *
  * @uses \CycloneDX\Core\Collections\ComponentRepository
  * @uses \CycloneDX\Core\Models\Metadata
@@ -41,6 +40,7 @@ use PHPUnit\Framework\TestCase;
  * @uses \CycloneDX\Core\Collections\ExternalReferenceRepository
  * @uses \CycloneDX\Core\Collections\PropertyRepository
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Models\Bom::class)]
 class BomTest extends TestCase
 {
     public function testConstruct(): Bom

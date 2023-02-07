@@ -36,12 +36,12 @@ use CycloneDX\Core\Spec\Version;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers \CycloneDX\Core\Serialization\JSON\Normalizers\BomNormalizer
- * @covers \CycloneDX\Core\Serialization\JSON\_BaseNormalizer
  *
  * @uses   \CycloneDX\Core\Serialization\JSON\Normalizers\DependenciesNormalizer
  * @uses   \CycloneDX\Core\Serialization\JSON\Normalizers\MetadataNormalizer
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Serialization\JSON\Normalizers\BomNormalizer::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Serialization\JSON\_BaseNormalizer::class)]
 class BomNormalizerTest extends TestCase
 {
     public function testNormalize(): void

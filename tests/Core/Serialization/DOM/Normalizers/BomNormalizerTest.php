@@ -37,11 +37,10 @@ use CycloneDX\Tests\_traits\DomNodeAssertionTrait;
 use DOMDocument;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \CycloneDX\Core\Serialization\DOM\Normalizers\BomNormalizer
- * @covers \CycloneDX\Core\Serialization\DOM\_BaseNormalizer
- * @covers \CycloneDX\Core\_helpers\SimpleDomTrait
- */
+
+#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Serialization\DOM\Normalizers\BomNormalizer::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Serialization\DOM\_BaseNormalizer::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\_helpers\SimpleDomTrait::class)]
 class BomNormalizerTest extends TestCase
 {
     use DomNodeAssertionTrait;

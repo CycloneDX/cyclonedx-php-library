@@ -35,11 +35,8 @@ use Generator;
 use PHPUnit\Framework\TestCase;
 use Throwable;
 
-/**
- * @covers \CycloneDX\Core\Serialization\BaseSerializer
- *
- * @uses   \CycloneDX\Core\Serialization\BomRefDiscriminator
- */
+#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Serialization\BaseSerializer::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Serialization\BomRefDiscriminator::class)]
 class BaseSerializerTest extends TestCase
 {
     public function testSerialize(): void
@@ -100,7 +97,6 @@ class BaseSerializerTest extends TestCase
      *
      * @dataProvider dpBomWithRefs
      *
-     * @covers       \CycloneDX\Core\Serialization\BomRefDiscriminator
      *
      * @uses         \CycloneDX\Core\Models\BomRef
      */
@@ -154,7 +150,6 @@ class BaseSerializerTest extends TestCase
      *
      * @dataProvider dpBomWithRefs
      *
-     * @covers       \CycloneDX\Core\Serialization\BomRefDiscriminator
      *
      * @uses         \CycloneDX\Core\Models\BomRef
      */

@@ -29,10 +29,10 @@ use CycloneDX\Core\Spec\SpecFactory;
 use CycloneDX\Core\Spec\Version;
 
 /**
- * @covers \CycloneDX\Core\Spec\_Spec
  *
  * @uses \CycloneDX\Core\Spec\SpecFactory
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Spec\_Spec::class)]
 class Spec1dot4Test extends SpecBaseTestCase
 {
     protected function getSpec(): Spec

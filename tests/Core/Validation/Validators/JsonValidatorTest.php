@@ -33,10 +33,9 @@ use PHPUnit\Framework\Constraint\IsInstanceOf;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 
-/**
- * @covers \CycloneDX\Core\Validation\Validators\JsonValidator
- * @covers \CycloneDX\Core\Validation\BaseValidator
- */
+
+#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Validation\Validators\JsonValidator::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Validation\BaseValidator::class)]
 class JsonValidatorTest extends TestCase
 {
     public function testConstructor(): JsonValidator

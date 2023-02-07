@@ -32,10 +32,10 @@ use DOMDocument;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers \CycloneDX\Core\Serialization\DOM\NormalizerFactory
  *
  * @uses   \CycloneDX\Core\Serialization\DOM\_BaseNormalizer
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Serialization\DOM\NormalizerFactory::class)]
 class NormalizerFactoryTest extends TestCase
 {
     public function testConstructor(): NormalizerFactory

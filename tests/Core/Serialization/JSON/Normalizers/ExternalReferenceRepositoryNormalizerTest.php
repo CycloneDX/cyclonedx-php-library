@@ -31,11 +31,11 @@ use CycloneDX\Core\Spec\Spec;
 use DomainException;
 
 /**
- * @covers \CycloneDX\Core\Serialization\JSON\Normalizers\ExternalReferenceRepositoryNormalizer
- * @covers \CycloneDX\Core\Serialization\JSON\_BaseNormalizer
  *
  * @uses \CycloneDX\Core\Serialization\JSON\Normalizers\ExternalReferenceNormalizer
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Serialization\JSON\Normalizers\ExternalReferenceRepositoryNormalizer::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Serialization\JSON\_BaseNormalizer::class)]
 class ExternalReferenceRepositoryNormalizerTest extends \PHPUnit\Framework\TestCase
 {
     /**

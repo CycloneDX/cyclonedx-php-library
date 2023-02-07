@@ -34,12 +34,12 @@ use DOMElement;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers \CycloneDX\Core\Serialization\DOM\Normalizers\HashDictionaryNormalizer
- * @covers \CycloneDX\Core\Serialization\DOM\_BaseNormalizer
- * @covers \CycloneDX\Core\_helpers\SimpleDomTrait
  *
  * @uses   \CycloneDX\Core\Serialization\DOM\Normalizers\HashNormalizer
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Serialization\DOM\Normalizers\HashDictionaryNormalizer::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Serialization\DOM\_BaseNormalizer::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\_helpers\SimpleDomTrait::class)]
 class HashDictionaryNormalizerTest extends TestCase
 {
     public function testConstructor(): void

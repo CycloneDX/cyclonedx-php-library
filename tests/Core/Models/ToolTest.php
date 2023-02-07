@@ -29,11 +29,10 @@ use CycloneDX\Core\Models\Tool;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers \CycloneDX\Core\Models\Tool
- *
  * @uses \CycloneDX\Core\Collections\HashDictionary
  * @uses \CycloneDX\Core\Collections\ExternalReferenceRepository
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Models\Tool::class)]
 class ToolTest extends TestCase
 {
     public function testConstruct(): Tool

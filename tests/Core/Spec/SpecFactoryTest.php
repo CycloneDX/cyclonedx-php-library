@@ -28,10 +28,10 @@ use CycloneDX\Core\Spec\Version;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers \CycloneDX\Core\Spec\SpecFactory
  *
  * @uses   \CycloneDX\Core\Spec\_Spec
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Spec\SpecFactory::class)]
 class SpecFactoryTest extends TestCase
 {
     public function test11(): void

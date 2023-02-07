@@ -36,10 +36,9 @@ use Exception;
 use Generator;
 use UnexpectedValueException;
 
-/**
- * @covers \CycloneDX\Core\Serialization\DOM\Normalizers\ExternalReferenceNormalizer
- * @covers \CycloneDX\Core\Serialization\DOM\_BaseNormalizer
- */
+
+#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Serialization\DOM\Normalizers\ExternalReferenceNormalizer::class)]
+#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Serialization\DOM\_BaseNormalizer::class)]
 class ExternalReferenceNormalizerTest extends \PHPUnit\Framework\TestCase
 {
     use DomNodeAssertionTrait;

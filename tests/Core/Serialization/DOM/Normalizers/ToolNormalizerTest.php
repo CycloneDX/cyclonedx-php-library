@@ -37,10 +37,10 @@ use DOMDocument;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers \CycloneDX\Core\Serialization\DOM\Normalizers\ToolNormalizer
  *
  * @uses   \CycloneDX\Core\Serialization\DOM\_BaseNormalizer
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Serialization\DOM\Normalizers\ToolNormalizer::class)]
 class ToolNormalizerTest extends TestCase
 {
     use DomNodeAssertionTrait;
