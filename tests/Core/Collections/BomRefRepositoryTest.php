@@ -40,12 +40,10 @@ class BomRefRepositoryTest extends TestCase
     }
 
     /**
-     *
      * @param BomRef[] $bomRefs
      * @param BomRef[] $expectedContains
      */
     #[\PHPUnit\Framework\Attributes\DataProvider('dpNonEmptyConstructor')]
-
     public function testNonEmptyConstructor(array $bomRefs, array $expectedContains): void
     {
         $repo = new BomRefRepository(...$bomRefs);
@@ -77,7 +75,6 @@ class BomRefRepositoryTest extends TestCase
     }
 
     /**
-     *
      * @param BomRef[] $initial
      * @param BomRef[] $add
      * @param BomRef[] $expectedContains

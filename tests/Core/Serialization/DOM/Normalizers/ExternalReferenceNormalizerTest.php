@@ -32,10 +32,8 @@ use CycloneDX\Core\Spec\Spec;
 use CycloneDX\Tests\_traits\DomNodeAssertionTrait;
 use DomainException;
 use DOMDocument;
-use Exception;
 use Generator;
 use UnexpectedValueException;
-
 
 #[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Serialization\DOM\Normalizers\ExternalReferenceNormalizer::class)]
 #[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Serialization\DOM\_BaseNormalizer::class)]
@@ -71,7 +69,6 @@ class ExternalReferenceNormalizerTest extends \PHPUnit\Framework\TestCase
     }
 
      #[\PHPUnit\Framework\Attributes\DataProvider('dpThrowOnUnsupportedUrl')]
-
     public function testThrowOnUnsupportedUrl(string $unsupportedURL): void
     {
         $spec = $this->createMock(Spec::class);

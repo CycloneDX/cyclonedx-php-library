@@ -33,12 +33,10 @@ use PHPUnit\Framework\Constraint\IsInstanceOf;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 
-
 #[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Validation\Validators\JsonValidator::class)]
 #[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Validation\BaseValidator::class)]
 #[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Validation\Errors\JsonValidationError::class)]
 #[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Validation\ValidationError::class)]
-
 class JsonValidatorTest extends TestCase
 {
     public function testConstructor(): JsonValidator
@@ -125,8 +123,6 @@ class JsonValidatorTest extends TestCase
         self::assertNull($error);
     }
 
-    /**
-     */
     public function testValidateDataFails(): void
     {
         $spec = $this->createConfiguredMock(Spec::class, ['getVersion' => Version::v1dot2]);

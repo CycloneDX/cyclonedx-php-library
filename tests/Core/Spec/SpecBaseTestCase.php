@@ -57,7 +57,6 @@ abstract class SpecBaseTestCase extends TestCase
         return $formats;
     }
 
-
      #[\PHPUnit\Framework\Attributes\DataProvider('dpIsSupportsFormat')]
     final public function testIsSupportedFormat(Format $format, bool $expected): void
     {
@@ -72,7 +71,6 @@ abstract class SpecBaseTestCase extends TestCase
             yield $format->name => [$format, \in_array($format, $should, true)];
         }
     }
-
 
      #[\PHPUnit\Framework\Attributes\DataProvider('dpIsSupportedComponentType')]
     final public function testIsSupportedComponentType(ComponentType $value, bool $expected): void
@@ -91,7 +89,6 @@ abstract class SpecBaseTestCase extends TestCase
     }
 
      #[\PHPUnit\Framework\Attributes\DataProvider('dpIsSupportedHashAlgorithm')]
-
     final public function testIsSupportedHashAlgorithm(HashAlgorithm $value, bool $expected): void
     {
         $isSupported = $this->getSpec()->isSupportedHashAlgorithm($value);
@@ -108,7 +105,6 @@ abstract class SpecBaseTestCase extends TestCase
     }
 
      #[\PHPUnit\Framework\Attributes\DataProvider('dpIsSupportedHashContent')]
-
     final public function testIsSupportedHashContent(string $value, bool $expected): void
     {
         $isSupported = $this->getSpec()->isSupportedHashContent($value);
@@ -120,7 +116,6 @@ abstract class SpecBaseTestCase extends TestCase
         yield 'crap' => ['this is an invalid hash', false];
         yield 'valid sha1' => ['a052cfe45093f1c2d26bd854d06aa370ceca3b38', true];
     }
-
 
      #[\PHPUnit\Framework\Attributes\DataProvider('dpIsSupportedExternalReferenceType')]
     final public function testIsSupportedExternalReferenceType(ExternalReferenceType $value, bool $expected): void

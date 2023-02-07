@@ -62,7 +62,6 @@ class BomRefTest extends TestCase
     }
 
      #[\PHPUnit\Framework\Attributes\DependsUsingShallowClone('testConstructValueDefaultsToNull')]
-
     public function testSetValue(BomRef $bomRef): void
     {
         $bomRef->setValue('asdewqe');

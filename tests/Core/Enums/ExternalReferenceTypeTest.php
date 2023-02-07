@@ -31,10 +31,7 @@ use PHPUnit\Framework\TestCase;
 #[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Enums\ExternalReferenceType::class)]
 class ExternalReferenceTypeTest extends TestCase
 {
-    /**
-     */
     #[\PHPUnit\Framework\Attributes\DataProvider('dpSchemaValues')]
-
     public function testHaseCaseForSchemaValue(string $value): void
     {
         self::assertNotNull(ExternalReferenceType::tryFrom($value));

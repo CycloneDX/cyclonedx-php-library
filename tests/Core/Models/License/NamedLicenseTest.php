@@ -46,7 +46,6 @@ class NamedLicenseTest extends TestCase
     }
 
      #[\PHPUnit\Framework\Attributes\DependsUsingShallowClone('testConstruct')]
-
     public function testSetAndGetUrl(NamedLicense $license): NamedLicense
     {
         $url = uniqid('url', true);
@@ -55,7 +54,6 @@ class NamedLicenseTest extends TestCase
 
         return $license;
     }
-
 
      #[\PHPUnit\Framework\Attributes\DependsUsingShallowClone('testSetAndGetUrl')]
     public function testSetUrlNull(NamedLicense $license): void

@@ -68,7 +68,6 @@ class ComponentTest extends TestCase
         return $component;
     }
 
-
      #[\PHPUnit\Framework\Attributes\DependsUsingShallowClone('testConstructor')]
     public function testSetBomRefValue(Component $component): void
     {
@@ -110,7 +109,6 @@ class ComponentTest extends TestCase
     // region licenses setter&getter
 
      #[\PHPUnit\Framework\Attributes\DependsUsingShallowClone('testConstructor')]
-
     public function testLicensesSetterGetter(Component $component): void
     {
         $licenses = $this->createStub(LicenseRepository::class);
@@ -125,7 +123,6 @@ class ComponentTest extends TestCase
     // region hashes setter&getter
 
      #[\PHPUnit\Framework\Attributes\DependsUsingShallowClone('testConstructor')]
-
     public function testHashesSetterGetter(Component $component): void
     {
         $hashes = $this->createStub(HashDictionary::class);
@@ -140,7 +137,6 @@ class ComponentTest extends TestCase
     // region packageUrl setter&getter
 
      #[\PHPUnit\Framework\Attributes\DependsUsingShallowClone('testConstructor')]
-
     public function testPackageUrlSetterGetter(Component $component): void
     {
         $url = $this->createMock(PackageUrl::class);
@@ -155,7 +151,6 @@ class ComponentTest extends TestCase
     // region description setter&getter
 
      #[\PHPUnit\Framework\Attributes\DataProvider('dpDescriptionSetterGetter')]
-
     public function testDescriptionSetterGetter(Component $component, ?string $description, ?string $expected): void
     {
         $actual = $component->setDescription($description);
@@ -177,7 +172,6 @@ class ComponentTest extends TestCase
     // region author setter&getter
 
      #[\PHPUnit\Framework\Attributes\DataProvider('dpAuthorSetterGetter')]
-
     public function testAuthorSetterGetter(Component $component, ?string $author, ?string $expected): void
     {
         $actual = $component->setAuthor($author);
@@ -199,7 +193,6 @@ class ComponentTest extends TestCase
     // region group setter&getter
 
      #[\PHPUnit\Framework\Attributes\DataProvider('dpGroupSetterGetter')]
-
     public function testGroupSetterGetter(Component $component, ?string $group, ?string $expected): void
     {
         $actual = $component->setGroup($group);

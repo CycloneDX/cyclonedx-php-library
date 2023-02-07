@@ -38,7 +38,6 @@ use stdClass;
 #[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Validation\BaseValidator::class)]
 #[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Validation\Errors\JsonValidationError::class)]
 #[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Validation\ValidationError::class)]
-
 class JsonStrictValidatorTest extends TestCase
 {
     public function testConstructor(): JsonStrictValidator
@@ -118,8 +117,6 @@ class JsonStrictValidatorTest extends TestCase
         self::assertNull($error);
     }
 
-    /**
-     */
     public function testValidateDataFails(): void
     {
         $spec = $this->createConfiguredMock(Spec::class, ['getVersion' => Version::v1dot2]);

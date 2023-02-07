@@ -30,7 +30,6 @@ use CycloneDX\Core\Models\Metadata;
 use DomainException;
 use PHPUnit\Framework\TestCase;
 
-
 #[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Models\Bom::class)]
 #[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Collections\ComponentRepository::class)]
 #[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Models\Metadata::class)]
@@ -75,9 +74,7 @@ class BomTest extends TestCase
         self::assertNull($bom->getSerialNumber());
     }
 
-
      #[\PHPUnit\Framework\Attributes\DependsUsingShallowClone('testSerialNumber')]
-
     public function testSerialNumberEmptyStringInvalidValue(Bom $bom): void
     {
         $serialNumber = uniqid('invalid-value', true);
@@ -124,7 +121,6 @@ class BomTest extends TestCase
     // region metadata setter&getter
 
      #[\PHPUnit\Framework\Attributes\DependsUsingShallowClone('testConstruct')]
-
     public function testMetadataSetterGetter(Bom $bom): void
     {
         $metadata = $this->createStub(Metadata::class);
@@ -138,7 +134,6 @@ class BomTest extends TestCase
     // region externalReferenceRepository setter&getter
 
      #[\PHPUnit\Framework\Attributes\DependsUsingShallowClone('testConstruct')]
-
     public function testExternalReferenceRepositorySetterGetter(Bom $bom): void
     {
         $extRefRepo = $this->createStub(ExternalReferenceRepository::class);

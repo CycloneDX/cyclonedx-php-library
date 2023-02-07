@@ -33,7 +33,6 @@ use DomainException;
 use Generator;
 use UnexpectedValueException;
 
-
 #[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Serialization\JSON\Normalizers\ExternalReferenceNormalizer::class)]
 #[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Serialization\JSON\_BaseNormalizer::class)]
 class ExternalReferenceNormalizerTest extends \PHPUnit\Framework\TestCase
@@ -122,7 +121,6 @@ class ExternalReferenceNormalizerTest extends \PHPUnit\Framework\TestCase
 
         $normalizer->normalize($extRef);
     }
-
 
      #[\PHPUnit\Framework\Attributes\DataProvider('dpThrowOnUnsupportedUrl')]
     public function testThrowOnUnsupportedUrl(string $unsupportedURL): void

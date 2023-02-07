@@ -33,10 +33,9 @@ use PHPUnit\Framework\TestCase;
 #[\PHPUnit\Framework\Attributes\UsesClass(\Opis\JsonSchema\Schemas\EmptySchema::class)]
 #[\PHPUnit\Framework\Attributes\UsesClass(\Opis\JsonSchema\Info\SchemaInfo::class)]
 #[\PHPUnit\Framework\Attributes\UsesClass(\Opis\JsonSchema\Info\DataInfo::class)]
-
 class JsonValidationErrorTest extends TestCase
 {
-     public function testFromJsonSchemaInvalidValue(): void
+    public function testFromJsonSchemaInvalidValue(): void
     {
         $errorJsonSchemaInvalidValue = new JsonSchema\Errors\ValidationError(
             'foo',

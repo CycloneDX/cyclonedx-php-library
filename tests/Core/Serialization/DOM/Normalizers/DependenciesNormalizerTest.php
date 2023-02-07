@@ -37,7 +37,6 @@ use Exception;
 use Generator;
 use PHPUnit\Framework\TestCase;
 
-
 #[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Serialization\DOM\Normalizers\DependenciesNormalizer::class)]
 #[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Serialization\DOM\_BaseNormalizer::class)]
 #[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Models\BomRef::class)]
@@ -68,11 +67,8 @@ class DependenciesNormalizerTest extends TestCase
 
     /**
      * @param string[] $expecteds
-     *
-     *
      */
     #[\PHPUnit\Framework\Attributes\DataProvider('dpNormalize')]
-
     public function testNormalize(Bom $bom, array $expecteds): void
     {
         $actuals = $this->normalizer->normalize($bom);

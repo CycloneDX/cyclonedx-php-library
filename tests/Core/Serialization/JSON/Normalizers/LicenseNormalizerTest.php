@@ -31,12 +31,11 @@ use CycloneDX\Core\Serialization\JSON\Normalizers\LicenseNormalizer;
 use CycloneDX\Core\Spec\Spec;
 use Generator;
 
-
 #[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Serialization\JSON\Normalizers\LicenseNormalizer::class)]
 #[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Serialization\JSON\_BaseNormalizer::class)]
 class LicenseNormalizerTest extends \PHPUnit\Framework\TestCase
 {
-     #[\PHPUnit\Framework\Attributes\DataProvider('dpNormalize')]
+    #[\PHPUnit\Framework\Attributes\DataProvider('dpNormalize')]
     public function testNormalize(LicenseExpression|SpdxLicense|NamedLicense $license, array $expected): void
     {
         $spec = $this->createMock(Spec::class);

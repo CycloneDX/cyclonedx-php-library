@@ -78,7 +78,6 @@ class LicenseValidatorTest extends TestCase
         self::assertFalse($valid);
     }
 
-
      #[\PHPUnit\Framework\Attributes\DataProvider('validLicense')]
     public function testGetLicense(string $identifier): void
     {

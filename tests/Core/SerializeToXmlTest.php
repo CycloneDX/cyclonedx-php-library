@@ -28,7 +28,6 @@ use CycloneDX\Core\Serialization\DOM;
 use CycloneDX\Core\Serialization\XmlSerializer;
 use CycloneDX\Core\Spec\SpecFactory;
 use CycloneDX\Core\Validation\Validators\XmlValidator;
-use Exception;
 use PHPUnit\Framework\TestCase;
 
 #[\PHPUnit\Framework\Attributes\CoversNothing]
@@ -43,10 +42,8 @@ class SerializeToXmlTest extends TestCase
     /**
      * This test might be slow.
      * This test might require online-connectivity.
-     *
      */
     #[\PHPUnit\Framework\Attributes\DataProviderExternal(\CycloneDX\Tests\_data\BomModelProvider::class, 'allBomTestData')]
-
     public function testSchema11(Bom $bom): void
     {
         $spec = SpecFactory::make1dot1();
@@ -66,10 +63,8 @@ class SerializeToXmlTest extends TestCase
     /**
      * This test might be slow.
      * This test might require online-connectivity.
-     *
      */
     #[\PHPUnit\Framework\Attributes\DataProviderExternal(\CycloneDX\Tests\_data\BomModelProvider::class, 'allBomTestData')]
-
     public function testSchema12(Bom $bom): void
     {
         $spec = SpecFactory::make1dot2();
@@ -89,7 +84,6 @@ class SerializeToXmlTest extends TestCase
     /**
      * This test might be slow.
      * This test might require online-connectivity.
-     *
      */
     #[\PHPUnit\Framework\Attributes\DataProviderExternal(\CycloneDX\Tests\_data\BomModelProvider::class, 'allBomTestData')]
     public function testSchema13(Bom $bom): void
@@ -111,7 +105,6 @@ class SerializeToXmlTest extends TestCase
     /**
      * This test might be slow.
      * This test might require online-connectivity.
-     *
      */
     #[\PHPUnit\Framework\Attributes\DataProviderExternal(\CycloneDX\Tests\_data\BomModelProvider::class, 'allBomTestData')]
     public function testSchema14(Bom $bom): void

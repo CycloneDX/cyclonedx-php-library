@@ -38,13 +38,11 @@ use Generator;
 use PackageUrl\PackageUrl;
 use PHPUnit\Framework\TestCase;
 
-
 #[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Serialization\JSON\Normalizers\ComponentNormalizer::class)]
 #[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Serialization\JSON\_BaseNormalizer::class)]
 #[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Models\BomRef::class)]
 #[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Serialization\DOM\Normalizers\PropertyRepositoryNormalizer::class)]
 #[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Serialization\JSON\Normalizers\PropertyRepositoryNormalizer::class)]
-
 class ComponentNormalizerTest extends TestCase
 {
     public function testNormalizeThrowsOnUnsupportedType(): void
@@ -72,7 +70,6 @@ class ComponentNormalizerTest extends TestCase
     }
 
      #[\PHPUnit\Framework\Attributes\DataProvider('dptNormalizeMinimal')]
-
     public function testNormalizeMinimal(array $expected, bool $requiresComponentVersion): void
     {
         $component = $this->createConfiguredMock(
@@ -338,7 +335,6 @@ class ComponentNormalizerTest extends TestCase
 
     // endregion normalize ExternalReferences
 
-
     public function testNormalizeProperties(): void
     {
         $component = $this->createConfiguredMock(
@@ -377,7 +373,6 @@ class ComponentNormalizerTest extends TestCase
             'properties' => [['FakeProperty' => 'dummy']],
         ], $actual);
     }
-
 
     public function testNormalizePropertiesOmitWhenEmpty(): void
     {

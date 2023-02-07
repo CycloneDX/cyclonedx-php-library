@@ -31,10 +31,7 @@ use PHPUnit\Framework\TestCase;
 #[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Enums\HashAlgorithm::class)]
 class HashAlgorithmTest extends TestCase
 {
-    /**
-     */
     #[\PHPUnit\Framework\Attributes\DataProvider('dpSchemaValues')]
-
     public function testHaseCaseForSchemaValue(string $value): void
     {
         self::assertNotNull(HashAlgorithm::tryFrom($value));

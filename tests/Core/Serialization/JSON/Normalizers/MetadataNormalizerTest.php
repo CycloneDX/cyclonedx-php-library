@@ -35,13 +35,11 @@ use DateTimeZone;
 use DomainException;
 use PHPUnit\Framework\TestCase;
 
-
 #[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Serialization\JSON\Normalizers\MetadataNormalizer::class)]
 #[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Serialization\JSON\_BaseNormalizer::class)]
 #[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Serialization\JSON\Normalizers\ComponentNormalizer::class)]
 #[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Serialization\JSON\Normalizers\PropertyRepositoryNormalizer::class)]
 #[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Serialization\JSON\Normalizers\PropertyRepositoryNormalizer::class)]
-
 class MetadataNormalizerTest extends TestCase
 {
     public function testNormalizeEmpty(): void
@@ -117,7 +115,6 @@ class MetadataNormalizerTest extends TestCase
         );
     }
 
-
     public function testNormalizeComponent(): void
     {
         $metadata = $this->createConfiguredMock(
@@ -179,8 +176,6 @@ class MetadataNormalizerTest extends TestCase
         self::assertSame([], $actual);
     }
 
-    /**
-     */
     public function testNormalizeProperties(): void
     {
         $metadata = $this->createConfiguredMock(
@@ -213,8 +208,6 @@ class MetadataNormalizerTest extends TestCase
         );
     }
 
-    /**
-     */
     public function testNormalizePropertiesOmitWhenEmpty(): void
     {
         $metadata = $this->createConfiguredMock(

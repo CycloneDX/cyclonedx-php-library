@@ -42,7 +42,6 @@ use Generator;
 use PackageUrl\PackageUrl;
 use PHPUnit\Framework\TestCase;
 
-
 #[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Serialization\DOM\Normalizers\ComponentNormalizer::class)]
 #[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Serialization\DOM\_BaseNormalizer::class)]
 #[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\_helpers\SimpleDomTrait::class)]
@@ -77,7 +76,6 @@ class ComponentNormalizerTest extends TestCase
     }
 
      #[\PHPUnit\Framework\Attributes\DataProvider('dbNormalizeMinimal')]
-
     public function testNormalizeMinimal(string $expected, bool $requiresComponentVersion): void
     {
         $component = $this->createConfiguredMock(

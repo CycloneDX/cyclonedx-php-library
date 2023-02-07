@@ -352,8 +352,6 @@ class BomNormalizerTest extends TestCase
 
     // region external references
 
-    /**
-     */
     public function testNormalizeExternalReferencesMergedIfUnsupportedMetadata(): void
     {
         $spec = $this->createConfiguredMock(Spec::class, [
@@ -410,8 +408,6 @@ class BomNormalizerTest extends TestCase
         );
     }
 
-    /**
-     */
     public function testNormalizeExternalReferencesOmittedWHenEmpty(): void
     {
         $spec = $this->createConfiguredMock(Spec::class, [

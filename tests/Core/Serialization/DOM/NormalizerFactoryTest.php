@@ -147,7 +147,6 @@ class NormalizerFactoryTest extends TestCase
     }
 
      #[\PHPUnit\Framework\Attributes\Depends('testConstructor')]
-
     public function testMakeForToolRepository(NormalizerFactory $factory): void
     {
         $normalizer = $factory->makeForToolRepository();
@@ -156,7 +155,6 @@ class NormalizerFactoryTest extends TestCase
     }
 
      #[\PHPUnit\Framework\Attributes\Depends('testConstructor')]
-
     public function testMakeForTool(NormalizerFactory $factory): void
     {
         $normalizer = $factory->makeForTool();
@@ -165,7 +163,6 @@ class NormalizerFactoryTest extends TestCase
     }
 
      #[\PHPUnit\Framework\Attributes\Depends('testConstructor')]
-
     public function testMakeForDependencies(NormalizerFactory $factory): void
     {
         $normalizer = $factory->makeForDependencies();
@@ -174,7 +171,6 @@ class NormalizerFactoryTest extends TestCase
     }
 
      #[\PHPUnit\Framework\Attributes\Depends('testConstructor')]
-
     public function testMakeForExternalReference(NormalizerFactory $factory): void
     {
         $normalizer = $factory->makeForExternalReference();
@@ -183,7 +179,6 @@ class NormalizerFactoryTest extends TestCase
     }
 
      #[\PHPUnit\Framework\Attributes\Depends('testConstructor')]
-
     public function testMakeForExternalReferenceRepository(NormalizerFactory $factory): void
     {
         $normalizer = $factory->makeForExternalReferenceRepository();

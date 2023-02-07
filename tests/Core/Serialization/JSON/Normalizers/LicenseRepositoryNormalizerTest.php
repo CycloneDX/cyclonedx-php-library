@@ -31,7 +31,6 @@ use CycloneDX\Core\Serialization\JSON\Normalizers\LicenseRepositoryNormalizer;
 use CycloneDX\Core\Spec\Spec;
 use PHPUnit\Framework\TestCase;
 
-
 #[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Serialization\JSON\Normalizers\LicenseRepositoryNormalizer::class)]
 #[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Serialization\JSON\_BaseNormalizer::class)]
 class LicenseRepositoryNormalizerTest extends TestCase

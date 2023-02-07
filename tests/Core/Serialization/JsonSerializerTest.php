@@ -34,10 +34,7 @@ use PHPUnit\Framework\TestCase;
 #[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Serialization\BomRefDiscriminator::class)]
 class JsonSerializerTest extends TestCase
 {
-    /**
-     */
     #[\PHPUnit\Framework\Attributes\DataProvider('dpSerializeStructure')]
-
     public function testSerialize(int $jsonEncodeFlags, ?bool $prettyPrint, array $normalized, string $expected): void
     {
         $bom = $this->createStub(Bom::class);

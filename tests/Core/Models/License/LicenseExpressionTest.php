@@ -74,7 +74,6 @@ class LicenseExpressionTest extends TestCase
     }
 
      #[\PHPUnit\Framework\Attributes\DataProvider('dpIsValid')]
-
     public function testIsValid(string $expression, $expected): void
     {
         $isValid = LicenseExpression::isValid($expression);

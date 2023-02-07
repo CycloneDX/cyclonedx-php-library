@@ -95,12 +95,8 @@ class BaseSerializerTest extends TestCase
 
     /**
      * @param BomRef[] $allBomRefs
-     *
-     *
-     *
      */
     #[\PHPUnit\Framework\Attributes\DataProvider('dpBomWithRefs')]
-
     public function testSerializeUsesUniqueBomRefsAndResetThemAfterwards(Bom $bom, array $allBomRefs): void
     {
         $allBomRefsValuesOriginal = [];
@@ -148,12 +144,8 @@ class BaseSerializerTest extends TestCase
 
     /**
      * @param BomRef[] $allBomRefs
-     *
-     *
-     *
      */
     #[\PHPUnit\Framework\Attributes\DataProvider('dpBomWithRefs')]
-
     public function testSerializeUsesUniqueBomRefsAndResetThemOnThrow(Bom $bom, array $allBomRefs): void
     {
         $allBomRefsValuesOriginal = [];

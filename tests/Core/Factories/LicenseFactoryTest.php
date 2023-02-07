@@ -105,6 +105,7 @@ class LicenseFactoryTest extends TestCase
 
         self::assertSame($license, $got);
     }
+
     public function testMakeExpression(): void
     {
         $factory = new LicenseFactory();

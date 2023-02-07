@@ -31,10 +31,7 @@ use PHPUnit\Framework\TestCase;
 #[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Enums\ComponentType::class)]
 class ComponentTypeTest extends TestCase
 {
-    /**
-     */
     #[\PHPUnit\Framework\Attributes\DataProvider('dpSchemaValues')]
-
     public function testHaseCaseForSchemaValue(string $value): void
     {
         self::assertNotNull(ComponentType::tryFrom($value));
