@@ -74,9 +74,6 @@ class HashDictionaryNormalizerTest extends TestCase
         self::assertSame([$dummy1, $dummy2], $normalized);
     }
 
-    /**
-     * @depends testConstructor
-     */
     public function testNormalizeSkipOnThrow(): void
     {
         $hashNormalizer = $this->createMock(HashNormalizer::class);

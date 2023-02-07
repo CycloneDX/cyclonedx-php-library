@@ -46,53 +46,53 @@ class ToolTest extends TestCase
         return $tool;
     }
 
-    /**
-     * @depends testConstruct
-     */
+     #[\PHPUnit\Framework\Attributes\DependsUsingShallowClone('testConstruct')]
     public function testSetterGetterVersion(Tool $tool): void
     {
         $version = 'v1.2.3';
-        $tool->setVersion($version);
+        self::assertNotSame($version, $tool->getVersion());
+        $actual = $tool->setVersion($version);
+        self::assertSame($actual, $tool);
         self::assertSame($version, $tool->getVersion());
     }
 
-    /**
-     * @depends testConstruct
-     */
+     #[\PHPUnit\Framework\Attributes\DependsUsingShallowClone('testConstruct')]
     public function testSetterGetterVendor(Tool $tool): void
     {
         $vendor = 'myVendor';
-        $tool->setVendor($vendor);
+        self::assertNotSame($vendor, $tool->getVendor());
+        $actual = $tool->setVendor($vendor);
+        self::assertSame($actual, $tool);
         self::assertSame($vendor, $tool->getVendor());
     }
 
-    /**
-     * @depends testConstruct
-     */
+     #[\PHPUnit\Framework\Attributes\DependsUsingShallowClone('testConstruct')]
     public function testSetterGetterName(Tool $tool): void
     {
         $name = 'myName';
-        $tool->setName($name);
+        self::assertNotSame($name, $tool->getName());
+        $actual = $tool->setName($name);
+        self::assertSame($actual, $tool);
         self::assertSame($name, $tool->getName());
     }
 
-    /**
-     * @depends testConstruct
-     */
+     #[\PHPUnit\Framework\Attributes\DependsUsingShallowClone('testConstruct')]
     public function testSetterGetterHashDictionary(Tool $tool): void
     {
         $hashes = $this->createStub(HashDictionary::class);
-        $tool->setHashes($hashes);
+        self::assertNotSame($hashes, $tool->getHashes());
+        $actual = $tool->setHashes($hashes);
+        self::assertSame($actual, $tool);
         self::assertSame($hashes, $tool->getHashes());
     }
 
-    /**
-     * @depends testConstruct
-     */
+     #[\PHPUnit\Framework\Attributes\DependsUsingShallowClone('testConstruct')]
     public function testSetterGetterExternalReferenceRepository(Tool $tool): void
     {
         $extRefs = $this->createStub(ExternalReferenceRepository::class);
-        $tool->setExternalReferences($extRefs);
+        self::assertNotSame($extRefs, $tool->getExternalReferences());
+        $actual = $tool->setExternalReferences($extRefs);
+        self::assertSame($actual, $tool);
         self::assertSame($extRefs, $tool->getExternalReferences());
     }
 }

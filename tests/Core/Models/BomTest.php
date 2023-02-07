@@ -54,9 +54,7 @@ class BomTest extends TestCase
 
     // region serialNumber setter&getter
 
-    /**
-     * @depends testConstruct
-     */
+     #[\PHPUnit\Framework\Attributes\DependsUsingShallowClone('testConstruct')]
     public function testSerialNumber(Bom $bom): Bom
     {
         $serialNumber = 'urn:uuid:3e671687-395b-41f5-a30f-a58921a69b79';
@@ -68,9 +66,7 @@ class BomTest extends TestCase
         return $bom;
     }
 
-    /**
-     * @depends testSerialNumber
-     */
+     #[\PHPUnit\Framework\Attributes\DependsUsingShallowClone('testSerialNumber')]
     public function testSerialNumberEmptyString(Bom $bom): void
     {
         $setOn = $bom->setSerialNumber('');
@@ -79,9 +75,9 @@ class BomTest extends TestCase
         self::assertNull($bom->getSerialNumber());
     }
 
-    /**
-     * @depends testSerialNumber
-     */
+
+     #[\PHPUnit\Framework\Attributes\DependsUsingShallowClone('testSerialNumber')]
+
     public function testSerialNumberEmptyStringInvalidValue(Bom $bom): void
     {
         $serialNumber = uniqid('invalid-value', true);
@@ -93,9 +89,7 @@ class BomTest extends TestCase
 
     // region components setter&getter&modifiers
 
-    /**
-     * @depends testConstruct
-     */
+     #[\PHPUnit\Framework\Attributes\DependsUsingShallowClone('testConstruct')]
     public function testComponentsSetterGetter(Bom $bom): void
     {
         $components = $this->createStub(ComponentRepository::class);
@@ -108,9 +102,7 @@ class BomTest extends TestCase
 
     // region version setter&getter
 
-    /**
-     * @depends testConstruct
-     */
+     #[\PHPUnit\Framework\Attributes\DependsUsingShallowClone('testConstruct')]
     public function testVersionSetterGetter(Bom $bom): void
     {
         $version = random_int(1, 255);
@@ -119,9 +111,7 @@ class BomTest extends TestCase
         self::assertSame($version, $bom->getVersion());
     }
 
-    /**
-     * @depends testConstruct
-     */
+     #[\PHPUnit\Framework\Attributes\DependsUsingShallowClone('testConstruct')]
     public function testVersionSetterInvalidValue(Bom $bom): void
     {
         $version = 0 - random_int(1, 255);
@@ -133,9 +123,8 @@ class BomTest extends TestCase
 
     // region metadata setter&getter
 
-    /**
-     * @depends testConstruct
-     */
+     #[\PHPUnit\Framework\Attributes\DependsUsingShallowClone('testConstruct')]
+
     public function testMetadataSetterGetter(Bom $bom): void
     {
         $metadata = $this->createStub(Metadata::class);
@@ -148,9 +137,8 @@ class BomTest extends TestCase
 
     // region externalReferenceRepository setter&getter
 
-    /**
-     * @depends testConstruct
-     */
+     #[\PHPUnit\Framework\Attributes\DependsUsingShallowClone('testConstruct')]
+
     public function testExternalReferenceRepositorySetterGetter(Bom $bom): void
     {
         $extRefRepo = $this->createStub(ExternalReferenceRepository::class);

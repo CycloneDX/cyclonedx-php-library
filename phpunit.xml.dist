@@ -41,7 +41,5 @@
         <ini name="xdebug.mode" value="coverage" />
         <ini name="pcov.enabled" value="1" />
         <ini name="pcov.directory" value="src" />
-        <ini name="zend.assertions" value="1" force="true"/>
-        <ini name="assert.exception" value="1" force="true" />
     </php>
 </phpunit>

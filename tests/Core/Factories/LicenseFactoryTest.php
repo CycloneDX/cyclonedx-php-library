@@ -66,9 +66,7 @@ class LicenseFactoryTest extends TestCase
         return $factory;
     }
 
-    /**
-     * @depends testConstructor
-     */
+     #[\PHPUnit\Framework\Attributes\DependsUsingShallowClone('testConstructor')]
     public function testSetSpdxLicenseValidator(LicenseFactory $factory): void
     {
         $spdxLicenseValidator = $this->createStub(SpdxLicenseValidator::class);

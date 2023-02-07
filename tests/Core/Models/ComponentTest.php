@@ -68,29 +68,26 @@ class ComponentTest extends TestCase
         return $component;
     }
 
-    /**
-     * @depends testConstructor
-     *
-     */
+
+     #[\PHPUnit\Framework\Attributes\DependsUsingShallowClone('testConstructor')]
     public function testSetBomRefValue(Component $component): void
     {
         $bomRef = $component->getBomRef();
-        self::assertNull($bomRef->getValue());
-
-        $component->setBomRefValue('foo');
-
+        self::assertNotSame('foo', $bomRef->getValue());
+        $actual = $component->setBomRefValue('foo');
+        self::assertSame($component, $actual);
         self::assertSame('foo', $bomRef->getValue());
     }
 
     // region type getter&setter
 
-    /**
-     * @depends testConstructor
-     */
+     #[\PHPUnit\Framework\Attributes\DependsUsingShallowClone('testConstructor')]
     public function testTypeSetterGetter(Component $component): void
     {
-        $type = ComponentType::LIBRARY;
-        $component->setType($type);
+        $type = ComponentType::FILE;
+        self::assertNotSame($type, $component->getType());
+        $actual = $component->setType($type);
+        self::assertSame($component, $actual);
         self::assertSame($type, $component->getType());
     }
 
@@ -98,13 +95,13 @@ class ComponentTest extends TestCase
 
     // region version setter&getter
 
-    /**
-     * @depends testConstructor
-     */
+     #[\PHPUnit\Framework\Attributes\DependsUsingShallowClone('testConstructor')]
     public function testVersionSetterGetter(Component $component): void
     {
         $version = uniqid('v', true);
-        $component->setVersion($version);
+        self::assertNotSame($version, $component->getVersion());
+        $actual = $component->setVersion($version);
+        self::assertSame($component, $actual);
         self::assertSame($version, $component->getVersion());
     }
 
@@ -112,13 +109,14 @@ class ComponentTest extends TestCase
 
     // region licenses setter&getter
 
-    /**
-     * @depends testConstructor
-     */
+     #[\PHPUnit\Framework\Attributes\DependsUsingShallowClone('testConstructor')]
+
     public function testLicensesSetterGetter(Component $component): void
     {
         $licenses = $this->createStub(LicenseRepository::class);
-        $component->setLicenses($licenses);
+        self::assertnotSame($licenses, $component->getLicenses());
+        $actual = $component->setLicenses($licenses);
+        self::assertSame($component, $actual);
         self::assertSame($licenses, $component->getLicenses());
     }
 
@@ -126,13 +124,14 @@ class ComponentTest extends TestCase
 
     // region hashes setter&getter
 
-    /**
-     * @depends testConstructor
-     */
+     #[\PHPUnit\Framework\Attributes\DependsUsingShallowClone('testConstructor')]
+
     public function testHashesSetterGetter(Component $component): void
     {
         $hashes = $this->createStub(HashDictionary::class);
-        $component->setHashes($hashes);
+        self::assertnotSame($hashes, $component->getHashes());
+        $actual = $component->setHashes($hashes);
+        self::assertSame($component, $actual);
         self::assertSame($hashes, $component->getHashes());
     }
 
@@ -140,13 +139,14 @@ class ComponentTest extends TestCase
 
     // region packageUrl setter&getter
 
-    /**
-     * @depends testConstructor
-     */
+     #[\PHPUnit\Framework\Attributes\DependsUsingShallowClone('testConstructor')]
+
     public function testPackageUrlSetterGetter(Component $component): void
     {
         $url = $this->createMock(PackageUrl::class);
-        $component->setPackageUrl($url);
+        self::assertNotSame($url, $component->getPackageUrl());
+        $actual = $component->setPackageUrl($url);
+        self::assertSame($component, $actual);
         self::assertSame($url, $component->getPackageUrl());
     }
 
@@ -158,19 +158,18 @@ class ComponentTest extends TestCase
 
     public function testDescriptionSetterGetter(Component $component, ?string $description, ?string $expected): void
     {
-        $setOn = $component->setDescription($description);
-
-        self::assertSame($component, $setOn);
+        $actual = $component->setDescription($description);
+        self::assertSame($component, $actual);
         self::assertSame($expected, $component->getDescription());
     }
 
     public function dpDescriptionSetterGetter(): Generator
     {
-        $component = $this->testConstructor();
-        yield 'null' => [$component, null, null];
-        yield 'empty string' => [$component, '', null];
-        $group = bin2hex(random_bytes(32));
-        yield 'non-empty-string' => [$component, $group, $group];
+        $component = clone $this->testConstructor();
+        yield 'null' => [clone $component, null, null];
+        yield 'empty string' => [clone $component, '', null];
+        $description = bin2hex(random_bytes(32));
+        yield 'non-empty-string' => [clone $component, $description, $description];
     }
 
     // endregion description setter&getter
@@ -181,19 +180,18 @@ class ComponentTest extends TestCase
 
     public function testAuthorSetterGetter(Component $component, ?string $author, ?string $expected): void
     {
-        $setOn = $component->setAuthor($author);
-
-        self::assertSame($component, $setOn);
+        $actual = $component->setAuthor($author);
+        self::assertSame($component, $actual);
         self::assertSame($expected, $component->getAuthor());
     }
 
     public function dpAuthorSetterGetter(): Generator
     {
-        $component = $this->testConstructor();
-        yield 'null' => [$component, null, null];
-        yield 'empty string' => [$component, '', null];
-        $group = bin2hex(random_bytes(32));
-        yield 'non-empty-string' => [$component, $group, $group];
+        $component = clone $this->testConstructor();
+        yield 'null' => [clone $component, null, null];
+        yield 'empty string' => [clone $component, '', null];
+        $author = bin2hex(random_bytes(32));
+        yield 'non-empty-string' => [clone $component, $author, $author];
     }
 
     // endregion author setter&getter
@@ -204,35 +202,31 @@ class ComponentTest extends TestCase
 
     public function testGroupSetterGetter(Component $component, ?string $group, ?string $expected): void
     {
-        $setOn = $component->setGroup($group);
-
-        self::assertSame($component, $setOn);
+        $actual = $component->setGroup($group);
+        self::assertSame($component, $actual);
         self::assertSame($expected, $component->getGroup());
     }
 
     public function dpGroupSetterGetter(): Generator
     {
-        $component = $this->testConstructor();
-        yield 'null' => [$component, null, null];
-        yield 'empty string' => [$component, '', null];
+        $component = clone $this->testConstructor();
+        yield 'null' => [clone $component, null, null];
+        yield 'empty string' => [clone $component, '', null];
         $group = bin2hex(random_bytes(32));
-        yield 'non-empty-string' => [$component, $group, $group];
+        yield 'non-empty-string' => [clone $component, $group, $group];
     }
 
     // endregion group setter&getter
 
     // region dependenciesBomRefRepository setter&getter
 
-    /**
-     * @depends testConstructor
-     */
+     #[\PHPUnit\Framework\Attributes\DependsUsingShallowClone('testConstructor')]
     public function testDependenciesBomRefRepositorySetterGetter(Component $component): void
     {
         $repo = $this->createMock(BomRefRepository::class);
         self::assertNotSame($repo, $component->getDependencies());
-
-        $component->setDependencies($repo);
-
+        $actual = $component->setDependencies($repo);
+        self::assertSame($component, $actual);
         self::assertSame($repo, $component->getDependencies());
     }
 
@@ -240,15 +234,12 @@ class ComponentTest extends TestCase
 
     // region externalReferenceRepository setter&getter
 
-    /**
-     * @depends testConstructor
-     */
+     #[\PHPUnit\Framework\Attributes\DependsUsingShallowClone('testConstructor')]
     public function testExternalReferenceRepositorySetterGetter(Component $component): void
     {
         $extRefRepo = $this->createStub(ExternalReferenceRepository::class);
-
+        self::assertNotSame($extRefRepo, $component->getExternalReferences());
         $actual = $component->setExternalReferences($extRefRepo);
-
         self::assertSame($component, $actual);
         self::assertSame($extRefRepo, $component->getExternalReferences());
     }
@@ -257,13 +248,13 @@ class ComponentTest extends TestCase
 
     // region properties setter&getter
 
-    /**
-     * @depends testConstructor
-     */
+     #[\PHPUnit\Framework\Attributes\DependsUsingShallowClone('testConstructor')]
     public function testGetterSetterProperties(Component $component): void
     {
         $properties = $this->createStub(PropertyRepository::class);
-        $component->setProperties($properties);
+        self::assertNotSame($properties, $component->getProperties());
+        $actual = $component->setProperties($properties);
+        self::assertSame($component, $actual);
         self::assertSame($properties, $component->getProperties());
     }
 
@@ -271,14 +262,11 @@ class ComponentTest extends TestCase
 
     // region clone
 
-    /**
-     * @depends testConstructor
-     */
+     #[\PHPUnit\Framework\Attributes\DependsUsingShallowClone('testConstructor')]
     public function testCloneHasOwnBom(Component $component): void
     {
         $component->setDescription('foobar');
         $actual = clone $component;
-
         self::assertEquals($component, $actual);
         self::assertSame('foobar', $component->getDescription());
         self::assertNotSame($component->getBomRef(), $actual->getBomRef());
