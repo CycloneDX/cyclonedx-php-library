@@ -23,7 +23,7 @@ composer.lock text eol=lf diff=json
 /.phpmd                 export-ignore
 /phpmd.ruleset.xml      export-ignore
 /phpmd.baseline.xml     export-ignore linguist-generated
-/phpunit.xml.dist       export-ignore
+/phpunit.dist.xml       export-ignore
 /infection.json.dist    export-ignore
 /psalm.xml.dist         export-ignore
 /.psalm                 export-ignore
