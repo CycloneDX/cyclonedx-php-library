@@ -71,8 +71,6 @@ class ComponentTest extends TestCase
     /**
      * @depends testConstructor
      *
-     * @uses \CycloneDX\Core\Models\BomRef::getValue
-     * @uses \CycloneDX\Core\Models\BomRef::setValue
      */
     public function testSetBomRefValue(Component $component): void
     {
