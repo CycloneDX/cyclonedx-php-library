@@ -64,8 +64,8 @@ class SerializeToJsonTest extends TestCase
      * This test might be slow.
      * This test might require online-connectivity.
      *
-     * @dataProvider \CycloneDX\Tests\_data\BomModelProvider::allBomTestData
      */
+    #[\PHPUnit\Framework\Attributes\DataProviderExternal(\CycloneDX\Tests\_data\BomModelProvider::class, 'allBomTestData')]
     public function testSchema12(Bom $bom): void
     {
         $spec = SpecFactory::make1dot2();
@@ -87,8 +87,9 @@ class SerializeToJsonTest extends TestCase
      * This test might be slow.
      * This test might require online-connectivity.
      *
-     * @dataProvider \CycloneDX\Tests\_data\BomModelProvider::allBomTestData
      */
+    #[\PHPUnit\Framework\Attributes\DataProviderExternal(\CycloneDX\Tests\_data\BomModelProvider::class, 'allBomTestData')]
+
     public function testSchema13(Bom $bom): void
     {
         $spec = SpecFactory::make1dot3();
@@ -110,8 +111,9 @@ class SerializeToJsonTest extends TestCase
      * This test might be slow.
      * This test might require online-connectivity.
      *
-     * @dataProvider \CycloneDX\Tests\_data\BomModelProvider::allBomTestData
      */
+    #[\PHPUnit\Framework\Attributes\DataProviderExternal(\CycloneDX\Tests\_data\BomModelProvider::class, 'allBomTestData')]
+
     public function testSchema14(Bom $bom): void
     {
         $spec = SpecFactory::make1dot4();

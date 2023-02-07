@@ -288,9 +288,7 @@ class ExternalReferenceNormalizerTest extends \PHPUnit\Framework\TestCase
 
     // endregion normalize hashes
 
-    /**
-     * @dataProvider \CycloneDX\Tests\_data\XmlAnyUriData::dpEncodeAnyUri
-     */
+     #[\PHPUnit\Framework\Attributes\DataProviderExternal(\CycloneDX\Tests\_data\XmlAnyUriData::class, 'dpEncodeAnyUri')]
     public function testNormalizeUrlEncodeAnyUri(string $rawUrl, string $encodedUrl): void
     {
         $spec = $this->createMock(Spec::class);
