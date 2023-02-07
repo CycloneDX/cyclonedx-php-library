@@ -254,9 +254,6 @@ class ExternalReferenceNormalizerTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @throws Exception on assertion error
-     */
     public function testNormalizeHashesOmitIfNotSupported(): void
     {
         $spec = $this->createConfiguredMock(Spec::class, [
