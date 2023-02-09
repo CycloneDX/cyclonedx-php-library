@@ -30,7 +30,7 @@ use DOMDocument;
  *
  * @internal as this trait may be affected by breaking changes without notice
  */
-abstract class Xml
+abstract class XML
 {
     /**
      * Make a string valid to XML::anyURI spec - best-effort.

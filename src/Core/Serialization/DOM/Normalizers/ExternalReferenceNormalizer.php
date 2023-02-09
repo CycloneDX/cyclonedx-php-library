@@ -23,9 +23,9 @@ declare(strict_types=1);
 
 namespace CycloneDX\Core\Serialization\DOM\Normalizers;
 
-use CycloneDX\Core\_helpers\SimpleDom;
+use CycloneDX\Core\_helpers\SimpleDOM;
 use CycloneDX\Core\_helpers\SimpleDomTrait;
-use CycloneDX\Core\_helpers\Xml;
+use CycloneDX\Core\_helpers\XML;
 use CycloneDX\Core\_helpers\XmlTrait;
 use CycloneDX\Core\Collections\HashDictionary;
 use CycloneDX\Core\Enums\ExternalReferenceType;
@@ -50,7 +50,7 @@ class ExternalReferenceNormalizer extends _BaseNormalizer
     public function normalize(ExternalReference $externalReference): DOMElement
     {
         $refURI = $externalReference->getUrl();
-        $anyURI = Xml::encodeAnyUriBE($refURI)
+        $anyURI = XML::encodeAnyUriBE($refURI)
             ?? throw new UnexpectedValueException("unable to make 'anyURI' from: $refURI");
 
         $factory = $this->getNormalizerFactory();
@@ -67,16 +67,16 @@ class ExternalReferenceNormalizer extends _BaseNormalizer
 
         $doc = $factory->getDocument();
 
-        return SimpleDom::appendChildren(
-            SimpleDom::setAttributes(
+        return SimpleDOM::appendChildren(
+            SimpleDOM::setAttributes(
                 $doc->createElement('reference'),
                 [
                     'type' => $type->value,
                 ]
             ),
             [
-                SimpleDom::makeSafeTextElement($doc, 'url', $anyURI),
-                SimpleDom::makeSafeTextElement($doc, 'comment', $externalReference->getComment()),
+                SimpleDOM::makeSafeTextElement($doc, 'url', $anyURI),
+                SimpleDOM::makeSafeTextElement($doc, 'comment', $externalReference->getComment()),
                 $this->normalizeHashes($externalReference->getHashes()),
             ]
         );
@@ -93,7 +93,7 @@ class ExternalReferenceNormalizer extends _BaseNormalizer
             return null;
         }
 
-        return SimpleDom::appendChildren(
+        return SimpleDOM::appendChildren(
             $factory->getDocument()->createElement('hashes'),
             $factory->makeForHashDictionary()->normalize($hashes)
         );

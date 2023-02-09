@@ -23,7 +23,7 @@ declare(strict_types=1);
 
 namespace CycloneDX\Core\Serialization\DOM\Normalizers;
 
-use CycloneDX\Core\_helpers\SimpleDom;
+use CycloneDX\Core\_helpers\SimpleDOM;
 use CycloneDX\Core\_helpers\SimpleDomTrait;
 use CycloneDX\Core\Collections\ComponentRepository;
 use CycloneDX\Core\Models\Bom;
@@ -49,7 +49,7 @@ class BomNormalizer extends _BaseNormalizer
             sprintf(self::XML_NAMESPACE_PATTERN, $factory->getSpec()->getVersion()->value),
             'bom' // no namespace = defaultNS - so children w/o NS fall under this NS
         );
-        SimpleDom::setAttributes(
+        SimpleDOM::setAttributes(
             $element,
             [
                 'version' => $bom->getVersion(),
@@ -57,7 +57,7 @@ class BomNormalizer extends _BaseNormalizer
             ]
         );
 
-        SimpleDom::appendChildren(
+        SimpleDOM::appendChildren(
             $element,
             [
                 $this->normalizeMetadata($bom->getMetadata()),
@@ -74,7 +74,7 @@ class BomNormalizer extends _BaseNormalizer
     {
         $factory = $this->getNormalizerFactory();
 
-        return SimpleDom::appendChildren(
+        return SimpleDOM::appendChildren(
             $factory->getDocument()->createElement('components'),
             $factory->makeForComponentRepository()->normalize($components)
         );
@@ -118,7 +118,7 @@ class BomNormalizer extends _BaseNormalizer
 
         return 0 === \count($refs)
             ? null
-            : SimpleDom::appendChildren(
+            : SimpleDOM::appendChildren(
                 $factory->getDocument()->createElement('externalReferences'),
                 $refs
             );
@@ -136,7 +136,7 @@ class BomNormalizer extends _BaseNormalizer
 
         return empty($deps)
             ? null
-            : SimpleDom::appendChildren(
+            : SimpleDOM::appendChildren(
                 $factory->getDocument()->createElement('dependencies'),
                 $deps
             );

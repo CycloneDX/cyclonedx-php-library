@@ -32,7 +32,7 @@ use DOMNode;
  *
  * @author jkowalleck
  */
-abstract class SimpleDom
+abstract class SimpleDOM
 {
     /**
      * @psalm-param iterable<string, scalar|null> $attributes

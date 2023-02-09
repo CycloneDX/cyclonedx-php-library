@@ -23,7 +23,7 @@ declare(strict_types=1);
 
 namespace CycloneDX\Core\Serialization\DOM\Normalizers;
 
-use CycloneDX\Core\_helpers\SimpleDom;
+use CycloneDX\Core\_helpers\SimpleDOM;
 use CycloneDX\Core\_helpers\SimpleDomTrait;
 use CycloneDX\Core\Enums\HashAlgorithm;
 use CycloneDX\Core\Serialization\DOM\_BaseNormalizer;
@@ -50,13 +50,13 @@ class HashNormalizer extends _BaseNormalizer
             throw new DomainException("Invalid hash content: $content", 2);
         }
 
-        $element = SimpleDom::makeSafeTextElement(
+        $element = SimpleDOM::makeSafeTextElement(
             $this->getNormalizerFactory()->getDocument(),
             'hash',
             $content
         );
         \assert(null !== $element);
-        SimpleDom::setAttributes($element, ['alg' => $algorithm->value]);
+        SimpleDOM::setAttributes($element, ['alg' => $algorithm->value]);
 
         return $element;
     }
