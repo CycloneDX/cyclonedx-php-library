@@ -52,7 +52,7 @@ class MetadataNormalizer extends _BaseNormalizer
                 // supplier
                 'properties' => $this->normalizeProperties($metadata->getProperties()),
             ],
-            [$this, 'isNotNull']
+            $this->isNotNull(...)
         );
     }
 

@@ -63,7 +63,10 @@ class DependenciesNormalizer extends _BaseNormalizer
         foreach ($allComponents as $component) {
             $dependency = $this->normalizeDependency(
                 $component->getBomRef(),
-                ...array_filter($component->getDependencies()->getItems(), $isKnownRef)
+                ...array_filter(
+                    $component->getDependencies()->getItems(),
+                    $isKnownRef
+                )
             );
             if (null !== $dependency) {
                 $dependencies[] = $dependency;

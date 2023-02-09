@@ -69,7 +69,7 @@ class ExternalReferenceNormalizer extends _BaseNormalizer
                 'comment' => $externalReference->getComment(),
                 'hashes' => $this->normalizeHashes($externalReference->getHashes()),
             ],
-            [$this, 'isNotNull']
+            $this->isNotNull(...)
         );
     }
 

@@ -69,7 +69,7 @@ class BomNormalizer extends _BaseNormalizer
                 'externalReferences' => $this->normalizeExternalReferences($bom),
                 'dependencies' => $this->normalizeDependencies($bom),
             ],
-            [$this, 'isNotNull']
+            $this->isNotNull(...)
         );
     }
 
