@@ -35,34 +35,51 @@ enum ExternalReferenceType: string
 {
     /* Version Control System */
     case VCS = 'vcs';
+
     /* Issue or defect tracking system, or an Application Lifecycle Management (ALM) system */
     case ISSUE_TRACKER = 'issue-tracker';
+
     /* Website */
     case WEBSITE = 'website';
+
     /* Security advisories */
     case ADVISORIES = 'advisories';
+
     /* Bill-of-material document (CycloneDX, SPDX, SWID, etc) */
     case BOM = 'bom';
+
     /* Mailing list or discussion group */
     case MAILING_LIST = 'mailing-list';
+
     /* Social media account */
     case SOCIAL = 'social';
+
     /* Real-time chat platform */
     case CHAT = 'chat';
+
     /* Documentation, guides, or how-to instructions */
     case DOCUMENTATION = 'documentation';
+
     /* Community or commercial support */
     case SUPPORT = 'support';
-    /*** Direct or repository download location.*/
+
+    /* Direct or repository download location. */
     case DISTRIBUTION = 'distribution';
-    /* The URL to the license file. If a license URL has been defined in the licensenode, it should also be defined as an external reference for completeness. */
+
+    /* The URL to the license file. If a license URL has been defined in the license node,
+     * it should also be defined as an external reference for completeness.
+     */
     case LICENSE = 'license';
+
     /* Build-system specific meta file (i.e. pom.xml, package.json, .nuspec, etc). */
     case BUILD_META = 'build-meta';
+
     /* URL to an automated build system. */
     case BUILD_SYSTEM = 'build-system';
+
     /* URL to release notes. */
     case RELEASE_NOTES = 'release-notes';
+
     /* Use this if no other types accurately describe the purpose of the external reference. */
     case OTHER = 'other';
 }
