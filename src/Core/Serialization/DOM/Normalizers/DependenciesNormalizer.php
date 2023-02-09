@@ -24,7 +24,6 @@ declare(strict_types=1);
 namespace CycloneDX\Core\Serialization\DOM\Normalizers;
 
 use CycloneDX\Core\_helpers\SimpleDOM;
-use CycloneDX\Core\_helpers\SimpleDomTrait;
 use CycloneDX\Core\Models\Bom;
 use CycloneDX\Core\Models\BomRef;
 use CycloneDX\Core\Models\Component;
@@ -33,8 +32,6 @@ use DOMElement;
 
 class DependenciesNormalizer extends _BaseNormalizer
 {
-    use SimpleDomTrait;
-
     /**
      * Only named {@see \CycloneDX\Core\Models\BomRef BomRefs} will be taken into account.
      * Make sure to use the {@see \CycloneDX\Core\Serialization\BomRefDiscriminator} before calling.

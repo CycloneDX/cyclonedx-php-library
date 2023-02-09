@@ -24,7 +24,6 @@ declare(strict_types=1);
 namespace CycloneDX\Core\Serialization\JSON\Normalizers;
 
 use CycloneDX\Core\_helpers\Assert;
-use CycloneDX\Core\_helpers\NullAssertionTrait;
 use CycloneDX\Core\Collections\HashDictionary;
 use CycloneDX\Core\Enums\ExternalReferenceType;
 use CycloneDX\Core\Models\ExternalReference;
@@ -38,8 +37,6 @@ use UnexpectedValueException;
  */
 class ExternalReferenceNormalizer extends _BaseNormalizer
 {
-    use NullAssertionTrait;
-
     /**
      * @throws UnexpectedValueException when the url is invalid to IriReference format
      * @throws DomainException          when the type was not supported by the spec

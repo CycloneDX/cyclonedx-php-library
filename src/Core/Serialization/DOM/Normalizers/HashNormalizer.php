@@ -24,7 +24,6 @@ declare(strict_types=1);
 namespace CycloneDX\Core\Serialization\DOM\Normalizers;
 
 use CycloneDX\Core\_helpers\SimpleDOM;
-use CycloneDX\Core\_helpers\SimpleDomTrait;
 use CycloneDX\Core\Enums\HashAlgorithm;
 use CycloneDX\Core\Serialization\DOM\_BaseNormalizer;
 use DomainException;
@@ -35,8 +34,6 @@ use DOMElement;
  */
 class HashNormalizer extends _BaseNormalizer
 {
-    use SimpleDomTrait;
-
     /**
      * @throws DomainException
      */

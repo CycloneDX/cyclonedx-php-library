@@ -24,7 +24,6 @@ declare(strict_types=1);
 namespace CycloneDX\Core\Serialization\DOM\Normalizers;
 
 use CycloneDX\Core\_helpers\SimpleDOM;
-use CycloneDX\Core\_helpers\SimpleDomTrait;
 use CycloneDX\Core\Collections\PropertyRepository;
 use CycloneDX\Core\Collections\ToolRepository;
 use CycloneDX\Core\Models\Component;
@@ -40,8 +39,6 @@ use DOMElement;
  */
 class MetadataNormalizer extends _BaseNormalizer
 {
-    use SimpleDomTrait;
-
     public function normalize(Metadata $metadata): DOMElement
     {
         return SimpleDOM::appendChildren(

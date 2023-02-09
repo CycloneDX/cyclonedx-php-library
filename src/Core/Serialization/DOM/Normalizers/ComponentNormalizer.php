@@ -24,9 +24,7 @@ declare(strict_types=1);
 namespace CycloneDX\Core\Serialization\DOM\Normalizers;
 
 use CycloneDX\Core\_helpers\SimpleDOM;
-use CycloneDX\Core\_helpers\SimpleDomTrait;
 use CycloneDX\Core\_helpers\XML;
-use CycloneDX\Core\_helpers\XmlTrait;
 use CycloneDX\Core\Collections\ExternalReferenceRepository;
 use CycloneDX\Core\Collections\HashDictionary;
 use CycloneDX\Core\Collections\LicenseRepository;
@@ -42,9 +40,6 @@ use PackageUrl\PackageUrl;
  */
 class ComponentNormalizer extends _BaseNormalizer
 {
-    use SimpleDomTrait;
-    use XmlTrait;
-
     /**
      * @throws DomainException if component has unsupported type
      */

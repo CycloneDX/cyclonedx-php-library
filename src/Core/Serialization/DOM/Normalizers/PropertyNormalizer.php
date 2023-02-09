@@ -24,7 +24,6 @@ declare(strict_types=1);
 namespace CycloneDX\Core\Serialization\DOM\Normalizers;
 
 use CycloneDX\Core\_helpers\SimpleDOM;
-use CycloneDX\Core\_helpers\SimpleDomTrait;
 use CycloneDX\Core\Models\Property;
 use CycloneDX\Core\Serialization\DOM\_BaseNormalizer;
 use DomainException;
@@ -35,8 +34,6 @@ use DOMElement;
  */
 class PropertyNormalizer extends _BaseNormalizer
 {
-    use SimpleDomTrait;
-
     /**
      * @throws DomainException if property's name is empty
      */

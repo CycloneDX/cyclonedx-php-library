@@ -24,7 +24,6 @@ declare(strict_types=1);
 namespace CycloneDX\Core\Serialization\JSON\Normalizers;
 
 use CycloneDX\Core\_helpers\Assert;
-use CycloneDX\Core\_helpers\NullAssertionTrait;
 use CycloneDX\Core\Models\Bom;
 use CycloneDX\Core\Models\Metadata;
 use CycloneDX\Core\Serialization\JSON\_BaseNormalizer;
@@ -35,8 +34,6 @@ use CycloneDX\Core\Spec\Version;
  */
 class BomNormalizer extends _BaseNormalizer
 {
-    use NullAssertionTrait;
-
     private const BOM_FORMAT = 'CycloneDX';
 
     /** @psalm-pure  */

@@ -28,7 +28,7 @@ use DOMElement;
 use DOMNode;
 
 /**
- * @internal as this trait may be affected by breaking changes without notice
+ * @internal as this class may be affected by breaking changes without notice
  *
  * @author jkowalleck
  */

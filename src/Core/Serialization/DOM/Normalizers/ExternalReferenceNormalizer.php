@@ -24,9 +24,7 @@ declare(strict_types=1);
 namespace CycloneDX\Core\Serialization\DOM\Normalizers;
 
 use CycloneDX\Core\_helpers\SimpleDOM;
-use CycloneDX\Core\_helpers\SimpleDomTrait;
 use CycloneDX\Core\_helpers\XML;
-use CycloneDX\Core\_helpers\XmlTrait;
 use CycloneDX\Core\Collections\HashDictionary;
 use CycloneDX\Core\Enums\ExternalReferenceType;
 use CycloneDX\Core\Models\ExternalReference;
@@ -40,9 +38,6 @@ use UnexpectedValueException;
  */
 class ExternalReferenceNormalizer extends _BaseNormalizer
 {
-    use SimpleDomTrait;
-    use XmlTrait;
-
     /**
      * @throws DomainException          when the type was not supported by the spec
      * @throws UnexpectedValueException when url was unable to convert to XML::anyURI

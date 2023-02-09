@@ -24,7 +24,6 @@ declare(strict_types=1);
 namespace CycloneDX\Core\Serialization\DOM\Normalizers;
 
 use CycloneDX\Core\_helpers\SimpleDOM;
-use CycloneDX\Core\_helpers\SimpleDomTrait;
 use CycloneDX\Core\Collections\ExternalReferenceRepository;
 use CycloneDX\Core\Collections\HashDictionary;
 use CycloneDX\Core\Models\Tool;
@@ -36,8 +35,6 @@ use DOMElement;
  */
 class ToolNormalizer extends _BaseNormalizer
 {
-    use SimpleDomTrait;
-
     public function normalize(Tool $tool): DOMElement
     {
         $doc = $this->getNormalizerFactory()->getDocument();

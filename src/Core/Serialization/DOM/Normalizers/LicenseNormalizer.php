@@ -24,9 +24,7 @@ declare(strict_types=1);
 namespace CycloneDX\Core\Serialization\DOM\Normalizers;
 
 use CycloneDX\Core\_helpers\SimpleDOM;
-use CycloneDX\Core\_helpers\SimpleDomTrait;
 use CycloneDX\Core\_helpers\XML;
-use CycloneDX\Core\_helpers\XmlTrait;
 use CycloneDX\Core\Models\License\LicenseExpression;
 use CycloneDX\Core\Models\License\NamedLicense;
 use CycloneDX\Core\Models\License\SpdxLicense;
@@ -38,9 +36,6 @@ use DOMElement;
  */
 class LicenseNormalizer extends _BaseNormalizer
 {
-    use SimpleDomTrait;
-    use XmlTrait;
-
     public function normalize(LicenseExpression|SpdxLicense|NamedLicense $license): DOMElement
     {
         return $license instanceof LicenseExpression

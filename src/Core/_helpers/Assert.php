@@ -26,7 +26,7 @@ namespace CycloneDX\Core\_helpers;
 /**
  * @author jkowalleck
  *
- * @internal as this trait may be affected by breaking changes without notice
+ * @internal as this class may be affected by breaking changes without notice
  */
 abstract class Assert
 {

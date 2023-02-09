@@ -24,7 +24,6 @@ declare(strict_types=1);
 namespace CycloneDX\Core\Serialization\DOM\Normalizers;
 
 use CycloneDX\Core\_helpers\SimpleDOM;
-use CycloneDX\Core\_helpers\SimpleDomTrait;
 use CycloneDX\Core\Collections\ComponentRepository;
 use CycloneDX\Core\Models\Bom;
 use CycloneDX\Core\Models\Metadata;
@@ -36,8 +35,6 @@ use DOMElement;
  */
 class BomNormalizer extends _BaseNormalizer
 {
-    use SimpleDomTrait;
-
     private const XML_NAMESPACE_PATTERN = 'http://cyclonedx.org/schema/bom/%s';
 
     public function normalize(Bom $bom): DOMElement
