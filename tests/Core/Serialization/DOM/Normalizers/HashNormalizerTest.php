@@ -34,7 +34,7 @@ use PHPUnit\Framework\TestCase;
 
 #[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Serialization\DOM\Normalizers\HashNormalizer::class)]
 #[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Serialization\DOM\_BaseNormalizer::class)]
-#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\_helpers\SimpleDomTrait::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\_helpers\SimpleDOM::class)]
 class HashNormalizerTest extends TestCase
 {
     use DomNodeAssertionTrait;
