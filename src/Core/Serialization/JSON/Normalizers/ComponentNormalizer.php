@@ -81,7 +81,7 @@ class ComponentNormalizer extends _BaseNormalizer
                 'externalReferences' => $this->normalizeExternalReferences($component->getExternalReferences()),
                 'properties' => $this->normalizeProperties($component->getProperties()),
             ],
-            [$this, 'isNotNull']
+            $this->isNotNull(...)
         );
     }
 

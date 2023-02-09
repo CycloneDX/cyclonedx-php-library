@@ -35,7 +35,7 @@ trait NullAssertionTrait
      *
      * @psalm-assert-if-true !null $value
      */
-    private function isNotNull(mixed $value): bool
+    private static function isNotNull(mixed $value): bool
     {
         return null !== $value;
     }

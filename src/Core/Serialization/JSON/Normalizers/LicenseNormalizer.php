@@ -71,7 +71,7 @@ class LicenseNormalizer extends _BaseNormalizer
                     ? $url
                     : null,
             ],
-            [$this, 'isNotNull']
+            $this->isNotNull(...)
         )];
     }
 }

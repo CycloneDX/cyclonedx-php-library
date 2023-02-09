@@ -46,7 +46,7 @@ class ToolNormalizer extends _BaseNormalizer
                 'hashes' => $this->normalizeHashes($tool->getHashes()),
                 'externalReferences' => $this->normalizeExternalReferences($tool->getExternalReferences()),
             ],
-            [$this, 'isNotNull']
+            $this->isNotNull(...)
         );
     }
 
