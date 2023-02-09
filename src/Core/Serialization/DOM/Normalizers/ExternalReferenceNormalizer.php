@@ -23,7 +23,9 @@ declare(strict_types=1);
 
 namespace CycloneDX\Core\Serialization\DOM\Normalizers;
 
+use CycloneDX\Core\_helpers\SimpleDom;
 use CycloneDX\Core\_helpers\SimpleDomTrait;
+use CycloneDX\Core\_helpers\Xml;
 use CycloneDX\Core\_helpers\XmlTrait;
 use CycloneDX\Core\Collections\HashDictionary;
 use CycloneDX\Core\Enums\ExternalReferenceType;
@@ -48,7 +50,7 @@ class ExternalReferenceNormalizer extends _BaseNormalizer
     public function normalize(ExternalReference $externalReference): DOMElement
     {
         $refURI = $externalReference->getUrl();
-        $anyURI = $this->encodeAnyUriBE($refURI)
+        $anyURI = Xml::encodeAnyUriBE($refURI)
             ?? throw new UnexpectedValueException("unable to make 'anyURI' from: $refURI");
 
         $factory = $this->getNormalizerFactory();
@@ -65,16 +67,16 @@ class ExternalReferenceNormalizer extends _BaseNormalizer
 
         $doc = $factory->getDocument();
 
-        return $this->simpleDomAppendChildren(
-            $this->simpleDomSetAttributes(
+        return SimpleDom::appendChildren(
+            SimpleDom::setAttributes(
                 $doc->createElement('reference'),
                 [
                     'type' => $type->value,
                 ]
             ),
             [
-                $this->simpleDomSafeTextElement($doc, 'url', $anyURI),
-                $this->simpleDomSafeTextElement($doc, 'comment', $externalReference->getComment()),
+                SimpleDom::makeSafeTextElement($doc, 'url', $anyURI),
+                SimpleDom::makeSafeTextElement($doc, 'comment', $externalReference->getComment()),
                 $this->normalizeHashes($externalReference->getHashes()),
             ]
         );
@@ -91,7 +93,7 @@ class ExternalReferenceNormalizer extends _BaseNormalizer
             return null;
         }
 
-        return $this->simpleDomAppendChildren(
+        return SimpleDom::appendChildren(
             $factory->getDocument()->createElement('hashes'),
             $factory->makeForHashDictionary()->normalize($hashes)
         );

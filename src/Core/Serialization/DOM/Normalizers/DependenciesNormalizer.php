@@ -23,6 +23,7 @@ declare(strict_types=1);
 
 namespace CycloneDX\Core\Serialization\DOM\Normalizers;
 
+use CycloneDX\Core\_helpers\SimpleDom;
 use CycloneDX\Core\_helpers\SimpleDomTrait;
 use CycloneDX\Core\Models\Bom;
 use CycloneDX\Core\Models\BomRef;
@@ -83,7 +84,7 @@ class DependenciesNormalizer extends _BaseNormalizer
 
         $doc = $this->getNormalizerFactory()->getDocument();
 
-        $dependency = $this->simpleDomSetAttributes(
+        $dependency = SimpleDom::setAttributes(
             $doc->createElement('dependency'),
             ['ref' => $componentRefValue]
         );
@@ -92,7 +93,7 @@ class DependenciesNormalizer extends _BaseNormalizer
             $dependencyRefValue = $dependencyRef->getValue();
             if (null !== $dependencyRefValue) {
                 $dependency->appendChild(
-                    $this->simpleDomSetAttributes(
+                    SimpleDom::setAttributes(
                         $doc->createElement('dependency'),
                         ['ref' => $dependencyRefValue]
                     )

@@ -23,7 +23,9 @@ declare(strict_types=1);
 
 namespace CycloneDX\Core\Serialization\DOM\Normalizers;
 
+use CycloneDX\Core\_helpers\SimpleDom;
 use CycloneDX\Core\_helpers\SimpleDomTrait;
+use CycloneDX\Core\_helpers\Xml;
 use CycloneDX\Core\_helpers\XmlTrait;
 use CycloneDX\Core\Models\License\LicenseExpression;
 use CycloneDX\Core\Models\License\NamedLicense;
@@ -51,7 +53,7 @@ class LicenseNormalizer extends _BaseNormalizer
         // TODO: IMPLEMENTED IF NEEDED: may throw, if not supported by the spec
         // $this->getNormalizerFactory()->getSpec()->supportsLicenseExpression()
 
-        $element = $this->simpleDomSafeTextElement(
+        $element = SimpleDom::makeSafeTextElement(
             $this->getNormalizerFactory()->getDocument(),
             'expression',
             $license->getExpression()
@@ -72,12 +74,12 @@ class LicenseNormalizer extends _BaseNormalizer
 
         $document = $this->getNormalizerFactory()->getDocument();
 
-        return $this->simpleDomAppendChildren(
+        return SimpleDom::appendChildren(
             $document->createElement('license'),
             [
-                $this->simpleDomSafeTextElement($document, 'id', $id),
-                $this->simpleDomSafeTextElement($document, 'name', $name),
-                $this->simpleDomSafeTextElement($document, 'url', $this->encodeAnyUriBE($license->getUrl())),
+                SimpleDom::makeSafeTextElement($document, 'id', $id),
+                SimpleDom::makeSafeTextElement($document, 'name', $name),
+                SimpleDom::makeSafeTextElement($document, 'url', Xml::encodeAnyUriBE($license->getUrl())),
             ]
         );
     }

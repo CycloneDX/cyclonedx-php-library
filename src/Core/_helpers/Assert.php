@@ -28,14 +28,14 @@ namespace CycloneDX\Core\_helpers;
  *
  * @internal as this trait may be affected by breaking changes without notice
  */
-trait NullAssertionTrait
+abstract class Assert
 {
     /**
      * @psalm-pure
      *
      * @psalm-assert-if-true !null $value
      */
-    private static function isNotNull(mixed $value): bool
+    public static function isNotNull(mixed $value): bool
     {
         return null !== $value;
     }

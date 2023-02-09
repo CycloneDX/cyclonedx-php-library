@@ -23,6 +23,7 @@ declare(strict_types=1);
 
 namespace CycloneDX\Core\Serialization\JSON\Normalizers;
 
+use CycloneDX\Core\_helpers\Assert;
 use CycloneDX\Core\_helpers\NullAssertionTrait;
 use CycloneDX\Core\Models\Bom;
 use CycloneDX\Core\Models\Metadata;
@@ -69,7 +70,7 @@ class BomNormalizer extends _BaseNormalizer
                 'externalReferences' => $this->normalizeExternalReferences($bom),
                 'dependencies' => $this->normalizeDependencies($bom),
             ],
-            $this->isNotNull(...)
+            Assert::isNotNull(...)
         );
     }
 

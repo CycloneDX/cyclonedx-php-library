@@ -30,7 +30,7 @@ use DOMDocument;
  *
  * @internal as this trait may be affected by breaking changes without notice
  */
-trait XmlTrait
+abstract class Xml
 {
     /**
      * Make a string valid to XML::anyURI spec - best-effort.
@@ -43,7 +43,7 @@ trait XmlTrait
      *
      * @return string|null string on success; null if encoding failed, or input was null
      */
-    private function encodeAnyUriBE(?string $uri): ?string
+    public static function encodeAnyUriBE(?string $uri): ?string
     {
         if (null === $uri) {
             return null;
@@ -55,7 +55,7 @@ trait XmlTrait
             $uri
         );
 
-        return $this->filterAnyUri($uri)
+        return self::filterAnyUri($uri)
             ? $uri
             : null; // @codeCoverageIgnore
     }
@@ -63,7 +63,7 @@ trait XmlTrait
     /**
      * @SuppressWarnings(PHPMD.ErrorControlOperator) as there is no easy way to control libxml warning output
      */
-    private function filterAnyUri(string $uri): bool
+    public static function filterAnyUri(string $uri): bool
     {
         $doc = new DOMDocument();
         $doc->appendChild($doc->createElement('t'))

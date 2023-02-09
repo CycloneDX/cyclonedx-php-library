@@ -23,6 +23,7 @@ declare(strict_types=1);
 
 namespace CycloneDX\Core\Serialization\DOM\Normalizers;
 
+use CycloneDX\Core\_helpers\SimpleDom;
 use CycloneDX\Core\_helpers\SimpleDomTrait;
 use CycloneDX\Core\Collections\ExternalReferenceRepository;
 use CycloneDX\Core\Collections\HashDictionary;
@@ -41,12 +42,12 @@ class ToolNormalizer extends _BaseNormalizer
     {
         $doc = $this->getNormalizerFactory()->getDocument();
 
-        return $this->simpleDomAppendChildren(
+        return SimpleDom::appendChildren(
             $doc->createElement('tool'),
             [
-                $this->simpleDomSafeTextElement($doc, 'vendor', $tool->getVendor()),
-                $this->simpleDomSafeTextElement($doc, 'name', $tool->getName()),
-                $this->simpleDomSafeTextElement($doc, 'version', $tool->getVersion()),
+                SimpleDom::makeSafeTextElement($doc, 'vendor', $tool->getVendor()),
+                SimpleDom::makeSafeTextElement($doc, 'name', $tool->getName()),
+                SimpleDom::makeSafeTextElement($doc, 'version', $tool->getVersion()),
                 $this->normalizeHashes($tool->getHashes()),
                 $this->normalizeExternalReferences($tool->getExternalReferences()),
             ]
@@ -59,7 +60,7 @@ class ToolNormalizer extends _BaseNormalizer
 
         return 0 === \count($hashes)
             ? null
-            : $this->simpleDomAppendChildren(
+            : SimpleDom::appendChildren(
                 $factory->getDocument()->createElement('hashes'),
                 $factory->makeForHashDictionary()->normalize($hashes)
             );
@@ -75,7 +76,7 @@ class ToolNormalizer extends _BaseNormalizer
 
         return 0 === \count($extRefs)
             ? null
-            : $this->simpleDomAppendChildren(
+            : SimpleDom::appendChildren(
                 $factory->getDocument()->createElement('externalReferences'),
                 $factory->makeForExternalReferenceRepository()->normalize($extRefs)
             );

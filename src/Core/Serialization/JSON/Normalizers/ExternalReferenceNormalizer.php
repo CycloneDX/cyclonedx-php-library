@@ -23,6 +23,7 @@ declare(strict_types=1);
 
 namespace CycloneDX\Core\Serialization\JSON\Normalizers;
 
+use CycloneDX\Core\_helpers\Assert;
 use CycloneDX\Core\_helpers\NullAssertionTrait;
 use CycloneDX\Core\Collections\HashDictionary;
 use CycloneDX\Core\Enums\ExternalReferenceType;
@@ -69,7 +70,7 @@ class ExternalReferenceNormalizer extends _BaseNormalizer
                 'comment' => $externalReference->getComment(),
                 'hashes' => $this->normalizeHashes($externalReference->getHashes()),
             ],
-            $this->isNotNull(...)
+            Assert::isNotNull(...)
         );
     }
 
