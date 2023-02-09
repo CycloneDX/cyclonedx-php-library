@@ -23,8 +23,8 @@ declare(strict_types=1);
 
 namespace CycloneDX\Core\Serialization\DOM\Normalizers;
 
-use CycloneDX\Core\_helpers\SimpleDomTrait;
-use CycloneDX\Core\_helpers\XmlTrait;
+use CycloneDX\Core\_helpers\SimpleDOM;
+use CycloneDX\Core\_helpers\XML;
 use CycloneDX\Core\Collections\HashDictionary;
 use CycloneDX\Core\Enums\ExternalReferenceType;
 use CycloneDX\Core\Models\ExternalReference;
@@ -38,9 +38,6 @@ use UnexpectedValueException;
  */
 class ExternalReferenceNormalizer extends _BaseNormalizer
 {
-    use SimpleDomTrait;
-    use XmlTrait;
-
     /**
      * @throws DomainException          when the type was not supported by the spec
      * @throws UnexpectedValueException when url was unable to convert to XML::anyURI
@@ -48,7 +45,7 @@ class ExternalReferenceNormalizer extends _BaseNormalizer
     public function normalize(ExternalReference $externalReference): DOMElement
     {
         $refURI = $externalReference->getUrl();
-        $anyURI = $this->encodeAnyUriBE($refURI)
+        $anyURI = XML::encodeAnyUriBE($refURI)
             ?? throw new UnexpectedValueException("unable to make 'anyURI' from: $refURI");
 
         $factory = $this->getNormalizerFactory();
@@ -65,16 +62,16 @@ class ExternalReferenceNormalizer extends _BaseNormalizer
 
         $doc = $factory->getDocument();
 
-        return $this->simpleDomAppendChildren(
-            $this->simpleDomSetAttributes(
+        return SimpleDOM::appendChildren(
+            SimpleDOM::setAttributes(
                 $doc->createElement('reference'),
                 [
                     'type' => $type->value,
                 ]
             ),
             [
-                $this->simpleDomSafeTextElement($doc, 'url', $anyURI),
-                $this->simpleDomSafeTextElement($doc, 'comment', $externalReference->getComment()),
+                SimpleDOM::makeSafeTextElement($doc, 'url', $anyURI),
+                SimpleDOM::makeSafeTextElement($doc, 'comment', $externalReference->getComment()),
                 $this->normalizeHashes($externalReference->getHashes()),
             ]
         );
@@ -91,7 +88,7 @@ class ExternalReferenceNormalizer extends _BaseNormalizer
             return null;
         }
 
-        return $this->simpleDomAppendChildren(
+        return SimpleDOM::appendChildren(
             $factory->getDocument()->createElement('hashes'),
             $factory->makeForHashDictionary()->normalize($hashes)
         );

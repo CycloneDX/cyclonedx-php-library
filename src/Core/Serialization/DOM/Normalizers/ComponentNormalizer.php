@@ -23,8 +23,8 @@ declare(strict_types=1);
 
 namespace CycloneDX\Core\Serialization\DOM\Normalizers;
 
-use CycloneDX\Core\_helpers\SimpleDomTrait;
-use CycloneDX\Core\_helpers\XmlTrait;
+use CycloneDX\Core\_helpers\SimpleDOM;
+use CycloneDX\Core\_helpers\XML;
 use CycloneDX\Core\Collections\ExternalReferenceRepository;
 use CycloneDX\Core\Collections\HashDictionary;
 use CycloneDX\Core\Collections\LicenseRepository;
@@ -40,9 +40,6 @@ use PackageUrl\PackageUrl;
  */
 class ComponentNormalizer extends _BaseNormalizer
 {
-    use SimpleDomTrait;
-    use XmlTrait;
-
     /**
      * @throws DomainException if component has unsupported type
      */
@@ -70,8 +67,8 @@ class ComponentNormalizer extends _BaseNormalizer
 
         $document = $factory->getDocument();
 
-        return $this->simpleDomAppendChildren(
-            $this->simpleDomSetAttributes(
+        return SimpleDOM::appendChildren(
+            SimpleDOM::setAttributes(
                 $document->createElement('component'),
                 [
                     'type' => $type->value,
@@ -81,17 +78,17 @@ class ComponentNormalizer extends _BaseNormalizer
             [
                 // supplier
                 $spec->supportsComponentAuthor()
-                    ? $this->simpleDomSafeTextElement($document, 'author', $component->getAuthor())
+                    ? SimpleDOM::makeSafeTextElement($document, 'author', $component->getAuthor())
                     : null,
                 // publisher
-                $this->simpleDomSafeTextElement($document, 'group', $group),
-                $this->simpleDomSafeTextElement($document, 'name', $name),
-                $this->simpleDomSafeTextElement($document, 'version',
+                SimpleDOM::makeSafeTextElement($document, 'group', $group),
+                SimpleDOM::makeSafeTextElement($document, 'name', $name),
+                SimpleDOM::makeSafeTextElement($document, 'version',
                     null === $version && $spec->requiresComponentVersion()
                         ? ''
                         : $version
                 ),
-                $this->simpleDomSafeTextElement($document, 'description', $component->getDescription()),
+                SimpleDOM::makeSafeTextElement($document, 'description', $component->getDescription()),
                 // scope
                 $this->normalizeHashes($component->getHashes()),
                 $this->normalizeLicenses($component->getLicenses()),
@@ -114,7 +111,7 @@ class ComponentNormalizer extends _BaseNormalizer
 
         return 0 === \count($licenses)
             ? null
-            : $this->simpleDomAppendChildren(
+            : SimpleDOM::appendChildren(
                 $factory->getDocument()->createElement('licenses'),
                 $factory->makeForLicenseRepository()->normalize($licenses)
             );
@@ -126,7 +123,7 @@ class ComponentNormalizer extends _BaseNormalizer
 
         return 0 === \count($hashes)
             ? null
-            : $this->simpleDomAppendChildren(
+            : SimpleDOM::appendChildren(
                 $factory->getDocument()->createElement('hashes'),
                 $factory->makeForHashDictionary()->normalize($hashes)
             );
@@ -136,10 +133,10 @@ class ComponentNormalizer extends _BaseNormalizer
     {
         return null === $purl
             ? null
-            : $this->simpleDomSafeTextElement(
+            : SimpleDOM::makeSafeTextElement(
                 $this->getNormalizerFactory()->getDocument(),
                 'purl',
-                $this->encodeAnyUriBE((string) $purl)
+                XML::encodeAnyUriBE((string) $purl)
             );
     }
 
@@ -149,7 +146,7 @@ class ComponentNormalizer extends _BaseNormalizer
 
         return 0 === \count($extRefs)
             ? null
-            : $this->simpleDomAppendChildren(
+            : SimpleDOM::appendChildren(
                 $factory->getDocument()->createElement('externalReferences'),
                 $factory->makeForExternalReferenceRepository()->normalize($extRefs)
             );
@@ -163,7 +160,7 @@ class ComponentNormalizer extends _BaseNormalizer
 
         return 0 === \count($properties)
             ? null
-            : $this->simpleDomAppendChildren(
+            : SimpleDOM::appendChildren(
                 $this->getNormalizerFactory()->getDocument()->createElement('properties'),
                 $this->getNormalizerFactory()->makeForPropertyRepository()->normalize($properties)
             );

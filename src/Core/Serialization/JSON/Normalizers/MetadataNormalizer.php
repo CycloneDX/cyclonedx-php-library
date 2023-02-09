@@ -23,7 +23,7 @@ declare(strict_types=1);
 
 namespace CycloneDX\Core\Serialization\JSON\Normalizers;
 
-use CycloneDX\Core\_helpers\NullAssertionTrait;
+use CycloneDX\Core\_helpers\Assert;
 use CycloneDX\Core\Collections\PropertyRepository;
 use CycloneDX\Core\Collections\ToolRepository;
 use CycloneDX\Core\Models\Component;
@@ -38,8 +38,6 @@ use DateTimeZone;
  */
 class MetadataNormalizer extends _BaseNormalizer
 {
-    use NullAssertionTrait;
-
     public function normalize(Metadata $metadata): array
     {
         return array_filter(
@@ -52,7 +50,7 @@ class MetadataNormalizer extends _BaseNormalizer
                 // supplier
                 'properties' => $this->normalizeProperties($metadata->getProperties()),
             ],
-            $this->isNotNull(...)
+            Assert::isNotNull(...)
         );
     }
 

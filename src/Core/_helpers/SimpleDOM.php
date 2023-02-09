@@ -28,18 +28,20 @@ use DOMElement;
 use DOMNode;
 
 /**
- * @internal as this trait may be affected by breaking changes without notice
+ * Namespace of functions related to DOM manipulation.
+ *
+ * @internal as this class may be affected by breaking changes without notice
  *
  * @author jkowalleck
  */
-trait SimpleDomTrait
+abstract class SimpleDOM
 {
     /**
      * @psalm-param iterable<string, scalar|null> $attributes
      *
      * @SuppressWarnings(PHPMD.ElseExpression)
      */
-    private function simpleDomSetAttributes(DOMElement $element, iterable $attributes): DOMElement
+    public static function setAttributes(DOMElement $element, iterable $attributes): DOMElement
     {
         foreach ($attributes as $attName => $attValue) {
             if (null === $attValue) {
@@ -55,7 +57,7 @@ trait SimpleDomTrait
     /**
      * @psalm-param iterable<?DOMNode> $children
      */
-    private function simpleDomAppendChildren(DOMElement $element, iterable $children): DOMElement
+    public static function appendChildren(DOMElement $element, iterable $children): DOMElement
     {
         foreach ($children as $child) {
             if (null !== $child) {
@@ -74,7 +76,7 @@ trait SimpleDomTrait
      * @SuppressWarnings(PHPMD.BooleanArgumentFlag)
      * @SuppressWarnings(PHPMD.ElseExpression)
      */
-    private function simpleDomSafeTextElement(DOMDocument $document, string $name, mixed $data, bool $null = true): ?DOMElement
+    public static function makeSafeTextElement(DOMDocument $document, string $name, mixed $data, bool $null = true): ?DOMElement
     {
         $element = $document->createElement($name);
         if (null !== $data) {

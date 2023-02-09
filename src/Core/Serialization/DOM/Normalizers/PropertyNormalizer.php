@@ -23,7 +23,7 @@ declare(strict_types=1);
 
 namespace CycloneDX\Core\Serialization\DOM\Normalizers;
 
-use CycloneDX\Core\_helpers\SimpleDomTrait;
+use CycloneDX\Core\_helpers\SimpleDOM;
 use CycloneDX\Core\Models\Property;
 use CycloneDX\Core\Serialization\DOM\_BaseNormalizer;
 use DomainException;
@@ -34,8 +34,6 @@ use DOMElement;
  */
 class PropertyNormalizer extends _BaseNormalizer
 {
-    use SimpleDomTrait;
-
     /**
      * @throws DomainException if property's name is empty
      */
@@ -49,10 +47,10 @@ class PropertyNormalizer extends _BaseNormalizer
             throw new DomainException('empty name');
         }
 
-        $element = $this->simpleDomSafeTextElement($doc, 'property', $property->getValue(), false);
+        $element = SimpleDOM::makeSafeTextElement($doc, 'property', $property->getValue(), false);
         \assert(null !== $element);
 
-        return $this->simpleDomSetAttributes(
+        return SimpleDOM::setAttributes(
             $element,
             ['name' => $name]
         );

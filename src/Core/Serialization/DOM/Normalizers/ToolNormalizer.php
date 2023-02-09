@@ -23,7 +23,7 @@ declare(strict_types=1);
 
 namespace CycloneDX\Core\Serialization\DOM\Normalizers;
 
-use CycloneDX\Core\_helpers\SimpleDomTrait;
+use CycloneDX\Core\_helpers\SimpleDOM;
 use CycloneDX\Core\Collections\ExternalReferenceRepository;
 use CycloneDX\Core\Collections\HashDictionary;
 use CycloneDX\Core\Models\Tool;
@@ -35,18 +35,16 @@ use DOMElement;
  */
 class ToolNormalizer extends _BaseNormalizer
 {
-    use SimpleDomTrait;
-
     public function normalize(Tool $tool): DOMElement
     {
         $doc = $this->getNormalizerFactory()->getDocument();
 
-        return $this->simpleDomAppendChildren(
+        return SimpleDOM::appendChildren(
             $doc->createElement('tool'),
             [
-                $this->simpleDomSafeTextElement($doc, 'vendor', $tool->getVendor()),
-                $this->simpleDomSafeTextElement($doc, 'name', $tool->getName()),
-                $this->simpleDomSafeTextElement($doc, 'version', $tool->getVersion()),
+                SimpleDOM::makeSafeTextElement($doc, 'vendor', $tool->getVendor()),
+                SimpleDOM::makeSafeTextElement($doc, 'name', $tool->getName()),
+                SimpleDOM::makeSafeTextElement($doc, 'version', $tool->getVersion()),
                 $this->normalizeHashes($tool->getHashes()),
                 $this->normalizeExternalReferences($tool->getExternalReferences()),
             ]
@@ -59,7 +57,7 @@ class ToolNormalizer extends _BaseNormalizer
 
         return 0 === \count($hashes)
             ? null
-            : $this->simpleDomAppendChildren(
+            : SimpleDOM::appendChildren(
                 $factory->getDocument()->createElement('hashes'),
                 $factory->makeForHashDictionary()->normalize($hashes)
             );
@@ -75,7 +73,7 @@ class ToolNormalizer extends _BaseNormalizer
 
         return 0 === \count($extRefs)
             ? null
-            : $this->simpleDomAppendChildren(
+            : SimpleDOM::appendChildren(
                 $factory->getDocument()->createElement('externalReferences'),
                 $factory->makeForExternalReferenceRepository()->normalize($extRefs)
             );

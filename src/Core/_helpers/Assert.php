@@ -24,18 +24,20 @@ declare(strict_types=1);
 namespace CycloneDX\Core\_helpers;
 
 /**
- * @author jkowalleck
+ * Namespace of functions related to assertions.
  *
- * @internal as this trait may be affected by breaking changes without notice
+ * @internal as this class may be affected by breaking changes without notice
+ *
+ * @author jkowalleck
  */
-trait NullAssertionTrait
+abstract class Assert
 {
     /**
      * @psalm-pure
      *
      * @psalm-assert-if-true !null $value
      */
-    private static function isNotNull(mixed $value): bool
+    public static function isNotNull(mixed $value): bool
     {
         return null !== $value;
     }

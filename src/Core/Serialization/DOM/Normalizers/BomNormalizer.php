@@ -23,7 +23,7 @@ declare(strict_types=1);
 
 namespace CycloneDX\Core\Serialization\DOM\Normalizers;
 
-use CycloneDX\Core\_helpers\SimpleDomTrait;
+use CycloneDX\Core\_helpers\SimpleDOM;
 use CycloneDX\Core\Collections\ComponentRepository;
 use CycloneDX\Core\Models\Bom;
 use CycloneDX\Core\Models\Metadata;
@@ -35,8 +35,6 @@ use DOMElement;
  */
 class BomNormalizer extends _BaseNormalizer
 {
-    use SimpleDomTrait;
-
     private const XML_NAMESPACE_PATTERN = 'http://cyclonedx.org/schema/bom/%s';
 
     public function normalize(Bom $bom): DOMElement
@@ -48,7 +46,7 @@ class BomNormalizer extends _BaseNormalizer
             sprintf(self::XML_NAMESPACE_PATTERN, $factory->getSpec()->getVersion()->value),
             'bom' // no namespace = defaultNS - so children w/o NS fall under this NS
         );
-        $this->simpleDomSetAttributes(
+        SimpleDOM::setAttributes(
             $element,
             [
                 'version' => $bom->getVersion(),
@@ -56,7 +54,7 @@ class BomNormalizer extends _BaseNormalizer
             ]
         );
 
-        $this->simpleDomAppendChildren(
+        SimpleDOM::appendChildren(
             $element,
             [
                 $this->normalizeMetadata($bom->getMetadata()),
@@ -73,7 +71,7 @@ class BomNormalizer extends _BaseNormalizer
     {
         $factory = $this->getNormalizerFactory();
 
-        return $this->simpleDomAppendChildren(
+        return SimpleDOM::appendChildren(
             $factory->getDocument()->createElement('components'),
             $factory->makeForComponentRepository()->normalize($components)
         );
@@ -117,7 +115,7 @@ class BomNormalizer extends _BaseNormalizer
 
         return 0 === \count($refs)
             ? null
-            : $this->simpleDomAppendChildren(
+            : SimpleDOM::appendChildren(
                 $factory->getDocument()->createElement('externalReferences'),
                 $refs
             );
@@ -135,7 +133,7 @@ class BomNormalizer extends _BaseNormalizer
 
         return empty($deps)
             ? null
-            : $this->simpleDomAppendChildren(
+            : SimpleDOM::appendChildren(
                 $factory->getDocument()->createElement('dependencies'),
                 $deps
             );

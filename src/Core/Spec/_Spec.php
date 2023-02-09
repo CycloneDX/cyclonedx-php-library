@@ -31,7 +31,7 @@ use CycloneDX\Core\Enums\HashAlgorithm;
  * This class is not for public use.
  * See {@see \CycloneDX\Core\Spec\SpecFactory Specification Factory} to get prepared instances.
  *
- * @internal as this trait may be affected by breaking changes without notice
+ * @internal as this class may be affected by breaking changes without notice
  *
  * @SuppressWarnings(PHPMD.LongVariable)
  * @SuppressWarnings(PHPMD.CamelCaseClassName)

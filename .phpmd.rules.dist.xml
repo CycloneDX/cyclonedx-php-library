@@ -8,11 +8,26 @@
         Rules to apply to PHPMD
     </description>
 
-    <rule ref="rulesets/cleancode.xml" />
+    <rule ref="rulesets/cleancode.xml">
+        <exclude name="StaticAccess"/>
+    </rule>
     <rule ref="rulesets/codesize.xml" />
     <rule ref="rulesets/controversial.xml" />
     <rule ref="rulesets/design.xml" />
     <rule ref="rulesets/naming.xml" />
     <rule ref="rulesets/unusedcode.xml" />
+
+    <rule ref="rulesets/cleancode.xml/StaticAccess">
+        <properties>
+            <property name="exceptions">
+                <value>
+                    <!-- some classes are assembled of static methods only - these classes represent namespaces -->
+                    CycloneDX\Core\_helpers\Assert,
+                    CycloneDX\Core\_helpers\SimpleDOM,
+                    CycloneDX\Core\_helpers\XML
+                </value>
+            </property>
+        </properties>
+    </rule>
 
 </ruleset>

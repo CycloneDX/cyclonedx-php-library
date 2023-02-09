@@ -23,7 +23,7 @@ declare(strict_types=1);
 
 namespace CycloneDX\Core\Serialization\DOM\Normalizers;
 
-use CycloneDX\Core\_helpers\SimpleDomTrait;
+use CycloneDX\Core\_helpers\SimpleDOM;
 use CycloneDX\Core\Collections\PropertyRepository;
 use CycloneDX\Core\Collections\ToolRepository;
 use CycloneDX\Core\Models\Component;
@@ -39,11 +39,9 @@ use DOMElement;
  */
 class MetadataNormalizer extends _BaseNormalizer
 {
-    use SimpleDomTrait;
-
     public function normalize(Metadata $metadata): DOMElement
     {
-        return $this->simpleDomAppendChildren(
+        return SimpleDOM::appendChildren(
             $this->getNormalizerFactory()->getDocument()->createElement('metadata'),
             [
                 $this->normalizeTimestamp($metadata->getTimestamp()),
@@ -67,7 +65,7 @@ class MetadataNormalizer extends _BaseNormalizer
             ->setTimezone(new DateTimeZone('UTC'))
             ->format('Y-m-d\\TH:i:sp');
 
-        return $this->simpleDomSafeTextElement(
+        return SimpleDOM::makeSafeTextElement(
             $this->getNormalizerFactory()->getDocument(),
             'timestamp',
             $dtZulu
@@ -78,7 +76,7 @@ class MetadataNormalizer extends _BaseNormalizer
     {
         return 0 === \count($tools)
             ? null
-            : $this->simpleDomAppendChildren(
+            : SimpleDOM::appendChildren(
                 $this->getNormalizerFactory()->getDocument()->createElement('tools'),
                 $this->getNormalizerFactory()->makeForToolRepository()->normalize($tools)
             );
@@ -105,7 +103,7 @@ class MetadataNormalizer extends _BaseNormalizer
 
         return 0 === \count($properties)
             ? null
-            : $this->simpleDomAppendChildren(
+            : SimpleDOM::appendChildren(
                 $this->getNormalizerFactory()->getDocument()->createElement('properties'),
                 $this->getNormalizerFactory()->makeForPropertyRepository()->normalize($properties)
             );

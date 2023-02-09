@@ -23,7 +23,6 @@ declare(strict_types=1);
 
 namespace CycloneDX\Core\Serialization\JSON\Normalizers;
 
-use CycloneDX\Core\_helpers\NullAssertionTrait;
 use CycloneDX\Core\Models\Bom;
 use CycloneDX\Core\Models\BomRef;
 use CycloneDX\Core\Models\Component;
@@ -34,8 +33,6 @@ use CycloneDX\Core\Serialization\JSON\_BaseNormalizer;
  */
 class DependenciesNormalizer extends _BaseNormalizer
 {
-    use NullAssertionTrait;
-
     /**
      * Only named {@see \CycloneDX\Core\Models\BomRef BomRefs} will be taken into account.
      * Make sure to use the {@see \CycloneDX\Core\Serialization\BomRefDiscriminator} before calling.
