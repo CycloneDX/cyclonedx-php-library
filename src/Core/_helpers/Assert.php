@@ -24,9 +24,11 @@ declare(strict_types=1);
 namespace CycloneDX\Core\_helpers;
 
 /**
- * @author jkowalleck
+ * Namespace of functions related to assertions.
  *
  * @internal as this class may be affected by breaking changes without notice
+ *
+ * @author jkowalleck
  */
 abstract class Assert
 {

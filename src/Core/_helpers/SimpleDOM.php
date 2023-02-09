@@ -28,6 +28,8 @@ use DOMElement;
 use DOMNode;
 
 /**
+ * Namespace of functions related to DOM manipulation.
+ *
  * @internal as this class may be affected by breaking changes without notice
  *
  * @author jkowalleck

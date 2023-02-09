@@ -26,9 +26,11 @@ namespace CycloneDX\Core\_helpers;
 use DOMDocument;
 
 /**
- * @author jkowalleck
+ * Namespace of functions related to XML.
  *
  * @internal as this class may be affected by breaking changes without notice
+ *
+ * @author jkowalleck
  */
 abstract class XML
 {
