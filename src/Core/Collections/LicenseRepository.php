@@ -56,7 +56,7 @@ class LicenseRepository implements Countable
      *
      * @return $this
      */
-    public function addItems(SpdxLicense|NamedLicense|LicenseExpression ...$items): self
+    public function addItems(SpdxLicense|NamedLicense|LicenseExpression ...$items): static
     {
         foreach ($items as $item) {
             if (\in_array($item, $this->items, true)) {

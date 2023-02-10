@@ -64,7 +64,7 @@ class ExternalReference
     /**
      * @return $this
      */
-    public function setType(ExternalReferenceType $type): self
+    public function setType(ExternalReferenceType $type): static
     {
         $this->type = $type;
 
@@ -79,7 +79,7 @@ class ExternalReference
     /**
      * @return $this
      */
-    public function setUrl(string $url): self
+    public function setUrl(string $url): static
     {
         $this->url = $url;
 
@@ -94,7 +94,7 @@ class ExternalReference
     /**
      * @return $this
      */
-    public function setComment(?string $comment): self
+    public function setComment(?string $comment): static
     {
         $this->comment = $comment;
 
@@ -109,7 +109,7 @@ class ExternalReference
     /**
      * @return $this
      */
-    public function setHashes(HashDictionary $hashes): self
+    public function setHashes(HashDictionary $hashes): static
     {
         $this->hashes = $hashes;
 

@@ -48,7 +48,7 @@ class BomRefRepository implements Countable
     /**
      * @return $this
      */
-    public function addItems(BomRef ...$items): self
+    public function addItems(BomRef ...$items): static
     {
         foreach ($items as $item) {
             if (\in_array($item, $this->items, true)) {

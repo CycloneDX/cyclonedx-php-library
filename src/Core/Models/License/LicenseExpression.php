@@ -45,7 +45,7 @@ class LicenseExpression
      *
      * @return $this
      */
-    public function setExpression(string $expression): self
+    public function setExpression(string $expression): static
     {
         $this->expression = self::isValid($expression)
             ? $expression

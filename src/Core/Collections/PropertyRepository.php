@@ -51,7 +51,7 @@ class PropertyRepository implements Countable
      *
      * @return $this
      */
-    public function addItems(Property ...$items): self
+    public function addItems(Property ...$items): static
     {
         foreach ($items as $item) {
             if (\in_array($item, $this->items, true)) {

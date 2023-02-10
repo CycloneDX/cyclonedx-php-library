@@ -48,7 +48,7 @@ class ComponentRepository implements Countable
     /**
      * @return $this
      */
-    public function addItems(Component ...$items): self
+    public function addItems(Component ...$items): static
     {
         foreach ($items as $item) {
             if (\in_array($item, $this->items, true)) {

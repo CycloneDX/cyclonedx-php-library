@@ -96,7 +96,7 @@ class Bom
      *
      * @return $this
      */
-    public function setSerialNumber(?string $serialNumber): self
+    public function setSerialNumber(?string $serialNumber): static
     {
         if ('' === $serialNumber) {
             $serialNumber = null;
@@ -128,7 +128,7 @@ class Bom
     /**
      * @return $this
      */
-    public function setComponents(ComponentRepository $components): self
+    public function setComponents(ComponentRepository $components): static
     {
         $this->components = $components;
 
@@ -152,7 +152,7 @@ class Bom
      *
      * @return $this
      */
-    public function setVersion(int $version): self
+    public function setVersion(int $version): static
     {
         $this->version = self::isValidVersion($version)
             ? $version
@@ -179,7 +179,7 @@ class Bom
     /**
      * @return $this
      */
-    public function setMetadata(Metadata $metadata): self
+    public function setMetadata(Metadata $metadata): static
     {
         $this->metadata = $metadata;
 
@@ -194,7 +194,7 @@ class Bom
     /**
      * @return $this
      */
-    public function setExternalReferences(ExternalReferenceRepository $externalReferences): self
+    public function setExternalReferences(ExternalReferenceRepository $externalReferences): static
     {
         $this->externalReferences = $externalReferences;
 

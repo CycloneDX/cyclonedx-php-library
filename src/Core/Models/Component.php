@@ -155,7 +155,7 @@ class Component
      *
      * @return $this
      */
-    public function setBomRefValue(?string $value): self
+    public function setBomRefValue(?string $value): static
     {
         $this->bomRef->setValue($value);
 
@@ -170,7 +170,7 @@ class Component
     /**
      * @return $this
      */
-    public function setName(string $name): self
+    public function setName(string $name): static
     {
         $this->name = $name;
 
@@ -188,7 +188,7 @@ class Component
     /**
      * @return $this
      */
-    public function setGroup(?string $group): self
+    public function setGroup(?string $group): static
     {
         $this->group = '' === $group
             ? null
@@ -205,7 +205,7 @@ class Component
     /**
      * @return $this
      */
-    public function setType(ComponentType $type): self
+    public function setType(ComponentType $type): static
     {
         $this->type = $type;
 
@@ -220,7 +220,7 @@ class Component
     /**
      * @return $this
      */
-    public function setDescription(?string $description): self
+    public function setDescription(?string $description): static
     {
         $this->description = '' === $description
             ? null
@@ -237,7 +237,7 @@ class Component
     /**
      * @return $this
      */
-    public function setAuthor(?string $author): self
+    public function setAuthor(?string $author): static
     {
         $this->author = '' === $author
             ? null
@@ -254,7 +254,7 @@ class Component
     /**
      * @return $this
      */
-    public function setLicenses(LicenseRepository $licenses): self
+    public function setLicenses(LicenseRepository $licenses): static
     {
         $this->licenses = $licenses;
 
@@ -269,7 +269,7 @@ class Component
     /**
      * @return $this
      */
-    public function setHashes(HashDictionary $hashes): self
+    public function setHashes(HashDictionary $hashes): static
     {
         $this->hashes = $hashes;
 
@@ -284,7 +284,7 @@ class Component
     /**
      * @return $this
      */
-    public function setVersion(?string $version): self
+    public function setVersion(?string $version): static
     {
         $this->version = $version;
 
@@ -299,7 +299,7 @@ class Component
     /**
      * @return $this
      */
-    public function setPackageUrl(?PackageUrl $purl): self
+    public function setPackageUrl(?PackageUrl $purl): static
     {
         $this->packageUrl = $purl;
 
@@ -314,7 +314,7 @@ class Component
     /**
      * @return $this
      */
-    public function setDependencies(BomRefRepository $dependencies): self
+    public function setDependencies(BomRefRepository $dependencies): static
     {
         $this->dependencies = $dependencies;
 
@@ -329,7 +329,7 @@ class Component
     /**
      * @return $this
      */
-    public function setExternalReferences(ExternalReferenceRepository $externalReferences): self
+    public function setExternalReferences(ExternalReferenceRepository $externalReferences): static
     {
         $this->externalReferences = $externalReferences;
 
@@ -344,7 +344,7 @@ class Component
     /**
      * @return $this
      */
-    public function setProperties(PropertyRepository $properties): self
+    public function setProperties(PropertyRepository $properties): static
     {
         $this->properties = $properties;
 
