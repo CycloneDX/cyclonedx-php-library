@@ -53,7 +53,7 @@ class LicenseFactory
     /**
      * @psalm-assert SpdxLicenseValidator $this->spdxLicenseValidator
      */
-    public function setSpdxLicenseValidator(SpdxLicenseValidator $spdxLicenseValidator): self
+    public function setSpdxLicenseValidator(SpdxLicenseValidator $spdxLicenseValidator): static
     {
         $this->spdxLicenseValidator = $spdxLicenseValidator;
 

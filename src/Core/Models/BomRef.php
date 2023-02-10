@@ -52,7 +52,7 @@ final class BomRef
     /**
      * @return $this
      */
-    public function setValue(?string $value): self
+    public function setValue(?string $value): static
     {
         $this->value = '' === $value
             ? null

@@ -64,7 +64,7 @@ class Tool
     /**
      * @return $this
      */
-    public function setVendor(?string $vendor): self
+    public function setVendor(?string $vendor): static
     {
         $this->vendor = $vendor;
 
@@ -79,7 +79,7 @@ class Tool
     /**
      * @return $this
      */
-    public function setName(?string $name): self
+    public function setName(?string $name): static
     {
         $this->name = $name;
 
@@ -94,7 +94,7 @@ class Tool
     /**
      * @return $this
      */
-    public function setVersion(?string $version): self
+    public function setVersion(?string $version): static
     {
         $this->version = $version;
 
@@ -109,7 +109,7 @@ class Tool
     /**
      * @return $this
      */
-    public function setHashes(HashDictionary $hashes): self
+    public function setHashes(HashDictionary $hashes): static
     {
         $this->hashes = $hashes;
 
@@ -124,7 +124,7 @@ class Tool
     /**
      * @return $this
      */
-    public function setExternalReferences(ExternalReferenceRepository $externalReferences): self
+    public function setExternalReferences(ExternalReferenceRepository $externalReferences): static
     {
         $this->externalReferences = $externalReferences;
 

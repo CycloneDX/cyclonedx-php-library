@@ -66,7 +66,7 @@ class Metadata
     /**
      * @return $this
      */
-    public function setTimestamp(?DateTimeInterface $timestamp): self
+    public function setTimestamp(?DateTimeInterface $timestamp): static
     {
         $this->timestamp = $timestamp;
 
@@ -81,7 +81,7 @@ class Metadata
     /**
      * @return $this
      */
-    public function setTools(ToolRepository $tools): self
+    public function setTools(ToolRepository $tools): static
     {
         $this->tools = $tools;
 
@@ -96,7 +96,7 @@ class Metadata
     /**
      * @return $this
      */
-    public function setComponent(?Component $component): self
+    public function setComponent(?Component $component): static
     {
         $this->component = $component;
 
@@ -111,7 +111,7 @@ class Metadata
     /**
      * @return $this
      */
-    public function setProperties(PropertyRepository $properties): self
+    public function setProperties(PropertyRepository $properties): static
     {
         $this->properties = $properties;
 

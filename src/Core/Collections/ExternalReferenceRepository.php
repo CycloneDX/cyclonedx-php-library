@@ -48,7 +48,7 @@ class ExternalReferenceRepository implements Countable
     /**
      * @return $this
      */
-    public function addItems(ExternalReference ...$items): self
+    public function addItems(ExternalReference ...$items): static
     {
         foreach ($items as $item) {
             if (\in_array($item, $this->items, true)) {

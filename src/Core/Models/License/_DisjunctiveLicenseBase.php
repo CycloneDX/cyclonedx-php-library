@@ -46,7 +46,7 @@ trait _DisjunctiveLicenseBase
     /**
      * @return $this
      */
-    public function setUrl(?string $url): self
+    public function setUrl(?string $url): static
     {
         $this->url = $url;
 

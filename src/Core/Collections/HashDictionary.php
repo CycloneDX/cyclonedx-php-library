@@ -63,7 +63,7 @@ class HashDictionary implements Countable
      *
      * @return $this
      */
-    public function setItems(array ...$items): self
+    public function setItems(array ...$items): static
     {
         foreach ($items as [$algorithm, $content]) {
             $this->set($algorithm, $content);
@@ -87,7 +87,7 @@ class HashDictionary implements Countable
      *
      * @SuppressWarnings(PHPMD.ElseExpression)
      */
-    public function set(HashAlgorithm $algorithm, ?string $content): self
+    public function set(HashAlgorithm $algorithm, ?string $content): static
     {
         $key = self::makeDictKey($algorithm);
         if (null === $content || '' === $content) {

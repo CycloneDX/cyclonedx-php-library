@@ -48,7 +48,7 @@ class ToolRepository implements Countable
     /**
      * @return $this
      */
-    public function addItems(Tool ...$items): self
+    public function addItems(Tool ...$items): static
     {
         foreach ($items as $item) {
             if (\in_array($item, $this->items, true)) {
