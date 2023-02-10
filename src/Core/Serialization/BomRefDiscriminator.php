@@ -37,24 +37,28 @@ class BomRefDiscriminator
      *
      * @psalm-var list<BomRef>
      */
-    private array $bomRefs = [];
+    private readonly array $bomRefs;
 
     /**
-     * @var string[]|null[]
+     * @var (string|null)[]
      *
-     * @psalm-var list<?string>
+     * @psalm-var list<string|null>
      */
-    private array $originalValues = [];
+    private readonly array $originalValues;
 
     public function __construct(BomRef ...$bomRefs)
     {
+        $brs = [];
+        $ovs = [];
         foreach ($bomRefs as $bomRef) {
-            if (\in_array($bomRef, $this->bomRefs, true)) {
+            if (\in_array($bomRef, $brs, true)) {
                 continue;
             }
-            $this->bomRefs[] = $bomRef;
-            $this->originalValues[] = $bomRef->getValue();
+            $brs[] = $bomRef;
+            $ovs[] = $bomRef->getValue();
         }
+        $this->bomRefs = $brs;
+        $this->originalValues = $ovs;
     }
 
     public function discriminate(): void

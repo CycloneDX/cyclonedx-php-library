@@ -30,7 +30,7 @@ use CycloneDX\Core\Enums\HashAlgorithm;
  * Dictionary of {@see \CycloneDX\Core\Enums\HashAlgorithm} => HashContent.
  *
  * @psalm-type HashContent = string
- * @psalm-type HashAlgorithmContentTuple = array{0:HashAlgorithm,1:HashContent}
+ * @psalm-type HashAlgorithmContentTuple = list{HashAlgorithm,HashContent}
  *
  * @author jkowalleck
  */
