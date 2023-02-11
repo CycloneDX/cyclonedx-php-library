@@ -61,7 +61,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
-          key: composer-${{ github.job }}-${{ runner.os }}-${{ matrix.php }}-${{ hashFiles('**/composer.json') }}
+          key: composer-${{ github.job }}-${{ runner.os }}-${{ matrix.php }}-${{ hashFiles('composer.*', 'tools/*/composer.*') }}
           restore-keys: |
             composer-${{ github.job }}-${{ runner.os }}-${{ matrix.php }}-
             composer-${{ github.job }}-${{ runner.os }}-
