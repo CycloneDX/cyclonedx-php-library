@@ -89,7 +89,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
-          key: composer-${{ github.job }}-${{ runner.os }}-${{ matrix.php }}-${{ matrix.dependencies }}-${{ hashFiles('**/composer.json') }}
+          key: composer-${{ github.job }}-${{ runner.os }}-${{ matrix.php }}-${{ matrix.dependencies }}-${{ hashFiles('composer.*', 'tools/phpunit/composer.*') }}
           restore-keys: |
             composer-${{ github.job }}-${{ runner.os }}-${{ matrix.php }}-${{ matrix.dependencies }}-
             composer-${{ github.job }}-${{ runner.os }}-${{ matrix.php }}-
@@ -161,7 +161,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
-          key: composer-${{ github.job }}-${{ runner.os }}-${{ matrix.php }}-${{ matrix.dependencies }}-${{ hashFiles('**/composer.json') }}
+          key: composer-${{ github.job }}-${{ runner.os }}-${{ matrix.php }}-${{ matrix.dependencies }}-${{ hashFiles('composer.*', 'tools/psalm/composer.*') }}
           restore-keys: |
             composer-${{ github.job }}-${{ runner.os }}-${{ matrix.php }}-${{ matrix.dependencies }}-
             composer-${{ github.job }}-${{ runner.os }}-${{ matrix.php }}-
@@ -217,7 +217,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
-          key: composer-${{ github.job }}-${{ runner.os }}-${{ hashFiles('**/composer.json') }}
+          key: composer-${{ github.job }}-${{ runner.os }}-${{ hashFiles('composer.*', 'tools/composer-unused/composer.*') }}
           restore-keys: |
             composer-${{ github.job }}-${{ runner.os }}-
       - name: Install composer-unused
@@ -255,7 +255,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
-          key: composer-${{ github.job }}-${{ runner.os }}-${{ hashFiles('**/composer.json') }}
+          key: composer-${{ github.job }}-${{ runner.os }}-${{ hashFiles('composer.*', 'tools/composer-require-checker/composer.*') }}
           restore-keys: |
             composer-${{ github.job }}-${{ runner.os }}-
       - name: Install composer-require-checker
@@ -291,7 +291,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
-          key: composer-${{ github.job }}-${{ runner.os }}-${{ hashFiles('**/composer.json') }}
+          key: composer-${{ github.job }}-${{ runner.os }}-${{ hashFiles('composer.*', 'tools/php-cs-fixer/composer.*') }}
           restore-keys: |
             composer-${{ github.job }}-${{ runner.os }}-
       - name: Install PHP-CS-Fixer
@@ -329,7 +329,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
-          key: composer-${{ github.job }}-${{ runner.os }}-${{ hashFiles('**/composer.json') }}
+          key: composer-${{ github.job }}-${{ runner.os }}-${{ hashFiles('composer.*', 'tools/composer-normalize/composer.*') }}
           restore-keys: |
             composer-${{ github.job }}-${{ runner.os }}-
       - name: Install composer-normalize
@@ -337,7 +337,7 @@ jobs:
         working-directory: tools/composer-normalize
       - name: Run composer-normalize tests
         run: >
-          composer -dtools/composer-normalize
+          composer -d tools/composer-normalize
           normalize
           --dry-run
           --diff
@@ -368,7 +368,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
-          key: composer-${{ github.job }}-${{ runner.os }}-${{ hashFiles('**/composer.json') }}
+          key: composer-${{ github.job }}-${{ runner.os }}-${{ hashFiles('composer.*', 'tools/phpmd/composer.*') }}
           restore-keys: |
             composer-${{ github.job }}-${{ runner.os }}-
       - name: Install phpmd
