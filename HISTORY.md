@@ -60,7 +60,7 @@ All notable changes to this project will be documented in this file.
       Also changed parameter & return type to non-nullable, was nullable ([#66] via [#131])
     * BREAKING: renamed methods `{get,set}MetaData()` -> `{get,set}Metadata()` ([#133] via [#131])  
       Also changed parameter & return type to non-nullable, was nullable ([#66] via [#131])
-    * Added `{get,set}Properties()` ([#228] via [#])
+    * Added `{get,set}Properties()` ([#228] via [#229])
     * Added `{get,set}SerialNumber()` (via [#186])
   * `Component` class
     * BREAKING: renamed methods `{get,set}DependenciesBomRefRepository()` -> `{get,set}Dependencies()` ([#133] via [#131])  
@@ -209,6 +209,7 @@ All notable changes to this project will be documented in this file.
 [#188]: https://github.com/CycloneDX/cyclonedx-php-library/pull/188
 [#204]: https://github.com/CycloneDX/cyclonedx-php-library/pull/204
 [#228]: https://github.com/CycloneDX/cyclonedx-php-library/issues/228
+[#229]: https://github.com/CycloneDX/cyclonedx-php-library/pull/229
 
 ## 1.6.3 - 2022-09-15
 
