@@ -191,6 +191,8 @@ class MetadataNormalizerTest extends TestCase
         );
     }
 
+    // region properties
+
     public function testNormalizeProperties(): void
     {
         $metadata = $this->createConfiguredMock(
@@ -256,4 +258,6 @@ class MetadataNormalizerTest extends TestCase
             $actual
         );
     }
+
+    // endregion properties
 }
