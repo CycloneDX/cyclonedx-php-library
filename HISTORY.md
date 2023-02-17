@@ -12,7 +12,7 @@ All notable changes to this project will be documented in this file.
   * Removed support for PHP v8.0 (via [#204])
   * Changed models' aggregation properties to be no longer optional ([#66] via [#131])
   * Streamlined repository data structures to follow a common method naming scheme (via [#131])
-  * Enumerations-like classes were converted to native [PHP Enumerations](https://www.php.net/manual/en/language.types.enumerations.php) ([#140] via [#204])
+  * Enumeration-like classes were converted to native [PHP Enumerations](https://www.php.net/manual/en/language.types.enumerations.php) ([#140] via [#204])
 * Added
   * Support for CycloneDX schema/spec v1.4 ([#57] via [#65], [#118], [#123])
   * Support for [properties](https://cyclonedx.org/use-cases/#properties--name-value-store) in data models (via [#165])
@@ -72,7 +72,7 @@ All notable changes to this project will be documented in this file.
       Also changed it work with class `LicenseRepository` only, was working with various `Models\License\*` types. ([#66] via [#131])
     * BREAKING: changed class property `version` to be optional, to reflect CycloneDX v1.4. ([#27] via [#118], [#131])  
       This affects constructor arguments, and affects methods `{get,set}Version()`.
-    * BREAKING: changed property `type` to be of type `\CycloneDX\Core\Enum\ComponentType` ([#140] via [#204])
+    * BREAKING: changed property `type` to be of type `\CycloneDX\Core\Enum\ComponentType` ([#140] via [#204])  
       This affects constructor arguments, and affects methods `{get,set}Type()`.
     * Added `{get,set}Author()` ([#184] via [#185])
     * Added `{get,set}Properties()` (via [#165])
@@ -107,7 +107,7 @@ All notable changes to this project will be documented in this file.
       In addition, the method arguments were renamed to generic `$items`.
   * `DisjunctiveLicenseRepository` class
     * BREAKING: renamed the class to `\CycloneDX\Core\Collections\LicenseRepository` (via [#131])
-    * BREAKING: added the capability to also aggregate instances of class `Models\LicenseExpression`. (via [#131])
+    * BREAKING: added the capability to also aggregate instances of class `Models\LicenseExpression`. (via [#131])  
       Therefore, various getters and setters and the constructor changed their signatures,
       was usage of `\CycloneDX\Core\Models\License\AbstractDisjunctiveLicense` only.
   * `HashRepository` class
