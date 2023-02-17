@@ -146,7 +146,7 @@ All notable changes to this project will be documented in this file.
       * Changed the method `normalize()` to actually throw `\DomainException` when `\ExternalReference`'s type was not supported by the spec. (via [#65])  
         This is considered a non-breaking change, because the behaviour was already documented in the API, even though there was no need for an implementation before.
     * `ExternalReferenceNormalizer` classes
-      * Changed, so that it tries to convert unsupported types to "other", before it throws an `\DomainException` ([#137] via [#147])
+      * Changed, so that it tries to convert unsupported types to "other", before it throws a `\DomainException` ([#137] via [#147])
   * `JSON\Normalizers\BomNormalizer` class
     * Changed: method `normalize()`'s result data may contain the `$schema` string (via [#155])
   * `JSON\Normalizers\ExternalReferenceNormalizer` class
@@ -189,6 +189,7 @@ All notable changes to this project will be documented in this file.
 [#143]: https://github.com/CycloneDX/cyclonedx-php-library/pull/143
 [#144]: https://github.com/CycloneDX/cyclonedx-php-library/pull/144
 [#146]: https://github.com/CycloneDX/cyclonedx-php-library/pull/146
+[#147]: https://github.com/CycloneDX/cyclonedx-php-library/pull/147
 [#149]: https://github.com/CycloneDX/cyclonedx-php-library/pull/149
 [#151]: https://github.com/CycloneDX/cyclonedx-php-library/pull/151
 [#155]: https://github.com/CycloneDX/cyclonedx-php-library/pull/155
