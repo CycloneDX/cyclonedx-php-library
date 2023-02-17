@@ -91,4 +91,9 @@ class Spec1dot2Test extends SpecBaseTestCase
     {
         return false;
     }
+
+    protected static function shouldSupportBomProperties(): bool
+    {
+        return false;
+    }
 }

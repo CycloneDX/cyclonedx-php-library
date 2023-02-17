@@ -15,7 +15,7 @@ All notable changes to this project will be documented in this file.
   * Enumeration-like classes were converted to native [PHP Enumerations](https://www.php.net/manual/en/language.types.enumerations.php) ([#140] via [#204])
 * Added
   * Support for CycloneDX schema/spec v1.4 ([#57] via [#65], [#118], [#123])
-  * Support for [properties](https://cyclonedx.org/use-cases/#properties--name-value-store) in data models (via [#165])
+  * Support for [properties](https://cyclonedx.org/use-cases/#properties--name-value-store) in data models ([#228] via [#165])
 * Misc
   * All class properties now enforce the correct types ([#6], [#114] via [#125])  
     This is considered a non-breaking change, because the types were already correctly annotated.  
@@ -34,7 +34,7 @@ All notable changes to this project will be documented in this file.
   * BREAKING: every occurrence of `{M,m}etaData` with a capital "D" was renamed to `{M,m}etadata` with a small "d". ([#133] via [#131], [#149])  
     This affects class names, method names, variable names, property names, file names, documentation - everything.
 * `\CycloneDX\Core\Collections` namespace
-  * Added new class `PropertyRepository` (via [#165])
+  * Added new class `PropertyRepository` ([#228] via [#165])
 * `\CycloneDX\Core\Enum` namespace
   * `Classification` class
     * BREAKING: renamed class to `ComponentType` (via [#170])
@@ -60,6 +60,7 @@ All notable changes to this project will be documented in this file.
       Also changed parameter & return type to non-nullable, was nullable ([#66] via [#131])
     * BREAKING: renamed methods `{get,set}MetaData()` -> `{get,set}Metadata()` ([#133] via [#131])  
       Also changed parameter & return type to non-nullable, was nullable ([#66] via [#131])
+    * Added `{get,set}Properties()` ([#228] via [#229])
     * Added `{get,set}SerialNumber()` (via [#186])
   * `Component` class
     * BREAKING: renamed methods `{get,set}DependenciesBomRefRepository()` -> `{get,set}Dependencies()` ([#133] via [#131])  
@@ -75,7 +76,7 @@ All notable changes to this project will be documented in this file.
     * BREAKING: changed property `type` to be of type `\CycloneDX\Core\Enum\ComponentType` ([#140] via [#204])  
       This affects constructor arguments, and affects methods `{get,set}Type()`.
     * Added `{get,set}Author()` ([#184] via [#185])
-    * Added `{get,set}Properties()` (via [#165])
+    * Added `{get,set}Properties()` ([#228] via [#165])
   * `ExternalReference` class
     * BREAKING: renamed methods `{get,set}HashRepository()` -> `{get,set}Hashes()` ([#133] via [#131])  
       Also changed parameter & return type to non-nullable, was nullable ([#66] via [#131])
@@ -92,9 +93,9 @@ All notable changes to this project will be documented in this file.
     * BREAKING: renamed class to `Metadata` ([#133] via [#131])  
       Even though PHP is case-insensitive with class names, autoloaders may be case-sensitive. Therefore, this is considered a breaking change.
     * BREAKING: changed methods `{get,set}Tools()` so that their parameter & return type is non-nullable, was nullable ([#66] via [#131])
-    * Added new methods `{get,set}Properties()` (via [#165])
+    * Added new methods `{get,set}Properties()` ([#228] via [#165])
     * Added new methods `{get,set}Timestamp()` (via [#180], [#181])
-  * Added new class `Property`. (via [#165])
+  * Added new class `Property`. ([#228] via [#165])
   * `Tool` class
     * BREAKING: renamed methods `{get,set}ExternalReferenceRepository()` -> `{get,set}ExternalReferences()` ([#133] via [#131])  
       Also changed parameter & return type to non-nullable, was nullable ([#66] via [#131])
@@ -207,6 +208,8 @@ All notable changes to this project will be documented in this file.
 [#187]: https://github.com/CycloneDX/cyclonedx-php-library/issues/187
 [#188]: https://github.com/CycloneDX/cyclonedx-php-library/pull/188
 [#204]: https://github.com/CycloneDX/cyclonedx-php-library/pull/204
+[#228]: https://github.com/CycloneDX/cyclonedx-php-library/issues/228
+[#229]: https://github.com/CycloneDX/cyclonedx-php-library/pull/229
 
 ## 1.6.3 - 2022-09-15
 

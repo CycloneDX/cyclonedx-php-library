@@ -25,6 +25,7 @@ namespace CycloneDX\Core\Models;
 
 use CycloneDX\Core\Collections\ComponentRepository;
 use CycloneDX\Core\Collections\ExternalReferenceRepository;
+use CycloneDX\Core\Collections\PropertyRepository;
 use DomainException;
 
 /**
@@ -71,6 +72,17 @@ class Bom
      */
     private ExternalReferenceRepository $externalReferences;
 
+    /**
+     * Provides the ability to document properties in a key/value store.
+     * This provides flexibility to include data not officially supported in the standard without having to use
+     * additional namespaces or create extensions.
+     *
+     * Property names of interest to the general public are encouraged to be registered in the
+     * {@link https://github.com/CycloneDX/cyclonedx-property-taxonomy CycloneDX Property Taxonomy}.
+     * Formal registration is OPTIONAL.
+     */
+    private PropertyRepository $properties;
+
     // Property `dependencies` is not part of this model, but part of `Component` and other models.
     // The dependency graph can be normalized on render-time, no need to store it in the bom model.
 
@@ -79,6 +91,7 @@ class Bom
         $this->components = new ComponentRepository();
         $this->externalReferences = new ExternalReferenceRepository();
         $this->metadata = new Metadata();
+        $this->properties = new PropertyRepository();
     }
 
     /**
@@ -197,6 +210,21 @@ class Bom
     public function setExternalReferences(ExternalReferenceRepository $externalReferences): static
     {
         $this->externalReferences = $externalReferences;
+
+        return $this;
+    }
+
+    public function getProperties(): PropertyRepository
+    {
+        return $this->properties;
+    }
+
+    /**
+     * @return $this
+     */
+    public function setProperties(PropertyRepository $properties): static
+    {
+        $this->properties = $properties;
 
         return $this;
     }

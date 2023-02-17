@@ -57,7 +57,7 @@ class BomNormalizer extends _BaseNormalizer
 
         return array_filter(
             [
-                '$schema' => $this->getSchema($specVersion) ?? null,
+                '$schema' => $this->getSchema($specVersion),
                 'bomFormat' => self::BOM_FORMAT,
                 'specVersion' => $specVersion->value,
                 'serialNumber' => $bom->getSerialNumber(),
@@ -66,6 +66,7 @@ class BomNormalizer extends _BaseNormalizer
                 'components' => $factory->makeForComponentRepository()->normalize($bom->getComponents()),
                 'externalReferences' => $this->normalizeExternalReferences($bom),
                 'dependencies' => $this->normalizeDependencies($bom),
+                // 'properties' => not supported, yet - see https://github.com/CycloneDX/specification/issues/130
             ],
             Assert::isNotNull(...)
         );

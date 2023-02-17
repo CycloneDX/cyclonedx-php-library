@@ -65,4 +65,6 @@ interface Spec
     public function supportsComponentAuthor(): bool;
 
     public function supportsComponentProperties(): bool;
+
+    public function supportsBomProperties(): bool;
 }

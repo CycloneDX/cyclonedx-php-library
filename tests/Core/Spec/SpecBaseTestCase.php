@@ -204,4 +204,12 @@ abstract class SpecBaseTestCase extends TestCase
     }
 
     abstract protected static function shouldSupportComponentProperties(): bool;
+
+    final public function testSupportsBomProperties(): void
+    {
+        $isSupported = static::getSpec()->supportsBomProperties();
+        self::assertSame(static::shouldSupportBomProperties(), $isSupported);
+    }
+
+    abstract protected static function shouldSupportBomProperties(): bool;
 }

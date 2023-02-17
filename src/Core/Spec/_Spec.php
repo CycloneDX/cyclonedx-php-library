@@ -50,22 +50,23 @@ class _Spec implements Spec
      * @SuppressWarnings(PHPMD.ExcessiveParameterList)
      */
     public function __construct(
-        private Version $version,
-        private array $lFormats,
-        private array $lComponentTypes,
-        private array $lHashAlgorithms,
-        private string $sHashContentRegex,
-        private array $lExternalReferenceTypes,
-        private bool $bLicenseExpression,
-        private bool $bMetadata,
-        private bool $bBomRef,
-        private bool $bDependencies,
-        private bool $bExternalReferenceHashes,
-        private bool $bComponentVersionMandatory,
-        private bool $bToolExternalReferences,
-        private bool $bMetadataProperties,
-        private bool $bComponentAuthor,
-        private bool $bComponentProperties,
+        private readonly Version $version,
+        private readonly array $lFormats,
+        private readonly array $lComponentTypes,
+        private readonly array $lHashAlgorithms,
+        private readonly string $sHashContentRegex,
+        private readonly array $lExternalReferenceTypes,
+        private readonly bool $bLicenseExpression,
+        private readonly bool $bMetadata,
+        private readonly bool $bBomRef,
+        private readonly bool $bDependencies,
+        private readonly bool $bExternalReferenceHashes,
+        private readonly bool $bComponentVersionMandatory,
+        private readonly bool $bToolExternalReferences,
+        private readonly bool $bMetadataProperties,
+        private readonly bool $bComponentAuthor,
+        private readonly bool $bComponentProperties,
+        private readonly bool $bBomProperties,
     ) {
     }
 
@@ -147,5 +148,10 @@ class _Spec implements Spec
     public function supportsComponentProperties(): bool
     {
         return $this->bComponentProperties;
+    }
+
+    public function supportsBomProperties(): bool
+    {
+        return $this->bBomProperties;
     }
 }

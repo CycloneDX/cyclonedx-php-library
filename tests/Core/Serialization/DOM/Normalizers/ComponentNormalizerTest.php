@@ -359,6 +359,8 @@ class ComponentNormalizerTest extends TestCase
 
     // endregion normalize ExternalReferences
 
+    // region properties
+
     public function testNormalizeProperties(): void
     {
         $component = $this->createConfiguredMock(
@@ -436,4 +438,6 @@ class ComponentNormalizerTest extends TestCase
             $actual
         );
     }
+
+    // endregion properties
 }

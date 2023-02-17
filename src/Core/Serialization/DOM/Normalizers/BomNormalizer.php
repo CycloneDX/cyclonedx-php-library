@@ -25,6 +25,7 @@ namespace CycloneDX\Core\Serialization\DOM\Normalizers;
 
 use CycloneDX\Core\_helpers\SimpleDOM;
 use CycloneDX\Core\Collections\ComponentRepository;
+use CycloneDX\Core\Collections\PropertyRepository;
 use CycloneDX\Core\Models\Bom;
 use CycloneDX\Core\Models\Metadata;
 use CycloneDX\Core\Serialization\DOM\_BaseNormalizer;
@@ -59,8 +60,11 @@ class BomNormalizer extends _BaseNormalizer
             [
                 $this->normalizeMetadata($bom->getMetadata()),
                 $this->normalizeComponents($bom->getComponents()),
+                // services
                 $this->normalizeExternalReferences($bom),
                 $this->normalizeDependencies($bom),
+                // compositions
+                $this->normalizeProperties($bom->getProperties()),
             ]
         );
 
@@ -136,6 +140,20 @@ class BomNormalizer extends _BaseNormalizer
             : SimpleDOM::appendChildren(
                 $factory->getDocument()->createElement('dependencies'),
                 $deps
+            );
+    }
+
+    private function normalizeProperties(PropertyRepository $properties): ?DOMElement
+    {
+        if (false === $this->getNormalizerFactory()->getSpec()->supportsBomProperties()) {
+            return null;
+        }
+
+        return 0 === \count($properties)
+            ? null
+            : SimpleDOM::appendChildren(
+                $this->getNormalizerFactory()->getDocument()->createElement('properties'),
+                $this->getNormalizerFactory()->makeForPropertyRepository()->normalize($properties)
             );
     }
 }
