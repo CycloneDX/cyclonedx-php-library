@@ -12,7 +12,7 @@ All notable changes to this project will be documented in this file.
   * Removed support for PHP v8.0 (via [#204])
   * Changed models' aggregation properties to be no longer optional ([#66] via [#131])
   * Streamlined repository data structures to follow a common method naming scheme (via [#131])
-  * Enum classes were converted to native PHP Enums ([#140] via [#204])
+  * Enumerations-like classes were converted to native [PHP Enumerations](https://www.php.net/manual/en/language.types.enumerations.php) ([#140] via [#204])
 * Added
   * Support for CycloneDX schema/spec v1.4 ([#57] via [#65], [#118], [#123])
   * Support for [properties](https://cyclonedx.org/use-cases/#properties--name-value-store) in data models (via [#165])
@@ -38,14 +38,14 @@ All notable changes to this project will be documented in this file.
 * `\CycloneDX\Core\Enum` namespace
   * `Classification` class
     * BREAKING: renamed class to `ComponentType` (via [#170])
-    * BREAKING: became a native PHP enum ([#140] via [#204])
+    * BREAKING: became a native PHP Enumeration type ([#140] via [#204])
     * BREAKING: method `isValidValue()` was removed (via [#204])
   * `ExternalReferenceType` class
-    * BREAKING: became a native PHP enum ([#140] via [#204])
+    * BREAKING: became a native PHP Enumeration type ([#140] via [#204])
     * BREAKING: method `isValidValue()` was removed (via [#204])
-    * Added enum case `RELEASE_NOTES` to reflect CycloneDX v1.4 ([#57] via [#65])
+    * Added case `RELEASE_NOTES` to reflect CycloneDX v1.4 ([#57] via [#65])
   * `HashAlgorithm` class
-    * BREAKING: became a native PHP enum ([#140] via [#204])
+    * BREAKING: became a native PHP Enumeration type ([#140] via [#204])
     * BREAKING: method `isValidValue()` was removed (via [#204])
 * `CycloneDX\Core\Factories` namespace
   * `LicenseFactory` class
@@ -113,7 +113,7 @@ All notable changes to this project will be documented in this file.
   * `HashRepository` class
     * BREAKING: renamed to `\CycloneDX\Core\Collections\HashDictionary` ([#133] via [#131])
     * BREAKING: renamed all methods and changed all method signatures to match the overall streamlined scheme ([#133] via [#131])
-    * BREAKING: changed all method signatures to enable handling of enum type `\CycloneDX\Core\Enum\HashAlgorithm` ([#140] via [#204])
+    * BREAKING: changed all method signatures to enable handling of native PHP Enumeration type `\CycloneDX\Core\Enum\HashAlgorithm` ([#140] via [#204])
 * `\CycloneDX\Core\Serialize` namespace
   * Overall
     * BREAKING: renamed namespace to `Serialization` ([#5] via [#146])
@@ -139,7 +139,7 @@ All notable changes to this project will be documented in this file.
     * BREAKING: removed classes `DisjunctiveLicenseRepositoryNormalizer` (via [#131])
     * BREAKING: renamed classes `HashRepositoryNormalizer` -> `HashDictionaryNormalizer` ([#133] via [#131])
       and changed signatures to accept `Models\HashDictionary` instead of `Models\HashRepository`
-    * BREAKING: changed signatures of class `HashNormalizer` to accept enum `\CycloneDX\Core\Enum\HashAlgorithm` ([#140] via [#204])
+    * BREAKING: changed signatures of class `HashNormalizer` to accept native PHP Enumeration type `\CycloneDX\Core\Enum\HashAlgorithm` ([#140] via [#204])
     * Added new classes `LicenseNormalizer` that can normalize every existing license model (via [#131])
     * Added new classes `LicenseRepositoryNormalizer` that can normalize `LicenseRepository` (via [#131])
     * `ExternalReferenceNormalizer` classes
