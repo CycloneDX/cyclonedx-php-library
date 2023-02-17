@@ -49,27 +49,27 @@ All notable changes to this project will be documented in this file.
     * BREAKING: method `isValidValue()` was removed (via [#204])
 * `CycloneDX\Core\Factories` namespace
   * `LicenseFactory` class
-    * Breaking: removed method `makeDisjunctiveFromExpression()` ([#163] vial [#166])
-    * Breaking: renamed method `makeDisjunctiveWithId()` -> `makeSpdxLicense()` ([#164] vial [#168])
-    * Breaking: renamed method `makeDisjunctiveWithName()` -> `makeNamedLicense()` ([#164] vial [#168])
+    * BREAKING: removed method `makeDisjunctiveFromExpression()` ([#163] vial [#166])
+    * BREAKING: renamed method `makeDisjunctiveWithId()` -> `makeSpdxLicense()` ([#164] vial [#168])
+    * BREAKING: renamed method `makeDisjunctiveWithName()` -> `makeNamedLicense()` ([#164] vial [#168])
 * `\CycloneDX\Core\Models` namespace
   * `Bom` class
     * BREAKING: changed constructor to no longer accept components ([#187] via [#188])
     * BREAKING: renamed methods `{get,set}ComponentRepository()` -> `{get,set}Components()` ([#133] via [#131])
     * BREAKING: renamed methods `{get,set}ExternalReferenceRepository()` -> `{get,set}ExternalReferences()` ([#133] via [#131])  
-      and changed parameter & return type to non-nullable, was nullable ([#66] via [#131])
+      Also changed parameter & return type to non-nullable, was nullable ([#66] via [#131])
     * BREAKING: renamed methods `{get,set}MetaData()` -> `{get,set}Metadata()` ([#133] via [#131])  
-      and changed parameter & return type to non-nullable, was nullable ([#66] via [#131])
+      Also changed parameter & return type to non-nullable, was nullable ([#66] via [#131])
     * Added `{get,set}SerialNumber()` (via [#186])
   * `Component` class
     * BREAKING: renamed methods `{get,set}DependenciesBomRefRepository()` -> `{get,set}Dependencies()` ([#133] via [#131])  
-      and changed parameter & return type to non-nullable, was nullable ([#66] via [#131])
+      Also changed parameter & return type to non-nullable, was nullable ([#66] via [#131])
     * BREAKING: renamed methods `{get,set}ExternalReferenceRepository()` -> `{get,set}ExternalReferences()` ([#133] via [#131])  
-      and changed parameter & return type to non-nullable, was nullable ([#66] via [#131])
+      Also changed parameter & return type to non-nullable, was nullable ([#66] via [#131])
     * BREAKING: renamed methods `{get,set}HashRepository()` -> `{get,set}Hashes()` ([#133] via [#131])  
-      and changed parameter & return type to non-nullable, was nullable ([#66] via [#131])
+      Also changed parameter & return type to non-nullable, was nullable ([#66] via [#131])
     * BREAKING: renamed methods `{get,set}License()` -> `{get,set}Licenses()` (via [#131])  
-      and changed it work with class `LicenseRepository` only, was working with various `Models\License\*` types. ([#66] via [#131])
+      Also changed it work with class `LicenseRepository` only, was working with various `Models\License\*` types. ([#66] via [#131])
     * BREAKING: changed class property `version` to be optional, to reflect CycloneDX v1.4. ([#27] via [#118], [#131])  
       This affects constructor arguments, and affects methods `{get,set}Version()`.
     * BREAKING: changed property `type` to be of type `\CycloneDX\Core\Enum\ComponentType` ([#140] via [#204])
@@ -78,8 +78,8 @@ All notable changes to this project will be documented in this file.
     * Added `{get,set}Properties()` (via [#165])
   * `ExternalReference` class
     * BREAKING: renamed methods `{get,set}HashRepository()` -> `{get,set}Hashes()` ([#133] via [#131])  
-      and changed parameter & return type to non-nullable, was nullable ([#66] via [#131])
-    * BREAKING: changed property `type` to be of type `\CycloneDX\Core\Enum\ExternalReferenceType` ([#140] via [#204])
+      Also changed parameter & return type to non-nullable, was nullable ([#66] via [#131])
+    * BREAKING: changed property `type` to be of type `\CycloneDX\Core\Enum\ExternalReferenceType` ([#140] via [#204])  
       This affects constructor arguments, and affects methods `{get,set}Type()`.
   * `Licenses` namespace
     * `AbstractDisjunctiveLicense`
@@ -97,9 +97,9 @@ All notable changes to this project will be documented in this file.
   * Added new class `Property`. (via [#165])
   * `Tool` class
     * BREAKING: renamed methods `{get,set}ExternalReferenceRepository()` -> `{get,set}ExternalReferences()` ([#133] via [#131])  
-      and changed parameter & return type to non-nullable, was nullable ([#66] via [#131])
+      Also changed parameter & return type to non-nullable, was nullable ([#66] via [#131])
     * BREAKING: renamed methods `{get,set}HashRepository()` -> `{get,set}Hashes()` ([#133] via [#131])  
-      and changed parameter & return type to non-nullable, was nullable ([#66] via [#131])
+      Also changed parameter & return type to non-nullable, was nullable ([#66] via [#131])
 * `\CycloneDX\Core\Repositories` namespace
   * Overall:
     * BREAKING: renamed the namespace to `\CycloneDX\Core\Collections` ([#133] via [#131])
@@ -137,8 +137,8 @@ All notable changes to this project will be documented in this file.
     * BREAKING: removed classes `DisjunctiveLicenseNormalizer` - use `LicenseNormalizer` instead (via [#131])
     * BREAKING: removed classes `LicenseExpressionNormalizer`  - use `LicenseNormalizer` instead (via [#131])
     * BREAKING: removed classes `DisjunctiveLicenseRepositoryNormalizer` (via [#131])
-    * BREAKING: renamed classes `HashRepositoryNormalizer` -> `HashDictionaryNormalizer` ([#133] via [#131])
-      and changed signatures to accept `Models\HashDictionary` instead of `Models\HashRepository`
+    * BREAKING: renamed classes `HashRepositoryNormalizer` -> `HashDictionaryNormalizer` ([#133] via [#131])  
+      Also changed signatures to accept `Models\HashDictionary` instead of `Models\HashRepository`
     * BREAKING: changed signatures of class `HashNormalizer` to accept native PHP Enumeration type `\CycloneDX\Core\Enum\HashAlgorithm` ([#140] via [#204])
     * Added new classes `LicenseNormalizer` that can normalize every existing license model (via [#131])
     * Added new classes `LicenseRepositoryNormalizer` that can normalize `LicenseRepository` (via [#131])
