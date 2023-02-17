@@ -25,6 +25,7 @@ namespace CycloneDX\Tests\Core\Models;
 
 use CycloneDX\Core\Collections\ComponentRepository;
 use CycloneDX\Core\Collections\ExternalReferenceRepository;
+use CycloneDX\Core\Collections\PropertyRepository;
 use CycloneDX\Core\Models\Bom;
 use CycloneDX\Core\Models\Metadata;
 use DomainException;
@@ -47,6 +48,7 @@ class BomTest extends TestCase
         self::assertCount(0, $bom->getComponents());
         self::assertCount(0, $bom->getExternalReferences());
         self::assertEquals(new Metadata(), $bom->getMetadata());
+        self::assertCount(0, $bom->getProperties());
 
         return $bom;
     }
@@ -140,6 +142,19 @@ class BomTest extends TestCase
         $actual = $bom->setExternalReferences($extRefRepo);
         self::assertSame($bom, $actual);
         self::assertSame($extRefRepo, $bom->getExternalReferences());
+    }
+
+    // endregion externalReferenceRepository setter&getter
+
+    // region externalReferenceRepository setter&getter
+
+    #[\PHPUnit\Framework\Attributes\DependsUsingShallowClone('testConstruct')]
+    public function testPropertiesSetterGetter(Bom $bom): void
+    {
+        $repo = $this->createStub(PropertyRepository::class);
+        $actual = $bom->setProperties($repo);
+        self::assertSame($bom, $actual);
+        self::assertSame($repo, $bom->getProperties());
     }
 
     // endregion externalReferenceRepository setter&getter

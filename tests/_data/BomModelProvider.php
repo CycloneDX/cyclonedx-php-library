@@ -63,6 +63,7 @@ abstract class BomModelProvider
         yield from self::bomWithAllComponents();
         yield from self::bomWithAllMetadata();
         yield from self::bomWithExternalReferences();
+        yield from self::bomWithProperties();
     }
 
     /**
@@ -883,5 +884,26 @@ abstract class BomModelProvider
                 $type, ".../algorithm/{$algorithm->name}.txt"
             ))->setHashes(new HashDictionary([$algorithm, '12345678901234567890123456789012']));
         }
+    }
+
+    /**
+     * BOM with properties.
+     *
+     * @return Generator<Bom[]>
+     *
+     * @psalm-return Generator<string, array{0:Bom}>
+     *
+     * @psalm-suppress MissingThrowsDocblock
+     */
+    public static function bomWithProperties(): Generator
+    {
+        yield 'Bom with properties' => [
+            (new Bom())->setProperties(
+                new PropertyRepository(
+                    new Property('foo', 'bar'),
+                    new Property('baz', '')
+                )
+            ),
+        ];
     }
 }

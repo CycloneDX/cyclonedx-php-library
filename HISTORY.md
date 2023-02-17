@@ -60,6 +60,7 @@ All notable changes to this project will be documented in this file.
       Also changed parameter & return type to non-nullable, was nullable ([#66] via [#131])
     * BREAKING: renamed methods `{get,set}MetaData()` -> `{get,set}Metadata()` ([#133] via [#131])  
       Also changed parameter & return type to non-nullable, was nullable ([#66] via [#131])
+    * Added `{get,set}Properties()` ([#228] via [#])
     * Added `{get,set}SerialNumber()` (via [#186])
   * `Component` class
     * BREAKING: renamed methods `{get,set}DependenciesBomRefRepository()` -> `{get,set}Dependencies()` ([#133] via [#131])  
