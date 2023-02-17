@@ -7,20 +7,20 @@ All notable changes to this project will be documented in this file.
 ## 2.0.0 - unreleased
 
 * BREAKING
-  * Removed support for PHP v7.3. ([#6]   via [#125])
-  * Removed support for PHP v7.4. ([#114] via [#125])
-  * Removed support for PHP v8.0. (via [#204])
-  * Changed models' aggregation properties to be no longer optional. ([#66] via [#131])
-  * Streamlined repository data structures to follow a common method naming scheme. (via [#131])
+  * Removed support for PHP v7.3 ([#6]   via [#125])
+  * Removed support for PHP v7.4 ([#114] via [#125])
+  * Removed support for PHP v8.0 (via [#204])
+  * Changed models' aggregation properties to be no longer optional ([#66] via [#131])
+  * Streamlined repository data structures to follow a common method naming scheme (via [#131])
   * Enum classes were converted to native PHP Enums ([#140] via [#204])
 * Added
-  * Support for CycloneDX v1.4 ([#57] via [#65], [#118], [#123])
+  * Support for CycloneDX schema/spec v1.4 ([#57] via [#65], [#118], [#123])
   * Support for [properties](https://cyclonedx.org/use-cases/#properties--name-value-store) in data models (via [#165])
 * Misc
-  * All class properties now enforce the correct types. ([#6], [#114] via [#125])  
+  * All class properties now enforce the correct types ([#6], [#114] via [#125])  
     This is considered a non-breaking change, because the types were already correctly annotated.  
     This was possible due to PHP74's features and php8's UnionType language feature.
-  * Migrated internals to PHP8 language features. ([#114] via [#125])
+  * Migrated internals to PHP8 language features ([#114] via [#125])
 
 ### API changes v2 - the details
 
@@ -31,8 +31,8 @@ All notable changes to this project will be documented in this file.
   * Changed some methods to no longer throw `\InvalidArgumentException`. (via [#125])  
     PhpDoc annotations were updated, so that code analysis tools should pick up.
     This was possible by enforcing correct typing on PHP8 language level.
-  * BREAKING: every occurrence of `{M,m}etaData` with a capital "D" was renamed to `{M,m}etadata` with a small "d". ([#133] via [#131], [#149])
-    This affected class names, method names, variable names, property names, file names, documentation - everything.
+  * BREAKING: every occurrence of `{M,m}etaData` with a capital "D" was renamed to `{M,m}etadata` with a small "d". ([#133] via [#131], [#149])  
+    This affects class names, method names, variable names, property names, file names, documentation - everything.
 * `\CycloneDX\Core\Collections` namespace
   * Added new class `PropertyRepository` (via [#165])
 * `\CycloneDX\Core\Enum` namespace
@@ -83,8 +83,8 @@ All notable changes to this project will be documented in this file.
       This affects constructor arguments, and affects methods `{get,set}Type()`.
   * `Licenses` namespace
     * `AbstractDisjunctiveLicense`
-       * BREAKING: removed this class (via [#125], [#131])
-    * `DisjunctiveLicenseWithName` class 
+      * BREAKING: removed this class (via [#125], [#131])
+    * `DisjunctiveLicenseWithName` class
       * BREAKING: renamed class to `NamedLicense` ([#164] via [#168])
     * `DisjunctiveLicenseWithId` class
       * BREAKING: renamed class to `SpdxLicense` ([#164] via [#168])
@@ -136,7 +136,7 @@ All notable changes to this project will be documented in this file.
   * `{DOM,JSON}\Normalizers` namespaces
     * BREAKING: removed classes `DisjunctiveLicenseNormalizer` - use `LicenseNormalizer` instead (via [#131])
     * BREAKING: removed classes `LicenseExpressionNormalizer`  - use `LicenseNormalizer` instead (via [#131])
-    * BREAKING: removed classes `DisjunctiveLicenseRepositoryNormalizer` (via [#131]) 
+    * BREAKING: removed classes `DisjunctiveLicenseRepositoryNormalizer` (via [#131])
     * BREAKING: renamed classes `HashRepositoryNormalizer` -> `HashDictionaryNormalizer` ([#133] via [#131])
       and changed signatures to accept `Models\HashDictionary` instead of `Models\HashRepository`
     * BREAKING: changed signatures of class `HashNormalizer` to accept enum `\CycloneDX\Core\Enum\HashAlgorithm` ([#140] via [#204])
@@ -179,7 +179,6 @@ All notable changes to this project will be documented in this file.
 [#114]: https://github.com/CycloneDX/cyclonedx-php-library/issues/114
 [#118]: https://github.com/CycloneDX/cyclonedx-php-library/pull/118
 [#123]: https://github.com/CycloneDX/cyclonedx-php-library/pull/123
-[#124]: https://github.com/CycloneDX/cyclonedx-php-library/pull/124
 [#125]: https://github.com/CycloneDX/cyclonedx-php-library/pull/125
 [#131]: https://github.com/CycloneDX/cyclonedx-php-library/pull/131
 [#133]: https://github.com/CycloneDX/cyclonedx-php-library/pull/133
