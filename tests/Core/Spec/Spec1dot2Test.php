@@ -92,6 +92,11 @@ class Spec1dot2Test extends SpecBaseTestCase
         return false;
     }
 
+    protected static function shouldSupportsComponentAuthor(): bool
+    {
+        return true;
+    }
+
     protected static function shouldSupportBomProperties(): array
     {
         return [];

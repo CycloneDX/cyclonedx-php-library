@@ -92,6 +92,11 @@ class Spec1dot3Test extends SpecBaseTestCase
         return true;
     }
 
+    protected static function shouldSupportsComponentAuthor(): bool
+    {
+        return true;
+    }
+
     protected static function shouldSupportBomProperties(): array
     {
         return [Format::XML];
