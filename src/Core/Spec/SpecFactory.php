@@ -49,8 +49,6 @@ abstract class SpecFactory
     /**
      * Create the appropriate {@see \CycloneDX\Core\Spec\Spec Specification} based on {@see \CycloneDX\Core\Spec\Version}.
      *
-     * @psalm-assert Version::* $version
-     *
      * @throws DomainException when $version was unsupported
      */
     public static function makeForVersion(Version $version): Spec
@@ -120,7 +118,7 @@ abstract class SpecFactory
             false,
             false,
             false,
-            false,
+            [],
         );
     }
 
@@ -187,7 +185,7 @@ abstract class SpecFactory
             false,
             true,
             false,
-            false,
+            [],
         );
     }
 
@@ -254,7 +252,9 @@ abstract class SpecFactory
             true,
             true,
             true,
-            true,
+            [
+                Format::XML,
+            ],
         );
     }
 
@@ -322,7 +322,9 @@ abstract class SpecFactory
             true,
             true,
             true,
-            true,
+            [
+                Format::XML,
+            ],
         );
     }
 }

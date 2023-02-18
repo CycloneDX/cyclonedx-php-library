@@ -205,11 +205,21 @@ abstract class SpecBaseTestCase extends TestCase
 
     abstract protected static function shouldSupportComponentProperties(): bool;
 
-    final public function testSupportsBomProperties(): void
+    #[\PHPUnit\Framework\Attributes\DataProvider('dpSupportsBomProperties')]
+    final public function testSupportsBomProperties(Format $format, bool $shouldSupportBomProperties): void
     {
-        $isSupported = static::getSpec()->supportsBomProperties();
-        self::assertSame(static::shouldSupportBomProperties(), $isSupported);
+        $isSupported = static::getSpec()->supportsBomProperties($format);
+        self::assertSame($shouldSupportBomProperties, $isSupported);
     }
 
-    abstract protected static function shouldSupportBomProperties(): bool;
+    final public static function dpSupportsBomProperties(): Generator
+    {
+        $should = static::shouldSupportBomProperties();
+        foreach (Format::cases() as $format) {
+            yield $format->name => [$format, \in_array($format, $should, true)];
+        }
+    }
+
+    /** @return Format[] */
+    abstract protected static function shouldSupportBomProperties(): array;
 }

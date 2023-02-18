@@ -46,6 +46,7 @@ class _Spec implements Spec
      * @psalm-param list<ComponentType> $lComponentTypes
      * @psalm-param list<HashAlgorithm> $lHashAlgorithms
      * @psalm-param list<ExternalReferenceType> $lExternalReferenceTypes
+     * @psalm-param list<Format> $lFormatsSupportingBomProperties
      *
      * @SuppressWarnings(PHPMD.ExcessiveParameterList)
      */
@@ -66,7 +67,7 @@ class _Spec implements Spec
         private readonly bool $bMetadataProperties,
         private readonly bool $bComponentAuthor,
         private readonly bool $bComponentProperties,
-        private readonly bool $bBomProperties,
+        private readonly array $lFormatsSupportingBomProperties,
     ) {
     }
 
@@ -150,8 +151,8 @@ class _Spec implements Spec
         return $this->bComponentProperties;
     }
 
-    public function supportsBomProperties(): bool
+    public function supportsBomProperties(Format $format): bool
     {
-        return $this->bBomProperties;
+        return \in_array($format, $this->lFormatsSupportingBomProperties, true);
     }
 }

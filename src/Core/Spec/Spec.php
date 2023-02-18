@@ -66,5 +66,5 @@ interface Spec
 
     public function supportsComponentProperties(): bool;
 
-    public function supportsBomProperties(): bool;
+    public function supportsBomProperties(Format $format): bool;
 }
