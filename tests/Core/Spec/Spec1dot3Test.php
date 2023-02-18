@@ -92,8 +92,8 @@ class Spec1dot3Test extends SpecBaseTestCase
         return true;
     }
 
-    protected static function shouldSupportBomProperties(): bool
+    protected static function shouldSupportBomProperties(): array
     {
-        return true;
+        return [Format::XML];
     }
 }

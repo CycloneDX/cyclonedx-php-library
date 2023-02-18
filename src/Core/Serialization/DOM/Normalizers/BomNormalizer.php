@@ -29,6 +29,7 @@ use CycloneDX\Core\Collections\PropertyRepository;
 use CycloneDX\Core\Models\Bom;
 use CycloneDX\Core\Models\Metadata;
 use CycloneDX\Core\Serialization\DOM\_BaseNormalizer;
+use CycloneDX\Core\Spec\Format;
 use DOMElement;
 
 /**
@@ -145,7 +146,7 @@ class BomNormalizer extends _BaseNormalizer
 
     private function normalizeProperties(PropertyRepository $properties): ?DOMElement
     {
-        if (false === $this->getNormalizerFactory()->getSpec()->supportsBomProperties()) {
+        if (false === $this->getNormalizerFactory()->getSpec()->supportsBomProperties(Format::XML)) {
             return null;
         }
 

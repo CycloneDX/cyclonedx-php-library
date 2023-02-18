@@ -24,9 +24,11 @@ declare(strict_types=1);
 namespace CycloneDX\Core\Serialization\JSON\Normalizers;
 
 use CycloneDX\Core\_helpers\Assert;
+use CycloneDX\Core\Collections\PropertyRepository;
 use CycloneDX\Core\Models\Bom;
 use CycloneDX\Core\Models\Metadata;
 use CycloneDX\Core\Serialization\JSON\_BaseNormalizer;
+use CycloneDX\Core\Spec\Format;
 use CycloneDX\Core\Spec\Version;
 
 /**
@@ -64,9 +66,13 @@ class BomNormalizer extends _BaseNormalizer
                 'version' => $bom->getVersion(),
                 'metadata' => $this->normalizeMetadata($bom->getMetadata()),
                 'components' => $factory->makeForComponentRepository()->normalize($bom->getComponents()),
+                // services
                 'externalReferences' => $this->normalizeExternalReferences($bom),
                 'dependencies' => $this->normalizeDependencies($bom),
-                // 'properties' => not supported, yet - see https://github.com/CycloneDX/specification/issues/130
+                // compositions
+                // vulnerabilities
+                'properties' => $this->normalizeProperties($bom->getProperties()),
+                // signature
             ],
             Assert::isNotNull(...)
         );
@@ -126,5 +132,16 @@ class BomNormalizer extends _BaseNormalizer
         return empty($data)
             ? null
             : $data;
+    }
+
+    private function normalizeProperties(PropertyRepository $properties): ?array
+    {
+        if (false === $this->getNormalizerFactory()->getSpec()->supportsBomProperties(Format::JSON)) {
+            return null;
+        }
+
+        return 0 === \count($properties)
+            ? null
+            : $this->getNormalizerFactory()->makeForPropertyRepository()->normalize($properties);
     }
 }
