@@ -15,7 +15,7 @@ All notable changes to this project will be documented in this file.
   * Enumeration-like classes were converted to native [PHP Enumerations](https://www.php.net/manual/en/language.types.enumerations.php) ([#140] via [#204])
 * Added
   * Support for CycloneDX schema/spec v1.4 ([#57] via [#65], [#118], [#123])
-  * Support for [properties](https://cyclonedx.org/use-cases/#properties--name-value-store) ([#228] via [#165], [#229])
+  * Support for [properties](https://cyclonedx.org/use-cases/#properties--name-value-store) ([#228] via [#165], [#229], [#231])
 * Misc
   * All class properties now enforce the correct types ([#6], [#114] via [#125])  
     This is considered a non-breaking change, because the types were already correctly annotated.  
@@ -210,6 +210,7 @@ All notable changes to this project will be documented in this file.
 [#204]: https://github.com/CycloneDX/cyclonedx-php-library/pull/204
 [#228]: https://github.com/CycloneDX/cyclonedx-php-library/issues/228
 [#229]: https://github.com/CycloneDX/cyclonedx-php-library/pull/229
+[#231]: https://github.com/CycloneDX/cyclonedx-php-library/pull/231
 
 ## 1.6.3 - 2022-09-15
 
