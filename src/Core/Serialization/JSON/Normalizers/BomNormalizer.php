@@ -66,9 +66,13 @@ class BomNormalizer extends _BaseNormalizer
                 'version' => $bom->getVersion(),
                 'metadata' => $this->normalizeMetadata($bom->getMetadata()),
                 'components' => $factory->makeForComponentRepository()->normalize($bom->getComponents()),
+                // services
                 'externalReferences' => $this->normalizeExternalReferences($bom),
                 'dependencies' => $this->normalizeDependencies($bom),
+                // compositions
+                // vulnerabilities
                 'properties' => $this->normalizeProperties($bom->getProperties()),
+                // signature
             ],
             Assert::isNotNull(...)
         );
