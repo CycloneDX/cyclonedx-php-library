@@ -41,7 +41,7 @@ class BomRefDiscriminatorTest extends TestCase
         $discriminator = new BomRefDiscriminator(
             $bomRefNullA, $bomRefNullB,
             $bomRefFooA, $bomRefFooB,
-            $bomRefBar
+            $bomRefBar, $bomRefBar
         );
 
         $discriminator->discriminate();
