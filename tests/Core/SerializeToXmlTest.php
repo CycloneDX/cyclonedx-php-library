@@ -28,6 +28,10 @@ use CycloneDX\Core\Serialization\DOM;
 use CycloneDX\Core\Serialization\XmlSerializer;
 use CycloneDX\Core\Spec\SpecFactory;
 use CycloneDX\Core\Validation\Validators\XmlValidator;
+use CycloneDX\Tests\_data\BomModelProvider;
+use PHPUnit\Framework\Attributes\CoversNothing;
+use PHPUnit\Framework\Attributes\DataProviderExternal;
+use PHPUnit\Framework\Attributes\Large;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -35,8 +39,8 @@ use PHPUnit\Framework\TestCase;
  * This test might require online-connectivity.
  * Tests functionality.
  */
-#[\PHPUnit\Framework\Attributes\Large]
-#[\PHPUnit\Framework\Attributes\CoversNothing]
+#[Large]
+#[CoversNothing]
 class SerializeToXmlTest extends TestCase
 {
     // region Spec 1.0
@@ -45,7 +49,7 @@ class SerializeToXmlTest extends TestCase
 
     // region Spec 1.1
 
-    #[\PHPUnit\Framework\Attributes\DataProviderExternal(\CycloneDX\Tests\_data\BomModelProvider::class, 'allBomTestData')]
+    #[DataProviderExternal(BomModelProvider::class, 'allBomTestData')]
     public function testSchema11(Bom $bom): void
     {
         $spec = SpecFactory::make1dot1();
@@ -62,7 +66,7 @@ class SerializeToXmlTest extends TestCase
 
     // region Spec 1.2
 
-    #[\PHPUnit\Framework\Attributes\DataProviderExternal(\CycloneDX\Tests\_data\BomModelProvider::class, 'allBomTestData')]
+    #[DataProviderExternal(BomModelProvider::class, 'allBomTestData')]
     public function testSchema12(Bom $bom): void
     {
         $spec = SpecFactory::make1dot2();
@@ -79,7 +83,7 @@ class SerializeToXmlTest extends TestCase
 
     // region Spec 1.3
 
-    #[\PHPUnit\Framework\Attributes\DataProviderExternal(\CycloneDX\Tests\_data\BomModelProvider::class, 'allBomTestData')]
+    #[DataProviderExternal(BomModelProvider::class, 'allBomTestData')]
     public function testSchema13(Bom $bom): void
     {
         $spec = SpecFactory::make1dot3();
@@ -96,7 +100,7 @@ class SerializeToXmlTest extends TestCase
 
     // region Spec 1.4
 
-    #[\PHPUnit\Framework\Attributes\DataProviderExternal(\CycloneDX\Tests\_data\BomModelProvider::class, 'allBomTestData')]
+    #[DataProviderExternal(BomModelProvider::class, 'allBomTestData')]
     public function testSchema14(Bom $bom): void
     {
         $spec = SpecFactory::make1dot4();

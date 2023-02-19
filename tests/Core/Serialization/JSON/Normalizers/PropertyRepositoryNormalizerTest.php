@@ -23,36 +23,36 @@ declare(strict_types=1);
 
 namespace CycloneDX\Tests\Core\Serialization\JSON\Normalizers;
 
-use CycloneDX\Core\Collections\ToolRepository;
-use CycloneDX\Core\Models\Tool;
+use CycloneDX\Core\Collections\PropertyRepository;
+use CycloneDX\Core\Models\Property;
 use CycloneDX\Core\Serialization\JSON\_BaseNormalizer;
 use CycloneDX\Core\Serialization\JSON\NormalizerFactory;
-use CycloneDX\Core\Serialization\JSON\Normalizers\ToolNormalizer;
-use CycloneDX\Core\Serialization\JSON\Normalizers\ToolRepositoryNormalizer;
+use CycloneDX\Core\Serialization\JSON\Normalizers\PropertyNormalizer;
+use CycloneDX\Core\Serialization\JSON\Normalizers\PropertyRepositoryNormalizer;
 use CycloneDX\Core\Spec\Spec;
 use DomainException;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
 
-#[CoversClass(ToolRepositoryNormalizer::class)]
+#[CoversClass(PropertyRepositoryNormalizer::class)]
 #[CoversClass(_BaseNormalizer::class)]
-#[UsesClass(ToolNormalizer::class)]
-class ToolRepositoryNormalizerTest extends TestCase
+#[UsesClass(PropertyNormalizer::class)]
+class PropertyRepositoryNormalizerTest extends TestCase
 {
     public function testNormalizeEmpty(): void
     {
         $spec = $this->createStub(Spec::class);
-        $toolNormalizer = $this->createMock(ToolNormalizer::class);
+        $propertyNormalizer = $this->createMock(PropertyNormalizer::class);
         $factory = $this->createConfiguredMock(NormalizerFactory::class, [
             'getSpec' => $spec,
-            'makeForTool' => $toolNormalizer,
+            'makeForProperty' => $propertyNormalizer,
         ]);
 
-        $normalizer = new ToolRepositoryNormalizer($factory);
-        $tools = $this->createConfiguredMock(ToolRepository::class, ['count' => 0]);
+        $normalizer = new PropertyRepositoryNormalizer($factory);
+        $properties = $this->createConfiguredMock(PropertyRepository::class, ['count' => 0]);
 
-        $actual = $normalizer->normalize($tools);
+        $actual = $normalizer->normalize($properties);
 
         self::assertSame([], $actual);
     }
@@ -60,48 +60,47 @@ class ToolRepositoryNormalizerTest extends TestCase
     public function testNormalize(): void
     {
         $spec = $this->createStub(Spec::class);
-        $toolNormalizer = $this->createMock(ToolNormalizer::class);
+        $propertyNormalizer = $this->createMock(PropertyNormalizer::class);
         $factory = $this->createConfiguredMock(NormalizerFactory::class, [
             'getSpec' => $spec,
-            'makeForTool' => $toolNormalizer,
+            'makeForProperty' => $propertyNormalizer,
         ]);
-        $normalizer = new ToolRepositoryNormalizer($factory);
-        $tool = $this->createStub(Tool::class);
-        $tools = $this->createConfiguredMock(ToolRepository::class, [
+        $normalizer = new PropertyRepositoryNormalizer($factory);
+        $property = $this->createStub(Property::class);
+        $properties = $this->createConfiguredMock(PropertyRepository::class, [
             'count' => 1,
-            'getItems' => [$tool],
+            'getItems' => [$property],
         ]);
 
-        $toolNormalizer->expects(self::once())->method('normalize')
-            ->with($tool)
-            ->willReturn(['FakeTool' => 'dummy']);
+        $propertyNormalizer->expects(self::once())->method('normalize')
+            ->with($property)
+            ->willReturn(['FakeProperty' => 'dummy']);
 
-        $actual = $normalizer->normalize($tools);
+        $actual = $normalizer->normalize($properties);
 
-        self::assertSame([['FakeTool' => 'dummy']], $actual);
+        self::assertSame([['FakeProperty' => 'dummy']], $actual);
     }
 
-    public function testNormalizeSkipsOnThrow(): void
+    public function testNormalizeSkipWHenThrown(): void
     {
         $spec = $this->createStub(Spec::class);
-        $toolNormalizer = $this->createMock(ToolNormalizer::class);
+        $propertyNormalizer = $this->createMock(PropertyNormalizer::class);
         $factory = $this->createConfiguredMock(NormalizerFactory::class, [
             'getSpec' => $spec,
-            'makeForTool' => $toolNormalizer,
+            'makeForProperty' => $propertyNormalizer,
         ]);
-        $normalizer = new ToolRepositoryNormalizer($factory);
-        $tool1 = $this->createStub(Tool::class);
-        $tool2 = $this->createStub(Tool::class);
-        $tools = $this->createConfiguredMock(ToolRepository::class, [
+        $normalizer = new PropertyRepositoryNormalizer($factory);
+        $property = $this->createStub(Property::class);
+        $properties = $this->createConfiguredMock(PropertyRepository::class, [
             'count' => 1,
-            'getItems' => [$tool1, $tool2],
+            'getItems' => [$property],
         ]);
 
-        $toolNormalizer->expects(self::exactly(2))
-            ->method('normalize')
+        $propertyNormalizer->expects(self::once())->method('normalize')
+            ->with($property)
             ->willThrowException(new DomainException());
 
-        $actual = $normalizer->normalize($tools);
+        $actual = $normalizer->normalize($properties);
 
         self::assertSame([], $actual);
     }

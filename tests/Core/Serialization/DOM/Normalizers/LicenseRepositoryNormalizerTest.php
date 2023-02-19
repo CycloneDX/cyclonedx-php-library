@@ -25,16 +25,18 @@ namespace CycloneDX\Tests\Core\Serialization\DOM\Normalizers;
 
 use CycloneDX\Core\Collections\LicenseRepository;
 use CycloneDX\Core\Models\License\NamedLicense;
+use CycloneDX\Core\Serialization\DOM\_BaseNormalizer;
 use CycloneDX\Core\Serialization\DOM\NormalizerFactory;
 use CycloneDX\Core\Serialization\DOM\Normalizers\LicenseNormalizer;
 use CycloneDX\Core\Serialization\DOM\Normalizers\LicenseRepositoryNormalizer;
 use CycloneDX\Core\Spec\Spec;
 use CycloneDX\Tests\_traits\DomNodeAssertionTrait;
 use DOMElement;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
-#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Serialization\DOM\Normalizers\LicenseRepositoryNormalizer::class)]
-#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Serialization\DOM\_BaseNormalizer::class)]
+#[CoversClass(LicenseRepositoryNormalizer::class)]
+#[CoversClass(_BaseNormalizer::class)]
 class LicenseRepositoryNormalizerTest extends TestCase
 {
     use DomNodeAssertionTrait;

@@ -23,6 +23,7 @@ declare(strict_types=1);
 
 namespace CycloneDX\Tests\Core\Serialization\DOM\Normalizers;
 
+use CycloneDX\Core\_helpers\SimpleDOM;
 use CycloneDX\Core\Collections\ExternalReferenceRepository;
 use CycloneDX\Core\Collections\HashDictionary;
 use CycloneDX\Core\Collections\LicenseRepository;
@@ -31,21 +32,24 @@ use CycloneDX\Core\Enums\ComponentType;
 use CycloneDX\Core\Models\BomRef;
 use CycloneDX\Core\Models\Component;
 use CycloneDX\Core\Models\License\NamedLicense;
+use CycloneDX\Core\Serialization\DOM\_BaseNormalizer;
 use CycloneDX\Core\Serialization\DOM\NormalizerFactory;
 use CycloneDX\Core\Serialization\DOM\Normalizers;
-use CycloneDX\Core\Serialization\DOM\Normalizers\PropertyRepositoryNormalizer;
 use CycloneDX\Core\Spec\Spec;
 use CycloneDX\Tests\_traits\DomNodeAssertionTrait;
 use DomainException;
 use DOMDocument;
 use Generator;
 use PackageUrl\PackageUrl;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
 
-#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Serialization\DOM\Normalizers\ComponentNormalizer::class)]
-#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Serialization\DOM\_BaseNormalizer::class)]
-#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\_helpers\SimpleDOM::class)]
-#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Models\BomRef::class)]
+#[CoversClass(Normalizers\ComponentNormalizer::class)]
+#[CoversClass(_BaseNormalizer::class)]
+#[UsesClass(SimpleDOM::class)]
+#[UsesClass(BomRef::class)]
 class ComponentNormalizerTest extends TestCase
 {
     use DomNodeAssertionTrait;
@@ -75,7 +79,7 @@ class ComponentNormalizerTest extends TestCase
         $normalizer->normalize($component);
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('dbNormalizeMinimal')]
+    #[DataProvider('dbNormalizeMinimal')]
     public function testNormalizeMinimal(string $expected, bool $requiresComponentVersion): void
     {
         $component = $this->createConfiguredMock(
@@ -374,7 +378,7 @@ class ComponentNormalizerTest extends TestCase
         $spec = $this->createConfiguredMock(Spec::class, [
             'supportsComponentProperties' => true,
         ]);
-        $propertiesNormalizer = $this->createMock(PropertyRepositoryNormalizer::class);
+        $propertiesNormalizer = $this->createMock(Normalizers\PropertyRepositoryNormalizer::class);
         $factory = $this->createConfiguredMock(
             NormalizerFactory::class,
             [
@@ -416,7 +420,7 @@ class ComponentNormalizerTest extends TestCase
         $spec = $this->createConfiguredMock(Spec::class, [
             'supportsComponentProperties' => true,
         ]);
-        $propertiesNormalizer = $this->createMock(PropertyRepositoryNormalizer::class);
+        $propertiesNormalizer = $this->createMock(Normalizers\PropertyRepositoryNormalizer::class);
         $factory = $this->createConfiguredMock(
             NormalizerFactory::class,
             [

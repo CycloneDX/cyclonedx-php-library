@@ -26,18 +26,24 @@ namespace CycloneDX\Tests\Core\Serialization\DOM\Normalizers;
 use CycloneDX\Core\Collections\HashDictionary;
 use CycloneDX\Core\Enums\ExternalReferenceType;
 use CycloneDX\Core\Models\ExternalReference;
+use CycloneDX\Core\Serialization\DOM\_BaseNormalizer;
 use CycloneDX\Core\Serialization\DOM\NormalizerFactory;
 use CycloneDX\Core\Serialization\DOM\Normalizers;
 use CycloneDX\Core\Spec\Spec;
+use CycloneDX\Tests\_data\XmlAnyUriData;
 use CycloneDX\Tests\_traits\DomNodeAssertionTrait;
 use DomainException;
 use DOMDocument;
 use Generator;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\DataProviderExternal;
+use PHPUnit\Framework\TestCase;
 use UnexpectedValueException;
 
-#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Serialization\DOM\Normalizers\ExternalReferenceNormalizer::class)]
-#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Serialization\DOM\_BaseNormalizer::class)]
-class ExternalReferenceNormalizerTest extends \PHPUnit\Framework\TestCase
+#[CoversClass(Normalizers\ExternalReferenceNormalizer::class)]
+#[CoversClass(_BaseNormalizer::class)]
+class ExternalReferenceNormalizerTest extends TestCase
 {
     use DomNodeAssertionTrait;
 
@@ -68,7 +74,7 @@ class ExternalReferenceNormalizerTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('dpThrowOnUnsupportedUrl')]
+    #[DataProvider('dpThrowOnUnsupportedUrl')]
     public function testThrowOnUnsupportedUrl(string $unsupportedURL): void
     {
         $spec = $this->createMock(Spec::class);
@@ -285,7 +291,7 @@ class ExternalReferenceNormalizerTest extends \PHPUnit\Framework\TestCase
 
     // endregion normalize hashes
 
-    #[\PHPUnit\Framework\Attributes\DataProviderExternal(\CycloneDX\Tests\_data\XmlAnyUriData::class, 'dpEncodeAnyUri')]
+    #[DataProviderExternal(XmlAnyUriData::class, 'dpEncodeAnyUri')]
     public function testNormalizeUrlEncodeAnyUri(string $rawUrl, string $encodedUrl): void
     {
         $spec = $this->createMock(Spec::class);

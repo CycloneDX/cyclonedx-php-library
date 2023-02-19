@@ -27,9 +27,11 @@ use CycloneDX\Core\Spec\Format;
 use CycloneDX\Core\Spec\Spec;
 use CycloneDX\Core\Spec\SpecFactory;
 use CycloneDX\Core\Spec\Version;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\UsesClass;
 
-#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Spec\_Spec::class)]
-#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Spec\SpecFactory::class)]
+#[CoversClass(\CycloneDX\Core\Spec\_Spec::class)]
+#[UsesClass(\CycloneDX\Core\Spec\SpecFactory::class)]
 class Spec1dot3Test extends SpecBaseTestCase
 {
     protected static function getSpec(): Spec
@@ -88,6 +90,11 @@ class Spec1dot3Test extends SpecBaseTestCase
     }
 
     protected static function shouldSupportComponentProperties(): bool
+    {
+        return true;
+    }
+
+    protected static function shouldSupportsComponentAuthor(): bool
     {
         return true;
     }

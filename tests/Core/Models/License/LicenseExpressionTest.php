@@ -26,9 +26,11 @@ namespace CycloneDX\Tests\Core\Models\License;
 use CycloneDX\Core\Models\License\LicenseExpression;
 use DomainException;
 use Generator;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
-#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Models\License\LicenseExpression::class)]
+#[CoversClass(LicenseExpression::class)]
 class LicenseExpressionTest extends TestCase
 {
     public function testConstructAndGet(): void
@@ -73,7 +75,7 @@ class LicenseExpressionTest extends TestCase
         $license->setExpression("$expression");
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('dpIsValid')]
+    #[DataProvider('dpIsValid')]
     public function testIsValid(string $expression, $expected): void
     {
         $isValid = LicenseExpression::isValid($expression);

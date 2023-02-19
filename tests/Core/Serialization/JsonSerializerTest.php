@@ -24,17 +24,22 @@ declare(strict_types=1);
 namespace CycloneDX\Tests\Core\Serialization;
 
 use CycloneDX\Core\Models\Bom;
+use CycloneDX\Core\Serialization\BaseSerializer;
+use CycloneDX\Core\Serialization\BomRefDiscriminator;
 use CycloneDX\Core\Serialization\JSON;
 use CycloneDX\Core\Serialization\JsonSerializer;
 use Generator;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
 
-#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Serialization\JsonSerializer::class)]
-#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Serialization\BaseSerializer::class)]
-#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Serialization\BomRefDiscriminator::class)]
+#[CoversClass(JsonSerializer::class)]
+#[UsesClass(BaseSerializer::class)]
+#[UsesClass(BomRefDiscriminator::class)]
 class JsonSerializerTest extends TestCase
 {
-    #[\PHPUnit\Framework\Attributes\DataProvider('dpSerializeStructure')]
+    #[DataProvider('dpSerializeStructure')]
     public function testSerialize(int $jsonEncodeFlags, ?bool $prettyPrint, array $normalized, string $expected): void
     {
         $bom = $this->createStub(Bom::class);

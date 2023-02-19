@@ -24,9 +24,11 @@ declare(strict_types=1);
 namespace CycloneDX\Tests\Core\Models\License;
 
 use CycloneDX\Core\Models\License\NamedLicense;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DependsUsingShallowClone;
 use PHPUnit\Framework\TestCase;
 
-#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Models\License\NamedLicense::class)]
+#[CoversClass(NamedLicense::class)]
 class NamedLicenseTest extends TestCase
 {
     public function testConstruct(): NamedLicense
@@ -38,14 +40,14 @@ class NamedLicenseTest extends TestCase
         return $license;
     }
 
-    #[\PHPUnit\Framework\Attributes\DependsUsingShallowClone('testConstruct')]
+    #[DependsUsingShallowClone('testConstruct')]
     public function testSetName(NamedLicense $license): void
     {
         $license->setName('bar');
         self::assertSame('bar', $license->getName());
     }
 
-    #[\PHPUnit\Framework\Attributes\DependsUsingShallowClone('testConstruct')]
+    #[DependsUsingShallowClone('testConstruct')]
     public function testSetAndGetUrl(NamedLicense $license): NamedLicense
     {
         $url = uniqid('url', true);
@@ -55,7 +57,7 @@ class NamedLicenseTest extends TestCase
         return $license;
     }
 
-    #[\PHPUnit\Framework\Attributes\DependsUsingShallowClone('testSetAndGetUrl')]
+    #[DependsUsingShallowClone('testSetAndGetUrl')]
     public function testSetUrlNull(NamedLicense $license): void
     {
         $license->setUrl(null);

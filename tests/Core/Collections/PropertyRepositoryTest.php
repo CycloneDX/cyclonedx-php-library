@@ -25,9 +25,10 @@ namespace CycloneDX\Tests\Core\Collections;
 
 use CycloneDX\Core\Collections\PropertyRepository;
 use CycloneDX\Core\Models\Property;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
-#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Collections\PropertyRepository::class)]
+#[CoversClass(PropertyRepository::class)]
 class PropertyRepositoryTest extends TestCase
 {
     public function testEmptyConstructor(): void

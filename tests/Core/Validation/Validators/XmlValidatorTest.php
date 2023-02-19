@@ -25,18 +25,22 @@ namespace CycloneDX\Tests\Core\Validation\Validators;
 
 use CycloneDX\Core\Spec\Spec;
 use CycloneDX\Core\Spec\Version;
+use CycloneDX\Core\Validation\BaseValidator;
 use CycloneDX\Core\Validation\Errors\XmlValidationError;
 use CycloneDX\Core\Validation\Exceptions\FailedLoadingSchemaException;
+use CycloneDX\Core\Validation\ValidationError;
 use CycloneDX\Core\Validation\Validators\XmlValidator;
 use DOMDocument;
 use DOMException;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\Constraint\IsInstanceOf;
 use PHPUnit\Framework\TestCase;
 
-#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Validation\Validators\XmlValidator::class)]
-#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Validation\BaseValidator::class)]
-#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Validation\Errors\XmlValidationError::class)]
-#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Validation\ValidationError::class)]
+#[CoversClass(XmlValidator::class)]
+#[CoversClass(BaseValidator::class)]
+#[UsesClass(XmlValidationError::class)]
+#[UsesClass(ValidationError::class)]
 class XmlValidatorTest extends TestCase
 {
     public function testConstructor(): XmlValidator

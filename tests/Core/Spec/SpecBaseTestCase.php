@@ -31,6 +31,7 @@ use CycloneDX\Core\Spec\Spec;
 use CycloneDX\Core\Spec\Version;
 use CycloneDX\Tests\_data\BomSpecData;
 use Generator;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 abstract class SpecBaseTestCase extends TestCase
@@ -57,7 +58,7 @@ abstract class SpecBaseTestCase extends TestCase
         return $formats;
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('dpIsSupportsFormat')]
+    #[DataProvider('dpIsSupportsFormat')]
     final public function testIsSupportedFormat(Format $format, bool $expected): void
     {
         $isSupported = static::getSpec()->isSupportedFormat($format);
@@ -72,7 +73,7 @@ abstract class SpecBaseTestCase extends TestCase
         }
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('dpIsSupportedComponentType')]
+    #[DataProvider('dpIsSupportedComponentType')]
     final public function testIsSupportedComponentType(ComponentType $value, bool $expected): void
     {
         $isSupported = static::getSpec()->isSupportedComponentType($value);
@@ -88,7 +89,7 @@ abstract class SpecBaseTestCase extends TestCase
         }
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('dpIsSupportedHashAlgorithm')]
+    #[DataProvider('dpIsSupportedHashAlgorithm')]
     final public function testIsSupportedHashAlgorithm(HashAlgorithm $value, bool $expected): void
     {
         $isSupported = static::getSpec()->isSupportedHashAlgorithm($value);
@@ -104,7 +105,7 @@ abstract class SpecBaseTestCase extends TestCase
         }
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('dpIsSupportedHashContent')]
+    #[DataProvider('dpIsSupportedHashContent')]
     final public function testIsSupportedHashContent(string $value, bool $expected): void
     {
         $isSupported = static::getSpec()->isSupportedHashContent($value);
@@ -117,7 +118,7 @@ abstract class SpecBaseTestCase extends TestCase
         yield 'valid sha1' => ['a052cfe45093f1c2d26bd854d06aa370ceca3b38', true];
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('dpIsSupportedExternalReferenceType')]
+    #[DataProvider('dpIsSupportedExternalReferenceType')]
     final public function testIsSupportedExternalReferenceType(ExternalReferenceType $value, bool $expected): void
     {
         $isSupported = static::getSpec()->isSupportedExternalReferenceType($value);
@@ -205,7 +206,15 @@ abstract class SpecBaseTestCase extends TestCase
 
     abstract protected static function shouldSupportComponentProperties(): bool;
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('dpSupportsBomProperties')]
+    final public function testSupportsComponentAuthor(): void
+    {
+        $isSupported = static::getSpec()->supportsComponentAuthor();
+        self::assertSame(static::shouldSupportsComponentAuthor(), $isSupported);
+    }
+
+    abstract protected static function shouldSupportsComponentAuthor(): bool;
+
+    #[DataProvider('dpSupportsBomProperties')]
     final public function testSupportsBomProperties(Format $format, bool $shouldSupportBomProperties): void
     {
         $isSupported = static::getSpec()->supportsBomProperties($format);

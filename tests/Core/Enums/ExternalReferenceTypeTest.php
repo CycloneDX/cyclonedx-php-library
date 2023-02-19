@@ -26,9 +26,10 @@ namespace CycloneDX\Tests\Core\Enums;
 use CycloneDX\Core\Enums\ExternalReferenceType;
 use CycloneDX\Tests\_data\BomSpecData;
 use Generator;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
-#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Enums\ExternalReferenceType::class)]
+#[CoversClass(ExternalReferenceType::class)]
 class ExternalReferenceTypeTest extends TestCase
 {
     #[\PHPUnit\Framework\Attributes\DataProvider('dpSchemaValues')]

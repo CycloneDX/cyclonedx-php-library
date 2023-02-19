@@ -26,20 +26,23 @@ namespace CycloneDX\Tests\Core\Serialization\JSON\Normalizers;
 use CycloneDX\Core\Models\License\LicenseExpression;
 use CycloneDX\Core\Models\License\NamedLicense;
 use CycloneDX\Core\Models\License\SpdxLicense;
+use CycloneDX\Core\Serialization\JSON\_BaseNormalizer;
 use CycloneDX\Core\Serialization\JSON\NormalizerFactory;
 use CycloneDX\Core\Serialization\JSON\Normalizers\LicenseNormalizer;
 use CycloneDX\Core\Spec\Spec;
 use Generator;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 
-#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Serialization\JSON\Normalizers\LicenseNormalizer::class)]
-#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Serialization\JSON\_BaseNormalizer::class)]
+#[CoversClass(LicenseNormalizer::class)]
+#[CoversClass(_BaseNormalizer::class)]
 class LicenseNormalizerTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @psalm-param class-string<LicenseExpression|SpdxLicense|NamedLicense> $licenseClass
      * @psalm-param array<string, mixed> $licenseMockConf
      */
-    #[\PHPUnit\Framework\Attributes\DataProvider('dpNormalize')]
+    #[DataProvider('dpNormalize')]
     public function testNormalize(string $licenseClass, array $licenseMockConf, array $expected): void
     {
         /** @var (LicenseExpression|SpdxLicense|NamedLicense)&\PHPUnit\Framework\MockObject\MockObject */

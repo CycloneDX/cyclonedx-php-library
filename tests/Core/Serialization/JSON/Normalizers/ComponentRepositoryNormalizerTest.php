@@ -25,15 +25,17 @@ namespace CycloneDX\Tests\Core\Serialization\JSON\Normalizers;
 
 use CycloneDX\Core\Collections\ComponentRepository;
 use CycloneDX\Core\Models\Component;
+use CycloneDX\Core\Serialization\JSON\_BaseNormalizer;
 use CycloneDX\Core\Serialization\JSON\NormalizerFactory;
 use CycloneDX\Core\Serialization\JSON\Normalizers\ComponentNormalizer;
 use CycloneDX\Core\Serialization\JSON\Normalizers\ComponentRepositoryNormalizer;
 use CycloneDX\Core\Spec\Spec;
 use DomainException;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
-#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Serialization\JSON\Normalizers\ComponentRepositoryNormalizer::class)]
-#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Serialization\JSON\_BaseNormalizer::class)]
+#[CoversClass(ComponentRepositoryNormalizer::class)]
+#[CoversClass(_BaseNormalizer::class)]
 class ComponentRepositoryNormalizerTest extends TestCase
 {
     public function testNormalizeEmpty(): void

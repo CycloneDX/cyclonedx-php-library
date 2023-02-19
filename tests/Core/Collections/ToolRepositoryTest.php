@@ -25,9 +25,10 @@ namespace CycloneDX\Tests\Core\Collections;
 
 use CycloneDX\Core\Collections\ToolRepository;
 use CycloneDX\Core\Models\Tool;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
-#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Collections\ToolRepository::class)]
+#[CoversClass(ToolRepository::class)]
 class ToolRepositoryTest extends TestCase
 {
     public function testEmptyConstructor(): void

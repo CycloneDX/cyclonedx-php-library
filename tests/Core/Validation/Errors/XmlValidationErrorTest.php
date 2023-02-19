@@ -24,11 +24,13 @@ declare(strict_types=1);
 namespace CycloneDX\Tests\Core\Validation\Errors;
 
 use CycloneDX\Core\Validation\Errors\XmlValidationError;
+use CycloneDX\Core\Validation\ValidationError;
 use LibXMLError;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
-#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Validation\Errors\XmlValidationError::class)]
-#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Validation\ValidationError::class)]
+#[CoversClass(XmlValidationError::class)]
+#[CoversClass(ValidationError::class)]
 class XmlValidationErrorTest extends TestCase
 {
     public function testFromLibXMLError(): void

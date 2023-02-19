@@ -26,9 +26,11 @@ namespace CycloneDX\Tests\Core\Collections;
 use CycloneDX\Core\Collections\BomRefRepository;
 use CycloneDX\Core\Models\BomRef;
 use Generator;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
-#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Collections\BomRefRepository::class)]
+#[CoversClass(BomRefRepository::class)]
 class BomRefRepositoryTest extends TestCase
 {
     public function testEmptyConstructor(): void
@@ -43,7 +45,7 @@ class BomRefRepositoryTest extends TestCase
      * @param BomRef[] $bomRefs
      * @param BomRef[] $expectedContains
      */
-    #[\PHPUnit\Framework\Attributes\DataProvider('dpNonEmptyConstructor')]
+    #[DataProvider('dpNonEmptyConstructor')]
     public function testNonEmptyConstructor(array $bomRefs, array $expectedContains): void
     {
         $repo = new BomRefRepository(...$bomRefs);
@@ -79,7 +81,7 @@ class BomRefRepositoryTest extends TestCase
      * @param BomRef[] $add
      * @param BomRef[] $expectedContains
      */
-    #[\PHPUnit\Framework\Attributes\DataProvider('dpAddBomRef')]
+    #[DataProvider('dpAddBomRef')]
     public function testAddAndGetItems(array $initial, array $add, array $expectedContains): void
     {
         $repo = new BomRefRepository(...$initial);

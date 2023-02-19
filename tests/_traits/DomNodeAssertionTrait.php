@@ -33,7 +33,7 @@ trait DomNodeAssertionTrait
     /**
      * @throws Exception
      */
-    final protected static function assertDomNodeEqualsDomNode(DOMNode $expected, DomNode $actual): void
+    final protected static function assertDomNodeEqualsDomNode(DOMNode $expected, DOMNode $actual): void
     {
         $container = new DOMDocument();
 
@@ -46,7 +46,7 @@ trait DomNodeAssertionTrait
     /**
      * @throws Exception
      */
-    final protected static function assertDomNodeEqualsString(DomNode $expected, string $actual): void
+    final protected static function assertDomNodeEqualsString(DOMNode $expected, string $actual): void
     {
         $container = new DOMDocument();
 

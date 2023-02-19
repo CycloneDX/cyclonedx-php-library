@@ -25,27 +25,33 @@ namespace CycloneDX\Tests\Core\Serialization\JSON\Normalizers;
 
 use CycloneDX\Core\Collections\ExternalReferenceRepository;
 use CycloneDX\Core\Models\ExternalReference;
+use CycloneDX\Core\Serialization\JSON\_BaseNormalizer;
 use CycloneDX\Core\Serialization\JSON\NormalizerFactory;
-use CycloneDX\Core\Serialization\JSON\Normalizers;
+use CycloneDX\Core\Serialization\JSON\Normalizers\ExternalReferenceNormalizer;
+use CycloneDX\Core\Serialization\JSON\Normalizers\ExternalReferenceRepositoryNormalizer;
+use CycloneDX\Core\Serialization\JSON\Normalizers\ToolNormalizer;
 use CycloneDX\Core\Spec\Spec;
 use DomainException;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\UsesClass;
+use PHPUnit\Framework\TestCase;
 
-#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Serialization\JSON\Normalizers\ExternalReferenceRepositoryNormalizer::class)]
-#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Serialization\JSON\_BaseNormalizer::class)]
-#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Serialization\JSON\Normalizers\ExternalReferenceNormalizer::class)]
-#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Serialization\JSON\Normalizers\ToolNormalizer::class)]
-class ExternalReferenceRepositoryNormalizerTest extends \PHPUnit\Framework\TestCase
+#[CoversClass(ExternalReferenceRepositoryNormalizer::class)]
+#[CoversClass(_BaseNormalizer::class)]
+#[UsesClass(ExternalReferenceNormalizer::class)]
+#[UsesClass(ToolNormalizer::class)]
+class ExternalReferenceRepositoryNormalizerTest extends TestCase
 {
     public function testNormalizeEmpty(): void
     {
         $spec = $this->createStub(Spec::class);
-        $externalReferenceNormalizer = $this->createMock(Normalizers\ExternalReferenceNormalizer::class);
+        $externalReferenceNormalizer = $this->createMock(ExternalReferenceNormalizer::class);
         $factory = $this->createConfiguredMock(NormalizerFactory::class, [
             'getSpec' => $spec,
             'makeForExternalReference' => $externalReferenceNormalizer,
         ]);
 
-        $normalizer = new Normalizers\ExternalReferenceRepositoryNormalizer($factory);
+        $normalizer = new ExternalReferenceRepositoryNormalizer($factory);
         $repo = $this->createConfiguredMock(ExternalReferenceRepository::class, ['count' => 0]);
 
         $actual = $normalizer->normalize($repo);
@@ -56,12 +62,12 @@ class ExternalReferenceRepositoryNormalizerTest extends \PHPUnit\Framework\TestC
     public function testNormalize(): void
     {
         $spec = $this->createStub(Spec::class);
-        $externalReferenceNormalizer = $this->createMock(Normalizers\ExternalReferenceNormalizer::class);
+        $externalReferenceNormalizer = $this->createMock(ExternalReferenceNormalizer::class);
         $factory = $this->createConfiguredMock(NormalizerFactory::class, [
             'getSpec' => $spec,
             'makeForExternalReference' => $externalReferenceNormalizer,
         ]);
-        $normalizer = new Normalizers\ExternalReferenceRepositoryNormalizer($factory);
+        $normalizer = new ExternalReferenceRepositoryNormalizer($factory);
         $externalReference = $this->createStub(ExternalReference::class);
         $repo = $this->createConfiguredMock(ExternalReferenceRepository::class, [
             'count' => 1,
@@ -81,12 +87,12 @@ class ExternalReferenceRepositoryNormalizerTest extends \PHPUnit\Framework\TestC
     public function testNormalizeSkipsOnThrow(): void
     {
         $spec = $this->createStub(Spec::class);
-        $externalReferenceNormalizer = $this->createMock(Normalizers\ExternalReferenceNormalizer::class);
+        $externalReferenceNormalizer = $this->createMock(ExternalReferenceNormalizer::class);
         $factory = $this->createConfiguredMock(NormalizerFactory::class, [
             'getSpec' => $spec,
             'makeForExternalReference' => $externalReferenceNormalizer,
         ]);
-        $normalizer = new Normalizers\ExternalReferenceRepositoryNormalizer($factory);
+        $normalizer = new ExternalReferenceRepositoryNormalizer($factory);
         $extRef1 = $this->createStub(ExternalReference::class);
         $extRef2 = $this->createStub(ExternalReference::class);
         $tools = $this->createConfiguredMock(ExternalReferenceRepository::class, [

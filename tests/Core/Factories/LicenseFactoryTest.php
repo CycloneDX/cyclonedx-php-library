@@ -30,13 +30,16 @@ use CycloneDX\Core\Models\License\SpdxLicense;
 use CycloneDX\Core\Spdx\LicenseValidator as SpdxLicenseValidator;
 use DomainException;
 use Exception;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DependsUsingShallowClone;
+use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
 use UnexpectedValueException;
 
-#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Factories\LicenseFactory::class)]
-#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Models\License\LicenseExpression::class)]
-#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Models\License\SpdxLicense::class)]
-#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Models\License\NamedLicense::class)]
+#[CoversClass(LicenseFactory::class)]
+#[UsesClass(LicenseExpression::class)]
+#[UsesClass(SpdxLicense::class)]
+#[UsesClass(NamedLicense::class)]
 class LicenseFactoryTest extends TestCase
 {
     public function testConstructorWithValidator(): LicenseFactory
@@ -66,7 +69,7 @@ class LicenseFactoryTest extends TestCase
         return $factory;
     }
 
-    #[\PHPUnit\Framework\Attributes\DependsUsingShallowClone('testConstructor')]
+    #[DependsUsingShallowClone('testConstructor')]
     public function testSetSpdxLicenseValidator(LicenseFactory $factory): void
     {
         $spdxLicenseValidator = $this->createStub(SpdxLicenseValidator::class);

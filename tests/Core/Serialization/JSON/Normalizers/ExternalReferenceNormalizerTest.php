@@ -26,16 +26,19 @@ namespace CycloneDX\Tests\Core\Serialization\JSON\Normalizers;
 use CycloneDX\Core\Collections\HashDictionary;
 use CycloneDX\Core\Enums\ExternalReferenceType;
 use CycloneDX\Core\Models\ExternalReference;
+use CycloneDX\Core\Serialization\JSON\_BaseNormalizer;
 use CycloneDX\Core\Serialization\JSON\NormalizerFactory;
 use CycloneDX\Core\Serialization\JSON\Normalizers;
 use CycloneDX\Core\Spec\Spec;
 use DomainException;
 use Generator;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\TestCase;
 use UnexpectedValueException;
 
-#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Serialization\JSON\Normalizers\ExternalReferenceNormalizer::class)]
-#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Serialization\JSON\_BaseNormalizer::class)]
-class ExternalReferenceNormalizerTest extends \PHPUnit\Framework\TestCase
+#[CoversClass(Normalizers\ExternalReferenceNormalizer::class)]
+#[CoversClass(_BaseNormalizer::class)]
+class ExternalReferenceNormalizerTest extends TestCase
 {
     public function testNormalizeTypeAndUrl(): void
     {

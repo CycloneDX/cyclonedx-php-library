@@ -23,19 +23,23 @@ declare(strict_types=1);
 
 namespace CycloneDX\Tests\Core\Serialization\DOM\Normalizers;
 
+use CycloneDX\Core\_helpers\SimpleDOM;
 use CycloneDX\Core\Collections\ComponentRepository;
 use CycloneDX\Core\Models\Component;
+use CycloneDX\Core\Serialization\DOM\_BaseNormalizer;
 use CycloneDX\Core\Serialization\DOM\NormalizerFactory;
 use CycloneDX\Core\Serialization\DOM\Normalizers\ComponentNormalizer;
 use CycloneDX\Core\Serialization\DOM\Normalizers\ComponentRepositoryNormalizer;
 use CycloneDX\Core\Spec\Spec;
 use DomainException;
 use DOMElement;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
 
-#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Serialization\DOM\Normalizers\ComponentRepositoryNormalizer::class)]
-#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Serialization\DOM\_BaseNormalizer::class)]
-#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\_helpers\SimpleDOM::class)]
+#[CoversClass(ComponentRepositoryNormalizer::class)]
+#[CoversClass(_BaseNormalizer::class)]
+#[UsesClass(SimpleDOM::class)]
 class ComponentRepositoryNormalizerTest extends TestCase
 {
     public function testNormalizeEmpty(): void

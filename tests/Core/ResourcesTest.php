@@ -25,10 +25,11 @@ namespace CycloneDX\Tests\Core;
 
 use CycloneDX\Core\Resources;
 use Generator;
+use PHPUnit\Framework\Attributes\CoversNothing;
 use PHPUnit\Framework\TestCase;
 use ReflectionClass;
 
-#[\PHPUnit\Framework\Attributes\CoversNothing]
+#[CoversNothing]
 class ResourcesTest extends TestCase
 {
     public function testRootDirIsReadable(): void

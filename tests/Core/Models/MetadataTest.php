@@ -28,11 +28,14 @@ use CycloneDX\Core\Collections\ToolRepository;
 use CycloneDX\Core\Models\Component;
 use CycloneDX\Core\Models\Metadata;
 use DateTime;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DependsUsingShallowClone;
+use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
 
-#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Models\Metadata::class)]
-#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Collections\ToolRepository::class)]
-#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Collections\PropertyRepository::class)]
+#[CoversClass(Metadata::class)]
+#[UsesClass(ToolRepository::class)]
+#[UsesClass(PropertyRepository::class)]
 class MetadataTest extends TestCase
 {
     public function testConstructor(): Metadata
@@ -47,7 +50,7 @@ class MetadataTest extends TestCase
         return $metadata;
     }
 
-    #[\PHPUnit\Framework\Attributes\DependsUsingShallowClone('testConstructor')]
+    #[DependsUsingShallowClone('testConstructor')]
     public function testGetterSetterTimestamp(Metadata $metadata): void
     {
         $timestamp = $this->createStub(DateTime::class);
@@ -57,7 +60,7 @@ class MetadataTest extends TestCase
         self::assertSame($timestamp, $metadata->getTimestamp());
     }
 
-    #[\PHPUnit\Framework\Attributes\DependsUsingShallowClone('testConstructor')]
+    #[DependsUsingShallowClone('testConstructor')]
     public function testGetterSetterTools(Metadata $metadata): void
     {
         $tools = $this->createStub(ToolRepository::class);
@@ -66,7 +69,7 @@ class MetadataTest extends TestCase
         self::assertSame($tools, $metadata->getTools());
     }
 
-    #[\PHPUnit\Framework\Attributes\DependsUsingShallowClone('testConstructor')]
+    #[DependsUsingShallowClone('testConstructor')]
     public function testGetterSetterComponent(Metadata $metadata): void
     {
         $component = $this->createStub(Component::class);
@@ -76,7 +79,7 @@ class MetadataTest extends TestCase
         self::assertSame($component, $metadata->getComponent());
     }
 
-    #[\PHPUnit\Framework\Attributes\DependsUsingShallowClone('testConstructor')]
+    #[DependsUsingShallowClone('testConstructor')]
     public function testGetterSetterProperties(Metadata $metadata): void
     {
         $properties = $this->createStub(PropertyRepository::class);
