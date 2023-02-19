@@ -25,16 +25,19 @@ namespace CycloneDX\Tests\Core\Serialization\JSON\Normalizers;
 
 use CycloneDX\Core\Collections\ToolRepository;
 use CycloneDX\Core\Models\Tool;
+use CycloneDX\Core\Serialization\JSON\_BaseNormalizer;
 use CycloneDX\Core\Serialization\JSON\NormalizerFactory;
 use CycloneDX\Core\Serialization\JSON\Normalizers\ToolNormalizer;
 use CycloneDX\Core\Serialization\JSON\Normalizers\ToolRepositoryNormalizer;
 use CycloneDX\Core\Spec\Spec;
 use DomainException;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
 
-#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Serialization\JSON\Normalizers\ToolRepositoryNormalizer::class)]
-#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Serialization\JSON\_BaseNormalizer::class)]
-#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Serialization\JSON\Normalizers\ToolNormalizer::class)]
+#[CoversClass(ToolRepositoryNormalizer::class)]
+#[CoversClass(_BaseNormalizer::class)]
+#[UsesClass(ToolNormalizer::class)]
 class ToolRepositoryNormalizerTest extends TestCase
 {
     public function testNormalizeEmpty(): void

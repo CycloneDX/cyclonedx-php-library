@@ -26,16 +26,20 @@ namespace CycloneDX\Tests\Core\Serialization\JSON\Normalizers;
 use CycloneDX\Core\Collections\HashDictionary;
 use CycloneDX\Core\Enums\ExternalReferenceType;
 use CycloneDX\Core\Models\ExternalReference;
+use CycloneDX\Core\Serialization\JSON\_BaseNormalizer;
 use CycloneDX\Core\Serialization\JSON\NormalizerFactory;
 use CycloneDX\Core\Serialization\JSON\Normalizers;
+use CycloneDX\Core\Serialization\JSON\Normalizers\ExternalReferenceNormalizer;
 use CycloneDX\Core\Spec\Spec;
 use DomainException;
 use Generator;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\TestCase;
 use UnexpectedValueException;
 
-#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Serialization\JSON\Normalizers\ExternalReferenceNormalizer::class)]
-#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Serialization\JSON\_BaseNormalizer::class)]
-class ExternalReferenceNormalizerTest extends \PHPUnit\Framework\TestCase
+#[CoversClass(ExternalReferenceNormalizer::class)]
+#[CoversClass(_BaseNormalizer::class)]
+class ExternalReferenceNormalizerTest extends TestCase
 {
     public function testNormalizeTypeAndUrl(): void
     {
@@ -43,7 +47,7 @@ class ExternalReferenceNormalizerTest extends \PHPUnit\Framework\TestCase
         $normalizerFactory = $this->createConfiguredMock(NormalizerFactory::class, [
             'getSPec' => $spec,
         ]);
-        $normalizer = new Normalizers\ExternalReferenceNormalizer($normalizerFactory);
+        $normalizer = new ExternalReferenceNormalizer($normalizerFactory);
         $extRef = $this->createConfiguredMock(ExternalReference::class, [
             'getUrl' => 'someUrl',
             'getType' => ExternalReferenceType::BOM,
@@ -72,7 +76,7 @@ class ExternalReferenceNormalizerTest extends \PHPUnit\Framework\TestCase
         $normalizerFactory = $this->createConfiguredMock(NormalizerFactory::class, [
             'getSPec' => $spec,
         ]);
-        $normalizer = new Normalizers\ExternalReferenceNormalizer($normalizerFactory);
+        $normalizer = new ExternalReferenceNormalizer($normalizerFactory);
         $extRef = $this->createConfiguredMock(ExternalReference::class, [
             'getType' => ExternalReferenceType::BOM,
             'getUrl' => 'someUrl',
@@ -101,7 +105,7 @@ class ExternalReferenceNormalizerTest extends \PHPUnit\Framework\TestCase
         $normalizerFactory = $this->createConfiguredMock(NormalizerFactory::class, [
             'getSPec' => $spec,
         ]);
-        $normalizer = new Normalizers\ExternalReferenceNormalizer($normalizerFactory);
+        $normalizer = new ExternalReferenceNormalizer($normalizerFactory);
         $extRef = $this->createConfiguredMock(ExternalReference::class, [
             'getUrl' => 'someUrl',
             'getType' => ExternalReferenceType::BOM,
@@ -129,7 +133,7 @@ class ExternalReferenceNormalizerTest extends \PHPUnit\Framework\TestCase
         $normalizerFactory = $this->createConfiguredMock(NormalizerFactory::class, [
             'getSPec' => $spec,
         ]);
-        $normalizer = new Normalizers\ExternalReferenceNormalizer($normalizerFactory);
+        $normalizer = new ExternalReferenceNormalizer($normalizerFactory);
         $extRef = $this->createConfiguredMock(ExternalReference::class, [
             'getUrl' => $unsupportedURL,
         ]);
@@ -151,7 +155,7 @@ class ExternalReferenceNormalizerTest extends \PHPUnit\Framework\TestCase
         $normalizerFactory = $this->createConfiguredMock(NormalizerFactory::class, [
             'getSPec' => $spec,
         ]);
-        $normalizer = new Normalizers\ExternalReferenceNormalizer($normalizerFactory);
+        $normalizer = new ExternalReferenceNormalizer($normalizerFactory);
         $extRef = $this->createConfiguredMock(ExternalReference::class, [
             'getUrl' => 'someUrl',
             'getType' => ExternalReferenceType::BOM,
@@ -184,7 +188,7 @@ class ExternalReferenceNormalizerTest extends \PHPUnit\Framework\TestCase
             'getSpec' => $spec,
             'makeForHashDictionary' => $hashDictNormalizer,
         ]);
-        $normalizer = new Normalizers\ExternalReferenceNormalizer($normalizerFactory);
+        $normalizer = new ExternalReferenceNormalizer($normalizerFactory);
         $extRef = $this->createConfiguredMock(ExternalReference::class, [
             'getUrl' => 'someUrl',
             'getType' => ExternalReferenceType::BOM,
@@ -219,7 +223,7 @@ class ExternalReferenceNormalizerTest extends \PHPUnit\Framework\TestCase
             'getSpec' => $spec,
             'makeForHashDictionary' => $HashDictionaryNormalizer,
         ]);
-        $normalizer = new Normalizers\ExternalReferenceNormalizer($normalizerFactory);
+        $normalizer = new ExternalReferenceNormalizer($normalizerFactory);
         $extRef = $this->createConfiguredMock(ExternalReference::class, [
             'getUrl' => 'someUrl',
             'getType' => ExternalReferenceType::BOM,
@@ -253,7 +257,7 @@ class ExternalReferenceNormalizerTest extends \PHPUnit\Framework\TestCase
             'getSpec' => $spec,
             'makeForHashDictionary' => $HashDictionaryNormalizer,
         ]);
-        $normalizer = new Normalizers\ExternalReferenceNormalizer($normalizerFactory);
+        $normalizer = new ExternalReferenceNormalizer($normalizerFactory);
         $extRef = $this->createConfiguredMock(ExternalReference::class, [
             'getUrl' => 'someUrl',
             'getType' => ExternalReferenceType::BOM,

@@ -28,7 +28,11 @@ use CycloneDX\Core\Serialization\JSON;
 use CycloneDX\Core\Serialization\JsonSerializer;
 use CycloneDX\Core\Spec\SpecFactory;
 use CycloneDX\Core\Validation\Validators\JsonStrictValidator;
+use CycloneDX\Tests\_data\BomModelProvider;
 use DomainException;
+use PHPUnit\Framework\Attributes\CoversNothing;
+use PHPUnit\Framework\Attributes\DataProviderExternal;
+use PHPUnit\Framework\Attributes\Large;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -36,8 +40,8 @@ use PHPUnit\Framework\TestCase;
  * This test might require online-connectivity.
  * Tests functionality.
  */
-#[\PHPUnit\Framework\Attributes\Large]
-#[\PHPUnit\Framework\Attributes\CoversNothing]
+#[Large]
+#[CoversNothing]
 class SerializeToJsonTest extends TestCase
 {
     // region Spec 1.0
@@ -65,7 +69,7 @@ class SerializeToJsonTest extends TestCase
 
     // region Spec 1.2
 
-    #[\PHPUnit\Framework\Attributes\DataProviderExternal(\CycloneDX\Tests\_data\BomModelProvider::class, 'allBomTestData')]
+    #[DataProviderExternal(BomModelProvider::class, 'allBomTestData')]
     public function testSchema12(Bom $bom): void
     {
         $spec = SpecFactory::make1dot2();
@@ -83,7 +87,7 @@ class SerializeToJsonTest extends TestCase
 
     // region Spec 1.3
 
-    #[\PHPUnit\Framework\Attributes\DataProviderExternal(\CycloneDX\Tests\_data\BomModelProvider::class, 'allBomTestData')]
+    #[DataProviderExternal(BomModelProvider::class, 'allBomTestData')]
     public function testSchema13(Bom $bom): void
     {
         $spec = SpecFactory::make1dot3();
@@ -101,7 +105,7 @@ class SerializeToJsonTest extends TestCase
 
     // region Spec 1.4
 
-    #[\PHPUnit\Framework\Attributes\DataProviderExternal(\CycloneDX\Tests\_data\BomModelProvider::class, 'allBomTestData')]
+    #[DataProviderExternal(BomModelProvider::class, 'allBomTestData')]
     public function testSchema14(Bom $bom): void
     {
         $spec = SpecFactory::make1dot4();

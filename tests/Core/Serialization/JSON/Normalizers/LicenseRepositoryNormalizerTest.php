@@ -25,14 +25,16 @@ namespace CycloneDX\Tests\Core\Serialization\JSON\Normalizers;
 
 use CycloneDX\Core\Collections\LicenseRepository;
 use CycloneDX\Core\Models\License\NamedLicense;
+use CycloneDX\Core\Serialization\JSON\_BaseNormalizer;
 use CycloneDX\Core\Serialization\JSON\NormalizerFactory;
 use CycloneDX\Core\Serialization\JSON\Normalizers\LicenseNormalizer;
 use CycloneDX\Core\Serialization\JSON\Normalizers\LicenseRepositoryNormalizer;
 use CycloneDX\Core\Spec\Spec;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
-#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Serialization\JSON\Normalizers\LicenseRepositoryNormalizer::class)]
-#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Serialization\JSON\_BaseNormalizer::class)]
+#[CoversClass(LicenseRepositoryNormalizer::class)]
+#[CoversClass(_BaseNormalizer::class)]
 class LicenseRepositoryNormalizerTest extends TestCase
 {
     public function testNormalizeEmpty(): void

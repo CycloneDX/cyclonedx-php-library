@@ -27,19 +27,25 @@ use CycloneDX\Core\Collections\PropertyRepository;
 use CycloneDX\Core\Collections\ToolRepository;
 use CycloneDX\Core\Models\Component;
 use CycloneDX\Core\Models\Metadata;
+use CycloneDX\Core\Serialization\JSON\_BaseNormalizer;
 use CycloneDX\Core\Serialization\JSON\NormalizerFactory;
 use CycloneDX\Core\Serialization\JSON\Normalizers;
+use CycloneDX\Core\Serialization\JSON\Normalizers\ComponentNormalizer;
+use CycloneDX\Core\Serialization\JSON\Normalizers\MetadataNormalizer;
+use CycloneDX\Core\Serialization\JSON\Normalizers\PropertyRepositoryNormalizer;
 use CycloneDX\Core\Spec\Spec;
 use DateTime;
 use DateTimeZone;
 use DomainException;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
 
-#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Serialization\JSON\Normalizers\MetadataNormalizer::class)]
-#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Serialization\JSON\_BaseNormalizer::class)]
-#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Serialization\JSON\Normalizers\ComponentNormalizer::class)]
-#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Serialization\JSON\Normalizers\PropertyRepositoryNormalizer::class)]
-#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Serialization\JSON\Normalizers\PropertyRepositoryNormalizer::class)]
+#[CoversClass(MetadataNormalizer::class)]
+#[CoversClass(_BaseNormalizer::class)]
+#[UsesClass(ComponentNormalizer::class)]
+#[UsesClass(PropertyRepositoryNormalizer::class)]
+#[UsesClass(PropertyRepositoryNormalizer::class)]
 class MetadataNormalizerTest extends TestCase
 {
     public function testNormalizeEmpty(): void
@@ -47,7 +53,7 @@ class MetadataNormalizerTest extends TestCase
         $metadata = $this->createMock(Metadata::class);
         $spec = $this->createMock(Spec::class);
         $factory = $this->createConfiguredMock(NormalizerFactory::class, ['getSpec' => $spec]);
-        $normalizer = new Normalizers\MetadataNormalizer($factory);
+        $normalizer = new MetadataNormalizer($factory);
 
         $actual = $normalizer->normalize($metadata);
 
@@ -67,7 +73,7 @@ class MetadataNormalizerTest extends TestCase
             NormalizerFactory::class,
             ['getSpec' => $spec]
         );
-        $normalizer = new Normalizers\MetadataNormalizer($factory);
+        $normalizer = new MetadataNormalizer($factory);
 
         $actual = $normalizer->normalize($metadata);
 
@@ -100,7 +106,7 @@ class MetadataNormalizerTest extends TestCase
                 'makeForToolRepository' => $toolsRepoFactory,
             ]
         );
-        $normalizer = new Normalizers\MetadataNormalizer($factory);
+        $normalizer = new MetadataNormalizer($factory);
 
         $toolsRepoFactory->expects(self::once())
             ->method('normalize')
@@ -124,7 +130,7 @@ class MetadataNormalizerTest extends TestCase
             ]
         );
         $spec = $this->createMock(Spec::class);
-        $componentFactory = $this->createMock(Normalizers\ComponentNormalizer::class);
+        $componentFactory = $this->createMock(ComponentNormalizer::class);
         $factory = $this->createConfiguredMock(
             NormalizerFactory::class,
             [
@@ -132,7 +138,7 @@ class MetadataNormalizerTest extends TestCase
                 'makeForComponent' => $componentFactory,
             ]
         );
-        $normalizer = new Normalizers\MetadataNormalizer($factory);
+        $normalizer = new MetadataNormalizer($factory);
 
         $componentFactory->expects(self::once())
             ->method('normalize')
@@ -156,7 +162,7 @@ class MetadataNormalizerTest extends TestCase
             ]
         );
         $spec = $this->createMock(Spec::class);
-        $componentFactory = $this->createMock(Normalizers\ComponentNormalizer::class);
+        $componentFactory = $this->createMock(ComponentNormalizer::class);
         $factory = $this->createConfiguredMock(
             NormalizerFactory::class,
             [
@@ -164,7 +170,7 @@ class MetadataNormalizerTest extends TestCase
                 'makeForComponent' => $componentFactory,
             ]
         );
-        $normalizer = new Normalizers\MetadataNormalizer($factory);
+        $normalizer = new MetadataNormalizer($factory);
 
         $componentFactory->expects(self::once())
             ->method('normalize')
@@ -185,7 +191,7 @@ class MetadataNormalizerTest extends TestCase
             ]
         );
         $spec = $this->createConfiguredMock(Spec::class, ['supportsMetadataProperties' => true]);
-        $repoNormalizer = $this->createMock(Normalizers\PropertyRepositoryNormalizer::class);
+        $repoNormalizer = $this->createMock(PropertyRepositoryNormalizer::class);
         $factory = $this->createConfiguredMock(
             NormalizerFactory::class,
             [
@@ -193,7 +199,7 @@ class MetadataNormalizerTest extends TestCase
                 'makeForPropertyRepository' => $repoNormalizer,
             ]
         );
-        $normalizer = new Normalizers\MetadataNormalizer($factory);
+        $normalizer = new MetadataNormalizer($factory);
 
         $repoNormalizer->expects(self::once())
             ->method('normalize')
@@ -217,7 +223,7 @@ class MetadataNormalizerTest extends TestCase
             ]
         );
         $spec = $this->createConfiguredMock(Spec::class, ['supportsMetadataProperties' => true]);
-        $repoNormalizer = $this->createMock(Normalizers\PropertyRepositoryNormalizer::class);
+        $repoNormalizer = $this->createMock(PropertyRepositoryNormalizer::class);
         $factory = $this->createConfiguredMock(
             NormalizerFactory::class,
             [
@@ -225,7 +231,7 @@ class MetadataNormalizerTest extends TestCase
                 'makeForPropertyRepository' => $repoNormalizer,
             ]
         );
-        $normalizer = new Normalizers\MetadataNormalizer($factory);
+        $normalizer = new MetadataNormalizer($factory);
 
         $actual = $normalizer->normalize($metadata);
 

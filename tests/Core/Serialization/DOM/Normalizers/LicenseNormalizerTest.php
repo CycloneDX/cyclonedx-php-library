@@ -26,16 +26,20 @@ namespace CycloneDX\Tests\Core\Serialization\DOM\Normalizers;
 use CycloneDX\Core\Models\License\LicenseExpression;
 use CycloneDX\Core\Models\License\NamedLicense;
 use CycloneDX\Core\Models\License\SpdxLicense;
+use CycloneDX\Core\Serialization\DOM\_BaseNormalizer;
 use CycloneDX\Core\Serialization\DOM\NormalizerFactory;
 use CycloneDX\Core\Serialization\DOM\Normalizers\LicenseNormalizer;
 use CycloneDX\Core\Spec\Spec;
 use CycloneDX\Tests\_traits\DomNodeAssertionTrait;
 use DOMDocument;
 use Generator;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\TestCase;
 
-#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Serialization\DOM\Normalizers\LicenseNormalizer::class)]
-#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Serialization\DOM\_BaseNormalizer::class)]
-class LicenseNormalizerTest extends \PHPUnit\Framework\TestCase
+#[CoversClass(LicenseNormalizer::class)]
+#[CoversClass(_BaseNormalizer::class)]
+class LicenseNormalizerTest extends TestCase
 {
     use DomNodeAssertionTrait;
 
@@ -43,7 +47,7 @@ class LicenseNormalizerTest extends \PHPUnit\Framework\TestCase
      * @psalm-param class-string<LicenseExpression|SpdxLicense|NamedLicense> $licenseClass
      * @psalm-param array<string,mixed> $licenseConfig
      */
-    #[\PHPUnit\Framework\Attributes\DataProvider('dpNormalize')]
+    #[DataProvider('dpNormalize')]
     public function testNormalize(string $licenseClass, array $licenseConfig, string $expectedXML): void
     {
         /** @var (LicenseExpression|SpdxLicense|NamedLicense)&\PHPUnit\Framework\MockObject\MockObject */
@@ -77,8 +81,8 @@ class LicenseNormalizerTest extends \PHPUnit\Framework\TestCase
                 'getUrl' => 'https://foo.bar',
             ],
             '<license>'.
-            '<id>MIT</id>'.
-            '<url>https://foo.bar</url>'.
+                '<id>MIT</id>'.
+                '<url>https://foo.bar</url>'.
             '</license>',
         ];
         yield 'named license' => [
@@ -87,8 +91,8 @@ class LicenseNormalizerTest extends \PHPUnit\Framework\TestCase
                 'getUrl' => 'https://foo.bar',
             ],
             '<license>'.
-            '<name>copyright by the crew</name>'.
-            '<url>https://foo.bar</url>'.
+                '<name>copyright by the crew</name>'.
+                '<url>https://foo.bar</url>'.
             '</license>',
         ];
     }

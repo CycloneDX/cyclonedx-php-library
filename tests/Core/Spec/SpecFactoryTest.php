@@ -23,12 +23,15 @@ declare(strict_types=1);
 
 namespace CycloneDX\Tests\Core\Spec;
 
+use CycloneDX\Core\Spec\_Spec;
 use CycloneDX\Core\Spec\SpecFactory;
 use CycloneDX\Core\Spec\Version;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
 
-#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Spec\SpecFactory::class)]
-#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Spec\_Spec::class)]
+#[CoversClass(SpecFactory::class)]
+#[UsesClass(_Spec::class)]
 class SpecFactoryTest extends TestCase
 {
     public function test11(): void

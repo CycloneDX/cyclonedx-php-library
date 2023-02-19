@@ -27,15 +27,18 @@ use BadMethodCallException;
 use CycloneDX\Core\Collections\ExternalReferenceRepository;
 use CycloneDX\Core\Collections\HashDictionary;
 use CycloneDX\Core\Models\Tool;
+use CycloneDX\Core\Serialization\JSON\_BaseNormalizer;
 use CycloneDX\Core\Serialization\JSON\NormalizerFactory;
 use CycloneDX\Core\Serialization\JSON\Normalizers\ExternalReferenceRepositoryNormalizer;
 use CycloneDX\Core\Serialization\JSON\Normalizers\HashDictionaryNormalizer;
 use CycloneDX\Core\Serialization\JSON\Normalizers\ToolNormalizer;
 use CycloneDX\Core\Spec\Spec;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
 
-#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Serialization\JSON\Normalizers\ToolNormalizer::class)]
-#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Serialization\JSON\_BaseNormalizer::class)]
+#[CoversClass(ToolNormalizer::class)]
+#[UsesClass(_BaseNormalizer::class)]
 class ToolNormalizerTest extends TestCase
 {
     public function testNormalizeEmpty(): void

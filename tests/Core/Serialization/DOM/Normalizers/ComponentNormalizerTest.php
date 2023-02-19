@@ -23,6 +23,7 @@ declare(strict_types=1);
 
 namespace CycloneDX\Tests\Core\Serialization\DOM\Normalizers;
 
+use CycloneDX\Core\_helpers\SimpleDOM;
 use CycloneDX\Core\Collections\ExternalReferenceRepository;
 use CycloneDX\Core\Collections\HashDictionary;
 use CycloneDX\Core\Collections\LicenseRepository;
@@ -31,8 +32,10 @@ use CycloneDX\Core\Enums\ComponentType;
 use CycloneDX\Core\Models\BomRef;
 use CycloneDX\Core\Models\Component;
 use CycloneDX\Core\Models\License\NamedLicense;
+use CycloneDX\Core\Serialization\DOM\_BaseNormalizer;
 use CycloneDX\Core\Serialization\DOM\NormalizerFactory;
 use CycloneDX\Core\Serialization\DOM\Normalizers;
+use CycloneDX\Core\Serialization\DOM\Normalizers\ComponentNormalizer;
 use CycloneDX\Core\Serialization\DOM\Normalizers\PropertyRepositoryNormalizer;
 use CycloneDX\Core\Spec\Spec;
 use CycloneDX\Tests\_traits\DomNodeAssertionTrait;
@@ -40,12 +43,15 @@ use DomainException;
 use DOMDocument;
 use Generator;
 use PackageUrl\PackageUrl;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
 
-#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Serialization\DOM\Normalizers\ComponentNormalizer::class)]
-#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Serialization\DOM\_BaseNormalizer::class)]
-#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\_helpers\SimpleDOM::class)]
-#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Models\BomRef::class)]
+#[CoversClass(ComponentNormalizer::class)]
+#[CoversClass(_BaseNormalizer::class)]
+#[UsesClass(SimpleDOM::class)]
+#[UsesClass(BomRef::class)]
 class ComponentNormalizerTest extends TestCase
 {
     use DomNodeAssertionTrait;
@@ -62,7 +68,7 @@ class ComponentNormalizerTest extends TestCase
         );
         $spec = $this->createMock(Spec::class);
         $factory = $this->createConfiguredMock(NormalizerFactory::class, ['getSpec' => $spec]);
-        $normalizer = new Normalizers\ComponentNormalizer($factory);
+        $normalizer = new ComponentNormalizer($factory);
 
         $spec->expects(self::once())
             ->method('isSupportedComponentType')
@@ -75,7 +81,7 @@ class ComponentNormalizerTest extends TestCase
         $normalizer->normalize($component);
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('dbNormalizeMinimal')]
+    #[DataProvider('dbNormalizeMinimal')]
     public function testNormalizeMinimal(string $expected, bool $requiresComponentVersion): void
     {
         $component = $this->createConfiguredMock(
@@ -97,7 +103,7 @@ class ComponentNormalizerTest extends TestCase
             NormalizerFactory::class,
             ['getSpec' => $spec, 'getDocument' => new DOMDocument()]
         );
-        $normalizer = new Normalizers\ComponentNormalizer($factory);
+        $normalizer = new ComponentNormalizer($factory);
 
         $spec->expects(self::once())
             ->method('isSupportedComponentType')
@@ -161,7 +167,7 @@ class ComponentNormalizerTest extends TestCase
                 'makeForHashDictionary' => $HashDictionaryNormalizer,
             ]
         );
-        $normalizer = new Normalizers\ComponentNormalizer($factory);
+        $normalizer = new ComponentNormalizer($factory);
 
         $spec->expects(self::once())
             ->method('isSupportedComponentType')
@@ -213,7 +219,7 @@ class ComponentNormalizerTest extends TestCase
                 'makeForLicenseRepository' => $licenseRepoNormalizer,
             ]
         );
-        $normalizer = new Normalizers\ComponentNormalizer($factory);
+        $normalizer = new ComponentNormalizer($factory);
 
         $spec->expects(self::once())
             ->method('isSupportedComponentType')
@@ -255,7 +261,7 @@ class ComponentNormalizerTest extends TestCase
                 'makeForLicenseRepository' => $licenseRepoNormalizer,
             ]
         );
-        $normalizer = new Normalizers\ComponentNormalizer($factory);
+        $normalizer = new ComponentNormalizer($factory);
 
         $spec->expects(self::once())
             ->method('isSupportedComponentType')
@@ -296,7 +302,7 @@ class ComponentNormalizerTest extends TestCase
                 'makeForExternalReferenceRepository' => $externalReferenceRepositoryNormalizer,
             ]
         );
-        $normalizer = new Normalizers\ComponentNormalizer($factory);
+        $normalizer = new ComponentNormalizer($factory);
 
         $spec->expects(self::once())
             ->method('isSupportedComponentType')
@@ -338,7 +344,7 @@ class ComponentNormalizerTest extends TestCase
                 'makeForExternalReferenceRepository' => $externalReferenceRepositoryNormalizer,
             ]
         );
-        $normalizer = new Normalizers\ComponentNormalizer($factory);
+        $normalizer = new ComponentNormalizer($factory);
 
         $spec->expects(self::once())
             ->method('isSupportedComponentType')
@@ -383,7 +389,7 @@ class ComponentNormalizerTest extends TestCase
                 'makeForPropertyRepository' => $propertiesNormalizer,
             ]
         );
-        $normalizer = new Normalizers\ComponentNormalizer($factory);
+        $normalizer = new ComponentNormalizer($factory);
 
         $propertiesNormalizer->expects(self::once())
             ->method('normalize')
@@ -425,7 +431,7 @@ class ComponentNormalizerTest extends TestCase
                 'makeForPropertyRepository' => $propertiesNormalizer,
             ]
         );
-        $normalizer = new Normalizers\ComponentNormalizer($factory);
+        $normalizer = new ComponentNormalizer($factory);
         $spec->expects(self::once())
             ->method('isSupportedComponentType')
             ->with(ComponentType::LIBRARY)

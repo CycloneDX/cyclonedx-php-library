@@ -25,9 +25,10 @@ namespace CycloneDX\Tests\Core\Validation;
 
 use CycloneDX\Core\Validation\ValidationError;
 use Exception;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
-#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Validation\ValidationError::class)]
+#[CoversClass(ValidationError::class)]
 class ValidationErrorTest extends TestCase
 {
     public function testFromThrowable(): void

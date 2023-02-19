@@ -25,10 +25,12 @@ namespace CycloneDX\Tests\Core\Serialization;
 
 use CycloneDX\Core\Models\BomRef;
 use CycloneDX\Core\Serialization\BomRefDiscriminator;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
 
-#[\PHPUnit\Framework\Attributes\CoversClass(BomRefDiscriminator::class)]
-#[\PHPUnit\Framework\Attributes\UsesClass(BomRef::class)]
+#[CoversClass(BomRefDiscriminator::class)]
+#[UsesClass(BomRef::class)]
 class BomRefDiscriminatorTest extends TestCase
 {
     public function testDiscriminate(): void

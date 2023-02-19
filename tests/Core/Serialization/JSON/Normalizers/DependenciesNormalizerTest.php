@@ -29,15 +29,19 @@ use CycloneDX\Core\Models\Bom;
 use CycloneDX\Core\Models\BomRef;
 use CycloneDX\Core\Models\Component;
 use CycloneDX\Core\Models\Metadata;
+use CycloneDX\Core\Serialization\JSON\_BaseNormalizer;
 use CycloneDX\Core\Serialization\JSON\NormalizerFactory;
 use CycloneDX\Core\Serialization\JSON\Normalizers\DependenciesNormalizer;
 use Exception;
 use Generator;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
 
-#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Serialization\JSON\Normalizers\DependenciesNormalizer::class)]
-#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Serialization\JSON\_BaseNormalizer::class)]
-#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Models\BomRef::class)]
+#[CoversClass(DependenciesNormalizer::class)]
+#[CoversClass(_BaseNormalizer::class)]
+#[UsesClass(BomRef::class)]
 class DependenciesNormalizerTest extends TestCase
 {
     /**
@@ -59,7 +63,7 @@ class DependenciesNormalizerTest extends TestCase
     /**
      * @param string[] $expecteds
      */
-    #[\PHPUnit\Framework\Attributes\DataProvider('dpNormalize')]
+    #[DataProvider('dpNormalize')]
     public function testNormalize(Bom $bom, array $expecteds): void
     {
         $actuals = $this->normalizer->normalize($bom);

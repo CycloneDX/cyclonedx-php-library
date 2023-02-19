@@ -24,23 +24,29 @@ declare(strict_types=1);
 namespace CycloneDX\Tests\Core\Validation\Errors;
 
 use CycloneDX\Core\Validation\Errors\JsonValidationError;
+use CycloneDX\Core\Validation\ValidationError;
 use Opis\JsonSchema;
+use Opis\JsonSchema\Info\DataInfo;
+use Opis\JsonSchema\Info\SchemaInfo;
+use Opis\JsonSchema\Schemas\EmptySchema;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
 
-#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Validation\Errors\JsonValidationError::class)]
-#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Validation\ValidationError::class)]
-#[\PHPUnit\Framework\Attributes\UsesClass(\Opis\JsonSchema\Errors\ValidationError::class)]
-#[\PHPUnit\Framework\Attributes\UsesClass(\Opis\JsonSchema\Schemas\EmptySchema::class)]
-#[\PHPUnit\Framework\Attributes\UsesClass(\Opis\JsonSchema\Info\SchemaInfo::class)]
-#[\PHPUnit\Framework\Attributes\UsesClass(\Opis\JsonSchema\Info\DataInfo::class)]
+#[CoversClass(JsonValidationError::class)]
+#[CoversClass(ValidationError::class)]
+#[UsesClass(JsonSchema\Errors\ValidationError::class)]
+#[UsesClass(EmptySchema::class)]
+#[UsesClass(SchemaInfo::class)]
+#[UsesClass(DataInfo::class)]
 class JsonValidationErrorTest extends TestCase
 {
     public function testFromJsonSchemaInvalidValue(): void
     {
         $errorJsonSchemaInvalidValue = new JsonSchema\Errors\ValidationError(
             'foo',
-            new JsonSchema\Schemas\EmptySchema(new JsonSchema\Info\SchemaInfo(false, null)),
-            new JsonSchema\Info\DataInfo(null, null, null),
+            new EmptySchema(new SchemaInfo(false, null)),
+            new DataInfo(null, null, null),
             'some error message'
         );
 

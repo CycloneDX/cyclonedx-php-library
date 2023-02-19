@@ -30,14 +30,17 @@ use CycloneDX\Core\Models\BomRef;
 use CycloneDX\Core\Models\Component;
 use CycloneDX\Core\Models\Metadata;
 use CycloneDX\Core\Serialization\BaseSerializer;
+use CycloneDX\Core\Serialization\BomRefDiscriminator;
 use Exception;
 use Generator;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
 use Throwable;
 
-#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Serialization\BaseSerializer::class)]
-#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Serialization\BomRefDiscriminator::class)]
-#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Models\BomRef::class)]
+#[CoversClass(BaseSerializer::class)]
+#[UsesClass(BomRefDiscriminator::class)]
+#[UsesClass(BomRef::class)]
 class BaseSerializerTest extends TestCase
 {
     public function testSerialize(): void

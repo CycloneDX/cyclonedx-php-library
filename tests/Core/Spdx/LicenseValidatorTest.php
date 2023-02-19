@@ -25,10 +25,11 @@ namespace CycloneDX\Tests\Core\Spdx;
 
 use CycloneDX\Core\Spdx\LicenseValidator;
 use Generator;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use RuntimeException;
 
-#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Spdx\LicenseValidator::class)]
+#[CoversClass(LicenseValidator::class)]
 class LicenseValidatorTest extends TestCase
 {
     /**

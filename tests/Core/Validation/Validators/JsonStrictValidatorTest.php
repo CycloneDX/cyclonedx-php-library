@@ -25,19 +25,24 @@ namespace CycloneDX\Tests\Core\Validation\Validators;
 
 use CycloneDX\Core\Spec\Spec;
 use CycloneDX\Core\Spec\Version;
+use CycloneDX\Core\Validation\BaseValidator;
 use CycloneDX\Core\Validation\Errors\JsonValidationError;
 use CycloneDX\Core\Validation\Exceptions\FailedLoadingSchemaException;
+use CycloneDX\Core\Validation\ValidationError;
 use CycloneDX\Core\Validation\Validators\JsonStrictValidator;
+use CycloneDX\Core\Validation\Validators\JsonValidator;
 use JsonException;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\Constraint\IsInstanceOf;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 
-#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Validation\Validators\JsonStrictValidator::class)]
-#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Validation\Validators\JsonValidator::class)]
-#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Validation\BaseValidator::class)]
-#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Validation\Errors\JsonValidationError::class)]
-#[\PHPUnit\Framework\Attributes\UsesClass(\CycloneDX\Core\Validation\ValidationError::class)]
+#[CoversClass(JsonStrictValidator::class)]
+#[CoversClass(JsonValidator::class)]
+#[CoversClass(BaseValidator::class)]
+#[UsesClass(JsonValidationError::class)]
+#[UsesClass(ValidationError::class)]
 class JsonStrictValidatorTest extends TestCase
 {
     public function testConstructor(): JsonStrictValidator
