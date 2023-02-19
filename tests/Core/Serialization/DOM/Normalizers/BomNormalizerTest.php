@@ -23,6 +23,7 @@ declare(strict_types=1);
 
 namespace CycloneDX\Tests\Core\Serialization\DOM\Normalizers;
 
+use CycloneDX\Core\_helpers\SimpleDOM;
 use CycloneDX\Core\Collections\ComponentRepository;
 use CycloneDX\Core\Collections\ExternalReferenceRepository;
 use CycloneDX\Core\Collections\PropertyRepository;
@@ -42,9 +43,9 @@ use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
 
-#[CoversClass(BomNormalizer::class)]
+#[CoversClass(Normalizers\BomNormalizer::class)]
 #[CoversClass(_BaseNormalizer::class)]
-#[UsesClass(\CycloneDX\Core\_helpers\SimpleDOM::class)]
+#[UsesClass(SimpleDOM::class)]
 #[UsesClass(ExternalReferenceRepository::class)]
 #[UsesClass(ExternalReferenceRepository::class)]
 class BomNormalizerTest extends TestCase
@@ -61,7 +62,7 @@ class BomNormalizerTest extends TestCase
                 'getDocument' => new DOMDocument(),
             ]
         );
-        $normalizer = new BomNormalizer($factory);
+        $normalizer = new Normalizers\BomNormalizer($factory);
         $bom = $this->createConfiguredMock(
             Bom::class,
             [
@@ -92,7 +93,7 @@ class BomNormalizerTest extends TestCase
                 'makeForComponentRepository' => $componentsNormalizer,
             ]
         );
-        $normalizer = new BomNormalizer($factory);
+        $normalizer = new Normalizers\BomNormalizer($factory);
         $bom = $this->createConfiguredMock(
             Bom::class,
             [
@@ -136,7 +137,7 @@ class BomNormalizerTest extends TestCase
                 'makeForMetadata' => $metadataNormalizer,
             ]
         );
-        $normalizer = new BomNormalizer($factory);
+        $normalizer = new Normalizers\BomNormalizer($factory);
         $bom = $this->createConfiguredMock(
             Bom::class,
             [
@@ -179,7 +180,7 @@ class BomNormalizerTest extends TestCase
                 'makeForMetadata' => $metadataNormalizer,
             ]
         );
-        $normalizer = new BomNormalizer($factory);
+        $normalizer = new Normalizers\BomNormalizer($factory);
         $bom = $this->createConfiguredMock(
             Bom::class,
             [
@@ -224,7 +225,7 @@ class BomNormalizerTest extends TestCase
                 'makeForDependencies' => $dependencyNormalizer,
             ]
         );
-        $normalizer = new BomNormalizer($factory);
+        $normalizer = new Normalizers\BomNormalizer($factory);
         $bom = $this->createConfiguredMock(
             Bom::class,
             [
@@ -267,7 +268,7 @@ class BomNormalizerTest extends TestCase
                 'makeForDependencies' => $dependencyNormalizer,
             ]
         );
-        $normalizer = new BomNormalizer($factory);
+        $normalizer = new Normalizers\BomNormalizer($factory);
         $bom = $this->createConfiguredMock(
             Bom::class,
             [
@@ -308,7 +309,7 @@ class BomNormalizerTest extends TestCase
             'getDocument' => new DOMDocument(),
             'makeForExternalReferenceRepository' => $extRefNormalizer,
         ]);
-        $normalizer = new BomNormalizer($factory);
+        $normalizer = new Normalizers\BomNormalizer($factory);
         $extRef1 = $this->createStub(ExternalReference::class);
         $extRef2 = $this->createStub(ExternalReference::class);
         $bom = $this->createConfiguredMock(
@@ -361,7 +362,7 @@ class BomNormalizerTest extends TestCase
             'getDocument' => new DOMDocument(),
             'makeForExternalReferenceRepository' => $extRefNormalizer,
         ]);
-        $normalizer = new BomNormalizer($factory);
+        $normalizer = new Normalizers\BomNormalizer($factory);
         $extRef1 = $this->createStub(ExternalReference::class);
         $extRef2 = $this->createStub(ExternalReference::class);
         $bom = $this->createConfiguredMock(
@@ -413,7 +414,7 @@ class BomNormalizerTest extends TestCase
                 'makeForPropertyRepository' => $propertiesNormalizer,
             ]
         );
-        $normalizer = new BomNormalizer($factory);
+        $normalizer = new Normalizers\BomNormalizer($factory);
 
         $propertiesNormalizer->expects(self::once())
             ->method('normalize')
@@ -452,7 +453,7 @@ class BomNormalizerTest extends TestCase
                 'makeForPropertyRepository' => $propertiesNormalizer,
             ]
         );
-        $normalizer = new BomNormalizer($factory);
+        $normalizer = new Normalizers\BomNormalizer($factory);
 
         $actual = $normalizer->normalize($bom);
 

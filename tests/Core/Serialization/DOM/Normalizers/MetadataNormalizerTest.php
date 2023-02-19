@@ -30,8 +30,6 @@ use CycloneDX\Core\Models\Metadata;
 use CycloneDX\Core\Serialization\DOM\_BaseNormalizer;
 use CycloneDX\Core\Serialization\DOM\NormalizerFactory;
 use CycloneDX\Core\Serialization\DOM\Normalizers;
-use CycloneDX\Core\Serialization\DOM\Normalizers\ComponentNormalizer;
-use CycloneDX\Core\Serialization\DOM\Normalizers\MetadataNormalizer;
 use CycloneDX\Core\Spec\Spec;
 use CycloneDX\Tests\_traits\DomNodeAssertionTrait;
 use DateTime;
@@ -42,9 +40,9 @@ use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
 
-#[CoversClass(MetadataNormalizer::class)]
+#[CoversClass(Normalizers\MetadataNormalizer::class)]
 #[CoversClass(_BaseNormalizer::class)]
-#[UsesClass(ComponentNormalizer::class)]
+#[UsesClass(Normalizers\ComponentNormalizer::class)]
 class MetadataNormalizerTest extends TestCase
 {
     use DomNodeAssertionTrait;
@@ -57,7 +55,7 @@ class MetadataNormalizerTest extends TestCase
             NormalizerFactory::class,
             ['getSpec' => $spec, 'getDocument' => new DOMDocument()]
         );
-        $normalizer = new MetadataNormalizer($factory);
+        $normalizer = new Normalizers\MetadataNormalizer($factory);
 
         $actual = $normalizer->normalize($metadata);
 
@@ -80,7 +78,7 @@ class MetadataNormalizerTest extends TestCase
                 'getDocument' => new DOMDocument(),
             ]
         );
-        $normalizer = new MetadataNormalizer($factory);
+        $normalizer = new Normalizers\MetadataNormalizer($factory);
 
         $actual = $normalizer->normalize($metadata);
 
@@ -114,7 +112,7 @@ class MetadataNormalizerTest extends TestCase
                 'makeForToolRepository' => $toolsRepoFactory,
             ]
         );
-        $normalizer = new MetadataNormalizer($factory);
+        $normalizer = new Normalizers\MetadataNormalizer($factory);
 
         $toolsRepoFactory->expects(self::once())
             ->method('normalize')
@@ -138,7 +136,7 @@ class MetadataNormalizerTest extends TestCase
             ]
         );
         $spec = $this->createMock(Spec::class);
-        $componentNormalizer = $this->createMock(ComponentNormalizer::class);
+        $componentNormalizer = $this->createMock(Normalizers\ComponentNormalizer::class);
         $factory = $this->createConfiguredMock(
             NormalizerFactory::class,
             [
@@ -147,7 +145,7 @@ class MetadataNormalizerTest extends TestCase
                 'makeForComponent' => $componentNormalizer,
             ]
         );
-        $normalizer = new MetadataNormalizer($factory);
+        $normalizer = new Normalizers\MetadataNormalizer($factory);
 
         $componentNormalizer->expects(self::once())
             ->method('normalize')
@@ -172,7 +170,7 @@ class MetadataNormalizerTest extends TestCase
             ]
         );
         $spec = $this->createMock(Spec::class);
-        $componentNormalizer = $this->createMock(ComponentNormalizer::class);
+        $componentNormalizer = $this->createMock(Normalizers\ComponentNormalizer::class);
         $factory = $this->createConfiguredMock(
             NormalizerFactory::class,
             [
@@ -181,7 +179,7 @@ class MetadataNormalizerTest extends TestCase
                 'makeForComponent' => $componentNormalizer,
             ]
         );
-        $normalizer = new MetadataNormalizer($factory);
+        $normalizer = new Normalizers\MetadataNormalizer($factory);
 
         $componentNormalizer->expects(self::once())
             ->method('normalize')
@@ -218,7 +216,7 @@ class MetadataNormalizerTest extends TestCase
                 'makeForPropertyRepository' => $propertiesNormalizer,
             ]
         );
-        $normalizer = new MetadataNormalizer($factory);
+        $normalizer = new Normalizers\MetadataNormalizer($factory);
 
         $propertiesNormalizer->expects(self::once())
             ->method('normalize')
@@ -254,7 +252,7 @@ class MetadataNormalizerTest extends TestCase
                 'makeForPropertyRepository' => $propertiesNormalizer,
             ]
         );
-        $normalizer = new MetadataNormalizer($factory);
+        $normalizer = new Normalizers\MetadataNormalizer($factory);
 
         $actual = $normalizer->normalize($metadata);
 
