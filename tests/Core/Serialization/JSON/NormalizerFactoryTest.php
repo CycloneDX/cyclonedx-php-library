@@ -25,21 +25,7 @@ namespace CycloneDX\Tests\Core\Serialization\JSON;
 
 use CycloneDX\Core\Serialization\JSON\_BaseNormalizer;
 use CycloneDX\Core\Serialization\JSON\NormalizerFactory;
-use CycloneDX\Core\Serialization\JSON\Normalizers\BomNormalizer;
-use CycloneDX\Core\Serialization\JSON\Normalizers\ComponentNormalizer;
-use CycloneDX\Core\Serialization\JSON\Normalizers\ComponentRepositoryNormalizer;
-use CycloneDX\Core\Serialization\JSON\Normalizers\DependenciesNormalizer;
-use CycloneDX\Core\Serialization\JSON\Normalizers\ExternalReferenceNormalizer;
-use CycloneDX\Core\Serialization\JSON\Normalizers\ExternalReferenceRepositoryNormalizer;
-use CycloneDX\Core\Serialization\JSON\Normalizers\HashDictionaryNormalizer;
-use CycloneDX\Core\Serialization\JSON\Normalizers\HashNormalizer;
-use CycloneDX\Core\Serialization\JSON\Normalizers\LicenseNormalizer;
-use CycloneDX\Core\Serialization\JSON\Normalizers\LicenseRepositoryNormalizer;
-use CycloneDX\Core\Serialization\JSON\Normalizers\MetadataNormalizer;
-use CycloneDX\Core\Serialization\JSON\Normalizers\PropertyNormalizer;
-use CycloneDX\Core\Serialization\JSON\Normalizers\PropertyRepositoryNormalizer;
-use CycloneDX\Core\Serialization\JSON\Normalizers\ToolNormalizer;
-use CycloneDX\Core\Serialization\JSON\Normalizers\ToolRepositoryNormalizer;
+use CycloneDX\Core\Serialization\JSON\Normalizers;
 use CycloneDX\Core\Spec\Spec;
 use CycloneDX\Core\Spec\Version;
 use DomainException;
@@ -50,21 +36,22 @@ use PHPUnit\Framework\TestCase;
 
 #[CoversClass(NormalizerFactory::class)]
 #[UsesClass(_BaseNormalizer::class)]
-#[UsesClass(ComponentRepositoryNormalizer::class)]
-#[UsesClass(BomNormalizer::class)]
-#[UsesClass(LicenseNormalizer::class)]
-#[UsesClass(LicenseRepositoryNormalizer::class)]
-#[UsesClass(HashDictionaryNormalizer::class)]
-#[UsesClass(ComponentNormalizer::class)]
-#[UsesClass(HashNormalizer::class)]
-#[UsesClass(MetadataNormalizer::class)]
-#[UsesClass(ToolRepositoryNormalizer::class)]
-#[UsesClass(ToolNormalizer::class)]
-#[UsesClass(DependenciesNormalizer::class)]
-#[UsesClass(ExternalReferenceNormalizer::class)]
-#[UsesClass(ExternalReferenceRepositoryNormalizer::class)]
-#[UsesClass(PropertyNormalizer::class)]
-#[UsesClass(PropertyRepositoryNormalizer::class)]
+#[UsesClass(Normalizers\ComponentRepositoryNormalizer::class)]
+#[UsesClass(Normalizers\BomNormalizer::class)]
+#[UsesClass(Normalizers\LicenseNormalizer::class)]
+#[UsesClass(Normalizers\LicenseRepositoryNormalizer::class)]
+#[UsesClass(Normalizers\HashDictionaryNormalizer::class)]
+#[UsesClass(Normalizers\ComponentNormalizer::class)]
+#[UsesClass(Normalizers\HashNormalizer::class)]
+#[UsesClass(Normalizers\MetadataNormalizer::class)]
+#[UsesClass(Normalizers\ToolRepositoryNormalizer::class)]
+#[UsesClass(Normalizers\ToolNormalizer::class)]
+#[UsesClass(Normalizers\ToolNormalizer::class)]
+#[UsesClass(Normalizers\DependenciesNormalizer::class)]
+#[UsesClass(Normalizers\ExternalReferenceNormalizer::class)]
+#[UsesClass(Normalizers\ExternalReferenceRepositoryNormalizer::class)]
+#[UsesClass(Normalizers\PropertyNormalizer::class)]
+#[UsesClass(Normalizers\PropertyRepositoryNormalizer::class)]
 class NormalizerFactoryTest extends TestCase
 {
     public function testConstructor(): NormalizerFactory
@@ -102,7 +89,7 @@ class NormalizerFactoryTest extends TestCase
     public function testMakeForComponentRepository(NormalizerFactory $factory): void
     {
         $normalizer = $factory->makeForComponentRepository();
-        self::assertInstanceOf(ComponentRepositoryNormalizer::class, $normalizer);
+        self::assertInstanceOf(Normalizers\ComponentRepositoryNormalizer::class, $normalizer);
         self::assertSame($factory, $normalizer->getNormalizerFactory());
     }
 
@@ -110,7 +97,7 @@ class NormalizerFactoryTest extends TestCase
     public function testMakeForBom(NormalizerFactory $factory): void
     {
         $normalizer = $factory->makeForBom();
-        self::assertInstanceOf(BomNormalizer::class, $normalizer);
+        self::assertInstanceOf(Normalizers\BomNormalizer::class, $normalizer);
         self::assertSame($factory, $normalizer->getNormalizerFactory());
     }
 
@@ -118,7 +105,7 @@ class NormalizerFactoryTest extends TestCase
     public function testMakeForLicense(NormalizerFactory $factory): void
     {
         $normalizer = $factory->makeForLicense();
-        self::assertInstanceOf(LicenseNormalizer::class, $normalizer);
+        self::assertInstanceOf(Normalizers\LicenseNormalizer::class, $normalizer);
         self::assertSame($factory, $normalizer->getNormalizerFactory());
     }
 
@@ -126,7 +113,7 @@ class NormalizerFactoryTest extends TestCase
     public function testMakeForLicenseRepository(NormalizerFactory $factory): void
     {
         $normalizer = $factory->makeForLicenseRepository();
-        self::assertInstanceOf(LicenseRepositoryNormalizer::class, $normalizer);
+        self::assertInstanceOf(Normalizers\LicenseRepositoryNormalizer::class, $normalizer);
         self::assertSame($factory, $normalizer->getNormalizerFactory());
     }
 
@@ -134,7 +121,7 @@ class NormalizerFactoryTest extends TestCase
     public function testMakeForHashDictionary(NormalizerFactory $factory): void
     {
         $normalizer = $factory->makeForHashDictionary();
-        self::assertInstanceOf(HashDictionaryNormalizer::class, $normalizer);
+        self::assertInstanceOf(Normalizers\HashDictionaryNormalizer::class, $normalizer);
         self::assertSame($factory, $normalizer->getNormalizerFactory());
     }
 
@@ -142,7 +129,7 @@ class NormalizerFactoryTest extends TestCase
     public function testMakeForComponent(NormalizerFactory $factory): void
     {
         $normalizer = $factory->makeForComponent();
-        self::assertInstanceOf(ComponentNormalizer::class, $normalizer);
+        self::assertInstanceOf(Normalizers\ComponentNormalizer::class, $normalizer);
         self::assertSame($factory, $normalizer->getNormalizerFactory());
     }
 
@@ -150,7 +137,7 @@ class NormalizerFactoryTest extends TestCase
     public function testMakeForHash(NormalizerFactory $factory): void
     {
         $normalizer = $factory->makeForHash();
-        self::assertInstanceOf(HashNormalizer::class, $normalizer);
+        self::assertInstanceOf(Normalizers\HashNormalizer::class, $normalizer);
         self::assertSame($factory, $normalizer->getNormalizerFactory());
     }
 
@@ -158,7 +145,7 @@ class NormalizerFactoryTest extends TestCase
     public function testMakeForMetadata(NormalizerFactory $factory): void
     {
         $normalizer = $factory->makeForMetadata();
-        self::assertInstanceOf(MetadataNormalizer::class, $normalizer);
+        self::assertInstanceOf(Normalizers\MetadataNormalizer::class, $normalizer);
         self::assertSame($factory, $normalizer->getNormalizerFactory());
     }
 
@@ -166,7 +153,7 @@ class NormalizerFactoryTest extends TestCase
     public function testMakeForToolRepository(NormalizerFactory $factory): void
     {
         $normalizer = $factory->makeForToolRepository();
-        self::assertInstanceOf(ToolRepositoryNormalizer::class, $normalizer);
+        self::assertInstanceOf(Normalizers\ToolRepositoryNormalizer::class, $normalizer);
         self::assertSame($factory, $normalizer->getNormalizerFactory());
     }
 
@@ -174,7 +161,7 @@ class NormalizerFactoryTest extends TestCase
     public function testMakeForTool(NormalizerFactory $factory): void
     {
         $normalizer = $factory->makeForTool();
-        self::assertInstanceOf(ToolNormalizer::class, $normalizer);
+        self::assertInstanceOf(Normalizers\ToolNormalizer::class, $normalizer);
         self::assertSame($factory, $normalizer->getNormalizerFactory());
     }
 
@@ -182,7 +169,7 @@ class NormalizerFactoryTest extends TestCase
     public function testMakeForDependencies(NormalizerFactory $factory): void
     {
         $normalizer = $factory->makeForDependencies();
-        self::assertInstanceOf(DependenciesNormalizer::class, $normalizer);
+        self::assertInstanceOf(Normalizers\DependenciesNormalizer::class, $normalizer);
         self::assertSame($factory, $normalizer->getNormalizerFactory());
     }
 
@@ -190,7 +177,7 @@ class NormalizerFactoryTest extends TestCase
     public function testMakeForExternalReference(NormalizerFactory $factory): void
     {
         $normalizer = $factory->makeForExternalReference();
-        self::assertInstanceOf(ExternalReferenceNormalizer::class, $normalizer);
+        self::assertInstanceOf(Normalizers\ExternalReferenceNormalizer::class, $normalizer);
         self::assertSame($factory, $normalizer->getNormalizerFactory());
     }
 
@@ -198,7 +185,7 @@ class NormalizerFactoryTest extends TestCase
     public function testMakeForExternalReferenceRepository(NormalizerFactory $factory): void
     {
         $normalizer = $factory->makeForExternalReferenceRepository();
-        self::assertInstanceOf(ExternalReferenceRepositoryNormalizer::class, $normalizer);
+        self::assertInstanceOf(Normalizers\ExternalReferenceRepositoryNormalizer::class, $normalizer);
         self::assertSame($factory, $normalizer->getNormalizerFactory());
     }
 
@@ -206,7 +193,7 @@ class NormalizerFactoryTest extends TestCase
     public function testMakeForProperty(NormalizerFactory $factory): void
     {
         $normalizer = $factory->makeForProperty();
-        self::assertInstanceOf(PropertyNormalizer::class, $normalizer);
+        self::assertInstanceOf(Normalizers\PropertyNormalizer::class, $normalizer);
         self::assertSame($factory, $normalizer->getNormalizerFactory());
     }
 
@@ -214,7 +201,7 @@ class NormalizerFactoryTest extends TestCase
     public function testMakeForPropertyRepository(NormalizerFactory $factory): void
     {
         $normalizer = $factory->makeForPropertyRepository();
-        self::assertInstanceOf(PropertyRepositoryNormalizer::class, $normalizer);
+        self::assertInstanceOf(Normalizers\PropertyRepositoryNormalizer::class, $normalizer);
         self::assertSame($factory, $normalizer->getNormalizerFactory());
     }
 }
