@@ -51,6 +51,7 @@ Code of v1 is in branch "[1.x](https://github.com/CycloneDX/cyclonedx-php-librar
   * `HashDictionary`
   * `LicenseExpression`, `NamedLicense`, `SpdxLicense`, `LicenseRepository`
   * `Metadata`
+  * `Property`, `PropertyRepository`
   * `Tool`, `ToolRepository`
 * Factories for the following use cases:
   * Create data models from any license descriptor string
