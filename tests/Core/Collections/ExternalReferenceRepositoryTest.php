@@ -25,9 +25,10 @@ namespace CycloneDX\Tests\Core\Collections;
 
 use CycloneDX\Core\Collections\ExternalReferenceRepository;
 use CycloneDX\Core\Models\ExternalReference;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
-#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Collections\ExternalReferenceRepository::class)]
+#[CoversClass(ExternalReferenceRepository::class)]
 class ExternalReferenceRepositoryTest extends TestCase
 {
     public function testEmptyConstructor(): void

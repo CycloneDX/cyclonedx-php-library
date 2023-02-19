@@ -26,12 +26,14 @@ namespace CycloneDX\Tests\Core\Enums;
 use CycloneDX\Core\Enums\HashAlgorithm;
 use CycloneDX\Tests\_data\BomSpecData;
 use Generator;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
-#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Enums\HashAlgorithm::class)]
+#[CoversClass(HashAlgorithm::class)]
 class HashAlgorithmTest extends TestCase
 {
-    #[\PHPUnit\Framework\Attributes\DataProvider('dpSchemaValues')]
+    #[DataProvider('dpSchemaValues')]
     public function testHaseCaseForSchemaValue(string $value): void
     {
         self::assertNotNull(HashAlgorithm::tryFrom($value));

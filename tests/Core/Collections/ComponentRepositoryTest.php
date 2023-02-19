@@ -26,9 +26,11 @@ namespace CycloneDX\Tests\Core\Collections;
 use CycloneDX\Core\Collections\ComponentRepository;
 use CycloneDX\Core\Models\Component;
 use Generator;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
-#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Collections\ComponentRepository::class)]
+#[CoversClass(ComponentRepository::class)]
 class ComponentRepositoryTest extends TestCase
 {
     public function testEmptyConstructor(): void
@@ -72,7 +74,7 @@ class ComponentRepositoryTest extends TestCase
     /**
      * @param Component[] $expectedFindings
      */
-    #[\PHPUnit\Framework\Attributes\DataProvider('dpFindComponents')]
+    #[DataProvider('dpFindComponents')]
     public function testFindItem(
         ComponentRepository $repo,
         string $findName,

@@ -25,9 +25,10 @@ namespace CycloneDX\Tests\Core\Collections;
 
 use CycloneDX\Core\Collections\HashDictionary;
 use CycloneDX\Core\Enums\HashAlgorithm;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
-#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Collections\HashDictionary::class)]
+#[CoversClass(HashDictionary::class)]
 class HashDictionaryTest extends TestCase
 {
     public function testNonEmptyConstructor(): void

@@ -24,9 +24,11 @@ declare(strict_types=1);
 namespace CycloneDX\Tests\Core\Models;
 
 use CycloneDX\Core\Models\Property;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DependsUsingShallowClone;
 use PHPUnit\Framework\TestCase;
 
-#[\PHPUnit\Framework\Attributes\CoversClass(\CycloneDX\Core\Models\Property::class)]
+#[CoversClass(Property::class)]
 class PropertyTest extends TestCase
 {
     public function testConstruct(): Property
@@ -42,7 +44,7 @@ class PropertyTest extends TestCase
         return $property;
     }
 
-    #[\PHPUnit\Framework\Attributes\DependsUsingShallowClone('testConstruct')]
+    #[DependsUsingShallowClone('testConstruct')]
     public function testSetterGetterName(Property $property): void
     {
         $name = uniqid('testingName', true);
@@ -52,7 +54,7 @@ class PropertyTest extends TestCase
         self::assertSame($name, $property->getName());
     }
 
-    #[\PHPUnit\Framework\Attributes\DependsUsingShallowClone('testConstruct')]
+    #[DependsUsingShallowClone('testConstruct')]
     public function testSetterGetterValue(Property $property): void
     {
         $value = uniqid('testingValue', true);
