@@ -25,6 +25,7 @@ namespace CycloneDX\Tests\Core\Serialization\JSON\Normalizers;
 
 use CycloneDX\Core\Collections\ComponentRepository;
 use CycloneDX\Core\Collections\ExternalReferenceRepository;
+use CycloneDX\Core\Collections\PropertyRepository;
 use CycloneDX\Core\Models\Bom;
 use CycloneDX\Core\Models\Component;
 use CycloneDX\Core\Models\ExternalReference;
@@ -450,4 +451,91 @@ class BomNormalizerTest extends TestCase
     }
 
     // endregion external references
+
+    // region properties
+
+    public function testNormalizeProperties(): void
+    {
+        $bom = $this->createConfiguredMock(
+            Bom::class,
+            [
+                'getVersion' => 23,
+                'getProperties' => $this->createConfiguredMock(PropertyRepository::class, ['count' => 2]),
+            ]
+        );
+        $spec = $this->createConfiguredMock(Spec::class, [
+            'getVersion' => Version::v1dot4,
+            'supportsBomProperties' => true,
+        ]);
+        $propertiesNormalizer = $this->createMock(Normalizers\PropertyRepositoryNormalizer::class);
+        $factory = $this->createConfiguredMock(
+            NormalizerFactory::class,
+            [
+                'getSpec' => $spec,
+                'makeForPropertyRepository' => $propertiesNormalizer,
+            ]
+        );
+        $normalizer = new Normalizers\BomNormalizer($factory);
+
+        $propertiesNormalizer->expects(self::once())
+            ->method('normalize')
+            ->with($bom->getProperties())
+            ->willReturn(
+                ['FakeProperties' => 'dummy']);
+
+        $actual = $normalizer->normalize($bom);
+
+        self::assertSame(
+            [
+                '$schema' => 'http://cyclonedx.org/schema/bom-1.4.schema.json',
+                'bomFormat' => 'CycloneDX',
+                'specVersion' => '1.4',
+                'version' => 23,
+                'components' => [],
+                'properties' => ['FakeProperties' => 'dummy'],
+            ],
+            $actual
+        );
+    }
+
+    public function testNormalizePropertiesOmitEMpty(): void
+    {
+        $bom = $this->createConfiguredMock(
+            Bom::class,
+            [
+                'getVersion' => 23,
+                'getProperties' => $this->createConfiguredMock(PropertyRepository::class, ['count' => 0]),
+            ]
+        );
+        $spec = $this->createConfiguredMock(Spec::class, [
+            'getVersion' => Version::v1dot4,
+            'supportsBomProperties' => true,
+        ]);
+        $propertiesNormalizer = $this->createMock(Normalizers\PropertyRepositoryNormalizer::class);
+        $factory = $this->createConfiguredMock(
+            NormalizerFactory::class,
+            [
+                'getSpec' => $spec,
+                'makeForPropertyRepository' => $propertiesNormalizer,
+            ]
+        );
+        $normalizer = new Normalizers\BomNormalizer($factory);
+
+        $propertiesNormalizer->expects(self::never())->method('normalize');
+
+        $actual = $normalizer->normalize($bom);
+
+        self::assertSame(
+            [
+                '$schema' => 'http://cyclonedx.org/schema/bom-1.4.schema.json',
+                'bomFormat' => 'CycloneDX',
+                'specVersion' => '1.4',
+                'version' => 23,
+                'components' => [],
+            ],
+            $actual
+        );
+    }
+
+    // endregion properties
 }
