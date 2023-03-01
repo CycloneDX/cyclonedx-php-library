@@ -31,10 +31,10 @@ Code of v1 is in branch "[1.x](https://github.com/CycloneDX/cyclonedx-php-librar
   * can prepare data structures for JSON- and XML-serialization.
 * Serialization:
   * Provide a JSON-serializer.
-  * Provide a  XML-serializer.
+  * Provide an XML-serializer.
 * Validation against _CycloneDX_ Specification:
-  * Provide a JSON-serializer.
-  * Provide a  XML-validator.
+  * Provide a JSON-validator.
+  * Provide an XML-validator.
 * Provide [_composer_-based autoloading](https://getcomposer.org/doc/01-basic-usage.md#autoloading) for downstream usage.
 
 ## Capabilities
