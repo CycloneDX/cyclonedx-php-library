@@ -92,7 +92,7 @@ class ComponentNormalizer extends _BaseNormalizer
                 // scope
                 $this->normalizeHashes($component->getHashes()),
                 $this->normalizeLicenses($component->getLicenses()),
-                // copyright
+                SimpleDOM::makeSafeTextElement($document, 'copyright', $component->getCopyright()),
                 // cpe
                 $this->normalizePurl($component->getPackageUrl()),
                 // swid
