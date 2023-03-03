@@ -110,6 +110,11 @@ class Component
     private LicenseRepository $licenses;
 
     /**
+     * A copyright notice informing users of the underlying claims to copyright ownership in a published work.
+     */
+    private ?string $copyright = null;
+
+    /**
      * Specifies the file hashes of the component.
      */
     private HashDictionary $hashes;
@@ -257,6 +262,20 @@ class Component
     public function setLicenses(LicenseRepository $licenses): static
     {
         $this->licenses = $licenses;
+
+        return $this;
+    }
+
+    public function getCopyright(): ?string
+    {
+        return $this->copyright;
+    }
+
+    public function setCopyright(?string $copyright): static
+    {
+        $this->copyright = '' === $copyright
+            ? null
+            : $copyright;
 
         return $this;
     }

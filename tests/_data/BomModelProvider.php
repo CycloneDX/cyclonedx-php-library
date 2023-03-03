@@ -162,7 +162,7 @@ abstract class BomModelProvider
         yield from self::bomWithComponentLicenseName();
         yield from self::bomWithComponentLicenseExpression();
         yield from self::bomWithComponentLicenseUrl();
-
+        yield from self::bomWithComponentCopyright();
         yield from self::bomWithComponentHashAlgorithmsAllKnown();
         yield from self::bomWithComponentWithExternalReferences();
         yield from self::bomWithComponentTypeAllKnown();
@@ -462,6 +462,25 @@ abstract class BomModelProvider
                                     ->setUrl('https://example.com/license'),
                             )
                         )
+                )
+            ),
+        ];
+    }
+
+    /**
+     * @return Generator<Bom[]>
+     *
+     * @psalm-return Generator<string, array{0:Bom}>
+     *
+     * @psalm-suppress MissingThrowsDocblock
+     */
+    public static function bomWithComponentCopyright(): Generator
+    {
+        yield 'component with copyright' => [
+            (new Bom())->setComponents(
+                new ComponentRepository(
+                    (new Component(ComponentType::LIBRARY, 'name'))
+                        ->setCopyright('(c) 2042 - by me and the gang')
                 )
             ),
         ];

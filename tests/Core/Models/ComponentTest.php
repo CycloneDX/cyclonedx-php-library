@@ -68,6 +68,7 @@ class ComponentTest extends TestCase
         self::assertSame($type, $component->getType());
         self::assertNull($component->getVersion());
         self::assertCount(0, $component->getProperties());
+        self::assertNull($component->getCopyright());
 
         return $component;
     }
@@ -270,4 +271,25 @@ class ComponentTest extends TestCase
     }
 
     // endregion clone
+
+    // region copyright setter&getter
+
+    #[DataProvider('dpCopyrightSetterGetter')]
+    public function testCopyrightSetterGetter(?string $copyright, ?string $expected): void
+    {
+        $component = new Component(ComponentType::CONTAINER, 'foo');
+        $actual = $component->setCopyright($copyright);
+        self::assertSame($component, $actual);
+        self::assertSame($expected, $component->getCopyright());
+    }
+
+    public static function dpCopyrightSetterGetter(): Generator
+    {
+        yield 'null' => [null, null];
+        yield 'empty string' => ['', null];
+        $copyright = bin2hex(random_bytes(32));
+        yield 'non-empty-string' => [$copyright, $copyright];
+    }
+
+    // endregion copyright setter&getter
 }

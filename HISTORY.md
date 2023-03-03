@@ -76,6 +76,7 @@ All notable changes to this project will be documented in this file.
     * BREAKING: changed property `type` to be of type `\CycloneDX\Core\Enum\ComponentType` ([#140] via [#204])  
       This affects constructor arguments, and affects methods `{get,set}Type()`.
     * Added `{get,set}Author()` ([#184] via [#185])
+    * Added `{get,set}Copyright()` ([#238] via [#239])
     * Added `{get,set}Properties()` ([#228] via [#165])
   * `ExternalReference` class
     * BREAKING: renamed methods `{get,set}HashRepository()` -> `{get,set}Hashes()` ([#133] via [#131])  
@@ -211,6 +212,8 @@ All notable changes to this project will be documented in this file.
 [#228]: https://github.com/CycloneDX/cyclonedx-php-library/issues/228
 [#229]: https://github.com/CycloneDX/cyclonedx-php-library/pull/229
 [#231]: https://github.com/CycloneDX/cyclonedx-php-library/pull/231
+[#238]: https://github.com/CycloneDX/cyclonedx-php-library/issues/238
+[#239]: https://github.com/CycloneDX/cyclonedx-php-library/pull/239
 
 ## 1.6.3 - 2022-09-15
 

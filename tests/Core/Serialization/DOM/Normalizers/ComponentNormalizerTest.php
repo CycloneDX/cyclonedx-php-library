@@ -140,6 +140,7 @@ class ComponentNormalizerTest extends TestCase
                 'getDescription' => 'my description',
                 'getAuthor' => 'Jan Kowalleck',
                 'getLicenses' => $this->createConfiguredMock(LicenseRepository::class, ['count' => 1, 'getItems' => [$this->createMock(NamedLicense::class)]]),
+                'getCopyright' => '(c) me and the gang',
                 'getHashes' => $this->createConfiguredMock(HashDictionary::class, ['count' => 1]),
                 'getPackageUrl' => $this->createConfiguredMock(
                     PackageUrl::class,
@@ -191,6 +192,7 @@ class ComponentNormalizerTest extends TestCase
             '<description>my description</description>'.
             '<hashes><FakeHash>dummy</FakeHash></hashes>'.
             '<licenses><FakeLicense>dummy</FakeLicense></licenses>'.
+            '<copyright>(c) me and the gang</copyright>'.
             '<purl>FakePURL</purl>'.
             '</component>',
             $actual

@@ -74,6 +74,7 @@ class ComponentNormalizer extends _BaseNormalizer
                 'description' => $component->getDescription(),
                 'author' => $component->getAuthor(),
                 'licenses' => $this->normalizeLicenses($component->getLicenses()),
+                'copyright' => $component->getCopyright(),
                 'hashes' => $this->normalizeHashes($component->getHashes()),
                 'purl' => $this->normalizePurl($component->getPackageUrl()),
                 'externalReferences' => $this->normalizeExternalReferences($component->getExternalReferences()),
