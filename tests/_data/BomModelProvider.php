@@ -24,6 +24,7 @@ declare(strict_types=1);
 namespace CycloneDX\Tests\_data;
 
 use CycloneDX\Core\Collections\ComponentRepository;
+use CycloneDX\Core\Collections\CopyrightRepository;
 use CycloneDX\Core\Collections\ExternalReferenceRepository;
 use CycloneDX\Core\Collections\HashDictionary;
 use CycloneDX\Core\Collections\LicenseRepository;
@@ -34,6 +35,7 @@ use CycloneDX\Core\Enums\ExternalReferenceType;
 use CycloneDX\Core\Enums\HashAlgorithm;
 use CycloneDX\Core\Models\Bom;
 use CycloneDX\Core\Models\Component;
+use CycloneDX\Core\Models\ComponentEvidence;
 use CycloneDX\Core\Models\ExternalReference;
 use CycloneDX\Core\Models\License\LicenseExpression;
 use CycloneDX\Core\Models\License\NamedLicense;
@@ -481,6 +483,44 @@ abstract class BomModelProvider
                 new ComponentRepository(
                     (new Component(ComponentType::LIBRARY, 'name'))
                         ->setCopyright('(c) 2042 - by me and the gang')
+                )
+            ),
+        ];
+    }
+
+    public static function bomWithComponentEvidence(): Generator
+    {
+        yield 'component with empty evidence' => [
+            (new Bom())->setComponents(
+                new ComponentRepository(
+                    (new Component(ComponentType::LIBRARY, 'name'))
+                        ->setEvidence(new ComponentEvidence())
+                )
+            ),
+        ];
+        yield 'component with license evidence' => [
+            (new Bom())->setComponents(
+                new ComponentRepository(
+                    (new Component(ComponentType::LIBRARY, 'name'))
+                        ->setEvidence((new ComponentEvidence())
+                            ->setLicenses(
+                                new LicenseRepository(
+                                    (new NamedLicense('UNLICENSE'))
+                                    ->setUrl('https://unlicense.org/')
+                                )
+                            )
+                        )
+                )
+            ),
+        ];
+        yield 'component with copyright evidence' => [
+            (new Bom())->setComponents(
+                new ComponentRepository(
+                    (new Component(ComponentType::LIBRARY, 'name'))
+                        ->setEvidence(
+                            (new ComponentEvidence())
+                            ->setCopyright(new CopyrightRepository('(c) 2042 - by me and the gang'))
+                        )
                 )
             ),
         ];

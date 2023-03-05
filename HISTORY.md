@@ -135,6 +135,7 @@ All notable changes to this project will be documented in this file.
     * BREAKING: removed method `makeForDisjunctiveLicenseRepository()` (via [#131])
     * BREAKING: removed method `makeForHashRepositonary()` - use `makeForHashDictionary()` instead ([#133] via [#131])
     * BREAKING: removed method `setSpec()` (via [#131])
+    * Added method `makeForComponentEvidence()` ([#238] via [#241])
     * Added method `makeForHashDictionary()` ([#133] via [#131])
     * Added method `makeForLicense()` (via [#131])
     * Added method `makeForLicenseRepository()` (via [#131])
@@ -145,6 +146,7 @@ All notable changes to this project will be documented in this file.
     * BREAKING: renamed classes `HashRepositoryNormalizer` -> `HashDictionaryNormalizer` ([#133] via [#131])  
       Also changed signatures to accept `Models\HashDictionary` instead of `Models\HashRepository`
     * BREAKING: changed signatures of class `HashNormalizer` to accept native PHP Enumeration type `\CycloneDX\Core\Enum\HashAlgorithm` ([#140] via [#204])
+    * Added new classes `ComponentEvidenceNormalizer` that can normalize `ComponentEvidence` ([#238] via [#241])
     * Added new classes `LicenseNormalizer` that can normalize every existing license model (via [#131])
     * Added new classes `LicenseRepositoryNormalizer` that can normalize `LicenseRepository` (via [#131])
     * `ExternalReferenceNormalizer` classes

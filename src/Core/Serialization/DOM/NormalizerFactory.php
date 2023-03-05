@@ -139,4 +139,9 @@ class NormalizerFactory
     {
         return new Normalizers\PropertyNormalizer($this);
     }
+
+    public function makeForComponentEvidence(): Normalizers\ComponentEvidenceNormalizer
+    {
+        return new Normalizers\ComponentEvidenceNormalizer($this);
+    }
 }

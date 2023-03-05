@@ -101,6 +101,7 @@ class ComponentNormalizer extends _BaseNormalizer
                 $this->normalizeExternalReferences($component->getExternalReferences()),
                 $this->normalizeProperties($component->getProperties()),
                 // components
+                // evidence
             ]
         );
     }
