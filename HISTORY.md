@@ -34,6 +34,7 @@ All notable changes to this project will be documented in this file.
   * BREAKING: every occurrence of `{M,m}etaData` with a capital "D" was renamed to `{M,m}etadata` with a small "d". ([#133] via [#131], [#149])  
     This affects class names, method names, variable names, property names, file names, documentation - everything.
 * `\CycloneDX\Core\Collections` namespace
+  * Added new class `CopyrightRepository` ([#238] via [#241])
   * Added new class `PropertyRepository` ([#228] via [#165])
 * `\CycloneDX\Core\Enum` namespace
   * `Classification` class
@@ -77,7 +78,9 @@ All notable changes to this project will be documented in this file.
       This affects constructor arguments, and affects methods `{get,set}Type()`.
     * Added `{get,set}Author()` ([#184] via [#185])
     * Added `{get,set}Copyright()` ([#238] via [#239])
+    * Added `{get,set}Evidence()` ([#238] via [#241])
     * Added `{get,set}Properties()` ([#228] via [#165])
+  * Added new class `ComponentEvidence` ([#238] via [#241])
   * `ExternalReference` class
     * BREAKING: renamed methods `{get,set}HashRepository()` -> `{get,set}Hashes()` ([#133] via [#131])  
       Also changed parameter & return type to non-nullable, was nullable ([#66] via [#131])
@@ -214,6 +217,7 @@ All notable changes to this project will be documented in this file.
 [#231]: https://github.com/CycloneDX/cyclonedx-php-library/pull/231
 [#238]: https://github.com/CycloneDX/cyclonedx-php-library/issues/238
 [#239]: https://github.com/CycloneDX/cyclonedx-php-library/pull/239
+[#241]: https://github.com/CycloneDX/cyclonedx-php-library/pull/241
 
 ## 1.6.3 - 2022-09-15
 

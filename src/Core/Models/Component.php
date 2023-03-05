@@ -150,6 +150,11 @@ class Component
      */
     private PropertyRepository $properties;
 
+    /**
+     * Provides the ability to document evidence collected through various forms of extraction or analysis.
+     */
+    private ?ComponentEvidence $evidence = null;
+
     public function getBomRef(): BomRef
     {
         return $this->bomRef;
@@ -366,6 +371,19 @@ class Component
     public function setProperties(PropertyRepository $properties): static
     {
         $this->properties = $properties;
+
+        return $this;
+    }
+
+    public function getEvidence(): ?ComponentEvidence
+    {
+        return $this->evidence;
+    }
+
+    /** @return $this */
+    public function setEvidence(?ComponentEvidence $evidence): static
+    {
+        $this->evidence = $evidence;
 
         return $this;
     }
