@@ -67,6 +67,7 @@ class _Spec implements Spec
         private readonly bool $bMetadataProperties,
         private readonly bool $bComponentAuthor,
         private readonly bool $bComponentProperties,
+        private readonly bool $bComponentEvidence,
         private readonly array $lFormatsSupportingBomProperties,
     ) {
     }
@@ -149,6 +150,11 @@ class _Spec implements Spec
     public function supportsComponentProperties(): bool
     {
         return $this->bComponentProperties;
+    }
+
+    public function supportsComponentEvidence(): bool
+    {
+        return $this->bComponentEvidence;
     }
 
     public function supportsBomProperties(Format $format): bool

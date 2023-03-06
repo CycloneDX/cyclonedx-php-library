@@ -64,6 +64,9 @@ class ComponentNormalizer extends _BaseNormalizer
         $bomRef = $spec->supportsBomRef()
             ? $component->getBomRef()->getValue()
             : null;
+        $evidence = $spec->supportsComponentEvidence()
+            ? $component->getEvidence()
+            : null;
 
         $document = $factory->getDocument();
 
@@ -101,6 +104,9 @@ class ComponentNormalizer extends _BaseNormalizer
                 $this->normalizeExternalReferences($component->getExternalReferences()),
                 $this->normalizeProperties($component->getProperties()),
                 // components
+                null === $evidence
+                    ? null
+                    : $this->getNormalizerFactory()->makeForComponentEvidence()->normalize($evidence),
             ]
         );
     }

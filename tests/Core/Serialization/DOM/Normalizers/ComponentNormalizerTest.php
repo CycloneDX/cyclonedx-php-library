@@ -31,6 +31,7 @@ use CycloneDX\Core\Collections\PropertyRepository;
 use CycloneDX\Core\Enums\ComponentType;
 use CycloneDX\Core\Models\BomRef;
 use CycloneDX\Core\Models\Component;
+use CycloneDX\Core\Models\ComponentEvidence;
 use CycloneDX\Core\Models\License\NamedLicense;
 use CycloneDX\Core\Serialization\DOM\_BaseNormalizer;
 use CycloneDX\Core\Serialization\DOM\NormalizerFactory;
@@ -48,8 +49,8 @@ use PHPUnit\Framework\TestCase;
 
 #[CoversClass(Normalizers\ComponentNormalizer::class)]
 #[CoversClass(_BaseNormalizer::class)]
-#[UsesClass(SimpleDOM::class)]
 #[UsesClass(BomRef::class)]
+#[UsesClass(SimpleDOM::class)]
 class ComponentNormalizerTest extends TestCase
 {
     use DomNodeAssertionTrait;
@@ -141,6 +142,7 @@ class ComponentNormalizerTest extends TestCase
                 'getAuthor' => 'Jan Kowalleck',
                 'getLicenses' => $this->createConfiguredMock(LicenseRepository::class, ['count' => 1, 'getItems' => [$this->createMock(NamedLicense::class)]]),
                 'getCopyright' => '(c) me and the gang',
+                'getEvidence' => $this->createMock(ComponentEvidence::class),
                 'getHashes' => $this->createConfiguredMock(HashDictionary::class, ['count' => 1]),
                 'getPackageUrl' => $this->createConfiguredMock(
                     PackageUrl::class,
@@ -153,17 +155,20 @@ class ComponentNormalizerTest extends TestCase
             [
                 'supportsBomRef' => true,
                 'supportsComponentAuthor' => true,
+                'supportsComponentEvidence' => true,
             ]
         );
         $licenseRepoNormalizer = $this->createMock(Normalizers\LicenseRepositoryNormalizer::class);
-        $HashDictionaryNormalizer = $this->createMock(Normalizers\HashDictionaryNormalizer::class);
+        $hashDictionaryNormalizer = $this->createMock(Normalizers\HashDictionaryNormalizer::class);
+        $evidenceNormalizer = $this->createMock(Normalizers\ComponentEvidenceNormalizer::class);
         $factory = $this->createConfiguredMock(
             NormalizerFactory::class,
             [
                 'getSpec' => $spec,
                 'getDocument' => new DOMDocument(),
                 'makeForLicenseRepository' => $licenseRepoNormalizer,
-                'makeForHashDictionary' => $HashDictionaryNormalizer,
+                'makeForHashDictionary' => $hashDictionaryNormalizer,
+                'makeForComponentEvidence' => $evidenceNormalizer,
             ]
         );
         $normalizer = new Normalizers\ComponentNormalizer($factory);
@@ -176,10 +181,14 @@ class ComponentNormalizerTest extends TestCase
             ->method('normalize')
             ->with($component->getLicenses())
             ->willReturn([$factory->getDocument()->createElement('FakeLicense', 'dummy')]);
-        $HashDictionaryNormalizer->expects(self::once())
+        $hashDictionaryNormalizer->expects(self::once())
             ->method('normalize')
             ->with($component->getHashes())
             ->willReturn([$factory->getDocument()->createElement('FakeHash', 'dummy')]);
+        $evidenceNormalizer->expects(self::once())
+            ->method('normalize')
+            ->with($component->getEvidence())
+            ->willReturn($factory->getDocument()->createElement('FakeEvidence', 'dummy'));
 
         $actual = $normalizer->normalize($component);
 
@@ -194,6 +203,7 @@ class ComponentNormalizerTest extends TestCase
             '<licenses><FakeLicense>dummy</FakeLicense></licenses>'.
             '<copyright>(c) me and the gang</copyright>'.
             '<purl>FakePURL</purl>'.
+            '<FakeEvidence>dummy</FakeEvidence>'.
             '</component>',
             $actual
         );

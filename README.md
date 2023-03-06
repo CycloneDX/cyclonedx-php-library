@@ -46,7 +46,7 @@ Code of v1 is in branch "[1.x](https://github.com/CycloneDX/cyclonedx-php-librar
 * Data models for the following use cases:
   * `Bom`
   * `BomRef`, `BomRefRepository`
-  * `Component`, `ComponentRepository`
+  * `Component`, `ComponentRepository`, `ComponentEvidence`
   * `ExternalReference`, `ExternalReferenceRepository`
   * `HashDictionary`
   * `LicenseExpression`, `NamedLicense`, `SpdxLicense`, `LicenseRepository`

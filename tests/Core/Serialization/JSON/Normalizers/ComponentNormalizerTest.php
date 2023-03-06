@@ -30,7 +30,7 @@ use CycloneDX\Core\Collections\PropertyRepository;
 use CycloneDX\Core\Enums\ComponentType;
 use CycloneDX\Core\Models\BomRef;
 use CycloneDX\Core\Models\Component;
-use CycloneDX\Core\Serialization\DOM\Normalizers\PropertyRepositoryNormalizer;
+use CycloneDX\Core\Models\ComponentEvidence;
 use CycloneDX\Core\Serialization\JSON\_BaseNormalizer;
 use CycloneDX\Core\Serialization\JSON\NormalizerFactory;
 use CycloneDX\Core\Serialization\JSON\Normalizers;
@@ -46,8 +46,6 @@ use PHPUnit\Framework\TestCase;
 #[CoversClass(Normalizers\ComponentNormalizer::class)]
 #[CoversClass(_BaseNormalizer::class)]
 #[UsesClass(BomRef::class)]
-#[UsesClass(PropertyRepositoryNormalizer::class)]
-#[UsesClass(\CycloneDX\Core\Serialization\JSON\Normalizers\PropertyRepositoryNormalizer::class)]
 class ComponentNormalizerTest extends TestCase
 {
     public function testNormalizeThrowsOnUnsupportedType(): void
@@ -140,6 +138,7 @@ class ComponentNormalizerTest extends TestCase
                 'getAuthor' => 'Jan Kowalleck',
                 'getLicenses' => $this->createConfiguredMock(LicenseRepository::class, ['count' => 1]),
                 'getCopyright' => '(c) me and the gang',
+                'getEvidence' => $this->createMock(ComponentEvidence::class),
                 'getHashes' => $this->createConfiguredMock(HashDictionary::class, ['count' => 1]),
                 'getPackageUrl' => $this->createConfiguredMock(
                     PackageUrl::class,
@@ -149,13 +148,16 @@ class ComponentNormalizerTest extends TestCase
         );
         $spec = $this->createConfiguredMock(Spec::class, [
             'supportsBomRef' => true,
+            'supportsComponentEvidence' => true,
         ]);
         $licenseRepoNormalizer = $this->createMock(Normalizers\LicenseRepositoryNormalizer::class);
         $HashDictionaryNormalizer = $this->createMock(Normalizers\HashDictionaryNormalizer::class);
+        $evidenceNormalizer = $this->createMock(Normalizers\ComponentEvidenceNormalizer::class);
         $factory = $this->createConfiguredMock(NormalizerFactory::class, [
             'getSpec' => $spec,
             'makeForLicenseRepository' => $licenseRepoNormalizer,
             'makeForHashDictionary' => $HashDictionaryNormalizer,
+            'makeForComponentEvidence' => $evidenceNormalizer,
         ]);
         $normalizer = new Normalizers\ComponentNormalizer($factory);
 
@@ -171,6 +173,10 @@ class ComponentNormalizerTest extends TestCase
             ->method('normalize')
             ->with($component->getHashes())
             ->willReturn(['FakeHashes']);
+        $evidenceNormalizer->expects(self::once())
+            ->method('normalize')
+            ->with($component->getEvidence())
+            ->willReturn(['FakeEvidence']);
 
         $actual = $normalizer->normalize($component);
 
@@ -186,6 +192,7 @@ class ComponentNormalizerTest extends TestCase
                 'hashes' => ['FakeHashes'],
                 'licenses' => ['FakeLicenses'],
                 'copyright' => '(c) me and the gang',
+                'evidence' => ['FakeEvidence'],
                 'purl' => 'FakePURL',
             ],
             $actual

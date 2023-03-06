@@ -31,6 +31,7 @@ use CycloneDX\Core\Collections\PropertyRepository;
 use CycloneDX\Core\Enums\ComponentType;
 use CycloneDX\Core\Models\BomRef;
 use CycloneDX\Core\Models\Component;
+use CycloneDX\Core\Models\ComponentEvidence;
 use Generator;
 use PackageUrl\PackageUrl;
 use PHPUnit\Framework\Attributes\CoversClass;
@@ -69,6 +70,7 @@ class ComponentTest extends TestCase
         self::assertNull($component->getVersion());
         self::assertCount(0, $component->getProperties());
         self::assertNull($component->getCopyright());
+        self::assertNull($component->getEvidence());
 
         return $component;
     }
@@ -292,4 +294,26 @@ class ComponentTest extends TestCase
     }
 
     // endregion copyright setter&getter
+
+    // region evidence setter&getter
+
+    #[DependsUsingShallowClone('testConstructor')]
+    public function testEvidenceSetterGetter(Component $component): void
+    {
+        $evidence = $this->createStub(ComponentEvidence::class);
+        $actual = $component->setEvidence($evidence);
+        self::assertSame($component, $actual);
+        self::assertSame($evidence, $component->getEvidence());
+    }
+
+    #[DependsUsingShallowClone('testConstructor')]
+    public function testEvidenceSetterGetterNull(Component $component): void
+    {
+        $component->setEvidence($this->createStub(ComponentEvidence::class));
+        self::assertNotNull($component->getEvidence());
+        $component->setEvidence(null);
+        self::assertNull($component->getEvidence());
+    }
+
+    // endregion evidence setter&getter
 }
