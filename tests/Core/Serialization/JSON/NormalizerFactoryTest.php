@@ -36,22 +36,21 @@ use PHPUnit\Framework\TestCase;
 
 #[CoversClass(NormalizerFactory::class)]
 #[UsesClass(_BaseNormalizer::class)]
-#[UsesClass(Normalizers\ComponentRepositoryNormalizer::class)]
 #[UsesClass(Normalizers\BomNormalizer::class)]
-#[UsesClass(Normalizers\LicenseNormalizer::class)]
-#[UsesClass(Normalizers\LicenseRepositoryNormalizer::class)]
-#[UsesClass(Normalizers\HashDictionaryNormalizer::class)]
+#[UsesClass(Normalizers\ComponentEvidenceNormalizer::class)]
 #[UsesClass(Normalizers\ComponentNormalizer::class)]
-#[UsesClass(Normalizers\HashNormalizer::class)]
-#[UsesClass(Normalizers\MetadataNormalizer::class)]
-#[UsesClass(Normalizers\ToolRepositoryNormalizer::class)]
-#[UsesClass(Normalizers\ToolNormalizer::class)]
-#[UsesClass(Normalizers\ToolNormalizer::class)]
-#[UsesClass(Normalizers\DependenciesNormalizer::class)]
+#[UsesClass(Normalizers\ComponentRepositoryNormalizer::class)]
 #[UsesClass(Normalizers\ExternalReferenceNormalizer::class)]
 #[UsesClass(Normalizers\ExternalReferenceRepositoryNormalizer::class)]
+#[UsesClass(Normalizers\HashDictionaryNormalizer::class)]
+#[UsesClass(Normalizers\HashNormalizer::class)]
+#[UsesClass(Normalizers\LicenseNormalizer::class)]
+#[UsesClass(Normalizers\LicenseRepositoryNormalizer::class)]
+#[UsesClass(Normalizers\MetadataNormalizer::class)]
+#[UsesClass(Normalizers\ToolRepositoryNormalizer::class)]
 #[UsesClass(Normalizers\PropertyNormalizer::class)]
 #[UsesClass(Normalizers\PropertyRepositoryNormalizer::class)]
+#[UsesClass(Normalizers\ToolNormalizer::class)]
 class NormalizerFactoryTest extends TestCase
 {
     public function testConstructor(): NormalizerFactory
@@ -202,6 +201,14 @@ class NormalizerFactoryTest extends TestCase
     {
         $normalizer = $factory->makeForPropertyRepository();
         self::assertInstanceOf(Normalizers\PropertyRepositoryNormalizer::class, $normalizer);
+        self::assertSame($factory, $normalizer->getNormalizerFactory());
+    }
+
+    #[Depends('testConstructor')]
+    public function testMakeForComponentEvidence(NormalizerFactory $factory): void
+    {
+        $normalizer = $factory->makeForComponentEvidence();
+        self::assertInstanceOf(Normalizers\ComponentEvidenceNormalizer::class, $normalizer);
         self::assertSame($factory, $normalizer->getNormalizerFactory());
     }
 }
