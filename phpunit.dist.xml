@@ -8,6 +8,7 @@
          beStrictAboutCoverageMetadata="true"
          beStrictAboutOutputDuringTests="true"
          beStrictAboutTodoAnnotatedTests="true"
+         displayDetailsOnTestsThatTriggerDeprecations="true"
          failOnRisky="true"
          failOnWarning="true"
          defaultTestSuite="default"
