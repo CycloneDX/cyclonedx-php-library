@@ -24,13 +24,13 @@ declare(strict_types=1);
 namespace CycloneDX\Core\_helpers;
 
 /**
- * Namespace of functions related to assertions.
+ * Namespace of functions related to predicates, filters and assertions.
  *
  * @internal as this class may be affected by breaking changes without notice
  *
  * @author jkowalleck
  */
-abstract class Assert
+abstract class Predicate
 {
     /**
      * @psalm-pure
