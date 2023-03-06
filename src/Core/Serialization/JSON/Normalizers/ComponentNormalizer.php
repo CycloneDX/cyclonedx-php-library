@@ -80,7 +80,7 @@ class ComponentNormalizer extends _BaseNormalizer
                 'copyright' => $component->getCopyright(),
                 'evidence' => null === $evidence
                     ? null
-                : $this->getNormalizerFactory()->makeForComponentEvidence()->normalize($evidence),
+                    : $this->getNormalizerFactory()->makeForComponentEvidence()->normalize($evidence),
                 'hashes' => $this->normalizeHashes($component->getHashes()),
                 'purl' => $this->normalizePurl($component->getPackageUrl()),
                 'externalReferences' => $this->normalizeExternalReferences($component->getExternalReferences()),
