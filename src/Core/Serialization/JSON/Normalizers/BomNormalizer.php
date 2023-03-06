@@ -23,7 +23,7 @@ declare(strict_types=1);
 
 namespace CycloneDX\Core\Serialization\JSON\Normalizers;
 
-use CycloneDX\Core\_helpers\Assert;
+use CycloneDX\Core\_helpers\Predicate;
 use CycloneDX\Core\Collections\PropertyRepository;
 use CycloneDX\Core\Models\Bom;
 use CycloneDX\Core\Models\Metadata;
@@ -74,7 +74,7 @@ class BomNormalizer extends _BaseNormalizer
                 'properties' => $this->normalizeProperties($bom->getProperties()),
                 // signature
             ],
-            Assert::isNotNull(...)
+            Predicate::isNotNull(...)
         );
     }
 

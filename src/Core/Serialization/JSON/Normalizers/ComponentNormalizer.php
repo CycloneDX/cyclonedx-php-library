@@ -23,7 +23,7 @@ declare(strict_types=1);
 
 namespace CycloneDX\Core\Serialization\JSON\Normalizers;
 
-use CycloneDX\Core\_helpers\Assert;
+use CycloneDX\Core\_helpers\Predicate;
 use CycloneDX\Core\Collections\ExternalReferenceRepository;
 use CycloneDX\Core\Collections\HashDictionary;
 use CycloneDX\Core\Collections\LicenseRepository;
@@ -80,7 +80,7 @@ class ComponentNormalizer extends _BaseNormalizer
                 'externalReferences' => $this->normalizeExternalReferences($component->getExternalReferences()),
                 'properties' => $this->normalizeProperties($component->getProperties()),
             ],
-            Assert::isNotNull(...)
+            Predicate::isNotNull(...)
         );
     }
 
