@@ -61,6 +61,9 @@ class ComponentNormalizer extends _BaseNormalizer
         $bomRef = $spec->supportsBomRef()
             ? $component->getBomRef()->getValue()
             : null;
+        $evidence = $spec->supportsComponentEvidence()
+            ? $component->getEvidence()
+            : null;
 
         return array_filter(
             [
@@ -75,6 +78,9 @@ class ComponentNormalizer extends _BaseNormalizer
                 'author' => $component->getAuthor(),
                 'licenses' => $this->normalizeLicenses($component->getLicenses()),
                 'copyright' => $component->getCopyright(),
+                'evidence' => null === $evidence
+                    ? null
+                : $this->getNormalizerFactory()->makeForComponentEvidence()->normalize($evidence),
                 'hashes' => $this->normalizeHashes($component->getHashes()),
                 'purl' => $this->normalizePurl($component->getPackageUrl()),
                 'externalReferences' => $this->normalizeExternalReferences($component->getExternalReferences()),
