@@ -100,6 +100,11 @@ class Spec1dot4Test extends SpecBaseTestCase
         return true;
     }
 
+    protected static function shouldSupportsComponentEvidence(): bool
+    {
+        return true;
+    }
+
     protected static function shouldSupportBomProperties(): array
     {
         return [Format::XML];

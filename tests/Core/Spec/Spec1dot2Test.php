@@ -100,6 +100,11 @@ class Spec1dot2Test extends SpecBaseTestCase
         return true;
     }
 
+    protected static function shouldSupportsComponentEvidence(): bool
+    {
+        return false;
+    }
+
     protected static function shouldSupportBomProperties(): array
     {
         return [];
