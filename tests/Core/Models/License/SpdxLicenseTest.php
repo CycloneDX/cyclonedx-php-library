@@ -23,40 +23,43 @@ declare(strict_types=1);
 
 namespace CycloneDX\Tests\Core\Models\License;
 
+use CycloneDX\Core\Models\License\_DisjunctiveLicenseBase;
 use CycloneDX\Core\Models\License\SpdxLicense;
-use CycloneDX\Core\Spdx\LicenseValidator;
 use DomainException;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DependsUsingShallowClone;
 use PHPUnit\Framework\TestCase;
 
 #[CoversClass(SpdxLicense::class)]
+#[CoversClass(_DisjunctiveLicenseBase::class)]
 class SpdxLicenseTest extends TestCase
 {
     public function testConstruct(): SpdxLicense
     {
-        $spdxLicenseValidator = $this->createMock(LicenseValidator::class);
-        $spdxLicenseValidator->method('validate')->with('foo')->willReturn(true);
-        $spdxLicenseValidator->method('getLicense')->with('foo')->willReturn('bar');
+        $id = uniqid('id', true);
+        $license = new SpdxLicense($id);
 
-        $license = SpdxLicense::makeValidated('foo', $spdxLicenseValidator);
-
-        self::assertSame('bar', $license->getId());
+        self::assertSame($id, $license->getId());
         self::assertNull($license->getUrl());
 
         return $license;
     }
 
-    public function testConstructThrowsWHenUnknown(): void
+    public function testConstructWithEmptyStringThrows(): void
     {
-        $spdxLicenseValidator = $this->createMock(LicenseValidator::class);
-        $spdxLicenseValidator->method('validate')->with('foo')->willReturn(false);
-        $spdxLicenseValidator->method('getLicense')->with('foo')->willReturn(null);
-
         $this->expectException(DomainException::class);
-        $this->expectExceptionMessageMatches('/invalid SPDX license/i');
+        $this->expectExceptionMessage('ID must not be empty');
 
-        SpdxLicense::makeValidated('foo', $spdxLicenseValidator);
+        new SpdxLicense('');
+    }
+
+    #[DependsUsingShallowClone('testConstruct')]
+    public function testSetIdWithEmptyStringThrows(SpdxLicense $license): void
+    {
+        $this->expectException(DomainException::class);
+        $this->expectExceptionMessage('ID must not be empty');
+
+        $license->setId('');
     }
 
     #[DependsUsingShallowClone('testConstruct')]
@@ -73,6 +76,13 @@ class SpdxLicenseTest extends TestCase
     public function testSetUrlNull(SpdxLicense $license): void
     {
         $license->setUrl(null);
+        self::assertNull($license->getUrl());
+    }
+
+    #[DependsUsingShallowClone('testSetAndGetUrl')]
+    public function testSetUrlEmptyString(SpdxLicense $license): void
+    {
+        $license->setUrl('');
         self::assertNull($license->getUrl());
     }
 }

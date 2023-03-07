@@ -44,6 +44,7 @@ class ResourcesTest extends TestCase
     {
         yield 'res root' => [Resources::DIR_ROOT];
         yield 'schema root' => [Resources::DIR_SCHEMA];
+        yield 'spdx root' => [Resources::DIR_SPDX];
     }
 
     #[DataProvider('dpFiles')]

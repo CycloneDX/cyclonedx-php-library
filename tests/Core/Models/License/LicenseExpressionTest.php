@@ -28,83 +28,47 @@ use DomainException;
 use Generator;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\DependsUsingShallowClone;
 use PHPUnit\Framework\TestCase;
 
 #[CoversClass(LicenseExpression::class)]
 class LicenseExpressionTest extends TestCase
 {
-    public function testConstructAndGet(): void
+    public function testConstructor(): LicenseExpression
     {
-        $expression = self::dpValidLicenseExpressions()[0];
+        $expression = uniqid('expression', true);
+        $license = new LicenseExpression($expression);
+        self::assertSame($expression, $license->getExpression());
 
-        $license = new LicenseExpression("$expression");
-        $got = $license->getExpression();
-
-        self::assertSame($expression, $got);
+        return $license;
     }
 
-    public function testConstructThrowsOnUnknownExpression(): void
+    public function testConstructThrowsOnEmptyExpression(): void
     {
-        $expression = self::dpInvalidLicenseExpressions()[0];
 
         $this->expectException(DomainException::class);
-        $this->expectExceptionMessageMatches('/invalid expression/i');
+        $this->expectExceptionMessageMatches('/expression must not be empty/i');
 
-        new LicenseExpression("$expression");
+        new LicenseExpression('');
     }
 
-    public function testSetAndGetExpression(): void
+    #[DependsUsingShallowClone('testConstructor')]
+    public function testSetAndGetExpression(LicenseExpression $license): void
     {
-        $expression = self::dpValidLicenseExpressions()[0];
-        $license = $this->createPartialMock(LicenseExpression::class, []);
+        $expression = uniqid('expression', true);
 
-        $license->setExpression("$expression");
-        $got = $license->getExpression();
+        $got = $license->setExpression($expression);
 
-        self::assertSame($expression, $got);
+        self::assertSame($license, $got);
+        self::assertSame($expression, $license->getExpression());
     }
 
-    public function testSetThrowsOnUnknownExpression(): void
+    #[DependsUsingShallowClone('testConstructor')]
+    public function testSetThrowsOnEmptyExpression(LicenseExpression $license): void
     {
-        $expression = self::dpInvalidLicenseExpressions()[0];
-        $license = $this->createPartialMock(LicenseExpression::class, []);
-
         $this->expectException(DomainException::class);
-        $this->expectExceptionMessageMatches('/invalid expression/i');
+        $this->expectExceptionMessageMatches('/expression must not be empty/i');
 
-        $license->setExpression("$expression");
-    }
-
-    #[DataProvider('dpIsValid')]
-    public function testIsValid(string $expression, $expected): void
-    {
-        $isValid = LicenseExpression::isValid($expression);
-        self::assertSame($expected, $isValid);
-    }
-
-    public static function dpIsValid(): Generator
-    {
-        foreach (self::dpValidLicenseExpressions() as $license) {
-            yield $license => [$license, true];
-        }
-        foreach (self::dpInvalidLicenseExpressions() as $license) {
-            yield $license => [$license, false];
-        }
-    }
-
-    public static function dpValidLicenseExpressions()
-    {
-        return [
-            '(MIT or Apache-2)',
-            '(LGPL-2.1-only or GPL-3.0-or-later)',
-            ];
-    }
-
-    public static function dpInvalidLicenseExpressions()
-    {
-        return [
-            'MIT',
-            '(c) me and myself',
-        ];
+        $license->setExpression('');
     }
 }

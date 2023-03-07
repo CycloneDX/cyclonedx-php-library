@@ -28,64 +28,64 @@ use JsonException;
 use RuntimeException;
 
 /**
- * Work with known SPDX licences.
+ * Work with SPDX licences known to CycloneDX.
  *
  * @author jkowalleck
  */
-class LicenseValidator
+class SpdxLicenses
 {
-    private bool $initialized = false;
-
     /**
-     * @var string[]
+     * @var string[]|null
      *
-     * @psalm-var array<string, string>
-     *
-     * @psalm-suppress PropertyNotSetInConstructor
+     * @psalm-var array<string, string>|null
      */
-    private array $licenses;
-
-    /**
-     * @throws RuntimeException if loading licenses failed
-     */
-    public function __construct()
-    {
-        $this->loadLicenses();
-    }
-
-    /**
-     * @return string[]
-     *
-     * @psalm-return array<string, string>
-     */
-    public function getLicenses(): array
-    {
-        return $this->licenses;
-    }
+    private ?array $licenses = null;
 
     public function getResourcesFile(): string
     {
         return realpath(Resources::FILE_SPDX_JSON_SCHEMA);
     }
 
-    public function validate(string $identifier): bool
+    /**
+     * @return string[]
+     *
+     * @throws RuntimeException when licenses could not be loaded
+     */
+    public function getKnownLicenses(): array
     {
-        return isset($this->licenses[strtolower($identifier)]);
+        $this->loadLicenses();
+        return array_values($this->licenses);
     }
 
+
+    /**
+     * @throws RuntimeException when licenses could not be loaded
+     */
+    public function validate(string $identifier): bool
+    {
+        $this->loadLicenses();
+        return in_array($identifier, $this->licenses, true);
+    }
+
+
+    /**
+     * Return the "fixed" supported SPDX license id, or null if unsupported.
+     * @throws RuntimeException when licenses could not be loaded
+     */
     public function getLicense(string $identifier): ?string
     {
+        $this->loadLicenses();
         return $this->licenses[strtolower($identifier)] ?? null;
     }
 
     /**
-     * @throws RuntimeException
+     * @psalm-assert array<string, string> $this->licenses
      *
-     * @internal
+     * @throws RuntimeException when licenses could not be loaded
      */
-    public function loadLicenses(): void
+    private function loadLicenses(): void
     {
-        if ($this->initialized) {
+        if (null !== $this->licenses) {
             // @codeCoverageIgnoreStart
             return;
             // @codeCoverageIgnoreEnd
@@ -96,15 +96,13 @@ class LicenseValidator
             ? file_get_contents($file)
             : throw new RuntimeException("Missing licenses file: $file");
         if (false === $json) {
-            // @codeCoverageIgnoreStart
             throw new RuntimeException("Failed to get content from licenses file: $file");
-            // @codeCoverageIgnoreEnd
         }
 
         try {
             /**
              * list of strings, as asserted by an integration test:
-             * {@see \CycloneDX\Tests\Core\Spdx\LicenseTest::testShippedLicensesFile()}.
+             * {@see \CycloneDX\Tests\Core\Spdx\LicenseValidatorTest::testShippedLicensesFile()}.
              *
              * @var string[] $licenses
              *
@@ -116,11 +114,9 @@ class LicenseValidator
             throw new RuntimeException("Malformed licenses file: $file", previous: $exception);
         }
 
-        $this->licenses = [];
-        foreach ($licenses as $license) {
-            $this->licenses[strtolower($license)] = $license;
-        }
-
-        $this->initialized = true;
+        $this->licenses = array_combine(
+            array_map(strtolower(...), $licenses),
+            $licenses
+        );
     }
 }

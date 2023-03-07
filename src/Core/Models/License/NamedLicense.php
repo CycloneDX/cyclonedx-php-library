@@ -34,8 +34,10 @@ class NamedLicense
 
     /**
      * If SPDX does not define the license used, this field may be used to provide the license name.
+     *
+     * implementation detail: allow empty strings.
      */
-    private ?string $name = null;
+    private string $name;
 
     public function getName(): ?string
     {

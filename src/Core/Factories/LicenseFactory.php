@@ -26,50 +26,42 @@ namespace CycloneDX\Core\Factories;
 use CycloneDX\Core\Models\License\LicenseExpression;
 use CycloneDX\Core\Models\License\NamedLicense;
 use CycloneDX\Core\Models\License\SpdxLicense;
-use CycloneDX\Core\Spdx\LicenseValidator as SpdxLicenseValidator;
+use CycloneDX\Core\Spdx\SpdxLicenses as CdxSpdxLicenses;
+use Composer\Spdx\SpdxLicenses as ComposerSpdxLicenses;
 use DomainException;
-use UnexpectedValueException;
 
 class LicenseFactory
 {
-    private ?SpdxLicenseValidator $spdxLicenseValidator;
 
-    public function __construct(?SpdxLicenseValidator $spdxLicenseValidator = null)
+    public function __construct(
+        readonly private CdxSpdxLicenses $cdxSpdxLicenses,
+        readonly private ComposerSpdxLicenses $spdxLicenses,
+    )
     {
-        $this->spdxLicenseValidator = $spdxLicenseValidator;
     }
 
-    /**
-     * @psalm-assert SpdxLicenseValidator $this->spdxLicenseValidator
-     *
-     * @throws UnexpectedValueException when SpdxLicenseValidator is missing
-     */
-    public function getSpdxLicenseValidator(): SpdxLicenseValidator
-    {
-        return $this->spdxLicenseValidator
-            ?? throw new UnexpectedValueException('Missing spdxLicenseValidator');
-    }
-
-    /**
-     * @psalm-assert SpdxLicenseValidator $this->spdxLicenseValidator
-     */
-    public function setSpdxLicenseValidator(SpdxLicenseValidator $spdxLicenseValidator): static
-    {
-        $this->spdxLicenseValidator = $spdxLicenseValidator;
-
-        return $this;
-    }
-
-    /**
-     * @see makeExpression()
-     * @see makeDisjunctive()
-     */
-    public function makeFromString(string $license): NamedLicense|SpdxLicense|LicenseExpression
+    public function makeFromString(string $license): SpdxLicense|LicenseExpression|NamedLicense
     {
         try {
-            return $this->makeExpression($license);
+            return $this->makeSpdxLicense($license);
         } catch (DomainException) {
-            return $this->makeDisjunctive($license);
+            if (preg_match('/ WITH | AND | OR /', $license) === 1) {
+                try {
+                    return $this->makeExpression($license);
+                } catch (DomainException) {
+                    /* pass */
+                }
+            }
+        }
+        return $this->makeNamedLicense($license);
+    }
+
+    public function makeDisjunctive(string $license): SpdxLicense|NamedLicense
+    {
+        try {
+            return $this->makeSpdxLicense($license);
+        } catch (DomainException) {
+            return $this->makeNamedLicense($license);
         }
     }
 
@@ -78,31 +70,23 @@ class LicenseFactory
      */
     public function makeExpression(string $license): LicenseExpression
     {
-        return new LicenseExpression($license);
-    }
-
-    /**
-     * @see makeSpdxLicense()
-     * @see makeNamedLicense()
-     */
-    public function makeDisjunctive(string $license): SpdxLicense|NamedLicense
-    {
-        try {
-            return $this->makeSpdxLicense($license);
-        } catch (UnexpectedValueException|DomainException) {
-            return $this->makeNamedLicense($license);
+        if ($this->spdxLicenses->validate($license))  {
+            return new LicenseExpression($license);
         }
+
+        throw new DomainException("invalid SPDX expression: $license");
     }
 
     /**
-     * @throws DomainException          when the SPDX license is invalid
-     * @throws UnexpectedValueException when SpdxLicenseValidator is missing
-     *
-     * @SuppressWarnings(PHPMD.StaticAccess)
+     * @throws DomainException when the SPDX license is invalid*
      */
     public function makeSpdxLicense(string $license): SpdxLicense
     {
-        return SpdxLicense::makeValidated($license, $this->getSpdxLicenseValidator());
+        $licenseFixed = $this->cdxSpdxLicenses->getLicense($license);
+        if (null === $licenseFixed) {
+            throw new DomainException("unknown SPDX license : $license");
+        }
+        return         new SpdxLicense($licenseFixed);
     }
 
     public function makeNamedLicense(string $license): NamedLicense

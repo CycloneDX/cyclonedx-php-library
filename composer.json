@@ -29,6 +29,7 @@
         "ext-dom": "*",
         "ext-json": "*",
         "ext-libxml": "*",
+        "composer/spdx-licenses": "^1.5",
         "opis/json-schema": "^2.0",
         "package-url/packageurl-php": "^1.0"
     },
