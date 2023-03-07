@@ -39,7 +39,6 @@ final class Resources
 
     public const DIR_SPDX = __DIR__.'/../../res/spdx/';
 
-
     public const FILE_CDX_XML_SCHEMA_1_0 = __DIR__.'/../../res/schema/bom-1.0.SNAPSHOT.xsd';
     public const FILE_CDX_XML_SCHEMA_1_1 = __DIR__.'/../../res/schema/bom-1.1.SNAPSHOT.xsd';
     public const FILE_CDX_XML_SCHEMA_1_2 = __DIR__.'/../../res/schema/bom-1.2.SNAPSHOT.xsd';

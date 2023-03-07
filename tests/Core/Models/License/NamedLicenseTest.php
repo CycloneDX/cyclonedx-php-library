@@ -25,7 +25,6 @@ namespace CycloneDX\Tests\Core\Models\License;
 
 use CycloneDX\Core\Models\License\_DisjunctiveLicenseBase;
 use CycloneDX\Core\Models\License\NamedLicense;
-use DomainException;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DependsUsingShallowClone;
 use PHPUnit\Framework\TestCase;
@@ -34,7 +33,6 @@ use PHPUnit\Framework\TestCase;
 #[CoversClass(_DisjunctiveLicenseBase::class)]
 class NamedLicenseTest extends TestCase
 {
-
     public function testConstruct(): NamedLicense
     {
         $id = uniqid('name', true);

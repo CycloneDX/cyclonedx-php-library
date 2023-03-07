@@ -25,9 +25,7 @@ namespace CycloneDX\Tests\Core\Models\License;
 
 use CycloneDX\Core\Models\License\LicenseExpression;
 use DomainException;
-use Generator;
 use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\DependsUsingShallowClone;
 use PHPUnit\Framework\TestCase;
 
@@ -45,7 +43,6 @@ class LicenseExpressionTest extends TestCase
 
     public function testConstructThrowsOnEmptyExpression(): void
     {
-
         $this->expectException(DomainException::class);
         $this->expectExceptionMessageMatches('/expression must not be empty/i');
 

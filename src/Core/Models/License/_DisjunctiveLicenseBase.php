@@ -51,7 +51,7 @@ trait _DisjunctiveLicenseBase
      */
     public function setUrl(?string $url): static
     {
-        $this->url = $url === ''
+        $this->url = '' === $url
             ? null
             : $url;
 

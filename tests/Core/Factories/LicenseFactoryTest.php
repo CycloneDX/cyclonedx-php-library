@@ -23,19 +23,7 @@ declare(strict_types=1);
 
 namespace CycloneDX\Tests\Core\Factories;
 
-use CycloneDX\Core\Factories\LicenseFactory;
-use CycloneDX\Core\Models\License\LicenseExpression;
-use CycloneDX\Core\Models\License\NamedLicense;
-use CycloneDX\Core\Models\License\SpdxLicense;
-use CycloneDX\Core\Spdx\LicenseValidator as SpdxLicenseValidator;
-use DomainException;
-use Exception;
-use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\Attributes\DependsUsingShallowClone;
-use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
-use UnexpectedValueException;
-
 
 class LicenseFactoryTest extends TestCase
 {

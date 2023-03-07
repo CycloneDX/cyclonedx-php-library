@@ -44,7 +44,7 @@ class SpdxLicensesTest extends TestCase
         JSON;
 
     /**
-     * return valid licenses based on {@see LICENSES_FILE_CONTENT}
+     * return valid licenses based on {@see LICENSES_FILE_CONTENT}.
      */
     public static function dpLicenses(): Generator
     {
@@ -53,17 +53,16 @@ class SpdxLicensesTest extends TestCase
         yield 'PascalCase' => ['FooBar'];
     }
 
-    public static function dpKnownLicenses() : Generator
+    public static function dpKnownLicenses(): Generator
     {
-        foreach (["foo",                     "BAR", "FooBaR"] as $license) {
+        foreach (['foo', 'BAR', 'FooBaR'] as $license) {
             yield $license => [$license];
         }
     }
 
-    private SpdxLicenses & \PHPUnit\Framework\MockObject\MockObject $licenses;
+    private SpdxLicenses&\PHPUnit\Framework\MockObject\MockObject $licenses;
 
     private string $fakeResourcesFile;
-
 
     protected function setUp(): void
     {
@@ -119,8 +118,6 @@ class SpdxLicensesTest extends TestCase
         self::assertNull($license);
     }
 
-
-
     public function testShippedLicensesFile(): void
     {
         $file = (new SpdxLicenses())->getResourcesFile();
@@ -162,7 +159,7 @@ class SpdxLicensesTest extends TestCase
     public function testWithUnreadableLicenseFile(): void
     {
         // set mode to not-readable to force read errors ...
-        if (!chmod($this->fakeResourcesFile, 0222)) {
+        if (!chmod($this->fakeResourcesFile, 0o222)) {
             $this->markTestSkipped('preparation could not be done');
         }
 

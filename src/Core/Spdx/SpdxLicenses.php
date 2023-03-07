@@ -47,16 +47,16 @@ class SpdxLicenses
     }
 
     /**
-     * @return string[]
-     *
      * @throws RuntimeException when licenses could not be loaded
+     *
+     * @return string[]
      */
     public function getKnownLicenses(): array
     {
         $this->loadLicenses();
+
         return array_values($this->licenses);
     }
-
 
     /**
      * @throws RuntimeException when licenses could not be loaded
@@ -64,17 +64,19 @@ class SpdxLicenses
     public function validate(string $identifier): bool
     {
         $this->loadLicenses();
-        return in_array($identifier, $this->licenses, true);
-    }
 
+        return \in_array($identifier, $this->licenses, true);
+    }
 
     /**
      * Return the "fixed" supported SPDX license id, or null if unsupported.
+     *
      * @throws RuntimeException when licenses could not be loaded
      */
     public function getLicense(string $identifier): ?string
     {
         $this->loadLicenses();
+
         return $this->licenses[strtolower($identifier)] ?? null;
     }
 
