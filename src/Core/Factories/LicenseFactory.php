@@ -29,6 +29,7 @@ use CycloneDX\Core\Models\License\NamedLicense;
 use CycloneDX\Core\Models\License\SpdxLicense;
 use CycloneDX\Core\Spdx\SpdxLicenses as CdxSpdxLicenses;
 use DomainException;
+use RuntimeException;
 
 class LicenseFactory
 {
@@ -55,6 +56,9 @@ class LicenseFactory
         return $this->makeNamedLicense($license);
     }
 
+    /**
+     * @throws RuntimeException if CdxSpdxLicenses failed loading
+     */
     public function makeDisjunctive(string $license): SpdxLicense|NamedLicense
     {
         try {
@@ -69,6 +73,7 @@ class LicenseFactory
      */
     public function makeExpression(string $license): LicenseExpression
     {
+        /* @psalm-suppress MissingThrowsDocblock(\InvalidArgumentException) */
         if ($this->spdxLicenses->validate($license)) {
             return new LicenseExpression($license);
         }
@@ -77,7 +82,8 @@ class LicenseFactory
     }
 
     /**
-     * @throws DomainException when the SPDX license is invalid*
+     * @throws DomainException  when the SPDX license is invalid
+     * @throws RuntimeException if CdxSpdxLicenses failed loading
      */
     public function makeSpdxLicense(string $license): SpdxLicense
     {

@@ -41,6 +41,11 @@ class SpdxLicenses
      */
     private ?array $licenses = null;
 
+    public function __construct()
+    {
+        $this->loadLicenses();
+    }
+
     public function getResourcesFile(): string
     {
         return realpath(Resources::FILE_SPDX_JSON_SCHEMA);
@@ -53,8 +58,6 @@ class SpdxLicenses
      */
     public function getKnownLicenses(): array
     {
-        $this->loadLicenses();
-
         return array_values($this->licenses);
     }
 
@@ -63,8 +66,6 @@ class SpdxLicenses
      */
     public function validate(string $identifier): bool
     {
-        $this->loadLicenses();
-
         return \in_array($identifier, $this->licenses, true);
     }
 
@@ -75,8 +76,6 @@ class SpdxLicenses
      */
     public function getLicense(string $identifier): ?string
     {
-        $this->loadLicenses();
-
         return $this->licenses[strtolower($identifier)] ?? null;
     }
 

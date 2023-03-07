@@ -33,58 +33,35 @@ use RuntimeException;
 #[CoversClass(SpdxLicenses::class)]
 class SpdxLicensesTest extends TestCase
 {
-    private const LICENSES_FILE_CONTENT = <<<'JSON'
-        {
-           "enum": [
-                "foo",
-                "BAR",
-                "FooBaR"
-           ]
-        }
-        JSON;
-
-    /**
-     * return valid licenses based on {@see LICENSES_FILE_CONTENT}.
-     */
     public static function dpLicenses(): Generator
     {
-        yield 'UPPERCASE' => ['FOOBAR'];
-        yield 'lowercase' => ['foobar'];
-        yield 'PascalCase' => ['FooBar'];
+        yield 'UPPERCASE (mod)' => ['APACHE-2.0'];
+        yield 'lowercase (mod)' => ['mit'];
+        yield 'PascalCase (original)' => ['Bitstream-Vera'];
     }
 
     public static function dpKnownLicenses(): Generator
     {
-        foreach (['foo', 'BAR', 'FooBaR'] as $license) {
+        foreach (['Apache-2.0', 'MIT', 'Bitstream-Vera'] as $license) {
             yield $license => [$license];
         }
     }
 
-    private SpdxLicenses&\PHPUnit\Framework\MockObject\MockObject $licenses;
-
-    private string $fakeResourcesFile;
+    private SpdxLicenses $licenses;
 
     protected function setUp(): void
     {
-        $this->fakeResourcesFile = tempnam(sys_get_temp_dir(), __CLASS__);
-        file_put_contents($this->fakeResourcesFile, self::LICENSES_FILE_CONTENT);
-
-        $this->licenses = $this->createPartialMock(SpdxLicenses::class, ['getResourcesFile']);
-        $this->licenses->method('getResourcesFile')->willReturn($this->fakeResourcesFile);
+        $this->licenses = new SpdxLicenses();
     }
 
     protected function tearDown(): void
     {
-        @unlink($this->fakeResourcesFile);
-        unset(
-            $this->fakeResourcesFile,
-            $this->licenses
-        );
+        unset($this->licenses);
     }
 
     public function testGetLicensesAsExpected(): void
     {
-        ['enum' => $expected] = json_decode(self::LICENSES_FILE_CONTENT, true, 3, \JSON_THROW_ON_ERROR);
+        ['enum' => $expected] = json_decode($this->licenses->getResourcesFile());
         $licenses = $this->licenses->getKnownLicenses();
         self::assertIsArray($expected);
         self::assertSame($expected, $licenses);
@@ -138,34 +115,53 @@ class SpdxLicensesTest extends TestCase
 
     public function testWithMalformedLicenseFile(): void
     {
-        file_put_contents($this->fakeResourcesFile, '["foo');
+        $fakeResourcesFile = tempnam(sys_get_temp_dir(), __CLASS__);
+        file_put_contents($fakeResourcesFile, '["foo');
+        try {
+            $licenses = $this->createPartialMock(SpdxLicenses::class, ['getResourcesFile']);
+            $licenses->method('getResourcesFile')->willReturn($fakeResourcesFile);
 
-        $this->expectException(RuntimeException::class);
-        $this->expectExceptionMessageMatches('/malformed licenses file/i');
+            $this->expectException(RuntimeException::class);
+            $this->expectExceptionMessageMatches('/malformed licenses file/i');
 
-        $this->licenses->getKnownLicenses();
+            $licenses->__construct();
+        } finally {
+            @unlink($fakeResourcesFile);
+        }
     }
 
     public function testWithMissingLicenseFile(): void
     {
-        unlink($this->fakeResourcesFile);
+        $fakeResourcesFile = tempnam(sys_get_temp_dir(), __CLASS__);
+        @unlink($fakeResourcesFile);
+
+        $licenses = $this->createPartialMock(SpdxLicenses::class, ['getResourcesFile']);
+        $licenses->method('getResourcesFile')->willReturn($fakeResourcesFile);
 
         $this->expectException(RuntimeException::class);
         $this->expectExceptionMessageMatches('/missing licenses file/i');
 
-        $this->licenses->getKnownLicenses();
+        $licenses->__construct();
     }
 
     public function testWithUnreadableLicenseFile(): void
     {
+        $fakeResourcesFile = tempnam(sys_get_temp_dir(), __CLASS__);
         // set mode to not-readable to force read errors ...
-        if (!chmod($this->fakeResourcesFile, 0o222)) {
+        if (!chmod($fakeResourcesFile, 0o222)) {
             $this->markTestSkipped('preparation could not be done');
         }
 
-        $this->expectException(RuntimeException::class);
-        $this->expectExceptionMessageMatches('/failed to get content from licenses file/i');
+        try {
+            $licenses = $this->createPartialMock(SpdxLicenses::class, ['getResourcesFile']);
+            $licenses->method('getResourcesFile')->willReturn($fakeResourcesFile);
 
-        $this->licenses->getKnownLicenses();
+            $this->expectException(RuntimeException::class);
+            $this->expectExceptionMessageMatches('/failed to get content from licenses file/i');
+
+            $licenses->__construct();
+        } finally {
+            @unlink($fakeResourcesFile);
+        }
     }
 }
