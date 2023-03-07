@@ -26,20 +26,27 @@ namespace CycloneDX\Tests\Core;
 use CycloneDX\Core\Resources;
 use Generator;
 use PHPUnit\Framework\Attributes\CoversNothing;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use ReflectionClass;
 
 #[CoversNothing]
 class ResourcesTest extends TestCase
 {
-    public function testRootDirIsReadable(): void
+    #[DataProvider('dpDirs')]
+    public function testDirIsReadable(string $dir): void
     {
-        $root = Resources::ROOT;
-        self::assertDirectoryExists($root);
-        self::assertDirectoryIsReadable($root);
+        self::assertDirectoryExists($dir);
+        self::assertDirectoryIsReadable($dir);
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('dpFiles')]
+    public static function dpDirs(): Generator
+    {
+        yield 'res root' => [Resources::DIR_ROOT];
+        yield 'schema root' => [Resources::DIR_SCHEMA];
+    }
+
+    #[DataProvider('dpFiles')]
     public function testFileIsReadable(string $filePath): void
     {
         self::assertFileExists($filePath);
