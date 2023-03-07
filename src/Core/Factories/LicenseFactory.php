@@ -56,9 +56,6 @@ class LicenseFactory
         return $this->makeNamedLicense($license);
     }
 
-    /**
-     * @throws RuntimeException if CdxSpdxLicenses failed loading
-     */
     public function makeDisjunctive(string $license): SpdxLicense|NamedLicense
     {
         try {
@@ -83,7 +80,6 @@ class LicenseFactory
 
     /**
      * @throws DomainException  when the SPDX license is invalid
-     * @throws RuntimeException if CdxSpdxLicenses failed loading
      */
     public function makeSpdxLicense(string $license): SpdxLicense
     {
