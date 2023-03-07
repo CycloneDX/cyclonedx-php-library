@@ -53,12 +53,10 @@ class SpdxLicenses
 
     public function getResourcesFile(): string
     {
-
         return realpath(Resources::FILE_SPDX_JSON_SCHEMA);
     }
 
     /**
-     *
      * @return string[]
      */
     public function getKnownLicenses(): array

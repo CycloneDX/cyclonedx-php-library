@@ -29,7 +29,6 @@ use CycloneDX\Core\Models\License\NamedLicense;
 use CycloneDX\Core\Models\License\SpdxLicense;
 use CycloneDX\Core\Spdx\SpdxLicenses as CdxSpdxLicenses;
 use DomainException;
-use RuntimeException;
 
 class LicenseFactory
 {
@@ -79,7 +78,7 @@ class LicenseFactory
     }
 
     /**
-     * @throws DomainException  when the SPDX license is invalid
+     * @throws DomainException when the SPDX license is invalid
      */
     public function makeSpdxLicense(string $license): SpdxLicense
     {
