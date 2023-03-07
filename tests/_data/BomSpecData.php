@@ -38,7 +38,7 @@ abstract class BomSpecData
      */
     public static function getSpecFilePath(string $version): string
     {
-        $file = realpath(__DIR__."/../../res/bom-$version.SNAPSHOT.xsd");
+        $file = realpath(__DIR__."/../../res/schema/bom-$version.SNAPSHOT.xsd");
         assertIsString($file);
         assertFileExists($file);
 
