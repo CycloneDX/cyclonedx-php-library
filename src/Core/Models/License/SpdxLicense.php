@@ -46,6 +46,8 @@ class SpdxLicense
      * A valid supported SPDX license ID.
      *
      * @psalm-var non-empty-string
+     *
+     * @psalm-suppress PropertyNotSetInConstructor
      */
     private string $id;
 

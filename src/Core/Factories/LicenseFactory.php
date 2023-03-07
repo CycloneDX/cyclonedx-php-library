@@ -70,7 +70,7 @@ class LicenseFactory
      */
     public function makeExpression(string $license): LicenseExpression
     {
-        /* @psalm-suppress MissingThrowsDocblock(\InvalidArgumentException) */
+        /** @psalm-suppress MissingThrowsDocblock(\InvalidArgumentException) -- as this is asserted */
         if ($this->spdxLicenses->validate($license)) {
             return new LicenseExpression($license);
         }
@@ -83,6 +83,7 @@ class LicenseFactory
      */
     public function makeSpdxLicense(string $license): SpdxLicense
     {
+        /** @psalm-suppress MissingThrowsDocblock(\InvalidArgumentException) -- as this is asserted  */
         $licenseFixed = $this->cdxSpdxLicenses->getLicense($license);
         if (null === $licenseFixed) {
             throw new DomainException("unknown SPDX license : $license");
