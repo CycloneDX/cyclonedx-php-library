@@ -23,6 +23,7 @@ declare(strict_types=1);
 
 namespace CycloneDX\Tests\Core\Spec;
 
+use CycloneDX\Core\Spdx\LicenseID;
 use CycloneDX\Core\Spec\_Spec;
 use CycloneDX\Core\Spec\Format;
 use CycloneDX\Core\Spec\Spec;
@@ -33,6 +34,7 @@ use PHPUnit\Framework\Attributes\UsesClass;
 
 #[CoversClass(_Spec::class)]
 #[UsesClass(SpecFactory::class)]
+#[UsesClass(LicenseID::class)]
 class Spec1dot4Test extends SpecBaseTestCase
 {
     protected static function getSpec(): Spec

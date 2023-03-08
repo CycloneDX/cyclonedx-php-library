@@ -23,18 +23,18 @@ declare(strict_types=1);
 
 namespace CycloneDX\Core\Factories;
 
-use Composer\Spdx\SpdxLicenses as ComposerSpdxLicenses;
+use Composer\Spdx\SpdxLicenses;
 use CycloneDX\Core\Models\License\LicenseExpression;
 use CycloneDX\Core\Models\License\NamedLicense;
 use CycloneDX\Core\Models\License\SpdxLicense;
-use CycloneDX\Core\Spdx\SpdxLicenses as CdxSpdxLicenses;
+use CycloneDX\Core\Spdx\LicenseID;
 use DomainException;
 
 class LicenseFactory
 {
     public function __construct(
-        readonly private CdxSpdxLicenses $cdxSpdxLicenses,
-        readonly private ComposerSpdxLicenses $spdxLicenses,
+        readonly private LicenseID $licenseID,
+        readonly private SpdxLicenses $spdxLicenses,
     ) {
     }
 
@@ -42,14 +42,13 @@ class LicenseFactory
     {
         try {
             return $this->makeSpdxLicense($license);
-        } catch (DomainException) {
-            if (1 === preg_match('/ WITH | AND | OR /', $license)) {
-                try {
-                    return $this->makeExpression($license);
-                } catch (DomainException) {
-                    /* pass */
-                }
-            }
+        } catch (\DomainException) {
+            /* pass */
+        }
+        try {
+            return $this->makeExpression($license);
+        } catch (\DomainException) {
+            /* pass */
         }
 
         return $this->makeNamedLicense($license);
@@ -59,7 +58,7 @@ class LicenseFactory
     {
         try {
             return $this->makeSpdxLicense($license);
-        } catch (DomainException) {
+        } catch (\DomainException) {
             return $this->makeNamedLicense($license);
         }
     }
@@ -69,9 +68,12 @@ class LicenseFactory
      */
     public function makeExpression(string $license): LicenseExpression
     {
-        /** @psalm-suppress MissingThrowsDocblock(\InvalidArgumentException) -- as this is asserted */
-        if ($this->spdxLicenses->validate($license)) {
-            return new LicenseExpression($license);
+        try {
+            if ($this->spdxLicenses->validate($license)) {
+                return new LicenseExpression($license);
+            }
+        } catch (\InvalidArgumentException) {
+            /* pass */
         }
 
         throw new DomainException("invalid SPDX expression: $license");
@@ -82,10 +84,9 @@ class LicenseFactory
      */
     public function makeSpdxLicense(string $license): SpdxLicense
     {
-        /** @psalm-suppress MissingThrowsDocblock(\InvalidArgumentException) -- as this is asserted  */
-        $licenseFixed = $this->cdxSpdxLicenses->getLicense($license);
+        $licenseFixed = $this->licenseID->fixLicense($license);
         if (null === $licenseFixed) {
-            throw new DomainException("unknown SPDX license : $license");
+            throw new DomainException("unknown SPDX license: $license");
         }
 
         return new SpdxLicense($licenseFixed);

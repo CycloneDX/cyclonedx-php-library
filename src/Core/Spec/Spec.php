@@ -69,4 +69,6 @@ interface Spec
     public function supportsBomProperties(Format $format): bool;
 
     public function supportsComponentEvidence(): bool;
+
+    public function isSupportedLicenseId(string $licenseId): bool;
 }

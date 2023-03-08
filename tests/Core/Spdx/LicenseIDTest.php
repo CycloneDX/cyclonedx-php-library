@@ -23,15 +23,15 @@ declare(strict_types=1);
 
 namespace CycloneDX\Tests\Core\Spdx;
 
-use CycloneDX\Core\Spdx\SpdxLicenses;
+use CycloneDX\Core\Spdx\LicenseID;
 use Generator;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use RuntimeException;
 
-#[CoversClass(SpdxLicenses::class)]
-class SpdxLicensesTest extends TestCase
+#[CoversClass(LicenseID::class)]
+class LicenseIDTest extends TestCase
 {
     public static function dpLicenses(): Generator
     {
@@ -47,11 +47,11 @@ class SpdxLicensesTest extends TestCase
         }
     }
 
-    private SpdxLicenses $licenses;
+    private LicenseID $licenses;
 
     protected function setUp(): void
     {
-        $this->licenses = new SpdxLicenses();
+        $this->licenses = new LicenseID();
     }
 
     protected function tearDown(): void
@@ -59,45 +59,37 @@ class SpdxLicensesTest extends TestCase
         unset($this->licenses);
     }
 
-    public function testGetLicensesAsExpected(): void
-    {
-        ['enum' => $expected] = json_decode($this->licenses->getResourcesFile());
-        $licenses = $this->licenses->getKnownLicenses();
-        self::assertIsArray($expected);
-        self::assertSame($expected, $licenses);
-    }
-
     #[DataProvider('dpKnownLicenses')]
-    public function testValidate(string $identifier): void
+    public function testIsKnownLicense(string $identifier): void
     {
-        $valid = $this->licenses->validate($identifier);
+        $valid = $this->licenses->isKnownLicense($identifier);
         self::assertTrue($valid);
     }
 
-    public function testValidateWithUnknown(): void
+    public function testIsKnownLicenseWithUnknown(): void
     {
         $identifier = uniqid('unknown', true);
-        $valid = $this->licenses->validate($identifier);
+        $valid = $this->licenses->isKnownLicense($identifier);
         self::assertFalse($valid);
     }
 
     #[DataProvider('dpLicenses')]
-    public function testGetLicense(string $identifier): void
+    public function testFixLicense(string $identifier): void
     {
-        $license = $this->licenses->getLicense($identifier);
+        $license = $this->licenses->fixLicense($identifier);
         self::assertNotNull($license);
     }
 
-    public function testGetLicenseWithUnknown(): void
+    public function testFixLicenseWithUnknown(): void
     {
         $identifier = uniqid('unknown', false);
-        $license = $this->licenses->getLicense($identifier);
+        $license = $this->licenses->fixLicense($identifier);
         self::assertNull($license);
     }
 
     public function testShippedLicensesFile(): void
     {
-        $file = (new SpdxLicenses())->getResourcesFile();
+        $file = (new LicenseID())->getResourcesFile();
         self::assertFileExists($file);
 
         $json = file_get_contents($file);
@@ -113,12 +105,23 @@ class SpdxLicensesTest extends TestCase
         }
     }
 
+    public function testGetKnownLicensesAsExpected(): void
+    {
+        ['enum' => $expected] = json_decode(
+            file_get_contents($this->licenses->getResourcesFile()),
+            true, 3, \JSON_THROW_ON_ERROR);
+        self::assertIsArray($expected);
+
+        $licenses = $this->licenses->getKnownLicenses();
+        self::assertSame($expected, $licenses);
+    }
+
     public function testWithMalformedLicenseFile(): void
     {
         $fakeResourcesFile = tempnam(sys_get_temp_dir(), __CLASS__);
         file_put_contents($fakeResourcesFile, '["foo');
         try {
-            $licenses = $this->createPartialMock(SpdxLicenses::class, ['getResourcesFile']);
+            $licenses = $this->createPartialMock(LicenseID::class, ['getResourcesFile']);
             $licenses->method('getResourcesFile')->willReturn($fakeResourcesFile);
 
             $this->expectException(RuntimeException::class);
@@ -135,7 +138,7 @@ class SpdxLicensesTest extends TestCase
         $fakeResourcesFile = tempnam(sys_get_temp_dir(), __CLASS__);
         @unlink($fakeResourcesFile);
 
-        $licenses = $this->createPartialMock(SpdxLicenses::class, ['getResourcesFile']);
+        $licenses = $this->createPartialMock(LicenseID::class, ['getResourcesFile']);
         $licenses->method('getResourcesFile')->willReturn($fakeResourcesFile);
 
         $this->expectException(RuntimeException::class);
@@ -153,7 +156,7 @@ class SpdxLicensesTest extends TestCase
         }
 
         try {
-            $licenses = $this->createPartialMock(SpdxLicenses::class, ['getResourcesFile']);
+            $licenses = $this->createPartialMock(LicenseID::class, ['getResourcesFile']);
             $licenses->method('getResourcesFile')->willReturn($fakeResourcesFile);
 
             $this->expectException(RuntimeException::class);

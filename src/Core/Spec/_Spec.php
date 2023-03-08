@@ -26,6 +26,7 @@ namespace CycloneDX\Core\Spec;
 use CycloneDX\Core\Enums\ComponentType;
 use CycloneDX\Core\Enums\ExternalReferenceType;
 use CycloneDX\Core\Enums\HashAlgorithm;
+use CycloneDX\Core\Spdx\LicenseID;
 
 /**
  * This class is not for public use.
@@ -41,12 +42,15 @@ use CycloneDX\Core\Enums\HashAlgorithm;
  */
 class _Spec implements Spec
 {
+    /** @psalm-var list<string> */
+    private array $lLicenseIds;
+
     /**
      * @psalm-param list<Format> $lFormats
      * @psalm-param list<ComponentType> $lComponentTypes
      * @psalm-param list<HashAlgorithm> $lHashAlgorithms
      * @psalm-param list<ExternalReferenceType> $lExternalReferenceTypes
-     * @psalm-param list<Format> $lFormatsSupportingBomProperties
+     * @psalm-param list<Format> $lFormatsSupportingBomProperties*
      *
      * @SuppressWarnings(PHPMD.ExcessiveParameterList)
      */
@@ -69,7 +73,9 @@ class _Spec implements Spec
         private readonly bool $bComponentProperties,
         private readonly bool $bComponentEvidence,
         private readonly array $lFormatsSupportingBomProperties,
+        LicenseID $spdxLicenses = new LicenseID()
     ) {
+        $this->lLicenseIds = $spdxLicenses->getKnownLicenses();
     }
 
     public function getVersion(): Version
@@ -100,6 +106,11 @@ class _Spec implements Spec
     public function isSupportedExternalReferenceType(ExternalReferenceType $referenceType): bool
     {
         return \in_array($referenceType, $this->lExternalReferenceTypes, true);
+    }
+
+    public function isSupportedLicenseId(string $licenseId): bool
+    {
+        return \in_array($licenseId, $this->lLicenseIds, true);
     }
 
     public function supportsLicenseExpression(): bool

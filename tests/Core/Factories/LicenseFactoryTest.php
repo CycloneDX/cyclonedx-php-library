@@ -25,7 +25,12 @@ namespace CycloneDX\Tests\Core\Factories;
 
 use PHPUnit\Framework\TestCase;
 
+/** @TODO  */
 class LicenseFactoryTest extends TestCase
 {
-    // @TODO
+    /** @TODO  */
+    public function testTODO(): void
+    {
+        $this->markTestSkipped('TODO');
+    }
 }

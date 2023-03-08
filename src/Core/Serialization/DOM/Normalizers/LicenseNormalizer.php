@@ -63,11 +63,17 @@ class LicenseNormalizer extends _BaseNormalizer
      */
     private function normalizeDisjunctive(SpdxLicense|NamedLicense $license): DOMElement
     {
+        $factory = $this->getNormalizerFactory();
+
         [$id, $name] = $license instanceof SpdxLicense
             ? [$license->getId(), null]
             : [null, $license->getName()];
 
-        $document = $this->getNormalizerFactory()->getDocument();
+        if (null !== $id && !$factory->getSpec()->isSupportedLicenseId($id)) {
+            [$id, $name] = [null, $id];
+        }
+
+        $document = $factory->getDocument();
 
         return SimpleDOM::appendChildren(
             $document->createElement('license'),

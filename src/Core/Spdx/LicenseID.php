@@ -32,7 +32,7 @@ use RuntimeException;
  *
  * @author jkowalleck
  */
-class SpdxLicenses
+class LicenseID
 {
     /**
      * @var string[]|null
@@ -42,9 +42,7 @@ class SpdxLicenses
     private ?array $licenses = null;
 
     /**
-     * @throws RuntimeException when licenses could not be loaded
-     *
-     * @psalm-assert array<string, string> $this->licenses
+     * @psalm-suppress MissingThrowsDocblock -- as all options to throw were prevented by tests.
      */
     public function __construct()
     {
@@ -58,24 +56,23 @@ class SpdxLicenses
 
     /**
      * @return string[]
+     *
+     * @psalm-return list<string>
      */
     public function getKnownLicenses(): array
     {
         return array_values($this->licenses ?? []);
     }
 
-    /**
-     * @throws RuntimeException when licenses could not be loaded
-     */
-    public function validate(string $identifier): bool
+    public function isKnownLicense(string $value): bool
     {
-        return \in_array($identifier, $this->licenses ?? [], true);
+        return \in_array($value, $this->licenses ?? [], true);
     }
 
     /**
-     * Return the "fixed" supported SPDX license id, or null if unsupported.
+     * Return the "fixed" supported SPDX license ID, or null if unsupported.
      */
-    public function getLicense(string $identifier): ?string
+    public function fixLicense(string $identifier): ?string
     {
         return $this->licenses[strtolower($identifier)] ?? null;
     }
@@ -95,7 +92,7 @@ class SpdxLicenses
 
         $file = $this->getResourcesFile();
         $json = file_exists($file)
-            ? file_get_contents($file)
+            ? @file_get_contents($file)
             : throw new RuntimeException("Missing licenses file: $file");
         if (false === $json) {
             throw new RuntimeException("Failed to get content from licenses file: $file");
