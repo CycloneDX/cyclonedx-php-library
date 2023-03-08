@@ -118,7 +118,7 @@ class LicenseIdentifierTest extends TestCase
 
     public function testWithMalformedLicenseFile(): void
     {
-        $fakeResourcesFile = tempnam(sys_get_temp_dir(), __CLASS__);
+        $fakeResourcesFile = tempnam(sys_get_temp_dir(), __METHOD__);
         file_put_contents($fakeResourcesFile, '["foo');
         try {
             $licenses = $this->createPartialMock(LicenseIdentifiers::class, ['getResourcesFile']);
@@ -135,7 +135,7 @@ class LicenseIdentifierTest extends TestCase
 
     public function testWithMissingLicenseFile(): void
     {
-        $fakeResourcesFile = tempnam(sys_get_temp_dir(), __CLASS__);
+        $fakeResourcesFile = tempnam(sys_get_temp_dir(), __METHOD__);
         @unlink($fakeResourcesFile);
 
         $licenses = $this->createPartialMock(LicenseIdentifiers::class, ['getResourcesFile']);
@@ -149,7 +149,7 @@ class LicenseIdentifierTest extends TestCase
 
     public function testWithUnreadableLicenseFile(): void
     {
-        $fakeResourcesFile = tempnam(sys_get_temp_dir(), __CLASS__);
+        $fakeResourcesFile = tempnam(sys_get_temp_dir(), __METHOD__);
         // set mode to not-readable to force read errors ...
         if (!chmod($fakeResourcesFile, 0o222)) {
             $this->markTestSkipped('preparation could not be done');
