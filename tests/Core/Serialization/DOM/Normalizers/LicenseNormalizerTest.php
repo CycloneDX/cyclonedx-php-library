@@ -75,7 +75,7 @@ class LicenseNormalizerTest extends TestCase
     public function testNormalizeUnsupportedLicenseId(): void
     {
         $license = $this->createConfiguredMock(SpdxLicense::class, ['getId' => 'MIT']);
-        $spec = $this->createConfiguredMock(Spec::class, ['isSupportedLicenseId' => false]);
+        $spec = $this->createConfiguredMock(Spec::class, ['isSupportedLicenseIdentifier' => false]);
         $factory = $this->createConfiguredMock(
             NormalizerFactory::class,
             [
