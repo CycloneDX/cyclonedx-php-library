@@ -69,27 +69,27 @@ class LicenseFactory
     public function makeExpression(string $license): LicenseExpression
     {
         try {
-            if ($this->spdxLicenses->validate($license)) {
-                return new LicenseExpression($license);
-            }
+            $valid = $this->spdxLicenses->validate($license);
         } catch (\InvalidArgumentException) {
-            /* pass */
+            $valid = false;
         }
-
-        throw new DomainException("invalid SPDX expression: $license");
+        if ($valid) {
+            return new LicenseExpression($license);
+        }
+        throw new DomainException("invalid SPDX license expressions: $license");
     }
 
     /**
-     * @throws DomainException when the SPDX license is invalid
+     * @throws DomainException when the SPDX license is unknown
      */
     public function makeSpdxLicense(string $license): SpdxLicense
     {
-        $licenseFixed = $this->licenseIdentifiers->fixLicense($license);
-        if (null === $licenseFixed) {
-            throw new DomainException("unknown SPDX license: $license");
+        $fixed = $this->licenseIdentifiers->fixLicense($license);
+        if (null === $fixed) {
+            throw new DomainException("unknown SPDX license ID: $license");
         }
 
-        return new SpdxLicense($licenseFixed);
+        return new SpdxLicense($fixed);
     }
 
     public function makeNamedLicense(string $license): NamedLicense
