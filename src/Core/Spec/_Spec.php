@@ -50,7 +50,7 @@ class _Spec implements Spec
      * @psalm-param list<ComponentType> $lComponentTypes
      * @psalm-param list<HashAlgorithm> $lHashAlgorithms
      * @psalm-param list<ExternalReferenceType> $lExternalReferenceTypes
-     * @psalm-param list<Format> $lFormatsSupportingBomProperties*
+     * @psalm-param list<Format> $lFormatsSupportingBomProperties
      *
      * @SuppressWarnings(PHPMD.ExcessiveParameterList)
      */
