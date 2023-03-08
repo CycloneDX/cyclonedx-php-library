@@ -1,4 +1,4 @@
-* text=auto
+* text=auto eol=lf
 
 *.txt         text eol=lf
 *.md          text eol=lf diff=markdown
@@ -13,30 +13,22 @@
 composer.lock text eol=lf diff=json
 
 # files that are not bundled into the "dist" release are marked `export-ignore`
+/CODEOWNERS             export-ignore
+/CONTRIBUTING.md        export-ignore
 .gitattributes          export-ignore
 .gitignore              export-ignore
 .editorconfig           export-ignore
-/.github                export-ignore
+/.*                     export-ignore
 /tests                  export-ignore
 /tools                  export-ignore
-/.php-cs-fixer.dist.php export-ignore
-/.phpmd                 export-ignore
-/phpmd.ruleset.xml      export-ignore
-/phpmd.baseline.xml     export-ignore linguist-generated
-/phpunit.dist.xml       export-ignore
-/infection.json.dist    export-ignore
-/psalm.xml.dist         export-ignore
-/.psalm                 export-ignore
-/HISTORY.md             export-ignore
-/CODEOWNERS             export-ignore
-/CONTRIBUTING.md        export-ignore
-/demo                   export-ignore
 /examples               export-ignore
 /docs/dev               export-ignore
+/infection.json.dist    export-ignore
+/phpunit.dist.xml       export-ignore
+/psalm.xml.dist         export-ignore
 
 # files that are forced to be exported in "dist" release
 /README.md              -export-ignore
 /NOTICE                 -export-ignore
 /LICENSE                -export-ignore
 /semver.txt             -export-ignore
-/phpdoc.dist.xml        -export-ignore
