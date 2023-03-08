@@ -30,6 +30,7 @@ use CycloneDX\Core\Models\License\NamedLicense;
 use CycloneDX\Core\Models\License\SpdxLicense;
 use CycloneDX\Core\Spdx\LicenseIdentifiers;
 use DomainException;
+use InvalidArgumentException;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
@@ -140,7 +141,7 @@ class LicenseFactoryTest extends TestCase
     {
         $expression = uniqid('expression', true);
         $this->spdxLicenses->method('validate')
-            ->with($expression)->willThrowException(new \InvalidArgumentException());
+            ->with($expression)->willThrowException(new InvalidArgumentException());
         $this->expectException(DomainException::class);
         $this->expectExceptionMessageMatches('/invalid SPDX license expressions/i');
         $this->factory->makeExpression($expression);
