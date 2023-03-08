@@ -150,6 +150,7 @@ class LicenseIdentifierTest extends TestCase
     public function testWithUnreadableLicenseFile(): void
     {
         $fakeResourcesFile = tempnam(sys_get_temp_dir(), __METHOD__);
+        touch($fakeResourcesFile);
         // set mode to not-readable to force read errors ...
         if (!chmod($fakeResourcesFile, 0o222)) {
             $this->markTestSkipped('preparation could not be done');
