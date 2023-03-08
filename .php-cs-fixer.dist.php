@@ -47,7 +47,9 @@ return (new PhpCsFixer\Config())
             'phpdoc_order' => true,
             'phpdoc_to_comment' => [
                 'ignored_tags' => [
-                    'psalm-suppress', // needed when PSALM introduced some issues that only manual hints can solve
+                    // needed when PSALM introduced some issues that only manual hints can solve
+                    // 'psalm-var',
+                    // 'psalm-suppress',
                 ],
             ],
         ]
