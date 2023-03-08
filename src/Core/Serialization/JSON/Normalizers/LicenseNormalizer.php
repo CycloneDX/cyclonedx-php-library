@@ -59,7 +59,7 @@ class LicenseNormalizer extends _BaseNormalizer
         [$id, $name] = $license instanceof SpdxLicense
             ? [$license->getId(), null]
             : [null, $license->getName()];
-        if (null !== $id && !$this->getNormalizerFactory()->getSpec()->isSupportedLicenseId($id)) {
+        if (null !== $id && !$this->getNormalizerFactory()->getSpec()->isSupportedLicenseIdentifier($id)) {
             [$id, $name] = [null, $id];
         }
 

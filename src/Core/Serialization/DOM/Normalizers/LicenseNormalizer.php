@@ -69,7 +69,7 @@ class LicenseNormalizer extends _BaseNormalizer
             ? [$license->getId(), null]
             : [null, $license->getName()];
 
-        if (null !== $id && !$factory->getSpec()->isSupportedLicenseId($id)) {
+        if (null !== $id && !$factory->getSpec()->isSupportedLicenseIdentifier($id)) {
             [$id, $name] = [null, $id];
         }
 

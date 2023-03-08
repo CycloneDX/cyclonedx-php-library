@@ -32,14 +32,14 @@ use RuntimeException;
  *
  * @author jkowalleck
  */
-class LicenseID
+class LicenseIdentifiers
 {
     /**
      * @var string[]|null
      *
      * @psalm-var array<string, string>|null
      */
-    private ?array $licenses = null;
+    private ?array $values = null;
 
     /**
      * @psalm-suppress MissingThrowsDocblock -- as all options to throw were prevented by tests.
@@ -51,7 +51,7 @@ class LicenseID
 
     public function getResourcesFile(): string
     {
-        return realpath(Resources::FILE_SPDX_JSON_SCHEMA);
+        return Resources::FILE_SPDX_JSON_SCHEMA;
     }
 
     /**
@@ -61,20 +61,20 @@ class LicenseID
      */
     public function getKnownLicenses(): array
     {
-        return array_values($this->licenses ?? []);
+        return array_values($this->values ?? []);
     }
 
     public function isKnownLicense(string $value): bool
     {
-        return \in_array($value, $this->licenses ?? [], true);
+        return \in_array($value, $this->values ?? [], true);
     }
 
     /**
      * Return the "fixed" supported SPDX license ID, or null if unsupported.
      */
-    public function fixLicense(string $identifier): ?string
+    public function fixLicense(string $value): ?string
     {
-        return $this->licenses[strtolower($identifier)] ?? null;
+        return $this->values[strtolower($value)] ?? null;
     }
 
     /**
@@ -84,7 +84,7 @@ class LicenseID
      */
     private function loadLicenses(): void
     {
-        if (null !== $this->licenses) {
+        if (null !== $this->values) {
             // @codeCoverageIgnoreStart
             return;
             // @codeCoverageIgnoreEnd
@@ -103,19 +103,19 @@ class LicenseID
              * list of strings, as asserted by an integration test:
              * {@see \CycloneDX\Tests\Core\Spdx\LicenseValidatorTest::testShippedLicensesFile()}.
              *
-             * @var string[] $licenses
+             * @var string[] $values
              *
              * @psalm-suppress MixedArrayAccess
              * @psalm-suppress MixedAssignment
              */
-            ['enum' => $licenses] = json_decode($json, true, 3, \JSON_THROW_ON_ERROR);
+            ['enum' => $values] = json_decode($json, true, 3, \JSON_THROW_ON_ERROR);
         } catch (JsonException $exception) {
             throw new RuntimeException("Malformed licenses file: $file", previous: $exception);
         }
 
-        $this->licenses = array_combine(
-            array_map(strtolower(...), $licenses),
-            $licenses
+        $this->values = array_combine(
+            array_map(strtolower(...), $values),
+            $values
         );
     }
 }

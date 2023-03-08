@@ -70,5 +70,5 @@ interface Spec
 
     public function supportsComponentEvidence(): bool;
 
-    public function isSupportedLicenseId(string $licenseId): bool;
+    public function isSupportedLicenseIdentifier(string $licenseIdentifier): bool;
 }

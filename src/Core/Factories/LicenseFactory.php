@@ -27,13 +27,13 @@ use Composer\Spdx\SpdxLicenses;
 use CycloneDX\Core\Models\License\LicenseExpression;
 use CycloneDX\Core\Models\License\NamedLicense;
 use CycloneDX\Core\Models\License\SpdxLicense;
-use CycloneDX\Core\Spdx\LicenseID;
+use CycloneDX\Core\Spdx\LicenseIdentifiers;
 use DomainException;
 
 class LicenseFactory
 {
     public function __construct(
-        private readonly LicenseID $licenseID = new LicenseID(),
+        private readonly LicenseIdentifiers $licenseIdentifiers = new LicenseIdentifiers(),
         private readonly SpdxLicenses $spdxLicenses = new SpdxLicenses()
     ) {
     }
@@ -84,7 +84,7 @@ class LicenseFactory
      */
     public function makeSpdxLicense(string $license): SpdxLicense
     {
-        $licenseFixed = $this->licenseID->fixLicense($license);
+        $licenseFixed = $this->licenseIdentifiers->fixLicense($license);
         if (null === $licenseFixed) {
             throw new DomainException("unknown SPDX license: $license");
         }

@@ -54,7 +54,7 @@ class LicenseNormalizerTest extends TestCase
         $license = $this->createConfiguredMock($licenseClass, $licenseConfig);
         $spec = $this->createMock(Spec::class);
         if ($license instanceof SpdxLicense) {
-            $spec->method('isSupportedLicenseId')
+            $spec->method('isSupportedLicenseIdentifier')
                 ->with($license->getId())
                 ->willReturn(true);
         }

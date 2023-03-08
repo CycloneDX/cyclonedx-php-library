@@ -23,15 +23,15 @@ declare(strict_types=1);
 
 namespace CycloneDX\Tests\Core\Spdx;
 
-use CycloneDX\Core\Spdx\LicenseID;
+use CycloneDX\Core\Spdx\LicenseIdentifiers;
 use Generator;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use RuntimeException;
 
-#[CoversClass(LicenseID::class)]
-class LicenseIDTest extends TestCase
+#[CoversClass(LicenseIdentifiers::class)]
+class LicenseIdentifierTest extends TestCase
 {
     public static function dpLicenses(): Generator
     {
@@ -47,11 +47,11 @@ class LicenseIDTest extends TestCase
         }
     }
 
-    private LicenseID $licenses;
+    private LicenseIdentifiers $licenses;
 
     protected function setUp(): void
     {
-        $this->licenses = new LicenseID();
+        $this->licenses = new LicenseIdentifiers();
     }
 
     protected function tearDown(): void
@@ -89,7 +89,7 @@ class LicenseIDTest extends TestCase
 
     public function testShippedLicensesFile(): void
     {
-        $file = (new LicenseID())->getResourcesFile();
+        $file = (new LicenseIdentifiers())->getResourcesFile();
         self::assertFileExists($file);
 
         $json = file_get_contents($file);
@@ -121,7 +121,7 @@ class LicenseIDTest extends TestCase
         $fakeResourcesFile = tempnam(sys_get_temp_dir(), __CLASS__);
         file_put_contents($fakeResourcesFile, '["foo');
         try {
-            $licenses = $this->createPartialMock(LicenseID::class, ['getResourcesFile']);
+            $licenses = $this->createPartialMock(LicenseIdentifiers::class, ['getResourcesFile']);
             $licenses->method('getResourcesFile')->willReturn($fakeResourcesFile);
 
             $this->expectException(RuntimeException::class);
@@ -138,7 +138,7 @@ class LicenseIDTest extends TestCase
         $fakeResourcesFile = tempnam(sys_get_temp_dir(), __CLASS__);
         @unlink($fakeResourcesFile);
 
-        $licenses = $this->createPartialMock(LicenseID::class, ['getResourcesFile']);
+        $licenses = $this->createPartialMock(LicenseIdentifiers::class, ['getResourcesFile']);
         $licenses->method('getResourcesFile')->willReturn($fakeResourcesFile);
 
         $this->expectException(RuntimeException::class);
@@ -156,7 +156,7 @@ class LicenseIDTest extends TestCase
         }
 
         try {
-            $licenses = $this->createPartialMock(LicenseID::class, ['getResourcesFile']);
+            $licenses = $this->createPartialMock(LicenseIdentifiers::class, ['getResourcesFile']);
             $licenses->method('getResourcesFile')->willReturn($fakeResourcesFile);
 
             $this->expectException(RuntimeException::class);
