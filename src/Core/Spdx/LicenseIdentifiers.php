@@ -94,7 +94,7 @@ class LicenseIdentifiers
         $json = file_exists($file)
             ? file_get_contents($file)
             : throw new RuntimeException("Missing licenses file: $file");
-        if (false === $json) {
+        if (empty($json)) {
             throw new RuntimeException("Failed to get content from licenses file: $file");
         }
 
