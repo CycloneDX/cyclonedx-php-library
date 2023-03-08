@@ -134,6 +134,22 @@ abstract class SpecBaseTestCase extends TestCase
         }
     }
 
+    #[DataProvider('dpIsSupportedLicenseIdentifier')]
+    final public function testIsSupportedLicenseIdentifier(string $value, bool $expected): void
+    {
+        $isSupported = static::getSpec()->isSupportedLicenseIdentifier($value);
+        self::assertSame($expected, $isSupported);
+    }
+
+    final public static function dpIsSupportedLicenseIdentifier(): Generator
+    {
+        $known = BomSpecData::getSpssLicenseIds();
+        foreach ($known as $value) {
+            yield "+ $value" => [$value, true];
+        }
+        yield '- InvalidLicense' => [uniqid('InvalidLicense', true), false];
+    }
+
     final public function testSupportsLicenseExpression(): void
     {
         $isSupported = static::getSpec()->supportsLicenseExpression();
