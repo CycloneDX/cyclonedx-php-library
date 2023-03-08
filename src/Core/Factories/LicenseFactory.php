@@ -33,8 +33,8 @@ use DomainException;
 class LicenseFactory
 {
     public function __construct(
-        readonly private LicenseID $licenseID,
-        readonly private SpdxLicenses $spdxLicenses,
+        private readonly LicenseID $licenseID = new LicenseID(),
+        private readonly SpdxLicenses $spdxLicenses = new SpdxLicenses()
     ) {
     }
 

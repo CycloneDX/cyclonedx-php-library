@@ -92,7 +92,7 @@ class LicenseID
 
         $file = $this->getResourcesFile();
         $json = file_exists($file)
-            ? @file_get_contents($file)
+            ? file_get_contents($file)
             : throw new RuntimeException("Missing licenses file: $file");
         if (false === $json) {
             throw new RuntimeException("Failed to get content from licenses file: $file");

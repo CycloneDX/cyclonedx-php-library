@@ -23,9 +23,12 @@ declare(strict_types=1);
 
 namespace CycloneDX\Tests\Core\Factories;
 
+use CycloneDX\Core\Factories\LicenseFactory;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
 /** @TODO  */
+#[CoversClass(LicenseFactory::class)]
 class LicenseFactoryTest extends TestCase
 {
     /** @TODO  */

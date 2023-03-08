@@ -162,7 +162,8 @@ class LicenseIDTest extends TestCase
             $this->expectException(RuntimeException::class);
             $this->expectExceptionMessageMatches('/failed to get content from licenses file/i');
 
-            $licenses->__construct();
+            // suppress the warning/notice - we want the exception
+            @$licenses->__construct();
         } finally {
             @unlink($fakeResourcesFile);
         }
