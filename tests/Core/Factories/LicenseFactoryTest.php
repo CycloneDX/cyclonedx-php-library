@@ -65,6 +65,15 @@ class LicenseFactoryTest extends TestCase
         );
     }
 
+    public function testConstructorWithArgs(): void
+    {
+        $licenseIdentifiers = $this->createStub(LicenseIdentifiers::class);
+        $spdxLicenses = $this->createStub(SpdxLicenses::class);
+        $factory = new LicenseFactory($licenseIdentifiers, $spdxLicenses);
+        self::assertSame($licenseIdentifiers, $factory->getLicenseIdentifiers());
+        self::assertSame($spdxLicenses, $factory->getSpdxLicenses());
+    }
+
     public function testMakeNamedLicense(): void
     {
         $license = uniqid('license', true);

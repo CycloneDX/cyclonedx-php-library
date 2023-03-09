@@ -11,6 +11,7 @@ All notable changes to this project will be documented in this file.
   * Removed support for PHP v7.4 ([#114] via [#125])
   * Removed support for PHP v8.0 (via [#204])
   * Changed models' aggregation properties to be no longer optional ([#66] via [#131])
+  * CHanged models to be less restrictive ([#247] via [#249])
   * Streamlined repository data structures to follow a common method naming scheme (via [#131])
   * Enumeration-like classes were converted to native [PHP Enumerations](https://www.php.net/manual/en/language.types.enumerations.php) ([#140] via [#204])
 * Added
@@ -50,9 +51,16 @@ All notable changes to this project will be documented in this file.
     * BREAKING: method `isValidValue()` was removed (via [#204])
 * `CycloneDX\Core\Factories` namespace
   * `LicenseFactory` class
+    * BREAKING: check whether something is a valid SPDX Expression is now complete, was best effort implementation ([#247] via [#249])  
+      This affects all methods that potentially would create `LicenseExpression` models.  
+      Utilizes [`composer/spdx-licenses`](https://packagist.org/packages/composer/spdx-licenses).
+    * BREAKING: changed constructor method `__construct()` (via [#249])
     * BREAKING: removed method `makeDisjunctiveFromExpression()` ([#163] vial [#166])
+    * BREAKING: removed method `setSpdxLicenseValidator()` (via [#249])
+    * BREAKING: renamed method `getSpdxLicenseValidator()` -> `getLicenseIdentifiers()` (via [#249])
     * BREAKING: renamed method `makeDisjunctiveWithId()` -> `makeSpdxLicense()` ([#164] vial [#168])
     * BREAKING: renamed method `makeDisjunctiveWithName()` -> `makeNamedLicense()` ([#164] vial [#168])
+    * Added new method `getSpdxLicenses()` (via [#249])
 * `\CycloneDX\Core\Models` namespace
   * `Bom` class
     * BREAKING: changed constructor to no longer accept components ([#187] via [#188])
@@ -61,8 +69,8 @@ All notable changes to this project will be documented in this file.
       Also changed parameter & return type to non-nullable, was nullable ([#66] via [#131])
     * BREAKING: renamed methods `{get,set}MetaData()` -> `{get,set}Metadata()` ([#133] via [#131])  
       Also changed parameter & return type to non-nullable, was nullable ([#66] via [#131])
-    * Added `{get,set}Properties()` ([#228] via [#229])
-    * Added `{get,set}SerialNumber()` (via [#186])
+    * Added new methods `{get,set}Properties()` ([#228] via [#229])
+    * Added new methods `{get,set}SerialNumber()` (via [#186])
   * `Component` class
     * BREAKING: renamed methods `{get,set}DependenciesBomRefRepository()` -> `{get,set}Dependencies()` ([#133] via [#131])  
       Also changed parameter & return type to non-nullable, was nullable ([#66] via [#131])
@@ -76,10 +84,10 @@ All notable changes to this project will be documented in this file.
       This affects constructor arguments, and affects methods `{get,set}Version()`.
     * BREAKING: changed property `type` to be of type `\CycloneDX\Core\Enum\ComponentType` ([#140] via [#204])  
       This affects constructor arguments, and affects methods `{get,set}Type()`.
-    * Added `{get,set}Author()` ([#184] via [#185])
-    * Added `{get,set}Copyright()` ([#238] via [#239])
-    * Added `{get,set}Evidence()` ([#238] via [#241])
-    * Added `{get,set}Properties()` ([#228] via [#165])
+    * Added new methods `{get,set}Author()` ([#184] via [#185])
+    * Added new methods `{get,set}Copyright()` ([#238] via [#239])
+    * Added new methods `{get,set}Evidence()` ([#238] via [#241])
+    * Added new methods `{get,set}Properties()` ([#228] via [#165])
   * Added new class `ComponentEvidence` ([#238] via [#241])
   * `ExternalReference` class
     * BREAKING: renamed methods `{get,set}HashRepository()` -> `{get,set}Hashes()` ([#133] via [#131])  
@@ -93,6 +101,14 @@ All notable changes to this project will be documented in this file.
       * BREAKING: renamed class to `NamedLicense` ([#164] via [#168])
     * `DisjunctiveLicenseWithId` class
       * BREAKING: renamed class to `SpdxLicense` ([#164] via [#168])
+      * BREAKING: removed factory method `makeValidated()` ([#247] via [#249])
+        To assert valid values use `\CycloneDX\Core\Factories\LicenseFactory::makeSpdxLicense()`.
+      * Changed: constructor `__construct()` is public now, was private ([#247] via [#249])
+      * Added new method `setId()`  ([#247] via [#249])
+    * `LicenseExpression` class
+      * BREAKING: constructor `__construct()` and method `setExpression()` no longer do validation, but only assert that the parameter is no empty string. ([#247] ia [#249])  
+        To assert valid values use `\CycloneDX\Core\Factories\LicenseFactory::makeExpression()`.
+      * BREAKING: removed method `isValid()` ([#247] via [#249])
   * `MetaData` class
     * BREAKING: renamed class to `Metadata` ([#133] via [#131])  
       Even though PHP is case-insensitive with class names, autoloaders may be case-sensitive. Therefore, this is considered a breaking change.
@@ -135,10 +151,10 @@ All notable changes to this project will be documented in this file.
     * BREAKING: removed method `makeForDisjunctiveLicenseRepository()` (via [#131])
     * BREAKING: removed method `makeForHashRepositonary()` - use `makeForHashDictionary()` instead ([#133] via [#131])
     * BREAKING: removed method `setSpec()` (via [#131])
-    * Added method `makeForComponentEvidence()` ([#238] via [#241])
-    * Added method `makeForHashDictionary()` ([#133] via [#131])
-    * Added method `makeForLicense()` (via [#131])
-    * Added method `makeForLicenseRepository()` (via [#131])
+    * Added new method `makeForComponentEvidence()` ([#238] via [#241])
+    * Added new method `makeForHashDictionary()` ([#133] via [#131])
+    * Added new method `makeForLicense()` (via [#131])
+    * Added new method `makeForLicenseRepository()` (via [#131])
   * `{DOM,JSON}\Normalizers` namespaces
     * BREAKING: removed classes `DisjunctiveLicenseNormalizer` - use `LicenseNormalizer` instead (via [#131])
     * BREAKING: removed classes `LicenseExpressionNormalizer`  - use `LicenseNormalizer` instead (via [#131])
@@ -159,7 +175,10 @@ All notable changes to this project will be documented in this file.
   * `JSON\Normalizers\ExternalReferenceNormalizer` class
     * BREAKING: method `normalize()` may throw `\UnexpectedValueException` when the url is invalid to format "ini-reference" (via [#151])
 * `\CycloneDX\Core\Spdx` namespace
-  * BREAKING: renamed the class `License` -> `LicenseValidator` ([#133] via [#143])
+  * BREAKING: renamed the class `License` -> `LicenseIdentifiers` ([#133] via [#143], [#249])
+  * BREAKING: renamed method `getLicense()` -> `fixLicense()` (via [#249])
+  * BREAKING: renamed method `getLicenses()` -> `getKnownLicenses()`, and removed keys from return value (via [#249])
+  * BREAKING: renamed method `validate()` -> `isKnownLicense()` (via [#249])
 * `\CycloneDX\Core\Spec` namespace
   * BREAKING: completely reworked everything ([#139] via [#142], [#174], [#204])  
     See the code base for references
@@ -220,6 +239,8 @@ All notable changes to this project will be documented in this file.
 [#238]: https://github.com/CycloneDX/cyclonedx-php-library/issues/238
 [#239]: https://github.com/CycloneDX/cyclonedx-php-library/pull/239
 [#241]: https://github.com/CycloneDX/cyclonedx-php-library/pull/241
+[#247]: https://github.com/CycloneDX/cyclonedx-php-library/issues/247
+[#249]: https://github.com/CycloneDX/cyclonedx-php-library/pull/249
 
 ## 1.6.3 - 2022-09-15
 

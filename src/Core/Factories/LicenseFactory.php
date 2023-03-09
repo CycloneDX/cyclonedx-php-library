@@ -38,6 +38,16 @@ class LicenseFactory
     ) {
     }
 
+    public function getLicenseIdentifiers(): LicenseIdentifiers
+    {
+        return $this->licenseIdentifiers;
+    }
+
+    public function getSpdxLicenses(): SpdxLicenses
+    {
+        return $this->spdxLicenses;
+    }
+
     public function makeFromString(string $license): SpdxLicense|LicenseExpression|NamedLicense
     {
         try {
@@ -64,7 +74,7 @@ class LicenseFactory
     }
 
     /**
-     * @throws DomainException if the expression was invalid
+     * @throws DomainException when the SPDX license expressions was invalid
      */
     public function makeExpression(string $license): LicenseExpression
     {
@@ -80,7 +90,7 @@ class LicenseFactory
     }
 
     /**
-     * @throws DomainException when the SPDX license is unknown
+     * @throws DomainException when the SPDX license ID is unknown
      */
     public function makeSpdxLicense(string $license): SpdxLicense
     {
