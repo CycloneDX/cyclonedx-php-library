@@ -100,7 +100,7 @@ class ExternalReferenceTest extends TestCase
     #[DependsUsingShallowClone('testConstructor')]
     public function testHashesSetterAndGetter(ExternalReference $extRef): void
     {
-        $hashes = $this->createStub(HashDictionary::class);
+        $hashes = $this->createMock(HashDictionary::class);
         $this->assertNotSame($hashes, $extRef->getHashes());
         $got = $extRef->setHashes($hashes);
         $this->assertSame($extRef, $got);

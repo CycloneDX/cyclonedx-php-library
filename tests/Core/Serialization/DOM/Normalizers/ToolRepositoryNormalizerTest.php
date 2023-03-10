@@ -43,7 +43,7 @@ class ToolRepositoryNormalizerTest extends TestCase
 {
     public function testNormalizeEmpty(): void
     {
-        $spec = $this->createStub(Spec::class);
+        $spec = $this->createMock(Spec::class);
         $toolNormalizer = $this->createMock(ToolNormalizer::class);
         $factory = $this->createConfiguredMock(NormalizerFactory::class, [
             'getSpec' => $spec,
@@ -59,19 +59,19 @@ class ToolRepositoryNormalizerTest extends TestCase
 
     public function testNormalize(): void
     {
-        $spec = $this->createStub(Spec::class);
+        $spec = $this->createMock(Spec::class);
         $toolNormalizer = $this->createMock(ToolNormalizer::class);
         $factory = $this->createConfiguredMock(NormalizerFactory::class, [
             'getSpec' => $spec,
             'makeForTool' => $toolNormalizer,
         ]);
         $normalizer = new ToolRepositoryNormalizer($factory);
-        $tool = $this->createStub(Tool::class);
+        $tool = $this->createMock(Tool::class);
         $tools = $this->createConfiguredMock(ToolRepository::class, [
             'count' => 1,
             'getItems' => [$tool],
         ]);
-        $FakeTool = $this->createStub(DOMElement::class);
+        $FakeTool = $this->createMock(DOMElement::class);
 
         $toolNormalizer->expects(self::once())->method('normalize')
             ->with($tool)
@@ -84,15 +84,15 @@ class ToolRepositoryNormalizerTest extends TestCase
 
     public function testNormalizeSkipsOnThrow(): void
     {
-        $spec = $this->createStub(Spec::class);
+        $spec = $this->createMock(Spec::class);
         $toolNormalizer = $this->createMock(ToolNormalizer::class);
         $factory = $this->createConfiguredMock(NormalizerFactory::class, [
             'getSpec' => $spec,
             'makeForTool' => $toolNormalizer,
         ]);
         $normalizer = new ToolRepositoryNormalizer($factory);
-        $tool1 = $this->createStub(Tool::class);
-        $tool2 = $this->createStub(Tool::class);
+        $tool1 = $this->createMock(Tool::class);
+        $tool2 = $this->createMock(Tool::class);
         $tools = $this->createConfiguredMock(ToolRepository::class, [
             'count' => 1,
             'getItems' => [$tool1, $tool2],

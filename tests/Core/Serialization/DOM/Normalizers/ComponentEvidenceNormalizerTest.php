@@ -90,7 +90,7 @@ class ComponentEvidenceNormalizerTest extends TestCase
         $licenseRepoNormalizer->expects(self::once())
             ->method('normalize')
             ->with($evidence->getLicenses())
-            ->willReturn([$factory->getDocument()->createElement('FakeLicense', 'dummy')]);
+            ->willReturn([$factory->document->createElement('FakeLicense', 'dummy')]);
 
         $actual = $normalizer->normalize($evidence);
 

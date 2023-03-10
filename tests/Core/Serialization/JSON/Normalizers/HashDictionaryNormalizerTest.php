@@ -41,7 +41,7 @@ class HashDictionaryNormalizerTest extends TestCase
     {
         $factory = $this->createMock(NormalizerFactory::class);
         $normalizer = new HashDictionaryNormalizer($factory);
-        self::assertSame($factory, $normalizer->getNormalizerFactory());
+        self::assertSame($factory, $normalizer->normalizerFactory);
     }
 
     public function testNormalize(): void
@@ -49,7 +49,7 @@ class HashDictionaryNormalizerTest extends TestCase
         $hashNormalizer = $this->createMock(HashNormalizer::class);
         $factory = $this->createConfiguredMock(NormalizerFactory::class, ['makeForHash' => $hashNormalizer]);
         $normalizer = new HashDictionaryNormalizer($factory);
-        $repo = $this->createStub(HashDictionary::class);
+        $repo = $this->createMock(HashDictionary::class);
         $repo->method('getItems')->willReturn([[HashAlgorithm::MD5, 'content1'], [HashAlgorithm::SHA_1, 'content2']]);
 
         $hashNormalizer->expects(self::exactly(2))

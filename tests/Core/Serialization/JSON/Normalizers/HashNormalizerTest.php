@@ -40,7 +40,7 @@ class HashNormalizerTest extends TestCase
     {
         $factory = $this->createMock(NormalizerFactory::class);
         $normalizer = new HashNormalizer($factory);
-        self::assertSame($factory, $normalizer->getNormalizerFactory());
+        self::assertSame($factory, $normalizer->normalizerFactory);
     }
 
     public function testNormalize(): void

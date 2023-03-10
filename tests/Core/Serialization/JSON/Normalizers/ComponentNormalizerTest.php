@@ -84,8 +84,8 @@ class ComponentNormalizerTest extends TestCase
                 'getGroup' => null,
                 'getDescription' => null,
                 'getAuthor' => null,
-                'getLicenses' => $this->createStub(LicenseRepository::class),
-                'getHashes' => $this->createStub(HashDictionary::class),
+                'getLicenses' => $this->createMock(LicenseRepository::class),
+                'getHashes' => $this->createMock(HashDictionary::class),
                 'getPackageUrl' => null,
             ]
         );

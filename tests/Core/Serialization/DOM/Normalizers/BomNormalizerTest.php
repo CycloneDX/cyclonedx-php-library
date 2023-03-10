@@ -37,31 +37,53 @@ use CycloneDX\Core\Serialization\DOM\Normalizers;
 use CycloneDX\Core\Spec\Spec;
 use CycloneDX\Core\Spec\Version;
 use CycloneDX\Tests\_traits\DomNodeAssertionTrait;
+use CycloneDX\Tests\_traits\MockOCTrait;
 use DOMDocument;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\UsesClass;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use function pcov\memory;
 
 #[CoversClass(Normalizers\BomNormalizer::class)]
 #[CoversClass(_BaseNormalizer::class)]
+#[UsesClass(NormalizerFactory::class)]
 #[UsesClass(SimpleDOM::class)]
 #[UsesClass(ExternalReferenceRepository::class)]
 #[UsesClass(ExternalReferenceRepository::class)]
 class BomNormalizerTest extends TestCase
 {
     use DomNodeAssertionTrait;
+    use MockOCTrait;
+
+    private NormalizerFactory & MockObject $factory;
+    private Spec&MockObject $spec;
+
+    protected function setUp(): void
+    {
+        $this->spec = $this->createConfiguredMock(
+            Spec::class,
+            [
+            'isSupportedFormat' => true,
+            'getVersion' => Version::v1dot2]
+        );
+        $this->factory = $this->createMockOC(
+            NormalizerFactory::class,
+            [$this->spec,  new DOMDocument()]
+        );
+    }
+
+    protected function tearDown(): void
+    {
+        unset(
+            $this->factory,
+            $this->spec
+        );
+     }
 
     public function testNormalize(): void
     {
-        $spec = $this->createConfiguredMock(Spec::class, ['getVersion' => Version::v1dot2]);
-        $factory = $this->createConfiguredMock(
-            NormalizerFactory::class,
-            [
-                'getSpec' => $spec,
-                'getDocument' => new DOMDocument(),
-            ]
-        );
-        $normalizer = new Normalizers\BomNormalizer($factory);
+        $normalizer = new Normalizers\BomNormalizer($this->factory);
         $bom = $this->createConfiguredMock(
             Bom::class,
             [
@@ -74,7 +96,7 @@ class BomNormalizerTest extends TestCase
 
         self::assertStringEqualsDomNode(
             '<bom xmlns="http://cyclonedx.org/schema/bom/1.2" serialNumber="urn:uuid:12345678-dead-1337-beef-123456789012" version="23">'.
-            '<components></components>'.
+                '<components></components>'.
             '</bom>',
             $actual
         );
@@ -82,35 +104,27 @@ class BomNormalizerTest extends TestCase
 
     public function testNormalizeComponents(): void
     {
-        $spec = $this->createConfiguredMock(Spec::class, ['getVersion' => Version::v1dot2]);
         $componentsNormalizer = $this->createMock(Normalizers\ComponentRepositoryNormalizer::class);
-        $factory = $this->createConfiguredMock(
-            NormalizerFactory::class,
-            [
-                'getSpec' => $spec,
-                'getDocument' => new DOMDocument(),
-                'makeForComponentRepository' => $componentsNormalizer,
-            ]
-        );
-        $normalizer = new Normalizers\BomNormalizer($factory);
+        $this->factory->method('makeForComponentRepository')->willReturn($componentsNormalizer);
+        $normalizer = new Normalizers\BomNormalizer($this->factory);
         $bom = $this->createConfiguredMock(
             Bom::class,
             [
                 'getVersion' => 42,
-                'getComponents' => $this->createStub(ComponentRepository::class),
+                'getComponents' => $this->createMock(ComponentRepository::class),
             ]
         );
 
         $componentsNormalizer->expects(self::once())
             ->method('normalize')
             ->with($bom->getComponents())
-            ->willReturn([$factory->getDocument()->createElement('FakeComponent', 'dummy')]);
+            ->willReturn([$this->factory->document->createElement('FakeComponent', 'dummy')]);
 
         $actual = $normalizer->normalize($bom);
 
         self::assertStringEqualsDomNode(
             '<bom xmlns="http://cyclonedx.org/schema/bom/1.2" version="42">'.
-            '<components><FakeComponent>dummy</FakeComponent></components>'.
+                '<components><FakeComponent>dummy</FakeComponent></components>'.
             '</bom>',
             $actual
         );
@@ -120,42 +134,29 @@ class BomNormalizerTest extends TestCase
 
     public function testNormalizeMetadata(): void
     {
-        $spec = $this->createConfiguredMock(
-            Spec::class,
-            [
-                'getVersion' => Version::v1dot2,
-                'supportsMetadata' => true,
-            ]
-        );
+        $this->spec->method('supportsMetadata')->willReturn(true);
         $metadataNormalizer = $this->createMock(Normalizers\MetadataNormalizer::class);
-        $factory = $this->createConfiguredMock(
-            NormalizerFactory::class,
-            [
-                'getSpec' => $spec,
-                'getDocument' => new DOMDocument(),
-                'makeForMetadata' => $metadataNormalizer,
-            ]
-        );
-        $normalizer = new Normalizers\BomNormalizer($factory);
+        $this->factory->method( 'makeForMetadata')->willReturn($metadataNormalizer);
+        $normalizer = new Normalizers\BomNormalizer($this->factory);
         $bom = $this->createConfiguredMock(
             Bom::class,
             [
                 'getVersion' => 1337,
-                'getMetadata' => $this->createStub(Metadata::class),
+                'getMetadata' => $this->createMock(Metadata::class),
             ]
         );
 
         $metadataNormalizer->expects(self::once())
             ->method('normalize')
             ->with($bom->getMetadata())
-            ->willReturn($factory->getDocument()->createElement('metadata', 'FakeMetadata'));
+            ->willReturn($this->factory->document->createElement('metadata', 'FakeMetadata'));
 
         $actual = $normalizer->normalize($bom);
 
         self::assertStringEqualsDomNode(
             '<bom xmlns="http://cyclonedx.org/schema/bom/1.2" version="1337">'.
-            '<metadata>FakeMetadata</metadata>'.
-            '<components></components>'.
+                '<metadata>FakeMetadata</metadata>'.
+                '<components></components>'.
             '</bom>',
             $actual
         );
@@ -163,40 +164,27 @@ class BomNormalizerTest extends TestCase
 
     public function testNormalizeMetadataNotSupported(): void
     {
-        $spec = $this->createConfiguredMock(
-            Spec::class,
-            [
-                'getVersion' => Version::v1dot2,
-                'supportsMetadata' => false,
-            ]
-        );
+        $this->spec->method('supportsMetadata')->willReturn(false);
         $metadataNormalizer = $this->createMock(Normalizers\MetadataNormalizer::class);
-        $factory = $this->createConfiguredMock(
-            NormalizerFactory::class,
-            [
-                'getSpec' => $spec,
-                'getDocument' => new DOMDocument(),
-                'makeForMetadata' => $metadataNormalizer,
-            ]
-        );
-        $normalizer = new Normalizers\BomNormalizer($factory);
+        $this->factory->method('makeForMetadata')->willReturn($metadataNormalizer);
+        $normalizer = new Normalizers\BomNormalizer($this->factory);
         $bom = $this->createConfiguredMock(
             Bom::class,
             [
                 'getVersion' => 1,
-                'getMetadata' => $this->createStub(Metadata::class),
+                'getMetadata' => $this->createMock(Metadata::class),
             ]
         );
 
         $metadataNormalizer->method('normalize')
             ->with($bom->getMetadata())
-            ->willReturn($factory->getDocument()->createElement('metadata', 'FakeMetadata'));
+            ->willReturn($this->factory->document->createElement('metadata', 'FakeMetadata'));
 
         $actual = $normalizer->normalize($bom);
 
         self::assertStringEqualsDomNode(
             '<bom xmlns="http://cyclonedx.org/schema/bom/1.2" version="1">'.
-            '<components></components>'.
+                '<components></components>'.
             '</bom>',
             $actual
         );
@@ -211,16 +199,18 @@ class BomNormalizerTest extends TestCase
         $spec = $this->createConfiguredMock(
             Spec::class,
             [
+                'isSupportedFormat' => true,
                 'getVersion' => Version::v1dot2,
                 'supportsDependencies' => true,
             ]
         );
         $dependencyNormalizer = $this->createMock(Normalizers\DependenciesNormalizer::class);
-        $factory = $this->createConfiguredMock(
+        $factory = $this->createConfiguredMockOC(
             NormalizerFactory::class,
             [
-                'getSpec' => $spec,
-                'getDocument' => new DOMDocument(),
+                'spec' => $spec,
+                'document' => new DOMDocument(),
+                ], [
                 'makeForDependencies' => $dependencyNormalizer,
             ]
         );
@@ -229,14 +219,14 @@ class BomNormalizerTest extends TestCase
             Bom::class,
             [
                 'getVersion' => 23,
-                'getMetadata' => $this->createStub(Metadata::class),
+                'getMetadata' => $this->createMock(Metadata::class),
             ]
         );
 
         $dependencyNormalizer->expects(self::once())
             ->method('normalize')
             ->with($bom)
-            ->willReturn([$factory->getDocument()->createElement('FakeDependencies', 'faked')]);
+            ->willReturn([$factory->document->createElement('FakeDependencies', 'faked')]);
 
         $actual = $normalizer->normalize($bom);
 
@@ -254,16 +244,18 @@ class BomNormalizerTest extends TestCase
         $spec = $this->createConfiguredMock(
             Spec::class,
             [
+                'isSupportedFormat' => true,
                 'getVersion' => Version::v1dot2,
                 'supportsDependencies' => true,
             ]
         );
         $dependencyNormalizer = $this->createMock(Normalizers\DependenciesNormalizer::class);
-        $factory = $this->createConfiguredMock(
+        $factory = $this->createConfiguredMockOC(
             NormalizerFactory::class,
             [
-                'getSpec' => $spec,
-                'getDocument' => new DOMDocument(),
+                'spec' => $spec,
+                'document' => new DOMDocument(),
+                ], [
                 'makeForDependencies' => $dependencyNormalizer,
             ]
         );
@@ -272,7 +264,7 @@ class BomNormalizerTest extends TestCase
             Bom::class,
             [
                 'getVersion' => 23,
-                'getMetadata' => $this->createStub(Metadata::class),
+                'getMetadata' => $this->createMock(Metadata::class),
             ]
         );
 
@@ -299,18 +291,20 @@ class BomNormalizerTest extends TestCase
     public function testNormalizeExternalReferencesMergedIfUnsupportedMetadata(): void
     {
         $spec = $this->createConfiguredMock(Spec::class, [
+            'isSupportedFormat' => true,
             'getVersion' => Version::v1dot2,
             'supportsMetadata' => false,
         ]);
         $extRefNormalizer = $this->createMock(Normalizers\ExternalReferenceRepositoryNormalizer::class);
-        $factory = $this->createConfiguredMock(NormalizerFactory::class, [
-            'getSpec' => $spec,
-            'getDocument' => new DOMDocument(),
+        $factory = $this->createConfiguredMockOC(NormalizerFactory::class, [
+            'spec' => $spec,
+            'document' => new DOMDocument(),
+            ], [
             'makeForExternalReferenceRepository' => $extRefNormalizer,
         ]);
         $normalizer = new Normalizers\BomNormalizer($factory);
-        $extRef1 = $this->createStub(ExternalReference::class);
-        $extRef2 = $this->createStub(ExternalReference::class);
+        $extRef1 = $this->createMock(ExternalReference::class);
+        $extRef2 = $this->createMock(ExternalReference::class);
         $bom = $this->createConfiguredMock(
             Bom::class,
             [
@@ -336,7 +330,7 @@ class BomNormalizerTest extends TestCase
 
                 return true;
             }))
-            ->willReturn([$factory->getDocument()->createElement('FakeexternalReference', 'faked')]);
+            ->willReturn([$factory->document->createElement('FakeexternalReference', 'faked')]);
 
         $actual = $normalizer->normalize($bom);
 
@@ -352,18 +346,21 @@ class BomNormalizerTest extends TestCase
     public function testNormalizeExternalReferencesOmittedWHenEmpty(): void
     {
         $spec = $this->createConfiguredMock(Spec::class, [
+            'isSupportedFormat' => true,
             'getVersion' => Version::v1dot2,
             'supportsMetadata' => false,
         ]);
         $extRefNormalizer = $this->createMock(Normalizers\ExternalReferenceRepositoryNormalizer::class);
-        $factory = $this->createConfiguredMock(NormalizerFactory::class, [
-            'getSpec' => $spec,
-            'getDocument' => new DOMDocument(),
+        $factory = $this->createConfiguredMockOC(NormalizerFactory::class,
+            [
+            'spec' => $spec,
+            'document' => new DOMDocument(),
+            ], [
             'makeForExternalReferenceRepository' => $extRefNormalizer,
         ]);
         $normalizer = new Normalizers\BomNormalizer($factory);
-        $extRef1 = $this->createStub(ExternalReference::class);
-        $extRef2 = $this->createStub(ExternalReference::class);
+        $extRef1 = $this->createMock(ExternalReference::class);
+        $extRef2 = $this->createMock(ExternalReference::class);
         $bom = $this->createConfiguredMock(
             Bom::class,
             [
@@ -401,15 +398,17 @@ class BomNormalizerTest extends TestCase
             ]
         );
         $spec = $this->createConfiguredMock(Spec::class, [
+            'isSupportedFormat' => true,
             'getVersion' => Version::v1dot4,
             'supportsBomProperties' => true,
         ]);
         $propertiesNormalizer = $this->createMock(Normalizers\PropertyRepositoryNormalizer::class);
-        $factory = $this->createConfiguredMock(
+        $factory = $this->createConfiguredMockOC(
             NormalizerFactory::class,
             [
-                'getSpec' => $spec,
-                'getDocument' => new DOMDocument(),
+                'spec' => $spec,
+                'document' => new DOMDocument(),
+                ], [
                 'makeForPropertyRepository' => $propertiesNormalizer,
             ]
         );
@@ -419,7 +418,7 @@ class BomNormalizerTest extends TestCase
             ->method('normalize')
             ->with($bom->getProperties())
             ->willReturn(
-                [$factory->getDocument()->createElement('FakeProperties', 'dummy')]);
+                [$factory->document->createElement('FakeProperties', 'dummy')]);
 
         $actual = $normalizer->normalize($bom);
 
@@ -440,15 +439,17 @@ class BomNormalizerTest extends TestCase
             ]
         );
         $spec = $this->createConfiguredMock(Spec::class, [
+            'isSupportedFormat' => true,
             'getVersion' => Version::v1dot4,
             'supportsBomProperties' => true,
         ]);
         $propertiesNormalizer = $this->createMock(Normalizers\PropertyRepositoryNormalizer::class);
-        $factory = $this->createConfiguredMock(
+        $factory = $this->createConfiguredMockOC(
             NormalizerFactory::class,
             [
-                'getSpec' => $spec,
-                'getDocument' => new DOMDocument(),
+                'spec' => $spec,
+                'document' => new DOMDocument(),
+                ], [
                 'makeForPropertyRepository' => $propertiesNormalizer,
             ]
         );

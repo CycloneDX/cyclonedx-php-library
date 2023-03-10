@@ -42,7 +42,7 @@ class JsonSerializerTest extends TestCase
     #[DataProvider('dpSerializeStructure')]
     public function testSerialize(int $jsonEncodeFlags, ?bool $prettyPrint, array $normalized, string $expected): void
     {
-        $bom = $this->createStub(Bom::class);
+        $bom = $this->createMock(Bom::class);
         $bomNormalizer = $this->createMock(JSON\Normalizers\BomNormalizer::class);
         $normalizerFactory = $this->createConfiguredMock(JSON\NormalizerFactory::class, [
             'makeForBom' => $bomNormalizer,

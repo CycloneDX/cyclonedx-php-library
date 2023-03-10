@@ -41,8 +41,8 @@ class ExternalReferenceRepositoryTest extends TestCase
 
     public function testConstructAndGet(): void
     {
-        $externalReference1 = $this->createStub(ExternalReference::class);
-        $externalReference2 = $this->createStub(ExternalReference::class);
+        $externalReference1 = $this->createMock(ExternalReference::class);
+        $externalReference2 = $this->createMock(ExternalReference::class);
 
         $repo = new ExternalReferenceRepository(
             $externalReference1,
@@ -59,9 +59,9 @@ class ExternalReferenceRepositoryTest extends TestCase
 
     public function testAddAndGetItems(): void
     {
-        $externalReference1 = $this->createStub(ExternalReference::class);
-        $externalReference2 = $this->createStub(ExternalReference::class);
-        $externalReference3 = $this->createStub(ExternalReference::class);
+        $externalReference1 = $this->createMock(ExternalReference::class);
+        $externalReference2 = $this->createMock(ExternalReference::class);
+        $externalReference3 = $this->createMock(ExternalReference::class);
         $repo = new ExternalReferenceRepository($externalReference1, $externalReference2);
 
         $actual = $repo->addItems($externalReference2, $externalReference3, $externalReference3);

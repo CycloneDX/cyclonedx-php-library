@@ -45,9 +45,9 @@ class XmlValidatorTest extends TestCase
 {
     public function testConstructor(): XmlValidator
     {
-        $spec = $this->createStub(Spec::class);
+        $spec = $this->createMock(Spec::class);
         $validator = new XmlValidator($spec);
-        self::assertSame($spec, $validator->getSpec());
+        self::assertSame($spec, $validator->spec);
 
         return $validator;
     }
@@ -70,7 +70,7 @@ class XmlValidatorTest extends TestCase
     {
         $validator = $this->createPartialMock(XmlValidator::class, ['validateDom']);
         $xml = '<bom/>';
-        $expectedError = $this->createStub(XmlValidationError::class);
+        $expectedError = $this->createMock(XmlValidationError::class);
 
         $validator->expects(self::once())->method('validateDom')
             ->with(new IsInstanceOf(DOMDocument::class))

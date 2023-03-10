@@ -39,7 +39,7 @@ class LicenseRepositoryNormalizerTest extends TestCase
 {
     public function testNormalizeEmpty(): void
     {
-        $spec = $this->createStub(Spec::class);
+        $spec = $this->createMock(Spec::class);
         $licenseNormalizer = $this->createMock(LicenseNormalizer::class);
         $factory = $this->createConfiguredMock(NormalizerFactory::class, [
             'getSpec' => $spec,
@@ -55,14 +55,14 @@ class LicenseRepositoryNormalizerTest extends TestCase
 
     public function testNormalize(): void
     {
-        $spec = $this->createStub(Spec::class);
+        $spec = $this->createMock(Spec::class);
         $licenseNormalizer = $this->createMock(LicenseNormalizer::class);
         $factory = $this->createConfiguredMock(NormalizerFactory::class, [
             'getSpec' => $spec,
             'makeForLicense' => $licenseNormalizer,
         ]);
         $normalizer = new LicenseRepositoryNormalizer($factory);
-        $license = $this->createStub(NamedLicense::class);
+        $license = $this->createMock(NamedLicense::class);
         $licenses = $this->createConfiguredMock(LicenseRepository::class, [
             'count' => 1,
             'getItems' => [$license],

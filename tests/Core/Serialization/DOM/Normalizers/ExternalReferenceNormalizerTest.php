@@ -59,7 +59,7 @@ class ExternalReferenceNormalizerTest extends TestCase
             'getUrl' => 'someUrl',
             'getType' => ExternalReferenceType::BOM,
             'getComment' => null,
-            'getHashes' => $this->createStub(HashDictionary::class),
+            'getHashes' => $this->createMock(HashDictionary::class),
         ]);
 
         $spec->method('isSupportedExternalReferenceType')
@@ -110,7 +110,7 @@ class ExternalReferenceNormalizerTest extends TestCase
             'getUrl' => '..',
             'getType' => ExternalReferenceType::BOM,
             'getComment' => null,
-            'getHashes' => $this->createStub(HashDictionary::class),
+            'getHashes' => $this->createMock(HashDictionary::class),
         ]);
 
         $spec->expects(self::exactly(2))
@@ -166,7 +166,7 @@ class ExternalReferenceNormalizerTest extends TestCase
             'getUrl' => 'someUrl',
             'getType' => ExternalReferenceType::BOM,
             'getComment' => 'someComment',
-            'getHashes' => $this->createStub(HashDictionary::class),
+            'getHashes' => $this->createMock(HashDictionary::class),
         ]);
 
         $spec->method('isSupportedExternalReferenceType')
@@ -208,7 +208,7 @@ class ExternalReferenceNormalizerTest extends TestCase
         $HashDictionaryNormalizer->expects(self::once())
             ->method('normalize')
             ->with($extRef->getHashes())
-            ->willReturn([$normalizerFactory->getDocument()->createElement('FakeHash', 'dummy')]);
+            ->willReturn([$normalizerFactory->document->createElement('FakeHash', 'dummy')]);
 
         $actual = $normalizer->normalize($extRef);
 
@@ -237,7 +237,7 @@ class ExternalReferenceNormalizerTest extends TestCase
             'getUrl' => 'someUrl',
             'getType' => ExternalReferenceType::BOM,
             'getComment' => null,
-            'getHashes' => $this->createStub(HashDictionary::class),
+            'getHashes' => $this->createMock(HashDictionary::class),
         ]);
 
         $spec->method('isSupportedExternalReferenceType')
@@ -304,7 +304,7 @@ class ExternalReferenceNormalizerTest extends TestCase
             'getUrl' => $rawUrl,
             'getType' => ExternalReferenceType::BOM,
             'getComment' => null,
-            'getHashes' => $this->createStub(HashDictionary::class),
+            'getHashes' => $this->createMock(HashDictionary::class),
         ]);
 
         $spec->expects(self::atLeastOnce())

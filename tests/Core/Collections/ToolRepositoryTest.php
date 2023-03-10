@@ -41,8 +41,8 @@ class ToolRepositoryTest extends TestCase
 
     public function testConstructAndGet(): void
     {
-        $tool1 = $this->createStub(Tool::class);
-        $tool2 = $this->createStub(Tool::class);
+        $tool1 = $this->createMock(Tool::class);
+        $tool2 = $this->createMock(Tool::class);
 
         $repo = new ToolRepository($tool1, $tool2, $tool1, $tool2);
 
@@ -54,9 +54,9 @@ class ToolRepositoryTest extends TestCase
 
     public function testAddAndGetItems(): void
     {
-        $tool1 = $this->createStub(Tool::class);
-        $tool2 = $this->createStub(Tool::class);
-        $tool3 = $this->createStub(Tool::class);
+        $tool1 = $this->createMock(Tool::class);
+        $tool2 = $this->createMock(Tool::class);
+        $tool3 = $this->createMock(Tool::class);
         $repo = new ToolRepository($tool1, $tool2);
 
         $actual = $repo->addItems($tool2, $tool3, $tool3);

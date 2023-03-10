@@ -41,8 +41,8 @@ class PropertyRepositoryTest extends TestCase
 
     public function testConstructAndGet(): void
     {
-        $property1 = $this->createStub(Property::class);
-        $property2 = $this->createStub(Property::class);
+        $property1 = $this->createMock(Property::class);
+        $property2 = $this->createMock(Property::class);
 
         $repo = new PropertyRepository($property1, $property2, $property1, $property2);
 
@@ -54,9 +54,9 @@ class PropertyRepositoryTest extends TestCase
 
     public function testAddAndGetItems(): void
     {
-        $property1 = $this->createStub(Property::class);
-        $property2 = $this->createStub(Property::class);
-        $property3 = $this->createStub(Property::class);
+        $property1 = $this->createMock(Property::class);
+        $property2 = $this->createMock(Property::class);
+        $property3 = $this->createMock(Property::class);
         $repo = new PropertyRepository($property1, $property2);
 
         $actual = $repo->addItems($property2, $property3, $property3);

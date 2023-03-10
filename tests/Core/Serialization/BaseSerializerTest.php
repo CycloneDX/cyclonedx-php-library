@@ -48,7 +48,7 @@ class BaseSerializerTest extends TestCase
         $prettyPrint = [null, true, false][random_int(0, 2)];
         $normalized = uniqid('normalized', true);
         $serialized = uniqid('serialized', true);
-        $bom = $this->createStub(Bom::class);
+        $bom = $this->createMock(Bom::class);
         $serializer = $this->getMockForAbstractClass(BaseSerializer::class);
         $serializer->expects(self::once())
             ->method('realNormalize')
@@ -66,8 +66,8 @@ class BaseSerializerTest extends TestCase
 
     public function testSerializeForwardsExceptionsFromRealNormalize(): void
     {
-        $bom = $this->createStub(Bom::class);
-        $exception = $this->createStub(Exception::class);
+        $bom = $this->createMock(Bom::class);
+        $exception = $this->createMock(Exception::class);
         $serializer = $this->getMockForAbstractClass(BaseSerializer::class);
         $serializer->expects(self::once())
             ->method('realNormalize')
@@ -82,8 +82,8 @@ class BaseSerializerTest extends TestCase
 
     public function testSerializeForwardsExceptionsFromRealSerializer(): void
     {
-        $exception = $this->createStub(Exception::class);
-        $bom = $this->createStub(Bom::class);
+        $exception = $this->createMock(Exception::class);
+        $bom = $this->createMock(Bom::class);
         $serializer = $this->getMockForAbstractClass(BaseSerializer::class);
         $serializer->expects(self::once())
             ->method('realNormalize');
@@ -156,7 +156,7 @@ class BaseSerializerTest extends TestCase
             $allBomRefsValuesOriginal[] = [$bomRef, $bomRef->getValue()];
         }
         $allBomRefsValuesOnNormalize = [];
-        $exception = $this->createStub(Exception::class);
+        $exception = $this->createMock(Exception::class);
         $serializer = $this->getMockForAbstractClass(BaseSerializer::class);
         $serializer->expects(self::once())
             ->method('realNormalize')
@@ -196,7 +196,7 @@ class BaseSerializerTest extends TestCase
 
     public function dpBomWithRefs(): Generator
     {
-        $dependencies = $this->createStub(BomRefRepository::class);
+        $dependencies = $this->createMock(BomRefRepository::class);
 
         foreach (['null' => null, 'common string' => 'foo'] as $name => $bomRefValue) {
             $componentNullDeps = $this->createConfiguredMock(

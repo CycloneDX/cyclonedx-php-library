@@ -53,7 +53,7 @@ class MetadataTest extends TestCase
     #[DependsUsingShallowClone('testConstructor')]
     public function testGetterSetterTimestamp(Metadata $metadata): void
     {
-        $timestamp = $this->createStub(DateTime::class);
+        $timestamp = $this->createMock(DateTime::class);
         self::assertNotSame($timestamp, $metadata->getTimestamp());
         $actual = $metadata->setTimestamp($timestamp);
         self::assertSame($actual, $metadata);
@@ -63,7 +63,7 @@ class MetadataTest extends TestCase
     #[DependsUsingShallowClone('testConstructor')]
     public function testGetterSetterTools(Metadata $metadata): void
     {
-        $tools = $this->createStub(ToolRepository::class);
+        $tools = $this->createMock(ToolRepository::class);
         $actual = $metadata->setTools($tools);
         self::assertSame($actual, $metadata);
         self::assertSame($tools, $metadata->getTools());
@@ -72,7 +72,7 @@ class MetadataTest extends TestCase
     #[DependsUsingShallowClone('testConstructor')]
     public function testGetterSetterComponent(Metadata $metadata): void
     {
-        $component = $this->createStub(Component::class);
+        $component = $this->createMock(Component::class);
         self::assertNotSame($component, $metadata->getComponent());
         $actual = $metadata->setComponent($component);
         self::assertSame($actual, $metadata);
@@ -82,7 +82,7 @@ class MetadataTest extends TestCase
     #[DependsUsingShallowClone('testConstructor')]
     public function testGetterSetterProperties(Metadata $metadata): void
     {
-        $properties = $this->createStub(PropertyRepository::class);
+        $properties = $this->createMock(PropertyRepository::class);
         self::assertNotSame($properties, $metadata->getProperties());
         $actual = $metadata->setProperties($properties);
         self::assertSame($actual, $metadata);

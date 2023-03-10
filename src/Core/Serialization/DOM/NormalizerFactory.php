@@ -40,17 +40,16 @@ class NormalizerFactory
 
     public readonly Spec $spec;
 
-    public readonly DOMDocument $document;
-
     /**
      * @throws DomainException when the spec does not support XML format
      */
-    public function __construct(Spec $spec)
-    {
+    public function __construct(
+        Spec $spec,
+        public readonly DOMDocument $document = new DOMDocument()
+    ) {
         $this->spec = $spec->isSupportedFormat(self::FORMAT)
             ? $spec
             : throw new DomainException('Unsupported format "'.self::FORMAT->name.'" for spec '.$spec->getVersion()->name);
-        $this->document = new DOMDocument();
     }
 
     // intention: all factory methods return an instance of "_BaseNormalizer"

@@ -98,11 +98,11 @@ class ToolNormalizerTest extends TestCase
         $HashDictNormalizer->expects(self::once())
             ->method('normalize')
             ->with($tool->getHashes())
-            ->willReturn([$factory->getDocument()->createElement('FakeHash', 'dummyHash')]);
+            ->willReturn([$factory->document->createElement('FakeHash', 'dummyHash')]);
         $extRefRepoNormalizer->expects(self::once())
             ->method('normalize')
             ->with($tool->getExternalReferences())
-            ->willReturn([$factory->getDocument()->createElement('FakeExtRefs', 'dummyRef')]);
+            ->willReturn([$factory->document->createElement('FakeExtRefs', 'dummyRef')]);
 
         $actual = $normalizer->normalize($tool);
 
@@ -126,8 +126,8 @@ class ToolNormalizerTest extends TestCase
                 'getVendor' => null,
                 'getName' => null,
                 'getVersion' => null,
-                'getHashes' => $this->createStub(HashDictionary::class),
-                'getExternalReferences' => $this->createStub(ExternalReferenceRepository::class),
+                'getHashes' => $this->createMock(HashDictionary::class),
+                'getExternalReferences' => $this->createMock(ExternalReferenceRepository::class),
             ]
         );
         $spec = $this->createConfiguredMock(Spec::class, [
