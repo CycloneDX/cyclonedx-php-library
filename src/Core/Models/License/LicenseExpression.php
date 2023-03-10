@@ -26,11 +26,18 @@ namespace CycloneDX\Core\Models\License;
 use DomainException;
 
 /**
+ * (SPDX) License Expression.
+ *
+ * No validation is done internally.
+ * You may validate with {@see \Composer\Spdx\SpdxLicenses::isValidLicenseString()}.
+ *
  * @author jkowalleck
  */
 class LicenseExpression
 {
     /**
+     * @psalm-var non-empty-string
+     *
      * @psalm-suppress PropertyNotSetInConstructor
      */
     private string $expression;
@@ -41,32 +48,29 @@ class LicenseExpression
     }
 
     /**
-     * @throws DomainException if the expression was invalid
+     * @psalm-assert non-empty-string $expression
+     *
+     * @throws DomainException if `$expression` is empty string
      *
      * @return $this
      */
     public function setExpression(string $expression): static
     {
-        $this->expression = self::isValid($expression)
-            ? $expression
-            : throw new DomainException("Invalid expression: $expression");
+        if ('' === $expression) {
+            throw new DomainException('expression must not be empty');
+        }
+        $this->expression = $expression;
 
         return $this;
     }
 
     /**
-     * @throws DomainException if the expression was invalid
+     * @psalm-assert non-empty-string $expression
+     *
+     * @throws DomainException if `$expression` is empty string
      */
     public function __construct(string $expression)
     {
         $this->setExpression($expression);
-    }
-
-    public static function isValid(string $expression): bool
-    {
-        // smallest known: (A or B)
-        return \strlen($expression) >= 8
-            && '(' === $expression[0]
-            && ')' === $expression[-1];
     }
 }

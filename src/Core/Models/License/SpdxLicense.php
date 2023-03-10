@@ -23,11 +23,16 @@ declare(strict_types=1);
 
 namespace CycloneDX\Core\Models\License;
 
-use CycloneDX\Core\Spdx\LicenseValidator;
 use DomainException;
 
 /**
  * Disjunctive license with (SPDX-)ID - aka SpdxLicense.
+ *
+ * No validation is done internally.
+ * You may validate with {@see \CycloneDX\Core\Spdx\LicenseValidator::validate()}.
+ *
+ * @see file://../../../../res/schema/spdx.SNAPSHOT.schema.json known IDs in JSON schema
+ * @see file://../../../../res/schema/spdx.SNAPSHOT.xsd         known IDs in XML schema
  *
  * @SuppressWarnings(PHPMD.ShortVariable) $id
  *
@@ -38,40 +43,46 @@ class SpdxLicense
     use _DisjunctiveLicenseBase;
 
     /**
-     * A valid SPDX license ID.
+     * A valid supported SPDX license ID.
      *
-     * @see \CycloneDX\Core\Spdx\LicenseValidator::validate()
+     * @psalm-var non-empty-string
+     *
+     * @psalm-suppress PropertyNotSetInConstructor
      */
     private string $id;
 
+    /**
+     * @psalm-return non-empty-string
+     */
     public function getId(): string
     {
         return $this->id;
     }
 
     /**
-     * @SuppressWarnings(PHPMD.ShortVariable)
+     * @psalm-assert non-empty-string $id
+     *
+     * @throws DomainException if `$id` is empty string
+     *
+     * @return $this
      */
-    private function __construct(string $id)
+    public function setId(string $id): static
     {
+        if ('' === $id) {
+            throw new DomainException('ID must not be empty');
+        }
         $this->id = $id;
+
+        return $this;
     }
 
     /**
-     * @param string $id SPDX-ID of a license
+     * @psalm-assert non-empty-string $id
      *
-     * @throws DomainException when the SPDX license is invalid
-     *
-     * @see \CycloneDX\Core\Spdx\LicenseValidator::getLicense()
-     * @see \CycloneDX\Core\Spdx\LicenseValidator::validate()
-     *
-     * @SuppressWarnings(PHPMD.ShortVariable)
+     * @throws DomainException if `$id` is empty string
      */
-    public static function makeValidated(string $id, LicenseValidator $spdxLicenseValidator): self
+    public function __construct(string $id)
     {
-        return new self(
-            $spdxLicenseValidator->getLicense($id)
-            ?? throw new DomainException("Invalid SPDX license: $id")
-        );
+        $this->setId($id);
     }
 }

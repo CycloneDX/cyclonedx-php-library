@@ -46,6 +46,8 @@ interface Spec
 
     public function isSupportedExternalReferenceType(ExternalReferenceType $referenceType): bool;
 
+    public function isSupportedLicenseIdentifier(string $licenseIdentifier): bool;
+
     public function supportsLicenseExpression(): bool;
 
     public function supportsMetadata(): bool;

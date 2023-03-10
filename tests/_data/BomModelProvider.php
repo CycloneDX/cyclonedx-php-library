@@ -378,21 +378,21 @@ abstract class BomModelProvider
      */
     public static function bomWithComponentLicenseId(): Generator
     {
-        $license = 'MIT';
-        yield "component license: $license" => [
-            (new Bom())->setComponents(
-                new ComponentRepository(
-                    (new Component(ComponentType::LIBRARY, 'name'))
-                        ->setLicenses(
-                            new LicenseRepository(
-                                SpdxLicense::makeValidated(
-                                    $license,
-                                    SpdxLicenseValidatorSingleton::getInstance()
-                                )
-                            )
-                        )
-                )
-            ),
+        yield 'component with valid license id' => [
+            (new Bom())->setComponents(new ComponentRepository(
+                (new Component(ComponentType::LIBRARY, 'name'))
+                    ->setLicenses(new LicenseRepository(
+                        new SpdxLicense('MIT')
+                    ))
+            )),
+        ];
+        yield 'component with unknown license id' => [
+            (new Bom())->setComponents(new ComponentRepository(
+                (new Component(ComponentType::LIBRARY, 'name'))
+                    ->setLicenses(new LicenseRepository(
+                        new SpdxLicense(uniqid('license', true))
+                    ))
+            )),
         ];
     }
 

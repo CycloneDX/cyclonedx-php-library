@@ -35,9 +35,12 @@ trait _DisjunctiveLicenseBase
     /**
      * The URL to the license file.
      * If specified, a 'license' externalReference should also be specified for completeness.
+     *
+     * @psalm-var null|non-empty-string
      */
     private ?string $url = null;
 
+    /** @psalm-return null|non-empty-string */
     public function getUrl(): ?string
     {
         return $this->url;
@@ -48,7 +51,9 @@ trait _DisjunctiveLicenseBase
      */
     public function setUrl(?string $url): static
     {
-        $this->url = $url;
+        $this->url = '' === $url
+            ? null
+            : $url;
 
         return $this;
     }

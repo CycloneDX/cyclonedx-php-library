@@ -34,10 +34,14 @@ class NamedLicense
 
     /**
      * If SPDX does not define the license used, this field may be used to provide the license name.
+     *
+     * Implementation detail: allow empty strings.
+     *
+     * @psalm-suppress PropertyNotSetInConstructor
      */
-    private ?string $name = null;
+    private string $name;
 
-    public function getName(): ?string
+    public function getName(): string
     {
         return $this->name;
     }

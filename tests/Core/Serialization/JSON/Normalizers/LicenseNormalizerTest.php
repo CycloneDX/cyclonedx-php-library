@@ -48,12 +48,31 @@ class LicenseNormalizerTest extends \PHPUnit\Framework\TestCase
         /** @var (LicenseExpression|SpdxLicense|NamedLicense)&\PHPUnit\Framework\MockObject\MockObject */
         $license = $this->createConfiguredMock($licenseClass, $licenseMockConf);
         $spec = $this->createMock(Spec::class);
+        if ($license instanceof SpdxLicense) {
+            $spec->method('isSupportedLicenseIdentifier')
+                ->with($license->getId())
+                ->willReturn(true);
+        }
         $factory = $this->createConfiguredMock(NormalizerFactory::class, ['getSpec' => $spec]);
         $normalizer = new LicenseNormalizer($factory);
 
         $actual = $normalizer->normalize($license);
 
         self::assertSame($expected, $actual);
+    }
+
+    public function testNormalizeUnsupportedLicenseId(): void
+    {
+        $license = $this->createConfiguredMock(SpdxLicense::class, ['getId' => 'MIT']);
+        $spec = $this->createConfiguredMock(Spec::class, ['isSupportedLicenseIdentifier' => false]);
+        $factory = $this->createConfiguredMock(NormalizerFactory::class, ['getSpec' => $spec]);
+        $normalizer = new LicenseNormalizer($factory);
+
+        $actual = $normalizer->normalize($license);
+
+        self::assertSame(
+            ['license' => ['name' => 'MIT']],
+            $actual);
     }
 
     public static function dpNormalize(): Generator
@@ -71,8 +90,8 @@ class LicenseNormalizerTest extends \PHPUnit\Framework\TestCase
             ],
             [
                 'license' => [
-                'id' => 'MIT',
-                'url' => 'https://foo.bar',
+                    'id' => 'MIT',
+                    'url' => 'https://foo.bar',
                 ],
             ],
         ];
@@ -83,9 +102,9 @@ class LicenseNormalizerTest extends \PHPUnit\Framework\TestCase
             ],
             [
                 'license' => [
-                'name' => 'copyright by the crew',
-                'url' => 'https://foo.bar',
-                    ],
+                    'name' => 'copyright by the crew',
+                    'url' => 'https://foo.bar',
+                ],
             ],
         ];
     }

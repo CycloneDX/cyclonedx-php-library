@@ -23,6 +23,7 @@ declare(strict_types=1);
 
 namespace CycloneDX\Tests\Core\Spec;
 
+use CycloneDX\Core\Spdx\LicenseIdentifiers;
 use CycloneDX\Core\Spec\_Spec;
 use CycloneDX\Core\Spec\SpecFactory;
 use CycloneDX\Core\Spec\Version;
@@ -32,6 +33,7 @@ use PHPUnit\Framework\TestCase;
 
 #[CoversClass(SpecFactory::class)]
 #[UsesClass(_Spec::class)]
+#[UsesClass(LicenseIdentifiers::class)]
 class SpecFactoryTest extends TestCase
 {
     public function test11(): void

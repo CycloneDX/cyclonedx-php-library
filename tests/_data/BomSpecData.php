@@ -75,6 +75,28 @@ abstract class BomSpecData
         return self::getEnumValuesForName($version, 'hashAlg');
     }
 
+    /**
+     * @return string[]
+     *
+     * @psalm-return list<string>
+     */
+    public static function getSpssLicenseIds(): array
+    {
+        $specXml = realpath(__DIR__.'/../../res/schema/spdx.SNAPSHOT.xsd');
+        assertIsString($specXml);
+        assertFileExists($specXml);
+
+        $xml = new SimpleXMLElement($specXml, 0, true);
+        $xmlEnumElems = $xml->xpath("xs:simpleType[@name='licenseId']/xs:restriction/xs:enumeration/@value");
+        assertIsArray($xmlEnumElems);
+        assertNotCount(0, $xmlEnumElems);
+
+        $values = array_map(strval(...), $xmlEnumElems);
+        sort($values);
+
+        return $values;
+    }
+
     // region helpers
 
     /** @psalm-var array<string, array<string, list<string>>>  */

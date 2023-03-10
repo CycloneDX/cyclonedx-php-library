@@ -23,18 +23,31 @@ declare(strict_types=1);
 
 namespace CycloneDX\Tests\Core\Models\License;
 
+use CycloneDX\Core\Models\License\_DisjunctiveLicenseBase;
 use CycloneDX\Core\Models\License\NamedLicense;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DependsUsingShallowClone;
 use PHPUnit\Framework\TestCase;
 
 #[CoversClass(NamedLicense::class)]
+#[CoversClass(_DisjunctiveLicenseBase::class)]
 class NamedLicenseTest extends TestCase
 {
     public function testConstruct(): NamedLicense
     {
-        $license = new NamedLicense('foo');
-        self::assertSame('foo', $license->getName());
+        $id = uniqid('name', true);
+        $license = new NamedLicense($id);
+
+        self::assertSame($id, $license->getName());
+        self::assertNull($license->getUrl());
+
+        return $license;
+    }
+
+    public function testConstructWithEmpty(): NamedLicense
+    {
+        $license = new NamedLicense('');
+        self::assertSame('', $license->getName());
         self::assertNull($license->getUrl());
 
         return $license;
@@ -45,6 +58,13 @@ class NamedLicenseTest extends TestCase
     {
         $license->setName('bar');
         self::assertSame('bar', $license->getName());
+    }
+
+    #[DependsUsingShallowClone('testConstruct')]
+    public function testSetNameWithEmpty(NamedLicense $license): void
+    {
+        $license->setName('');
+        self::assertSame('', $license->getName());
     }
 
     #[DependsUsingShallowClone('testConstruct')]
@@ -61,6 +81,13 @@ class NamedLicenseTest extends TestCase
     public function testSetUrlNull(NamedLicense $license): void
     {
         $license->setUrl(null);
+        self::assertNull($license->getUrl());
+    }
+
+    #[DependsUsingShallowClone('testSetAndGetUrl')]
+    public function testSetUrlEmptyString(NamedLicense $license): void
+    {
+        $license->setUrl('');
         self::assertNull($license->getUrl());
     }
 }
