@@ -85,7 +85,7 @@ class ExternalReferenceNormalizerTest extends TestCase
             ->method('isSupportedExternalReferenceType')
             ->willReturnMap([
                 [ExternalReferenceType::BOM, false],
-                [ExternalReferenceType::OTHER, true],
+                [ExternalReferenceType::Other, true],
             ]);
 
         $actual = $normalizer->normalize($extRef);
@@ -116,7 +116,7 @@ class ExternalReferenceNormalizerTest extends TestCase
             ->method('isSupportedExternalReferenceType')
             ->willReturnMap([
                 [ExternalReferenceType::BOM, false],
-                [ExternalReferenceType::OTHER, false],
+                [ExternalReferenceType::Other, false],
             ]);
 
         $this->expectException(DomainException::class);

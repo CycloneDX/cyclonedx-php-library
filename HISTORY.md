@@ -11,9 +11,9 @@ All notable changes to this project will be documented in this file.
   * Removed support for PHP v7.4 ([#114] via [#125])
   * Removed support for PHP v8.0 (via [#204])
   * Changed models' aggregation properties to be no longer optional ([#66] via [#131])
-  * CHanged models to be less restrictive ([#247] via [#249])
+  * Changed models to be less restrictive ([#247] via [#249])
   * Streamlined repository data structures to follow a common method naming scheme (via [#131])
-  * Enumeration-like classes were converted to native [PHP Enumerations](https://www.php.net/manual/en/language.types.enumerations.php) ([#140] via [#204])
+  * Enumeration-like classes were converted to native [PHP Enumerations](https://www.php.net/manual/en/language.types.enumerations.php) ([#140], [#256] via [#204], [#257])
 * Added
   * Support for CycloneDX schema/spec v1.4 ([#57] via [#65], [#118], [#123])
   * Support for [properties](https://cyclonedx.org/use-cases/#properties--name-value-store) ([#228] via [#165], [#229], [#231])
@@ -41,13 +41,16 @@ All notable changes to this project will be documented in this file.
   * `Classification` class
     * BREAKING: renamed class to `ComponentType` (via [#170])
     * BREAKING: became a native PHP Enumeration type ([#140] via [#204])
+    * BREAKING: all `const` converted to `case` with UpperCamelCase naming scheme ([#256] via [#257])
     * BREAKING: method `isValidValue()` was removed (via [#204])
   * `ExternalReferenceType` class
     * BREAKING: became a native PHP Enumeration type ([#140] via [#204])
+    * BREAKING: all `const` converted to `case` with UpperCamelCase naming scheme ([#256] via [#257])
     * BREAKING: method `isValidValue()` was removed (via [#204])
     * Added case `RELEASE_NOTES` to reflect CycloneDX v1.4 ([#57] via [#65])
   * `HashAlgorithm` class
     * BREAKING: became a native PHP Enumeration type ([#140] via [#204])
+    * BREAKING: all `const` converted to `case` with UpperCamelCase naming scheme ([#256] via [#257])
     * BREAKING: method `isValidValue()` was removed (via [#204])
 * `CycloneDX\Core\Factories` namespace
   * `LicenseFactory` class
@@ -245,6 +248,8 @@ All notable changes to this project will be documented in this file.
 [#247]: https://github.com/CycloneDX/cyclonedx-php-library/issues/247
 [#249]: https://github.com/CycloneDX/cyclonedx-php-library/pull/249
 [#253]: https://github.com/CycloneDX/cyclonedx-php-library/pull/253
+[#256]: https://github.com/CycloneDX/cyclonedx-php-library/issues/256
+[#257]: https://github.com/CycloneDX/cyclonedx-php-library/pull/257
 
 ## 1.6.3 - 2022-09-15
 

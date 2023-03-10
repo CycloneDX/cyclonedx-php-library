@@ -54,7 +54,7 @@ class ComponentNormalizerTest extends TestCase
             Component::class,
             [
                 'getName' => 'foo',
-                'getType' => ComponentType::LIBRARY,
+                'getType' => ComponentType::Library,
                 'getVersion' => 'v1.33.7',
             ]
         );
@@ -63,7 +63,7 @@ class ComponentNormalizerTest extends TestCase
         $normalizer = new Normalizers\ComponentNormalizer($factory);
 
         $spec->expects(self::once())->method('isSupportedComponentType')
-            ->with(ComponentType::LIBRARY)
+            ->with(ComponentType::Library)
             ->willReturn(false);
 
         $this->expectException(DomainException::class);
@@ -80,7 +80,7 @@ class ComponentNormalizerTest extends TestCase
             [
                 'getName' => 'foo',
                 'getVersion' => null,
-                'getType' => ComponentType::LIBRARY,
+                'getType' => ComponentType::Library,
                 'getGroup' => null,
                 'getDescription' => null,
                 'getAuthor' => null,
@@ -95,7 +95,7 @@ class ComponentNormalizerTest extends TestCase
 
         $spec->expects(self::once())
             ->method('isSupportedComponentType')
-            ->with(ComponentType::LIBRARY)
+            ->with(ComponentType::Library)
             ->willReturn(true);
         $spec->method('requiresComponentVersion')
             ->willReturn($requiresComponentVersion);
@@ -132,7 +132,7 @@ class ComponentNormalizerTest extends TestCase
                 'getBomRef' => new BomRef('myBomRef'),
                 'getName' => 'myName',
                 'getVersion' => 'some-version',
-                'getType' => ComponentType::LIBRARY,
+                'getType' => ComponentType::Library,
                 'getGroup' => 'myGroup',
                 'getDescription' => 'my description',
                 'getAuthor' => 'Jan Kowalleck',
@@ -163,7 +163,7 @@ class ComponentNormalizerTest extends TestCase
 
         $spec->expects(self::once())
             ->method('isSupportedComponentType')
-            ->with(ComponentType::LIBRARY)
+            ->with(ComponentType::Library)
             ->willReturn(true);
         $licenseRepoNormalizer->expects(self::once())
             ->method('normalize')
@@ -205,7 +205,7 @@ class ComponentNormalizerTest extends TestCase
             Component::class,
             [
                 'getName' => 'myName',
-                'getType' => ComponentType::LIBRARY,
+                'getType' => ComponentType::Library,
                 'getLicenses' => $this->createConfiguredMock(LicenseRepository::class, ['count' => 1]),
             ]
         );
@@ -219,7 +219,7 @@ class ComponentNormalizerTest extends TestCase
 
         $spec->expects(self::once())
             ->method('isSupportedComponentType')
-            ->with(ComponentType::LIBRARY)
+            ->with(ComponentType::Library)
             ->willReturn(true);
         $licenseRepoNormalizer->expects(self::once())
             ->method('normalize')
@@ -241,7 +241,7 @@ class ComponentNormalizerTest extends TestCase
             Component::class,
             [
                 'getName' => 'myName',
-                'getType' => ComponentType::LIBRARY,
+                'getType' => ComponentType::Library,
                 'getLicenses' => $this->createConfiguredMock(LicenseRepository::class, ['count' => 0]),
             ]
         );
@@ -255,7 +255,7 @@ class ComponentNormalizerTest extends TestCase
 
         $spec->expects(self::once())
             ->method('isSupportedComponentType')
-            ->with(ComponentType::LIBRARY)
+            ->with(ComponentType::Library)
             ->willReturn(true);
         $licenseRepoNormalizer->expects(self::never())
             ->method('normalize');
@@ -276,7 +276,7 @@ class ComponentNormalizerTest extends TestCase
             Component::class,
             [
                 'getName' => 'myName',
-                'getType' => ComponentType::LIBRARY,
+                'getType' => ComponentType::Library,
                 'getExternalReferences' => $this->createConfiguredMock(ExternalReferenceRepository::class, ['count' => 1]),
             ]
         );
@@ -293,7 +293,7 @@ class ComponentNormalizerTest extends TestCase
 
         $spec->expects(self::once())
             ->method('isSupportedComponentType')
-            ->with(ComponentType::LIBRARY)
+            ->with(ComponentType::Library)
             ->willReturn(true);
         $externalReferenceRepositoryNormalizer->expects(self::once())
             ->method('normalize')
@@ -317,7 +317,7 @@ class ComponentNormalizerTest extends TestCase
             Component::class,
             [
                 'getName' => 'myName',
-                'getType' => ComponentType::LIBRARY,
+                'getType' => ComponentType::Library,
                 'getExternalReferences' => $this->createConfiguredMock(ExternalReferenceRepository::class, ['count' => 0]),
             ]
         );
@@ -334,7 +334,7 @@ class ComponentNormalizerTest extends TestCase
 
         $spec->expects(self::once())
             ->method('isSupportedComponentType')
-            ->with(ComponentType::LIBRARY)
+            ->with(ComponentType::Library)
             ->willReturn(true);
         $externalReferenceRepositoryNormalizer->expects(self::never())
             ->method('normalize');
@@ -355,7 +355,7 @@ class ComponentNormalizerTest extends TestCase
             Component::class,
             [
                 'getName' => 'myName',
-                'getType' => ComponentType::LIBRARY,
+                'getType' => ComponentType::Library,
                 'getProperties' => $this->createConfiguredMock(PropertyRepository::class, ['count' => 2]),
             ]
         );
@@ -372,7 +372,7 @@ class ComponentNormalizerTest extends TestCase
 
         $spec->expects(self::once())
             ->method('isSupportedComponentType')
-            ->with(ComponentType::LIBRARY)
+            ->with(ComponentType::Library)
             ->willReturn(true);
         $repoNormalizer->expects(self::once())
             ->method('normalize')
@@ -394,7 +394,7 @@ class ComponentNormalizerTest extends TestCase
             Component::class,
             [
                 'getName' => 'myName',
-                'getType' => ComponentType::LIBRARY,
+                'getType' => ComponentType::Library,
                 'getProperties' => $this->createConfiguredMock(PropertyRepository::class, ['count' => 0]),
             ]
         );
@@ -411,7 +411,7 @@ class ComponentNormalizerTest extends TestCase
 
         $spec->expects(self::once())
             ->method('isSupportedComponentType')
-            ->with(ComponentType::LIBRARY)
+            ->with(ComponentType::Library)
             ->willReturn(true);
 
         $actual = $normalizer->normalize($component);

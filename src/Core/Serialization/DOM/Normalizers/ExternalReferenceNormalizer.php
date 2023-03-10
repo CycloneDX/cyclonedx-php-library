@@ -54,7 +54,7 @@ class ExternalReferenceNormalizer extends _BaseNormalizer
         $type = $externalReference->getType();
         if (false === $spec->isSupportedExternalReferenceType($type)) {
             // prevent information-loss -> try transfer to OTHER
-            $type = ExternalReferenceType::OTHER;
+            $type = ExternalReferenceType::Other;
             if (false === $spec->isSupportedExternalReferenceType($type)) {
                 throw new DomainException('ExternalReference has unsupported type: '.$externalReference->getType()->name);
             }

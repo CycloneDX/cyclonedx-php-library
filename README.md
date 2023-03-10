@@ -83,7 +83,7 @@ See extended [examples].
 $bom = new \CycloneDX\Core\Models\Bom();
 $bom->getComponents()->addItems(
     new \CycloneDX\Core\Models\Component(
-        \CycloneDX\Core\Enums\ComponentType::LIBRARY,
+        \CycloneDX\Core\Enums\ComponentType::Library,
         'myComponent'
     )
 );
