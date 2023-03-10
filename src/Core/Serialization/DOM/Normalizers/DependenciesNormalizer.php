@@ -79,7 +79,7 @@ class DependenciesNormalizer extends _BaseNormalizer
             return null;
         }
 
-        $doc = $this->getNormalizerFactory()->getDocument();
+        $doc = $this->normalizerFactory->document;
 
         $dependency = SimpleDOM::setAttributes(
             $doc->createElement('dependency'),

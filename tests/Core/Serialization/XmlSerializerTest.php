@@ -44,7 +44,7 @@ class XmlSerializerTest extends TestCase
     #[DataProvider('dpSerializeStructure')]
     public function testSerialize(string $xmlVersion, string $xmlEncoding, ?bool $prettyPrint, DOMElement $normalized, string $expected): void
     {
-        $bom = $this->createStub(Bom::class);
+        $bom = $this->createMock(Bom::class);
         $bomNormalizer = $this->createMock(DOM\Normalizers\BomNormalizer::class);
         $normalizerFactory = $this->createConfiguredMock(DOM\NormalizerFactory::class, [
             'makeForBom' => $bomNormalizer,

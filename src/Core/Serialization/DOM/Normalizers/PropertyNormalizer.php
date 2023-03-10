@@ -39,15 +39,16 @@ class PropertyNormalizer extends _BaseNormalizer
      */
     public function normalize(Property $property): DOMElement
     {
-        $doc = $this->getNormalizerFactory()->getDocument();
-
         $name = $property->getName();
         if ('' === $name) {
             // this implementation detail is optional
             throw new DomainException('empty name');
         }
 
-        $element = SimpleDOM::makeSafeTextElement($doc, 'property', $property->getValue(), false);
+        $element = SimpleDOM::makeSafeTextElement(
+            $this->normalizerFactory->document,
+            'property',
+            $property->getValue(), false);
         \assert(null !== $element);
 
         return SimpleDOM::setAttributes(

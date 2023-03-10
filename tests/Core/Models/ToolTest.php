@@ -82,7 +82,7 @@ class ToolTest extends TestCase
     #[DependsUsingShallowClone('testConstruct')]
     public function testSetterGetterHashDictionary(Tool $tool): void
     {
-        $hashes = $this->createStub(HashDictionary::class);
+        $hashes = $this->createMock(HashDictionary::class);
         self::assertNotSame($hashes, $tool->getHashes());
         $actual = $tool->setHashes($hashes);
         self::assertSame($actual, $tool);
@@ -92,7 +92,7 @@ class ToolTest extends TestCase
     #[DependsUsingShallowClone('testConstruct')]
     public function testSetterGetterExternalReferenceRepository(Tool $tool): void
     {
-        $extRefs = $this->createStub(ExternalReferenceRepository::class);
+        $extRefs = $this->createMock(ExternalReferenceRepository::class);
         self::assertNotSame($extRefs, $tool->getExternalReferences());
         $actual = $tool->setExternalReferences($extRefs);
         self::assertSame($actual, $tool);

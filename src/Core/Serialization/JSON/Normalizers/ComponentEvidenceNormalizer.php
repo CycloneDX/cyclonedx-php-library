@@ -40,7 +40,7 @@ class ComponentEvidenceNormalizer extends _BaseNormalizer
         return array_filter([
             'licenses' => 0 === \count($license)
                 ? null
-                : $this->getNormalizerFactory()->makeForLicenseRepository()->normalize($license),
+                : $this->normalizerFactory->makeForLicenseRepository()->normalize($license),
             'copyright' => 0 === \count($copyright)
                 ? null
                 : array_map(

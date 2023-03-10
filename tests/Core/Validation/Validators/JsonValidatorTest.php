@@ -45,9 +45,9 @@ class JsonValidatorTest extends TestCase
 {
     public function testConstructor(): JsonValidator
     {
-        $spec = $this->createStub(Spec::class);
+        $spec = $this->createMock(Spec::class);
         $validator = new JsonValidator($spec);
-        self::assertSame($spec, $validator->getSpec());
+        self::assertSame($spec, $validator->spec);
 
         return $validator;
     }
@@ -71,7 +71,7 @@ class JsonValidatorTest extends TestCase
     {
         $validator = $this->createPartialMock(JsonValidator::class, ['validateData']);
         $json = '{"dummy": "true"}';
-        $expectedError = $this->createStub(JsonValidationError::class);
+        $expectedError = $this->createMock(JsonValidationError::class);
 
         $validator->expects(self::once())->method('validateData')
             ->with(new IsInstanceOf(stdClass::class))

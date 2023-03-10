@@ -118,7 +118,7 @@ class ComponentTest extends TestCase
     #[DependsUsingShallowClone('testConstructor')]
     public function testLicensesSetterGetter(Component $component): void
     {
-        $licenses = $this->createStub(LicenseRepository::class);
+        $licenses = $this->createMock(LicenseRepository::class);
         self::assertnotSame($licenses, $component->getLicenses());
         $actual = $component->setLicenses($licenses);
         self::assertSame($component, $actual);
@@ -132,7 +132,7 @@ class ComponentTest extends TestCase
     #[DependsUsingShallowClone('testConstructor')]
     public function testHashesSetterGetter(Component $component): void
     {
-        $hashes = $this->createStub(HashDictionary::class);
+        $hashes = $this->createMock(HashDictionary::class);
         self::assertnotSame($hashes, $component->getHashes());
         $actual = $component->setHashes($hashes);
         self::assertSame($component, $actual);
@@ -237,7 +237,7 @@ class ComponentTest extends TestCase
     #[DependsUsingShallowClone('testConstructor')]
     public function testExternalReferenceRepositorySetterGetter(Component $component): void
     {
-        $extRefRepo = $this->createStub(ExternalReferenceRepository::class);
+        $extRefRepo = $this->createMock(ExternalReferenceRepository::class);
         self::assertNotSame($extRefRepo, $component->getExternalReferences());
         $actual = $component->setExternalReferences($extRefRepo);
         self::assertSame($component, $actual);
@@ -251,7 +251,7 @@ class ComponentTest extends TestCase
     #[DependsUsingShallowClone('testConstructor')]
     public function testGetterSetterProperties(Component $component): void
     {
-        $properties = $this->createStub(PropertyRepository::class);
+        $properties = $this->createMock(PropertyRepository::class);
         self::assertNotSame($properties, $component->getProperties());
         $actual = $component->setProperties($properties);
         self::assertSame($component, $actual);
@@ -300,7 +300,7 @@ class ComponentTest extends TestCase
     #[DependsUsingShallowClone('testConstructor')]
     public function testEvidenceSetterGetter(Component $component): void
     {
-        $evidence = $this->createStub(ComponentEvidence::class);
+        $evidence = $this->createMock(ComponentEvidence::class);
         $actual = $component->setEvidence($evidence);
         self::assertSame($component, $actual);
         self::assertSame($evidence, $component->getEvidence());
@@ -309,7 +309,7 @@ class ComponentTest extends TestCase
     #[DependsUsingShallowClone('testConstructor')]
     public function testEvidenceSetterGetterNull(Component $component): void
     {
-        $component->setEvidence($this->createStub(ComponentEvidence::class));
+        $component->setEvidence($this->createMock(ComponentEvidence::class));
         self::assertNotNull($component->getEvidence());
         $component->setEvidence(null);
         self::assertNull($component->getEvidence());

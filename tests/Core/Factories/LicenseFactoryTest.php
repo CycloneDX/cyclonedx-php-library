@@ -67,11 +67,11 @@ class LicenseFactoryTest extends TestCase
 
     public function testConstructorWithArgs(): void
     {
-        $licenseIdentifiers = $this->createStub(LicenseIdentifiers::class);
-        $spdxLicenses = $this->createStub(SpdxLicenses::class);
+        $licenseIdentifiers = $this->createMock(LicenseIdentifiers::class);
+        $spdxLicenses = $this->createMock(SpdxLicenses::class);
         $factory = new LicenseFactory($licenseIdentifiers, $spdxLicenses);
-        self::assertSame($licenseIdentifiers, $factory->getLicenseIdentifiers());
-        self::assertSame($spdxLicenses, $factory->getSpdxLicenses());
+        self::assertSame($licenseIdentifiers, $factory->licenseIdentifiers);
+        self::assertSame($spdxLicenses, $factory->spdxLicenses);
     }
 
     public function testMakeNamedLicense(): void
@@ -163,7 +163,7 @@ class LicenseFactoryTest extends TestCase
     public function testMakeDisjunctiveSpdxLicense(): void
     {
         $license = uniqid('license', true);
-        $expected = $this->createStub(SpdxLicense::class);
+        $expected = $this->createMock(SpdxLicense::class);
         $factory = $this->createPartialMock(LicenseFactory::class, ['makeSpdxLicense']);
         $factory->method('makeSpdxLicense')
             ->with($license)->willReturn($expected);
@@ -174,7 +174,7 @@ class LicenseFactoryTest extends TestCase
     public function testMakeDisjunctiveNamedLicense(): void
     {
         $license = uniqid('license', true);
-        $expected = $this->createStub(NamedLicense::class);
+        $expected = $this->createMock(NamedLicense::class);
         $factory = $this->createPartialMock(LicenseFactory::class, ['makeSpdxLicense', 'makeNamedLicense']);
         $factory->method('makeSpdxLicense')
             ->with($license)->willThrowException(new DomainException());
@@ -191,7 +191,7 @@ class LicenseFactoryTest extends TestCase
     public function testMakeFromStringSpdxLicense(): void
     {
         $license = uniqid('license', true);
-        $expected = $this->createStub(SpdxLicense::class);
+        $expected = $this->createMock(SpdxLicense::class);
         $factory = $this->createPartialMock(LicenseFactory::class, ['makeSpdxLicense']);
         $factory->method('makeSpdxLicense')
             ->with($license)->willReturn($expected);
@@ -202,7 +202,7 @@ class LicenseFactoryTest extends TestCase
     public function testMakeFromStringLicenseExpression(): void
     {
         $license = uniqid('license', true);
-        $expected = $this->createStub(LicenseExpression::class);
+        $expected = $this->createMock(LicenseExpression::class);
         $factory = $this->createPartialMock(LicenseFactory::class, ['makeSpdxLicense', 'makeExpression']);
         $factory->method('makeSpdxLicense')
             ->with($license)->willThrowException(new DomainException());
@@ -215,7 +215,7 @@ class LicenseFactoryTest extends TestCase
     public function testMakeFromStringNamedLicense(): void
     {
         $license = uniqid('license', true);
-        $expected = $this->createStub(NamedLicense::class);
+        $expected = $this->createMock(NamedLicense::class);
         $factory = $this->createPartialMock(LicenseFactory::class, ['makeSpdxLicense', 'makeExpression', 'makeNamedLicense']);
         $factory->method('makeSpdxLicense')
             ->with($license)->willThrowException(new DomainException());

@@ -37,7 +37,7 @@ class ToolNormalizer extends _BaseNormalizer
 {
     public function normalize(Tool $tool): DOMElement
     {
-        $doc = $this->getNormalizerFactory()->getDocument();
+        $doc = $this->normalizerFactory->document;
 
         return SimpleDOM::appendChildren(
             $doc->createElement('tool'),
@@ -53,28 +53,28 @@ class ToolNormalizer extends _BaseNormalizer
 
     private function normalizeHashes(HashDictionary $hashes): ?DOMElement
     {
-        $factory = $this->getNormalizerFactory();
+        $factory = $this->normalizerFactory;
 
         return 0 === \count($hashes)
             ? null
             : SimpleDOM::appendChildren(
-                $factory->getDocument()->createElement('hashes'),
+                $factory->document->createElement('hashes'),
                 $factory->makeForHashDictionary()->normalize($hashes)
             );
     }
 
     private function normalizeExternalReferences(ExternalReferenceRepository $extRefs): ?DOMElement
     {
-        $factory = $this->getNormalizerFactory();
+        $factory = $this->normalizerFactory;
 
-        if (false === $factory->getSpec()->supportsToolExternalReferences()) {
+        if (false === $factory->spec->supportsToolExternalReferences()) {
             return null;
         }
 
         return 0 === \count($extRefs)
             ? null
             : SimpleDOM::appendChildren(
-                $factory->getDocument()->createElement('externalReferences'),
+                $factory->document->createElement('externalReferences'),
                 $factory->makeForExternalReferenceRepository()->normalize($extRefs)
             );
     }

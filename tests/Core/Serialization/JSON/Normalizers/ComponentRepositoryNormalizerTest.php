@@ -40,8 +40,8 @@ class ComponentRepositoryNormalizerTest extends TestCase
 {
     public function testNormalizeEmpty(): void
     {
-        $spec = $this->createStub(Spec::class);
-        $factory = $this->createConfiguredMock(NormalizerFactory::class, ['getSpec' => $spec]);
+        $spec = $this->createMock(Spec::class);
+        $factory = $this->createdMockOC(NormalizerFactory::class, ['spec' => $spec]);
         $normalizer = new ComponentRepositoryNormalizer($factory);
         $components = $this->createConfiguredMock(ComponentRepository::class, ['count' => 0]);
 
@@ -52,14 +52,14 @@ class ComponentRepositoryNormalizerTest extends TestCase
 
     public function testNormalize(): void
     {
-        $spec = $this->createStub(Spec::class);
+        $spec = $this->createMock(Spec::class);
         $componentNormalizer = $this->createMock(ComponentNormalizer::class);
         $factory = $this->createConfiguredMock(NormalizerFactory::class, [
             'getSpec' => $spec,
             'makeForComponent' => $componentNormalizer,
         ]);
         $normalizer = new ComponentRepositoryNormalizer($factory);
-        $component = $this->createStub(Component::class);
+        $component = $this->createMock(Component::class);
         $components = $this->createConfiguredMock(ComponentRepository::class, [
             'count' => 1,
             'getItems' => [$component],
@@ -76,15 +76,15 @@ class ComponentRepositoryNormalizerTest extends TestCase
 
     public function testNormalizeSkipsOnThrow(): void
     {
-        $spec = $this->createStub(Spec::class);
+        $spec = $this->createMock(Spec::class);
         $componentNormalizer = $this->createMock(ComponentNormalizer::class);
         $factory = $this->createConfiguredMock(NormalizerFactory::class, [
             'getSpec' => $spec,
             'makeForComponent' => $componentNormalizer,
         ]);
         $normalizer = new ComponentRepositoryNormalizer($factory);
-        $component1 = $this->createStub(Component::class);
-        $component2 = $this->createStub(Component::class);
+        $component1 = $this->createMock(Component::class);
+        $component2 = $this->createMock(Component::class);
         $components = $this->createConfiguredMock(ComponentRepository::class, [
             'count' => 1,
             'getItems' => [$component1, $component2],

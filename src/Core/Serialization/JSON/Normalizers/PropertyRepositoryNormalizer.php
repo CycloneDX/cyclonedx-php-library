@@ -33,7 +33,7 @@ class PropertyRepositoryNormalizer extends _BaseNormalizer
 {
     public function normalize(PropertyRepository $repo): array
     {
-        $normalizer = $this->getNormalizerFactory()->makeForProperty();
+        $normalizer = $this->normalizerFactory->makeForProperty();
 
         $properties = [];
         foreach ($repo->getItems() as $property) {

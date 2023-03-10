@@ -48,8 +48,7 @@ class ExternalReferenceNormalizer extends _BaseNormalizer
         $anyURI = XML::encodeAnyUriBE($refURI)
             ?? throw new UnexpectedValueException("unable to make 'anyURI' from: $refURI");
 
-        $factory = $this->getNormalizerFactory();
-        $spec = $factory->getSpec();
+        $spec = $this->normalizerFactory->spec;
 
         $type = $externalReference->getType();
         if (false === $spec->isSupportedExternalReferenceType($type)) {
@@ -60,7 +59,7 @@ class ExternalReferenceNormalizer extends _BaseNormalizer
             }
         }
 
-        $doc = $factory->getDocument();
+        $doc = $this->normalizerFactory->document;
 
         return SimpleDOM::appendChildren(
             SimpleDOM::setAttributes(
@@ -83,13 +82,13 @@ class ExternalReferenceNormalizer extends _BaseNormalizer
             return null;
         }
 
-        $factory = $this->getNormalizerFactory();
-        if (false === $factory->getSpec()->supportsExternalReferenceHashes()) {
+        $factory = $this->normalizerFactory;
+        if (false === $factory->spec->supportsExternalReferenceHashes()) {
             return null;
         }
 
         return SimpleDOM::appendChildren(
-            $factory->getDocument()->createElement('hashes'),
+            $factory->document->createElement('hashes'),
             $factory->makeForHashDictionary()->normalize($hashes)
         );
     }

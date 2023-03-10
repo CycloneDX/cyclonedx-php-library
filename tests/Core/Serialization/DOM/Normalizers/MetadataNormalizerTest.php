@@ -117,7 +117,7 @@ class MetadataNormalizerTest extends TestCase
         $toolsRepoFactory->expects(self::once())
             ->method('normalize')
             ->with($metadata->getTools())
-            ->willReturn([$factory->getDocument()->createElement('FakeTool', 'dummy')]);
+            ->willReturn([$factory->document->createElement('FakeTool', 'dummy')]);
 
         $actual = $normalizer->normalize($metadata);
 
@@ -151,7 +151,7 @@ class MetadataNormalizerTest extends TestCase
             ->method('normalize')
             ->with($metadata->getComponent())
             ->willReturn(
-                $factory->getDocument()->createElement('FakeComponent', 'dummy'));
+                $factory->document->createElement('FakeComponent', 'dummy'));
 
         $actual = $normalizer->normalize($metadata);
 
@@ -222,7 +222,7 @@ class MetadataNormalizerTest extends TestCase
             ->method('normalize')
             ->with($metadata->getProperties())
             ->willReturn(
-                [$factory->getDocument()->createElement('FakeProperties', 'dummy')]);
+                [$factory->document->createElement('FakeProperties', 'dummy')]);
 
         $actual = $normalizer->normalize($metadata);
 

@@ -49,8 +49,7 @@ class ComponentNormalizer extends _BaseNormalizer
         $group = $component->getGroup();
         $version = $component->getVersion();
 
-        $factory = $this->getNormalizerFactory();
-        $spec = $factory->getSpec();
+        $spec = $this->normalizerFactory->spec;
 
         $type = $component->getType();
         if (false === $spec->isSupportedComponentType($type)) {
@@ -68,7 +67,7 @@ class ComponentNormalizer extends _BaseNormalizer
             ? $component->getEvidence()
             : null;
 
-        $document = $factory->getDocument();
+        $document = $this->normalizerFactory->document;
 
         return SimpleDOM::appendChildren(
             SimpleDOM::setAttributes(
@@ -106,31 +105,31 @@ class ComponentNormalizer extends _BaseNormalizer
                 // components
                 null === $evidence
                     ? null
-                    : $this->getNormalizerFactory()->makeForComponentEvidence()->normalize($evidence),
+                    : $this->normalizerFactory->makeForComponentEvidence()->normalize($evidence),
             ]
         );
     }
 
     private function normalizeLicenses(LicenseRepository $licenses): ?DOMElement
     {
-        $factory = $this->getNormalizerFactory();
+        $factory = $this->normalizerFactory;
 
         return 0 === \count($licenses)
             ? null
             : SimpleDOM::appendChildren(
-                $factory->getDocument()->createElement('licenses'),
+                $factory->document->createElement('licenses'),
                 $factory->makeForLicenseRepository()->normalize($licenses)
             );
     }
 
     private function normalizeHashes(HashDictionary $hashes): ?DOMElement
     {
-        $factory = $this->getNormalizerFactory();
+        $factory = $this->normalizerFactory;
 
         return 0 === \count($hashes)
             ? null
             : SimpleDOM::appendChildren(
-                $factory->getDocument()->createElement('hashes'),
+                $factory->document->createElement('hashes'),
                 $factory->makeForHashDictionary()->normalize($hashes)
             );
     }
@@ -140,7 +139,7 @@ class ComponentNormalizer extends _BaseNormalizer
         return null === $purl
             ? null
             : SimpleDOM::makeSafeTextElement(
-                $this->getNormalizerFactory()->getDocument(),
+                $this->normalizerFactory->document,
                 'purl',
                 XML::encodeAnyUriBE((string) $purl)
             );
@@ -148,27 +147,27 @@ class ComponentNormalizer extends _BaseNormalizer
 
     private function normalizeExternalReferences(ExternalReferenceRepository $extRefs): ?DOMElement
     {
-        $factory = $this->getNormalizerFactory();
+        $factory = $this->normalizerFactory;
 
         return 0 === \count($extRefs)
             ? null
             : SimpleDOM::appendChildren(
-                $factory->getDocument()->createElement('externalReferences'),
+                $factory->document->createElement('externalReferences'),
                 $factory->makeForExternalReferenceRepository()->normalize($extRefs)
             );
     }
 
     private function normalizeProperties(PropertyRepository $properties): ?DOMElement
     {
-        if (false === $this->getNormalizerFactory()->getSpec()->supportsComponentProperties()) {
+        if (false === $this->normalizerFactory->spec->supportsComponentProperties()) {
             return null;
         }
 
         return 0 === \count($properties)
             ? null
             : SimpleDOM::appendChildren(
-                $this->getNormalizerFactory()->getDocument()->createElement('properties'),
-                $this->getNormalizerFactory()->makeForPropertyRepository()->normalize($properties)
+                $this->normalizerFactory->document->createElement('properties'),
+                $this->normalizerFactory->makeForPropertyRepository()->normalize($properties)
             );
     }
 }

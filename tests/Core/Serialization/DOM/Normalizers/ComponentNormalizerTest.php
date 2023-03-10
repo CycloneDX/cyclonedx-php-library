@@ -92,8 +92,8 @@ class ComponentNormalizerTest extends TestCase
                 'getGroup' => null,
                 'getDescription' => null,
                 'getAuthor' => null,
-                'getLicenses' => $this->createStub(LicenseRepository::class),
-                'getHashes' => $this->createStub(HashDictionary::class),
+                'getLicenses' => $this->createMock(LicenseRepository::class),
+                'getHashes' => $this->createMock(HashDictionary::class),
                 'getPackageUrl' => null,
             ]
         );
@@ -180,15 +180,15 @@ class ComponentNormalizerTest extends TestCase
         $licenseRepoNormalizer->expects(self::once())
             ->method('normalize')
             ->with($component->getLicenses())
-            ->willReturn([$factory->getDocument()->createElement('FakeLicense', 'dummy')]);
+            ->willReturn([$factory->document->createElement('FakeLicense', 'dummy')]);
         $hashDictionaryNormalizer->expects(self::once())
             ->method('normalize')
             ->with($component->getHashes())
-            ->willReturn([$factory->getDocument()->createElement('FakeHash', 'dummy')]);
+            ->willReturn([$factory->document->createElement('FakeHash', 'dummy')]);
         $evidenceNormalizer->expects(self::once())
             ->method('normalize')
             ->with($component->getEvidence())
-            ->willReturn($factory->getDocument()->createElement('FakeEvidence', 'dummy'));
+            ->willReturn($factory->document->createElement('FakeEvidence', 'dummy'));
 
         $actual = $normalizer->normalize($component);
 
@@ -238,7 +238,7 @@ class ComponentNormalizerTest extends TestCase
         $licenseRepoNormalizer->expects(self::once())
             ->method('normalize')
             ->with($component->getLicenses())
-            ->willReturn([$factory->getDocument()->createElement('FakeLicense', 'dummy')]);
+            ->willReturn([$factory->document->createElement('FakeLicense', 'dummy')]);
 
         $got = $normalizer->normalize($component);
 
@@ -321,7 +321,7 @@ class ComponentNormalizerTest extends TestCase
         $externalReferenceRepositoryNormalizer->expects(self::once())
             ->method('normalize')
             ->with($component->getExternalReferences())
-            ->willReturn([$factory->getDocument()->createElement('FakeExternalReference', 'dummy')]);
+            ->willReturn([$factory->document->createElement('FakeExternalReference', 'dummy')]);
 
         $actual = $normalizer->normalize($component);
 
@@ -405,7 +405,7 @@ class ComponentNormalizerTest extends TestCase
             ->method('normalize')
             ->with($component->getProperties())
             ->willReturn(
-                [$factory->getDocument()->createElement('FakeProperties', 'dummy')]);
+                [$factory->document->createElement('FakeProperties', 'dummy')]);
         $spec->expects(self::once())
             ->method('isSupportedComponentType')
             ->with(ComponentType::LIBRARY)

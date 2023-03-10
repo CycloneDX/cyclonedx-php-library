@@ -38,7 +38,7 @@ class ToolRepositoryNormalizer extends _BaseNormalizer
      */
     public function normalize(ToolRepository $repo): array
     {
-        $normalizer = $this->getNormalizerFactory()->makeForTool();
+        $normalizer = $this->normalizerFactory->makeForTool();
 
         $tools = [];
         foreach ($repo->getItems() as $tool) {

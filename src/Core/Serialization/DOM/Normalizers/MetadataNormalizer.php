@@ -42,7 +42,7 @@ class MetadataNormalizer extends _BaseNormalizer
     public function normalize(Metadata $metadata): DOMElement
     {
         return SimpleDOM::appendChildren(
-            $this->getNormalizerFactory()->getDocument()->createElement('metadata'),
+            $this->normalizerFactory->document->createElement('metadata'),
             [
                 $this->normalizeTimestamp($metadata->getTimestamp()),
                 $this->normalizeTools($metadata->getTools()),
@@ -66,7 +66,7 @@ class MetadataNormalizer extends _BaseNormalizer
             ->format('Y-m-d\\TH:i:sp');
 
         return SimpleDOM::makeSafeTextElement(
-            $this->getNormalizerFactory()->getDocument(),
+            $this->normalizerFactory->document,
             'timestamp',
             $dtZulu
         );
@@ -77,8 +77,8 @@ class MetadataNormalizer extends _BaseNormalizer
         return 0 === \count($tools)
             ? null
             : SimpleDOM::appendChildren(
-                $this->getNormalizerFactory()->getDocument()->createElement('tools'),
-                $this->getNormalizerFactory()->makeForToolRepository()->normalize($tools)
+                $this->normalizerFactory->document->createElement('tools'),
+                $this->normalizerFactory->makeForToolRepository()->normalize($tools)
             );
     }
 
@@ -89,7 +89,7 @@ class MetadataNormalizer extends _BaseNormalizer
         }
 
         try {
-            return $this->getNormalizerFactory()->makeForComponent()->normalize($component);
+            return $this->normalizerFactory->makeForComponent()->normalize($component);
         } catch (\DomainException) {
             return null;
         }
@@ -97,15 +97,15 @@ class MetadataNormalizer extends _BaseNormalizer
 
     private function normalizeProperties(PropertyRepository $properties): ?DOMElement
     {
-        if (false === $this->getNormalizerFactory()->getSpec()->supportsMetadataProperties()) {
+        if (false === $this->normalizerFactory->spec->supportsMetadataProperties()) {
             return null;
         }
 
         return 0 === \count($properties)
             ? null
             : SimpleDOM::appendChildren(
-                $this->getNormalizerFactory()->getDocument()->createElement('properties'),
-                $this->getNormalizerFactory()->makeForPropertyRepository()->normalize($properties)
+                $this->normalizerFactory->document->createElement('properties'),
+                $this->normalizerFactory->makeForPropertyRepository()->normalize($properties)
             );
     }
 }

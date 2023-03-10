@@ -44,7 +44,7 @@ class ExternalReferenceRepositoryNormalizerTest extends TestCase
 {
     public function testNormalizeEmpty(): void
     {
-        $spec = $this->createStub(Spec::class);
+        $spec = $this->createMock(Spec::class);
         $externalReferenceNormalizer = $this->createMock(ExternalReferenceNormalizer::class);
         $factory = $this->createConfiguredMock(NormalizerFactory::class, [
             'getSpec' => $spec,
@@ -61,14 +61,14 @@ class ExternalReferenceRepositoryNormalizerTest extends TestCase
 
     public function testNormalize(): void
     {
-        $spec = $this->createStub(Spec::class);
+        $spec = $this->createMock(Spec::class);
         $externalReferenceNormalizer = $this->createMock(ExternalReferenceNormalizer::class);
         $factory = $this->createConfiguredMock(NormalizerFactory::class, [
             'getSpec' => $spec,
             'makeForExternalReference' => $externalReferenceNormalizer,
         ]);
         $normalizer = new ExternalReferenceRepositoryNormalizer($factory);
-        $externalReference = $this->createStub(ExternalReference::class);
+        $externalReference = $this->createMock(ExternalReference::class);
         $repo = $this->createConfiguredMock(ExternalReferenceRepository::class, [
             'count' => 1,
             'getItems' => [$externalReference],
@@ -86,15 +86,15 @@ class ExternalReferenceRepositoryNormalizerTest extends TestCase
 
     public function testNormalizeSkipsOnThrow(): void
     {
-        $spec = $this->createStub(Spec::class);
+        $spec = $this->createMock(Spec::class);
         $externalReferenceNormalizer = $this->createMock(ExternalReferenceNormalizer::class);
         $factory = $this->createConfiguredMock(NormalizerFactory::class, [
             'getSpec' => $spec,
             'makeForExternalReference' => $externalReferenceNormalizer,
         ]);
         $normalizer = new ExternalReferenceRepositoryNormalizer($factory);
-        $extRef1 = $this->createStub(ExternalReference::class);
-        $extRef2 = $this->createStub(ExternalReference::class);
+        $extRef1 = $this->createMock(ExternalReference::class);
+        $extRef2 = $this->createMock(ExternalReference::class);
         $tools = $this->createConfiguredMock(ExternalReferenceRepository::class, [
             'count' => 1,
             'getItems' => [$extRef1, $extRef2],

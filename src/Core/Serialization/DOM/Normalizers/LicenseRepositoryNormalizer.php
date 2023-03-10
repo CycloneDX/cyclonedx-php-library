@@ -40,7 +40,7 @@ class LicenseRepositoryNormalizer extends _BaseNormalizer
     public function normalize(LicenseRepository $repo): array
     {
         return array_map(
-            $this->getNormalizerFactory()->makeForLicense()->normalize(...),
+            $this->normalizerFactory->makeForLicense()->normalize(...),
             $repo->getItems()
         );
     }

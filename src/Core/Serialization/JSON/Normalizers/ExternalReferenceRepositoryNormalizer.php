@@ -40,7 +40,7 @@ class ExternalReferenceRepositoryNormalizer extends _BaseNormalizer
      */
     public function normalize(ExternalReferenceRepository $repo): array
     {
-        $normalizer = $this->getNormalizerFactory()->makeForExternalReference();
+        $normalizer = $this->normalizerFactory->makeForExternalReference();
 
         $externalReferences = [];
         foreach ($repo->getItems() as $externalReference) {

@@ -47,7 +47,7 @@ class PropertyRepositoryNormalizerTest extends TestCase
 
     public function testNormalizeEmpty(): void
     {
-        $spec = $this->createStub(Spec::class);
+        $spec = $this->createMock(Spec::class);
         $propertyNormalizer = $this->createMock(PropertyNormalizer::class);
         $factory = $this->createConfiguredMock(NormalizerFactory::class, [
             'getSpec' => $spec,
@@ -65,7 +65,7 @@ class PropertyRepositoryNormalizerTest extends TestCase
 
     public function testNormalize(): void
     {
-        $spec = $this->createStub(Spec::class);
+        $spec = $this->createMock(Spec::class);
         $propertyNormalizer = $this->createMock(PropertyNormalizer::class);
         $factory = $this->createConfiguredMock(NormalizerFactory::class, [
             'getSpec' => $spec,
@@ -73,13 +73,13 @@ class PropertyRepositoryNormalizerTest extends TestCase
             'makeForProperty' => $propertyNormalizer,
         ]);
         $normalizer = new PropertyRepositoryNormalizer($factory);
-        $property = $this->createStub(Property::class);
+        $property = $this->createMock(Property::class);
         $properties = $this->createConfiguredMock(PropertyRepository::class, [
             'count' => 1,
             'getItems' => [$property],
         ]);
 
-        $FakeProperty = $this->createStub(DOMElement::class);
+        $FakeProperty = $this->createMock(DOMElement::class);
 
         $propertyNormalizer->expects(self::once())->method('normalize')
             ->with($property)
@@ -92,7 +92,7 @@ class PropertyRepositoryNormalizerTest extends TestCase
 
     public function testNormalizeSkippedWhenThrown(): void
     {
-        $spec = $this->createStub(Spec::class);
+        $spec = $this->createMock(Spec::class);
         $propertyNormalizer = $this->createMock(PropertyNormalizer::class);
         $factory = $this->createConfiguredMock(NormalizerFactory::class, [
             'getSpec' => $spec,
@@ -100,7 +100,7 @@ class PropertyRepositoryNormalizerTest extends TestCase
             'makeForProperty' => $propertyNormalizer,
         ]);
         $normalizer = new PropertyRepositoryNormalizer($factory);
-        $property = $this->createStub(Property::class);
+        $property = $this->createMock(Property::class);
         $properties = $this->createConfiguredMock(PropertyRepository::class, [
             'count' => 1,
             'getItems' => [$property],

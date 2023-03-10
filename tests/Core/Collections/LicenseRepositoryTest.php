@@ -42,8 +42,8 @@ class LicenseRepositoryTest extends TestCase
 
     public function testNonEmptyConstruct(): void
     {
-        $license1 = $this->createStub(SpdxLicense::class);
-        $license2 = $this->createStub(NamedLicense::class);
+        $license1 = $this->createMock(SpdxLicense::class);
+        $license2 = $this->createMock(NamedLicense::class);
 
         $repo = new LicenseRepository($license1, $license2, $license1, $license2);
 
@@ -55,9 +55,9 @@ class LicenseRepositoryTest extends TestCase
 
     public function testAddAndGetItems(): void
     {
-        $license1 = $this->createStub(NamedLicense::class);
-        $license2 = $this->createStub(SpdxLicense::class);
-        $license3 = $this->createStub(NamedLicense::class);
+        $license1 = $this->createMock(NamedLicense::class);
+        $license2 = $this->createMock(SpdxLicense::class);
+        $license3 = $this->createMock(NamedLicense::class);
         $repo = new LicenseRepository($license1, $license2);
 
         $actual = $repo->addItems($license2, $license3, $license3);

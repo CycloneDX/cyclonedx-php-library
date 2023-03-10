@@ -37,7 +37,7 @@ class NormalizerFactory
 {
     public const FORMAT = Format::JSON;
 
-    private readonly Spec $spec;
+    public readonly Spec $spec;
 
     /**
      * @throws DomainException when the spec does not support JSON format
@@ -47,11 +47,6 @@ class NormalizerFactory
         $this->spec = $spec->isSupportedFormat(self::FORMAT)
             ? $spec
             : throw new DomainException('Unsupported format "'.self::FORMAT->name.'" for spec '.$spec->getVersion()->name);
-    }
-
-    public function getSpec(): Spec
-    {
-        return $this->spec;
     }
 
     // intention: all factory methods return an instance of "_BaseNormalizer"

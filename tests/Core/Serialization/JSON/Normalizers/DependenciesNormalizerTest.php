@@ -95,7 +95,7 @@ class DependenciesNormalizerTest extends TestCase
 
     public function dpNormalize(): Generator
     {
-        $dependencies = $this->createStub(BomRefRepository::class);
+        $dependencies = $this->createMock(BomRefRepository::class);
 
         $componentWithoutBomRefValue = $this->createConfiguredMock(
             Component::class,

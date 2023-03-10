@@ -38,32 +38,21 @@ class NormalizerFactory
 {
     public const FORMAT = Format::XML;
 
-    private readonly Spec $spec;
-
-    private readonly DOMDocument $document;
+    public readonly Spec $spec;
 
     /**
      * @throws DomainException when the spec does not support XML format
      */
-    public function __construct(Spec $spec)
-    {
+    public function __construct(
+        Spec $spec,
+        public readonly DOMDocument $document = new DOMDocument()
+    ) {
         $this->spec = $spec->isSupportedFormat(self::FORMAT)
             ? $spec
             : throw new DomainException('Unsupported format "'.self::FORMAT->name.'" for spec '.$spec->getVersion()->name);
-        $this->document = new DOMDocument();
     }
 
     // intention: all factory methods return an instance of "_BaseNormalizer"
-
-    public function getSpec(): Spec
-    {
-        return $this->spec;
-    }
-
-    public function getDocument(): DOMDocument
-    {
-        return $this->document;
-    }
 
     public function makeForBom(): Normalizers\BomNormalizer
     {

@@ -95,7 +95,7 @@ class BomTest extends TestCase
     #[DependsUsingShallowClone('testConstruct')]
     public function testComponentsSetterGetter(Bom $bom): void
     {
-        $components = $this->createStub(ComponentRepository::class);
+        $components = $this->createMock(ComponentRepository::class);
         $actual = $bom->setComponents($components);
         self::assertSame($bom, $actual);
         self::assertSame($components, $bom->getComponents());
@@ -129,7 +129,7 @@ class BomTest extends TestCase
     #[DependsUsingShallowClone('testConstruct')]
     public function testMetadataSetterGetter(Bom $bom): void
     {
-        $metadata = $this->createStub(Metadata::class);
+        $metadata = $this->createMock(Metadata::class);
         $actual = $bom->setMetadata($metadata);
         self::assertSame($bom, $actual);
         self::assertSame($metadata, $bom->getMetadata());
@@ -142,7 +142,7 @@ class BomTest extends TestCase
     #[DependsUsingShallowClone('testConstruct')]
     public function testExternalReferenceRepositorySetterGetter(Bom $bom): void
     {
-        $extRefRepo = $this->createStub(ExternalReferenceRepository::class);
+        $extRefRepo = $this->createMock(ExternalReferenceRepository::class);
         $actual = $bom->setExternalReferences($extRefRepo);
         self::assertSame($bom, $actual);
         self::assertSame($extRefRepo, $bom->getExternalReferences());
@@ -155,7 +155,7 @@ class BomTest extends TestCase
     #[DependsUsingShallowClone('testConstruct')]
     public function testPropertiesSetterGetter(Bom $bom): void
     {
-        $repo = $this->createStub(PropertyRepository::class);
+        $repo = $this->createMock(PropertyRepository::class);
         $actual = $bom->setProperties($repo);
         self::assertSame($bom, $actual);
         self::assertSame($repo, $bom->getProperties());

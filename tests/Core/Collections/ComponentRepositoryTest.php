@@ -43,8 +43,8 @@ class ComponentRepositoryTest extends TestCase
 
     public function testConstructor(): void
     {
-        $component1 = $this->createStub(Component::class);
-        $component2 = $this->createStub(Component::class);
+        $component1 = $this->createMock(Component::class);
+        $component2 = $this->createMock(Component::class);
 
         $repo = new ComponentRepository($component1, $component2, $component1, $component2);
 
@@ -56,9 +56,9 @@ class ComponentRepositoryTest extends TestCase
 
     public function testAddAndGetItems(): void
     {
-        $component1 = $this->createStub(Component::class);
-        $component2 = $this->createStub(Component::class);
-        $component3 = $this->createStub(Component::class);
+        $component1 = $this->createMock(Component::class);
+        $component2 = $this->createMock(Component::class);
+        $component3 = $this->createMock(Component::class);
         $repo = new ComponentRepository($component1, $component3);
 
         $actual = $repo->addItems($component2, $component3, $component2);

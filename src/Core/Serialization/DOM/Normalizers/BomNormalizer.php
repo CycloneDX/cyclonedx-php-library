@@ -41,11 +41,10 @@ class BomNormalizer extends _BaseNormalizer
 
     public function normalize(Bom $bom): DOMElement
     {
-        $factory = $this->getNormalizerFactory();
-        $document = $factory->getDocument();
+        $factory = $this->normalizerFactory;
 
-        $element = $document->createElementNS(
-            sprintf(self::XML_NAMESPACE_PATTERN, $factory->getSpec()->getVersion()->value),
+        $element = $factory->document->createElementNS(
+            sprintf(self::XML_NAMESPACE_PATTERN, $factory->spec->getVersion()->value),
             'bom' // no namespace = defaultNS - so children w/o NS fall under this NS
         );
         SimpleDOM::setAttributes(
@@ -74,19 +73,19 @@ class BomNormalizer extends _BaseNormalizer
 
     private function normalizeComponents(ComponentRepository $components): DOMElement
     {
-        $factory = $this->getNormalizerFactory();
+        $factory = $this->normalizerFactory;
 
         return SimpleDOM::appendChildren(
-            $factory->getDocument()->createElement('components'),
+            $factory->document->createElement('components'),
             $factory->makeForComponentRepository()->normalize($components)
         );
     }
 
     private function normalizeMetadata(Metadata $metadata): ?DOMElement
     {
-        $factory = $this->getNormalizerFactory();
+        $factory = $this->normalizerFactory;
 
-        if (false === $factory->getSpec()->supportsMetadata()) {
+        if (false === $factory->spec->supportsMetadata()) {
             return null;
         }
 
@@ -99,11 +98,11 @@ class BomNormalizer extends _BaseNormalizer
 
     private function normalizeExternalReferences(Bom $bom): ?DOMElement
     {
-        $factory = $this->getNormalizerFactory();
+        $factory = $this->normalizerFactory;
 
         $extRefs = $bom->getExternalReferences();
 
-        if (false === $factory->getSpec()->supportsMetadata()) {
+        if (false === $factory->spec->supportsMetadata()) {
             // prevent possible information loss: metadata cannot be rendered -> put it to bom
             $mcr = $bom->getMetadata()->getComponent()?->getExternalReferences();
             if (null !== $mcr) {
@@ -121,16 +120,16 @@ class BomNormalizer extends _BaseNormalizer
         return 0 === \count($refs)
             ? null
             : SimpleDOM::appendChildren(
-                $factory->getDocument()->createElement('externalReferences'),
+                $factory->document->createElement('externalReferences'),
                 $refs
             );
     }
 
     private function normalizeDependencies(Bom $bom): ?DOMElement
     {
-        $factory = $this->getNormalizerFactory();
+        $factory = $this->normalizerFactory;
 
-        if (false === $factory->getSpec()->supportsDependencies()) {
+        if (false === $factory->spec->supportsDependencies()) {
             return null;
         }
 
@@ -139,22 +138,22 @@ class BomNormalizer extends _BaseNormalizer
         return empty($deps)
             ? null
             : SimpleDOM::appendChildren(
-                $factory->getDocument()->createElement('dependencies'),
+                $factory->document->createElement('dependencies'),
                 $deps
             );
     }
 
     private function normalizeProperties(PropertyRepository $properties): ?DOMElement
     {
-        if (false === $this->getNormalizerFactory()->getSpec()->supportsBomProperties(Format::XML)) {
+        if (false === $this->normalizerFactory->spec->supportsBomProperties(Format::XML)) {
             return null;
         }
 
         return 0 === \count($properties)
             ? null
             : SimpleDOM::appendChildren(
-                $this->getNormalizerFactory()->getDocument()->createElement('properties'),
-                $this->getNormalizerFactory()->makeForPropertyRepository()->normalize($properties)
+                $this->normalizerFactory->document->createElement('properties'),
+                $this->normalizerFactory->makeForPropertyRepository()->normalize($properties)
             );
     }
 }

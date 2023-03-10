@@ -49,7 +49,7 @@ class ComponentEvidenceTest extends TestCase
     #[DependsUsingShallowClone('testConstructor')]
     public function testLicensesSetterGetter(ComponentEvidence $evidence): void
     {
-        $licenses = $this->createStub(LicenseRepository::class);
+        $licenses = $this->createMock(LicenseRepository::class);
         $actual = $evidence->setLicenses($licenses);
         self::assertSame($evidence, $actual);
         self::assertSame($licenses, $evidence->getLicenses());
@@ -58,7 +58,7 @@ class ComponentEvidenceTest extends TestCase
     #[DependsUsingShallowClone('testConstructor')]
     public function testCopyrightSetterGetter(ComponentEvidence $evidence): void
     {
-        $copyright = $this->createStub(CopyrightRepository::class);
+        $copyright = $this->createMock(CopyrightRepository::class);
         $actual = $evidence->setCopyright($copyright);
         self::assertSame($evidence, $actual);
         self::assertSame($copyright, $evidence->getCopyright());
