@@ -50,7 +50,7 @@ class ExternalReferenceNormalizer extends _BaseNormalizer
             throw new UnexpectedValueException("invalid to format 'IriReference': $url");
         }
 
-        $spec = $this->getNormalizerFactory()->getSpec();
+        $spec = $this->normalizerFactory->spec;
         $type = $externalReference->getType();
         if (false === $spec->isSupportedExternalReferenceType($type)) {
             // prevent information-loss -> try transfer to OTHER
@@ -73,9 +73,9 @@ class ExternalReferenceNormalizer extends _BaseNormalizer
 
     private function normalizeHashes(HashDictionary $hashes): ?array
     {
-        $factory = $this->getNormalizerFactory();
+        $factory = $this->normalizerFactory;
 
-        if (false === $factory->getSpec()->supportsExternalReferenceHashes()) {
+        if (false === $factory->spec->supportsExternalReferenceHashes()) {
             return null;
         }
 

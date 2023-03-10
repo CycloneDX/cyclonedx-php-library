@@ -37,7 +37,7 @@ class HashNormalizer extends _BaseNormalizer
      */
     public function normalize(HashAlgorithm $algorithm, string $content): array
     {
-        $spec = $this->getNormalizerFactory()->getSpec();
+        $spec = $this->normalizerFactory->spec;
         if (false === $spec->isSupportedHashAlgorithm($algorithm)) {
             throw new DomainException("Invalid hash algorithm: $algorithm->name", 1);
         }

@@ -52,14 +52,14 @@ class ToolNormalizer extends _BaseNormalizer
     {
         return 0 === \count($hashes)
             ? null
-            : $this->getNormalizerFactory()->makeForHashDictionary()->normalize($hashes);
+            : $this->normalizerFactory->makeForHashDictionary()->normalize($hashes);
     }
 
     private function normalizeExternalReferences(ExternalReferenceRepository $extRefs): ?array
     {
-        $factory = $this->getNormalizerFactory();
+        $factory = $this->normalizerFactory;
 
-        if (false === $factory->getSpec()->supportsToolExternalReferences()) {
+        if (false === $factory->spec->supportsToolExternalReferences()) {
             return null;
         }
 

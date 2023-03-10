@@ -26,6 +26,8 @@ namespace CycloneDX\Core\Validation;
 use CycloneDX\Core\Spec\Spec;
 
 /**
+ * @internal as this class may be affected by breaking changes without notice
+ *
  * @author jkowalleck
  */
 abstract class BaseValidator implements Validator

@@ -45,7 +45,7 @@ class LicenseNormalizer extends _BaseNormalizer
     private function normalizeExpression(LicenseExpression $license): array
     {
         // TODO: IMPLEMENTED IF NEEDED: may throw, if not supported by the spec
-        // $this->getNormalizerFactory()->getSpec()->supportsLicenseExpression()
+        // $this->normalizerFactory->spec->supportsLicenseExpression()
 
         return ['expression' => $license->getExpression()];
     }
@@ -59,7 +59,7 @@ class LicenseNormalizer extends _BaseNormalizer
         [$id, $name] = $license instanceof SpdxLicense
             ? [$license->getId(), null]
             : [null, $license->getName()];
-        if (null !== $id && !$this->getNormalizerFactory()->getSpec()->isSupportedLicenseIdentifier($id)) {
+        if (null !== $id && !$this->normalizerFactory->spec->isSupportedLicenseIdentifier($id)) {
             [$id, $name] = [null, $id];
         }
 

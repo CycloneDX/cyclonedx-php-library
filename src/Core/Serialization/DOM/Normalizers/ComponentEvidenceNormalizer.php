@@ -35,8 +35,7 @@ class ComponentEvidenceNormalizer extends _BaseNormalizer
 {
     public function normalize(ComponentEvidence $evidence): DOMElement
     {
-        $factory = $this->getNormalizerFactory();
-        $document = $factory->getDocument();
+        $document = $this->normalizerFactory->document;
 
         $licenses = $evidence->getLicenses();
         $copyright = $evidence->getCopyright();
@@ -48,7 +47,7 @@ class ComponentEvidenceNormalizer extends _BaseNormalizer
                     ? null
                     : SimpleDOM::appendChildren(
                         $document->createElement('licenses'),
-                        $this->getNormalizerFactory()->makeForLicenseRepository()->normalize($licenses)
+                        $this->normalizerFactory->makeForLicenseRepository()->normalize($licenses)
                     ),
                 0 === \count($copyright)
                     ? null

@@ -69,7 +69,7 @@ class MetadataNormalizer extends _BaseNormalizer
     {
         return 0 === \count($tools)
             ? null
-            : $this->getNormalizerFactory()->makeForToolRepository()->normalize($tools);
+            : $this->normalizerFactory->makeForToolRepository()->normalize($tools);
     }
 
     private function normalizeComponent(?Component $component): ?array
@@ -79,7 +79,7 @@ class MetadataNormalizer extends _BaseNormalizer
         }
 
         try {
-            return $this->getNormalizerFactory()->makeForComponent()->normalize($component);
+            return $this->normalizerFactory->makeForComponent()->normalize($component);
         } catch (\DomainException) {
             return null;
         }
@@ -87,12 +87,12 @@ class MetadataNormalizer extends _BaseNormalizer
 
     private function normalizeProperties(PropertyRepository $properties): ?array
     {
-        if (false === $this->getNormalizerFactory()->getSpec()->supportsMetadataProperties()) {
+        if (false === $this->normalizerFactory->spec->supportsMetadataProperties()) {
             return null;
         }
 
         return 0 === \count($properties)
             ? null
-            : $this->getNormalizerFactory()->makeForPropertyRepository()->normalize($properties);
+            : $this->normalizerFactory->makeForPropertyRepository()->normalize($properties);
     }
 }

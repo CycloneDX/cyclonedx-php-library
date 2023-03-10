@@ -43,7 +43,7 @@ class ComponentNormalizer extends _BaseNormalizer
      */
     public function normalize(Component $component): array
     {
-        $spec = $this->getNormalizerFactory()->getSpec();
+        $spec = $this->normalizerFactory->spec;
 
         $name = $component->getName();
         $group = $component->getGroup();
@@ -80,7 +80,7 @@ class ComponentNormalizer extends _BaseNormalizer
                 'copyright' => $component->getCopyright(),
                 'evidence' => null === $evidence
                     ? null
-                    : $this->getNormalizerFactory()->makeForComponentEvidence()->normalize($evidence),
+                    : $this->normalizerFactory->makeForComponentEvidence()->normalize($evidence),
                 'hashes' => $this->normalizeHashes($component->getHashes()),
                 'purl' => $this->normalizePurl($component->getPackageUrl()),
                 'externalReferences' => $this->normalizeExternalReferences($component->getExternalReferences()),
@@ -94,14 +94,14 @@ class ComponentNormalizer extends _BaseNormalizer
     {
         return 0 === \count($licenses)
             ? null
-            : $this->getNormalizerFactory()->makeForLicenseRepository()->normalize($licenses);
+            : $this->normalizerFactory->makeForLicenseRepository()->normalize($licenses);
     }
 
     private function normalizeHashes(HashDictionary $hashes): ?array
     {
         return 0 === \count($hashes)
             ? null
-            : $this->getNormalizerFactory()->makeForHashDictionary()->normalize($hashes);
+            : $this->normalizerFactory->makeForHashDictionary()->normalize($hashes);
     }
 
     private function normalizePurl(?PackageUrl $purl): ?string
@@ -115,17 +115,17 @@ class ComponentNormalizer extends _BaseNormalizer
     {
         return 0 === \count($extRefs)
             ? null
-            : $this->getNormalizerFactory()->makeForExternalReferenceRepository()->normalize($extRefs);
+            : $this->normalizerFactory->makeForExternalReferenceRepository()->normalize($extRefs);
     }
 
     private function normalizeProperties(PropertyRepository $properties): ?array
     {
-        if (false === $this->getNormalizerFactory()->getSpec()->supportsComponentProperties()) {
+        if (false === $this->normalizerFactory->spec->supportsComponentProperties()) {
             return null;
         }
 
         return 0 === \count($properties)
             ? null
-            : $this->getNormalizerFactory()->makeForPropertyRepository()->normalize($properties);
+            : $this->normalizerFactory->makeForPropertyRepository()->normalize($properties);
     }
 }

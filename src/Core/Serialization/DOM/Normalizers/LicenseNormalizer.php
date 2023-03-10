@@ -46,10 +46,10 @@ class LicenseNormalizer extends _BaseNormalizer
     private function normalizeExpression(LicenseExpression $license): DOMElement
     {
         // TODO: IMPLEMENTED IF NEEDED: may throw, if not supported by the spec
-        // $this->getNormalizerFactory()->getSpec()->supportsLicenseExpression()
+        // $this->normalizerFactory->spec->supportsLicenseExpression()
 
         $element = SimpleDOM::makeSafeTextElement(
-            $this->getNormalizerFactory()->getDocument(),
+            $this->normalizerFactory->document,
             'expression',
             $license->getExpression()
         );
@@ -63,17 +63,17 @@ class LicenseNormalizer extends _BaseNormalizer
      */
     private function normalizeDisjunctive(SpdxLicense|NamedLicense $license): DOMElement
     {
-        $factory = $this->getNormalizerFactory();
+        $factory = $this->normalizerFactory;
 
         [$id, $name] = $license instanceof SpdxLicense
             ? [$license->getId(), null]
             : [null, $license->getName()];
 
-        if (null !== $id && !$factory->getSpec()->isSupportedLicenseIdentifier($id)) {
+        if (null !== $id && !$factory->spec->isSupportedLicenseIdentifier($id)) {
             [$id, $name] = [null, $id];
         }
 
-        $document = $factory->getDocument();
+        $document = $factory->document;
 
         return SimpleDOM::appendChildren(
             $document->createElement('license'),

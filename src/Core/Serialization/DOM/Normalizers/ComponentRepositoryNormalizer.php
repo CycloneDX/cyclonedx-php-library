@@ -39,7 +39,7 @@ class ComponentRepositoryNormalizer extends _BaseNormalizer
      */
     public function normalize(ComponentRepository $repo): array
     {
-        $normalizer = $this->getNormalizerFactory()->makeForComponent();
+        $normalizer = $this->normalizerFactory->makeForComponent();
 
         $components = [];
         foreach ($repo->getItems() as $component) {

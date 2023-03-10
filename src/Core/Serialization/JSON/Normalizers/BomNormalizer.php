@@ -54,8 +54,8 @@ class BomNormalizer extends _BaseNormalizer
      */
     public function normalize(Bom $bom): array
     {
-        $factory = $this->getNormalizerFactory();
-        $specVersion = $factory->getSpec()->getVersion();
+        $factory = $this->normalizerFactory;
+        $specVersion = $factory->spec->getVersion();
 
         return array_filter(
             [
@@ -80,9 +80,9 @@ class BomNormalizer extends _BaseNormalizer
 
     private function normalizeMetadata(Metadata $metadata): ?array
     {
-        $factory = $this->getNormalizerFactory();
+        $factory = $this->normalizerFactory;
 
-        if (false === $factory->getSpec()->supportsMetadata()) {
+        if (false === $factory->spec->supportsMetadata()) {
             return null;
         }
 
@@ -95,11 +95,11 @@ class BomNormalizer extends _BaseNormalizer
 
     private function normalizeExternalReferences(Bom $bom): ?array
     {
-        $factory = $this->getNormalizerFactory();
+        $factory = $this->normalizerFactory;
 
         $extRefs = $bom->getExternalReferences();
 
-        if (false === $factory->getSpec()->supportsMetadata()) {
+        if (false === $factory->spec->supportsMetadata()) {
             // prevent possible information loss: metadata cannot be rendered -> put it to bom
             $mcr = $bom->getMetadata()->getComponent()?->getExternalReferences();
             if (null !== $mcr) {
@@ -121,9 +121,9 @@ class BomNormalizer extends _BaseNormalizer
 
     private function normalizeDependencies(Bom $bom): ?array
     {
-        $factory = $this->getNormalizerFactory();
+        $factory = $this->normalizerFactory;
 
-        if (false === $factory->getSpec()->supportsDependencies()) {
+        if (false === $factory->spec->supportsDependencies()) {
             return null;
         }
 
@@ -136,12 +136,12 @@ class BomNormalizer extends _BaseNormalizer
 
     private function normalizeProperties(PropertyRepository $properties): ?array
     {
-        if (false === $this->getNormalizerFactory()->getSpec()->supportsBomProperties(Format::JSON)) {
+        if (false === $this->normalizerFactory->spec->supportsBomProperties(Format::JSON)) {
             return null;
         }
 
         return 0 === \count($properties)
             ? null
-            : $this->getNormalizerFactory()->makeForPropertyRepository()->normalize($properties);
+            : $this->normalizerFactory->makeForPropertyRepository()->normalize($properties);
     }
 }
