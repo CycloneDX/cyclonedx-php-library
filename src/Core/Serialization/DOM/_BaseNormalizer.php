@@ -33,16 +33,11 @@ namespace CycloneDX\Core\Serialization\DOM;
  */
 abstract class _BaseNormalizer
 {
-    private readonly NormalizerFactory $normalizerFactory;
+    public readonly NormalizerFactory $normalizerFactory;
 
     public function __construct(NormalizerFactory $normalizerFactory)
     {
         $this->normalizerFactory = $normalizerFactory;
-    }
-
-    public function getNormalizerFactory(): NormalizerFactory
-    {
-        return $this->normalizerFactory;
     }
 
     // intention to implement a "public function normalize" that accepts an object, and returns a normalized object

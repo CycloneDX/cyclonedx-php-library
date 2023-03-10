@@ -30,16 +30,11 @@ use CycloneDX\Core\Spec\Spec;
  */
 abstract class BaseValidator implements Validator
 {
-    private readonly Spec $spec;
+    public readonly Spec $spec;
 
     public function __construct(Spec $spec)
     {
         $this->spec = $spec;
-    }
-
-    public function getSpec(): Spec
-    {
-        return $this->spec;
     }
 
     /**

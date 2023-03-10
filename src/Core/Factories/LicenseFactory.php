@@ -33,19 +33,9 @@ use DomainException;
 class LicenseFactory
 {
     public function __construct(
-        private readonly LicenseIdentifiers $licenseIdentifiers = new LicenseIdentifiers(),
-        private readonly SpdxLicenses $spdxLicenses = new SpdxLicenses()
+        public readonly LicenseIdentifiers $licenseIdentifiers = new LicenseIdentifiers(),
+        public readonly SpdxLicenses $spdxLicenses = new SpdxLicenses()
     ) {
-    }
-
-    public function getLicenseIdentifiers(): LicenseIdentifiers
-    {
-        return $this->licenseIdentifiers;
-    }
-
-    public function getSpdxLicenses(): SpdxLicenses
-    {
-        return $this->spdxLicenses;
     }
 
     public function makeFromString(string $license): SpdxLicense|LicenseExpression|NamedLicense

@@ -38,9 +38,9 @@ class NormalizerFactory
 {
     public const FORMAT = Format::XML;
 
-    private readonly Spec $spec;
+    public readonly Spec $spec;
 
-    private readonly DOMDocument $document;
+    public readonly DOMDocument $document;
 
     /**
      * @throws DomainException when the spec does not support XML format
@@ -54,16 +54,6 @@ class NormalizerFactory
     }
 
     // intention: all factory methods return an instance of "_BaseNormalizer"
-
-    public function getSpec(): Spec
-    {
-        return $this->spec;
-    }
-
-    public function getDocument(): DOMDocument
-    {
-        return $this->document;
-    }
 
     public function makeForBom(): Normalizers\BomNormalizer
     {
