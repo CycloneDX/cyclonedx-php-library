@@ -24,7 +24,7 @@ declare(strict_types=1);
 namespace CycloneDX\Core\Serialization;
 
 use CycloneDX\Core\Models\Bom;
-use Exception;
+use Throwable;
 
 /**
  * @author jkowalleck
@@ -32,14 +32,12 @@ use Exception;
 interface Serializer
 {
     /**
-     * Serialize a {@see \CycloneDX\Core\Models\Bom} to {@see string}.
+     * Serialize a {@see \CycloneDX\Core\Models\Bom} to string.
      *
      * @param Bom  $bom         the BOM to serialize
      * @param bool $prettyPrint whether to beatify the resulting string. A `null` value means no preference.
      *
-     * @throws Exception
-     *
-     * @psalm-return non-empty-string
+     * @throws Throwable
      *
      * @SuppressWarnings(PHPMD.BooleanArgumentFlag)
      */

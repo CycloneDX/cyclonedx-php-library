@@ -140,7 +140,8 @@ All notable changes to this project will be documented in this file.
     * BREAKING: renamed namespace to `Serialization` ([#5] via [#146])
   * `SerializerInterface` interface
     * BREAKING: renamed to `Serializer` ([#133] via [#155])
-    * BREAKING: existing method `serialize()` got a new optional parameter `$prettyPrint` (via [#155])
+    * BREAKING: method `serialize()` got a new optional parameter `$prettyPrint` (via [#155])
+    * BREAKING: method `serialize()` may throw `\Throwable`, was `\Exception` (via [#253])
   * `BaseSerializer` abstract class
     * BREAKING: complete redesign (via [#155])
   * `{Json,Xml}Serializer` class
@@ -187,6 +188,8 @@ All notable changes to this project will be documented in this file.
     * BREAKING: removed deprecated method `setSpec()` (via [#144])
   * `ValidatorInterface` interface
     * BREAKING: renamed interface to `Validator` ([#133] via [#143])
+    * Removed specification of constructor `__construct()` (via [#253])
+    * Removed specification of method `getSpec()` (via [#253])
   * `Validators\{Json,Xml}Validator` classes
     * Added support for CycloneDX v1.4 ([#57] via [#65])
   * `Validators\JsonValidator` classes
@@ -241,6 +244,7 @@ All notable changes to this project will be documented in this file.
 [#241]: https://github.com/CycloneDX/cyclonedx-php-library/pull/241
 [#247]: https://github.com/CycloneDX/cyclonedx-php-library/issues/247
 [#249]: https://github.com/CycloneDX/cyclonedx-php-library/pull/249
+[#253]: https://github.com/CycloneDX/cyclonedx-php-library/pull/253
 
 ## 1.6.3 - 2022-09-15
 
