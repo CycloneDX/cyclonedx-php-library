@@ -37,9 +37,9 @@ class ExternalReferenceTest extends TestCase
 {
     public function testConstructor(): ExternalReference
     {
-        $extRef = new ExternalReference(ExternalReferenceType::OTHER, 'https://localhost/dummy');
+        $extRef = new ExternalReference(ExternalReferenceType::Other, 'https://localhost/dummy');
 
-        $this->assertSame(ExternalReferenceType::OTHER, $extRef->getType());
+        $this->assertSame(ExternalReferenceType::Other, $extRef->getType());
         $this->assertSame('https://localhost/dummy', $extRef->getUrl());
         $this->assertNull($extRef->getComment());
         $this->assertCount(0, $extRef->getHashes());
@@ -52,10 +52,10 @@ class ExternalReferenceTest extends TestCase
     #[DependsUsingShallowClone('testConstructor')]
     public function testTypeSetterAndGetter(ExternalReference $extRef): void
     {
-        $this->assertNotSame(ExternalReferenceType::CHAT, $extRef->getType());
-        $got = $extRef->setType(ExternalReferenceType::CHAT);
+        $this->assertNotSame(ExternalReferenceType::Chat, $extRef->getType());
+        $got = $extRef->setType(ExternalReferenceType::Chat);
         $this->assertSame($extRef, $got);
-        $this->assertSame(ExternalReferenceType::CHAT, $extRef->getType());
+        $this->assertSame(ExternalReferenceType::Chat, $extRef->getType());
     }
 
     // endregion test Type

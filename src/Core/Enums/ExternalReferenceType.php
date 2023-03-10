@@ -33,53 +33,55 @@ namespace CycloneDX\Core\Enums;
  */
 enum ExternalReferenceType: string
 {
-    /* Version Control System */
-    case VCS = 'vcs';
-
-    /* Issue or defect tracking system, or an Application Lifecycle Management (ALM) system */
-    case ISSUE_TRACKER = 'issue-tracker';
-
-    /* Website */
-    case WEBSITE = 'website';
-
     /* Security advisories */
-    case ADVISORIES = 'advisories';
+    case Advisories = 'advisories';
 
     /* Bill-of-material document (CycloneDX, SPDX, SWID, etc) */
     case BOM = 'bom';
 
-    /* Mailing list or discussion group */
-    case MAILING_LIST = 'mailing-list';
+    /* Build-system specific meta file (i.e. pom.xml, package.json, .nuspec, etc). */
+    case BuildMeta = 'build-meta';
 
-    /* Social media account */
-    case SOCIAL = 'social';
+    /* URL to an automated build system. */
+    case BuildSystem = 'build-system';
 
     /* Real-time chat platform */
-    case CHAT = 'chat';
-
-    /* Documentation, guides, or how-to instructions */
-    case DOCUMENTATION = 'documentation';
-
-    /* Community or commercial support */
-    case SUPPORT = 'support';
+    case Chat = 'chat';
 
     /* Direct or repository download location. */
-    case DISTRIBUTION = 'distribution';
+    case Distribution = 'distribution';
+
+    /* Documentation, guides, or how-to instructions */
+    case Documentation = 'documentation';
+
+    /* Issue or defect tracking system, or an Application Lifecycle Management (ALM) system */
+    case IssueTracker = 'issue-tracker';
 
     /* The URL to the license file. If a license URL has been defined in the license node,
      * it should also be defined as an external reference for completeness.
      */
-    case LICENSE = 'license';
+    case License = 'license';
 
-    /* Build-system specific meta file (i.e. pom.xml, package.json, .nuspec, etc). */
-    case BUILD_META = 'build-meta';
-
-    /* URL to an automated build system. */
-    case BUILD_SYSTEM = 'build-system';
+    /* Mailing list or discussion group */
+    case MailingList = 'mailing-list';
 
     /* URL to release notes. */
-    case RELEASE_NOTES = 'release-notes';
+    case ReleaseNotes = 'release-notes';
+
+    /* Social media account */
+    case Social = 'social';
+
+    /* Community or commercial support */
+    case Support = 'support';
+
+    /* Version Control System */
+    case VCS = 'vcs';
+
+    /* Website */
+    case Website = 'website';
+
+    // ----
 
     /* Use this if no other types accurately describe the purpose of the external reference. */
-    case OTHER = 'other';
+    case Other = 'other';
 }

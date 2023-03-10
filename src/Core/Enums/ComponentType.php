@@ -36,12 +36,12 @@ namespace CycloneDX\Core\Enums;
  */
 enum ComponentType: string
 {
-    case APPLICATION = 'application';
-    case FRAMEWORK = 'framework';
-    case LIBRARY = 'library';
-    case OPERATING_SYSTEMS = 'operating-system';
-    case DEVICE = 'device';
-    case FILE = 'file';
-    case CONTAINER = 'container';
-    case FIRMWARE = 'firmware';
+    case Application = 'application';
+    case Container = 'container';
+    case Device = 'device';
+    case File = 'file';
+    case Firmware = 'firmware';
+    case Framework = 'framework';
+    case Library = 'library';
+    case OperatingSystem = 'operating-system';
 }

@@ -51,7 +51,7 @@ class ComponentTest extends TestCase
 {
     public function testConstructor(): Component
     {
-        $type = ComponentType::LIBRARY;
+        $type = ComponentType::Library;
         $name = bin2hex(random_bytes(random_int(23, 255)));
 
         $component = new Component($type, $name);
@@ -90,7 +90,7 @@ class ComponentTest extends TestCase
     #[DependsUsingShallowClone('testConstructor')]
     public function testTypeSetterGetter(Component $component): void
     {
-        $type = ComponentType::FILE;
+        $type = ComponentType::File;
         self::assertNotSame($type, $component->getType());
         $actual = $component->setType($type);
         self::assertSame($component, $actual);
@@ -160,7 +160,7 @@ class ComponentTest extends TestCase
     #[DataProvider('dpDescriptionSetterGetter')]
     public function testDescriptionSetterGetter(?string $description, ?string $expected): void
     {
-        $component = new Component(ComponentType::CONTAINER, 'foo');
+        $component = new Component(ComponentType::Container, 'foo');
         $actual = $component->setDescription($description);
         self::assertSame($component, $actual);
         self::assertSame($expected, $component->getDescription());
@@ -181,7 +181,7 @@ class ComponentTest extends TestCase
     #[DataProvider('dpAuthorSetterGetter')]
     public function testAuthorSetterGetter(?string $author, ?string $expected): void
     {
-        $component = new Component(ComponentType::CONTAINER, 'foo');
+        $component = new Component(ComponentType::Container, 'foo');
         $actual = $component->setAuthor($author);
         self::assertSame($component, $actual);
         self::assertSame($expected, $component->getAuthor());
@@ -202,7 +202,7 @@ class ComponentTest extends TestCase
     #[DataProvider('dpGroupSetterGetter')]
     public function testGroupSetterGetter(?string $group, ?string $expected): void
     {
-        $component = new Component(ComponentType::CONTAINER, 'foo');
+        $component = new Component(ComponentType::Container, 'foo');
         $actual = $component->setGroup($group);
         self::assertSame($component, $actual);
         self::assertSame($expected, $component->getGroup());
@@ -279,7 +279,7 @@ class ComponentTest extends TestCase
     #[DataProvider('dpCopyrightSetterGetter')]
     public function testCopyrightSetterGetter(?string $copyright, ?string $expected): void
     {
-        $component = new Component(ComponentType::CONTAINER, 'foo');
+        $component = new Component(ComponentType::Container, 'foo');
         $actual = $component->setCopyright($copyright);
         self::assertSame($component, $actual);
         self::assertSame($expected, $component->getCopyright());

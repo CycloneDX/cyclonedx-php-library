@@ -28,12 +28,12 @@ require_once __DIR__.'/../vendor/autoload.php';
 $bom = new \CycloneDX\Core\Models\Bom();
 $bom->getMetadata()->setComponent(
     $rootComponent = new \CycloneDX\Core\Models\Component(
-        \CycloneDX\Core\Enums\ComponentType::APPLICATION,
+        \CycloneDX\Core\Enums\ComponentType::Application,
         'myApp'
     )
 );
 $component = new \CycloneDX\Core\Models\Component(
-    \CycloneDX\Core\Enums\ComponentType::LIBRARY,
+    \CycloneDX\Core\Enums\ComponentType::Library,
     'myComponent'
 );
 $bom->getComponents()->addItems($component);

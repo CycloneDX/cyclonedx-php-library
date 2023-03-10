@@ -34,6 +34,10 @@ namespace CycloneDX\Core\Enums;
  */
 enum HashAlgorithm: string
 {
+    case BLAKE2b_256 = 'BLAKE2b-256';
+    case BLAKE2b_384 = 'BLAKE2b-384';
+    case BLAKE2b_512 = 'BLAKE2b-512';
+    case BLAKE3 = 'BLAKE3';
     case MD5 = 'MD5';
     case SHA_1 = 'SHA-1';
     case SHA_256 = 'SHA-256';
@@ -42,8 +46,4 @@ enum HashAlgorithm: string
     case SHA3_256 = 'SHA3-256';
     case SHA3_384 = 'SHA3-384';
     case SHA3_512 = 'SHA3-512';
-    case BLAKE2B_256 = 'BLAKE2b-256';
-    case BLAKE2B_384 = 'BLAKE2b-384';
-    case BLAKE2B_512 = 'BLAKE2b-512';
-    case BLAKE3 = 'BLAKE3';
 }

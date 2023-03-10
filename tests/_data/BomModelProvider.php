@@ -104,7 +104,7 @@ abstract class BomModelProvider
         yield 'bom with ExternalReferences: empty string' => [
             (new Bom())->setExternalReferences(
                 new ExternalReferenceRepository(
-                    new ExternalReference(ExternalReferenceType::OTHER, '')
+                    new ExternalReference(ExternalReferenceType::Other, '')
                 )
             ),
         ];
@@ -112,7 +112,7 @@ abstract class BomModelProvider
         yield 'bom with ExternalReferences: malformed url - multiple #' => [
             (new Bom())->setExternalReferences(
                 new ExternalReferenceRepository(
-                    new ExternalReference(ExternalReferenceType::OTHER,
+                    new ExternalReference(ExternalReferenceType::Other,
                         'https://example.com/something#foo#bar'
                     )
                 )
@@ -123,7 +123,7 @@ abstract class BomModelProvider
             (new Bom())->setExternalReferences(
                 new ExternalReferenceRepository(
                     new ExternalReference(
-                        ExternalReferenceType::MAILING_LIST,
+                        ExternalReferenceType::MailingList,
                         'mailbox@mailinglist.some-service.local'
                     )
                 )
@@ -201,7 +201,7 @@ abstract class BomModelProvider
         yield 'component: plain' => [
             (new Bom())->setComponents(
                 new ComponentRepository(
-                    new Component(ComponentType::LIBRARY, 'name')
+                    new Component(ComponentType::Library, 'name')
                 )
             ),
         ];
@@ -241,7 +241,7 @@ abstract class BomModelProvider
         yield 'component with empty ExternalReferences' => [
             (new Bom())->setComponents(
                 new ComponentRepository(
-                    (new Component(ComponentType::LIBRARY, 'dummy'))
+                    (new Component(ComponentType::Library, 'dummy'))
                         ->setExternalReferences(new ExternalReferenceRepository())
                 )
             ),
@@ -251,7 +251,7 @@ abstract class BomModelProvider
             yield "component with $label" => [
                 (new Bom())->setComponents(
                     new ComponentRepository(
-                        (new Component(ComponentType::LIBRARY, 'dummy'))
+                        (new Component(ComponentType::Library, 'dummy'))
                             ->setExternalReferences(new ExternalReferenceRepository($extRef))
                     )
                 ),
@@ -273,7 +273,7 @@ abstract class BomModelProvider
         yield 'component with some properties' => [
             (new Bom())->setComponents(
                 new ComponentRepository(
-                    (new Component(ComponentType::LIBRARY, 'dummy'))
+                    (new Component(ComponentType::Library, 'dummy'))
                         ->setProperties(new PropertyRepository(
                             new Property('somePropertyName', 'somePropertyValue-1'),
                             new Property('somePropertyName', 'somePropertyValue-2'),
@@ -380,7 +380,7 @@ abstract class BomModelProvider
     {
         yield 'component with valid license id' => [
             (new Bom())->setComponents(new ComponentRepository(
-                (new Component(ComponentType::LIBRARY, 'name'))
+                (new Component(ComponentType::Library, 'name'))
                     ->setLicenses(new LicenseRepository(
                         new SpdxLicense('MIT')
                     ))
@@ -388,7 +388,7 @@ abstract class BomModelProvider
         ];
         yield 'component with unknown license id' => [
             (new Bom())->setComponents(new ComponentRepository(
-                (new Component(ComponentType::LIBRARY, 'name'))
+                (new Component(ComponentType::Library, 'name'))
                     ->setLicenses(new LicenseRepository(
                         new SpdxLicense(uniqid('license', true))
                     ))
@@ -411,7 +411,7 @@ abstract class BomModelProvider
         yield 'component license: random' => [
             (new Bom())->setComponents(
                 new ComponentRepository(
-                    (new Component(ComponentType::LIBRARY, 'name'))
+                    (new Component(ComponentType::Library, 'name'))
                         ->setLicenses(
                             new LicenseRepository(
                                 new NamedLicense($license)
@@ -434,7 +434,7 @@ abstract class BomModelProvider
         yield 'component license expression' => [
             (new Bom())->setComponents(
                 new ComponentRepository(
-                    (new Component(ComponentType::LIBRARY, 'name'))
+                    (new Component(ComponentType::Library, 'name'))
                         ->setLicenses(
                             new LicenseRepository(
                                 new LicenseExpression('(Foo or Bar)')
@@ -457,7 +457,7 @@ abstract class BomModelProvider
         yield 'component license with URL' => [
             (new Bom())->setComponents(
                 new ComponentRepository(
-                    (new Component(ComponentType::LIBRARY, 'name'))
+                    (new Component(ComponentType::Library, 'name'))
                         ->setLicenses(
                             new LicenseRepository(
                                 (new NamedLicense('some text'))
@@ -481,7 +481,7 @@ abstract class BomModelProvider
         yield 'component with copyright' => [
             (new Bom())->setComponents(
                 new ComponentRepository(
-                    (new Component(ComponentType::LIBRARY, 'name'))
+                    (new Component(ComponentType::Library, 'name'))
                         ->setCopyright('(c) 2042 - by me and the gang')
                 )
             ),
@@ -493,7 +493,7 @@ abstract class BomModelProvider
         yield 'component with empty evidence' => [
             (new Bom())->setComponents(
                 new ComponentRepository(
-                    (new Component(ComponentType::LIBRARY, 'name'))
+                    (new Component(ComponentType::Library, 'name'))
                         ->setEvidence(new ComponentEvidence())
                 )
             ),
@@ -501,7 +501,7 @@ abstract class BomModelProvider
         yield 'component with license evidence' => [
             (new Bom())->setComponents(
                 new ComponentRepository(
-                    (new Component(ComponentType::LIBRARY, 'name'))
+                    (new Component(ComponentType::Library, 'name'))
                         ->setEvidence((new ComponentEvidence())
                             ->setLicenses(
                                 new LicenseRepository(
@@ -516,7 +516,7 @@ abstract class BomModelProvider
         yield 'component with copyright evidence' => [
             (new Bom())->setComponents(
                 new ComponentRepository(
-                    (new Component(ComponentType::LIBRARY, 'name'))
+                    (new Component(ComponentType::Library, 'name'))
                         ->setEvidence(
                             (new ComponentEvidence())
                             ->setCopyright(new CopyrightRepository('(c) 2042 - by me and the gang'))
@@ -541,7 +541,7 @@ abstract class BomModelProvider
                 (new Bom())->setComponents(
                     new ComponentRepository(
                         (
-                            new Component(ComponentType::LIBRARY, 'name')
+                            new Component(ComponentType::Library, 'name')
                         )->setVersion($version),
                     )
                 ),
@@ -658,7 +658,7 @@ abstract class BomModelProvider
             yield "component hash alg: $hashAlgorithm->name" => [
                 (new Bom())->setComponents(
                     new ComponentRepository(
-                        (new Component(ComponentType::LIBRARY, 'name'))
+                        (new Component(ComponentType::Library, 'name'))
                             ->setHashes(
                                 new HashDictionary([$hashAlgorithm, '12345678901234567890123456789012'])
                             )
@@ -682,7 +682,7 @@ abstract class BomModelProvider
         yield 'component description: none' => [
             (new Bom())->setComponents(
                 new ComponentRepository(
-                    (new Component(ComponentType::LIBRARY, 'name'))
+                    (new Component(ComponentType::Library, 'name'))
                         ->setDescription(null)
                 )
             ),
@@ -690,7 +690,7 @@ abstract class BomModelProvider
         yield 'component description: empty' => [
             (new Bom())->setComponents(
                 new ComponentRepository(
-                    (new Component(ComponentType::LIBRARY, 'name'))
+                    (new Component(ComponentType::Library, 'name'))
                         ->setDescription('')
                 )
             ),
@@ -698,7 +698,7 @@ abstract class BomModelProvider
         yield 'component description: random' => [
             (new Bom())->setComponents(
                 new ComponentRepository(
-                    (new Component(ComponentType::LIBRARY, 'name'))
+                    (new Component(ComponentType::Library, 'name'))
                         ->setDescription(bin2hex(random_bytes(32)))
                 )
             ),
@@ -706,7 +706,7 @@ abstract class BomModelProvider
         yield 'component description: spaces' => [
             (new Bom())->setComponents(
                 new ComponentRepository(
-                    (new Component(ComponentType::LIBRARY, 'name'))
+                    (new Component(ComponentType::Library, 'name'))
                         ->setDescription("\ta  test   ")
                 )
             ),
@@ -714,7 +714,7 @@ abstract class BomModelProvider
         yield 'component description: XML special chars' => [
             (new Bom())->setComponents(
                 new ComponentRepository(
-                    (new Component(ComponentType::LIBRARY, 'name'))
+                    (new Component(ComponentType::Library, 'name'))
                         ->setDescription(
                             'this & that'. // an & that is not an XML entity
                             '<strong>html<strong>'. // things that might cause schema-invalid XML
@@ -739,7 +739,7 @@ abstract class BomModelProvider
         yield 'component author: none' => [
             (new Bom())->setComponents(
                 new ComponentRepository(
-                    (new Component(ComponentType::LIBRARY, 'name'))
+                    (new Component(ComponentType::Library, 'name'))
                         ->setAuthor(null)
                 )
             ),
@@ -747,7 +747,7 @@ abstract class BomModelProvider
         yield 'component author: empty' => [
             (new Bom())->setComponents(
                 new ComponentRepository(
-                    (new Component(ComponentType::LIBRARY, 'name'))
+                    (new Component(ComponentType::Library, 'name'))
                         ->setAuthor('')
                 )
             ),
@@ -755,7 +755,7 @@ abstract class BomModelProvider
         yield 'component author: random' => [
             (new Bom())->setComponents(
                 new ComponentRepository(
-                    (new Component(ComponentType::LIBRARY, 'name'))
+                    (new Component(ComponentType::Library, 'name'))
                         ->setAuthor(bin2hex(random_bytes(32)))
                 )
             ),
@@ -763,7 +763,7 @@ abstract class BomModelProvider
         yield 'component author: spaces' => [
             (new Bom())->setComponents(
                 new ComponentRepository(
-                    (new Component(ComponentType::LIBRARY, 'name'))
+                    (new Component(ComponentType::Library, 'name'))
                         ->setAuthor("\ta  test   ")
                 )
             ),
@@ -771,7 +771,7 @@ abstract class BomModelProvider
         yield 'component author: XML special chars' => [
             (new Bom())->setComponents(
                 new ComponentRepository(
-                    (new Component(ComponentType::LIBRARY, 'name'))
+                    (new Component(ComponentType::Library, 'name'))
                         ->setAuthor(
                             'this & that'. // an & that is not an XML entity
                             '<strong>html<strong>'. // things that might cause schema-invalid XML
@@ -847,7 +847,7 @@ abstract class BomModelProvider
                                 new HashDictionary([HashAlgorithm::MD5, '12345678901234567890123456789012'])
                             )->setExternalReferences(
                                 new ExternalReferenceRepository(
-                                    new ExternalReference(ExternalReferenceType::OTHER, 'https://acme.com')
+                                    new ExternalReference(ExternalReferenceType::Other, 'https://acme.com')
                                 )
                             ),
                     )
@@ -871,7 +871,7 @@ abstract class BomModelProvider
             (new Bom())->setMetadata(
                 (new Metadata())->setComponent(
                     new Component(
-                        ComponentType::APPLICATION,
+                        ComponentType::Application,
                         'foo'
                     )
                 )
@@ -936,7 +936,7 @@ abstract class BomModelProvider
      */
     public static function externalReferencesForHashAlgorithmsAllKnown(): Generator
     {
-        $type = ExternalReferenceType::OTHER;
+        $type = ExternalReferenceType::Other;
         foreach (self::allHashAlgorithms() as $algorithm) {
             $algorithm = HashAlgorithm::from($algorithm);
             yield "externalReferenceHash: $algorithm->name" => (new ExternalReference(
