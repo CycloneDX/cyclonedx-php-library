@@ -34,4 +34,5 @@ enum Version: string
     case v1dot2 = '1.2';
     case v1dot3 = '1.3';
     case v1dot4 = '1.4';
+    case v1dot5 = '1.5';
 }

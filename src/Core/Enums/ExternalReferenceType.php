@@ -36,7 +36,7 @@ enum ExternalReferenceType: string
     /* Security advisories */
     case Advisories = 'advisories';
 
-    /* Bill-of-material document (CycloneDX, SPDX, SWID, etc) */
+    /* Bill-of-materials (SBOM, OBOM, HBOM, SaaSBOM, etc) */
     case BOM = 'bom';
 
     /* Build-system specific meta file (i.e. pom.xml, package.json, .nuspec, etc). */
@@ -67,6 +67,11 @@ enum ExternalReferenceType: string
 
     /* URL to release notes. */
     case ReleaseNotes = 'release-notes';
+
+    /* Specifies a way to contact the maintainer, supplier, or provider in the event of a security incident.
+     * Common URIs include links to a disclosure procedure, a mailto (RFC-2368) that specifies an email address, a tel (RFC-3966) that specifies a phone number, or dns (RFC-4501]) that specifies the records containing DNS Security TXT.
+     */
+    case SecurityContact = 'security-contact';
 
     /* Social media account */
     case Social = 'social';

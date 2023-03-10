@@ -58,6 +58,7 @@ abstract class SpecFactory
             Version::v1dot2 => self::make1dot2(),
             Version::v1dot3 => self::make1dot3(),
             Version::v1dot4 => self::make1dot4(),
+            Version::v1dot5 => self::make1dot5(),
             /* just in case fallback */
             default => throw new DomainException("unsupported version: $version->name"),
         };
@@ -201,6 +202,7 @@ abstract class SpecFactory
             [
                 Format::XML,
                 Format::JSON,
+                Format::ProtoBuff,
             ],
             [
                 ComponentType::Application,
@@ -271,6 +273,7 @@ abstract class SpecFactory
             [
                 Format::XML,
                 Format::JSON,
+                Format::ProtoBuff,
             ],
             [
                 ComponentType::Application,
@@ -328,6 +331,78 @@ abstract class SpecFactory
             true,
             [
                 Format::XML,
+            ],
+        );
+    }
+
+    public static function make1dot5(): Spec
+    {
+        return new _Spec(
+            Version::v1dot5,
+            [
+                Format::XML,
+                Format::JSON,
+                Format::ProtoBuff,
+            ],
+            [
+                ComponentType::Application,
+                ComponentType::Framework,
+                ComponentType::Library,
+                ComponentType::OperatingSystem,
+                ComponentType::Device,
+                ComponentType::File,
+                ComponentType::Container,
+                ComponentType::Firmware,
+            ],
+            [
+                HashAlgorithm::MD5,
+                HashAlgorithm::SHA_1,
+                HashAlgorithm::SHA_256,
+                HashAlgorithm::SHA_384,
+                HashAlgorithm::SHA_512,
+                HashAlgorithm::SHA3_256,
+                HashAlgorithm::SHA3_384,
+                HashAlgorithm::SHA3_512,
+                HashAlgorithm::BLAKE2b_256,
+                HashAlgorithm::BLAKE2b_384,
+                HashAlgorithm::BLAKE2b_512,
+                HashAlgorithm::BLAKE3,
+            ],
+            '/^(?:[a-fA-F0-9]{32}|[a-fA-F0-9]{40}|[a-fA-F0-9]{64}|[a-fA-F0-9]{96}|[a-fA-F0-9]{128})$/',
+            [
+                ExternalReferenceType::VCS,
+                ExternalReferenceType::IssueTracker,
+                ExternalReferenceType::Website,
+                ExternalReferenceType::Advisories,
+                ExternalReferenceType::BOM,
+                ExternalReferenceType::MailingList,
+                ExternalReferenceType::Social,
+                ExternalReferenceType::Chat,
+                ExternalReferenceType::Documentation,
+                ExternalReferenceType::Support,
+                ExternalReferenceType::Distribution,
+                ExternalReferenceType::License,
+                ExternalReferenceType::BuildMeta,
+                ExternalReferenceType::BuildSystem,
+                ExternalReferenceType::ReleaseNotes,
+                ExternalReferenceType::SecurityContact,
+                ExternalReferenceType::Other,
+            ],
+            true,
+            true,
+            true,
+            true,
+            true,
+            false,
+            true,
+            true,
+            true,
+            true,
+            true,
+            [
+                Format::XML,
+                Format::JSON,
+                Format::ProtoBuff,
             ],
         );
     }

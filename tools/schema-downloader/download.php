@@ -32,7 +32,7 @@ declare(strict_types=1);
 
 namespace tools\CycloneDX\SchemaDownloader;
 
-const SOURCE_ROOT = 'https://raw.githubusercontent.com/CycloneDX/specification/master/schema/';
+const SOURCE_ROOT = 'https://raw.githubusercontent.com/CycloneDX/specification/v1.5-dev/schema/';
 const TARGET_ROOT = __DIR__.'/../../res/schema/';
 
 abstract class BaseDownloadable
@@ -52,7 +52,7 @@ abstract class BaseDownloadable
 
 abstract class BomXsd extends BaseDownloadable
 {
-    final public const Versions = ['1.0', '1.1', '1.2', '1.3', '1.4'];
+    final public const Versions = ['1.0', '1.1', '1.2', '1.3', '1.4', '1.5'];
     final public const SourcePattern = SOURCE_ROOT.'bom-%s.xsd';
     final public const TargetPattern = TARGET_ROOT.'bom-%s.SNAPSHOT.xsd';
     final public const Replace = [
@@ -63,7 +63,7 @@ abstract class BomXsd extends BaseDownloadable
 
 abstract class BomJsonLax extends BaseDownloadable
 {
-    final public const Versions = ['1.2', '1.3', '1.4'];
+    final public const Versions = ['1.2', '1.3', '1.4', '1.5'];
     final public const SourcePattern = SOURCE_ROOT.'bom-%s.schema.json';
     final public const TargetPattern = TARGET_ROOT.'bom-%s.SNAPSHOT.schema.json';
     final public const Replace = [

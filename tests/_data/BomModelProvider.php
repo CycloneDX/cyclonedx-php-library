@@ -223,7 +223,8 @@ abstract class BomModelProvider
             ...BomSpecData::getClassificationEnumForVersion('1.1'),
             ...BomSpecData::getClassificationEnumForVersion('1.2'),
             ...BomSpecData::getClassificationEnumForVersion('1.3'),
-            ...BomSpecData::getClassificationEnumForVersion('1.4')
+            ...BomSpecData::getClassificationEnumForVersion('1.4'),
+            ...BomSpecData::getClassificationEnumForVersion('1.5'),
         );
     }
 
@@ -341,6 +342,18 @@ abstract class BomModelProvider
     public static function bomWithComponentTypeSpec14(): Generator
     {
         yield from self::bomWithComponentTypes(...BomSpecData::getClassificationEnumForVersion('1.4'));
+    }
+
+    /**
+     * @return Generator<Bom[]>
+     *
+     * @psalm-return Generator<string, array{0:Bom}>
+     *
+     * @psalm-suppress MissingThrowsDocblock
+     */
+    public static function bomWithComponentTypeSpec15(): Generator
+    {
+        yield from self::bomWithComponentTypes(...BomSpecData::getClassificationEnumForVersion('1.5'));
     }
 
     /**
@@ -562,7 +575,8 @@ abstract class BomModelProvider
                     BomSpecData::getHashAlgEnumForVersion('1.1'),
                     BomSpecData::getHashAlgEnumForVersion('1.2'),
                     BomSpecData::getHashAlgEnumForVersion('1.3'),
-                    BomSpecData::getHashAlgEnumForVersion('1.4')
+                    BomSpecData::getHashAlgEnumForVersion('1.4'),
+                    BomSpecData::getHashAlgEnumForVersion('1.5'),
                 ),
                 \SORT_STRING
             )
@@ -641,6 +655,18 @@ abstract class BomModelProvider
     public static function bomWithComponentHashAlgorithmsSpec14(): Generator
     {
         yield from self::bomWithComponentHashAlgorithms(...BomSpecData::getHashAlgEnumForVersion('1.4'));
+    }
+
+    /**
+     * BOMs with all hash algorithms available in Spec 1.5.
+     *
+     * @return Generator<Bom[]>
+     *
+     * @psalm-return Generator<string, array{0:Bom}>
+     */
+    public static function bomWithComponentHashAlgorithmsSpec15(): Generator
+    {
+        yield from self::bomWithComponentHashAlgorithms(...BomSpecData::getHashAlgEnumForVersion('1.5'));
     }
 
     /**
@@ -917,6 +943,7 @@ abstract class BomModelProvider
                 BomSpecData::getExternalReferenceTypeForVersion('1.2'),
                 BomSpecData::getExternalReferenceTypeForVersion('1.3'),
                 BomSpecData::getExternalReferenceTypeForVersion('1.4'),
+                BomSpecData::getExternalReferenceTypeForVersion('1.5'),
             )
         );
         foreach ($all as $type) {

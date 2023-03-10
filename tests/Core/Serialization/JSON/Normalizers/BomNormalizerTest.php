@@ -502,7 +502,7 @@ class BomNormalizerTest extends TestCase
         );
     }
 
-    public function testNormalizePropertiesOmitEMpty(): void
+    public function testNormalizePropertiesOmitEmpty(): void
     {
         $bom = $this->createConfiguredMock(
             Bom::class,

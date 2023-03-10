@@ -21,7 +21,7 @@ All notable changes to this project will be documented in this file.
 * Misc
   * All class properties now enforce the correct types ([#6], [#114] via [#125])  
     This is considered a non-breaking change, because the types were already correctly annotated.  
-    This was possible due to PHP74's features and php8's UnionType language feature.
+    This was possible due to PHP74's features and PHP8's UnionType language feature.
   * Migrated internals to PHP8 language features ([#114] via [#125])
 
 ### API changes v2 - the details
