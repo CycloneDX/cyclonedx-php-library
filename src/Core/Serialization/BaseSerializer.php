@@ -110,7 +110,7 @@ abstract class BaseSerializer implements Serializer
      * @param TNormalizedBom $normalizedBom a version of the Bom that was normalized for serialization
      *
      * @throws Exception
-     **
+     *
      * @SuppressWarnings(PHPMD.BooleanArgumentFlag)
      */
     abstract protected function realSerialize(/* TNormalizedBom */ $normalizedBom, ?bool $prettyPrint): string;
