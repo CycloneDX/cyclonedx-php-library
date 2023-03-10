@@ -23,19 +23,10 @@ declare(strict_types=1);
 
 namespace CycloneDX\Core\Validation;
 
-use CycloneDX\Core\Spec\Spec;
-
 /**
  * @author jkowalleck
  */
 interface Validator
 {
-    public function __construct(Spec $spec);
-
-    public function getSpec(): Spec;
-
-    /**
-     * @psalm-param non-empty-string $string
-     */
     public function validateString(string $string): ?ValidationError;
 }
