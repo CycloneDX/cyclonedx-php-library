@@ -23,7 +23,8 @@ Code of v1 is in branch "[1.x](https://github.com/CycloneDX/cyclonedx-php-librar
 ## Responsibilities
 
 * Provide a general purpose _php_-implementation of [_CycloneDX_][CycloneDX].
-* Provide [_phpDoc_](https://phpdoc.org/)- & [_psalm_](https://psalm.dev/)-typing for said implementation, so developers and dev-tools can rely on it.
+* Provide [_phpDoc3_](https://phpdoc.org/)- & [_psalm_](https://psalm.dev/)-compatible annotations for said implementation,
+  so developers and dev-tools can rely on it.
 * Provide data models to work with _CycloneDX_.
 * Provide a JSON- and an XML-normalizer, that...
   * supports all shipped data models.
@@ -94,12 +95,12 @@ $bom->getComponents()->addItems(
 There is no pre-rendered documentation at the time.  
 Instead, there are code annotations, so that your IDE and tools may pick up the documentation when you use this library downstream.
 
-Additionally, there is a prepared config for [phpDoc3](https://docs.phpdoc.org/guide/getting-started/index.html)
-that you can use to generate the docs for yourself.  
+Additionally, there is a prepared config for [_phpDoc3_](https://docs.phpdoc.org/guide/getting-started/index.html)
+that you can use to generate the docs for yourself.
 
 ## Conflicts
 
-Due to the fact that this library was split out of [`/src/Core` of cyclonedx-php-composer (346e6200fb2f5086061b15c2ee44f540893ce97d)](https://github.com/CycloneDX/cyclonedx-php-composer/tree/346e6200fb2f5086061b15c2ee44f540893ce97d/src/Core)  
+Due to the fact that this library was split out of [`/src/Core` of cyclonedx-php-composer (346e6200fb2f5086061b15c2ee44f540893ce97d)](https://github.com/CycloneDX/cyclonedx-php-composer/tree/346e6200fb2f5086061b15c2ee44f540893ce97d/src/Core)
 it will conflict with its original source: `cyclonedx/cyclonedx-php-composer:<3.5`.
 
 ## Contributing
