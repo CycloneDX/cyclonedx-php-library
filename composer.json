@@ -5,6 +5,10 @@
     "type": "library",
     "keywords": [
         "CycloneDX",
+        "models",
+        "normalizer",
+        "serializer",
+        "validator",
         "bill-of-materials",
         "BOM",
         "software-bill-of-materials",
@@ -17,10 +21,6 @@
         "PURL",
         "SPDX",
         "OWASP",
-        "models",
-        "normalizer",
-        "serializer",
-        "validator"
     ],
     "authors": [
         {
