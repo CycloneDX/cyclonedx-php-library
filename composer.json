@@ -16,7 +16,11 @@
         "package-url",
         "PURL",
         "SPDX",
-        "OWASP"
+        "OWASP",
+        "models",
+        "normalizer",
+        "serializer",
+        "validator"
     ],
     "authors": [
         {
