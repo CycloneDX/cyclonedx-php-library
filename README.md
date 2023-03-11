@@ -10,8 +10,7 @@
 
 # CycloneDX PHP Library
 
-Work with Software Bill of Materials (SBoM)
-in [CycloneDX] format.
+Work with Bill of Materials (BOM) in [CycloneDX] format.
 
 ## !! ATTENTION - v2-dev state
 
