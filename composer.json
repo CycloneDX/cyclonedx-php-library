@@ -68,17 +68,17 @@
     "scripts": {
         "cs-fix": "@php tools/php-cs-fixer/vendor/friendsofphp/php-cs-fixer/php-cs-fixer fix --diff",
         "dev-setup": [
-            "@composer -dtools/composer-normalize update",
-            "@composer -dtools/composer-require-checker update",
-            "@composer -dtools/composer-unused update",
-            "@composer -dtools/php-cs-fixer update",
-            "@composer -dtools/phpmd update",
-            "@composer -dtools/psalm update",
-            "@composer -dtools/infection update",
-            "@composer -dtools/phpunit update",
+            "@composer -d tools/composer-normalize update",
+            "@composer -d tools/composer-require-checker update",
+            "@composer -d tools/composer-unused update",
+            "@composer -d tools/php-cs-fixer update",
+            "@composer -d tools/phpmd update",
+            "@composer -d tools/psalm update",
+            "@composer -d tools/infection update",
+            "@composer -d tools/phpunit update",
             "@composer update"
         ],
-        "normalize": "@composer -dtools/composer-normalize normalize --diff $PWD/composer.json",
+        "normalize": "@composer -d tools/composer-normalize normalize --diff $PWD/composer.json",
         "test": [
             "@composer validate",
             "@test:psalm",
@@ -89,7 +89,7 @@
             "@test:composer-require-checker",
             "@test:composer-normalize"
         ],
-        "test:composer-normalize": "@composer -dtools/composer-normalize normalize --dry-run --diff $PWD/composer.json",
+        "test:composer-normalize": "@composer -d tools/composer-normalize normalize --dry-run $PWD/composer.json",
         "test:composer-require-checker": "@php tools/composer-require-checker/vendor/maglnet/composer-require-checker/bin/composer-require-checker",
         "test:composer-unused": "@php tools/composer-unused/vendor/icanhazstring/composer-unused/bin/composer-unused --excludeDir=tools",
         "test:cs-fixer": "@php tools/php-cs-fixer/vendor/friendsofphp/php-cs-fixer/php-cs-fixer fix --dry-run --diff",
