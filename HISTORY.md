@@ -20,19 +20,18 @@ All notable changes to this project will be documented in this file.
 * Misc
   * All class properties now enforce the correct types ([#6], [#114] via [#125])  
     This is considered a non-breaking change, because the types were already correctly annotated.  
-    This was possible due to PHP74's features and php8's UnionType language feature.
   * Migrated internals to PHP8 language features ([#114] via [#125])
 
 ### API changes v2 - the details
 
 * Overall
-  * BREAKING: enforced the use of concrete UnionTypes instead of protocols/interfaces/abstracts. ([#114] via [#125])  
+  * BREAKING: enforced the use of concrete UnionTypes instead of protocols/interfaces/abstracts ([#114] via [#125])  
     Affected the usages of no longer public `\CycloneDX\Core\Models\License\AbstractDisjunctiveLicense` and methods that used license-related classes.
     This was possible due to PHP8's UnionType language feature.
-  * Changed some methods to no longer throw `\InvalidArgumentException`. (via [#125])  
+  * Changed some methods to no longer throw `\InvalidArgumentException` (via [#125])  
     PhpDoc annotations were updated, so that code analysis tools should pick up.
     This was possible by enforcing correct typing on PHP8 language level.
-  * BREAKING: every occurrence of `{M,m}etaData` with a capital "D" was renamed to `{M,m}etadata` with a small "d". ([#133] via [#131], [#149])  
+  * BREAKING: every occurrence of `{M,m}etaData` with a capital "D" was renamed to `{M,m}etadata` with a small "d" ([#133] via [#131], [#149])  
     This affects class names, method names, variable names, property names, file names, documentation - everything.
 * `\CycloneDX\Core\Collections` namespace
   * Added new class `CopyrightRepository` ([#238] via [#241])
@@ -82,8 +81,8 @@ All notable changes to this project will be documented in this file.
     * BREAKING: renamed methods `{get,set}HashRepository()` -> `{get,set}Hashes()` ([#133] via [#131])  
       Also changed parameter & return type to non-nullable, was nullable ([#66] via [#131])
     * BREAKING: renamed methods `{get,set}License()` -> `{get,set}Licenses()` (via [#131])  
-      Also changed it work with class `LicenseRepository` only, was working with various `Models\License\*` types. ([#66] via [#131])
-    * BREAKING: changed class property `version` to be optional, to reflect CycloneDX v1.4. ([#27] via [#118], [#131])  
+      Also changed it work with class `LicenseRepository` only, was working with various `Models\License\*` types ([#66] via [#131])
+    * BREAKING: changed class property `version` to be optional, to reflect CycloneDX v1.4 ([#27] via [#118], [#131])  
       This affects constructor arguments, and affects methods `{get,set}Version()`.
     * BREAKING: changed property `type` to be of type `\CycloneDX\Core\Enum\ComponentType` ([#140] via [#204])  
       This affects constructor arguments, and affects methods `{get,set}Type()`.
@@ -107,9 +106,9 @@ All notable changes to this project will be documented in this file.
       * BREAKING: removed factory method `makeValidated()` ([#247] via [#249])
         To assert valid values use `\CycloneDX\Core\Factories\LicenseFactory::makeSpdxLicense()`.
       * Changed: constructor `__construct()` is public now, was private ([#247] via [#249])
-      * Added new method `setId()`  ([#247] via [#249])
+      * Added new method `setId()` ([#247] via [#249])
     * `LicenseExpression` class
-      * BREAKING: constructor `__construct()` and method `setExpression()` no longer do validation, but only assert that the parameter is no empty string. ([#247] ia [#249])  
+      * BREAKING: constructor `__construct()` and method `setExpression()` no longer do validation, but only assert that the parameter is no empty string ([#247] ia [#249])  
         To assert valid values use `\CycloneDX\Core\Factories\LicenseFactory::makeExpression()`.
       * BREAKING: removed method `isValid()` ([#247] via [#249])
   * `MetaData` class
@@ -118,7 +117,7 @@ All notable changes to this project will be documented in this file.
     * BREAKING: changed methods `{get,set}Tools()` so that their parameter & return type is non-nullable, was nullable ([#66] via [#131])
     * Added new methods `{get,set}Properties()` ([#228] via [#165])
     * Added new methods `{get,set}Timestamp()` (via [#180], [#181])
-  * Added new class `Property`. ([#228] via [#165])
+  * Added new class `Property` ([#228] via [#165])
   * `Tool` class
     * BREAKING: renamed methods `{get,set}ExternalReferenceRepository()` -> `{get,set}ExternalReferences()` ([#133] via [#131])  
       Also changed parameter & return type to non-nullable, was nullable ([#66] via [#131])
@@ -127,11 +126,11 @@ All notable changes to this project will be documented in this file.
 * `\CycloneDX\Core\Repositories` namespace
   * Overall:
     * BREAKING: renamed the namespace to `\CycloneDX\Core\Collections` ([#133] via [#131])
-    * BREAKING: streamlined all classes, renamed all getters to `getItems()` and all setters to `setItems()`. ([#133] via [#131])  
+    * BREAKING: streamlined all classes, renamed all getters to `getItems()` and all setters to `setItems()` ([#133] via [#131])  
       In addition, the method arguments were renamed to generic `$items`.
   * `DisjunctiveLicenseRepository` class
     * BREAKING: renamed the class to `\CycloneDX\Core\Collections\LicenseRepository` (via [#131])
-    * BREAKING: added the capability to also aggregate instances of class `Models\LicenseExpression`. (via [#131])  
+    * BREAKING: added the capability to also aggregate instances of class `Models\LicenseExpression` (via [#131])  
       Therefore, various getters and setters and the constructor changed their signatures,
       was usage of `\CycloneDX\Core\Models\License\AbstractDisjunctiveLicense` only.
   * `HashRepository` class
@@ -170,7 +169,7 @@ All notable changes to this project will be documented in this file.
     * Added new classes `LicenseNormalizer` that can normalize every existing license model (via [#131])
     * Added new classes `LicenseRepositoryNormalizer` that can normalize `LicenseRepository` (via [#131])
     * `ExternalReferenceNormalizer` classes
-      * Changed the method `normalize()` to actually throw `\DomainException` when `\ExternalReference`'s type was not supported by the spec. (via [#65])  
+      * Changed the method `normalize()` to actually throw `\DomainException` when `\ExternalReference`'s type was not supported by the spec (via [#65])  
         This is considered a non-breaking change, because the behaviour was already documented in the API, even though there was no need for an implementation before.
     * `ExternalReferenceNormalizer` classes
       * Changed, so that it tries to convert unsupported types to "other", before it throws a `\DomainException` ([#137] via [#147])
@@ -193,12 +192,9 @@ All notable changes to this project will be documented in this file.
     * BREAKING: renamed interface to `Validator` ([#133] via [#143])
     * Removed specification of constructor `__construct()` (via [#253])
     * Removed specification of method `getSpec()` (via [#253])
-  * `Validators\{Json,Xml}Validator` classes
+  * `Validators\{Json,JsonStrict,Xml}Validator` classes
     * Added support for CycloneDX v1.4 ([#57] via [#65])
-  * `Validators\JsonValidator` classes
-    * Utilizes a much more competent validation library than before ([#80] via [#151])
-  * `Validators\JsonStrictValidator` class
-    * Added support for CycloneDX v1.4 ([#57] via [#65])
+  * `Validators\{Json,JsonStrict}Validator` classes
     * Utilizes a much more competent validation library than before ([#80] via [#151])
 
 [#5]:   https://github.com/CycloneDX/cyclonedx-php-library/issues/5
