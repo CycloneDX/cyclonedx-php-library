@@ -30,6 +30,7 @@ use DomainException;
  *
  * No validation is done internally.
  * You may validate with {@see \Composer\Spdx\SpdxLicenses::isValidLicenseString()}.
+ * You may assert valid objects with {@see \CycloneDX\Core\Factories\LicenseFactory::makeExpression()}.
  *
  * @author jkowalleck
  */
