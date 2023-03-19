@@ -27,7 +27,7 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  PHP_VERSION_LATEST: "8.2"
+  PHP_VERSION_LATEST: "8.3"
   PHP_PROJECT_EXT: dom,filter,json,libxml,simplexml  # via `composer info -pt`
 
 jobs:
@@ -42,7 +42,8 @@ jobs:
           - "macos-latest"
           - "windows-latest"
         php:
-          - "8.2"   # highest supported
+          - "8.3"   # highest supported
+          - "8.2"
           - "8.1"   # lowest supported
     timeout-minutes: 10
     steps:
