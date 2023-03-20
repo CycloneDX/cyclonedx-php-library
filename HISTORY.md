@@ -4,10 +4,10 @@ All notable changes to this project will be documented in this file.
 
 ## unreleased
 
-## 2.0.0 - unreleased
+## 2.0.0 - 2023-03-20
 
 * BREAKING
-  * Removed support for PHP v7.3 ([#6]   via [#125])
+  * Removed support for PHP v7.3 ([#6] via [#125])
   * Removed support for PHP v7.4 ([#114] via [#125])
   * Removed support for PHP v8.0 (via [#204])
   * Changed models' aggregation properties to be no longer optional ([#66] via [#131])

@@ -12,13 +12,6 @@
 
 Work with Bill of Materials (BOM) in [CycloneDX] format.
 
-## !! ATTENTION - v2-dev state
-
-The branch "master" is currently in the transition to next major version: v2.
-See the progress in the [milestone "v2"](https://github.com/CycloneDX/cyclonedx-php-library/milestone/1)
-
-Code of v1 is in branch "[1.x](https://github.com/CycloneDX/cyclonedx-php-library/tree/1.x)"
-
 ## Responsibilities
 
 * Provide a general purpose _php_-implementation of [_CycloneDX_][CycloneDX].
