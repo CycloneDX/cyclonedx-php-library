@@ -1,5 +1,6 @@
 [![shield_packagist-version]][link_packagist]
 [![shield_gh-workflow-test]][link_gh-workflow-test]
+[![shield_coverage]][link_codacy]
 [![shield_shepherd]][link_shepherd]
 [![shield_license]][license_file]  
 [![shield_website]][link_website]
@@ -115,6 +116,7 @@ See the [LICENSE][license_file] file for the full license.
 
 [shield_packagist-version]: https://img.shields.io/packagist/v/cyclonedx/cyclonedx-library?logo=Packagist&logoColor=white "packagist"
 [shield_gh-workflow-test]: https://img.shields.io/github/actions/workflow/status/CycloneDX/cyclonedx-php-library/php.yml?branch=master&logo=GitHub&logoColor=white "build"
+[shield_coverage]: https://img.shields.io/codacy/coverage/7e5610bee31a4c99b1b8efb0eeab9e73 "test coverage"
 [shield_shepherd]: https://shepherd.dev/github/CycloneDX/cyclonedx-php-library/coverage.svg "type coverage"
 [shield_license]: https://img.shields.io/github/license/CycloneDX/cyclonedx-php-library?logo=open%20source%20initiative&logoColor=white "license"
 [shield_website]: https://img.shields.io/badge/https://-cyclonedx.org-blue.svg "homepage"
@@ -123,6 +125,7 @@ See the [LICENSE][license_file] file for the full license.
 [shield_twitter-follow]: https://img.shields.io/badge/Twitter-follow-blue?logo=Twitter&logoColor=white "twitter follow"
 [link_packagist]: https://packagist.org/packages/cyclonedx/cyclonedx-library
 [link_gh-workflow-test]: https://github.com/CycloneDX/cyclonedx-php-library/actions/workflows/php.yml?query=branch%3Amaster
+[link_codacy]: https://app.codacy.com/gh/CycloneDX/cyclonedx-php-library
 [link_shepherd]: https://shepherd.dev/github/CycloneDX/cyclonedx-php-library
 [link_website]: https://cyclonedx.org/
 [link_slack]: https://cyclonedx.org/slack/invite
