@@ -103,7 +103,6 @@ class LicenseIdentifiers
              * list of non-empty-string, as asserted by an integration test:
              * {@see \CycloneDX\Tests\Core\Spdx\LicenseIdentifierTest::testShippedLicensesFile()}.
              *
-             * @var string[] $values
              * @psalm-var non-empty-list<non-empty-string> $values
              *
              * @psalm-suppress MixedArrayAccess
@@ -118,6 +117,5 @@ class LicenseIdentifiers
             array_map(strtolower(...), $values),
             $values
         );
-
     }
 }
