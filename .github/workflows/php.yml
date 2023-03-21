@@ -370,4 +370,4 @@ jobs:
           php tools/phpmd/vendor/phpmd/phpmd/src/bin/phpmd
           src
           github
-          .phpmd.rules.dist.xml
+          phpmd.xml
