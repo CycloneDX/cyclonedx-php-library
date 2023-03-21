@@ -17,6 +17,10 @@ env:
   PHP_PROJECT_EXT: dom,json,libxml,simplexml  # via `composer info -pt`
   REPORTS_DIR: CI_reports
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   composer-validate:
     name: Composer Validate
