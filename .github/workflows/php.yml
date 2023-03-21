@@ -164,6 +164,7 @@ jobs:
       - name: Run Psalm tests
         run: >
           php tools/psalm/vendor/vimeo/psalm/psalm
+          --php-version=${{ matrix.php }}
           --no-diff
           --no-cache
           --long-progress
