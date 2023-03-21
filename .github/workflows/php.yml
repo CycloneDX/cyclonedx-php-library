@@ -164,11 +164,14 @@ jobs:
       - name: Run Psalm tests
         run: >
           php tools/psalm/vendor/vimeo/psalm/psalm
+          --php-version=${{ matrix.php }}
           --no-diff
           --no-cache
           --long-progress
           --output-format=github
           --report=${{ env.REPORTS_DIR }}/psalm.php${{ matrix.php }}_${{ matrix.dependencies }}.junit.xml
+          --stats
+          --shepherd
       - name: Artifact reports
         if: ${{ ! cancelled() }}
         # see https://github.com/actions/upload-artifact
