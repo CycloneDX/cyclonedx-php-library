@@ -82,6 +82,7 @@ abstract class BomModelProvider
         yield 'bom plain' => [new Bom()];
         yield 'bom plain with version' => [(new Bom())->setVersion(23)];
         yield 'bom plain with serialNumber' => [(new Bom())->setSerialNumber('urn:uuid:3e671687-395b-41f5-a30f-a58921a69b79')];
+        yield 'bom plain with invalid serialNumber' => [(new Bom())->setSerialNumber('foo bar')];
     }
 
     /**
