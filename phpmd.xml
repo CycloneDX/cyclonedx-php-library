@@ -23,6 +23,7 @@
             <property name="exceptions">
                 <value>
                     <!-- some classes are assembled of static methods only - these classes represent namespaces -->
+                    CycloneDX\Core\Utils\BomUtil,
                     CycloneDX\Core\_helpers\Predicate,
                     CycloneDX\Core\_helpers\SimpleDOM,
                     CycloneDX\Core\_helpers\XML

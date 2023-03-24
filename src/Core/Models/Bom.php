@@ -43,7 +43,8 @@ class Bom
      * If specified, the serial number MUST conform to RFC-4122.
      * Use of serial numbers are RECOMMENDED.
      *
-     * pattern: ^urn:uuid:[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
+     * - pattern for XSD: urn:uuid:([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})|(\{[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\})
+     * - pattern for JSON: ^urn:uuid:[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
      *
      * @psalm-var non-empty-string|null
      */
@@ -103,34 +104,17 @@ class Bom
     }
 
     /**
-     * @param string|null $serialNumber an empty value or a valid urn:uuid
-     *
-     * @throws DomainException if version is neither empty nor a valid urn:uuid
+     * Create valid values with {@see \CycloneDX\Core\Utils\BomUtility::randomSerialNumber()}.
      *
      * @return $this
      */
     public function setSerialNumber(?string $serialNumber): static
     {
-        if ('' === $serialNumber) {
-            $serialNumber = null;
-        }
-        if (null !== $serialNumber && !self::isValidSerialNumber($serialNumber)) {
-            throw new DomainException("Invalid value: $serialNumber");
-        }
-        $this->serialNumber = $serialNumber;
+        $this->serialNumber = '' === $serialNumber
+            ? null
+            : $serialNumber;
 
         return $this;
-    }
-
-    /**
-     * @psalm-pure
-     */
-    private static function isValidSerialNumber(string $serialNumber): bool
-    {
-        return 1 === preg_match(
-            '/^urn:uuid:[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/',
-            $serialNumber
-        );
     }
 
     public function getComponents(): ComponentRepository

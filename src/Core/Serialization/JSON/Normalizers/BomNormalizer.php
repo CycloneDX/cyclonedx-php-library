@@ -62,7 +62,7 @@ class BomNormalizer extends _BaseNormalizer
                 '$schema' => $this->getSchema($specVersion),
                 'bomFormat' => self::BOM_FORMAT,
                 'specVersion' => $specVersion->value,
-                'serialNumber' => $bom->getSerialNumber(),
+                'serialNumber' => $this->normalizeSerialNumber($bom->getSerialNumber()),
                 'version' => $bom->getVersion(),
                 'metadata' => $this->normalizeMetadata($bom->getMetadata()),
                 'components' => $factory->makeForComponentRepository()->normalize($bom->getComponents()),
@@ -76,6 +76,15 @@ class BomNormalizer extends _BaseNormalizer
             ],
             Predicate::isNotNull(...)
         );
+    }
+
+    private function normalizeSerialNumber(?string $serialNumber): ?string
+    {
+        // @TODO have the regex configurable per Spec
+        return \is_string($serialNumber) &&
+            1 === preg_match('/^urn:uuid:[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/', $serialNumber)
+                 ? $serialNumber
+                 : null;
     }
 
     private function normalizeMetadata(Metadata $metadata): ?array

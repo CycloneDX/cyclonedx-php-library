@@ -52,7 +52,7 @@ class BomNormalizer extends _BaseNormalizer
             $element,
             [
                 'version' => $bom->getVersion(),
-                'serialNumber' => $bom->getSerialNumber(),
+                'serialNumber' => $this->normalizeSerialNumber($bom->getSerialNumber()),
             ]
         );
 
@@ -70,6 +70,15 @@ class BomNormalizer extends _BaseNormalizer
         );
 
         return $element;
+    }
+
+    private function normalizeSerialNumber(?string $serialNumber): ?string
+    {
+        // @TODO have the regex configurable per Spec
+        return \is_string($serialNumber) &&
+            1 === preg_match('/^urn:uuid:[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$|^\\{[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\\}$/', $serialNumber)
+                ? $serialNumber
+                : null;
     }
 
     private function normalizeComponents(ComponentRepository $components): DOMElement
