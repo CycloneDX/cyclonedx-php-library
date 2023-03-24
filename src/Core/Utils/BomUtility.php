@@ -26,11 +26,12 @@ namespace CycloneDX\Core\Utils;
 use Exception;
 
 /**
- * Collection of utilities regarding {@see \CycloneDX\Core\Models\Bom}.
+ * Utility regarding:
+ * - {@see \CycloneDX\Core\Models\Bom}.
  *
  * @author jkowalleck
  */
-abstract class BomUtils
+abstract class BomUtility
 {
     /**
      * @throws Exception if an appropriate source of randomness cannot be found

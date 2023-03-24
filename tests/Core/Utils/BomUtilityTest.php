@@ -23,19 +23,19 @@ declare(strict_types=1);
 
 namespace CycloneDX\Tests\Core\Utils;
 
-use CycloneDX\Core\Utils\BomUtils;
+use CycloneDX\Core\Utils\BomUtility;
 use Generator;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
-#[CoversClass(BomUtils::class)]
-class BomUtilsTest extends TestCase
+#[CoversClass(BomUtility::class)]
+class BomUtilityTest extends TestCase
 {
     #[DataProvider('dpRandomBomSerialNumberHasCorrectFormat')]
     public function testRandomSerialNumberHasCorrectFormat(string $pattern): void
     {
-        $serialNumber = BomUtils::randomSerialNumber();
+        $serialNumber = BomUtility::randomSerialNumber();
         self::assertMatchesRegularExpression($pattern, $serialNumber);
     }
 

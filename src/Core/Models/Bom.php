@@ -104,7 +104,7 @@ class Bom
     }
 
     /**
-     * Create valid values with {@see \CycloneDX\Core\Utils\BomUtils::randomSerialNumber()}.
+     * Create valid values with {@see \CycloneDX\Core\Utils\BomUtility::randomSerialNumber()}.
      *
      * @return $this
      */
