@@ -21,21 +21,21 @@ declare(strict_types=1);
  * Copyright (c) OWASP Foundation. All Rights Reserved.
  */
 
-namespace CycloneDX\Core;
+namespace CycloneDX\Core\Utils;
 
 use Exception;
 
 /**
- * Collection of utilities.
+ * Collection of utilities regarding {@see \CycloneDX\Core\Models\Bom}.
  *
  * @author jkowalleck
  */
-abstract class Util
+abstract class BomUtils
 {
     /**
      * @throws Exception if an appropriate source of randomness cannot be found
      */
-    public static function randomBomSerialNumber(): string
+    public static function randomSerialNumber(): string
     {
         return sprintf(
             'urn:uuid:%04x%04x-%04x-%04x-%04x-%04x%04x%04x',

@@ -21,21 +21,21 @@ declare(strict_types=1);
  * Copyright (c) OWASP Foundation. All Rights Reserved.
  */
 
-namespace CycloneDX\Tests\Core;
+namespace CycloneDX\Tests\Core\Utils;
 
-use CycloneDX\Core\Util;
+use CycloneDX\Core\Utils\BomUtils;
 use Generator;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
-#[CoversClass(Util::class)]
-class UtilTest extends TestCase
+#[CoversClass(BomUtils::class)]
+class BomUtilsTest extends TestCase
 {
     #[DataProvider('dpRandomBomSerialNumberHasCorrectFormat')]
-    public function testRandomBomSerialNumberHasCorrectFormat(string $pattern): void
+    public function testRandomSerialNumberHasCorrectFormat(string $pattern): void
     {
-        $serialNumber = Util::randomBomSerialNumber();
+        $serialNumber = BomUtils::randomSerialNumber();
         self::assertMatchesRegularExpression($pattern, $serialNumber);
     }
 

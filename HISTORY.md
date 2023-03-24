@@ -6,12 +6,12 @@ All notable changes to this project will be documented in this file.
 
 * Fixed
   * "Bom.serialNumber" data model can have values following the alternative format allowed in CycloneDX XML ([#277] via [#278])
-  * `CycloneDX\Core\Serialization\{DOM,JSON}\Normalizers\BomNormalizer::normalize()` now omits invalid values for `serialNumber` ([#277] via [#278])
+  * `CycloneDX\Core\Serialization\{DOM,JSON}\Normalizers\BomNormalizer::normalize()` now omits invalid/unsupported values for `serialNumber` ([#277] via [#278])
 * Changed
   * `\CycloneDX\Core\Models\Bom::setSerialNumber()` no longer throws `\DomainException` when the value is of an unsupported format ([#277] via [#278])  
     This is considered non-breaking, because the corresponding normalizers assure valid data results.
 * Added
-  * Bom serialNumber generator: `\CycloneDX\Core\Util::randomBomSerialNumber()` ([#277] via [#278])
+  * Bom serialNumber generator: `\CycloneDX\Core\Utils\BomUtils::randomerialNumber()` ([#277] via [#278])
 
 [#277]: https://github.com/CycloneDX/cyclonedx-php-library/issues/277
 [#278]: https://github.com/CycloneDX/cyclonedx-php-library/pull/278

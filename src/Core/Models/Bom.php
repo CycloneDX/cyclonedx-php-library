@@ -104,6 +104,8 @@ class Bom
     }
 
     /**
+     * Create valid values with {@see \CycloneDX\Core\Utils\BomUtils::randomSerialNumber()}.
+     *
      * @return $this
      */
     public function setSerialNumber(?string $serialNumber): static
