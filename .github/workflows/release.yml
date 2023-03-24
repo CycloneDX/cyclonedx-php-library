@@ -29,6 +29,8 @@ on:
 jobs:
   release:
     name: Release
+    permissions:
+      deployments: write-all
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
