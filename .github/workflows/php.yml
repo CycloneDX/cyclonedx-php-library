@@ -4,7 +4,8 @@ name: PHP CI
 
 on:
   push:
-    branches: ["master"]
+    branches: [ "master" ]
+    tags: [ "v*" ]  # have tools scan this stable version
   pull_request:
   workflow_dispatch:
   schedule:
