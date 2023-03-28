@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## unreleased
 
+## 2.1.1 - 2023-03-28
+
 * Docs
   * Announce and annotate the generator for BOM's SerialNumber ([#277] via [#282])
   
