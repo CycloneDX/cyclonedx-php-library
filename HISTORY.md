@@ -5,9 +5,9 @@ All notable changes to this project will be documented in this file.
 ## unreleased
 
 * Docs
-  * Announce and annotate the generator for BOM's SerialNumber ([#277] via [#])
+  * Announce and annotate the generator for BOM's SerialNumber ([#277] via [#282])
   
-[#]: 
+[#282]: https://github.com/CycloneDX/cyclonedx-php-library/pull/282
 
 ## 2.1.0 - 2023-03-24
 
