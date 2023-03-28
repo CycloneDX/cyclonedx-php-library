@@ -48,6 +48,8 @@ Work with Bill of Materials (BOM) in [CycloneDX] format.
   * `Metadata`
   * `Property`, `PropertyRepository`
   * `Tool`, `ToolRepository`
+* Utilities for the following use cases:
+  * Generate valid random SerialNumbers for `Bom.serialNumber`
 * Factories for the following use cases:
   * Create data models from any license descriptor string
 * Implementation of the [_CycloneDX_ Specification][CycloneDX-spec] for the following versions:
