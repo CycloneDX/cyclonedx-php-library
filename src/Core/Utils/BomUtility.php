@@ -34,6 +34,10 @@ use Exception;
 abstract class BomUtility
 {
     /**
+     * Generate valid random SerialNumbers for {@see \CycloneDX\Core\Models\Bom::setSerialNumber()}.
+     *
+     * @since 2.1.0
+     *
      * @throws Exception if an appropriate source of randomness cannot be found
      */
     public static function randomSerialNumber(): string
