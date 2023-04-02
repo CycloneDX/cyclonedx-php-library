@@ -5,9 +5,9 @@ All notable changes to this project will be documented in this file.
 ## unreleased
 
 * Docs
-  * Fixed link to CycloneDX-specification in README (via [#])
+  * Fixed link to CycloneDX-specification in README (via [#288])
 
-[#]: 
+[#288]: https://github.com/CycloneDX/cyclonedx-php-library/pull/288
 
 ## 2.1.1 - 2023-03-28
 
