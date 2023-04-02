@@ -101,7 +101,7 @@ it will conflict with its original source: `cyclonedx/cyclonedx-php-composer:<3.
 
 ## Contributing
 
-Feel free to open issues, bugreports or pull requests.  
+Feel free to open issues, bug reports or pull requests.  
 See the [CONTRIBUTING][contributing_file] file for details.
 
 ## License
