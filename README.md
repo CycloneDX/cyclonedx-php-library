@@ -110,7 +110,7 @@ Permission to modify and redistribute is granted under the terms of the Apache 2
 See the [LICENSE][license_file] file for the full license.
 
 [CycloneDX]: https://cyclonedx.org/
-[CycloneDX-spec]: https://github.com/CycloneDX/specification/tree/main/schema
+[CycloneDX-spec]: https://github.com/CycloneDX/specification/tree/master#readme
 
 [license_file]: https://github.com/CycloneDX/cyclonedx-php-library/blob/master/LICENSE
 [contributing_file]: https://github.com/CycloneDX/cyclonedx-php-library/blob/master/CONTRIBUTING.md
@@ -118,7 +118,7 @@ See the [LICENSE][license_file] file for the full license.
 
 [shield_packagist-version]: https://img.shields.io/packagist/v/cyclonedx/cyclonedx-library?logo=Packagist&logoColor=white "packagist"
 [shield_gh-workflow-test]: https://img.shields.io/github/actions/workflow/status/CycloneDX/cyclonedx-php-library/php.yml?branch=master&logo=GitHub&logoColor=white "build"
-[shield_coverage]: https://img.shields.io/codacy/coverage/7e5610bee31a4c99b1b8efb0eeab9e73 "test coverage"
+[shield_coverage]: https://img.shields.io/codacy/coverage/7e5610bee31a4c99b1b8efb0eeab9e73?logo=Codacy&logoColor=white "test coverage"
 [shield_shepherd]: https://shepherd.dev/github/CycloneDX/cyclonedx-php-library/coverage.svg "type coverage"
 [shield_license]: https://img.shields.io/github/license/CycloneDX/cyclonedx-php-library?logo=open%20source%20initiative&logoColor=white "license"
 [shield_website]: https://img.shields.io/badge/https://-cyclonedx.org-blue.svg "homepage"

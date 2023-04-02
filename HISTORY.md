@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## unreleased
 
+* Docs
+  * Fixed link to CycloneDX-specification in README (via [#])
+
+[#]: 
+
 ## 2.1.1 - 2023-03-28
 
 * Docs
