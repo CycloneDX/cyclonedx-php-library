@@ -30,6 +30,7 @@ use CycloneDX\Core\Spec\Spec;
  */
 abstract class BaseValidator implements Validator
 {
+    /** @TODO in next major version: use `\CycloneDX\Core\Enums\Version` */
     private readonly Spec $spec;
 
     public function __construct(Spec $spec)
