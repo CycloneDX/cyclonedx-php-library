@@ -161,10 +161,7 @@ abstract class BomModelProvider
         yield from self::bomWithComponentVersion();
         yield from self::bomWithComponentDescription();
         yield from self::bomWithComponentAuthor();
-        yield from self::bomWithComponentLicenseId();
-        yield from self::bomWithComponentLicenseName();
-        yield from self::bomWithComponentLicenseExpression();
-        yield from self::bomWithComponentLicenseUrl();
+        yield from self::bomWithComponentLicenses();
         yield from self::bomWithComponentCopyright();
         yield from self::bomWithComponentHashAlgorithmsAllKnown();
         yield from self::bomWithComponentWithExternalReferences();
@@ -374,6 +371,22 @@ abstract class BomModelProvider
      * @return Generator<Bom[]>
      *
      * @psalm-return Generator<string, array{0:Bom}>
+     */
+    public static function bomWithComponentLicenses(): Generator
+    {
+        yield from self::bomWithComponentLicenseId();
+        yield from self::bomWithComponentLicenseName();
+        yield from self::bomWithComponentLicenseExpression();
+        yield from self::bomWithComponentLicenseUrl();
+        yield from self::bomWithComponentLicensesMixed();
+    }
+
+    /**
+     * BOMs with one component that has one license.
+     *
+     * @return Generator<Bom[]>
+     *
+     * @psalm-return Generator<string, array{0:Bom}>
      *
      * @psalm-suppress MissingThrowsDocblock
      */
@@ -438,9 +451,39 @@ abstract class BomModelProvider
                     (new Component(ComponentType::Library, 'name'))
                         ->setLicenses(
                             new LicenseRepository(
-                                new LicenseExpression('(Foo or Bar)')
+                                new LicenseExpression('(MIT OR Apache-2.0)')
                             )
                         )
+                )
+            ),
+        ];
+    }
+
+    /**
+     * @return Generator<Bom[]>
+     *
+     * @psalm-return Generator<string, array{0:Bom}>
+     *
+     * @psalm-suppress MissingThrowsDocblock
+     */
+    public static function bomWithComponentLicensesMixed(): Generator
+    {
+        $licenses = array_map(
+            static fn (Bom $bom): SpdxLicense|NamedLicense|LicenseExpression => $bom->getComponents()->getItems()[0]->getLicenses()->getItems()[0],
+            array_map(
+                static fn (array $args): Bom => $args[0],
+                [
+                    ...iterator_to_array(self::bomWithComponentLicenseId(), false),
+                    ...iterator_to_array(self::bomWithComponentLicenseName(), false),
+                    ...iterator_to_array(self::bomWithComponentLicenseExpression(), false),
+                ]
+            )
+        );
+        yield 'component license mixed' => [
+            (new Bom())->setComponents(
+                new ComponentRepository(
+                    (new Component(ComponentType::Library, 'name'))
+                        ->setLicenses(new LicenseRepository(...$licenses))
                 )
             ),
         ];
