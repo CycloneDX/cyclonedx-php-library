@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## unreleased
 
+## 2.1.2 - 2023-04-05
+
 * Fixed
   * `\CycloneDX\Core\Serialization\{DOM,JSON}\Normalizers\LicenseRepositoryNormalizer::normalize()` now omits invalid license combinations ([#285] via [#290])  
     If there is any `LicenseExpression`, then this is the only license normalized; otherwise all licenses are normalized.
