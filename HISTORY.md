@@ -4,10 +4,15 @@ All notable changes to this project will be documented in this file.
 
 ## unreleased
 
+* Fixed
+  * `\CycloneDX\Core\Serialization\{DOM,JSON}\Normalizers\LicenseRepositoryNormalizer::normalize()` now omits invalid license combinations ([#285] via [#290])  
+    If there is any `LicenseExpression`, then this is the only license normalized; otherwise all licenses are normalized.
 * Docs
   * Fixed link to CycloneDX-specification in README (via [#288])
 
+[#285]: https://github.com/CycloneDX/cyclonedx-php-library/issues/285
 [#288]: https://github.com/CycloneDX/cyclonedx-php-library/pull/288
+[#290]: https://github.com/CycloneDX/cyclonedx-php-library/pull/290
 
 ## 2.1.1 - 2023-03-28
 
