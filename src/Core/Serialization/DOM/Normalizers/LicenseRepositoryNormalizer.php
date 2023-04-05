@@ -49,8 +49,10 @@ class LicenseRepositoryNormalizer extends _BaseNormalizer
                 static fn ($license) => $license instanceof LicenseExpression
             );
             if (\count($expressions) > 0) {
-                // could have thrown {@see \DomainException} when there is more than one only {@see LicenseExpression}.
-                // but let's be graceful and just normalize to the most relevant choice: any expression
+                /**
+                 * could have thrown {@see \DomainException} when there is more than one only {@see LicenseExpression}.
+                 * but let's be graceful and just normalize to the most relevant choice: any expression.
+                 */
                 $licenses = [reset($expressions)];
             }
         }
