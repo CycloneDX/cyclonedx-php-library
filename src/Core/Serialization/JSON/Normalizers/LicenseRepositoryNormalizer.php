@@ -24,6 +24,7 @@ declare(strict_types=1);
 namespace CycloneDX\Core\Serialization\JSON\Normalizers;
 
 use CycloneDX\Core\Collections\LicenseRepository;
+use CycloneDX\Core\Models\License\LicenseExpression;
 use CycloneDX\Core\Serialization\JSON\_BaseNormalizer;
 
 /**
@@ -33,9 +34,21 @@ class LicenseRepositoryNormalizer extends _BaseNormalizer
 {
     public function normalize(LicenseRepository $repo): array
     {
+        $licenses = $repo->getItems();
+
+        if (\count($licenses) > 1) {
+            foreach ($licenses as $license) {
+                if ($license instanceof LicenseExpression) {
+                    // license expression is mightier than the rest
+                    $licenses = [$license];
+                    break;
+                }
+            }
+        }
+
         return array_map(
             $this->getNormalizerFactory()->makeForLicense()->normalize(...),
-            $repo->getItems()
+            $licenses
         );
     }
 }
