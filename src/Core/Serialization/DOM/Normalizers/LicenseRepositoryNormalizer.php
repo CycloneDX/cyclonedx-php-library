@@ -43,9 +43,10 @@ class LicenseRepositoryNormalizer extends _BaseNormalizer
         $licenses = $repo->getItems();
 
         if (\count($licenses) > 1) {
+            /** @var LicenseExpression[] $expressions */
             $expressions = array_filter(
                 $licenses,
-                static fn ($l) => $l instanceof LicenseExpression
+                static fn ($license) => $license instanceof LicenseExpression
             );
             if (\count($expressions) > 0) {
                 // could have thrown {@see \DomainException} when there is more than one only {@see LicenseExpression}.
