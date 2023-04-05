@@ -24,7 +24,9 @@ declare(strict_types=1);
 namespace CycloneDX\Tests\Core\Serialization\DOM\Normalizers;
 
 use CycloneDX\Core\Collections\LicenseRepository;
+use CycloneDX\Core\Models\License\LicenseExpression;
 use CycloneDX\Core\Models\License\NamedLicense;
+use CycloneDX\Core\Models\License\SpdxLicense;
 use CycloneDX\Core\Serialization\DOM\_BaseNormalizer;
 use CycloneDX\Core\Serialization\DOM\NormalizerFactory;
 use CycloneDX\Core\Serialization\DOM\Normalizers\LicenseNormalizer;
@@ -73,8 +75,35 @@ class LicenseRepositoryNormalizerTest extends TestCase
         ]);
         $FakeLicense = $this->createStub(DOMElement::class);
 
-        $licenseNormalizer->expects(self::once())->method('normalize')
+        $licenseNormalizer->method('normalize')
             ->with($license)
+            ->willReturn($FakeLicense);
+
+        $actual = $normalizer->normalize($licenses);
+
+        self::assertSame([$FakeLicense], $actual);
+    }
+
+    public function testNormalizePreferExpression(): void
+    {
+        $spec = $this->createStub(Spec::class);
+        $licenseNormalizer = $this->createMock(LicenseNormalizer::class);
+        $factory = $this->createConfiguredMock(NormalizerFactory::class, [
+            'getSpec' => $spec,
+            'makeForLicense' => $licenseNormalizer,
+        ]);
+        $normalizer = new LicenseRepositoryNormalizer($factory);
+        $licenseNamed = $this->createStub(NamedLicense::class);
+        $licenseSpdx = $this->createStub(SpdxLicense::class);
+        $licenseExpression = $this->createStub(LicenseExpression::class);
+        $licenses = $this->createConfiguredMock(LicenseRepository::class, [
+            'count' => 1,
+            'getItems' => [$licenseSpdx, $licenseNamed, $licenseExpression],
+        ]);
+        $FakeLicense = $this->createStub(DOMElement::class);
+
+        $licenseNormalizer->method('normalize')
+            ->with($licenseExpression)
             ->willReturn($FakeLicense);
 
         $actual = $normalizer->normalize($licenses);
