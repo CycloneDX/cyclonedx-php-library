@@ -75,8 +75,8 @@ class BomNormalizer extends _BaseNormalizer
     private function normalizeSerialNumber(?string $serialNumber): ?string
     {
         // @TODO have the regex configurable per Spec
-        return \is_string($serialNumber) &&
-            1 === preg_match('/^urn:uuid:[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$|^\\{[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\\}$/', $serialNumber)
+        return \is_string($serialNumber)
+            && 1 === preg_match('/^urn:uuid:[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$|^\\{[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\\}$/', $serialNumber)
                 ? $serialNumber
                 : null;
     }
