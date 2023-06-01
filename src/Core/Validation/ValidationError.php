@@ -30,16 +30,14 @@ use Throwable;
  */
 class ValidationError
 {
-    private readonly string $message;
-
     /**
      * keep for internal debug purposes.
      */
     protected ?object $error = null;
 
-    final protected function __construct(string $message)
-    {
-        $this->message = $message;
+    final protected function __construct(
+        private readonly string $message
+    ) {
     }
 
     public function getMessage(): string

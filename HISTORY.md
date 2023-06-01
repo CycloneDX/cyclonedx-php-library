@@ -15,10 +15,12 @@ All notable changes to this project will be documented in this file.
 * Style
   * Applied latest PHP Coding Standards (via [#302])  
     Some parameters allow nullables implicitly, was explicitly.
+  * Wrote some class properties with constructor promotion (via [#309])
 
 [#302]: https://github.com/CycloneDX/cyclonedx-php-library/pull/302
 [#305]: https://github.com/CycloneDX/cyclonedx-php-library/issues/305
 [#306]: https://github.com/CycloneDX/cyclonedx-php-library/pull/306
+[#309]: https://github.com/CycloneDX/cyclonedx-php-library/pull/309
 
 ## 2.1.2 - 2023-04-05
 
