@@ -82,8 +82,6 @@ class JsonSerializer extends BaseSerializer
         | \JSON_UNESCAPED_SLASHES // urls become shorter
     ;
 
-    private readonly JSON\NormalizerFactory $normalizerFactory;
-
     /**
      * Flags for {@see \json_encode()}.
      *
@@ -91,16 +89,15 @@ class JsonSerializer extends BaseSerializer
      *
      * @see https://www.php.net/manual/en/json.constants.php
      */
-    private readonly int $jsonEncodeFlags;
+    protected readonly int $jsonEncodeFlags;
 
     /**
      * @param int $jsonEncodeFlags Bitmask consisting of JSON_*. see {@see JsonEncodeFlagsAllowedOptions}
      */
     public function __construct(
-        JSON\NormalizerFactory $normalizerFactory,
+        protected readonly JSON\NormalizerFactory $normalizerFactory,
         int $jsonEncodeFlags = self::JsonEncodeFlagsDefaultOptions
     ) {
-        $this->normalizerFactory = $normalizerFactory;
         $this->jsonEncodeFlags = self::JsonEncodeFlagsDefaults
             | ($jsonEncodeFlags & self::JsonEncodeFlagsAllowedOptions);
     }
