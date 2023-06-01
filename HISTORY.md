@@ -4,7 +4,17 @@ All notable changes to this project will be documented in this file.
 
 ## unreleased
 
-todo
+* Changed
+  * Class `\CycloneDX\Core\Serialization\JsonSerializer`
+    * Property `normalizerFactory` became protected readonly, was private readonly ([#305] via [#306])
+    * Property `jsonEncodeFlags`   became protected readonly, was private readonly ([#305] via [#306])
+  * Class `\CycloneDX\Core\Serialization\XmlSerializer`
+    * Property `normalizerFactory` became protected readonly, was private readonly ([#305] via [#306])
+    * Property `xmlVersion`        became protected readonly, was private readonly ([#305] via [#306])
+    * Property `xmlEncoding`       became protected readonly, was private readonly ([#305] via [#306])
+
+[#305]: https://github.com/CycloneDX/cyclonedx-php-library/issues/305
+[#306]: https://github.com/CycloneDX/cyclonedx-php-library/pull/306
 
 ## 2.1.2 - 2023-04-05
 
