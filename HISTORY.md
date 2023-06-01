@@ -12,7 +12,11 @@ All notable changes to this project will be documented in this file.
     * Property `normalizerFactory` became protected readonly, was private readonly ([#305] via [#306])
     * Property `xmlVersion`        became protected readonly, was private readonly ([#305] via [#306])
     * Property `xmlEncoding`       became protected readonly, was private readonly ([#305] via [#306])
+* Style
+  * Applied latest PHP Coding Standards (via [#302])  
+    Some parameters allow nullables implicitly, was explicitly.
 
+[#302]: https://github.com/CycloneDX/cyclonedx-php-library/pull/302
 [#305]: https://github.com/CycloneDX/cyclonedx-php-library/issues/305
 [#306]: https://github.com/CycloneDX/cyclonedx-php-library/pull/306
 
