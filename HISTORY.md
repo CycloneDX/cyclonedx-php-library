@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## unreleased
 
+## 2.2.0 - 2023-06-02
+
 * Changed
   * Class `\CycloneDX\Core\Serialization\JsonSerializer`
     * Property `normalizerFactory` became protected readonly, was private readonly ([#305] via [#306])
