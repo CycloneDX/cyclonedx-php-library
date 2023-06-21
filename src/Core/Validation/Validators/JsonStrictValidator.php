@@ -32,8 +32,6 @@ use CycloneDX\Core\Spec\Version;
 class JsonStrictValidator extends JsonValidator
 {
     /**
-     * {@inheritdoc}
-     *
      * @internal
      */
     protected static function listSchemaFiles(): array

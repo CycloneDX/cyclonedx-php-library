@@ -69,17 +69,23 @@ abstract class SimpleDOM
     }
 
     /**
-     * @param bool $null whether to return null when `$data` is null
+     * @param string|int|float|object|null $data either (something that can be cast to `string`) or `null`
+     * @param bool                         $null whether to return `null` when `$data` is `null`
      *
-     * @return DOMElement|null ($null is true && $data is null ? null : DOMElement)
+     * @return DOMElement|null `($null is true && $data is null ? null : DOMElement)`
      *
      * @SuppressWarnings(PHPMD.BooleanArgumentFlag)
      * @SuppressWarnings(PHPMD.ElseExpression)
      */
-    public static function makeSafeTextElement(DOMDocument $document, string $name, mixed $data, bool $null = true): ?DOMElement
+    public static function makeSafeTextElement(DOMDocument $document, string $name, string|int|float|object|null $data, bool $null = true): ?DOMElement
     {
         $element = $document->createElement($name);
         if (null !== $data) {
+            \assert(!\is_object($data) || \is_callable([$data, '__toString']));
+            // On runtime, could throw `Object of class C could not be converted to string`.
+            // This is actually expected.
+            // However, let's put an assert as a backup, so that envs with enabled `assert`s get more error output for debugging.
+            // (And the static code analysers are happy when we formulate expectations and assertions)
             $element->appendChild($document->createCDATASection((string) $data));
         } elseif ($null) {
             return null;

@@ -29,10 +29,8 @@ use DomainException;
  * Disjunctive license with (SPDX-)ID - aka SpdxLicense.
  *
  * No validation is done internally.
- * You may validate with {@see \CycloneDX\Core\Spdx\LicenseValidator::validate()}.
- *
- * @see file://../../../../res/schema/spdx.SNAPSHOT.schema.json known IDs in JSON schema
- * @see file://../../../../res/schema/spdx.SNAPSHOT.xsd         known IDs in XML schema
+ * You may validate with {@see \CycloneDX\Core\Spdx\LicenseIdentifiers::isKnownLicense()}.
+ * You may assert valid objects with {@see \CycloneDX\Core\Factories\LicenseFactory::makeSpdxLicense()}.
  *
  * @SuppressWarnings(PHPMD.ShortVariable) $id
  *

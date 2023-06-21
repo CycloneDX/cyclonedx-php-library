@@ -24,6 +24,7 @@ declare(strict_types=1);
 namespace CycloneDX\Core\Serialization\JSON\Normalizers;
 
 use CycloneDX\Core\Collections\LicenseRepository;
+use CycloneDX\Core\Models\License\LicenseExpression;
 use CycloneDX\Core\Serialization\JSON\_BaseNormalizer;
 
 /**
@@ -31,11 +32,31 @@ use CycloneDX\Core\Serialization\JSON\_BaseNormalizer;
  */
 class LicenseRepositoryNormalizer extends _BaseNormalizer
 {
+    /**
+     * If there is any {@see LicenseExpression} in `$repo`, then this is the only item that is normalized.
+     */
     public function normalize(LicenseRepository $repo): array
     {
+        $licenses = $repo->getItems();
+
+        if (\count($licenses) > 1) {
+            /** @var LicenseExpression[] $expressions */
+            $expressions = array_filter(
+                $licenses,
+                static fn ($license) => $license instanceof LicenseExpression
+            );
+            if (\count($expressions) > 0) {
+                /**
+                 * could have thrown {@see \DomainException} when there is more than one only {@see LicenseExpression}.
+                 * but let's be graceful and just normalize to the most relevant choice: any expression.
+                 */
+                $licenses = [reset($expressions)];
+            }
+        }
+
         return array_map(
             $this->getNormalizerFactory()->makeForLicense()->normalize(...),
-            $repo->getItems()
+            $licenses
         );
     }
 }

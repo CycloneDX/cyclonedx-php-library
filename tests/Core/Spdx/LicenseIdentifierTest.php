@@ -102,6 +102,7 @@ class LicenseIdentifierTest extends TestCase
 
         foreach ($licenses as $license) {
             self::assertIsString($license);
+            self::assertNotEmpty($license);
         }
     }
 

@@ -47,7 +47,10 @@ abstract class BaseDownloadable
     public const TargetPattern = TARGET_ROOT.'...';
 
     /** @psalm-var array<string, string>  */
-    public const Replace = [];
+    public const ReplaceStr = [];
+
+    /** @var list<array{0:string, 1:string}> */
+    public const ReplaceReg = [];
 }
 
 abstract class BomXsd extends BaseDownloadable
@@ -55,10 +58,11 @@ abstract class BomXsd extends BaseDownloadable
     final public const Versions = ['1.0', '1.1', '1.2', '1.3', '1.4', '1.5'];
     final public const SourcePattern = SOURCE_ROOT.'bom-%s.xsd';
     final public const TargetPattern = TARGET_ROOT.'bom-%s.SNAPSHOT.xsd';
-    final public const Replace = [
+    final public const ReplaceStr = [
         'schemaLocation="http://cyclonedx.org/schema/spdx"' => 'schemaLocation="spdx.SNAPSHOT.xsd"',
         'schemaLocation="https://cyclonedx.org/schema/spdx"' => 'schemaLocation="spdx.SNAPSHOT.xsd"',
     ];
+    final public const ReplaceReg = [];
 }
 
 abstract class BomJsonLax extends BaseDownloadable
@@ -66,9 +70,12 @@ abstract class BomJsonLax extends BaseDownloadable
     final public const Versions = ['1.2', '1.3', '1.4', '1.5'];
     final public const SourcePattern = SOURCE_ROOT.'bom-%s.schema.json';
     final public const TargetPattern = TARGET_ROOT.'bom-%s.SNAPSHOT.schema.json';
-    final public const Replace = [
+    final public const ReplaceStr = [
         'spdx.schema.json' => 'spdx.SNAPSHOT.schema.json',
         'jsf-0.82.schema.json' => 'jsf-0.82.SNAPSHOT.schema.json',
+    ];
+    final public const ReplaceReg = [
+        ['/("\$id": "(http:\/\/cyclonedx\.org\/schema\/bom.+?\.schema\.json)".*"enum": \[\s+")http:\/\/cyclonedx\.org\/schema\/bom.+?\.schema\.json"/s', '$1$2"'],
     ];
 }
 
@@ -77,7 +84,8 @@ abstract class BomJsonStrict extends BaseDownloadable
     final public const Versions = ['1.2', '1.3'];
     final public const SourcePattern = SOURCE_ROOT.'bom-%s-strict.schema.json';
     final public const TargetPattern = TARGET_ROOT.'bom-%s-strict.SNAPSHOT.schema.json';
-    final public const Replace = BomJsonLax::Replace;
+    final public const ReplaceStr = BomJsonLax::ReplaceStr;
+    final public const ReplaceReg = BomJsonLax::ReplaceReg;
 }
 
 const OtherDownloadables = [
@@ -97,7 +105,11 @@ foreach ([
         $target = sprintf($class::TargetPattern, $version);
 
         $content = file_get_contents($source);
-        $content = strtr($content, $class::Replace);
+        $content = strtr($content, $class::ReplaceStr);
+        foreach ($class::ReplaceReg as [$rp, $rr]) {
+            $content = preg_replace($rp, $rr, $content);
+        }
+
         file_put_contents($target, $content);
         unset($content);
     }

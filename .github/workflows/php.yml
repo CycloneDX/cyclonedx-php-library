@@ -4,7 +4,8 @@ name: PHP CI
 
 on:
   push:
-    branches: ["master"]
+    branches: [ "master" ]
+    tags: [ "v*" ]  # have tools scan this stable version
   pull_request:
   workflow_dispatch:
   schedule:
@@ -12,10 +13,16 @@ on:
     # this means: at 23:42 on Fridays
     - cron: '42 23 * * 5'
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 env:
   PHP_VERSION_LATEST: "8.2"
   PHP_PROJECT_EXT: dom,json,libxml,simplexml  # via `composer info -pt`
   REPORTS_DIR: CI_reports
+  TESTS_REPORTS_ARTIFACT: tests-reports
+  TYPES_REPORTS_ARTIFACT: types-reports
 
 jobs:
   composer-validate:
@@ -39,8 +46,6 @@ jobs:
   phpunit:
     name: PHPUnit (${{ matrix.os}}, ${{ matrix.php }}, ${{ matrix.dependencies }})
     runs-on: ${{ matrix.os }}
-    env:
-      REPORTS_ARTIFACT: tests-reports
     strategy:
       fail-fast: false
       matrix:
@@ -69,6 +74,7 @@ jobs:
         shell: bash
         run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
       - name: Cache dependencies
+        if: ${{ steps.composer-cache.outputs.dir }}
         # see https://github.com/actions/cache
         uses: actions/cache@v3
         with:
@@ -99,22 +105,41 @@ jobs:
           -d pcov.enabled=1 -d pcov.directory=src
           tools/phpunit/vendor/phpunit/phpunit/phpunit
           --no-progress
-          --log-junit=${{ env.REPORTS_DIR }}/tests.${{ matrix.os }}_php${{ matrix.php }}_${{ matrix.dependencies }}.junit.xml
-          --coverage-clover=${{ env.REPORTS_DIR }}/coverage.${{ matrix.os}}_php${{ matrix.php }}_${{ matrix.dependencies }}.clover.xml
+          --log-junit='${{ env.REPORTS_DIR }}/phpunit/tests.${{ matrix.os }}_php${{ matrix.php }}_${{ matrix.dependencies }}.junit.xml'
+          --coverage-'clover=${{ env.REPORTS_DIR }}/phpunit/coverage.${{ matrix.os}}_php${{ matrix.php }}_${{ matrix.dependencies }}.clover.xml'
       - name: Artifact reports
         if: ${{ ! cancelled() }}
         # see https://github.com/actions/upload-artifact
         uses: actions/upload-artifact@v3
         with:
-          name: ${{ env.REPORTS_ARTIFACT }}
+          name: ${{ env.TESTS_REPORTS_ARTIFACT }}
           path: ${{ env.REPORTS_DIR }}
           if-no-files-found: error
+  report-coverage:
+    name: Publish test coverage
+    needs: [ "phpunit" ]
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: fetch test artifacts
+        # see https://github.com/actions/download-artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.TESTS_REPORTS_ARTIFACT }}
+          path: ${{ env.REPORTS_DIR }}
+      - name: Run codacy-coverage-reporter
+        env:
+          CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_PROJECT_TOKEN }}
+        if: ${{ env.CODACY_PROJECT_TOKEN != '' }} ## see https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#example-using-secrets
+        # see https://github.com/codacy/codacy-coverage-reporter-action
+        uses: codacy/codacy-coverage-reporter-action@v1
+        with:
+          project-token: ${{ env.CODACY_PROJECT_TOKEN }}
+          coverage-reports: ${{ env.REPORTS_DIR }}/phpunit/coverage.*
   code-checker:
     name: Code Analysis (${{ matrix.php }}, ${{ matrix.dependencies }})
     runs-on: ubuntu-latest
     timeout-minutes: 10
-    env:
-      REPORTS_ARTIFACT: types-reports
     strategy:
       fail-fast: false
       matrix:
@@ -141,6 +166,7 @@ jobs:
         id: composer-cache
         run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
       - name: Cache dependencies
+        if: ${{ steps.composer-cache.outputs.dir }}
         # see https://github.com/actions/cache
         uses: actions/cache@v3
         with:
@@ -164,17 +190,20 @@ jobs:
       - name: Run Psalm tests
         run: >
           php tools/psalm/vendor/vimeo/psalm/psalm
+          --php-version=${{ matrix.php }}
           --no-diff
           --no-cache
           --long-progress
           --output-format=github
-          --report=${{ env.REPORTS_DIR }}/psalm.php${{ matrix.php }}_${{ matrix.dependencies }}.junit.xml
+          --report=${{ env.REPORTS_DIR }}/psalm/php${{ matrix.php }}_${{ matrix.dependencies }}.junit.xml
+          --stats
+          --shepherd
       - name: Artifact reports
         if: ${{ ! cancelled() }}
         # see https://github.com/actions/upload-artifact
         uses: actions/upload-artifact@v3
         with:
-          name: ${{ env.REPORTS_ARTIFACT }}
+          name: ${{ env.TYPES_REPORTS_ARTIFACT }}
           path: ${{ env.REPORTS_DIR }}
           if-no-files-found: error
   composer-unused:
@@ -197,6 +226,7 @@ jobs:
         id: composer-cache
         run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
       - name: Cache dependencies
+        if: ${{ steps.composer-cache.outputs.dir }}
         # see https://github.com/actions/cache
         uses: actions/cache@v3
         with:
@@ -235,6 +265,7 @@ jobs:
         id: composer-cache
         run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
       - name: Cache dependencies
+        if: ${{ steps.composer-cache.outputs.dir }}
         # see https://github.com/actions/cache
         uses: actions/cache@v3
         with:
@@ -271,6 +302,7 @@ jobs:
         id: composer-cache
         run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
       - name: Cache dependencies
+        if: ${{ steps.composer-cache.outputs.dir }}
         # see https://github.com/actions/cache
         uses: actions/cache@v3
         with:
@@ -309,6 +341,7 @@ jobs:
         id: composer-cache
         run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
       - name: Cache dependencies
+        if: ${{ steps.composer-cache.outputs.dir }}
         # see https://github.com/actions/cache
         uses: actions/cache@v3
         with:
@@ -348,6 +381,7 @@ jobs:
         id: composer-cache
         run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
       - name: Cache dependencies
+        if: ${{ steps.composer-cache.outputs.dir }}
         # see https://github.com/actions/cache
         uses: actions/cache@v3
         with:
@@ -363,4 +397,4 @@ jobs:
           php tools/phpmd/vendor/phpmd/phpmd/src/bin/phpmd
           src
           github
-          .phpmd.rules.dist.xml
+          phpmd.xml

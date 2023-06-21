@@ -24,8 +24,9 @@ composer.lock text eol=lf diff=json
 /examples               export-ignore
 /docs/dev               export-ignore
 /infection.json.dist    export-ignore
-/phpunit.dist.xml       export-ignore
-/psalm.xml.dist         export-ignore
+/phpmd.*                export-ignore
+/phpunit.*              export-ignore
+/psalm.*                export-ignore
 
 # files that are forced to be exported in "dist" release
 /README.*               -export-ignore

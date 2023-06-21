@@ -40,8 +40,6 @@ use Throwable;
 class JsonValidator extends BaseValidator
 {
     /**
-     * {@inheritdoc}
-     *
      * @internal as this function may be affected by breaking changes without notice
      */
     protected static function listSchemaFiles(): array

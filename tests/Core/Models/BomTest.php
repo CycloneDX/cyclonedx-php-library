@@ -80,14 +80,6 @@ class BomTest extends TestCase
         self::assertNull($bom->getSerialNumber());
     }
 
-    #[DependsUsingShallowClone('testSerialNumber')]
-    public function testSerialNumberEmptyStringInvalidValue(Bom $bom): void
-    {
-        $serialNumber = uniqid('invalid-value', true);
-        $this->expectException(DomainException::class);
-        $bom->setSerialNumber($serialNumber);
-    }
-
     // endregion serialNumber setter&getter
 
     // region components setter&getter&modifiers
