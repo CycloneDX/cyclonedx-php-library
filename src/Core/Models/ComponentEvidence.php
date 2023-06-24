@@ -65,9 +65,9 @@ class ComponentEvidence
         return $this;
     }
 
- public function __construct()
- {
-     $this->licenses = new LicenseRepository();
-     $this->copyright = new CopyrightRepository();
- }
+    public function __construct()
+    {
+        $this->licenses = new LicenseRepository();
+        $this->copyright = new CopyrightRepository();
+    }
 }
