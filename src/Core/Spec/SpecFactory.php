@@ -335,6 +335,9 @@ abstract class SpecFactory
         );
     }
 
+    /**
+     * Create the {@see \CycloneDX\Core\Spec\Spec Specification} based on {@see \CycloneDX\Core\Spec\Version::v1dot5}.
+     */
     public static function make1dot5(): Spec
     {
         return new _Spec(
