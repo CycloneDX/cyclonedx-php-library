@@ -42,12 +42,14 @@ final class Resources
     public const FILE_CDX_XML_SCHEMA_1_2 = __DIR__.'/../../res/schema/bom-1.2.SNAPSHOT.xsd';
     public const FILE_CDX_XML_SCHEMA_1_3 = __DIR__.'/../../res/schema/bom-1.3.SNAPSHOT.xsd';
     public const FILE_CDX_XML_SCHEMA_1_4 = __DIR__.'/../../res/schema/bom-1.4.SNAPSHOT.xsd';
+    public const FILE_CDX_XML_SCHEMA_1_5 = __DIR__.'/../../res/schema/bom-1.5.SNAPSHOT.xsd';
 
     // v1.0 is not defined in JSON
     // v1.1 is not defined in JSON
     public const FILE_CDX_JSON_SCHEMA_1_2 = __DIR__.'/../../res/schema/bom-1.2.SNAPSHOT.schema.json';
     public const FILE_CDX_JSON_SCHEMA_1_3 = __DIR__.'/../../res/schema/bom-1.3.SNAPSHOT.schema.json';
     public const FILE_CDX_JSON_SCHEMA_1_4 = __DIR__.'/../../res/schema/bom-1.4.SNAPSHOT.schema.json';
+    public const FILE_CDX_JSON_SCHEMA_1_5 = __DIR__.'/../../res/schema/bom-1.5.SNAPSHOT.schema.json';
 
     // v1.0 is not defined in JSON
     // v1.1 is not defined in JSON

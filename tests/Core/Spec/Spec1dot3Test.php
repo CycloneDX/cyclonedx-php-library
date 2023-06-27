@@ -49,7 +49,7 @@ class Spec1dot3Test extends SpecBaseTestCase
 
     protected static function shouldSupportFormats(): array
     {
-        return [Format::XML, Format::JSON];
+        return [Format::XML, Format::JSON, Format::ProtoBuff];
     }
 
     protected static function shouldSupportLicenseExpression(): bool

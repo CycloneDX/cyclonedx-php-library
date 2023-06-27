@@ -35,16 +35,16 @@ use PHPUnit\Framework\Attributes\UsesClass;
 #[CoversClass(_Spec::class)]
 #[UsesClass(SpecFactory::class)]
 #[UsesClass(LicenseIdentifiers::class)]
-class Spec1dot4Test extends SpecBaseTestCase
+class Spec1dot5Test extends SpecBaseTestCase
 {
     protected static function getSpec(): Spec
     {
-        return SpecFactory::make1dot4();
+        return SpecFactory::make1dot5();
     }
 
     protected static function getSpecVersion(): Version
     {
-        return Version::v1dot4;
+        return Version::v1dot5;
     }
 
     protected static function shouldSupportFormats(): array
@@ -109,6 +109,6 @@ class Spec1dot4Test extends SpecBaseTestCase
 
     protected static function shouldSupportBomProperties(): array
     {
-        return [Format::XML];
+        return [Format::XML, Format::JSON, Format::ProtoBuff];
     }
 }

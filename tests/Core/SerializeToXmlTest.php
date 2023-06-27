@@ -114,4 +114,21 @@ class SerializeToXmlTest extends TestCase
     }
 
     // endregion Spec 1.4
+
+    // region Spec 1.5
+
+    #[DataProviderExternal(BomModelProvider::class, 'allBomTestData')]
+    public function testSchema15(Bom $bom): void
+    {
+        $spec = SpecFactory::make1dot5();
+        $serializer = new XmlSerializer(new DOM\NormalizerFactory($spec));
+        $validator = new XmlValidator($spec);
+
+        $xml = $serializer->serialize($bom);
+        $validationErrors = $validator->validateString($xml);
+
+        self::assertNull($validationErrors);
+    }
+
+    // endregion Spec 1.5
 }

@@ -120,4 +120,22 @@ class SerializeToJsonTest extends TestCase
     }
 
     // endregion Spec 1.4
+
+    // region Spec 1.5
+
+    #[DataProviderExternal(BomModelProvider::class, 'allBomTestData')]
+    public function testSchema15(Bom $bom): void
+    {
+        $spec = SpecFactory::make1dot5();
+        $serializer = new JsonSerializer(new Json\NormalizerFactory($spec));
+        $validator = new JsonStrictValidator($spec);
+
+        $json = $serializer->serialize($bom);
+        self::assertJson($json);
+
+        $validationErrors = $validator->validateString($json);
+        self::assertNull($validationErrors);
+    }
+
+    // endregion Spec 1.5
 }
