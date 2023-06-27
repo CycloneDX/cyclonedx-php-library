@@ -6,9 +6,7 @@ All notable changes to this project will be documented in this file.
 
 ## unreleased: 2.3.0 -- 
 
-Added support for [_CycloneDX_ Specification-1.5](https://github.com/CycloneDX/specification/releases/tag/1.5).  
-
-### API changes v2.3.0 - the details
+Added support for [_CycloneDX_ Specification-1.5](https://github.com/CycloneDX/specification/releases/tag/1.5).
 
 * Added
   * Namespace `Core\Enums`
