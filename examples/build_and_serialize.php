@@ -25,6 +25,10 @@ require_once __DIR__.'/../vendor/autoload.php';
 
 // Example how to serialize a Bom to JSON / XML.
 
+$lFac = new \CycloneDX\Core\Factories\LicenseFactory();
+
+// region build the BOM
+
 $bom = new \CycloneDX\Core\Models\Bom();
 $bom->getMetadata()->setComponent(
     $rootComponent = new \CycloneDX\Core\Models\Component(
@@ -32,25 +36,46 @@ $bom->getMetadata()->setComponent(
         'myApp'
     )
 );
+$rootComponent->getBomRef()->setValue('myApp');
+$rootComponent->getLicenses()->addItems($lFac->makeFromString('MIT OR Apache-2.0'));
+
 $component = new \CycloneDX\Core\Models\Component(
     \CycloneDX\Core\Enums\ComponentType::Library,
     'myComponent'
 );
+$component->getLicenses()->addItems($lFac->makeFromString('MIT'));
 $bom->getComponents()->addItems($component);
+
 $rootComponent->getDependencies()->addItems($component->getBomRef());
 
-$spec = \CycloneDX\Core\Spec\SpecFactory::make1dot4();
+// endregion build the BOM
+
+$spec = \CycloneDX\Core\Spec\SpecFactory::make1dot5();
 
 $prettyPrint = false;
 
-$jsonSerializer = new \CycloneDX\Core\Serialization\JsonSerializer(
+$serializedJSON = (new \CycloneDX\Core\Serialization\JsonSerializer(
     new \CycloneDX\Core\Serialization\JSON\NormalizerFactory($spec)
-);
-$serializedJSON = $jsonSerializer->serialize($bom, $prettyPrint);
+))->serialize($bom, $prettyPrint);
 echo $serializedJSON, \PHP_EOL;
+$jsonValidationErrors = (new \CycloneDX\Core\Validation\Validators\JsonValidator($spec))->validateString($serializedJSON);
+if (null === $jsonValidationErrors) {
+    echo 'JSON valid', \PHP_EOL;
+} else {
+    fwrite(\STDERR, \PHP_EOL.'JSON ValidationError:'.\PHP_EOL);
+    fwrite(\STDERR, print_r($jsonValidationErrors, true));
+    exit(1);
+}
 
-$xmlSerializer = new \CycloneDX\Core\Serialization\XmlSerializer(
+$serializedXML = (new \CycloneDX\Core\Serialization\XmlSerializer(
     new \CycloneDX\Core\Serialization\DOM\NormalizerFactory($spec)
-);
-$serializedXML = $xmlSerializer->serialize($bom, $prettyPrint);
+))->serialize($bom, $prettyPrint);
 echo $serializedXML, \PHP_EOL;
+$xmlValidationErrors = (new \CycloneDX\Core\Validation\Validators\XmlValidator($spec))->validateString($serializedXML);
+if (null === $xmlValidationErrors) {
+    echo 'XML valid', \PHP_EOL;
+} else {
+    fwrite(\STDERR, \PHP_EOL.'XML ValidationError:'.\PHP_EOL);
+    fwrite(\STDERR, print_r($xmlValidationErrors, true));
+    exit(2);
+}
