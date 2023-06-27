@@ -12,9 +12,9 @@ Added support for [_CycloneDX_ Specification-1.5](https://github.com/CycloneDX/s
 
 * Added
   * Namespace `Core\Enums`
-    * Enum `ComponentType` got new members ([#193] via [#255])  
+    * Enum `ComponentType` got new cases ([#193] via [#255])  
       New: `Data`, `DeviceDriver`, `MachineLearningModel`, `Platform`
-    * Enum `ExternalReferenceType` got new members ([#193] via [#255])  
+    * Enum `ExternalReferenceType` got new cases ([#193] via [#255])  
       New: `AdversaryModel`, `Attestation`, `CertificationReport`, `CodifiedInfrastructure`, `ComponentAnalysisReport`, `Configuration`, `DistributionIntake`, `DynamicAnalysisReport`, `Evidence`, `ExploitabilityStatement`, `Formulation`, `Log`, `MaturityReport`, `ModelCard`, `POAM`, `PentestReport`, `QualityMetrics`, `RiskAssessment`, `RuntimeAnalysisReport`, `SecurityContact`, `StaticAnalysisReport`, `ThreatModel`, `VulnerabilityAssertion`
   * Namespace `Core\Serialization`
     * Classes `{DOM,JSON}\Normalizers\*` support _CycloneDX_ Specification-1.5 now ([#193] via [#255])
