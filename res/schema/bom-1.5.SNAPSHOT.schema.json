@@ -132,7 +132,7 @@
       "allOf": [{"$ref": "#/definitions/refType"}]
     },
     "bomLinkDocumentType": {
-      "title": "BOM-Link document",
+      "title": "BOM-Link Document",
       "description": "Descriptor for another BOM document. See https://cyclonedx.org/capabilities/bomlink/",
       "type": "string",
       "format": "iri-reference",
@@ -140,8 +140,8 @@
       "$comment": "part of the pattern is based on `bom.serialNumber`'s pattern"
     },
     "bomLinkElementType": {
-      "title": "BOM-Link element",
-      "description": "Descriptor for an element in another BOM document. See https://cyclonedx.org/capabilities/bomlink/",
+      "title": "BOM-Link Element",
+      "description": "Descriptor for an element in a BOM document. See https://cyclonedx.org/capabilities/bomlink/",
       "type": "string",
       "format": "iri-reference",
       "pattern": "^urn:cdx:[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/[1-9][0-9]*#.+$",
@@ -149,8 +149,14 @@
     },
     "bomLink": {
       "anyOf": [
-        {"$ref": "#/definitions/bomLinkDocumentType"},
-        {"$ref": "#/definitions/bomLinkElementType"}
+        {
+          "title": "BOM-Link Document",
+          "$ref": "#/definitions/bomLinkDocumentType"
+        },
+        {
+          "title": "BOM-Link Element",
+          "$ref": "#/definitions/bomLinkElementType"
+        }
       ]
     },
     "metadata": {
@@ -909,12 +915,14 @@
       }
     },
     "licenseChoice": {
-      "type": "array",
       "title": "License Choice",
-      "description": "EITHER (a list of SPDX and/or named licenses) OR (a list of one SPDX License Expression)",
+      "description": "EITHER (list of SPDX licenses and/or named licenses) OR (tuple of one SPDX License Expression)",
+      "type": "array",
       "oneOf": [
         {
-          "description": "a list of SPDX and/or named licenses",
+          "title": "Multiple licenses",
+          "description": "A list of SPDX licenses and/or named licenses.",
+          "type": "array",
           "items": {
             "type": "object",
             "required": ["license"],
@@ -925,14 +933,16 @@
           }
         },
         {
-          "description": "a list of one SPDX License Expression",
+          "title": "SPDX License Expression",
+          "description": "A tuple of exactly one SPDX License Expression.",
+          "type": "array",
           "additionalItems": false,
           "minItems": 1,
           "maxItems": 1,
           "items": [{
             "type": "object",
-            "required": ["expression"],
             "additionalProperties": false,
+            "required": ["expression"],
             "properties": {
               "expression": {
                 "type": "string",
@@ -941,6 +951,11 @@
                   "Apache-2.0 AND (MIT OR GPL-2.0-only)",
                   "GPL-3.0-only WITH Classpath-exception-2.0"
                 ]
+              },
+              "bom-ref": {
+                "$ref": "#/definitions/refType",
+                "title": "BOM Reference",
+                "description": "An optional identifier which can be used to reference the license elsewhere in the BOM. Every bom-ref MUST be unique within the BOM."
               }
             }
           }]
@@ -1136,10 +1151,12 @@
         "url": {
           "anyOf": [
             {
+              "title": "URL",
               "type": "string",
               "format": "iri-reference"
             },
             {
+              "title": "BOM-Link",
               "$ref": "#/definitions/bomLink"
             }
           ],
@@ -1208,7 +1225,7 @@
     "dependency": {
       "type": "object",
       "title": "Dependency",
-      "description": "Defines the direct dependencies of a component. Components that do not have their own dependencies MUST be declared as empty elements within the graph. Components that are not represented in the dependency graph MAY have unknown dependencies. It is RECOMMENDED that implementations assume this to be opaque and not an indicator of a component being dependency-free.",
+      "description": "Defines the direct dependencies of a component or service. Components or services that do not have their own dependencies MUST be declared as empty elements within the graph. Components or services that are not represented in the dependency graph MAY have unknown dependencies. It is RECOMMENDED that implementations assume this to be opaque and not an indicator of a object being dependency-free. It is RECOMMENDED to leverage compositions to indicate unknown dependency graphs.",
       "required": [
         "ref"
       ],
@@ -1217,7 +1234,7 @@
         "ref": {
           "$ref": "#/definitions/refLinkType",
           "title": "Reference",
-          "description": "References a component by the components bom-ref attribute"
+          "description": "References a component or service by its bom-ref attribute"
         },
         "dependsOn": {
           "type": "array",
@@ -1226,7 +1243,7 @@
             "$ref": "#/definitions/refLinkType"
           },
           "title": "Depends On",
-          "description": "The bom-ref identifiers of the components that are dependencies of this dependency object."
+          "description": "The bom-ref identifiers of the components or services that are dependencies of this dependency object."
         }
       }
     },
@@ -1380,10 +1397,12 @@
           "items": {
             "anyOf": [
               {
+                "title": "URL",
                 "type": "string",
                 "format": "iri-reference"
               },
               {
+                "title": "BOM-Link Element",
                 "$ref": "#/definitions/bomLinkElementType"
               }
             ]
@@ -1396,10 +1415,12 @@
           "items": {
             "anyOf": [
               {
+                "title": "URL",
                 "type": "string",
                 "format": "iri-reference"
               },
               {
+                "title": "BOM-Link Element",
                 "$ref": "#/definitions/bomLinkElementType"
               }
             ]
@@ -1511,8 +1532,14 @@
               "uniqueItems": true,
               "items": {
                 "anyOf": [
-                  {"$ref": "#/definitions/refLinkType"},
-                  {"$ref": "#/definitions/bomLinkElementType"}
+                  {
+                    "title": "Ref",
+                    "$ref": "#/definitions/refLinkType"
+                  },
+                  {
+                    "title": "BOM-Link Element",
+                    "$ref": "#/definitions/bomLinkElementType"
+                  }
                 ]
               },
               "title": "BOM References",
@@ -1634,8 +1661,14 @@
           "uniqueItems": true,
           "items": {
             "anyOf": [
-              {"$ref": "#/definitions/refLinkType"},
-              {"$ref": "#/definitions/bomLinkElementType"}
+              {
+                "title": "Ref",
+                "$ref": "#/definitions/refLinkType"
+              },
+              {
+                "title": "BOM-Link Element",
+                "$ref": "#/definitions/bomLinkElementType"
+              }
             ]
           },
           "title": "BOM references",
@@ -2219,8 +2252,14 @@
             "properties": {
               "ref": {
                 "anyOf": [
-                  {"$ref": "#/definitions/refLinkType"},
-                  {"$ref": "#/definitions/bomLinkElementType"}
+                  {
+                    "title": "Ref",
+                    "$ref": "#/definitions/refLinkType"
+                  },
+                  {
+                    "title": "BOM-Link Element",
+                    "$ref": "#/definitions/bomLinkElementType"
+                  }
                 ],
                 "title": "Reference",
                 "description": "References a component or service by the objects bom-ref"
@@ -2315,8 +2354,14 @@
           "uniqueItems": true,
           "items": {
             "anyOf": [
-              {"$ref": "#/definitions/refLinkType"},
-              {"$ref": "#/definitions/bomLinkElementType"}
+              {
+                "title": "Ref",
+                "$ref": "#/definitions/refLinkType"
+              },
+              {
+                "title": "BOM-Link Element",
+                "$ref": "#/definitions/bomLinkElementType"
+              }
             ]
           },
           "title": "BOM References",
@@ -2456,8 +2501,14 @@
                     "properties": {
                       "ref": {
                         "anyOf": [
-                          {"$ref": "#/definitions/refLinkType"},
-                          {"$ref": "#/definitions/bomLinkElementType"}
+                          {
+                            "title": "Ref",
+                            "$ref": "#/definitions/refLinkType"
+                          },
+                          {
+                            "title": "BOM-Link Element",
+                            "$ref": "#/definitions/bomLinkElementType"
+                          }
                         ],
                         "title": "Reference",
                         "description": "References a data component by the components bom-ref attribute"
@@ -3645,7 +3696,16 @@
         "ref": {
           "title": "BOM Reference",
           "description": "References an object by its bom-ref attribute",
-          "$ref": "#/definitions/refType"
+          "anyOf": [
+            {
+              "title": "Ref",
+              "$ref": "#/definitions/refLinkType"
+            },
+            {
+              "title": "BOM-Link Element",
+              "$ref": "#/definitions/bomLinkElementType"
+            }
+          ]
         },
         "externalReference": {
           "title": "External reference",

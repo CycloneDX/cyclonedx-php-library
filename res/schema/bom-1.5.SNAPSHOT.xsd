@@ -1801,10 +1801,12 @@ limitations under the License.
         <xs:sequence minOccurs="0" maxOccurs="unbounded">
             <xs:element name="dependency" type="bom:dependencyType">
                 <xs:annotation>
-                    <xs:documentation>Components that do not have their own dependencies MUST be declared as empty
-                        elements within the graph. Components that are not represented in the dependency graph MAY
-                        have unknown dependencies. It is RECOMMENDED that implementations assume this to be opaque
-                        and not an indicator of a component being dependency-free.</xs:documentation>
+                    <xs:documentation>Defines the direct dependencies of a component or service. Components or services
+                        that do not have their own dependencies MUST be declared as empty elements within the graph.
+                        Components or services that are not represented in the dependency graph MAY have unknown
+                        dependencies. It is RECOMMENDED that implementations assume this to be opaque and not an
+                        indicator of a object being dependency-free. It is RECOMMENDED to leverage compositions to
+                        indicate unknown dependency graphs.</xs:documentation>
                 </xs:annotation>
             </xs:element>
         </xs:sequence>
@@ -2064,11 +2066,25 @@ limitations under the License.
     <xs:complexType name="licenseChoiceType">
         <xs:choice>
             <xs:element name="license" type="bom:licenseType" minOccurs="0" maxOccurs="unbounded"/>
-            <xs:element name="expression" type="xs:normalizedString" minOccurs="0" maxOccurs="1">
+            <xs:element name="expression" minOccurs="0" maxOccurs="1">
                 <xs:annotation>
                     <xs:documentation>A valid SPDX license expression.
                         Refer to https://spdx.org/specifications for syntax requirements</xs:documentation>
                 </xs:annotation>
+                <xs:complexType>
+                    <xs:simpleContent>
+                        <xs:extension base="xs:normalizedString">
+                            <xs:attribute name="bom-ref" type="bom:refType">
+                                <xs:annotation>
+                                    <xs:documentation>
+                                        An optional identifier which can be used to reference the license elsewhere in the BOM.
+                                        Uniqueness is enforced within all elements and children of the root-level bom element.
+                                    </xs:documentation>
+                                </xs:annotation>
+                            </xs:attribute>
+                        </xs:extension>
+                    </xs:simpleContent>
+                </xs:complexType>
             </xs:element>
         </xs:choice>
     </xs:complexType>
@@ -3345,13 +3361,13 @@ limitations under the License.
                             </xs:annotation>
                             <xs:complexType>
                                 <xs:sequence minOccurs="1" maxOccurs="1">
-                                    <xs:element name="id" type="xs:normalizedString" minOccurs="0" maxOccurs="1">
+                                    <xs:element name="id" type="xs:normalizedString" minOccurs="1" maxOccurs="1">
                                         <xs:annotation>
                                             <xs:documentation>The identifier that uniquely identifies the vulnerability. For example:
                                                 CVE-2021-39182, GHSA-35m5-8cvj-8783, and SNYK-PYTHON-ENROCRYPT-1912876.</xs:documentation>
                                         </xs:annotation>
                                     </xs:element>
-                                    <xs:element name="source" type="bom:vulnerabilitySourceType" minOccurs="0" maxOccurs="1">
+                                    <xs:element name="source" type="bom:vulnerabilitySourceType" minOccurs="1" maxOccurs="1">
                                         <xs:annotation>
                                             <xs:documentation>The source that published the vulnerability.</xs:documentation>
                                         </xs:annotation>
@@ -4356,12 +4372,15 @@ limitations under the License.
     <xs:complexType name="resourceReferenceType">
         <xs:sequence>
             <xs:choice>
-                <xs:element name="ref" type="bom:refType" minOccurs="1" maxOccurs="1">
+                <xs:element name="ref" minOccurs="1" maxOccurs="1">
                     <xs:annotation>
                         <xs:documentation>
                             References an object by its bom-ref attribute
                         </xs:documentation>
                     </xs:annotation>
+                    <xs:simpleType>
+                        <xs:union memberTypes="bom:refLinkType bom:bomLinkElementType"/>
+                    </xs:simpleType>
                 </xs:element>
                 <xs:element name="externalReference" type="bom:externalReference" minOccurs="1" maxOccurs="1">
                     <xs:annotation>
