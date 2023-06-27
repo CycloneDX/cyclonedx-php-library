@@ -33,60 +33,46 @@ namespace CycloneDX\Core\Enums;
  */
 enum ExternalReferenceType: string
 {
-    /* Security advisories */
-    case Advisories = 'advisories';
-
-    /* Bill-of-materials (SBOM, OBOM, HBOM, SaaSBOM, etc) */
-    case BOM = 'bom';
-
-    /* Build-system specific meta file (i.e. pom.xml, package.json, .nuspec, etc). */
-    case BuildMeta = 'build-meta';
-
-    /* URL to an automated build system. */
-    case BuildSystem = 'build-system';
-
-    /* Real-time chat platform */
-    case Chat = 'chat';
-
-    /* Direct or repository download location. */
-    case Distribution = 'distribution';
-
-    /* Documentation, guides, or how-to instructions */
-    case Documentation = 'documentation';
-
-    /* Issue or defect tracking system, or an Application Lifecycle Management (ALM) system */
-    case IssueTracker = 'issue-tracker';
-
-    /* The URL to the license file. If a license URL has been defined in the license node,
-     * it should also be defined as an external reference for completeness.
-     */
-    case License = 'license';
-
-    /* Mailing list or discussion group */
-    case MailingList = 'mailing-list';
-
-    /* URL to release notes. */
-    case ReleaseNotes = 'release-notes';
-
-    /* Specifies a way to contact the maintainer, supplier, or provider in the event of a security incident.
-     * Common URIs include links to a disclosure procedure, a mailto (RFC-2368) that specifies an email address, a tel (RFC-3966) that specifies a phone number, or dns (RFC-4501]) that specifies the records containing DNS Security TXT.
-     */
-    case SecurityContact = 'security-contact';
-
-    /* Social media account */
-    case Social = 'social';
-
-    /* Community or commercial support */
-    case Support = 'support';
-
-    /* Version Control System */
     case VCS = 'vcs';
-
-    /* Website */
+    case IssueTracker = 'issue-tracker';
     case Website = 'website';
+    case Advisories = 'advisories';
+    case BOM = 'bom';
+    case MailingList = 'mailing-list';
+    case Social = 'social';
+    case Chat = 'chat';
+    case Documentation = 'documentation';
+    case Support = 'support';
+    case Distribution = 'distribution';
+    case DistributionIntake = 'distribution-intake';
+    case License = 'license';
+    case BuildMeta = 'build-meta';
+    case BuildSystem = 'build-system';
+    case ReleaseNotes = 'release-notes';
+    case SecurityContact = 'security-contact';
+    case ModelCard = 'model-card';
+    case Log = 'log';
+    case Configuration = 'configuration';
+    case Evidence = 'evidence';
+    case Formulation = 'formulation';
+    case Attestation = 'attestation';
+    case ThreatModel = 'threat-model';
+    case AdversaryModel = 'adversary-model';
+    case RiskAssessment = 'risk-assessment';
+    case VulnerabilityAssertion = 'vulnerability-assertion';
+    case ExploitabilityStatement = 'exploitability-statement';
+    case PentestReport = 'pentest-report';
+    case StaticAnalysisReport = 'static-analysis-report';
+    case DynamicAnalysisReport = 'dynamic-analysis-report';
+    case RuntimeAnalysisReport = 'runtime-analysis-report';
+    case ComponentAnalysisReport = 'component-analysis-report';
+    case MaturityReport = 'maturity-report';
+    case CertificationReport = 'certification-report';
+    case QualityMetrics = 'quality-metrics';
+    case CodifiedInfrastructure = 'codified-infrastructure';
+    case POAM = 'poam';
 
     // ----
 
-    /* Use this if no other types accurately describe the purpose of the external reference. */
     case Other = 'other';
 }
