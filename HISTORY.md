@@ -6,22 +6,19 @@ All notable changes to this project will be documented in this file.
 
 Added support for [_CycloneDX_ Specification-1.5](https://github.com/CycloneDX/specification/releases/tag/1.5).
 
+* Changed
+  * Method `Core\Spec\SpecFactory::makeForVersion()` supports _CycloneDX_ Specification-1.5 now ([#193] via [#255])
+  * Classes `Core\Serialization\{DOM,JSON}\Normalizers\*` support _CycloneDX_ Specification-1.5 now ([#193] via [#255])
+  * Classes `Core\Validation\Validators\*` support _CycloneDX_ Specification-1.5 now ([#193] via [#255])
 * Added
   * Namespace `Core\Enums`
     * Enum `ComponentType` got new cases ([#193] via [#255])  
       New: `Data`, `DeviceDriver`, `MachineLearningModel`, `Platform`
     * Enum `ExternalReferenceType` got new cases ([#193] via [#255])  
       New: `AdversaryModel`, `Attestation`, `CertificationReport`, `CodifiedInfrastructure`, `ComponentAnalysisReport`, `Configuration`, `DistributionIntake`, `DynamicAnalysisReport`, `Evidence`, `ExploitabilityStatement`, `Formulation`, `Log`, `MaturityReport`, `ModelCard`, `POAM`, `PentestReport`, `QualityMetrics`, `RiskAssessment`, `RuntimeAnalysisReport`, `SecurityContact`, `StaticAnalysisReport`, `ThreatModel`, `VulnerabilityAssertion`
-  * Namespace `Core\Serialization`
-    * Classes `{DOM,JSON}\Normalizers\*` support _CycloneDX_ Specification-1.5 now ([#193] via [#255])
   * Namespace `Core\Spec`
-    * Function `SpecFactory::makeForVersion()` supports _CycloneDX_ Specification-1.5 now ([#193] via [#255])
     * New method `SpecFactory::make1dot5()` to reflect _CycloneDX_ Specification-1.5 ([#193] via [#255])
     * Enum `Version` got new case `v1dot5` to reflect _CycloneDX_ Specification-1.5 ([#193] via [#255])
-  * Namespace `Core\Validation\Validators`
-    * Class `JsonValidator` supports _CycloneDX_ Specification-1.5 now ([#193] via [#255])
-    * Class `JsonStrictValidator` supports _CycloneDX_ Specification-1.5 now ([#193] via [#255])
-    * Class `XmlValidator` supports _CycloneDX_ Specification-1.5 now ([#193] via [#255])
 * Misc
   * Added functional and integration tests for _CycloneDX_ Specification-1.5 ([#193] via [#255])
   * Fetched latest stable schema definition files for offline usage (via [#255])
