@@ -4,7 +4,7 @@
     "type": "metapackage",
     "require-dev": {
         "roave/security-advisories": "dev-latest",
-        "vimeo/psalm": "5.13.0"
+        "vimeo/psalm": "5.13.1"
     },
     "prefer-stable": true,
     "config": {
