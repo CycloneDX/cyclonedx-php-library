@@ -49,6 +49,7 @@ class _Spec implements Spec
      * @psalm-param list<Format> $lFormats
      * @psalm-param list<ComponentType> $lComponentTypes
      * @psalm-param list<HashAlgorithm> $lHashAlgorithms
+     * @psalm-param non-empty-string $sHashContentRegex
      * @psalm-param list<ExternalReferenceType> $lExternalReferenceTypes
      * @psalm-param list<Format> $lFormatsSupportingBomProperties
      *
