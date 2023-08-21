@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## unreleased
 
+* Style
+  * Applied latest PHP Coding Standards (via [#341])
+
+[#341]: https://github.com/CycloneDX/cyclonedx-php-library/pull/341
+
 ## 2.3.0 - 2023-06-27
 
 Added support for [_CycloneDX_ Specification-1.5](https://github.com/CycloneDX/specification/releases/tag/1.5).
