@@ -32,6 +32,7 @@ use CycloneDX\Core\Serialization\JSON\_BaseNormalizer;
 use DateTime;
 use DateTimeInterface;
 use DateTimeZone;
+use DomainException;
 
 /**
  * @author jkowalleck
@@ -80,7 +81,7 @@ class MetadataNormalizer extends _BaseNormalizer
 
         try {
             return $this->getNormalizerFactory()->makeForComponent()->normalize($component);
-        } catch (\DomainException) {
+        } catch (DomainException) {
             return null;
         }
     }

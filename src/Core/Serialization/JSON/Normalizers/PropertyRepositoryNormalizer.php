@@ -25,6 +25,7 @@ namespace CycloneDX\Core\Serialization\JSON\Normalizers;
 
 use CycloneDX\Core\Collections\PropertyRepository;
 use CycloneDX\Core\Serialization\JSON\_BaseNormalizer;
+use DomainException;
 
 /**
  * @author jkowalleck
@@ -39,7 +40,7 @@ class PropertyRepositoryNormalizer extends _BaseNormalizer
         foreach ($repo->getItems() as $property) {
             try {
                 $properties[] = $normalizer->normalize($property);
-            } catch (\DomainException) {
+            } catch (DomainException) {
                 // pass
             }
         }

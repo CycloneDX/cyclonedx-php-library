@@ -25,6 +25,7 @@ namespace CycloneDX\Core\Serialization\DOM\Normalizers;
 
 use CycloneDX\Core\Collections\ToolRepository;
 use CycloneDX\Core\Serialization\DOM\_BaseNormalizer;
+use DomainException;
 use DOMElement;
 
 /**
@@ -45,7 +46,7 @@ class ToolRepositoryNormalizer extends _BaseNormalizer
         foreach ($repo->getItems() as $tool) {
             try {
                 $tools[] = $normalizer->normalize($tool);
-            } catch (\DomainException) {
+            } catch (DomainException) {
                 // pass
             }
         }
