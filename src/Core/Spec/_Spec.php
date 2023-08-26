@@ -31,7 +31,7 @@ use CycloneDX\Core\Spdx\LicenseIdentifiers;
 /**
  * This class is not intended to be public API.
  *
- * This is a helper to get the exact spec-versions implemented according to {@see \CycloneDX\Core\Spec\_SpecProtocol}.
+ * This is a helper to get the exact spec-versions implemented according to {@see \CycloneDX\Core\Spec\_SpecProtocol Specification}.
  *
  * @internal as this class may be affected by breaking changes without notice
  *
