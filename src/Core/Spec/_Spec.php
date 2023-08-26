@@ -29,7 +29,8 @@ use CycloneDX\Core\Enums\HashAlgorithm;
 use CycloneDX\Core\Spdx\LicenseIdentifiers;
 
 /**
- * This class is not for public use.
+ * This class is not intended to be public API.
+ *
  * See {@see \CycloneDX\Core\Spec\SpecFactory Specification Factory} to get prepared instances.
  *
  * @internal as this class may be affected by breaking changes without notice
@@ -40,7 +41,7 @@ use CycloneDX\Core\Spdx\LicenseIdentifiers;
  *
  * @author jkowalleck
  */
-class _Spec implements Spec
+class _Spec implements _SpecProtocol
 {
     /** @psalm-var list<string> */
     private array $lLicenseIdentifiers;

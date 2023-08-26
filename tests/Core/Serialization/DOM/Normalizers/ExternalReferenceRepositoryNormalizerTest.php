@@ -30,7 +30,7 @@ use CycloneDX\Core\Serialization\DOM\NormalizerFactory;
 use CycloneDX\Core\Serialization\DOM\Normalizers\ExternalReferenceNormalizer;
 use CycloneDX\Core\Serialization\DOM\Normalizers\ExternalReferenceRepositoryNormalizer;
 use CycloneDX\Core\Serialization\DOM\Normalizers\ToolNormalizer;
-use CycloneDX\Core\Spec\Spec;
+use CycloneDX\Core\Spec\_SpecProtocol;
 use DomainException;
 use DOMElement;
 use Generator;
@@ -48,7 +48,7 @@ class ExternalReferenceRepositoryNormalizerTest extends TestCase
 {
     public function testNormalizeEmpty(): void
     {
-        $spec = $this->createStub(Spec::class);
+        $spec = $this->createStub(_SpecProtocol::class);
         $externalReferenceNormalizer = $this->createMock(ExternalReferenceNormalizer::class);
         $factory = $this->createConfiguredMock(NormalizerFactory::class, [
             'getSpec' => $spec,
@@ -65,7 +65,7 @@ class ExternalReferenceRepositoryNormalizerTest extends TestCase
 
     public function testNormalize(): void
     {
-        $spec = $this->createStub(Spec::class);
+        $spec = $this->createStub(_SpecProtocol::class);
         $externalReferenceNormalizer = $this->createMock(ExternalReferenceNormalizer::class);
         $factory = $this->createConfiguredMock(NormalizerFactory::class, [
             'getSpec' => $spec,
@@ -95,7 +95,7 @@ class ExternalReferenceRepositoryNormalizerTest extends TestCase
     #[DataProvider('dpNormalizeSkipsOnThrow')]
     public function testNormalizeSkipsOnThrow(string $exceptionClass): void
     {
-        $spec = $this->createStub(Spec::class);
+        $spec = $this->createStub(_SpecProtocol::class);
         $externalReferenceNormalizer = $this->createMock(ExternalReferenceNormalizer::class);
         $factory = $this->createConfiguredMock(NormalizerFactory::class, [
             'getSpec' => $spec,

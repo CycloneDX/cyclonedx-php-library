@@ -29,7 +29,7 @@ use CycloneDX\Core\Models\License\SpdxLicense;
 use CycloneDX\Core\Serialization\JSON\_BaseNormalizer;
 use CycloneDX\Core\Serialization\JSON\NormalizerFactory;
 use CycloneDX\Core\Serialization\JSON\Normalizers\LicenseNormalizer;
-use CycloneDX\Core\Spec\Spec;
+use CycloneDX\Core\Spec\_SpecProtocol;
 use Generator;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
@@ -47,7 +47,7 @@ class LicenseNormalizerTest extends \PHPUnit\Framework\TestCase
     {
         /** @var (LicenseExpression|SpdxLicense|NamedLicense)&\PHPUnit\Framework\MockObject\MockObject */
         $license = $this->createConfiguredMock($licenseClass, $licenseMockConf);
-        $spec = $this->createMock(Spec::class);
+        $spec = $this->createMock(_SpecProtocol::class);
         if ($license instanceof SpdxLicense) {
             $spec->method('isSupportedLicenseIdentifier')
                 ->with($license->getId())
@@ -64,7 +64,7 @@ class LicenseNormalizerTest extends \PHPUnit\Framework\TestCase
     public function testNormalizeUnsupportedLicenseId(): void
     {
         $license = $this->createConfiguredMock(SpdxLicense::class, ['getId' => 'MIT']);
-        $spec = $this->createConfiguredMock(Spec::class, ['isSupportedLicenseIdentifier' => false]);
+        $spec = $this->createConfiguredMock(_SpecProtocol::class, ['isSupportedLicenseIdentifier' => false]);
         $factory = $this->createConfiguredMock(NormalizerFactory::class, ['getSpec' => $spec]);
         $normalizer = new LicenseNormalizer($factory);
 

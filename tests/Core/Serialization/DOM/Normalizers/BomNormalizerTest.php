@@ -34,7 +34,7 @@ use CycloneDX\Core\Models\Metadata;
 use CycloneDX\Core\Serialization\DOM\_BaseNormalizer;
 use CycloneDX\Core\Serialization\DOM\NormalizerFactory;
 use CycloneDX\Core\Serialization\DOM\Normalizers;
-use CycloneDX\Core\Spec\Spec;
+use CycloneDX\Core\Spec\_SpecProtocol;
 use CycloneDX\Core\Spec\Version;
 use CycloneDX\Tests\_traits\DomNodeAssertionTrait;
 use DOMDocument;
@@ -53,7 +53,7 @@ class BomNormalizerTest extends TestCase
 
     public function testNormalize(): void
     {
-        $spec = $this->createConfiguredMock(Spec::class, ['getVersion' => Version::v1dot2]);
+        $spec = $this->createConfiguredMock(_SpecProtocol::class, ['getVersion' => Version::v1dot2]);
         $factory = $this->createConfiguredMock(
             NormalizerFactory::class,
             [
@@ -82,7 +82,7 @@ class BomNormalizerTest extends TestCase
 
     public function testNormalizeComponents(): void
     {
-        $spec = $this->createConfiguredMock(Spec::class, ['getVersion' => Version::v1dot2]);
+        $spec = $this->createConfiguredMock(_SpecProtocol::class, ['getVersion' => Version::v1dot2]);
         $componentsNormalizer = $this->createMock(Normalizers\ComponentRepositoryNormalizer::class);
         $factory = $this->createConfiguredMock(
             NormalizerFactory::class,
@@ -121,7 +121,7 @@ class BomNormalizerTest extends TestCase
     public function testNormalizeMetadata(): void
     {
         $spec = $this->createConfiguredMock(
-            Spec::class,
+            _SpecProtocol::class,
             [
                 'getVersion' => Version::v1dot2,
                 'supportsMetadata' => true,
@@ -164,7 +164,7 @@ class BomNormalizerTest extends TestCase
     public function testNormalizeMetadataNotSupported(): void
     {
         $spec = $this->createConfiguredMock(
-            Spec::class,
+            _SpecProtocol::class,
             [
                 'getVersion' => Version::v1dot2,
                 'supportsMetadata' => false,
@@ -209,7 +209,7 @@ class BomNormalizerTest extends TestCase
     public function testNormalizeDependencies(): void
     {
         $spec = $this->createConfiguredMock(
-            Spec::class,
+            _SpecProtocol::class,
             [
                 'getVersion' => Version::v1dot2,
                 'supportsDependencies' => true,
@@ -252,7 +252,7 @@ class BomNormalizerTest extends TestCase
     public function testNormalizeDependenciesOmitWhenEmpty(): void
     {
         $spec = $this->createConfiguredMock(
-            Spec::class,
+            _SpecProtocol::class,
             [
                 'getVersion' => Version::v1dot2,
                 'supportsDependencies' => true,
@@ -298,7 +298,7 @@ class BomNormalizerTest extends TestCase
 
     public function testNormalizeExternalReferencesMergedIfUnsupportedMetadata(): void
     {
-        $spec = $this->createConfiguredMock(Spec::class, [
+        $spec = $this->createConfiguredMock(_SpecProtocol::class, [
             'getVersion' => Version::v1dot2,
             'supportsMetadata' => false,
         ]);
@@ -351,7 +351,7 @@ class BomNormalizerTest extends TestCase
 
     public function testNormalizeExternalReferencesOmittedWHenEmpty(): void
     {
-        $spec = $this->createConfiguredMock(Spec::class, [
+        $spec = $this->createConfiguredMock(_SpecProtocol::class, [
             'getVersion' => Version::v1dot2,
             'supportsMetadata' => false,
         ]);
@@ -400,7 +400,7 @@ class BomNormalizerTest extends TestCase
                 'getProperties' => $this->createConfiguredMock(PropertyRepository::class, ['count' => 2]),
             ]
         );
-        $spec = $this->createConfiguredMock(Spec::class, [
+        $spec = $this->createConfiguredMock(_SpecProtocol::class, [
             'getVersion' => Version::v1dot4,
             'supportsBomProperties' => true,
         ]);
@@ -439,7 +439,7 @@ class BomNormalizerTest extends TestCase
                 'getProperties' => $this->createConfiguredMock(PropertyRepository::class, ['count' => 0]),
             ]
         );
-        $spec = $this->createConfiguredMock(Spec::class, [
+        $spec = $this->createConfiguredMock(_SpecProtocol::class, [
             'getVersion' => Version::v1dot4,
             'supportsBomProperties' => true,
         ]);

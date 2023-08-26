@@ -25,8 +25,8 @@ namespace CycloneDX\Tests\Core\Spec;
 
 use CycloneDX\Core\Spdx\LicenseIdentifiers;
 use CycloneDX\Core\Spec\_Spec;
+use CycloneDX\Core\Spec\_SpecProtocol;
 use CycloneDX\Core\Spec\Format;
-use CycloneDX\Core\Spec\Spec;
 use CycloneDX\Core\Spec\SpecFactory;
 use CycloneDX\Core\Spec\Version;
 use PHPUnit\Framework\Attributes\CoversClass;
@@ -37,7 +37,7 @@ use PHPUnit\Framework\Attributes\UsesClass;
 #[UsesClass(LicenseIdentifiers::class)]
 class Spec1dot5Test extends SpecBaseTestCase
 {
-    protected static function getSpec(): Spec
+    protected static function getSpec(): _SpecProtocol
     {
         return SpecFactory::make1dot5();
     }

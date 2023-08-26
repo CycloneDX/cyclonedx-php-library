@@ -23,7 +23,7 @@ declare(strict_types=1);
 
 namespace CycloneDX\Tests\Core\Validation\Validators;
 
-use CycloneDX\Core\Spec\Spec;
+use CycloneDX\Core\Spec\_SpecProtocol;
 use CycloneDX\Core\Spec\Version;
 use CycloneDX\Core\Validation\BaseValidator;
 use CycloneDX\Core\Validation\Errors\JsonValidationError;
@@ -45,7 +45,7 @@ class JsonValidatorTest extends TestCase
 {
     public function testConstructor(): JsonValidator
     {
-        $spec = $this->createStub(Spec::class);
+        $spec = $this->createStub(_SpecProtocol::class);
         $validator = new JsonValidator($spec);
         self::assertSame($spec, $validator->getSpec());
 
@@ -84,7 +84,7 @@ class JsonValidatorTest extends TestCase
 
     public function testValidateStringThrowsWhenNotParseable(): void
     {
-        $spec = $this->createConfiguredMock(Spec::class, ['getVersion' => Version::v1dot2]);
+        $spec = $this->createConfiguredMock(_SpecProtocol::class, ['getVersion' => Version::v1dot2]);
         $validator = new JsonValidator($spec);
         $json = '{"dummy":';
 
@@ -96,7 +96,7 @@ class JsonValidatorTest extends TestCase
 
     public function testValidateDataPasses(): void
     {
-        $spec = $this->createConfiguredMock(Spec::class, ['getVersion' => Version::v1dot2]);
+        $spec = $this->createConfiguredMock(_SpecProtocol::class, ['getVersion' => Version::v1dot2]);
         $validator = new JsonValidator($spec);
         $data = (object) [
             'bomFormat' => 'CycloneDX',
@@ -129,7 +129,7 @@ class JsonValidatorTest extends TestCase
 
     public function testValidateDataFails(): void
     {
-        $spec = $this->createConfiguredMock(Spec::class, ['getVersion' => Version::v1dot2]);
+        $spec = $this->createConfiguredMock(_SpecProtocol::class, ['getVersion' => Version::v1dot2]);
         $validator = new JsonValidator($spec);
         $data = (object) [
             'bomFormat' => 'CycloneDX',
@@ -162,7 +162,7 @@ class JsonValidatorTest extends TestCase
 
     public function testValidateDataThrowsOnSchemaFileUnknown(): void
     {
-        $spec = $this->createConfiguredMock(Spec::class, ['getVersion' => Version::v1dot1]);
+        $spec = $this->createConfiguredMock(_SpecProtocol::class, ['getVersion' => Version::v1dot1]);
         $validator = new JsonValidator($spec);
 
         $this->expectException(FailedLoadingSchemaException::class);

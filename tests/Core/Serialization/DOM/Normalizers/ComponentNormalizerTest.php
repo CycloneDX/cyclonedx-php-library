@@ -36,7 +36,7 @@ use CycloneDX\Core\Models\License\NamedLicense;
 use CycloneDX\Core\Serialization\DOM\_BaseNormalizer;
 use CycloneDX\Core\Serialization\DOM\NormalizerFactory;
 use CycloneDX\Core\Serialization\DOM\Normalizers;
-use CycloneDX\Core\Spec\Spec;
+use CycloneDX\Core\Spec\_SpecProtocol;
 use CycloneDX\Tests\_traits\DomNodeAssertionTrait;
 use DomainException;
 use DOMDocument;
@@ -65,7 +65,7 @@ class ComponentNormalizerTest extends TestCase
                 'getVersion' => 'v1.33.7',
             ]
         );
-        $spec = $this->createMock(Spec::class);
+        $spec = $this->createMock(_SpecProtocol::class);
         $factory = $this->createConfiguredMock(NormalizerFactory::class, ['getSpec' => $spec]);
         $normalizer = new Normalizers\ComponentNormalizer($factory);
 
@@ -97,7 +97,7 @@ class ComponentNormalizerTest extends TestCase
                 'getPackageUrl' => null,
             ]
         );
-        $spec = $this->createMock(Spec::class);
+        $spec = $this->createMock(_SpecProtocol::class);
         $factory = $this->createConfiguredMock(
             NormalizerFactory::class,
             ['getSpec' => $spec, 'getDocument' => new DOMDocument()]
@@ -151,7 +151,7 @@ class ComponentNormalizerTest extends TestCase
             ]
         );
         $spec = $this->createConfiguredMock(
-            Spec::class,
+            _SpecProtocol::class,
             [
                 'supportsBomRef' => true,
                 'supportsComponentAuthor' => true,
@@ -219,7 +219,7 @@ class ComponentNormalizerTest extends TestCase
                 'getLicenses' => $this->createConfiguredMock(LicenseRepository::class, ['count' => 1]),
             ]
         );
-        $spec = $this->createMock(Spec::class);
+        $spec = $this->createMock(_SpecProtocol::class);
         $licenseRepoNormalizer = $this->createMock(Normalizers\LicenseRepositoryNormalizer::class);
         $factory = $this->createConfiguredMock(
             NormalizerFactory::class,
@@ -261,7 +261,7 @@ class ComponentNormalizerTest extends TestCase
                 'getLicenses' => $this->createConfiguredMock(LicenseRepository::class, ['count' => 0]),
             ]
         );
-        $spec = $this->createMock(Spec::class);
+        $spec = $this->createMock(_SpecProtocol::class);
         $licenseRepoNormalizer = $this->createMock(Normalizers\LicenseRepositoryNormalizer::class);
         $factory = $this->createConfiguredMock(
             NormalizerFactory::class,
@@ -302,7 +302,7 @@ class ComponentNormalizerTest extends TestCase
                 'getExternalReferences' => $this->createConfiguredMock(ExternalReferenceRepository::class, ['count' => 1]),
             ]
         );
-        $spec = $this->createMock(Spec::class);
+        $spec = $this->createMock(_SpecProtocol::class);
         $externalReferenceRepositoryNormalizer = $this->createMock(Normalizers\ExternalReferenceRepositoryNormalizer::class);
         $factory = $this->createConfiguredMock(
             NormalizerFactory::class,
@@ -344,7 +344,7 @@ class ComponentNormalizerTest extends TestCase
                 'getExternalReferences' => $this->createConfiguredMock(ExternalReferenceRepository::class, ['count' => 0]),
             ]
         );
-        $spec = $this->createMock(Spec::class);
+        $spec = $this->createMock(_SpecProtocol::class);
         $externalReferenceRepositoryNormalizer = $this->createMock(Normalizers\ExternalReferenceRepositoryNormalizer::class);
         $factory = $this->createConfiguredMock(
             NormalizerFactory::class,
@@ -387,7 +387,7 @@ class ComponentNormalizerTest extends TestCase
                 'getProperties' => $this->createConfiguredMock(PropertyRepository::class, ['count' => 2]),
             ]
         );
-        $spec = $this->createConfiguredMock(Spec::class, [
+        $spec = $this->createConfiguredMock(_SpecProtocol::class, [
             'supportsComponentProperties' => true,
         ]);
         $propertiesNormalizer = $this->createMock(Normalizers\PropertyRepositoryNormalizer::class);
@@ -429,7 +429,7 @@ class ComponentNormalizerTest extends TestCase
                 'getProperties' => $this->createConfiguredMock(PropertyRepository::class, ['count' => 0]),
             ]
         );
-        $spec = $this->createConfiguredMock(Spec::class, [
+        $spec = $this->createConfiguredMock(_SpecProtocol::class, [
             'supportsComponentProperties' => true,
         ]);
         $propertiesNormalizer = $this->createMock(Normalizers\PropertyRepositoryNormalizer::class);

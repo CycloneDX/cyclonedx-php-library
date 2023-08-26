@@ -23,8 +23,8 @@ declare(strict_types=1);
 
 namespace CycloneDX\Core\Serialization\JSON;
 
+use CycloneDX\Core\Spec\_SpecProtocol as Spec;
 use CycloneDX\Core\Spec\Format;
-use CycloneDX\Core\Spec\Spec;
 use DomainException;
 
 /**

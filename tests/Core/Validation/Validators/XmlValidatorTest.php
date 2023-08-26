@@ -23,7 +23,7 @@ declare(strict_types=1);
 
 namespace CycloneDX\Tests\Core\Validation\Validators;
 
-use CycloneDX\Core\Spec\Spec;
+use CycloneDX\Core\Spec\_SpecProtocol;
 use CycloneDX\Core\Spec\Version;
 use CycloneDX\Core\Validation\BaseValidator;
 use CycloneDX\Core\Validation\Errors\XmlValidationError;
@@ -45,7 +45,7 @@ class XmlValidatorTest extends TestCase
 {
     public function testConstructor(): XmlValidator
     {
-        $spec = $this->createStub(Spec::class);
+        $spec = $this->createStub(_SpecProtocol::class);
         $validator = new XmlValidator($spec);
         self::assertSame($spec, $validator->getSpec());
 
@@ -83,7 +83,7 @@ class XmlValidatorTest extends TestCase
 
     public function testValidateStringThrowsWhenNotParseable(): void
     {
-        $spec = $this->createConfiguredMock(Spec::class, ['getVersion' => Version::v1dot2]);
+        $spec = $this->createConfiguredMock(_SpecProtocol::class, ['getVersion' => Version::v1dot2]);
         $validator = new XmlValidator($spec);
         $xml = '<bom>some invalid XML';
 
@@ -95,7 +95,7 @@ class XmlValidatorTest extends TestCase
 
     public function testValidateDomPasses(): void
     {
-        $spec = $this->createConfiguredMock(Spec::class, ['getVersion' => Version::v1dot2]);
+        $spec = $this->createConfiguredMock(_SpecProtocol::class, ['getVersion' => Version::v1dot2]);
         $validator = new XmlValidator($spec);
         $doc = new DOMDocument();
         $loaded = $doc->loadXML(
@@ -125,7 +125,7 @@ class XmlValidatorTest extends TestCase
 
     public function testValidateDomFails(): void
     {
-        $spec = $this->createConfiguredMock(Spec::class, ['getVersion' => Version::v1dot2]);
+        $spec = $this->createConfiguredMock(_SpecProtocol::class, ['getVersion' => Version::v1dot2]);
         $validator = new XmlValidator($spec);
         $doc = new DOMDocument();
         $loaded = $doc->loadXML(
@@ -163,7 +163,7 @@ class XmlValidatorTest extends TestCase
 
     public function testValidateDomThrowsOnDuplicateBomRef(): void
     {
-        $spec = $this->createConfiguredMock(Spec::class, ['getVersion' => Version::v1dot2]);
+        $spec = $this->createConfiguredMock(_SpecProtocol::class, ['getVersion' => Version::v1dot2]);
         $validator = new XmlValidator($spec);
         $doc = new DOMDocument();
         $loaded = $doc->loadXML(
@@ -200,7 +200,7 @@ class XmlValidatorTest extends TestCase
     {
         self::markTestSkipped('skipped, unless there is a version that does not support XML.');
 
-        $spec = $this->createConfiguredMock(Spec::class, ['getVersion' => Version::v1dot1]);
+        $spec = $this->createConfiguredMock(_SpecProtocol::class, ['getVersion' => Version::v1dot1]);
         $validator = new XmlValidator($spec);
         $doc = $this->createPartialMock(DOMDocument::class, ['schemaValidate']);
 
