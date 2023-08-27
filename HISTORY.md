@@ -7,6 +7,7 @@ All notable changes to this project will be documented in this file.
 * BREAKING
   * Interface `\CycloneDX\Core\Spec\Spec` was removed from public API ([#344] via [#345])  
     This is only a breaking change if you custom-implemented this interface downstream; internal usage is non-breaking.  
+    This change was necessary, so that implementing more spec-features cause no breaking changes.
 * Style
   * Applied latest PHP Coding Standards (via [#341])
 
