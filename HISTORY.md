@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## unreleased
 
+## 3.0.0 - 2023-08-27
+
 * BREAKING
   * Interface `\CycloneDX\Core\Spec\Spec` was removed from public API ([#344] via [#345])  
     This is only a breaking change if you custom-implemented this interface downstream; internal usage is non-breaking.  
