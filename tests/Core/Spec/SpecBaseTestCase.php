@@ -26,8 +26,8 @@ namespace CycloneDX\Tests\Core\Spec;
 use CycloneDX\Core\Enums\ComponentType;
 use CycloneDX\Core\Enums\ExternalReferenceType;
 use CycloneDX\Core\Enums\HashAlgorithm;
+use CycloneDX\Core\Spec\_SpecProtocol;
 use CycloneDX\Core\Spec\Format;
-use CycloneDX\Core\Spec\Spec;
 use CycloneDX\Core\Spec\Version;
 use CycloneDX\Tests\_data\BomSpecData;
 use Generator;
@@ -36,7 +36,7 @@ use PHPUnit\Framework\TestCase;
 
 abstract class SpecBaseTestCase extends TestCase
 {
-    abstract protected static function getSpec(): Spec;
+    abstract protected static function getSpec(): _SpecProtocol;
 
     abstract protected static function getSpecVersion(): Version;
 

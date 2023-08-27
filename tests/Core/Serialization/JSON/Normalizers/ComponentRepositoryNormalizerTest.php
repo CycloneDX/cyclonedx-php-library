@@ -29,7 +29,7 @@ use CycloneDX\Core\Serialization\JSON\_BaseNormalizer;
 use CycloneDX\Core\Serialization\JSON\NormalizerFactory;
 use CycloneDX\Core\Serialization\JSON\Normalizers\ComponentNormalizer;
 use CycloneDX\Core\Serialization\JSON\Normalizers\ComponentRepositoryNormalizer;
-use CycloneDX\Core\Spec\Spec;
+use CycloneDX\Core\Spec\_SpecProtocol;
 use DomainException;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
@@ -40,7 +40,7 @@ class ComponentRepositoryNormalizerTest extends TestCase
 {
     public function testNormalizeEmpty(): void
     {
-        $spec = $this->createStub(Spec::class);
+        $spec = $this->createStub(_SpecProtocol::class);
         $factory = $this->createConfiguredMock(NormalizerFactory::class, ['getSpec' => $spec]);
         $normalizer = new ComponentRepositoryNormalizer($factory);
         $components = $this->createConfiguredMock(ComponentRepository::class, ['count' => 0]);
@@ -52,7 +52,7 @@ class ComponentRepositoryNormalizerTest extends TestCase
 
     public function testNormalize(): void
     {
-        $spec = $this->createStub(Spec::class);
+        $spec = $this->createStub(_SpecProtocol::class);
         $componentNormalizer = $this->createMock(ComponentNormalizer::class);
         $factory = $this->createConfiguredMock(NormalizerFactory::class, [
             'getSpec' => $spec,
@@ -76,7 +76,7 @@ class ComponentRepositoryNormalizerTest extends TestCase
 
     public function testNormalizeSkipsOnThrow(): void
     {
-        $spec = $this->createStub(Spec::class);
+        $spec = $this->createStub(_SpecProtocol::class);
         $componentNormalizer = $this->createMock(ComponentNormalizer::class);
         $factory = $this->createConfiguredMock(NormalizerFactory::class, [
             'getSpec' => $spec,

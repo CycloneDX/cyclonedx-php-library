@@ -26,7 +26,7 @@ namespace CycloneDX\Tests\Core\Serialization\JSON;
 use CycloneDX\Core\Serialization\JSON\_BaseNormalizer;
 use CycloneDX\Core\Serialization\JSON\NormalizerFactory;
 use CycloneDX\Core\Serialization\JSON\Normalizers;
-use CycloneDX\Core\Spec\Spec;
+use CycloneDX\Core\Spec\_SpecProtocol;
 use CycloneDX\Core\Spec\Version;
 use DomainException;
 use PHPUnit\Framework\Attributes\CoversClass;
@@ -56,7 +56,7 @@ class NormalizerFactoryTest extends TestCase
     public function testConstructor(): NormalizerFactory
     {
         $spec = $this->createConfiguredMock(
-            Spec::class,
+            _SpecProtocol::class,
             [
                 'isSupportedFormat' => true,
             ]
@@ -71,7 +71,7 @@ class NormalizerFactoryTest extends TestCase
     public function testConstructThrowsWhenUnsupported(): void
     {
         $spec = $this->createConfiguredMock(
-            Spec::class,
+            _SpecProtocol::class,
             [
                 'getVersion' => Version::v1dot4,
                 'isSupportedFormat' => false,

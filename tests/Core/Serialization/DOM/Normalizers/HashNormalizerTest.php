@@ -26,7 +26,7 @@ namespace CycloneDX\Tests\Core\Serialization\DOM\Normalizers;
 use CycloneDX\Core\Enums\HashAlgorithm;
 use CycloneDX\Core\Serialization\DOM\NormalizerFactory;
 use CycloneDX\Core\Serialization\DOM\Normalizers\HashNormalizer;
-use CycloneDX\Core\Spec\Spec;
+use CycloneDX\Core\Spec\_SpecProtocol;
 use CycloneDX\Tests\_traits\DomNodeAssertionTrait;
 use DomainException;
 use DOMDocument;
@@ -56,7 +56,7 @@ class HashNormalizerTest extends TestCase
         $normalizer = new HashNormalizer($factory);
         $factory->method('getSpec')->willReturn(
             $this->createConfiguredMock(
-                Spec::class,
+                _SpecProtocol::class,
                 [
                     'isSupportedHashAlgorithm' => true,
                     'isSupportedHashContent' => true,
@@ -75,7 +75,7 @@ class HashNormalizerTest extends TestCase
         $normalizer = new HashNormalizer($factory);
         $factory->method('getSpec')->willReturn(
             $this->createConfiguredMock(
-                Spec::class,
+                _SpecProtocol::class,
                 [
                     'isSupportedHashAlgorithm' => false,
                     'isSupportedHashContent' => true,
@@ -95,7 +95,7 @@ class HashNormalizerTest extends TestCase
         $normalizer = new HashNormalizer($factory);
         $factory->method('getSpec')->willReturn(
             $this->createConfiguredMock(
-                Spec::class,
+                _SpecProtocol::class,
                 [
                     'isSupportedHashAlgorithm' => true,
                     'isSupportedHashContent' => false,

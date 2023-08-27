@@ -4,26 +4,32 @@ All notable changes to this project will be documented in this file.
 
 ## unreleased
 
+* BREAKING
+  * Interface `\CycloneDX\Core\Spec\Spec` was removed from public API ([#344] via [#345])  
+    This is only a breaking change if you custom-implemented this interface downstream; internal usage is non-breaking.  
+    This change was necessary, so that implementing more spec-features cause no breaking changes.
 * Style
   * Applied latest PHP Coding Standards (via [#341])
 
 [#341]: https://github.com/CycloneDX/cyclonedx-php-library/pull/341
+[#344]: https://github.com/CycloneDX/cyclonedx-php-library/issues/344
+[#345]: https://github.com/CycloneDX/cyclonedx-php-library/pull/345
 
 ## 2.3.0 - 2023-06-27
 
 Added support for [_CycloneDX_ Specification-1.5](https://github.com/CycloneDX/specification/releases/tag/1.5).
 
 * Changed
-  * Method `Core\Spec\SpecFactory::makeForVersion()` supports _CycloneDX_ Specification-1.5 now ([#193] via [#255])
-  * Classes `Core\Serialization\{DOM,JSON}\Normalizers\*` support _CycloneDX_ Specification-1.5 now ([#193] via [#255])
-  * Classes `Core\Validation\Validators\*` support _CycloneDX_ Specification-1.5 now ([#193] via [#255])
+  * Method `\CycloneDX\Core\Spec\SpecFactory::makeForVersion()` supports _CycloneDX_ Specification-1.5 now ([#193] via [#255])
+  * Classes `\CycloneDX\Core\Serialization\{DOM,JSON}\Normalizers\*` support _CycloneDX_ Specification-1.5 now ([#193] via [#255])
+  * Classes `\CycloneDX\Core\Validation\Validators\*` support _CycloneDX_ Specification-1.5 now ([#193] via [#255])
 * Added
-  * Namespace `Core\Enums`
+  * Namespace `\CycloneDX\Core\Enums`
     * Enum `ComponentType` got new cases ([#193] via [#255])  
       New: `Data`, `DeviceDriver`, `MachineLearningModel`, `Platform`
     * Enum `ExternalReferenceType` got new cases ([#193] via [#255])  
       New: `AdversaryModel`, `Attestation`, `CertificationReport`, `CodifiedInfrastructure`, `ComponentAnalysisReport`, `Configuration`, `DistributionIntake`, `DynamicAnalysisReport`, `Evidence`, `ExploitabilityStatement`, `Formulation`, `Log`, `MaturityReport`, `ModelCard`, `POAM`, `PentestReport`, `QualityMetrics`, `RiskAssessment`, `RuntimeAnalysisReport`, `SecurityContact`, `StaticAnalysisReport`, `ThreatModel`, `VulnerabilityAssertion`
-  * Namespace `Core\Spec`
+  * Namespace `\CycloneDX\Core\Spec`
     * New method `SpecFactory::make1dot5()` to reflect _CycloneDX_ Specification-1.5 ([#193] via [#255])
     * Enum `Version` got new case `v1dot5` to reflect _CycloneDX_ Specification-1.5 ([#193] via [#255])
 * Misc

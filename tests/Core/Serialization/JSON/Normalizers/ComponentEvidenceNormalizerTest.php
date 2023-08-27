@@ -31,7 +31,7 @@ use CycloneDX\Core\Models\License\NamedLicense;
 use CycloneDX\Core\Serialization\JSON\_BaseNormalizer;
 use CycloneDX\Core\Serialization\JSON\NormalizerFactory;
 use CycloneDX\Core\Serialization\JSON\Normalizers;
-use CycloneDX\Core\Spec\Spec;
+use CycloneDX\Core\Spec\_SpecProtocol;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
@@ -50,7 +50,7 @@ class ComponentEvidenceNormalizerTest extends TestCase
                 'getCopyright' => $this->createMock(CopyrightRepository::class),
             ]
         );
-        $spec = $this->createMock(Spec::class);
+        $spec = $this->createMock(_SpecProtocol::class);
         $factory = $this->createConfiguredMock(
             NormalizerFactory::class,
             ['getSpec' => $spec]
@@ -71,7 +71,7 @@ class ComponentEvidenceNormalizerTest extends TestCase
                 'getCopyright' => $this->createConfiguredMock(CopyrightRepository::class, ['count' => 1, 'getItems' => ['some copyright']]),
             ]
         );
-        $spec = $this->createMock(Spec::class);
+        $spec = $this->createMock(_SpecProtocol::class);
         $licenseRepoNormalizer = $this->createMock(Normalizers\LicenseRepositoryNormalizer::class);
         $factory = $this->createConfiguredMock(
             NormalizerFactory::class,

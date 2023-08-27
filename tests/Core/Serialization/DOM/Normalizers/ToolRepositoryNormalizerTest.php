@@ -29,7 +29,7 @@ use CycloneDX\Core\Serialization\DOM\_BaseNormalizer;
 use CycloneDX\Core\Serialization\DOM\NormalizerFactory;
 use CycloneDX\Core\Serialization\DOM\Normalizers\ToolNormalizer;
 use CycloneDX\Core\Serialization\DOM\Normalizers\ToolRepositoryNormalizer;
-use CycloneDX\Core\Spec\Spec;
+use CycloneDX\Core\Spec\_SpecProtocol;
 use DomainException;
 use DOMElement;
 use PHPUnit\Framework\Attributes\CoversClass;
@@ -43,7 +43,7 @@ class ToolRepositoryNormalizerTest extends TestCase
 {
     public function testNormalizeEmpty(): void
     {
-        $spec = $this->createStub(Spec::class);
+        $spec = $this->createStub(_SpecProtocol::class);
         $toolNormalizer = $this->createMock(ToolNormalizer::class);
         $factory = $this->createConfiguredMock(NormalizerFactory::class, [
             'getSpec' => $spec,
@@ -59,7 +59,7 @@ class ToolRepositoryNormalizerTest extends TestCase
 
     public function testNormalize(): void
     {
-        $spec = $this->createStub(Spec::class);
+        $spec = $this->createStub(_SpecProtocol::class);
         $toolNormalizer = $this->createMock(ToolNormalizer::class);
         $factory = $this->createConfiguredMock(NormalizerFactory::class, [
             'getSpec' => $spec,
@@ -84,7 +84,7 @@ class ToolRepositoryNormalizerTest extends TestCase
 
     public function testNormalizeSkipsOnThrow(): void
     {
-        $spec = $this->createStub(Spec::class);
+        $spec = $this->createStub(_SpecProtocol::class);
         $toolNormalizer = $this->createMock(ToolNormalizer::class);
         $factory = $this->createConfiguredMock(NormalizerFactory::class, [
             'getSpec' => $spec,

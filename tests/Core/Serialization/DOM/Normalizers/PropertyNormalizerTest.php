@@ -27,7 +27,7 @@ use CycloneDX\Core\Models\Property;
 use CycloneDX\Core\Serialization\DOM\_BaseNormalizer;
 use CycloneDX\Core\Serialization\DOM\NormalizerFactory;
 use CycloneDX\Core\Serialization\DOM\Normalizers\PropertyNormalizer;
-use CycloneDX\Core\Spec\Spec;
+use CycloneDX\Core\Spec\_SpecProtocol;
 use CycloneDX\Tests\_traits\DomNodeAssertionTrait;
 use DomainException;
 use DOMDocument;
@@ -50,7 +50,7 @@ class PropertyNormalizerTest extends TestCase
                 'getValue' => 'myValue',
             ]
         );
-        $spec = $this->createMock(Spec::class);
+        $spec = $this->createMock(_SpecProtocol::class);
         $factory = $this->createConfiguredMock(
             NormalizerFactory::class,
             [
@@ -77,7 +77,7 @@ class PropertyNormalizerTest extends TestCase
                 'getValue' => 'myValue',
             ]
         );
-        $spec = $this->createMock(Spec::class);
+        $spec = $this->createMock(_SpecProtocol::class);
         $factory = $this->createConfiguredMock(
             NormalizerFactory::class,
             [
