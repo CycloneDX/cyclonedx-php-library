@@ -23,7 +23,9 @@ declare(strict_types=1);
 
 namespace CycloneDX\Tests\Core\Validation\Validators;
 
+use CycloneDX\Core\Spec\_Spec;
 use CycloneDX\Core\Spec\_SpecProtocol;
+use CycloneDX\Core\Spec\SpecFactory;
 use CycloneDX\Core\Spec\Version;
 use CycloneDX\Core\Validation\BaseValidator;
 use CycloneDX\Core\Validation\Errors\XmlValidationError;
@@ -32,7 +34,9 @@ use CycloneDX\Core\Validation\ValidationError;
 use CycloneDX\Core\Validation\Validators\XmlValidator;
 use DOMDocument;
 use DOMException;
+use Generator;
 use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\Constraint\IsInstanceOf;
 use PHPUnit\Framework\TestCase;
@@ -41,6 +45,7 @@ use PHPUnit\Framework\TestCase;
 #[CoversClass(BaseValidator::class)]
 #[UsesClass(XmlValidationError::class)]
 #[UsesClass(ValidationError::class)]
+#[UsesClass(_Spec::class)]
 class XmlValidatorTest extends TestCase
 {
     public function testConstructor(): XmlValidator
@@ -209,5 +214,48 @@ class XmlValidatorTest extends TestCase
         $this->expectException(FailedLoadingSchemaException::class);
 
         $validator->validateDom($doc);
+    }
+
+    #[DataProvider('dpSchemaTestDataValid')]
+    public function testFunctionalValid(_Spec $spec, string $file): void
+    {
+        $validator = new XmlValidator($spec);
+        $errors = $validator->validateString(file_get_contents($file));
+        $this->assertNull($errors);
+    }
+
+    #[DataProvider('dpSchemaTestDataInvalid')]
+    public function testFunctionalInvalid(_Spec $spec, string $file): void
+    {
+        $validator = new XmlValidator($spec);
+        $errors = $validator->validateString(file_get_contents($file));
+        $this->assertInstanceOf(XmlValidationError::class, $errors);
+    }
+
+    public static function dpSchemaTestDataValid(): Generator
+    {
+        yield from self::dpSchemaTestData('valid');
+    }
+
+    public static function dpSchemaTestDataInvalid(): Generator
+    {
+        yield from self::dpSchemaTestData('invalid');
+    }
+
+    private static function dpSchemaTestData(string $filePrefix): Generator
+    {
+        /** @var _SpecProtocol $spec */
+        foreach ([
+                     SpecFactory::make1dot5(),
+                     SpecFactory::make1dot4(),
+                     SpecFactory::make1dot3(),
+                     SpecFactory::make1dot2(),
+                     SpecFactory::make1dot1(),
+                 ] as $spec) {
+            $specVersion = $spec->getVersion()->value;
+            foreach (glob(__DIR__."/../../../_data/schemaTestData/$specVersion/$filePrefix-*.xml") as $file) {
+                yield "$specVersion ".basename($file, '.xml') => [$spec, $file];
+            }
+        }
     }
 }
