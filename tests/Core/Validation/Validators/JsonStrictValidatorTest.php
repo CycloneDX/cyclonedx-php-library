@@ -23,7 +23,9 @@ declare(strict_types=1);
 
 namespace CycloneDX\Tests\Core\Validation\Validators;
 
+use CycloneDX\Core\Spec\_Spec;
 use CycloneDX\Core\Spec\_SpecProtocol;
+use CycloneDX\Core\Spec\SpecFactory;
 use CycloneDX\Core\Spec\Version;
 use CycloneDX\Core\Validation\BaseValidator;
 use CycloneDX\Core\Validation\Errors\JsonValidationError;
@@ -31,8 +33,10 @@ use CycloneDX\Core\Validation\Exceptions\FailedLoadingSchemaException;
 use CycloneDX\Core\Validation\ValidationError;
 use CycloneDX\Core\Validation\Validators\JsonStrictValidator;
 use CycloneDX\Core\Validation\Validators\JsonValidator;
+use Generator;
 use JsonException;
 use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\Constraint\IsInstanceOf;
 use PHPUnit\Framework\TestCase;
@@ -43,6 +47,7 @@ use stdClass;
 #[CoversClass(BaseValidator::class)]
 #[UsesClass(JsonValidationError::class)]
 #[UsesClass(ValidationError::class)]
+#[UsesClass(_Spec::class)]
 class JsonStrictValidatorTest extends TestCase
 {
     public function testConstructor(): JsonStrictValidator
@@ -163,5 +168,47 @@ class JsonStrictValidatorTest extends TestCase
         $this->expectException(FailedLoadingSchemaException::class);
 
         $validator->validateData(new stdClass());
+    }
+
+    #[DataProvider('dpSchemaTestDataValid')]
+    public function testFunctionalValid(_Spec $spec, string $file): void
+    {
+        $validator = new JsonStrictValidator($spec);
+        $errors = $validator->validateString(file_get_contents($file));
+        $this->assertNull($errors);
+    }
+
+    #[DataProvider('dpSchemaTestDataInvalid')]
+    public function testFunctionalInvalid(_Spec $spec, string $file): void
+    {
+        $validator = new JsonStrictValidator($spec);
+        $errors = $validator->validateString(file_get_contents($file));
+        $this->assertInstanceOf(JsonValidationError::class, $errors);
+    }
+
+    public static function dpSchemaTestDataValid(): Generator
+    {
+        yield from self::dpSchemaTestData('valid');
+    }
+
+    public static function dpSchemaTestDataInvalid(): Generator
+    {
+        yield from self::dpSchemaTestData('invalid');
+    }
+
+    private static function dpSchemaTestData(string $filePrefix): Generator
+    {
+        /** @var _SpecProtocol $spec */
+        foreach ([
+                     SpecFactory::make1dot5(),
+                     SpecFactory::make1dot4(),
+                     SpecFactory::make1dot3(),
+                     SpecFactory::make1dot2(),
+                 ] as $spec) {
+            $specVersion = $spec->getVersion()->value;
+            foreach (glob(__DIR__."/../../../_data/schemaTestData/$specVersion/$filePrefix-*.json") as $file) {
+                yield "$specVersion ".basename($file, '.json') => [$spec, $file];
+            }
+        }
     }
 }
