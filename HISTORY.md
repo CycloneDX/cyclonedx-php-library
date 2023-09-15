@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## unreleased
 
+* Fixed
+  * fixed a possible JSON schema validation issue regarding "version" property (via [#352])
+
+[#352]: https://github.com/CycloneDX/cyclonedx-php-library/pull/352
+
 ## 3.0.0 - 2023-08-27
 
 * BREAKING
