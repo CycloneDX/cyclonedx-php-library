@@ -32,7 +32,7 @@ declare(strict_types=1);
 
 namespace tools\CycloneDX\SchemaDownloader;
 
-const SOURCE_ROOT = 'https://raw.githubusercontent.com/CycloneDX/specification/1.5/schema/';
+const SOURCE_ROOT = 'https://raw.githubusercontent.com/CycloneDX/specification/master/schema/';
 const TARGET_ROOT = __DIR__.'/../../res/schema/';
 
 abstract class BaseDownloadable
@@ -46,7 +46,7 @@ abstract class BaseDownloadable
     /** @var string */
     public const TargetPattern = TARGET_ROOT.'...';
 
-    /** @psalm-var array<string, string>  */
+    /** @psalm-var array<string, string> */
     public const ReplaceStr = [];
 
     /** @var list<array{0:string, 1:string}> */
@@ -55,27 +55,45 @@ abstract class BaseDownloadable
 
 abstract class BomXsd extends BaseDownloadable
 {
-    final public const Versions = ['1.5',  '1.4', '1.3', '1.2',  '1.1', '1.0'];
+    final public const Versions = ['1.5', '1.4', '1.3', '1.2', '1.1', '1.0'];
     final public const SourcePattern = SOURCE_ROOT.'bom-%s.xsd';
     final public const TargetPattern = TARGET_ROOT.'bom-%s.SNAPSHOT.xsd';
-    final public const ReplaceStr = [
-        'schemaLocation="http://cyclonedx.org/schema/spdx"' => 'schemaLocation="spdx.SNAPSHOT.xsd"',
-        'schemaLocation="https://cyclonedx.org/schema/spdx"' => 'schemaLocation="spdx.SNAPSHOT.xsd"',
+    final public const ReplaceStr = [];
+    final public const ReplaceReg = [
+        '#schemaLocation="https?://cyclonedx.org/schema/spdx"#' => 'schemaLocation="spdx.SNAPSHOT.xsd"',
     ];
-    final public const ReplaceReg = [];
 }
+
+/* "version" is not required but optional with a default value!
+    this is wrong in schema<1.5 */
+const _bomRequired = '"required": [
+    "bomFormat",
+    "specVersion",
+    "version"
+  ],';
+const _bomRequiredReplace = '
+  "required": [
+    "bomFormat",
+    "specVersion"
+  ],';
 
 abstract class BomJsonLax extends BaseDownloadable
 {
-    final public const Versions = ['1.5', '1.4', '1.3',  '1.2'];
+    final public const Versions = ['1.5', '1.4', '1.3', '1.2'];
     final public const SourcePattern = SOURCE_ROOT.'bom-%s.schema.json';
     final public const TargetPattern = TARGET_ROOT.'bom-%s.SNAPSHOT.schema.json';
     final public const ReplaceStr = [
         'spdx.schema.json' => 'spdx.SNAPSHOT.schema.json',
         'jsf-0.82.schema.json' => 'jsf-0.82.SNAPSHOT.schema.json',
+        _bomRequired => _bomRequiredReplace,
     ];
     final public const ReplaceReg = [
-        ['/("\$id": "(http:\/\/cyclonedx\.org\/schema\/bom.+?\.schema\.json)".*"enum": \[\s+")http:\/\/cyclonedx\.org\/schema\/bom.+?\.schema\.json"/s', '$1$2"'],
+        /* fix "$schema" property to match $id */
+        '/("\$id": "(http:\/\/cyclonedx\.org\/schema\/bom.+?\.schema\.json)".*"enum": \[\s+")http:\/\/cyclonedx\.org\/schema\/bom.+?\.schema\.json"/s' => '$1$2"',
+        /* there was a case where the default value did not match the own pattern ...
+            this is wrong in schema<1.5
+            with current SchemaValidator this is no longer required, as defaults are not applied */
+        // '/\s+"default": "",(?![^}]*?"pattern": "\^\(\.\*\)\$")/gm' => ''
     ];
 }
 
@@ -94,7 +112,7 @@ const OtherDownloadables = [
     SOURCE_ROOT.'jsf-0.82.schema.json' => TARGET_ROOT.'jsf-0.82.SNAPSHOT.schema.json',
 ];
 
-/** @psalm-var class-string<BaseDownloadable>  $class */
+/** @psalm-var class-string<BaseDownloadable> $class */
 foreach ([
              BomXsd::class,
              BomJsonLax::class,
@@ -106,7 +124,7 @@ foreach ([
 
         $content = file_get_contents($source);
         $content = strtr($content, $class::ReplaceStr);
-        foreach ($class::ReplaceReg as [$rp, $rr]) {
+        foreach ($class::ReplaceReg as $rp => $rr) {
             $content = preg_replace($rp, $rr, $content);
         }
 

@@ -1,10 +1,10 @@
 # Resources: Schema files
 
 some schema for offline use as download via [script](../../tools/schema-downloader/download.php).  
-original sources: <https://github.com/CycloneDX/specification/tree/1.5/schema>
+original sources: <https://github.com/CycloneDX/specification/tree/master/schema>
 
 Currently using version
-[c320fc0f0b46873864927d9d5684eea7ba439728](https://github.com/CycloneDX/specification/tree/c320fc0f0b46873864927d9d5684eea7ba439728)
+[fd4d383658196992364e5d62568a48c431ace515](https://github.com/CycloneDX/specification/tree/fd4d383658196992364e5d62568a48c431ace515)
 
 | file | note |
 |------|------|
