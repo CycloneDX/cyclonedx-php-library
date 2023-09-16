@@ -32,7 +32,7 @@ declare(strict_types=1);
 
 namespace tools\CycloneDX\SchemaDownloader;
 
-const SOURCE_ROOT = 'https://raw.githubusercontent.com/CycloneDX/specification/1.5/schema/';
+const SOURCE_ROOT = 'https://raw.githubusercontent.com/CycloneDX/specification/master/schema/';
 const TARGET_ROOT = __DIR__.'/../../res/schema/';
 
 abstract class BaseDownloadable
