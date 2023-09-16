@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## unreleased
 
+## 3.0.1 - 2023-09-16
+
 * Fixed
   * fixed a possible JSON schema validation issue regarding "version" property (via [#352])
 
