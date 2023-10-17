@@ -106,7 +106,7 @@ jobs:
           tools/phpunit/vendor/phpunit/phpunit/phpunit
           --no-progress
           --log-junit='${{ env.REPORTS_DIR }}/phpunit/tests/${{ matrix.os }}_php${{ matrix.php }}_${{ matrix.dependencies }}.junit.xml'
-          --coverage-clover='${{ env.REPORTS_DIR }}/phpunit/coverage/${{ matrix.os}}_php${{ matrix.php }}_${{ matrix.dependencies }}.clover.xml'
+          --coverage-clover='${{ env.REPORTS_DIR }}/phpunit/coverage/${{ matrix.os }}_php${{ matrix.php }}_${{ matrix.dependencies }}.clover.xml'
       - name: Artifact reports
         if: ${{ ! cancelled() }}
         # see https://github.com/actions/upload-artifact

@@ -1,3 +1,5 @@
+# CycloneDX PHP Library
+
 [![shield_packagist-version]][link_packagist]
 [![shield_gh-workflow-test]][link_gh-workflow-test]
 [![shield_coverage]][link_codacy]
@@ -9,8 +11,6 @@
 [![shield_twitter-follow]][link_twitter]
 
 ----
-
-# CycloneDX PHP Library
 
 Work with Bill of Materials (BOM) in [CycloneDX] format.
 
