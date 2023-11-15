@@ -1,0 +1,47 @@
+{
+    "$schema": "http://cyclonedx.org/schema/bom-1.4.schema.json",
+    "bomFormat": "CycloneDX",
+    "specVersion": "1.4",
+    "version": 1,
+    "metadata": {
+        "component": {
+            "bom-ref": "my-app",
+            "type": "application",
+            "name": "my-app"
+        }
+    },
+    "components": [
+        {
+            "bom-ref": "component-A",
+            "type": "library",
+            "name": "component-A"
+        },
+        {
+            "bom-ref": "component-B",
+            "type": "library",
+            "name": "component-B"
+        },
+        {
+            "bom-ref": "component-C",
+            "type": "library",
+            "name": "component-C"
+        }
+    ],
+    "dependencies": [
+        {
+            "ref": "component-A",
+            "dependsOn": [
+                "component-B"
+            ]
+        },
+        {
+            "ref": "component-B"
+        },
+        {
+            "ref": "component-C"
+        },
+        {
+            "ref": "my-app"
+        }
+    ]
+}

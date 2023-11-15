@@ -1,0 +1,24 @@
+{
+    "$schema": "http://cyclonedx.org/schema/bom-1.4.schema.json",
+    "bomFormat": "CycloneDX",
+    "specVersion": "1.4",
+    "version": 1,
+    "components": [
+        {
+            "bom-ref": "dummy",
+            "type": "library",
+            "name": "dummy",
+            "externalReferences": [
+                {
+                    "type": "other",
+                    "url": ".../types/Formulation.txt"
+                }
+            ]
+        }
+    ],
+    "dependencies": [
+        {
+            "ref": "dummy"
+        }
+    ]
+}

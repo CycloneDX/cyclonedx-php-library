@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bom xmlns="http://cyclonedx.org/schema/bom/1.1" version="1">
+  <components>
+    <component type="library">
+      <name><![CDATA[name]]></name>
+      <version><![CDATA[]]></version>
+      <hashes>
+        <hash alg="SHA3-256"><![CDATA[12345678901234567890123456789012]]></hash>
+      </hashes>
+    </component>
+  </components>
+</bom>

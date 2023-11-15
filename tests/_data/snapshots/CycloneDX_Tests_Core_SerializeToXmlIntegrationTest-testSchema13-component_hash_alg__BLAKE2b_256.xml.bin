@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bom xmlns="http://cyclonedx.org/schema/bom/1.3" version="1">
+  <components>
+    <component type="library" bom-ref="component">
+      <name><![CDATA[name]]></name>
+      <version><![CDATA[]]></version>
+      <hashes>
+        <hash alg="BLAKE2b-256"><![CDATA[12345678901234567890123456789012]]></hash>
+      </hashes>
+    </component>
+  </components>
+  <dependencies>
+    <dependency ref="component"/>
+  </dependencies>
+</bom>
