@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bom xmlns="http://cyclonedx.org/schema/bom/1.2" version="1">
+  <components>
+    <component type="library" bom-ref="dummy">
+      <name><![CDATA[dummy]]></name>
+      <version><![CDATA[]]></version>
+      <externalReferences>
+        <reference type="license">
+          <url><![CDATA[.../types/License.txt]]></url>
+        </reference>
+      </externalReferences>
+    </component>
+  </components>
+  <dependencies>
+    <dependency ref="dummy"/>
+  </dependencies>
+</bom>

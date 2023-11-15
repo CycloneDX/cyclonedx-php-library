@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## unreleased
 
+* Misc
+  * Integration tests compare against human-readable snapshots, for regression (via [#371])
+
+[#371]: https://github.com/CycloneDX/cyclonedx-php-library/pull/371
+
 ## 3.0.1 - 2023-09-16
 
 * Fixed

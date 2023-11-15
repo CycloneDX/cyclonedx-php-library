@@ -66,6 +66,7 @@ abstract class BomModelProvider
         yield from self::bomWithAllMetadata();
         yield from self::bomWithExternalReferences();
         yield from self::bomWithProperties();
+        yield from self::bomWithDepTree();
     }
 
     /**
@@ -199,7 +200,8 @@ abstract class BomModelProvider
         yield 'component: plain' => [
             (new Bom())->setComponents(
                 new ComponentRepository(
-                    new Component(ComponentType::Library, 'name')
+                    (new Component(ComponentType::Library, 'name'))
+                        ->setBomRefValue('component')
                 )
             ),
         ];
@@ -241,6 +243,7 @@ abstract class BomModelProvider
             (new Bom())->setComponents(
                 new ComponentRepository(
                     (new Component(ComponentType::Library, 'dummy'))
+                        ->setBomRefValue('dummy')
                         ->setExternalReferences(new ExternalReferenceRepository())
                 )
             ),
@@ -251,6 +254,7 @@ abstract class BomModelProvider
                 (new Bom())->setComponents(
                     new ComponentRepository(
                         (new Component(ComponentType::Library, 'dummy'))
+                            ->setBomRefValue('dummy')
                             ->setExternalReferences(new ExternalReferenceRepository($extRef))
                     )
                 ),
@@ -273,6 +277,7 @@ abstract class BomModelProvider
             (new Bom())->setComponents(
                 new ComponentRepository(
                     (new Component(ComponentType::Library, 'dummy'))
+                        ->setBomRefValue('dummy')
                         ->setProperties(new PropertyRepository(
                             new Property('somePropertyName', 'somePropertyValue-1'),
                             new Property('somePropertyName', 'somePropertyValue-2'),
@@ -371,7 +376,8 @@ abstract class BomModelProvider
             yield "component types: $type->name" => [
                 (new Bom())->setComponents(
                     new ComponentRepository(
-                        new Component($type, "dummy_$type->name")
+                        (new Component($type, "dummy_$type->name"))
+                        ->setBomRefValue("dummy_$type->name")
                     )
                 ),
             ];
@@ -408,14 +414,16 @@ abstract class BomModelProvider
         yield 'component with valid license id' => [
             (new Bom())->setComponents(new ComponentRepository(
                 (new Component(ComponentType::Library, 'name'))
+                    ->setBomRefValue('component')
                     ->setLicenses(new LicenseRepository(
                         new SpdxLicense('MIT')
                     ))
             )),
         ];
-        yield 'component with unknown license id' => [
+        yield 'component with random license id' => [
             (new Bom())->setComponents(new ComponentRepository(
                 (new Component(ComponentType::Library, 'name'))
+                    ->setBomRefValue('component')
                     ->setLicenses(new LicenseRepository(
                         new SpdxLicense(uniqid('license', true))
                     ))
@@ -434,14 +442,27 @@ abstract class BomModelProvider
      */
     public static function bomWithComponentLicenseName(): Generator
     {
-        $license = 'random '.bin2hex(random_bytes(32));
         yield 'component license: random' => [
             (new Bom())->setComponents(
                 new ComponentRepository(
                     (new Component(ComponentType::Library, 'name'))
+                        ->setBomRefValue('component')
                         ->setLicenses(
                             new LicenseRepository(
-                                new NamedLicense($license)
+                                new NamedLicense('random '.bin2hex(random_bytes(32)))
+                            )
+                        )
+                )
+            ),
+        ];
+        yield 'component license: foobar' => [
+            (new Bom())->setComponents(
+                new ComponentRepository(
+                    (new Component(ComponentType::Library, 'name'))
+                        ->setBomRefValue('component')
+                        ->setLicenses(
+                            new LicenseRepository(
+                                new NamedLicense('foobar')
                             )
                         )
                 )
@@ -462,6 +483,7 @@ abstract class BomModelProvider
             (new Bom())->setComponents(
                 new ComponentRepository(
                     (new Component(ComponentType::Library, 'name'))
+                        ->setBomRefValue('component')
                         ->setLicenses(
                             new LicenseRepository(
                                 new LicenseExpression('(MIT OR Apache-2.0)')
@@ -496,6 +518,7 @@ abstract class BomModelProvider
             (new Bom())->setComponents(
                 new ComponentRepository(
                     (new Component(ComponentType::Library, 'name'))
+                        ->setBomRefValue('component')
                         ->setLicenses(new LicenseRepository(...$licenses))
                 )
             ),
@@ -515,6 +538,7 @@ abstract class BomModelProvider
             (new Bom())->setComponents(
                 new ComponentRepository(
                     (new Component(ComponentType::Library, 'name'))
+                        ->setBomRefValue('component')
                         ->setLicenses(
                             new LicenseRepository(
                                 (new NamedLicense('some text'))
@@ -539,6 +563,7 @@ abstract class BomModelProvider
             (new Bom())->setComponents(
                 new ComponentRepository(
                     (new Component(ComponentType::Library, 'name'))
+                        ->setBomRefValue('component')
                         ->setCopyright('(c) 2042 - by me and the gang')
                 )
             ),
@@ -551,6 +576,7 @@ abstract class BomModelProvider
             (new Bom())->setComponents(
                 new ComponentRepository(
                     (new Component(ComponentType::Library, 'name'))
+                        ->setBomRefValue('component')
                         ->setEvidence(new ComponentEvidence())
                 )
             ),
@@ -559,11 +585,12 @@ abstract class BomModelProvider
             (new Bom())->setComponents(
                 new ComponentRepository(
                     (new Component(ComponentType::Library, 'name'))
+                        ->setBomRefValue('component')
                         ->setEvidence((new ComponentEvidence())
                             ->setLicenses(
                                 new LicenseRepository(
                                     (new NamedLicense('UNLICENSE'))
-                                    ->setUrl('https://unlicense.org/')
+                                        ->setUrl('https://unlicense.org/')
                                 )
                             )
                         )
@@ -574,9 +601,10 @@ abstract class BomModelProvider
             (new Bom())->setComponents(
                 new ComponentRepository(
                     (new Component(ComponentType::Library, 'name'))
+                        ->setBomRefValue('component')
                         ->setEvidence(
                             (new ComponentEvidence())
-                            ->setCopyright(new CopyrightRepository('(c) 2042 - by me and the gang'))
+                                ->setCopyright(new CopyrightRepository('(c) 2042 - by me and the gang'))
                         )
                 )
             ),
@@ -597,9 +625,9 @@ abstract class BomModelProvider
             yield "component version: $version" => [
                 (new Bom())->setComponents(
                     new ComponentRepository(
-                        (
-                            new Component(ComponentType::Library, 'name')
-                        )->setVersion($version),
+                        (new Component(ComponentType::Library, 'name'))
+                            ->setBomRefValue('component')
+                            ->setVersion($version),
                     )
                 ),
             ];
@@ -729,6 +757,7 @@ abstract class BomModelProvider
                 (new Bom())->setComponents(
                     new ComponentRepository(
                         (new Component(ComponentType::Library, 'name'))
+                            ->setBomRefValue('component')
                             ->setHashes(
                                 new HashDictionary([$hashAlgorithm, '12345678901234567890123456789012'])
                             )
@@ -753,6 +782,7 @@ abstract class BomModelProvider
             (new Bom())->setComponents(
                 new ComponentRepository(
                     (new Component(ComponentType::Library, 'name'))
+                        ->setBomRefValue('component')
                         ->setDescription(null)
                 )
             ),
@@ -761,6 +791,7 @@ abstract class BomModelProvider
             (new Bom())->setComponents(
                 new ComponentRepository(
                     (new Component(ComponentType::Library, 'name'))
+                        ->setBomRefValue('component')
                         ->setDescription('')
                 )
             ),
@@ -769,7 +800,17 @@ abstract class BomModelProvider
             (new Bom())->setComponents(
                 new ComponentRepository(
                     (new Component(ComponentType::Library, 'name'))
+                        ->setBomRefValue('component')
                         ->setDescription(bin2hex(random_bytes(32)))
+                )
+            ),
+        ];
+        yield 'component description: foobar' => [
+            (new Bom())->setComponents(
+                new ComponentRepository(
+                    (new Component(ComponentType::Library, 'name'))
+                        ->setBomRefValue('component')
+                        ->setDescription('foobar')
                 )
             ),
         ];
@@ -777,6 +818,7 @@ abstract class BomModelProvider
             (new Bom())->setComponents(
                 new ComponentRepository(
                     (new Component(ComponentType::Library, 'name'))
+                        ->setBomRefValue('component')
                         ->setDescription("\ta  test   ")
                 )
             ),
@@ -785,6 +827,7 @@ abstract class BomModelProvider
             (new Bom())->setComponents(
                 new ComponentRepository(
                     (new Component(ComponentType::Library, 'name'))
+                        ->setBomRefValue('component')
                         ->setDescription(
                             'this & that'. // an & that is not an XML entity
                             '<strong>html<strong>'. // things that might cause schema-invalid XML
@@ -810,6 +853,7 @@ abstract class BomModelProvider
             (new Bom())->setComponents(
                 new ComponentRepository(
                     (new Component(ComponentType::Library, 'name'))
+                        ->setBomRefValue('component')
                         ->setAuthor(null)
                 )
             ),
@@ -818,6 +862,7 @@ abstract class BomModelProvider
             (new Bom())->setComponents(
                 new ComponentRepository(
                     (new Component(ComponentType::Library, 'name'))
+                        ->setBomRefValue('component')
                         ->setAuthor('')
                 )
             ),
@@ -826,7 +871,17 @@ abstract class BomModelProvider
             (new Bom())->setComponents(
                 new ComponentRepository(
                     (new Component(ComponentType::Library, 'name'))
+                        ->setBomRefValue('component')
                         ->setAuthor(bin2hex(random_bytes(32)))
+                )
+            ),
+        ];
+        yield 'component author: foobar' => [
+            (new Bom())->setComponents(
+                new ComponentRepository(
+                    (new Component(ComponentType::Library, 'name'))
+                        ->setBomRefValue('component')
+                        ->setAuthor('foobar')
                 )
             ),
         ];
@@ -834,6 +889,7 @@ abstract class BomModelProvider
             (new Bom())->setComponents(
                 new ComponentRepository(
                     (new Component(ComponentType::Library, 'name'))
+                        ->setBomRefValue('component')
                         ->setAuthor("\ta  test   ")
                 )
             ),
@@ -842,6 +898,7 @@ abstract class BomModelProvider
             (new Bom())->setComponents(
                 new ComponentRepository(
                     (new Component(ComponentType::Library, 'name'))
+                        ->setBomRefValue('component')
                         ->setAuthor(
                             'this & that'. // an & that is not an XML entity
                             '<strong>html<strong>'. // things that might cause schema-invalid XML
@@ -940,10 +997,8 @@ abstract class BomModelProvider
         yield 'metadata: minimal component' => [
             (new Bom())->setMetadata(
                 (new Metadata())->setComponent(
-                    new Component(
-                        ComponentType::Application,
-                        'foo'
-                    )
+                    (new Component(ComponentType::Application, 'foo'))
+                        ->setBomRefValue('component')
                 )
             ),
         ];
@@ -1035,5 +1090,60 @@ abstract class BomModelProvider
                 )
             ),
         ];
+    }
+
+    /**
+     * make a BOM and return it with its root-component and 3 child components.
+     *
+     * @psalm-return array{0:Bom, 1:Component, 2:Component, 3:Component, 4:Component}
+     */
+    private static function makeBomWithComponentsDeps(): array
+    {
+        $cR = (new Component(ComponentType::Application, 'my-app'))->setBomRefValue('my-app');
+        $cA = (new Component(ComponentType::Library, 'component-A'))->setBomRefValue('component-A');
+        $cB = (new Component(ComponentType::Library, 'component-B'))->setBomRefValue('component-B');
+        $cC = (new Component(ComponentType::Library, 'component-C'))->setBomRefValue('component-C');
+        $bom = new Bom();
+        $bom->getMetadata()->setComponent($cR);
+        $bom->getComponents()->addItems($cA, $cB, $cC);
+
+        return [$bom, $cR, $cA, $cB, $cC];
+    }
+
+    /**
+     * BOM with dependency graph.
+     *
+     * @return Generator<Bom[]>
+     *
+     * @psalm-return Generator<string, array{0:Bom}>
+     */
+    public static function bomWithDepTree(): Generator
+    {
+        [$bom, $cR, $cA, $cB, $cC] = self::makeBomWithComponentsDeps();
+        yield 'dep tree: all hang' => [$bom];
+
+        [$bom, $cR, $cA, $cB, $cC] = self::makeBomWithComponentsDeps();
+        $cR->getDependencies()->addItems($cA->getBomRef(), $cB->getBomRef());
+        yield 'dep tree: R->A, R->B, C hang' => [$bom];
+
+        [$bom, $cR, $cA, $cB, $cC] = self::makeBomWithComponentsDeps();
+        $cA->getDependencies()->addItems($cB->getBomRef());
+        yield 'dep tree: A hang, A->B, C hang' => [$bom];
+
+        [$bom, $cR, $cA, $cB, $cC] = self::makeBomWithComponentsDeps();
+        $cR->getDependencies()->addItems($cA->getBomRef());
+        $cA->getDependencies()->addItems($cR->getBomRef());
+        yield 'dep tree: R->A, A->R, B hang, C hang' => [$bom];
+
+        [$bom, $cR, $cA, $cB, $cC] = self::makeBomWithComponentsDeps();
+        $cA->getDependencies()->addItems($cB->getBomRef());
+        $cB->getDependencies()->addItems($cC->getBomRef());
+        yield 'dep tree: A hang, A->B, B->C' => [$bom];
+
+        [$bom, $cR, $cA, $cB, $cC] = self::makeBomWithComponentsDeps();
+        $cR->getDependencies()->addItems($cA->getBomRef());
+        $cA->getDependencies()->addItems($cB->getBomRef());
+        $cB->getDependencies()->addItems($cC->getBomRef());
+        yield 'dep tree: R->A, A->B, B->C' => [$bom];
     }
 }

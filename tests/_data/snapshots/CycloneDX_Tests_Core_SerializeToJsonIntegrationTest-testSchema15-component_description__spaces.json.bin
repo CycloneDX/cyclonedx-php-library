@@ -1,0 +1,19 @@
+{
+    "$schema": "http://cyclonedx.org/schema/bom-1.5.schema.json",
+    "bomFormat": "CycloneDX",
+    "specVersion": "1.5",
+    "version": 1,
+    "components": [
+        {
+            "bom-ref": "component",
+            "type": "library",
+            "name": "name",
+            "description": "\ta  test   "
+        }
+    ],
+    "dependencies": [
+        {
+            "ref": "component"
+        }
+    ]
+}
