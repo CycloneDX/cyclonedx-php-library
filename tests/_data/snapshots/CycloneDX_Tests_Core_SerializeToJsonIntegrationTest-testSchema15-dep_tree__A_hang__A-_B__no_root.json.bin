@@ -24,7 +24,10 @@
     ],
     "dependencies": [
         {
-            "ref": "component-A"
+            "ref": "component-A",
+            "dependsOn": [
+                "component-B"
+            ]
         },
         {
             "ref": "component-B"

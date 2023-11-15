@@ -3,13 +3,6 @@
     "bomFormat": "CycloneDX",
     "specVersion": "1.5",
     "version": 1,
-    "metadata": {
-        "component": {
-            "bom-ref": "my-app",
-            "type": "application",
-            "name": "my-app"
-        }
-    },
     "components": [
         {
             "bom-ref": "component-A",
@@ -28,9 +21,6 @@
         },
         {
             "ref": "component-B"
-        },
-        {
-            "ref": "my-app"
         }
     ]
 }

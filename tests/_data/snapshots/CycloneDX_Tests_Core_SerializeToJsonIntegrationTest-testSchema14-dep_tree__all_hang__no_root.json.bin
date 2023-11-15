@@ -1,15 +1,8 @@
 {
-    "$schema": "http://cyclonedx.org/schema/bom-1.5.schema.json",
+    "$schema": "http://cyclonedx.org/schema/bom-1.4.schema.json",
     "bomFormat": "CycloneDX",
-    "specVersion": "1.5",
+    "specVersion": "1.4",
     "version": 1,
-    "metadata": {
-        "component": {
-            "bom-ref": "my-app",
-            "type": "application",
-            "name": "my-app"
-        }
-    },
     "components": [
         {
             "bom-ref": "component-A",
@@ -28,9 +21,6 @@
         },
         {
             "ref": "component-B"
-        },
-        {
-            "ref": "my-app"
         }
     ]
 }
