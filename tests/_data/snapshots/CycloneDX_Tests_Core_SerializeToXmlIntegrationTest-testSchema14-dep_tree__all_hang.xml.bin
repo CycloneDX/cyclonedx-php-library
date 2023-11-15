@@ -12,14 +12,10 @@
     <component type="library" bom-ref="component-B">
       <name><![CDATA[component-B]]></name>
     </component>
-    <component type="library" bom-ref="component-C">
-      <name><![CDATA[component-C]]></name>
-    </component>
   </components>
   <dependencies>
     <dependency ref="component-A"/>
     <dependency ref="component-B"/>
-    <dependency ref="component-C"/>
     <dependency ref="my-app"/>
   </dependencies>
 </bom>

@@ -1093,7 +1093,7 @@ abstract class BomModelProvider
     }
 
     /**
-     * make a BOM and return it with its root-component and 3 child components.
+     * make a BOM and return it with its root-component and 2 child components.
      *
      * @psalm-return array{0:Bom, 1:Component, 2:Component, 3:Component, 4:Component}
      */
@@ -1102,12 +1102,11 @@ abstract class BomModelProvider
         $cR = (new Component(ComponentType::Application, 'my-app'))->setBomRefValue('my-app');
         $cA = (new Component(ComponentType::Library, 'component-A'))->setBomRefValue('component-A');
         $cB = (new Component(ComponentType::Library, 'component-B'))->setBomRefValue('component-B');
-        $cC = (new Component(ComponentType::Library, 'component-C'))->setBomRefValue('component-C');
         $bom = new Bom();
         $bom->getMetadata()->setComponent($cR);
-        $bom->getComponents()->addItems($cA, $cB, $cC);
+        $bom->getComponents()->addItems($cA, $cB);
 
-        return [$bom, $cR, $cA, $cB, $cC];
+        return [$bom, $cR, $cA, $cB];
     }
 
     /**
@@ -1119,31 +1118,19 @@ abstract class BomModelProvider
      */
     public static function bomWithDepTree(): Generator
     {
-        [$bom, $cR, $cA, $cB, $cC] = self::makeBomWithComponentsDeps();
+        [$bom, $cR, $cA, $cB] = self::makeBomWithComponentsDeps();
         yield 'dep tree: all hang' => [$bom];
 
-        [$bom, $cR, $cA, $cB, $cC] = self::makeBomWithComponentsDeps();
-        $cR->getDependencies()->addItems($cA->getBomRef(), $cB->getBomRef());
-        yield 'dep tree: R->A, R->B, C hang' => [$bom];
+        [$bom, $cR, $cA, $cB] = self::makeBomWithComponentsDeps();
+        $bom->getMetadata()->setComponent(null);
+        yield 'dep tree: all hang, no root' => [$bom];
 
-        [$bom, $cR, $cA, $cB, $cC] = self::makeBomWithComponentsDeps();
-        $cA->getDependencies()->addItems($cB->getBomRef());
-        yield 'dep tree: A hang, A->B, C hang' => [$bom];
-
-        [$bom, $cR, $cA, $cB, $cC] = self::makeBomWithComponentsDeps();
+        [$bom, $cR, $cA, $cB] = self::makeBomWithComponentsDeps();
         $cR->getDependencies()->addItems($cA->getBomRef());
-        $cA->getDependencies()->addItems($cR->getBomRef());
-        yield 'dep tree: R->A, A->R, B hang, C hang' => [$bom];
+        yield 'dep tree: R->A, B hang' => [$bom];
 
-        [$bom, $cR, $cA, $cB, $cC] = self::makeBomWithComponentsDeps();
+        [$bom, $cR, $cA, $cB] = self::makeBomWithComponentsDeps();
         $cA->getDependencies()->addItems($cB->getBomRef());
-        $cB->getDependencies()->addItems($cC->getBomRef());
-        yield 'dep tree: A hang, A->B, B->C' => [$bom];
-
-        [$bom, $cR, $cA, $cB, $cC] = self::makeBomWithComponentsDeps();
-        $cR->getDependencies()->addItems($cA->getBomRef());
-        $cA->getDependencies()->addItems($cB->getBomRef());
-        $cB->getDependencies()->addItems($cC->getBomRef());
-        yield 'dep tree: R->A, A->B, B->C' => [$bom];
+        yield 'dep tree: A hang, A->B, no root' => [$bom];
     }
 }

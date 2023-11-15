@@ -30,7 +30,10 @@
             "ref": "component-B"
         },
         {
-            "ref": "my-app"
+            "ref": "my-app",
+            "dependsOn": [
+                "component-A"
+            ]
         }
     ]
 }

@@ -14,7 +14,9 @@
     </component>
   </components>
   <dependencies>
-    <dependency ref="component-A"/>
+    <dependency ref="component-A">
+      <dependency ref="component-B"/>
+    </dependency>
     <dependency ref="component-B"/>
     <dependency ref="my-app"/>
   </dependencies>

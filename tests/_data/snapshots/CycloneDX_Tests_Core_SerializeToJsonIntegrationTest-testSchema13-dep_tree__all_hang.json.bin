@@ -23,12 +23,6 @@
             "type": "library",
             "name": "component-B",
             "version": ""
-        },
-        {
-            "bom-ref": "component-C",
-            "type": "library",
-            "name": "component-C",
-            "version": ""
         }
     ],
     "dependencies": [
@@ -37,9 +31,6 @@
         },
         {
             "ref": "component-B"
-        },
-        {
-            "ref": "component-C"
         },
         {
             "ref": "my-app"
