@@ -84,7 +84,7 @@ class SerializeToJsonIntegrationTest extends TestCase
 
         self::assertNull($validationErrors);
         if (!str_contains($this->dataName(), 'random')) {
-            self::assertStringEqualsSnapshot(__CLASS__ . '-' . $this->name() . '-' . $this->dataName() . '.json', $json);
+            self::assertStringEqualsSnapshot(__CLASS__.'-'.$this->name().'-'.$this->dataName().'.json', $json);
         }
     }
 
@@ -104,7 +104,7 @@ class SerializeToJsonIntegrationTest extends TestCase
 
         self::assertNull($validationErrors);
         if (!str_contains($this->dataName(), 'random')) {
-            self::assertStringEqualsSnapshot(__CLASS__ . '-' . $this->name() . '-' . $this->dataName() . '.json', $json);
+            self::assertStringEqualsSnapshot(__CLASS__.'-'.$this->name().'-'.$this->dataName().'.json', $json);
         }
     }
 
@@ -124,7 +124,7 @@ class SerializeToJsonIntegrationTest extends TestCase
 
         self::assertNull($validationErrors);
         if (!str_contains($this->dataName(), 'random')) {
-            self::assertStringEqualsSnapshot(__CLASS__ . '-' . $this->name() . '-' . $this->dataName() . '.json', $json);
+            self::assertStringEqualsSnapshot(__CLASS__.'-'.$this->name().'-'.$this->dataName().'.json', $json);
         }
     }
 
@@ -144,7 +144,7 @@ class SerializeToJsonIntegrationTest extends TestCase
 
         self::assertNull($validationErrors);
         if (!str_contains($this->dataName(), 'random')) {
-            self::assertStringEqualsSnapshot(__CLASS__ . '-' . $this->name() . '-' . $this->dataName() . '.json', $json);
+            self::assertStringEqualsSnapshot(__CLASS__.'-'.$this->name().'-'.$this->dataName().'.json', $json);
         }
     }
 

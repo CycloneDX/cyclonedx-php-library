@@ -27,9 +27,9 @@ trait SnapshotTrait
 {
     public static function assertStringEqualsSnapshot(string $name, string $actualString, string $message = ''): void
     {
-        $expectedFile = __DIR__ . '/../_data/snapshots/' . preg_replace('/[^\w\.\-]/', '_', $name) .'.bin';
+        $expectedFile = __DIR__.'/../_data/snapshots/'.preg_replace('/[^\w\.\-]/', '_', $name).'.bin';
         if ('1' === getenv('CDX_TEST_RECREATE_SNAPSHOTS')) {
-            file_put_contents($expectedFile, $actualString, LOCK_EX);
+            file_put_contents($expectedFile, $actualString, \LOCK_EX);
         }
         self::assertStringEqualsFile($expectedFile, $actualString, $message);
     }

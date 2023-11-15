@@ -64,7 +64,7 @@ class SerializeToXmlIntegrationTest extends TestCase
 
         self::assertNull($validationErrors);
         if (!str_contains($this->dataName(), 'random')) {
-            self::assertStringEqualsSnapshot(__CLASS__ . '-' . $this->name() . '-' . $this->dataName() . '.xml', $xml);
+            self::assertStringEqualsSnapshot(__CLASS__.'-'.$this->name().'-'.$this->dataName().'.xml', $xml);
         }
     }
 
@@ -84,7 +84,7 @@ class SerializeToXmlIntegrationTest extends TestCase
 
         self::assertNull($validationErrors);
         if (!str_contains($this->dataName(), 'random')) {
-            self::assertStringEqualsSnapshot(__CLASS__ . '-' . $this->name() . '-' . $this->dataName() . '.xml', $xml);
+            self::assertStringEqualsSnapshot(__CLASS__.'-'.$this->name().'-'.$this->dataName().'.xml', $xml);
         }
     }
 
@@ -104,7 +104,7 @@ class SerializeToXmlIntegrationTest extends TestCase
 
         self::assertNull($validationErrors);
         if (!str_contains($this->dataName(), 'random')) {
-            self::assertStringEqualsSnapshot(__CLASS__ . '-' . $this->name() . '-' . $this->dataName() . '.xml', $xml);
+            self::assertStringEqualsSnapshot(__CLASS__.'-'.$this->name().'-'.$this->dataName().'.xml', $xml);
         }
     }
 
@@ -124,7 +124,7 @@ class SerializeToXmlIntegrationTest extends TestCase
 
         self::assertNull($validationErrors);
         if (!str_contains($this->dataName(), 'random')) {
-            self::assertStringEqualsSnapshot(__CLASS__ . '-' . $this->name() . '-' . $this->dataName() . '.xml', $xml);
+            self::assertStringEqualsSnapshot(__CLASS__.'-'.$this->name().'-'.$this->dataName().'.xml', $xml);
         }
     }
 
@@ -144,7 +144,7 @@ class SerializeToXmlIntegrationTest extends TestCase
 
         self::assertNull($validationErrors);
         if (!str_contains($this->dataName(), 'random')) {
-            self::assertStringEqualsSnapshot(__CLASS__ . '-' . $this->name() . '-' . $this->dataName() . '.xml', $xml);
+            self::assertStringEqualsSnapshot(__CLASS__.'-'.$this->name().'-'.$this->dataName().'.xml', $xml);
         }
     }
 

@@ -216,7 +216,7 @@ abstract class BomModelProvider
      */
     public static function bomWithComponentTypeAllKnown(): Generator
     {
-        $known = array_map(static fn(ComponentType $c) => $c->value, ComponentType::cases());
+        $known = array_map(static fn (ComponentType $c) => $c->value, ComponentType::cases());
         yield from self::bomWithComponentTypes(
             ...$known,
             ...BomSpecData::getClassificationEnumForVersion('1.0'),
@@ -449,7 +449,7 @@ abstract class BomModelProvider
                         ->setBomRefValue('component')
                         ->setLicenses(
                             new LicenseRepository(
-                                new NamedLicense('random ' . bin2hex(random_bytes(32)))
+                                new NamedLicense('random '.bin2hex(random_bytes(32)))
                             )
                         )
                 )
@@ -504,9 +504,9 @@ abstract class BomModelProvider
     public static function bomWithComponentLicensesMixed(): Generator
     {
         $licenses = array_map(
-            static fn(Bom $bom): SpdxLicense|NamedLicense|LicenseExpression => $bom->getComponents()->getItems()[0]->getLicenses()->getItems()[0],
+            static fn (Bom $bom): SpdxLicense|NamedLicense|LicenseExpression => $bom->getComponents()->getItems()[0]->getLicenses()->getItems()[0],
             array_map(
-                static fn(array $args): Bom => $args[0],
+                static fn (array $args): Bom => $args[0],
                 [
                     ...iterator_to_array(self::bomWithComponentLicenseId(), false),
                     ...iterator_to_array(self::bomWithComponentLicenseName(), false),
@@ -637,7 +637,7 @@ abstract class BomModelProvider
     /** @psalm-return list<string> */
     private static function allHashAlgorithms(): array
     {
-        $known = array_map(static fn(HashAlgorithm $ha) => $ha->value, HashAlgorithm::cases());
+        $known = array_map(static fn (HashAlgorithm $ha) => $ha->value, HashAlgorithm::cases());
 
         return array_values(
             array_unique(
@@ -829,8 +829,8 @@ abstract class BomModelProvider
                     (new Component(ComponentType::Library, 'name'))
                         ->setBomRefValue('component')
                         ->setDescription(
-                            'this & that' . // an & that is not an XML entity
-                            '<strong>html<strong>' . // things that might cause schema-invalid XML
+                            'this & that'. // an & that is not an XML entity
+                            '<strong>html<strong>'. // things that might cause schema-invalid XML
                             'bar ]]><[CDATA[baz]]> foo' // unexpected CDATA end
                         )
                 )
@@ -900,8 +900,8 @@ abstract class BomModelProvider
                     (new Component(ComponentType::Library, 'name'))
                         ->setBomRefValue('component')
                         ->setAuthor(
-                            'this & that' . // an & that is not an XML entity
-                            '<strong>html<strong>' . // things that might cause schema-invalid XML
+                            'this & that'. // an & that is not an XML entity
+                            '<strong>html<strong>'. // things that might cause schema-invalid XML
                             'bar ]]><[CDATA[baz]]> foo' // unexpected CDATA end
                         )
                 )
@@ -1034,7 +1034,7 @@ abstract class BomModelProvider
      */
     public static function externalReferencesForAllTypes(): Generator
     {
-        $known = array_map(static fn(ExternalReferenceType $ert) => $ert->value, ExternalReferenceType::cases());
+        $known = array_map(static fn (ExternalReferenceType $ert) => $ert->value, ExternalReferenceType::cases());
         $all = array_unique(
             array_merge(
                 $known,
@@ -1094,6 +1094,7 @@ abstract class BomModelProvider
 
     /**
      * make a BOM and return it with its root-component and 3 child components.
+     *
      * @psalm-return array{0:Bom, 1:Component, 2:Component, 3:Component, 4:Component}
      */
     private static function makeBomWithComponentsDeps(): array
@@ -1105,6 +1106,7 @@ abstract class BomModelProvider
         $bom = new Bom();
         $bom->getMetadata()->setComponent($cR);
         $bom->getComponents()->addItems($cA, $cB, $cC);
+
         return [$bom, $cR, $cA, $cB, $cC];
     }
 
@@ -1124,11 +1126,9 @@ abstract class BomModelProvider
         $cR->getDependencies()->addItems($cA->getBomRef(), $cB->getBomRef());
         yield 'dep tree: R->A, R->B, C hang' => [$bom];
 
-
         [$bom, $cR, $cA, $cB, $cC] = self::makeBomWithComponentsDeps();
         $cA->getDependencies()->addItems($cB->getBomRef());
         yield 'dep tree: A hang, A->B, C hang' => [$bom];
-
 
         [$bom, $cR, $cA, $cB, $cC] = self::makeBomWithComponentsDeps();
         $cR->getDependencies()->addItems($cA->getBomRef());
