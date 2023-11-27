@@ -1,9 +1,10 @@
 {
     "name": "cyclonedx/cyclonedx-library",
-    "description": "Work with Bill-of-Materials (BOM) in CycloneDX format.",
+    "description": "Work with CycloneDX documents.",
     "license": "Apache-2.0",
     "type": "library",
     "keywords": [
+        "OWASP",
         "CycloneDX",
         "models",
         "normalizer",
@@ -13,14 +14,14 @@
         "BOM",
         "software-bill-of-materials",
         "SBOM",
-        "OBOM",
-        "MBOM",
         "SaaSBOM",
+        "HBOM",
+        "OBOM",
+        "VDR",
         "VEX",
         "package-url",
         "PURL",
-        "SPDX",
-        "OWASP"
+        "SPDX"
     ],
     "authors": [
         {

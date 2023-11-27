@@ -13,7 +13,9 @@
 
 ----
 
-Work with Bill of Materials (BOM) in [CycloneDX] format.
+Work with [CycloneDX] documents.  
+OWASP CycloneDX is a full-stack Bill of Materials (BOM) standard
+that provides advanced supply chain capabilities for cyber risk reduction.
 
 ## Responsibilities
 
