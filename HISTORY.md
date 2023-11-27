@@ -4,8 +4,10 @@ All notable changes to this project will be documented in this file.
 
 ## unreleased
 
+## 3.0.2 - 2023-11-27
+
 * Misc
-  * Official support for PHP v8.3 (via [#265])
+  * Officially support PHP 8.3 (via [#265])
   * Integration tests compare against human-readable snapshots, for regression (via [#371], [#372])
 
 [#265]: https://github.com/CycloneDX/cyclonedx-php-library/pull/265
