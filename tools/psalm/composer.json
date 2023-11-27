@@ -11,9 +11,6 @@
     },
     "prefer-stable": true,
     "config": {
-        "allow-plugins": {
-            "composer/package-versions-deprecated": false
-        },
         "preferred-install": "dist",
         "sort-packages": true
     }
