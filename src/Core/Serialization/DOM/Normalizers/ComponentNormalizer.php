@@ -24,7 +24,7 @@ declare(strict_types=1);
 namespace CycloneDX\Core\Serialization\DOM\Normalizers;
 
 use CycloneDX\Core\_helpers\SimpleDOM;
-use CycloneDX\Core\_helpers\XML;
+use CycloneDX\Core\_helpers\XML as XmlHelper;
 use CycloneDX\Core\Collections\ExternalReferenceRepository;
 use CycloneDX\Core\Collections\HashDictionary;
 use CycloneDX\Core\Collections\LicenseRepository;
@@ -142,7 +142,7 @@ class ComponentNormalizer extends _BaseNormalizer
             : SimpleDOM::makeSafeTextElement(
                 $this->getNormalizerFactory()->getDocument(),
                 'purl',
-                XML::encodeAnyUriBE((string) $purl)
+                XmlHelper::encodeAnyUriBE((string) $purl)
             );
     }
 

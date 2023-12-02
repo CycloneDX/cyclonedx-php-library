@@ -23,7 +23,7 @@ declare(strict_types=1);
 
 namespace CycloneDX\Core\Serialization\JSON\Normalizers;
 
-use CycloneDX\Core\_helpers\JSON;
+use CycloneDX\Core\_helpers\JSON as JsonHelper;
 use CycloneDX\Core\_helpers\Predicate;
 use CycloneDX\Core\Collections\ExternalReferenceRepository;
 use CycloneDX\Core\Collections\HashDictionary;
@@ -109,7 +109,7 @@ class ComponentNormalizer extends _BaseNormalizer
     {
         return null === $purl
             ? null
-            : JSON::encodeIriReferenceBE((string) $purl);
+            : JsonHelper::encodeIriReferenceBE((string) $purl);
     }
 
     private function normalizeExternalReferences(ExternalReferenceRepository $extRefs): ?array

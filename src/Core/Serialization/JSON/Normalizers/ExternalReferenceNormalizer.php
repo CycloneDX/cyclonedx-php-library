@@ -23,7 +23,7 @@ declare(strict_types=1);
 
 namespace CycloneDX\Core\Serialization\JSON\Normalizers;
 
-use CycloneDX\Core\_helpers\JSON;
+use CycloneDX\Core\_helpers\JSON as JsonHelper;
 use CycloneDX\Core\_helpers\Predicate;
 use CycloneDX\Core\Collections\HashDictionary;
 use CycloneDX\Core\Enums\ExternalReferenceType;
@@ -46,7 +46,7 @@ class ExternalReferenceNormalizer extends _BaseNormalizer
     public function normalize(ExternalReference $externalReference): array
     {
         $refURI = $externalReference->getUrl();
-        $refIRI = JSON::encodeIriReferenceBE($refURI)
+        $refIRI = JsonHelper::encodeIriReferenceBE($refURI)
             ?? throw new UnexpectedValueException("invalid to format 'IriReference': $refURI");
 
         $spec = $this->getNormalizerFactory()->getSpec();
