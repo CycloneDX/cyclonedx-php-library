@@ -105,6 +105,7 @@ class ComponentNormalizer extends _BaseNormalizer
             : $this->getNormalizerFactory()->makeForHashDictionary()->normalize($hashes);
     }
 
+    /**  @SuppressWarnings(PHPMD.StaticAccess) */
     private function normalizePurl(?PackageUrl $purl): ?string
     {
         return null === $purl

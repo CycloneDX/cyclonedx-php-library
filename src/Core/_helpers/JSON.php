@@ -56,6 +56,7 @@ abstract class JSON
             : null; // @codeCoverageIgnore
     }
 
+    /**  @SuppressWarnings(PHPMD.StaticAccess) */
     public static function filterIriReference(string $uri): bool
     {
         return IriFormats::iriReference($uri);
