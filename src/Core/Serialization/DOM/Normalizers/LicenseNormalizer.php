@@ -24,7 +24,7 @@ declare(strict_types=1);
 namespace CycloneDX\Core\Serialization\DOM\Normalizers;
 
 use CycloneDX\Core\_helpers\SimpleDOM;
-use CycloneDX\Core\_helpers\XML;
+use CycloneDX\Core\_helpers\XML as XmlHelper;
 use CycloneDX\Core\Models\License\LicenseExpression;
 use CycloneDX\Core\Models\License\NamedLicense;
 use CycloneDX\Core\Models\License\SpdxLicense;
@@ -80,7 +80,7 @@ class LicenseNormalizer extends _BaseNormalizer
             [
                 SimpleDOM::makeSafeTextElement($document, 'id', $id),
                 SimpleDOM::makeSafeTextElement($document, 'name', $name),
-                SimpleDOM::makeSafeTextElement($document, 'url', XML::encodeAnyUriBE($license->getUrl())),
+                SimpleDOM::makeSafeTextElement($document, 'url', XmlHelper::encodeAnyUriBE($license->getUrl())),
             ]
         );
     }

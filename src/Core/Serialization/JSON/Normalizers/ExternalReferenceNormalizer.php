@@ -23,13 +23,13 @@ declare(strict_types=1);
 
 namespace CycloneDX\Core\Serialization\JSON\Normalizers;
 
+use CycloneDX\Core\_helpers\JSON as JsonHelper;
 use CycloneDX\Core\_helpers\Predicate;
 use CycloneDX\Core\Collections\HashDictionary;
 use CycloneDX\Core\Enums\ExternalReferenceType;
 use CycloneDX\Core\Models\ExternalReference;
 use CycloneDX\Core\Serialization\JSON\_BaseNormalizer;
 use DomainException;
-use Opis\JsonSchema\Formats\IriFormats;
 use UnexpectedValueException;
 
 /**
@@ -45,10 +45,9 @@ class ExternalReferenceNormalizer extends _BaseNormalizer
      */
     public function normalize(ExternalReference $externalReference): array
     {
-        $url = $externalReference->getUrl();
-        if (false === IriFormats::iriReference($url)) {
-            throw new UnexpectedValueException("invalid to format 'IriReference': $url");
-        }
+        $refURI = $externalReference->getUrl();
+        $refIRI = JsonHelper::encodeIriReferenceBE($refURI)
+            ?? throw new UnexpectedValueException("invalid to format 'IriReference': $refURI");
 
         $spec = $this->getNormalizerFactory()->getSpec();
         $type = $externalReference->getType();
@@ -63,7 +62,7 @@ class ExternalReferenceNormalizer extends _BaseNormalizer
         return array_filter(
             [
                 'type' => $type->value,
-                'url' => $url,
+                'url' => $refIRI,
                 'comment' => $externalReference->getComment(),
                 'hashes' => $this->normalizeHashes($externalReference->getHashes()),
             ],

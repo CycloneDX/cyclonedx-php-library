@@ -23,12 +23,12 @@ declare(strict_types=1);
 
 namespace CycloneDX\Core\Serialization\JSON\Normalizers;
 
+use CycloneDX\Core\_helpers\JSON as JsonHelper;
 use CycloneDX\Core\_helpers\Predicate;
 use CycloneDX\Core\Models\License\LicenseExpression;
 use CycloneDX\Core\Models\License\NamedLicense;
 use CycloneDX\Core\Models\License\SpdxLicense;
 use CycloneDX\Core\Serialization\JSON\_BaseNormalizer;
-use Opis\JsonSchema\Formats\IriFormats;
 
 /**
  * @author jkowalleck
@@ -63,15 +63,11 @@ class LicenseNormalizer extends _BaseNormalizer
             [$id, $name] = [null, $id];
         }
 
-        $url = $license->getUrl();
-
         return ['license' => array_filter(
             [
                 'id' => $id,
                 'name' => $name,
-                'url' => null !== $url && IriFormats::iriReference($url)
-                    ? $url
-                    : null,
+                'url' => JsonHelper::encodeIriReferenceBE($license->getUrl()),
             ],
             Predicate::isNotNull(...)
         )];

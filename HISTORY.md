@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## unreleased
 
+* Added
+  * Migration/fixup of URL(`iri-reference`) when normalizing to JSON (via [#380])
+
+[#380]: https://github.com/CycloneDX/cyclonedx-php-library/pull/380
+
 ## 3.0.2 - 2023-11-27
 
 * Misc

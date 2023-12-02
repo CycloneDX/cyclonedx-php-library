@@ -23,55 +23,42 @@ declare(strict_types=1);
 
 namespace CycloneDX\Core\_helpers;
 
-use DOMDocument;
+use Opis\JsonSchema\Formats\IriFormats;
 
 /**
- * Namespace of functions related to XML.
+ * Namespace of functions related to JSON.
  *
  * @internal as this class may be affected by breaking changes without notice
  *
  * @author jkowalleck
  */
-abstract class XML
+abstract class JSON
 {
     use UriTrait;
 
     /**
-     * Make a string valid to XML::anyURI spec - best-effort.
+     * Make a string valid to JSON::iri-reference spec - best-effort.
      *
      * Complete and failsafe implementation is pretty context-dependent.
      * Best-effort solution: replacement & drop every URI that is not well-formed already.
      *
      * @see UriTrait::fixUriBE
-     * @see filterAnyUri
+     * @see filterIriReference
      *
      * @return string|null string on success; null if encoding failed, or input was null
      */
-    public static function encodeAnyUriBE(?string $uri): ?string
+    public static function encodeIriReferenceBE(?string $uri): ?string
     {
         $uri = self::fixUriBE($uri);
 
-        return null === $uri || self::filterAnyUri($uri)
+        return null === $uri || self::filterIriReference($uri)
             ? $uri
             : null; // @codeCoverageIgnore
     }
 
-    /**
-     * @SuppressWarnings(PHPMD.ErrorControlOperator) as there is no easy way to control libxml warning output
-     */
-    public static function filterAnyUri(string $uri): bool
+    /**  @SuppressWarnings(PHPMD.StaticAccess) */
+    public static function filterIriReference(string $uri): bool
     {
-        $doc = new DOMDocument();
-        $doc->appendChild($doc->createElement('t'))
-            ->appendChild($doc->createCDATASection($uri));
-
-        return @$doc->schemaValidateSource(
-            <<<'XML'
-                <?xml version="1.0" encoding="UTF-8"?>
-                <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
-                    <xs:element name="t" type="xs:anyURI" />
-                </xs:schema>
-                XML
-        );
+        return IriFormats::iriReference($uri);
     }
 }

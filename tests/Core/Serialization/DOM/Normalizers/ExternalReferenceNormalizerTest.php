@@ -30,7 +30,7 @@ use CycloneDX\Core\Serialization\DOM\_BaseNormalizer;
 use CycloneDX\Core\Serialization\DOM\NormalizerFactory;
 use CycloneDX\Core\Serialization\DOM\Normalizers;
 use CycloneDX\Core\Spec\_SpecProtocol;
-use CycloneDX\Tests\_data\XmlAnyUriData;
+use CycloneDX\Tests\_data\AnyUriData;
 use CycloneDX\Tests\_traits\DomNodeAssertionTrait;
 use DomainException;
 use DOMDocument;
@@ -291,7 +291,7 @@ class ExternalReferenceNormalizerTest extends TestCase
 
     // endregion normalize hashes
 
-    #[DataProviderExternal(XmlAnyUriData::class, 'dpEncodeAnyUri')]
+    #[DataProviderExternal(AnyUriData::class, 'dpEncodeAnyUri')]
     public function testNormalizeUrlEncodeAnyUri(string $rawUrl, string $encodedUrl): void
     {
         $spec = $this->createMock(_SpecProtocol::class);
@@ -302,20 +302,18 @@ class ExternalReferenceNormalizerTest extends TestCase
         $normalizer = new Normalizers\ExternalReferenceNormalizer($normalizerFactory);
         $extRef = $this->createConfiguredMock(ExternalReference::class, [
             'getUrl' => $rawUrl,
-            'getType' => ExternalReferenceType::BOM,
+            'getType' => ExternalReferenceType::Other,
             'getComment' => null,
             'getHashes' => $this->createStub(HashDictionary::class),
         ]);
 
-        $spec->expects(self::atLeastOnce())
-            ->method('isSupportedExternalReferenceType')
-            ->with(ExternalReferenceType::BOM)
+        $spec->method('isSupportedExternalReferenceType')
             ->willReturn(true);
 
         $actual = $normalizer->normalize($extRef);
 
         self::assertStringEqualsDomNode(
-            '<reference type="bom"><url>'.htmlspecialchars($encodedUrl).'</url></reference>',
+            '<reference type="other"><url>'.htmlspecialchars($encodedUrl).'</url></reference>',
             $actual
         );
     }

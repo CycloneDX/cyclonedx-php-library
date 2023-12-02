@@ -25,10 +25,12 @@ namespace CycloneDX\Tests\_data;
 
 use Generator;
 
-abstract class XmlAnyUriData
+abstract class AnyUriData
 {
     /**
-     * list of RAW to ENCODED urls according to XML::anyURL spec.
+     * List of RAW to ENCODED urls according to
+     * - XML::anyURL {@see https://datatracker.ietf.org/doc/html/rfc2396 spec}.
+     * - JSON::iri-reference {@link https://datatracker.ietf.org/doc/html/rfc3987 spec}.
      *
      * @return Generator<string[]>
      *

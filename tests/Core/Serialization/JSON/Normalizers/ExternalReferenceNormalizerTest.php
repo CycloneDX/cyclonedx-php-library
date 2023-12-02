@@ -30,9 +30,11 @@ use CycloneDX\Core\Serialization\JSON\_BaseNormalizer;
 use CycloneDX\Core\Serialization\JSON\NormalizerFactory;
 use CycloneDX\Core\Serialization\JSON\Normalizers;
 use CycloneDX\Core\Spec\_SpecProtocol;
+use CycloneDX\Tests\_data\AnyUriData;
 use DomainException;
 use Generator;
 use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProviderExternal;
 use PHPUnit\Framework\TestCase;
 use UnexpectedValueException;
 
@@ -281,4 +283,29 @@ class ExternalReferenceNormalizerTest extends TestCase
     }
 
     // endregion normalize hashes
+
+    #[DataProviderExternal(AnyUriData::class, 'dpEncodeAnyUri')]
+    public function testNormalizeUrlEncodeAnyUri(string $rawUrl, string $encodedUrl): void
+    {
+        $spec = $this->createMock(_SpecProtocol::class);
+        $normalizerFactory = $this->createConfiguredMock(NormalizerFactory::class, [
+            'getSpec' => $spec,
+        ]);
+        $normalizer = new Normalizers\ExternalReferenceNormalizer($normalizerFactory);
+        $extRef = $this->createConfiguredMock(ExternalReference::class, [
+            'getUrl' => $rawUrl,
+            'getType' => ExternalReferenceType::Other,
+            'getComment' => null,
+        ]);
+
+        $spec->method('isSupportedExternalReferenceType')
+            ->willReturn(true);
+
+        $actual = $normalizer->normalize($extRef);
+
+        self::assertSame([
+            'type' => 'other',
+            'url' => $encodedUrl,
+        ], $actual);
+    }
 }

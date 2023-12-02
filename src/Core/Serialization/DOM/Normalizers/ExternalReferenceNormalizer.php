@@ -24,7 +24,7 @@ declare(strict_types=1);
 namespace CycloneDX\Core\Serialization\DOM\Normalizers;
 
 use CycloneDX\Core\_helpers\SimpleDOM;
-use CycloneDX\Core\_helpers\XML;
+use CycloneDX\Core\_helpers\XML as XmlHelper;
 use CycloneDX\Core\Collections\HashDictionary;
 use CycloneDX\Core\Enums\ExternalReferenceType;
 use CycloneDX\Core\Models\ExternalReference;
@@ -45,7 +45,7 @@ class ExternalReferenceNormalizer extends _BaseNormalizer
     public function normalize(ExternalReference $externalReference): DOMElement
     {
         $refURI = $externalReference->getUrl();
-        $anyURI = XML::encodeAnyUriBE($refURI)
+        $anyURI = XmlHelper::encodeAnyUriBE($refURI)
             ?? throw new UnexpectedValueException("unable to make 'anyURI' from: $refURI");
 
         $factory = $this->getNormalizerFactory();
