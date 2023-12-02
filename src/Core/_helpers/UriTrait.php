@@ -33,8 +33,11 @@ namespace CycloneDX\Core\_helpers;
 trait UriTrait
 {
     /**
-     * Make a string valid to XML::anyURI spec - best-effort.
-     * Make a string valid to JSON::iri-reference spec - best-effort.
+     * Make a string valid to
+     * - XML::anyURI spec.
+     * - JSON::iri-reference spec.
+     *
+     * BEST EFFORT IMPLEMENTATION
      *
      * @see http://www.w3.org/TR/xmlschema-2/#anyURI
      * @see http://www.datypic.com/sc/xsd/t-xsd_anyURI.html
