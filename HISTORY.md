@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## unreleased
 
+## 3.1.0 - 2023-12-02
+
 * Added
   * Migration/fixup of URL(`iri-reference`) when normalizing to JSON (via [#380])
 
