@@ -27,7 +27,7 @@ use Countable;
 use CycloneDX\Core\Models\ExternalReference;
 
 /**
- * Unique collection of {@see \CycloneDX\Core\Models\ExternalReference}.
+ * Unique collection of {@see ExternalReference}.
  *
  * @author jkowalleck
  */

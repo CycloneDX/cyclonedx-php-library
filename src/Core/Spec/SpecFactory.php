@@ -29,7 +29,7 @@ use CycloneDX\Core\Enums\HashAlgorithm;
 use DomainException;
 
 /**
- * Factory for {@see \CycloneDX\Core\Spec\_SpecProtocol Specification} objects.
+ * Factory for {@see _SpecProtocol Specification} objects.
  */
 abstract class SpecFactory
 {
@@ -47,7 +47,7 @@ abstract class SpecFactory
     */
 
     /**
-     * Create the appropriate {@see \CycloneDX\Core\Spec\_SpecProtocol Specification} based on {@see \CycloneDX\Core\Spec\Version}.
+     * Create the appropriate {@see _SpecProtocol Specification} based on {@see Version}.
      *
      * @throws DomainException when $version was unsupported
      */
@@ -65,7 +65,7 @@ abstract class SpecFactory
     }
 
     /**
-     * Create the {@see \CycloneDX\Core\Spec\_SpecProtocol Specification} based on {@see \CycloneDX\Core\Spec\Version::v1dot1}.
+     * Create the {@see _SpecProtocol Specification} based on {@see \CycloneDX\Core\Spec\Version::v1dot1}.
      */
     public static function make1dot1(): _SpecProtocol
     {
@@ -125,7 +125,7 @@ abstract class SpecFactory
     }
 
     /**
-     * Create the {@see \CycloneDX\Core\Spec\_SpecProtocol Specification} based on {@see \CycloneDX\Core\Spec\Version::v1dot2}.
+     * Create the {@see _SpecProtocol Specification} based on {@see \CycloneDX\Core\Spec\Version::v1dot2}.
      */
     public static function make1dot2(): _SpecProtocol
     {
@@ -193,7 +193,7 @@ abstract class SpecFactory
     }
 
     /**
-     * Create the {@see \CycloneDX\Core\Spec\_SpecProtocol Specification} based on {@see \CycloneDX\Core\Spec\Version::v1dot3}.
+     * Create the {@see _SpecProtocol Specification} based on {@see \CycloneDX\Core\Spec\Version::v1dot3}.
      */
     public static function make1dot3(): _SpecProtocol
     {
@@ -264,7 +264,7 @@ abstract class SpecFactory
     }
 
     /**
-     * Create the {@see \CycloneDX\Core\Spec\_SpecProtocol Specification} based on {@see \CycloneDX\Core\Spec\Version::v1dot4}.
+     * Create the {@see _SpecProtocol Specification} based on {@see \CycloneDX\Core\Spec\Version::v1dot4}.
      */
     public static function make1dot4(): _SpecProtocol
     {
@@ -336,7 +336,7 @@ abstract class SpecFactory
     }
 
     /**
-     * Create the {@see \CycloneDX\Core\Spec\_SpecProtocol Specification} based on {@see \CycloneDX\Core\Spec\Version::v1dot5}.
+     * Create the {@see _SpecProtocol Specification} based on {@see \CycloneDX\Core\Spec\Version::v1dot5}.
      */
     public static function make1dot5(): _SpecProtocol
     {

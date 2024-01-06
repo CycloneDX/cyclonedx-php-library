@@ -30,7 +30,7 @@ use CycloneDX\Core\Enums\HashAlgorithm;
 /**
  * This interface is not intended to be public API.
  *
- * See {@see \CycloneDX\Core\Spec\SpecFactory Specification Factory} to get prepared instances.
+ * See {@see SpecFactory Specification Factory} to get prepared instances.
  *
  * @internal as this interface  may be affected by breaking changes without notice
  *

@@ -27,7 +27,7 @@ use Countable;
 use CycloneDX\Core\Enums\HashAlgorithm;
 
 /**
- * Dictionary of {@see \CycloneDX\Core\Enums\HashAlgorithm} => HashContent.
+ * Dictionary of {@see HashAlgorithm} => HashContent.
  *
  * @psalm-type HashContent = string
  * @psalm-type HashAlgorithmContentTuple = list{HashAlgorithm,HashContent}
@@ -44,7 +44,7 @@ class HashDictionary implements Countable
     /**
      * Ignores unknown hash algorithms.
      *
-     * @param array $items list of tuples of [{@see \CycloneDX\Core\Enums\HashAlgorithm} `$algorithm`, string `$content`]
+     * @param array $items list of tuples of [{@see HashAlgorithm} `$algorithm`, string `$content`]
      *
      * @psalm-param array<HashAlgorithmContentTuple> $items
      */
@@ -57,7 +57,7 @@ class HashDictionary implements Countable
      * Set the hashes.
      * Ignores unknown hash algorithms.
      *
-     * @param array $items list of tuples of [{@see \CycloneDX\Core\Enums\HashAlgorithm} `$algorithm`, string `$content`]
+     * @param array $items list of tuples of [{@see HashAlgorithm} `$algorithm`, string `$content`]
      *
      * @psalm-param array<HashAlgorithmContentTuple> $items
      *
@@ -73,7 +73,7 @@ class HashDictionary implements Countable
     }
 
     /**
-     * @return array[] list of tuples of [{@see \CycloneDX\Core\Enums\HashAlgorithm} `$algorithm`, string `$content`]
+     * @return array[] list of tuples of [{@see HashAlgorithm} `$algorithm`, string `$content`]
      *
      * @psalm-return list<HashAlgorithmContentTuple>
      */

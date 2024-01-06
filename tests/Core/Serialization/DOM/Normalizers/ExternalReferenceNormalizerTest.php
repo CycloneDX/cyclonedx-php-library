@@ -129,7 +129,7 @@ class ExternalReferenceNormalizerTest extends TestCase
     public function testNormalizeTypeConvertIfNotSupported(): void
     {
         $spec = $this->createMock(_SpecProtocol::class);
-        $normalizerFactory = $this->createConfiguredMock(\CycloneDX\Core\Serialization\DOM\NormalizerFactory::class, [
+        $normalizerFactory = $this->createConfiguredMock(NormalizerFactory::class, [
             'getDocument' => new DOMDocument(),
             'getSPec' => $spec,
         ]);

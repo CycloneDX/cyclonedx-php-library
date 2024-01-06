@@ -33,7 +33,7 @@ use DOMElement;
 class DependenciesNormalizer extends _BaseNormalizer
 {
     /**
-     * Only named {@see \CycloneDX\Core\Models\BomRef BomRefs} will be taken into account.
+     * Only named {@see BomRef BomRefs} will be taken into account.
      * Make sure to use the {@see \CycloneDX\Core\Serialization\BomRefDiscriminator} before calling.
      *
      * @return DOMElement[]
