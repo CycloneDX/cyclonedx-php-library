@@ -21,6 +21,8 @@ declare(strict_types=1);
  * Copyright (c) OWASP Foundation. All Rights Reserved.
  */
 
+namespace CycloneDX\Examples;
+
 require_once __DIR__.'/../vendor/autoload.php';
 
 // Example how to serialize a Bom to JSON / XML.

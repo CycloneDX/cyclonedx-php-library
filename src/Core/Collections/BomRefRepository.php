@@ -27,7 +27,7 @@ use Countable;
 use CycloneDX\Core\Models\BomRef;
 
 /**
- * Unique collection of {@see \CycloneDX\Core\Models\BomRef}.
+ * Unique collection of {@see BomRef}.
  *
  * @author jkowalleck
  */

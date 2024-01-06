@@ -27,7 +27,7 @@ use Countable;
 use CycloneDX\Core\Models\Tool;
 
 /**
- * Unique collection of {@see \CycloneDX\Core\Models\Tool}.
+ * Unique collection of {@see Tool}.
  *
  * @author jkowalleck
  */

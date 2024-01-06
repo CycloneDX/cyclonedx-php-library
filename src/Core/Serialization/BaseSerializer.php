@@ -35,7 +35,7 @@ use Exception;
 abstract class BaseSerializer implements Serializer
 {
     /**
-     * Get a list of all {@see \CycloneDX\Core\Models\BomRef} in {@see \CycloneDX\Core\Models\Bom}.
+     * Get a list of all {@see BomRef} in {@see Bom}.
      * The list might contain duplicates.
      *
      * @return BomRef[]
@@ -61,7 +61,7 @@ abstract class BaseSerializer implements Serializer
     /**
      * Normalize for serialization.
      *
-     * Also utilizes {@see \CycloneDX\Core\Serialization\BomRefDiscriminator}
+     * Also utilizes {@see BomRefDiscriminator}
      * to guarantee that each BomRef has a unique value.
      *
      * @throws Exception
@@ -93,7 +93,7 @@ abstract class BaseSerializer implements Serializer
     }
 
     /**
-     * Normalize a {@see \CycloneDX\Core\Models\Bom} to the data structure that {@see realSerialize()} can handle.
+     * Normalize a {@see Bom} to the data structure that {@see realSerialize()} can handle.
      *
      * @throws Exception
      *
@@ -103,7 +103,7 @@ abstract class BaseSerializer implements Serializer
     // no typehint for return type, as it is not actually `mixed` but a templated type.
 
     /**
-     * Serialize a {@see realNormalize() normalized} version of a {@see \CycloneDX\Core\Models\Bom}.
+     * Serialize a {@see realNormalize() normalized} version of a {@see Bom}.
      *
      * @param TNormalizedBom $normalizedBom a version of the Bom that was normalized for serialization
      *
