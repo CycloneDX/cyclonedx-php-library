@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 ## unreleased
 
+## 3.1.1 - 2024-01-20
+
+Maintenance Release.
+
 * Style
   * Applied latest PHP Coding Standards (via [#395], [#398], [#399])
 
