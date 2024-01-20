@@ -68,7 +68,7 @@ abstract class BaseSerializer implements Serializer
      *
      * @return TNormalizedBom a version of the Bom that was normalized for serialization
      */
-    private function normalize(BOM $bom)
+    private function normalize(Bom $bom)
     {
         $bomRefDiscriminator = new BomRefDiscriminator(...$this->getAllBomRefs($bom));
         $bomRefDiscriminator->discriminate();
