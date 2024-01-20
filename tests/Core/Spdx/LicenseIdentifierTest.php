@@ -153,7 +153,7 @@ class LicenseIdentifierTest extends TestCase
         $fakeResourcesFile = tempnam(sys_get_temp_dir(), __METHOD__);
         touch($fakeResourcesFile);
         // set mode to not-readable to force read errors ...
-        if (!chmod($fakeResourcesFile, 0o222)) {
+        if (!chmod($fakeResourcesFile, 0o222) || is_readable($fakeResourcesFile)) {
             $this->markTestSkipped('preparation could not be done');
         }
 
