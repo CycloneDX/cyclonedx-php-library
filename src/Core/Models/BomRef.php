@@ -38,7 +38,7 @@ final class BomRef
     /** @psalm-var non-empty-string|null  */
     private ?string $value;
 
-    public function __construct(string $value = null)
+    public function __construct(?string $value = null)
     {
         $this->setValue($value);
     }
