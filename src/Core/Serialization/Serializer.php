@@ -41,5 +41,5 @@ interface Serializer
      *
      * @SuppressWarnings(PHPMD.BooleanArgumentFlag)
      */
-    public function serialize(Bom $bom, bool $prettyPrint = null): string;
+    public function serialize(Bom $bom, ?bool $prettyPrint = null): string;
 }

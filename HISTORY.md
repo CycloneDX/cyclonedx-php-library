@@ -4,16 +4,13 @@ All notable changes to this project will be documented in this file.
 
 ## unreleased
 
-## 3.1.1 - 2024-01-20
-
-Maintenance Release.
-
 * Style
-  * Applied latest PHP Coding Standards (via [#395], [#398], [#399])
+  * Applied latest PHP Coding Standards (via [#395], [#398], [#399], [#402])
 
 [#395]: https://github.com/CycloneDX/cyclonedx-php-library/pull/395
 [#398]: https://github.com/CycloneDX/cyclonedx-php-library/pull/398
 [#399]: https://github.com/CycloneDX/cyclonedx-php-library/pull/399
+[#402]: https://github.com/CycloneDX/cyclonedx-php-library/pull/402
 
 ## 3.1.0 - 2023-12-02
 

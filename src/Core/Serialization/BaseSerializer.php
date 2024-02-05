@@ -84,7 +84,7 @@ abstract class BaseSerializer implements Serializer
     /**
      * @SuppressWarnings(PHPMD.BooleanArgumentFlag)
      */
-    final public function serialize(Bom $bom, bool $prettyPrint = null): string
+    final public function serialize(Bom $bom, ?bool $prettyPrint = null): string
     {
         return $this->realSerialize(
             $this->normalize($bom),
