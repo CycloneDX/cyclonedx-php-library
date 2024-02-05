@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 ## unreleased
 
+<!-- add unreleased items here -->
+
+## 3.1.1 - 2024-02-05
+
 * Style
   * Applied latest PHP Coding Standards (via [#395], [#398], [#399], [#402])
 
