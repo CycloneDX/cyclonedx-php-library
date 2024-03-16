@@ -15,7 +15,8 @@ build:
   commands:
     - >
       docker run --rm
-      -v "$(pwd):/data"
+      -v "$(pwd):/data:ro"
+      -v "$READTHEDOCS_OUTPUT/html/:/phpdoc_out"
       "phpdoc/phpdoc:3"
       --cache-folder "/tmp/phpdoc.cache"
-      --target "$READTHEDOCS_OUTPUT/html/"
+      --target "/phpdoc_out"
