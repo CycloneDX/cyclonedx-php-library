@@ -13,5 +13,9 @@ build:
   tools:
     python: "3"
   commands:
-    - mkdir -p "$READTHEDOCS_OUTPUT/html"
-    - echo 'test' > "$READTHEDOCS_OUTPUT/html/index.html"
+    - >
+      docker run --rm
+      -v "$(pwd):/data"
+      "phpdoc/phpdoc:3"
+      --cache-folder "/tmp/phpdoc.cache"
+      --target "$READTHEDOCS_OUTPUT/html/"
