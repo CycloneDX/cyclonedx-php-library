@@ -1,6 +1,7 @@
 # CycloneDX PHP Library
 
 [![shield_packagist-version]][link_packagist]
+[![shield_rtfd]][link_rtfd]
 [![shield_gh-workflow-test]][link_gh-workflow-test]
 [![shield_coverage]][link_codacy]
 [![shield_shepherd]][link_shepherd]
@@ -92,8 +93,9 @@ $bom->getComponents()->addItems(
 
 ## API Documentation
 
-There is no pre-rendered documentation at the time.  
-Instead, there are code annotations, so that your IDE and tools may pick up the documentation when you use this library downstream.
+We ship code annotations, so that your IDE and tools may pick up the documentation when you use this library downstream.
+
+There are also pre-rendered documentations hosted on [readthedocs][link_rtfd].
 
 Additionally, there is a prepared config for [_phpDoc3_](https://docs.phpdoc.org/guide/getting-started/index.html)
 that you can use to generate the docs for yourself.
@@ -119,8 +121,10 @@ See the [LICENSE][license_file] file for the full license.
 [license_file]: https://github.com/CycloneDX/cyclonedx-php-library/blob/master/LICENSE
 [contributing_file]: https://github.com/CycloneDX/cyclonedx-php-library/blob/master/CONTRIBUTING.md
 [examples]: https://github.com/CycloneDX/cyclonedx-php-library/tree/master/examples
+[link_rtfd]: https://cyclonedx-php-library.readthedocs.io
 
 [shield_packagist-version]: https://img.shields.io/packagist/v/cyclonedx/cyclonedx-library?logo=Packagist&logoColor=white "packagist"
+[shield_rtfd]: https://img.shields.io/readthedocs/cyclonedx-php-library?logo=readthedocs&logoColor=white "Read the Docs"
 [shield_gh-workflow-test]: https://img.shields.io/github/actions/workflow/status/CycloneDX/cyclonedx-php-library/php.yml?branch=master&logo=GitHub&logoColor=white "build"
 [shield_coverage]: https://img.shields.io/codacy/coverage/7e5610bee31a4c99b1b8efb0eeab9e73?logo=Codacy&logoColor=white "test coverage"
 [shield_shepherd]: https://shepherd.dev/github/CycloneDX/cyclonedx-php-library/coverage.svg "type coverage"
