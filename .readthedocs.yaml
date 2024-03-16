@@ -17,8 +17,9 @@ build:
     - php-mbstring
     - graphviz
     - plantuml
-  commands:
-    - wget https://phpdoc.org/phpDocumentor.phar -O /tmp/phpDocumentor.phar
-    - >
-      php /tmp/phpDocumentor.phar run
-      --target "$READTHEDOCS_OUTPUT/html/"
+  jobs:
+    pre_build:
+      - wget https://phpdoc.org/phpDocumentor.phar -O /tmp/phpDocumentor.phar
+      - >
+        php /tmp/phpDocumentor.phar run
+        --target "$READTHEDOCS_OUTPUT/html/"
