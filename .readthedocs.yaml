@@ -13,4 +13,5 @@ build:
   tools:
     python: "3"
   commands:
+    - mkdir -p "$READTHEDOCS_OUTPUT/html"
     - echo 'test' > "$READTHEDOCS_OUTPUT/html/index.html"
