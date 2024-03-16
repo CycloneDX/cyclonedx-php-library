@@ -13,13 +13,12 @@ build:
   tools:
     python: "3"
   apt_packages:
-    - php
+    - php-cli
     - php-mbstring
     - graphviz
     - plantuml
-  jobs:
-    pre_build:
-      - wget https://phpdoc.org/phpDocumentor.phar -O /tmp/phpDocumentor.phar
-      - >
-        php /tmp/phpDocumentor.phar run
-        --target "$READTHEDOCS_OUTPUT/html/"
+  commands:
+    - wget https://phpdoc.org/phpDocumentor.phar -O /tmp/phpDocumentor.phar
+    - >
+      php /tmp/phpDocumentor.phar run
+      --target "$READTHEDOCS_OUTPUT/html/"
