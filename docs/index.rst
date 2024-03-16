@@ -1,5 +1,5 @@
 
-CycloneDX’s JavaScript Library documentation
+CycloneDX’s PHP Library documentation
 ====================================================
 
 OWASP `CycloneDX`_ is a full-stack Bill of Materials (BOM) standard
