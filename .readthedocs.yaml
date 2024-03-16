@@ -21,6 +21,4 @@ build:
   jobs:
     pre_build:
       - wget https://phpdoc.org/phpDocumentor.phar -O /tmp/phpDocumentor.phar
-      - >
-        php /tmp/phpDocumentor.phar run
-        --target "$READTHEDOCS_OUTPUT/html/"
+      - php /tmp/phpDocumentor.phar run
