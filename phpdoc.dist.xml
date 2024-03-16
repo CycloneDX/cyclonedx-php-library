@@ -6,7 +6,7 @@
 >
     <title>CycloneDX Library</title>
     <paths>
-        <output>docs/api</output>
+        <output>docs/api/phpdoc</output>
         <cache>.phpdoc.cache</cache>
     </paths>
     <version number="dev">
