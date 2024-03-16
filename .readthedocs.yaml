@@ -15,6 +15,7 @@ build:
   apt_packages:
     - php-cli
     - php-mbstring
+    - php-xml
     - graphviz
     - plantuml
   jobs:
