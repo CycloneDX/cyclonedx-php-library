@@ -18,11 +18,13 @@ composer.lock text eol=lf diff=json
 .gitattributes          export-ignore
 .gitignore              export-ignore
 .editorconfig           export-ignore
+## dot-files/-folders
 /.*                     export-ignore
 /tests                  export-ignore
 /tools                  export-ignore
 /examples               export-ignore
-/docs/dev               export-ignore
+## docs are rendered and linked n README
+/docs                   export-ignore
 /infection.json.dist    export-ignore
 /phpmd.*                export-ignore
 /phpunit.*              export-ignore
