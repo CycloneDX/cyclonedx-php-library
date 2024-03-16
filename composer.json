@@ -33,7 +33,8 @@
     "homepage": "https://github.com/CycloneDX/cyclonedx-php-library/#readme",
     "support": {
         "issues": "https://github.com/CycloneDX/cyclonedx-php-library/issues",
-        "source": "https://github.com/CycloneDX/cyclonedx-php-library/"
+        "source": "https://github.com/CycloneDX/cyclonedx-php-library/",
+        "docs": "https://cyclonedx-php-library.readthedocs.io"
     },
     "funding": [
         {
