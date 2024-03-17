@@ -2,7 +2,7 @@ from json import load as json_load
 from os.path import dirname, join
 
 
-project = 'CycloneDX JavaScript Library'
+project = 'CycloneDX PHP Library'
 copyright = 'Copyright (c) OWASP Foundation'
 author = 'Jan Kowalleck'
 
