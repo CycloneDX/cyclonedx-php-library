@@ -6,12 +6,13 @@ All notable changes to this project will be documented in this file.
 
 <!-- add unreleased items here -->
 
+## 3.1.2 - 2024-03-18
+
 * Documentation
-    * Rendered (API) docs are hosted on [readthedocs](https://cyclonedx-php-library.readthedocs.io) ([#8] via [#414])
+  * Rendered (API) docs are hosted on [readthedocs](https://cyclonedx-php-library.readthedocs.io) ([#8] via [#414])
 
 [#8]: https://github.com/CycloneDX/cyclonedx-php-library/issues/8
 [#414]: https://github.com/CycloneDX/cyclonedx-php-library/pull/414
-
 
 ## 3.1.1 - 2024-02-05
 
