@@ -19,6 +19,7 @@ to help you create/render CycloneDX documents.
 
    install
    examples
+   api
    contributing
    changelog
-   api
+
