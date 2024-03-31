@@ -114,10 +114,10 @@ const OtherDownloadables = [
 
 /** @psalm-var class-string<BaseDownloadable> $class */
 foreach ([
-             BomXsd::class,
-             BomJsonLax::class,
-             BomJsonStrict::class,
-         ] as $class) {
+    BomXsd::class,
+    BomJsonLax::class,
+    BomJsonStrict::class,
+] as $class) {
     foreach ($class::Versions as $version) {
         $source = sprintf($class::SourcePattern, $version);
         $target = sprintf($class::TargetPattern, $version);

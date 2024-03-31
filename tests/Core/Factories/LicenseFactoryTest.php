@@ -102,8 +102,8 @@ class LicenseFactoryTest extends TestCase
             ->with($license)->willReturn($fixed);
         $this->licenseIdentifiers->method('isKnownLicense')
             ->willReturnMap([
-               [$license, false],
-               [$fixed, true],
+                [$license, false],
+                [$fixed, true],
             ]);
         $actual = $this->factory->makeSpdxLicense($license);
         self::assertEquals(new SpdxLicense($fixed), $actual);

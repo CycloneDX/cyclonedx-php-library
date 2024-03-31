@@ -91,7 +91,7 @@ class HashDictionaryNormalizerTest extends TestCase
                     [HashAlgorithm::MD5, 'cont1'],
                     [HashAlgorithm::SHA_1, 'cont2'],
                     [HashAlgorithm::SHA_256, 'cont3'],
-            ],
+                ],
             ]
         );
 

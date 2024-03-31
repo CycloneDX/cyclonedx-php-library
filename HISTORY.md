@@ -6,6 +6,11 @@ All notable changes to this project will be documented in this file.
 
 <!-- add unreleased items here -->
 
+* Style
+  * Applied latest PHP Coding Standards (via [#415])
+
+[#415]: https://github.com/CycloneDX/cyclonedx-php-library/pull/415
+
 ## 3.1.2 - 2024-03-18
 
 * Documentation
