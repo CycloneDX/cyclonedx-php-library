@@ -86,13 +86,11 @@ class HashDictionaryNormalizerTest extends TestCase
 
         $repo = $this->createConfiguredMock(
             HashDictionary::class,
-            [
-                'getItems' => [
-                    [HashAlgorithm::MD5, 'cont1'],
-                    [HashAlgorithm::SHA_1, 'cont2'],
-                    [HashAlgorithm::SHA_256, 'cont3'],
-                ],
-            ]
+            ['getItems' => [
+                [HashAlgorithm::MD5, 'cont1'],
+                [HashAlgorithm::SHA_1, 'cont2'],
+                [HashAlgorithm::SHA_256, 'cont3'],
+            ]]
         );
 
         $hashNormalizer->expects(self::exactly(3))
