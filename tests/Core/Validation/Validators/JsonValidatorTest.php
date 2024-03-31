@@ -205,11 +205,11 @@ class JsonValidatorTest extends TestCase
     {
         /** @var _SpecProtocol $spec */
         foreach ([
-                     SpecFactory::make1dot5(),
-                     SpecFactory::make1dot4(),
-                     SpecFactory::make1dot3(),
-                     SpecFactory::make1dot2(),
-                 ] as $spec) {
+            SpecFactory::make1dot5(),
+            SpecFactory::make1dot4(),
+            SpecFactory::make1dot3(),
+            SpecFactory::make1dot2(),
+        ] as $spec) {
             $specVersion = $spec->getVersion()->value;
             foreach (glob(__DIR__."/../../../_data/schemaTestData/$specVersion/$filePrefix-*.json") as $file) {
                 yield "$specVersion ".basename($file, '.json') => [$spec, $file];

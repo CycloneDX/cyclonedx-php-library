@@ -306,9 +306,7 @@ class ComponentNormalizerTest extends TestCase
             'type' => 'library',
             'name' => 'myName',
             'externalReferences' => ['FakeExternalReference'],
-            ],
-            $actual
-        );
+        ], $actual);
     }
 
     public function testNormalizeExternalReferencesOmitIfEmpty(): void
