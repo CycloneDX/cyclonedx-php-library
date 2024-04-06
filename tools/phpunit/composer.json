@@ -6,7 +6,7 @@
         "php": "^8.1"
     },
     "require-dev": {
-        "phpunit/phpunit": "10.5.16",
+        "phpunit/phpunit": "10.5.17",
         "roave/security-advisories": "dev-latest"
     },
     "prefer-stable": true,
