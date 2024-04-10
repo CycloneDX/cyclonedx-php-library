@@ -48,6 +48,7 @@ class HashAlgorithmTest extends TestCase
             BomSpecData::getHashAlgEnumForVersion('1.3'),
             BomSpecData::getHashAlgEnumForVersion('1.4'),
             BomSpecData::getHashAlgEnumForVersion('1.5'),
+            BomSpecData::getHashAlgEnumForVersion('1.6'),
         ));
         foreach ($allValues as $value) {
             yield $value => [$value];
