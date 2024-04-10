@@ -61,7 +61,7 @@ abstract class SpecFactory
             Version::v1dot5 => self::make1dot5(),
             Version::v1dot6 => self::make1dot6(),
             /* just in case fallback */
-            default => throw new DomainException("unsupported version: $version->name"),
+            default => throw new DomainException('unsupported version: '.print_r($version, true)),
         };
     }
 
