@@ -55,7 +55,7 @@ abstract class BaseDownloadable
 
 abstract class BomXsd extends BaseDownloadable
 {
-    final public const Versions = ['1.5', '1.4', '1.3', '1.2', '1.1', '1.0'];
+    final public const Versions = ['1.6', '1.5', '1.4', '1.3', '1.2', '1.1', '1.0'];
     final public const SourcePattern = SOURCE_ROOT.'bom-%s.xsd';
     final public const TargetPattern = TARGET_ROOT.'bom-%s.SNAPSHOT.xsd';
     final public const ReplaceStr = [];
@@ -79,7 +79,7 @@ const _bomRequiredReplace = '
 
 abstract class BomJsonLax extends BaseDownloadable
 {
-    final public const Versions = ['1.5', '1.4', '1.3', '1.2'];
+    final public const Versions = ['1.6', '1.5', '1.4', '1.3', '1.2'];
     final public const SourcePattern = SOURCE_ROOT.'bom-%s.schema.json';
     final public const TargetPattern = TARGET_ROOT.'bom-%s.SNAPSHOT.schema.json';
     final public const ReplaceStr = [
