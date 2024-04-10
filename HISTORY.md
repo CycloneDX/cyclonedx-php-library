@@ -8,10 +8,25 @@ All notable changes to this project will be documented in this file.
 
 Added _basic_ support for [_CycloneDX_ Specification-1.6](https://github.com/CycloneDX/specification/releases/tag/1.6).
 
+* Changed
+  * Method `\CycloneDX\Core\Spec\SpecFactory::makeForVersion()` supports _CycloneDX_ Specification-1.6 now ([#421] via [#422])
+  * Classes `\CycloneDX\Core\Serialization\{DOM,JSON}\Normalizers\*` support _CycloneDX_ Specification-1.6 now ([#421] via [#422])
+  * Classes `\CycloneDX\Core\Validation\Validators\*` support _CycloneDX_ Specification-1.6 now ([#421] via [#422])
+* Added
+  * Namespace `\CycloneDX\Core\Enums`
+    * Enum `ComponentType` got new cases ([#421] via [#422])  
+      New: `CryptographicAsset`
+  * Enum `ExternalReferenceType` got new cases ([#421] via [#422])  
+    New: `SourceDistribution`, `ElectronicSignature`, `DigitalSignature`, `RFC9116`
+  * Namespace `\CycloneDX\Core\Spec`
+    * New method `SpecFactory::make1dot6()` to reflect _CycloneDX_ Specification-1.6 ([#421] via [#422])
+    * Enum `Version` got new case `v1dot6` to reflect _CycloneDX_ Specification-1.6 ([#421] via [#422])
 * Style
   * Applied latest PHP Coding Standards (via [#415])
 
 [#415]: https://github.com/CycloneDX/cyclonedx-php-library/pull/415
+[#421]: https://github.com/CycloneDX/cyclonedx-php-library/issues/421
+[#422]: https://github.com/CycloneDX/cyclonedx-php-library/pull/422
 
 ## 3.1.2 - 2024-03-18
 
