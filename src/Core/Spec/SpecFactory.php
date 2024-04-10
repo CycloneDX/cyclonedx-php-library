@@ -59,13 +59,16 @@ abstract class SpecFactory
             Version::v1dot3 => self::make1dot3(),
             Version::v1dot4 => self::make1dot4(),
             Version::v1dot5 => self::make1dot5(),
+            Version::v1dot6 => self::make1dot6(),
             /* just in case fallback */
-            default => throw new DomainException('unsupported version'),
+            default => throw new DomainException('unsupported version: '.print_r($version, true)),
         };
     }
 
     /**
      * Create the {@see _SpecProtocol Specification} based on {@see \CycloneDX\Core\Spec\Version::v1dot1}.
+     *
+     * @SuppressWarnings(PHPMD.ExcessiveMethodLength)
      */
     public static function make1dot1(): _SpecProtocol
     {
@@ -126,6 +129,8 @@ abstract class SpecFactory
 
     /**
      * Create the {@see _SpecProtocol Specification} based on {@see \CycloneDX\Core\Spec\Version::v1dot2}.
+     *
+     * @SuppressWarnings(PHPMD.ExcessiveMethodLength)
      */
     public static function make1dot2(): _SpecProtocol
     {
@@ -194,6 +199,8 @@ abstract class SpecFactory
 
     /**
      * Create the {@see _SpecProtocol Specification} based on {@see \CycloneDX\Core\Spec\Version::v1dot3}.
+     *
+     * @SuppressWarnings(PHPMD.ExcessiveMethodLength)
      */
     public static function make1dot3(): _SpecProtocol
     {
@@ -265,6 +272,8 @@ abstract class SpecFactory
 
     /**
      * Create the {@see _SpecProtocol Specification} based on {@see \CycloneDX\Core\Spec\Version::v1dot4}.
+     *
+     * @SuppressWarnings(PHPMD.ExcessiveMethodLength)
      */
     public static function make1dot4(): _SpecProtocol
     {
@@ -337,6 +346,8 @@ abstract class SpecFactory
 
     /**
      * Create the {@see _SpecProtocol Specification} based on {@see \CycloneDX\Core\Spec\Version::v1dot5}.
+     *
+     * @SuppressWarnings(PHPMD.ExcessiveMethodLength)
      */
     public static function make1dot5(): _SpecProtocol
     {
@@ -415,6 +426,114 @@ abstract class SpecFactory
                 ExternalReferenceType::CodifiedInfrastructure,
                 ExternalReferenceType::QualityMetrics,
                 ExternalReferenceType::POAM,
+                ExternalReferenceType::Other,
+            ],
+            true,
+            true,
+            true,
+            true,
+            true,
+            false,
+            true,
+            true,
+            true,
+            true,
+            true,
+            [
+                Format::XML,
+                Format::JSON,
+                Format::ProtoBuff,
+            ],
+        );
+    }
+
+    /**
+     * Create the {@see _SpecProtocol Specification} based on {@see \CycloneDX\Core\Spec\Version::v1dot6}.
+     *
+     * @SuppressWarnings(PHPMD.ExcessiveMethodLength)
+     */
+    public static function make1dot6(): _SpecProtocol
+    {
+        return new _Spec(
+            Version::v1dot6,
+            [
+                Format::XML,
+                Format::JSON,
+                Format::ProtoBuff,
+            ],
+            [
+                ComponentType::Application,
+                ComponentType::Framework,
+                ComponentType::Library,
+                ComponentType::Container,
+                ComponentType::Platform,
+                ComponentType::OperatingSystem,
+                ComponentType::Device,
+                ComponentType::DeviceDriver,
+                ComponentType::Firmware,
+                ComponentType::File,
+                ComponentType::MachineLearningModel,
+                ComponentType::Data,
+                ComponentType::CryptographicAsset,
+            ],
+            [
+                HashAlgorithm::MD5,
+                HashAlgorithm::SHA_1,
+                HashAlgorithm::SHA_256,
+                HashAlgorithm::SHA_384,
+                HashAlgorithm::SHA_512,
+                HashAlgorithm::SHA3_256,
+                HashAlgorithm::SHA3_384,
+                HashAlgorithm::SHA3_512,
+                HashAlgorithm::BLAKE2b_256,
+                HashAlgorithm::BLAKE2b_384,
+                HashAlgorithm::BLAKE2b_512,
+                HashAlgorithm::BLAKE3,
+            ],
+            '/^(?:[a-fA-F0-9]{32}|[a-fA-F0-9]{40}|[a-fA-F0-9]{64}|[a-fA-F0-9]{96}|[a-fA-F0-9]{128})$/',
+            [
+                ExternalReferenceType::VCS,
+                ExternalReferenceType::IssueTracker,
+                ExternalReferenceType::Website,
+                ExternalReferenceType::Advisories,
+                ExternalReferenceType::BOM,
+                ExternalReferenceType::MailingList,
+                ExternalReferenceType::Social,
+                ExternalReferenceType::Chat,
+                ExternalReferenceType::Documentation,
+                ExternalReferenceType::Support,
+                ExternalReferenceType::SourceDistribution,
+                ExternalReferenceType::Distribution,
+                ExternalReferenceType::DistributionIntake,
+                ExternalReferenceType::License,
+                ExternalReferenceType::BuildMeta,
+                ExternalReferenceType::BuildSystem,
+                ExternalReferenceType::ReleaseNotes,
+                ExternalReferenceType::SecurityContact,
+                ExternalReferenceType::ModelCard,
+                ExternalReferenceType::Log,
+                ExternalReferenceType::Configuration,
+                ExternalReferenceType::Evidence,
+                ExternalReferenceType::Formulation,
+                ExternalReferenceType::Attestation,
+                ExternalReferenceType::ThreatModel,
+                ExternalReferenceType::AdversaryModel,
+                ExternalReferenceType::RiskAssessment,
+                ExternalReferenceType::VulnerabilityAssertion,
+                ExternalReferenceType::ExploitabilityStatement,
+                ExternalReferenceType::PentestReport,
+                ExternalReferenceType::StaticAnalysisReport,
+                ExternalReferenceType::DynamicAnalysisReport,
+                ExternalReferenceType::RuntimeAnalysisReport,
+                ExternalReferenceType::ComponentAnalysisReport,
+                ExternalReferenceType::MaturityReport,
+                ExternalReferenceType::CertificationReport,
+                ExternalReferenceType::CodifiedInfrastructure,
+                ExternalReferenceType::QualityMetrics,
+                ExternalReferenceType::POAM,
+                ExternalReferenceType::ElectronicSignature,
+                ExternalReferenceType::DigitalSignature,
+                ExternalReferenceType::RFC9116,
                 ExternalReferenceType::Other,
             ],
             true,

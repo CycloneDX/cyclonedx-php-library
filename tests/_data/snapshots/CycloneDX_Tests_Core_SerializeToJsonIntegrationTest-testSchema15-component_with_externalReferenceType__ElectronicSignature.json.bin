@@ -1,0 +1,24 @@
+{
+    "$schema": "http://cyclonedx.org/schema/bom-1.5.schema.json",
+    "bomFormat": "CycloneDX",
+    "specVersion": "1.5",
+    "version": 1,
+    "components": [
+        {
+            "bom-ref": "dummy",
+            "type": "library",
+            "name": "dummy",
+            "externalReferences": [
+                {
+                    "type": "other",
+                    "url": ".../types/ElectronicSignature.txt"
+                }
+            ]
+        }
+    ],
+    "dependencies": [
+        {
+            "ref": "dummy"
+        }
+    ]
+}

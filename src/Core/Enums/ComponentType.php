@@ -32,6 +32,7 @@ namespace CycloneDX\Core\Enums;
  * See {@link https://cyclonedx.org/schema/bom/1.3 Schema 1.3} for `classification`.
  * See {@link https://cyclonedx.org/schema/bom/1.4 Schema 1.4} for `classification`.
  * See {@link https://cyclonedx.org/schema/bom/1.5 Schema 1.5} for `classification`.
+ * See {@link https://cyclonedx.org/schema/bom/1.6 Schema 1.6} for `classification`.
  *
  * @author jkowalleck
  */
@@ -43,11 +44,11 @@ enum ComponentType: string
     case Container = 'container';
     case Platform = 'platform';
     case OperatingSystem = 'operating-system';
-
     case Device = 'device';
     case DeviceDriver = 'device-driver';
     case Firmware = 'firmware';
     case File = 'file';
     case MachineLearningModel = 'machine-learning-model';
     case Data = 'data';
+    case CryptographicAsset = 'cryptographic-asset';
 }

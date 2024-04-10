@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bom xmlns="http://cyclonedx.org/schema/bom/1.6" version="1">
+  <components>
+    <component type="device-driver" bom-ref="dummy_DeviceDriver">
+      <name><![CDATA[dummy_DeviceDriver]]></name>
+    </component>
+  </components>
+  <dependencies>
+    <dependency ref="dummy_DeviceDriver"/>
+  </dependencies>
+</bom>

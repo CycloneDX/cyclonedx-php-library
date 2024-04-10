@@ -34,7 +34,7 @@ use PHPUnit\Framework\TestCase;
 class HashAlgorithmTest extends TestCase
 {
     #[DataProvider('dpSchemaValues')]
-    public function testHaseCaseForSchemaValue(string $value): void
+    public function testHasCaseForSchemaValue(string $value): void
     {
         self::assertNotNull(HashAlgorithm::tryFrom($value));
     }
@@ -48,6 +48,7 @@ class HashAlgorithmTest extends TestCase
             BomSpecData::getHashAlgEnumForVersion('1.3'),
             BomSpecData::getHashAlgEnumForVersion('1.4'),
             BomSpecData::getHashAlgEnumForVersion('1.5'),
+            BomSpecData::getHashAlgEnumForVersion('1.6'),
         ));
         foreach ($allValues as $value) {
             yield $value => [$value];

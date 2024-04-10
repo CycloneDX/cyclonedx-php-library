@@ -33,7 +33,7 @@ use PHPUnit\Framework\TestCase;
 class ExternalReferenceTypeTest extends TestCase
 {
     #[\PHPUnit\Framework\Attributes\DataProvider('dpSchemaValues')]
-    public function testHaseCaseForSchemaValue(string $value): void
+    public function testHasCaseForSchemaValue(string $value): void
     {
         self::assertNotNull(ExternalReferenceType::tryFrom($value));
     }
@@ -46,6 +46,7 @@ class ExternalReferenceTypeTest extends TestCase
             BomSpecData::getExternalReferenceTypeForVersion('1.3'),
             BomSpecData::getExternalReferenceTypeForVersion('1.4'),
             BomSpecData::getExternalReferenceTypeForVersion('1.5'),
+            BomSpecData::getExternalReferenceTypeForVersion('1.6'),
         ));
         foreach ($allValues as $value) {
             yield $value => [$value];

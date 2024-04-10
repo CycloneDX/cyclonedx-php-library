@@ -1,0 +1,13 @@
+{
+    "$schema": "http://cyclonedx.org/schema/bom-1.4.schema.json",
+    "bomFormat": "CycloneDX",
+    "specVersion": "1.4",
+    "version": 1,
+    "components": [],
+    "externalReferences": [
+        {
+            "type": "other",
+            "url": ".../types/RFC9116.txt"
+        }
+    ]
+}

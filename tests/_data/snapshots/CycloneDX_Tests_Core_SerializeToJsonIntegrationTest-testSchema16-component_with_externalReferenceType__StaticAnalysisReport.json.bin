@@ -1,0 +1,24 @@
+{
+    "$schema": "http://cyclonedx.org/schema/bom-1.6.schema.json",
+    "bomFormat": "CycloneDX",
+    "specVersion": "1.6",
+    "version": 1,
+    "components": [
+        {
+            "bom-ref": "dummy",
+            "type": "library",
+            "name": "dummy",
+            "externalReferences": [
+                {
+                    "type": "static-analysis-report",
+                    "url": ".../types/StaticAnalysisReport.txt"
+                }
+            ]
+        }
+    ],
+    "dependencies": [
+        {
+            "ref": "dummy"
+        }
+    ]
+}

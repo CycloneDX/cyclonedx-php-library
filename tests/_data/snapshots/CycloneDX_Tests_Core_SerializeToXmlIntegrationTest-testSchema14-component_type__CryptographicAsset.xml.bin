@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bom xmlns="http://cyclonedx.org/schema/bom/1.4" version="1">
+  <components/>
+  <dependencies>
+    <dependency ref="dummy_CryptographicAsset"/>
+  </dependencies>
+</bom>

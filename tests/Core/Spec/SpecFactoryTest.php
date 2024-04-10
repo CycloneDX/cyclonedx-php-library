@@ -70,4 +70,11 @@ class SpecFactoryTest extends TestCase
         self::assertSame(Version::v1dot5, $spec->getVersion());
         self::assertEquals($spec, SpecFactory::makeForVersion(Version::v1dot5));
     }
+
+    public function test16(): void
+    {
+        $spec = SpecFactory::make1dot6();
+        self::assertSame(Version::v1dot6, $spec->getVersion());
+        self::assertEquals($spec, SpecFactory::makeForVersion(Version::v1dot6));
+    }
 }

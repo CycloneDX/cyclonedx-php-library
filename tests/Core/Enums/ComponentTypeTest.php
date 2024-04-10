@@ -33,7 +33,7 @@ use PHPUnit\Framework\TestCase;
 class ComponentTypeTest extends TestCase
 {
     #[\PHPUnit\Framework\Attributes\DataProvider('dpSchemaValues')]
-    public function testHaseCaseForSchemaValue(string $value): void
+    public function testHasCaseForSchemaValue(string $value): void
     {
         self::assertNotNull(ComponentType::tryFrom($value));
     }
@@ -47,6 +47,7 @@ class ComponentTypeTest extends TestCase
             BomSpecData::getClassificationEnumForVersion('1.3'),
             BomSpecData::getClassificationEnumForVersion('1.4'),
             BomSpecData::getClassificationEnumForVersion('1.5'),
+            BomSpecData::getClassificationEnumForVersion('1.6'),
         ));
         foreach ($allValues as $value) {
             yield $value => [$value];
