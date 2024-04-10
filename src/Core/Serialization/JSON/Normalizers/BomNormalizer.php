@@ -46,6 +46,7 @@ class BomNormalizer extends _BaseNormalizer
             Version::v1dot3 => 'http://cyclonedx.org/schema/bom-1.3a.schema.json',
             Version::v1dot4 => 'http://cyclonedx.org/schema/bom-1.4.schema.json',
             Version::v1dot5 => 'http://cyclonedx.org/schema/bom-1.5.schema.json',
+            Version::v1dot6 => 'http://cyclonedx.org/schema/bom-1.6.schema.json',
             default => null,
         };
     }
