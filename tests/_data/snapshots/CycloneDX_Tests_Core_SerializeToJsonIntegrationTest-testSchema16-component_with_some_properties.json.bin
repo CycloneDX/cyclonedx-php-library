@@ -1,0 +1,27 @@
+{
+    "bomFormat": "CycloneDX",
+    "specVersion": "1.6",
+    "version": 1,
+    "components": [
+        {
+            "bom-ref": "dummy",
+            "type": "library",
+            "name": "dummy",
+            "properties": [
+                {
+                    "name": "somePropertyName",
+                    "value": "somePropertyValue-1"
+                },
+                {
+                    "name": "somePropertyName",
+                    "value": "somePropertyValue-2"
+                }
+            ]
+        }
+    ],
+    "dependencies": [
+        {
+            "ref": "dummy"
+        }
+    ]
+}

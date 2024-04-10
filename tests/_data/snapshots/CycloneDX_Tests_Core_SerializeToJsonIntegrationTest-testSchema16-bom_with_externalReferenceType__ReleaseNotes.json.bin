@@ -1,0 +1,12 @@
+{
+    "bomFormat": "CycloneDX",
+    "specVersion": "1.6",
+    "version": 1,
+    "components": [],
+    "externalReferences": [
+        {
+            "type": "release-notes",
+            "url": ".../types/ReleaseNotes.txt"
+        }
+    ]
+}

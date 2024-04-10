@@ -1,0 +1,18 @@
+{
+    "bomFormat": "CycloneDX",
+    "specVersion": "1.6",
+    "version": 1,
+    "components": [
+        {
+            "bom-ref": "component",
+            "type": "library",
+            "name": "name",
+            "copyright": "(c) 2042 - by me and the gang"
+        }
+    ],
+    "dependencies": [
+        {
+            "ref": "component"
+        }
+    ]
+}

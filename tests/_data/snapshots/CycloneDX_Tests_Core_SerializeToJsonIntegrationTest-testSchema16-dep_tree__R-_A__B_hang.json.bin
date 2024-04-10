@@ -1,0 +1,38 @@
+{
+    "bomFormat": "CycloneDX",
+    "specVersion": "1.6",
+    "version": 1,
+    "metadata": {
+        "component": {
+            "bom-ref": "my-app",
+            "type": "application",
+            "name": "my-app"
+        }
+    },
+    "components": [
+        {
+            "bom-ref": "component-A",
+            "type": "library",
+            "name": "component-A"
+        },
+        {
+            "bom-ref": "component-B",
+            "type": "library",
+            "name": "component-B"
+        }
+    ],
+    "dependencies": [
+        {
+            "ref": "component-A"
+        },
+        {
+            "ref": "component-B"
+        },
+        {
+            "ref": "my-app",
+            "dependsOn": [
+                "component-A"
+            ]
+        }
+    ]
+}

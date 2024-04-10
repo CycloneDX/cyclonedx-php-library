@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bom xmlns="http://cyclonedx.org/schema/bom/1.6" version="1">
+  <metadata>
+    <tools>
+      <tool/>
+      <tool>
+        <vendor><![CDATA[myToolVendor]]></vendor>
+        <name><![CDATA[myTool]]></name>
+        <version><![CDATA[toolVersion]]></version>
+        <hashes>
+          <hash alg="MD5"><![CDATA[12345678901234567890123456789012]]></hash>
+        </hashes>
+        <externalReferences>
+          <reference type="other">
+            <url><![CDATA[https://acme.com]]></url>
+          </reference>
+        </externalReferences>
+      </tool>
+    </tools>
+  </metadata>
+  <components/>
+</bom>

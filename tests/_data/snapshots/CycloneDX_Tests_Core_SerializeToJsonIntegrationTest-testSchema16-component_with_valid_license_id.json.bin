@@ -1,0 +1,24 @@
+{
+    "bomFormat": "CycloneDX",
+    "specVersion": "1.6",
+    "version": 1,
+    "components": [
+        {
+            "bom-ref": "component",
+            "type": "library",
+            "name": "name",
+            "licenses": [
+                {
+                    "license": {
+                        "id": "MIT"
+                    }
+                }
+            ]
+        }
+    ],
+    "dependencies": [
+        {
+            "ref": "component"
+        }
+    ]
+}

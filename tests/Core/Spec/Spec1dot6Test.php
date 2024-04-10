@@ -37,7 +37,6 @@ use PHPUnit\Framework\Attributes\UsesClass;
 #[UsesClass(LicenseIdentifiers::class)]
 class Spec1dot6Test extends SpecBaseTestCase
 {
-    // @TODO
 
     protected static function getSpec(): _SpecProtocol
     {

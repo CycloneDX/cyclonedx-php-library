@@ -1,0 +1,17 @@
+{
+    "bomFormat": "CycloneDX",
+    "specVersion": "1.6",
+    "version": 1,
+    "components": [
+        {
+            "bom-ref": "dummy_Application",
+            "type": "application",
+            "name": "dummy_Application"
+        }
+    ],
+    "dependencies": [
+        {
+            "ref": "dummy_Application"
+        }
+    ]
+}

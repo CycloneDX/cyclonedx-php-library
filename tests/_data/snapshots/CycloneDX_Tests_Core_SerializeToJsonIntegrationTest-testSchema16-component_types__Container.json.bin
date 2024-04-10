@@ -1,0 +1,17 @@
+{
+    "bomFormat": "CycloneDX",
+    "specVersion": "1.6",
+    "version": 1,
+    "components": [
+        {
+            "bom-ref": "dummy_Container",
+            "type": "container",
+            "name": "dummy_Container"
+        }
+    ],
+    "dependencies": [
+        {
+            "ref": "dummy_Container"
+        }
+    ]
+}

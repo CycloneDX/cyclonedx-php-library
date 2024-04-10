@@ -387,7 +387,7 @@ abstract class BomModelProvider
         foreach ($types as $type) {
             $type = ComponentType::from($type);
             $name = $type->name;
-            yield "component types: $name" => [
+            yield "component type: $name" => [
                 (new Bom())->setComponents(
                     new ComponentRepository(
                         (new Component($type, "dummy_$name"))

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bom xmlns="http://cyclonedx.org/schema/bom/1.6" version="1">
+  <components/>
+  <externalReferences>
+    <reference type="other">
+      <url><![CDATA[.../algorithm/BLAKE2b_384.txt]]></url>
+      <hashes>
+        <hash alg="BLAKE2b-384"><![CDATA[12345678901234567890123456789012]]></hash>
+      </hashes>
+    </reference>
+  </externalReferences>
+</bom>

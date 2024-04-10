@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bom xmlns="http://cyclonedx.org/schema/bom/1.6" version="1">
+  <metadata>
+    <properties>
+      <property name="somePropertyName"><![CDATA[somePropertyValue1-1]]></property>
+      <property name="somePropertyName"><![CDATA[somePropertyValue1-2]]></property>
+    </properties>
+  </metadata>
+  <components/>
+</bom>

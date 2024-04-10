@@ -442,7 +442,6 @@ abstract class SpecFactory
      */
     public static function make1dot6(): _SpecProtocol
     {
-        // @TODO adjust implementation according to spec
         return new _Spec(
             Version::v1dot6,
             [

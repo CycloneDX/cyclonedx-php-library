@@ -1,0 +1,16 @@
+{
+    "bomFormat": "CycloneDX",
+    "specVersion": "1.6",
+    "version": 1,
+    "components": [],
+    "properties": [
+        {
+            "name": "foo",
+            "value": "bar"
+        },
+        {
+            "name": "baz",
+            "value": ""
+        }
+    ]
+}

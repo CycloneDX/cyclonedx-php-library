@@ -1,0 +1,17 @@
+{
+    "bomFormat": "CycloneDX",
+    "specVersion": "1.6",
+    "version": 1,
+    "components": [
+        {
+            "bom-ref": "dummy_MachineLearningModel",
+            "type": "machine-learning-model",
+            "name": "dummy_MachineLearningModel"
+        }
+    ],
+    "dependencies": [
+        {
+            "ref": "dummy_MachineLearningModel"
+        }
+    ]
+}

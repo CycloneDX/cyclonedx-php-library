@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bom xmlns="http://cyclonedx.org/schema/bom/1.6" version="1">
+  <components>
+    <component type="library" bom-ref="component-A">
+      <name><![CDATA[component-A]]></name>
+    </component>
+    <component type="library" bom-ref="component-B">
+      <name><![CDATA[component-B]]></name>
+    </component>
+  </components>
+  <dependencies>
+    <dependency ref="component-A"/>
+    <dependency ref="component-B"/>
+  </dependencies>
+</bom>

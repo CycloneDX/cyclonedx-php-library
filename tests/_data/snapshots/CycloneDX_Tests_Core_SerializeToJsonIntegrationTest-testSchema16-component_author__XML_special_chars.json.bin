@@ -1,0 +1,18 @@
+{
+    "bomFormat": "CycloneDX",
+    "specVersion": "1.6",
+    "version": 1,
+    "components": [
+        {
+            "bom-ref": "component",
+            "type": "library",
+            "name": "name",
+            "author": "this & that<strong>html<strong>bar ]]><[CDATA[baz]]> foo"
+        }
+    ],
+    "dependencies": [
+        {
+            "ref": "component"
+        }
+    ]
+}

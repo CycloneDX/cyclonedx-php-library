@@ -1,0 +1,23 @@
+{
+    "bomFormat": "CycloneDX",
+    "specVersion": "1.6",
+    "version": 1,
+    "components": [
+        {
+            "bom-ref": "dummy",
+            "type": "library",
+            "name": "dummy",
+            "externalReferences": [
+                {
+                    "type": "digital-signature",
+                    "url": ".../types/DigitalSignature.txt"
+                }
+            ]
+        }
+    ],
+    "dependencies": [
+        {
+            "ref": "dummy"
+        }
+    ]
+}
