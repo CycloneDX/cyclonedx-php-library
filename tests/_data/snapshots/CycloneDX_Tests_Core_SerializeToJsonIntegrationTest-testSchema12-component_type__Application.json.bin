@@ -1,0 +1,19 @@
+{
+    "$schema": "http://cyclonedx.org/schema/bom-1.2b.schema.json",
+    "bomFormat": "CycloneDX",
+    "specVersion": "1.2",
+    "version": 1,
+    "components": [
+        {
+            "bom-ref": "dummy_Application",
+            "type": "application",
+            "name": "dummy_Application",
+            "version": ""
+        }
+    ],
+    "dependencies": [
+        {
+            "ref": "dummy_Application"
+        }
+    ]
+}
