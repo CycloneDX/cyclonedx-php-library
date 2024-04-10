@@ -43,11 +43,11 @@ enum ComponentType: string
     case Container = 'container';
     case Platform = 'platform';
     case OperatingSystem = 'operating-system';
-
     case Device = 'device';
     case DeviceDriver = 'device-driver';
     case Firmware = 'firmware';
     case File = 'file';
     case MachineLearningModel = 'machine-learning-model';
     case Data = 'data';
+    case CryptographicAsset = 'cryptographic-asset';
 }

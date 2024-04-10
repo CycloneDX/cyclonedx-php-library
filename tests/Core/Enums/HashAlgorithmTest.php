@@ -34,7 +34,7 @@ use PHPUnit\Framework\TestCase;
 class HashAlgorithmTest extends TestCase
 {
     #[DataProvider('dpSchemaValues')]
-    public function testHaseCaseForSchemaValue(string $value): void
+    public function testHasCaseForSchemaValue(string $value): void
     {
         self::assertNotNull(HashAlgorithm::tryFrom($value));
     }

@@ -33,7 +33,7 @@ use PHPUnit\Framework\TestCase;
 class ComponentTypeTest extends TestCase
 {
     #[\PHPUnit\Framework\Attributes\DataProvider('dpSchemaValues')]
-    public function testHaseCaseForSchemaValue(string $value): void
+    public function testHasCaseForSchemaValue(string $value): void
     {
         self::assertNotNull(ComponentType::tryFrom($value));
     }

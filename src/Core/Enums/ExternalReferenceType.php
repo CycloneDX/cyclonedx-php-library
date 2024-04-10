@@ -43,6 +43,7 @@ enum ExternalReferenceType: string
     case Chat = 'chat';
     case Documentation = 'documentation';
     case Support = 'support';
+    case SourceDistribution = 'source-distribution';
     case Distribution = 'distribution';
     case DistributionIntake = 'distribution-intake';
     case License = 'license';
@@ -71,6 +72,9 @@ enum ExternalReferenceType: string
     case QualityMetrics = 'quality-metrics';
     case CodifiedInfrastructure = 'codified-infrastructure';
     case POAM = 'poam';
+    case ElectronicSignature = 'electronic-signature';
+    case DigitalSignature = 'digital-signature';
+    case RFC9116 = 'rfc-9116';
 
     // ----
 
