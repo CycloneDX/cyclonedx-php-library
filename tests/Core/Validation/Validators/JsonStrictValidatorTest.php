@@ -200,6 +200,7 @@ class JsonStrictValidatorTest extends TestCase
     {
         /** @var _SpecProtocol $spec */
         foreach ([
+            SpecFactory::make1dot6(),
             SpecFactory::make1dot5(),
             SpecFactory::make1dot4(),
             SpecFactory::make1dot3(),
