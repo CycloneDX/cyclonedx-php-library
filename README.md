@@ -57,6 +57,7 @@ that provides advanced supply chain capabilities for cyber risk reduction.
 * Factories for the following use cases:
   * Create data models from any license descriptor string
 * Implementation of the [_CycloneDX_ Specification][CycloneDX-spec] for the following versions:
+  * `1.6`
   * `1.5`
   * `1.4`
   * `1.3`
