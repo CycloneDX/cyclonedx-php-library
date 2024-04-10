@@ -52,7 +52,7 @@ $rootComponent->getDependencies()->addItems($component->getBomRef());
 
 // endregion build the BOM
 
-$spec = \CycloneDX\Core\Spec\SpecFactory::make1dot5();
+$spec = \CycloneDX\Core\Spec\SpecFactory::make1dot6();
 
 $prettyPrint = false;
 
