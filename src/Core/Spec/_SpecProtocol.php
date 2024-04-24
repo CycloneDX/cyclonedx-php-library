@@ -77,4 +77,6 @@ interface _SpecProtocol
     public function supportsBomProperties(Format $format): bool;
 
     public function supportsComponentEvidence(): bool;
+
+    public function supportsLicenseAcknowledgement(): bool;
 }
