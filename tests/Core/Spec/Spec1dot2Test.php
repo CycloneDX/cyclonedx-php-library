@@ -97,12 +97,12 @@ class Spec1dot2Test extends SpecBaseTestCase
         return false;
     }
 
-    protected static function shouldSupportsComponentAuthor(): bool
+    protected static function shouldSupportComponentAuthor(): bool
     {
         return true;
     }
 
-    protected static function shouldSupportsComponentEvidence(): bool
+    protected static function shouldSupportComponentEvidence(): bool
     {
         return false;
     }
