@@ -585,7 +585,7 @@ abstract class BomModelProvider
             )
         );
         foreach ($all as $acknowledgment) {
-            $ack = ExternalReferenceType::tryFrom($acknowledgment);
+            $ack = LicenseAcknowledgement::tryFrom($acknowledgment);
             if (null === $ack) {
                 continue;
             }
