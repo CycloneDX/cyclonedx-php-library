@@ -176,7 +176,7 @@ class _Spec implements _SpecProtocol
         return \in_array($format, $this->lFormatsSupportingBomProperties, true);
     }
 
-    public function supportsLicenseAcknowledgement(): bool
+    public function supportsLicenseAcknowledgment(): bool
     {
         return $this->bLicenseAcknowledgment;
     }

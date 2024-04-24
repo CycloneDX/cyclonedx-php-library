@@ -557,7 +557,7 @@ abstract class SpecFactory
                 Format::JSON,
                 Format::ProtoBuff,
             ],
-            false,
+            true,
         );
     }
 }

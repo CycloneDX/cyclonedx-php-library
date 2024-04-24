@@ -111,4 +111,9 @@ class Spec1dot4Test extends SpecBaseTestCase
     {
         return [Format::XML];
     }
+
+    protected static function shouldSupportLicenseAcknowledgment(): bool
+    {
+        return false;
+    }
 }
