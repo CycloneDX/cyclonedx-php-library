@@ -42,6 +42,7 @@ class SpdxLicenseTest extends TestCase
 
         self::assertSame($id, $license->getId());
         self::assertNull($license->getUrl());
+        self::assertNull($license->getAcknowledgement());
 
         return $license;
     }
@@ -90,7 +91,7 @@ class SpdxLicenseTest extends TestCase
     #[DependsUsingShallowClone('testConstruct')]
     public function testSetAndGetAcknowledgment(SpdxLicense $license): void
     {
-        $acknowledgment = $this->createStub(LicenseAcknowledgement::class);
+        $acknowledgment = LicenseAcknowledgement::Declared;
 
         $got = $license->setAcknowledgement($acknowledgment);
 

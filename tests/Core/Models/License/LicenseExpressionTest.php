@@ -38,6 +38,8 @@ class LicenseExpressionTest extends TestCase
         $expression = uniqid('expression', true);
         $license = new LicenseExpression($expression);
         self::assertSame($expression, $license->getExpression());
+        self::assertNull($license->getAcknowledgement());
+
 
         return $license;
     }
@@ -74,7 +76,7 @@ class LicenseExpressionTest extends TestCase
     #[DependsUsingShallowClone('testConstructor')]
     public function testSetAndGetAcknowledgment(LicenseExpression $license): void
     {
-        $acknowledgment = $this->createStub(LicenseAcknowledgement::class);
+        $acknowledgment = LicenseAcknowledgement::Declared;
 
         $got = $license->setAcknowledgement($acknowledgment);
 

@@ -50,6 +50,8 @@ class NamedLicenseTest extends TestCase
         $license = new NamedLicense('');
         self::assertSame('', $license->getName());
         self::assertNull($license->getUrl());
+        self::assertNull($license->getAcknowledgement());
+
 
         return $license;
     }
@@ -95,7 +97,7 @@ class NamedLicenseTest extends TestCase
     #[DependsUsingShallowClone('testConstruct')]
     public function testSetAndGetAcknowledgment(NamedLicense $license): void
     {
-        $acknowledgment = $this->createStub(LicenseAcknowledgement::class);
+        $acknowledgment = LicenseAcknowledgement::Declared;
 
         $got = $license->setAcknowledgement($acknowledgment);
 
