@@ -11,9 +11,8 @@ All notable changes to this project will be documented in this file.
     * New enum: `LicenseAcknowledgement` ([#428] via [#])
   * Namespace `\CycloneDX\Core\Models\License`
     * New methods `LicenseExpression::{get,set}Acknowledgement()` ([#428] via [#])
-    * New methods `NamedLicense::{get,set}Acknowledgment()` ([#428] via [#])
-    * New methods `SpdxLicense::{get,set}Acknowledgment()` ([#428] via [#])
-    * New methods `SpdxLicense::{get,set}Acknowledgment()` ([#428] via [#])
+    * New methods `NamedLicense::{get,set}Acknowledgement()` ([#428] via [#])
+    * New methods `SpdxLicense::{get,set}Acknowledgement()` ([#428] via [#])
 
 [#428]: https://github.com/CycloneDX/cyclonedx-php-library/issues/428
 [#]:
