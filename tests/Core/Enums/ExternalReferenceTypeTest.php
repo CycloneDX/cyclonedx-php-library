@@ -35,7 +35,7 @@ class ExternalReferenceTypeTest extends TestCase
     #[\PHPUnit\Framework\Attributes\DataProvider('dpSchemaValues')]
     public function testHasCaseForSchemaValue(string $value): void
     {
-        self::assertNotNull(ExternalReferenceType::tryFrom($value));
+        self::assertNotNull(ExternalReferenceType::tryFrom($value), "missing $value");
     }
 
     public static function dpSchemaValues(): Generator
