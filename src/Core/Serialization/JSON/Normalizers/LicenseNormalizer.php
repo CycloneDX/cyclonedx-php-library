@@ -52,7 +52,7 @@ class LicenseNormalizer extends _BaseNormalizer
             'acknowledgement' => $this->getNormalizerFactory()->getSpec()->supportsLicenseAcknowledgment()
                 ? $license->getAcknowledgement()
                 : null,
-            ],
+        ],
             Predicate::isNotNull(...)
         );
     }

@@ -46,7 +46,6 @@ class LicenseExpression
 
     private ?LicenseAcknowledgement $acknowledgement = null;
 
-
     public function getExpression(): string
     {
         return $this->expression;
@@ -69,7 +68,6 @@ class LicenseExpression
         return $this;
     }
 
-
     public function getAcknowledgement(): ?LicenseAcknowledgement
     {
         return $this->acknowledgement;
@@ -79,6 +77,7 @@ class LicenseExpression
     public function setAcknowledgement(?LicenseAcknowledgement $acknowledgement): static
     {
         $this->acknowledgement = $acknowledgement;
+
         return $this;
     }
 

@@ -69,8 +69,7 @@ trait _DisjunctiveLicenseBase
     public function setAcknowledgement(?LicenseAcknowledgement $acknowledgement): static
     {
         $this->acknowledgement = $acknowledgement;
+
         return $this;
     }
-
-
 }

@@ -32,6 +32,6 @@ namespace CycloneDX\Core\Enums;
  */
 enum LicenseAcknowledgement: string
 {
-    case Declared= 'declared';
+    case Declared = 'declared';
     case Concluded = 'concluded';
 }

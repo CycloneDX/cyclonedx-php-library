@@ -81,12 +81,12 @@ class LicenseNormalizer extends _BaseNormalizer
 
         return SimpleDOM::appendChildren(
             SimpleDOM::setAttributes(
-            $document->createElement('license'),
-            [
-                'acknowledgement' => $this->getNormalizerFactory()->getSpec()->supportsLicenseAcknowledgment()
-                    ? $license->getAcknowledgement()
-                    : null,
-            ]),
+                $document->createElement('license'),
+                [
+                    'acknowledgement' => $this->getNormalizerFactory()->getSpec()->supportsLicenseAcknowledgment()
+                        ? $license->getAcknowledgement()
+                        : null,
+                ]),
             [
                 SimpleDOM::makeSafeTextElement($document, 'id', $id),
                 SimpleDOM::makeSafeTextElement($document, 'name', $name),

@@ -40,7 +40,6 @@ class LicenseExpressionTest extends TestCase
         self::assertSame($expression, $license->getExpression());
         self::assertNull($license->getAcknowledgement());
 
-
         return $license;
     }
 
@@ -72,7 +71,6 @@ class LicenseExpressionTest extends TestCase
         $license->setExpression('');
     }
 
-
     #[DependsUsingShallowClone('testConstructor')]
     public function testSetAndGetAcknowledgment(LicenseExpression $license): void
     {
@@ -83,5 +81,4 @@ class LicenseExpressionTest extends TestCase
         self::assertSame($license, $got);
         self::assertSame($acknowledgment, $license->getAcknowledgement());
     }
-
 }

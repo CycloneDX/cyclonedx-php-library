@@ -52,7 +52,6 @@ class NamedLicenseTest extends TestCase
         self::assertNull($license->getUrl());
         self::assertNull($license->getAcknowledgement());
 
-
         return $license;
     }
 
