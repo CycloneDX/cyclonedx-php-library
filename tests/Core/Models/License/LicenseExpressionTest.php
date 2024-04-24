@@ -23,6 +23,7 @@ declare(strict_types=1);
 
 namespace CycloneDX\Tests\Core\Models\License;
 
+use CycloneDX\Core\Enums\LicenseAcknowledgement;
 use CycloneDX\Core\Models\License\LicenseExpression;
 use DomainException;
 use PHPUnit\Framework\Attributes\CoversClass;
@@ -68,4 +69,17 @@ class LicenseExpressionTest extends TestCase
 
         $license->setExpression('');
     }
+
+
+    #[DependsUsingShallowClone('testConstructor')]
+    public function testSetAndGetAcknowledgment(LicenseExpression $license): void
+    {
+        $acknowledgment = $this->createStub(LicenseAcknowledgement::class);
+
+        $got = $license->setAcknowledgement($acknowledgment);
+
+        self::assertSame($license, $got);
+        self::assertSame($acknowledgment, $license->getAcknowledgement());
+    }
+
 }
