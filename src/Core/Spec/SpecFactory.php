@@ -124,6 +124,7 @@ abstract class SpecFactory
             false,
             false,
             [],
+            false,
         );
     }
 
@@ -194,6 +195,7 @@ abstract class SpecFactory
             false,
             false,
             [],
+            false,
         );
     }
 
@@ -267,6 +269,7 @@ abstract class SpecFactory
             [
                 Format::XML,
             ],
+            false,
         );
     }
 
@@ -341,6 +344,7 @@ abstract class SpecFactory
             [
                 Format::XML,
             ],
+            false,
         );
     }
 
@@ -444,6 +448,7 @@ abstract class SpecFactory
                 Format::JSON,
                 Format::ProtoBuff,
             ],
+            false,
         );
     }
 
@@ -552,6 +557,7 @@ abstract class SpecFactory
                 Format::JSON,
                 Format::ProtoBuff,
             ],
+            false,
         );
     }
 }
