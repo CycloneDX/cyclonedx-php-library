@@ -585,6 +585,10 @@ abstract class BomModelProvider
             )
         );
         foreach ($all as $acknowledgment) {
+            $ack = ExternalReferenceType::tryFrom($acknowledgment);
+            if (null === $ack) {
+                continue;
+            }
             yield "component license with acknowledgement: $acknowledgment" => [
                 (new Bom())->setComponents(
                     new ComponentRepository(
@@ -593,7 +597,7 @@ abstract class BomModelProvider
                             ->setLicenses(
                                 new LicenseRepository(
                                     (new NamedLicense('some name'))
-                                        ->setAcknowledgement($acknowledgment),
+                                        ->setAcknowledgement($ack),
                                 )
                             )
                     )
