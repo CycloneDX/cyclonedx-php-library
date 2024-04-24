@@ -47,12 +47,13 @@ class LicenseNormalizer extends _BaseNormalizer
         // TODO: IMPLEMENTED IF NEEDED: may throw, if not supported by the spec
         // $this->getNormalizerFactory()->getSpec()->supportsLicenseExpression()
 
-        return array_filter([
-            'expression' => $license->getExpression(),
-            'acknowledgement' => $this->getNormalizerFactory()->getSpec()->supportsLicenseAcknowledgement()
-                ? $license->getAcknowledgement()
-                : null,
-        ],
+        return array_filter(
+            [
+                'expression' => $license->getExpression(),
+                'acknowledgement' => $this->getNormalizerFactory()->getSpec()->supportsLicenseAcknowledgement()
+                    ? $license->getAcknowledgement()?->value
+                    : null,
+            ],
             Predicate::isNotNull(...)
         );
     }
@@ -76,7 +77,7 @@ class LicenseNormalizer extends _BaseNormalizer
                 'name' => $name,
                 'url' => JsonHelper::encodeIriReferenceBE($license->getUrl()),
                 'acknowledgement' => $this->getNormalizerFactory()->getSpec()->supportsLicenseAcknowledgement()
-                    ? $license->getAcknowledgement()
+                    ? $license->getAcknowledgement()?->value
                     : null,
             ],
             Predicate::isNotNull(...)
