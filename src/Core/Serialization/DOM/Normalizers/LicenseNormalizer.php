@@ -56,7 +56,7 @@ class LicenseNormalizer extends _BaseNormalizer
         \assert(null !== $element);
 
         return SimpleDOM::setAttributes($element, [
-            'acknowledgement' => $this->getNormalizerFactory()->getSpec()->supportsLicenseAcknowledgment()
+            'acknowledgement' => $this->getNormalizerFactory()->getSpec()->supportsLicenseAcknowledgement()
                 ? $license->getAcknowledgement()
                 : null,
         ]);
@@ -83,7 +83,7 @@ class LicenseNormalizer extends _BaseNormalizer
             SimpleDOM::setAttributes(
                 $document->createElement('license'),
                 [
-                    'acknowledgement' => $this->getNormalizerFactory()->getSpec()->supportsLicenseAcknowledgment()
+                    'acknowledgement' => $this->getNormalizerFactory()->getSpec()->supportsLicenseAcknowledgement()
                         ? $license->getAcknowledgement()
                         : null,
                 ]),

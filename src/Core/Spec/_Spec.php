@@ -75,7 +75,7 @@ class _Spec implements _SpecProtocol
         private readonly bool $bComponentProperties,
         private readonly bool $bComponentEvidence,
         private readonly array $lFormatsSupportingBomProperties,
-        private readonly bool $bLicenseAcknowledgment,
+        private readonly bool $bLicenseAcknowledgement,
         LicenseIdentifiers $licenseIdentifiers = new LicenseIdentifiers(),
     ) {
         $this->lLicenseIdentifiers = $licenseIdentifiers->getKnownLicenses();
@@ -176,8 +176,8 @@ class _Spec implements _SpecProtocol
         return \in_array($format, $this->lFormatsSupportingBomProperties, true);
     }
 
-    public function supportsLicenseAcknowledgment(): bool
+    public function supportsLicenseAcknowledgement(): bool
     {
-        return $this->bLicenseAcknowledgment;
+        return $this->bLicenseAcknowledgement;
     }
 }

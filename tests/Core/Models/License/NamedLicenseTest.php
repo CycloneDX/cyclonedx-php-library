@@ -94,13 +94,13 @@ class NamedLicenseTest extends TestCase
     }
 
     #[DependsUsingShallowClone('testConstruct')]
-    public function testSetAndGetAcknowledgment(NamedLicense $license): void
+    public function testSetAndGetAcknowledgement(NamedLicense $license): void
     {
-        $acknowledgment = LicenseAcknowledgement::Declared;
+        $acknowledgement = LicenseAcknowledgement::Declared;
 
-        $got = $license->setAcknowledgement($acknowledgment);
+        $got = $license->setAcknowledgement($acknowledgement);
 
         self::assertSame($license, $got);
-        self::assertSame($acknowledgment, $license->getAcknowledgement());
+        self::assertSame($acknowledgement, $license->getAcknowledgement());
     }
 }

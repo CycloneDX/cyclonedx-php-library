@@ -256,11 +256,11 @@ abstract class SpecBaseTestCase extends TestCase
     /** @return Format[] */
     abstract protected static function shouldSupportBomProperties(): array;
 
-    final public function testSupportsLicenseAcknowledgment(): void
+    final public function testSupportsLicenseAcknowledgement(): void
     {
-        $isSupported = static::getSpec()->supportsLicenseAcknowledgment();
-        self::assertSame(static::shouldSupportLicenseAcknowledgment(), $isSupported);
+        $isSupported = static::getSpec()->supportsLicenseAcknowledgement();
+        self::assertSame(static::shouldSupportLicenseAcknowledgement(), $isSupported);
     }
 
-    abstract protected static function shouldSupportLicenseAcknowledgment(): bool;
+    abstract protected static function shouldSupportLicenseAcknowledgement(): bool;
 }

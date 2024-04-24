@@ -49,7 +49,7 @@ class LicenseNormalizer extends _BaseNormalizer
 
         return array_filter([
             'expression' => $license->getExpression(),
-            'acknowledgement' => $this->getNormalizerFactory()->getSpec()->supportsLicenseAcknowledgment()
+            'acknowledgement' => $this->getNormalizerFactory()->getSpec()->supportsLicenseAcknowledgement()
                 ? $license->getAcknowledgement()
                 : null,
         ],
@@ -75,7 +75,7 @@ class LicenseNormalizer extends _BaseNormalizer
                 'id' => $id,
                 'name' => $name,
                 'url' => JsonHelper::encodeIriReferenceBE($license->getUrl()),
-                'acknowledgement' => $this->getNormalizerFactory()->getSpec()->supportsLicenseAcknowledgment()
+                'acknowledgement' => $this->getNormalizerFactory()->getSpec()->supportsLicenseAcknowledgement()
                     ? $license->getAcknowledgement()
                     : null,
             ],

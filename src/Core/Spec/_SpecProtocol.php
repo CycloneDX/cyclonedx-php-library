@@ -78,5 +78,5 @@ interface _SpecProtocol
 
     public function supportsComponentEvidence(): bool;
 
-    public function supportsLicenseAcknowledgment(): bool;
+    public function supportsLicenseAcknowledgement(): bool;
 }

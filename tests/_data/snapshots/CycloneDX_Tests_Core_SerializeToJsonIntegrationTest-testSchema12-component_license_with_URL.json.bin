@@ -12,8 +12,14 @@
             "licenses": [
                 {
                     "license": {
-                        "name": "some text",
+                        "name": "some name",
                         "url": "https://example.com/license"
+                    }
+                },
+                {
+                    "license": {
+                        "id": "Apache-2.0",
+                        "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
                     }
                 }
             ]

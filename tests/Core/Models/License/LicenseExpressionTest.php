@@ -72,13 +72,13 @@ class LicenseExpressionTest extends TestCase
     }
 
     #[DependsUsingShallowClone('testConstructor')]
-    public function testSetAndGetAcknowledgment(LicenseExpression $license): void
+    public function testSetAndGetAcknowledgement(LicenseExpression $license): void
     {
-        $acknowledgment = LicenseAcknowledgement::Declared;
+        $acknowledgement = LicenseAcknowledgement::Declared;
 
-        $got = $license->setAcknowledgement($acknowledgment);
+        $got = $license->setAcknowledgement($acknowledgement);
 
         self::assertSame($license, $got);
-        self::assertSame($acknowledgment, $license->getAcknowledgement());
+        self::assertSame($acknowledgement, $license->getAcknowledgement());
     }
 }

@@ -112,7 +112,7 @@ class Spec1dot2Test extends SpecBaseTestCase
         return [];
     }
 
-    protected static function shouldSupportLicenseAcknowledgment(): bool
+    protected static function shouldSupportLicenseAcknowledgement(): bool
     {
         return false;
     }

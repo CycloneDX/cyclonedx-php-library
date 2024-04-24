@@ -112,7 +112,7 @@ class Spec1dot3Test extends SpecBaseTestCase
         return [Format::XML];
     }
 
-    protected static function shouldSupportLicenseAcknowledgment(): bool
+    protected static function shouldSupportLicenseAcknowledgement(): bool
     {
         return false;
     }
