@@ -7,11 +7,6 @@
       <licenses>
         <license>
           <name><![CDATA[some name]]></name>
-          <url><![CDATA[https://example.com/license]]></url>
-        </license>
-        <license>
-          <id><![CDATA[Apache-2.0]]></id>
-          <url><![CDATA[https://www.apache.org/licenses/LICENSE-2.0.html]]></url>
         </license>
       </licenses>
     </component>

@@ -97,12 +97,12 @@ class Spec1dot6Test extends SpecBaseTestCase
         return true;
     }
 
-    protected static function shouldSupportsComponentAuthor(): bool
+    protected static function shouldSupportComponentAuthor(): bool
     {
         return true;
     }
 
-    protected static function shouldSupportsComponentEvidence(): bool
+    protected static function shouldSupportComponentEvidence(): bool
     {
         return true;
     }
@@ -110,5 +110,10 @@ class Spec1dot6Test extends SpecBaseTestCase
     protected static function shouldSupportBomProperties(): array
     {
         return [Format::XML, Format::JSON, Format::ProtoBuff];
+    }
+
+    protected static function shouldSupportLicenseAcknowledgement(): bool
+    {
+        return true;
     }
 }

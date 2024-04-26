@@ -23,6 +23,8 @@ declare(strict_types=1);
 
 namespace CycloneDX\Core\Models\License;
 
+use CycloneDX\Core\Enums\LicenseAcknowledgement;
+
 /**
  * @internal as this class may be affected by breaking changes without notice
  *
@@ -34,11 +36,13 @@ trait _DisjunctiveLicenseBase
 {
     /**
      * The URL to the license file.
-     * If specified, a 'license' externalReference should also be specified for completeness.
+     * If specified, a 'license' externalReference SHOULD also be specified for completeness.
      *
      * @psalm-var null|non-empty-string
      */
     private ?string $url = null;
+
+    private ?LicenseAcknowledgement $acknowledgement = null;
 
     /** @psalm-return null|non-empty-string */
     public function getUrl(): ?string
@@ -46,14 +50,25 @@ trait _DisjunctiveLicenseBase
         return $this->url;
     }
 
-    /**
-     * @return $this
-     */
+    /** @return $this */
     public function setUrl(?string $url): static
     {
         $this->url = '' === $url
             ? null
             : $url;
+
+        return $this;
+    }
+
+    public function getAcknowledgement(): ?LicenseAcknowledgement
+    {
+        return $this->acknowledgement;
+    }
+
+    /** @return $this */
+    public function setAcknowledgement(?LicenseAcknowledgement $acknowledgement): static
+    {
+        $this->acknowledgement = $acknowledgement;
 
         return $this;
     }

@@ -33,6 +33,7 @@ use CycloneDX\Core\Collections\ToolRepository;
 use CycloneDX\Core\Enums\ComponentType;
 use CycloneDX\Core\Enums\ExternalReferenceType;
 use CycloneDX\Core\Enums\HashAlgorithm;
+use CycloneDX\Core\Enums\LicenseAcknowledgement;
 use CycloneDX\Core\Models\Bom;
 use CycloneDX\Core\Models\Component;
 use CycloneDX\Core\Models\ComponentEvidence;
@@ -411,6 +412,7 @@ abstract class BomModelProvider
         yield from self::bomWithComponentLicenseName();
         yield from self::bomWithComponentLicenseExpression();
         yield from self::bomWithComponentLicenseUrl();
+        yield from self::bomWithComponentLicenseAcknowledgment();
         yield from self::bomWithComponentLicensesMixed();
     }
 
@@ -555,13 +557,53 @@ abstract class BomModelProvider
                         ->setBomRefValue('component')
                         ->setLicenses(
                             new LicenseRepository(
-                                (new NamedLicense('some text'))
+                                (new NamedLicense('some name'))
                                     ->setUrl('https://example.com/license'),
+                                (new SpdxLicense('Apache-2.0'))
+                                    ->setUrl('https://www.apache.org/licenses/LICENSE-2.0.html'),
                             )
                         )
                 )
             ),
         ];
+    }
+
+    /**
+     * @return Generator<Bom[]>
+     *
+     * @psalm-return Generator<string, array{0:Bom}>
+     *
+     * @psalm-suppress MissingThrowsDocblock
+     */
+    public static function bomWithComponentLicenseAcknowledgment(): Generator
+    {
+        $known = array_map(static fn (LicenseAcknowledgement $la) => $la->value, LicenseAcknowledgement::cases());
+        $all = array_unique(
+            array_merge(
+                $known,
+                BomSpecData::getLicenseAcknowledgementForVersion('1.6'),
+            )
+        );
+        foreach ($all as $acknowledgment) {
+            $ack = LicenseAcknowledgement::tryFrom($acknowledgment);
+            if (null === $ack) {
+                continue;
+            }
+            yield "component license with acknowledgement: $acknowledgment" => [
+                (new Bom())->setComponents(
+                    new ComponentRepository(
+                        (new Component(ComponentType::Library, 'name'))
+                            ->setBomRefValue('component')
+                            ->setLicenses(
+                                new LicenseRepository(
+                                    (new NamedLicense('some name'))
+                                        ->setAcknowledgement($ack),
+                                )
+                            )
+                    )
+                ),
+            ];
+        }
     }
 
     /**

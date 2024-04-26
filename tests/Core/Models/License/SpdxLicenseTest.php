@@ -23,6 +23,7 @@ declare(strict_types=1);
 
 namespace CycloneDX\Tests\Core\Models\License;
 
+use CycloneDX\Core\Enums\LicenseAcknowledgement;
 use CycloneDX\Core\Models\License\_DisjunctiveLicenseBase;
 use CycloneDX\Core\Models\License\SpdxLicense;
 use DomainException;
@@ -41,6 +42,7 @@ class SpdxLicenseTest extends TestCase
 
         self::assertSame($id, $license->getId());
         self::assertNull($license->getUrl());
+        self::assertNull($license->getAcknowledgement());
 
         return $license;
     }
@@ -84,5 +86,16 @@ class SpdxLicenseTest extends TestCase
     {
         $license->setUrl('');
         self::assertNull($license->getUrl());
+    }
+
+    #[DependsUsingShallowClone('testConstruct')]
+    public function testSetAndGetAcknowledgement(SpdxLicense $license): void
+    {
+        $acknowledgement = LicenseAcknowledgement::Declared;
+
+        $got = $license->setAcknowledgement($acknowledgement);
+
+        self::assertSame($license, $got);
+        self::assertSame($acknowledgement, $license->getAcknowledgement());
     }
 }

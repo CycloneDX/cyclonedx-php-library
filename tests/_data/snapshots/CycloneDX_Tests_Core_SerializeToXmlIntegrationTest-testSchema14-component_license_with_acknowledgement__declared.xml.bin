@@ -1,17 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bom xmlns="http://cyclonedx.org/schema/bom/1.3" version="1">
+<bom xmlns="http://cyclonedx.org/schema/bom/1.4" version="1">
   <components>
     <component type="library" bom-ref="component">
       <name><![CDATA[name]]></name>
-      <version><![CDATA[]]></version>
       <licenses>
         <license>
           <name><![CDATA[some name]]></name>
-          <url><![CDATA[https://example.com/license]]></url>
-        </license>
-        <license>
-          <id><![CDATA[Apache-2.0]]></id>
-          <url><![CDATA[https://www.apache.org/licenses/LICENSE-2.0.html]]></url>
         </license>
       </licenses>
     </component>

@@ -78,6 +78,16 @@ abstract class BomSpecData
     /**
      * @return string[]
      *
+     * @psalm-return list<string> sorted list
+     */
+    public static function getLicenseAcknowledgementForVersion(string $version): array
+    {
+        return self::getEnumValuesForName($version, 'licenseAcknowledgementEnumerationType');
+    }
+
+    /**
+     * @return string[]
+     *
      * @psalm-return list<string>
      */
     public static function getSpssLicenseIds(): array

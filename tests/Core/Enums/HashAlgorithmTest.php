@@ -36,7 +36,7 @@ class HashAlgorithmTest extends TestCase
     #[DataProvider('dpSchemaValues')]
     public function testHasCaseForSchemaValue(string $value): void
     {
-        self::assertNotNull(HashAlgorithm::tryFrom($value));
+        self::assertNotNull(HashAlgorithm::tryFrom($value), "missing $value");
     }
 
     public static function dpSchemaValues(): Generator

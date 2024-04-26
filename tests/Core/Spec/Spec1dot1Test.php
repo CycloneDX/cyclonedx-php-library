@@ -97,12 +97,12 @@ class Spec1dot1Test extends SpecBaseTestCase
         return false;
     }
 
-    protected static function shouldSupportsComponentAuthor(): bool
+    protected static function shouldSupportComponentAuthor(): bool
     {
         return false;
     }
 
-    protected static function shouldSupportsComponentEvidence(): bool
+    protected static function shouldSupportComponentEvidence(): bool
     {
         return false;
     }
@@ -110,5 +110,10 @@ class Spec1dot1Test extends SpecBaseTestCase
     protected static function shouldSupportBomProperties(): array
     {
         return [];
+    }
+
+    protected static function shouldSupportLicenseAcknowledgement(): bool
+    {
+        return false;
     }
 }

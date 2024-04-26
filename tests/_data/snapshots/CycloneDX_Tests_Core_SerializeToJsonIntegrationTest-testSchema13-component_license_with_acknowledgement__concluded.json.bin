@@ -1,7 +1,7 @@
 {
-    "$schema": "http://cyclonedx.org/schema/bom-1.2b.schema.json",
+    "$schema": "http://cyclonedx.org/schema/bom-1.3a.schema.json",
     "bomFormat": "CycloneDX",
-    "specVersion": "1.2",
+    "specVersion": "1.3",
     "version": 1,
     "components": [
         {
@@ -12,14 +12,7 @@
             "licenses": [
                 {
                     "license": {
-                        "name": "some name",
-                        "url": "https://example.com/license"
-                    }
-                },
-                {
-                    "license": {
-                        "id": "Apache-2.0",
-                        "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
+                        "name": "some name"
                     }
                 }
             ]

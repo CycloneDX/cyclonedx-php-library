@@ -23,6 +23,7 @@ declare(strict_types=1);
 
 namespace CycloneDX\Core\Models\License;
 
+use CycloneDX\Core\Enums\LicenseAcknowledgement;
 use DomainException;
 
 /**
@@ -43,6 +44,8 @@ class LicenseExpression
      */
     private string $expression;
 
+    private ?LicenseAcknowledgement $acknowledgement = null;
+
     public function getExpression(): string
     {
         return $this->expression;
@@ -61,6 +64,19 @@ class LicenseExpression
             throw new DomainException('expression must not be empty');
         }
         $this->expression = $expression;
+
+        return $this;
+    }
+
+    public function getAcknowledgement(): ?LicenseAcknowledgement
+    {
+        return $this->acknowledgement;
+    }
+
+    /** @return $this */
+    public function setAcknowledgement(?LicenseAcknowledgement $acknowledgement): static
+    {
+        $this->acknowledgement = $acknowledgement;
 
         return $this;
     }

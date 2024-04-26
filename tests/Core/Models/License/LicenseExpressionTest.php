@@ -23,6 +23,7 @@ declare(strict_types=1);
 
 namespace CycloneDX\Tests\Core\Models\License;
 
+use CycloneDX\Core\Enums\LicenseAcknowledgement;
 use CycloneDX\Core\Models\License\LicenseExpression;
 use DomainException;
 use PHPUnit\Framework\Attributes\CoversClass;
@@ -37,6 +38,7 @@ class LicenseExpressionTest extends TestCase
         $expression = uniqid('expression', true);
         $license = new LicenseExpression($expression);
         self::assertSame($expression, $license->getExpression());
+        self::assertNull($license->getAcknowledgement());
 
         return $license;
     }
@@ -67,5 +69,16 @@ class LicenseExpressionTest extends TestCase
         $this->expectExceptionMessageMatches('/expression must not be empty/i');
 
         $license->setExpression('');
+    }
+
+    #[DependsUsingShallowClone('testConstructor')]
+    public function testSetAndGetAcknowledgement(LicenseExpression $license): void
+    {
+        $acknowledgement = LicenseAcknowledgement::Declared;
+
+        $got = $license->setAcknowledgement($acknowledgement);
+
+        self::assertSame($license, $got);
+        self::assertSame($acknowledgement, $license->getAcknowledgement());
     }
 }

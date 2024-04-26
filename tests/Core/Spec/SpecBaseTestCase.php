@@ -225,18 +225,18 @@ abstract class SpecBaseTestCase extends TestCase
     final public function testSupportsComponentAuthor(): void
     {
         $isSupported = static::getSpec()->supportsComponentAuthor();
-        self::assertSame(static::shouldSupportsComponentAuthor(), $isSupported);
+        self::assertSame(static::shouldSupportComponentAuthor(), $isSupported);
     }
 
-    abstract protected static function shouldSupportsComponentAuthor(): bool;
+    abstract protected static function shouldSupportComponentAuthor(): bool;
 
     final public function testSupportsComponentEvidence(): void
     {
         $isSupported = static::getSpec()->supportsComponentEvidence();
-        self::assertSame(static::shouldSupportsComponentEvidence(), $isSupported);
+        self::assertSame(static::shouldSupportComponentEvidence(), $isSupported);
     }
 
-    abstract protected static function shouldSupportsComponentEvidence(): bool;
+    abstract protected static function shouldSupportComponentEvidence(): bool;
 
     #[DataProvider('dpSupportsBomProperties')]
     final public function testSupportsBomProperties(Format $format, bool $shouldSupportBomProperties): void
@@ -255,4 +255,12 @@ abstract class SpecBaseTestCase extends TestCase
 
     /** @return Format[] */
     abstract protected static function shouldSupportBomProperties(): array;
+
+    final public function testSupportsLicenseAcknowledgement(): void
+    {
+        $isSupported = static::getSpec()->supportsLicenseAcknowledgement();
+        self::assertSame(static::shouldSupportLicenseAcknowledgement(), $isSupported);
+    }
+
+    abstract protected static function shouldSupportLicenseAcknowledgement(): bool;
 }
