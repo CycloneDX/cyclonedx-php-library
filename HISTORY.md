@@ -6,6 +6,8 @@ All notable changes to this project will be documented in this file.
 
 <!-- add unreleased items here -->
 
+## 3.3.0 - 2024-04-26
+
 * Added
   * Namespace `\CycloneDX\Core\Enums`
     * New enum: `LicenseAcknowledgement` ([#428] via [#429])
