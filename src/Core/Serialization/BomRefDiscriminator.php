@@ -30,6 +30,7 @@ use CycloneDX\Core\Models\BomRef;
  */
 class BomRefDiscriminator
 {
+    /** @var string */
     private const PREFIX = 'BomRef.';
 
     /**

@@ -46,6 +46,8 @@ class JsonSerializer extends BaseSerializer
      * Some JSON flags could break the output, so they are not whitelisted.
      *
      * @see https://www.php.net/manual/en/json.constants.php
+     *
+     * @var int
      */
     private const JsonEncodeFlagsAllowedOptions = 0
         | \JSON_HEX_TAG
@@ -65,6 +67,8 @@ class JsonSerializer extends BaseSerializer
      * These defaults are required to have valid output in the end.
      *
      * @see https://www.php.net/manual/en/json.constants.php
+     *
+     * @var int
      */
     private const JsonEncodeFlagsDefaults = 0
         | \JSON_THROW_ON_ERROR // prevent unexpected data
@@ -77,6 +81,8 @@ class JsonSerializer extends BaseSerializer
      * Bitmask consisting of JSON_*.
      *
      * @see https://www.php.net/manual/en/json.constants.php
+     *
+     * @var int
      */
     private const JsonEncodeFlagsDefaultOptions = 0
         | \JSON_UNESCAPED_SLASHES // urls become shorter
