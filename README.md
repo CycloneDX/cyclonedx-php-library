@@ -42,6 +42,7 @@ that provides advanced supply chain capabilities for cyber risk reduction.
   * `ComponentType`
   * `ExternalReferenceType`
   * `HashAlgorithm`
+  * `LicenseAcknowledgement`
 * Data models for the following use cases:
   * `Bom`
   * `BomRef`, `BomRefRepository`
