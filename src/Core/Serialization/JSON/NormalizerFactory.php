@@ -35,6 +35,7 @@ use DomainException;
  */
 class NormalizerFactory
 {
+    /** @var Format */
     public const FORMAT = Format::JSON;
 
     private readonly Spec $spec;
