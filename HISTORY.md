@@ -6,6 +6,12 @@ All notable changes to this project will be documented in this file.
 
 <!-- add unreleased items here -->
 
+* Fixed
+  * JsonValidator allow arbitrary `$schema` value ([#435] via [#436])
+
+[#435]: https://github.com/CycloneDX/cyclonedx-php-library/issues/435
+[#436]: https://github.com/CycloneDX/cyclonedx-php-library/pull/436
+
 ## 3.3.0 - 2024-04-26
 
 * Changed

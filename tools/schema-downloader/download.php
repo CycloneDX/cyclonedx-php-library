@@ -88,8 +88,11 @@ abstract class BomJsonLax extends BaseDownloadable
         _bomRequired => _bomRequiredReplace,
     ];
     final public const ReplaceReg = [
-        /* fix "$schema" property to match $id */
-        '/("\$id": "(http:\/\/cyclonedx\.org\/schema\/bom.+?\.schema\.json)".*"enum": \[\s+")http:\/\/cyclonedx\.org\/schema\/bom.+?\.schema\.json"/s' => '$1$2"',
+        /* "$schema" is not required but optional.
+           that enum constraint value there is complicated -> remove it.
+           See https://github.com/CycloneDX/specification/issues/402
+           See https://github.com/CycloneDX/specification/pull/403 */
+        '#,?\\s*"enum"\\s*:\\s*\\[\\s+"http://cyclonedx\\.org/schema\/.+?\\.schema\\.json"\\s*\\]#s' => '',
         /* there was a case where the default value did not match the own pattern ...
             this is wrong in schema<1.5
             with current SchemaValidator this is no longer required, as defaults are not applied */

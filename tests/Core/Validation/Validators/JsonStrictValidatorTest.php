@@ -105,6 +105,7 @@ class JsonStrictValidatorTest extends TestCase
         $spec = $this->createConfiguredMock(_SpecProtocol::class, ['getVersion' => Version::v1dot2]);
         $validator = new JsonStrictValidator($spec);
         $data = (object) [
+            '$schema' => 'http://cyclonedx.org/schema/bom-1.2.schema.json',
             'bomFormat' => 'CycloneDX',
             'specVersion' => '1.2',
             'version' => 1,
@@ -132,6 +133,7 @@ class JsonStrictValidatorTest extends TestCase
         $spec = $this->createConfiguredMock(_SpecProtocol::class, ['getVersion' => Version::v1dot2]);
         $validator = new JsonStrictValidator($spec);
         $data = (object) [
+            '$schema' => 'http://cyclonedx.org/schema/bom-1.2.schema.json',
             'bomFormat' => 'CycloneDX',
             'specVersion' => '1.2',
             'version' => 1,

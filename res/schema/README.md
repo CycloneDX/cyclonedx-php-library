@@ -30,4 +30,4 @@ changes:
 1. `https?://cyclonedx.org/schema/spdx` was replaced with `spdx.SNAPSHOT.xsd`
 2. `spdx.schema.json` was replaced with `spdx.SNAPSHOT.schema.json`
 3. `jsf-0.82.schema.json` was replaced with `jsf-0.82.SNAPSHOT.schema.json`
-4. `properties.$schema.enum` was fixed to match `$id`
+4. `properties.$schema.enum` was removed
