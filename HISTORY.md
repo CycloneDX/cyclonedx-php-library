@@ -6,11 +6,12 @@ All notable changes to this project will be documented in this file.
 
 <!-- add unreleased items here -->
 
+## 3.4.0 - 2024-05-06
 
 * Changed
-  * Updated SPDX license list `v3.24.0` (via [#])
+  * Updated SPDX license list to `v3.24.0` (via [#439])
 
-[#]: 
+[#439]: https://github.com/CycloneDX/cyclonedx-php-library/pull/439
 
 ## 3.3.1 - 2024-05-06
 
