@@ -6,6 +6,12 @@ All notable changes to this project will be documented in this file.
 
 <!-- add unreleased items here -->
 
+
+* Changed
+  * Updated SPDX license list `v3.24.0` (via [#])
+
+[#]: 
+
 ## 3.3.1 - 2024-05-06
 
 * Fixed
