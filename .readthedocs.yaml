@@ -16,8 +16,8 @@ build:
     - plantuml
   jobs:
     pre_build:
-      - wget https://phpdoc.org/phpDocumentor.phar -O /tmp/phpDocumentor.phar
-      - php /tmp/phpDocumentor.phar run
+      - wget https://github.com/phpDocumentor/phpDocumentor/releases/download/v3.5.0/phpDocumentor.phar -O /tmp/phpDocumentor.phar
+      - php /tmp/phpDocumentor.phar
 
 sphinx:
   configuration: docs/conf.py
