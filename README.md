@@ -130,7 +130,7 @@ See the [LICENSE][license_file] file for the full license.
 [shield_gh-workflow-test]: https://img.shields.io/github/actions/workflow/status/CycloneDX/cyclonedx-php-library/php.yml?branch=master&logo=GitHub&logoColor=white "build"
 [shield_coverage]: https://img.shields.io/codacy/coverage/7e5610bee31a4c99b1b8efb0eeab9e73?logo=Codacy&logoColor=white "test coverage"
 [shield_shepherd]: https://shepherd.dev/github/CycloneDX/cyclonedx-php-library/coverage.svg "type coverage"
-[shield_ossf-best-practices]: https://img.shields.io/cii/level/7955?label=OpenSSF%20best%20practices "OpenSSF best practices"
+[shield_ossf-best-practices]: https://img.shields.io/cii/percentage/7955?label=OpenSSF%20best%20practices "OpenSSF best practices"
 [shield_license]: https://img.shields.io/github/license/CycloneDX/cyclonedx-php-library?logo=open%20source%20initiative&logoColor=white "license"
 [shield_website]: https://img.shields.io/badge/https://-cyclonedx.org-blue.svg "homepage"
 [shield_slack]: https://img.shields.io/badge/slack-join-blue?logo=Slack&logoColor=white "slack join"
