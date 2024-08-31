@@ -41,7 +41,7 @@ class XmlSerializer extends BaseSerializer
     public function __construct(
         protected readonly DOM\NormalizerFactory $normalizerFactory,
         protected readonly string $xmlVersion = '1.0',
-        protected readonly string $xmlEncoding = 'UTF-8'
+        protected readonly string $xmlEncoding = 'UTF-8',
     ) {
     }
 

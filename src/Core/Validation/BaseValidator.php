@@ -32,7 +32,7 @@ abstract class BaseValidator implements Validator
 {
     public function __construct(
         /* @TODO in next major version: use `\CycloneDX\Core\Enums\Version` instead of `Spec` */
-        private readonly Spec $spec
+        private readonly Spec $spec,
     ) {
     }
 

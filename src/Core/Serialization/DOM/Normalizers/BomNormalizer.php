@@ -46,7 +46,7 @@ class BomNormalizer extends _BaseNormalizer
         $document = $factory->getDocument();
 
         $element = $document->createElementNS(
-            sprintf(self::XML_NAMESPACE_PATTERN, $factory->getSpec()->getVersion()->value),
+            \sprintf(self::XML_NAMESPACE_PATTERN, $factory->getSpec()->getVersion()->value),
             'bom' // no namespace = defaultNS - so children w/o NS fall under this NS
         );
         SimpleDOM::setAttributes(

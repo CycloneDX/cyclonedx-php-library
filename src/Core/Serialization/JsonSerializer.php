@@ -102,7 +102,7 @@ class JsonSerializer extends BaseSerializer
      */
     public function __construct(
         protected readonly JSON\NormalizerFactory $normalizerFactory,
-        int $jsonEncodeFlags = self::JsonEncodeFlagsDefaultOptions
+        int $jsonEncodeFlags = self::JsonEncodeFlagsDefaultOptions,
     ) {
         $this->jsonEncodeFlags = self::JsonEncodeFlagsDefaults
             | ($jsonEncodeFlags & self::JsonEncodeFlagsAllowedOptions);

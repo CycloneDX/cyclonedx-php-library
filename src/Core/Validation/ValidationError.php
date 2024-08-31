@@ -36,7 +36,7 @@ class ValidationError
     protected ?object $error = null;
 
     final protected function __construct(
-        private readonly string $message
+        private readonly string $message,
     ) {
     }
 

@@ -122,8 +122,8 @@ foreach ([
     BomJsonStrict::class,
 ] as $class) {
     foreach ($class::Versions as $version) {
-        $source = sprintf($class::SourcePattern, $version);
-        $target = sprintf($class::TargetPattern, $version);
+        $source = \sprintf($class::SourcePattern, $version);
+        $target = \sprintf($class::TargetPattern, $version);
 
         $content = file_get_contents($source);
         $content = strtr($content, $class::ReplaceStr);
