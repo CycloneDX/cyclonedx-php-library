@@ -6,10 +6,13 @@ All notable changes to this project will be documented in this file.
 
 <!-- add unreleased items here -->
 
+* Docs
+  * Fixed typos in DocBlocks (via [#466])
 * Style
   * Applied latest PHP Coding Standards (via [#465])
 
 [#465]: https://github.com/CycloneDX/cyclonedx-php-library/pull/465
+[#466]: https://github.com/CycloneDX/cyclonedx-php-library/pull/466
 
 ## 3.4.0 - 2024-05-06
 

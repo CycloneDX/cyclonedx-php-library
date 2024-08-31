@@ -41,7 +41,7 @@ class JsonSerializer extends BaseSerializer
     /**
      * List of allowed options for {@see jsonEncodeFlags}.
      *
-     * Bitmask consisting of JSON_*.
+     * Bit mask consisting of JSON_*.
      *
      * Some JSON flags could break the output, so they are not whitelisted.
      *
@@ -62,7 +62,7 @@ class JsonSerializer extends BaseSerializer
     /**
      * Defaults of {@see $jsonEncodeFlags}.
      *
-     * Bitmask consisting of JSON_*.
+     * Bit mask consisting of JSON_*.
      *
      * These defaults are required to have valid output in the end.
      *
@@ -78,7 +78,7 @@ class JsonSerializer extends BaseSerializer
     /**
      * List of mandatory options for $jsonEncodeFlags.
      *
-     * Bitmask consisting of JSON_*.
+     * Bit mask consisting of JSON_*.
      *
      * @see https://www.php.net/manual/en/json.constants.php
      *
@@ -91,7 +91,7 @@ class JsonSerializer extends BaseSerializer
     /**
      * Flags for {@see \json_encode()}.
      *
-     * Bitmask consisting of JSON_*.
+     * Bit mask consisting of JSON_*.
      *
      * @see https://www.php.net/manual/en/json.constants.php
      */

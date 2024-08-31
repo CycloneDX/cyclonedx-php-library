@@ -100,12 +100,12 @@ class Component
      * Package-URL (PURL).
      *
      * The purl, if specified, must be valid and conform to the specification
-     * defined at: {@linnk https://github.com/package-url/purl-spec/blob/master/README.rst#purl}.
+     * defined at: {@link https://github.com/package-url/purl-spec/blob/master/README.rst#purl}.
      */
     private ?PackageUrl $packageUrl = null;
 
     /**
-     * licence(s).
+     * Licence(s).
      */
     private LicenseRepository $licenses;
 
