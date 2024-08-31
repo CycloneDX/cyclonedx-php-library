@@ -33,7 +33,6 @@ use CycloneDX\Core\Models\License\SpdxLicense;
  * - {@see SpdxLicense}
  * - {@see NamedLicense}
  * - {@see LicenseExpression}
- * .
  *
  * @author jkowalleck
  */
