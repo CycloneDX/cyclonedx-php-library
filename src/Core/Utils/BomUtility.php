@@ -42,7 +42,7 @@ abstract class BomUtility
      */
     public static function randomSerialNumber(): string
     {
-        return sprintf(
+        return \sprintf(
             'urn:uuid:%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
             random_int(0, 0xFFFF),
             random_int(0, 0xFFFF),

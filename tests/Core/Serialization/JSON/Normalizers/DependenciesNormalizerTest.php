@@ -86,7 +86,7 @@ class DependenciesNormalizerTest extends TestCase
         self::assertCount(
             0,
             $missing,
-            sprintf("missing:\n%s\nin:\n%s",
+            \sprintf("missing:\n%s\nin:\n%s",
                 print_r($missing, true),
                 print_r($actuals, true),
             )

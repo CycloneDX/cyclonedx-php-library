@@ -35,7 +35,7 @@ class LicenseFactory
 {
     public function __construct(
         private readonly LicenseIdentifiers $licenseIdentifiers = new LicenseIdentifiers(),
-        private readonly SpdxLicenses $spdxLicenses = new SpdxLicenses()
+        private readonly SpdxLicenses $spdxLicenses = new SpdxLicenses(),
     ) {
     }
 

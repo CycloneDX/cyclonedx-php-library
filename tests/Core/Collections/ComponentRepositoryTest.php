@@ -79,7 +79,7 @@ class ComponentRepositoryTest extends TestCase
         ComponentRepository $repo,
         string $findName,
         ?string $findGroup,
-        array $expectedFindings
+        array $expectedFindings,
     ): void {
         $actual = $repo->findItem($findName, $findGroup);
 
