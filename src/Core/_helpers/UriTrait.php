@@ -67,6 +67,6 @@ trait UriTrait
     {
         return null === $uri
             ? $uri
-            : strtr($uri, _ESCAPES);
+            : strtr($uri, \CycloneDX\Core\_helpers\_ESCAPES);
     }
 }
