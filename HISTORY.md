@@ -6,6 +6,8 @@ All notable changes to this project will be documented in this file.
 
 <!-- add unreleased items here -->
 
+## 3.4.2 - 2024-10-24
+
 * Fixed
   * Encode quotation mark in URLs (via [#477])
 
