@@ -32,7 +32,11 @@ namespace CycloneDX\Core\_helpers;
  */
 trait UriTrait
 {
-    /** @readonly */
+    /**
+     * @readonly
+     *
+     * @var array<string, string>
+     */
     private static $_URI_ESCAPES = [
         ' ' => '%20',
         '"' => '%22',
@@ -55,8 +59,6 @@ trait UriTrait
      * @see http://www.datypic.com/sc/xsd/t-xsd_anyURI.html
      * @see https://datatracker.ietf.org/doc/html/rfc2396
      * @see https://datatracker.ietf.org/doc/html/rfc3987
-     *
-     * @psalm-pure
      */
     private static function fixUriBE(?string $uri): ?string
     {
