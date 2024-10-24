@@ -24,6 +24,23 @@ declare(strict_types=1);
 namespace CycloneDX\Core\_helpers;
 
 /**
+ * @internal as this const may be affected by breaking changes without notice
+ *
+ * @readonly
+ */
+const _ESCAPES = [
+    ' ' => '%20',
+    '"' => '%22',
+    "'" => '%27',
+    '[' => '%5B',
+    ']' => '%5D',
+    '<' => '%3C',
+    '>' => '%3E',
+    '{' => '%7B',
+    '}' => '%7D',
+];
+
+/**
  * Namespace of functions related to URI.
  *
  * @internal as this trait may be affected by breaking changes without notice
@@ -43,15 +60,13 @@ trait UriTrait
      * @see http://www.datypic.com/sc/xsd/t-xsd_anyURI.html
      * @see https://datatracker.ietf.org/doc/html/rfc2396
      * @see https://datatracker.ietf.org/doc/html/rfc3987
+     *
+     * @psalm-pure
      */
     private static function fixUriBE(?string $uri): ?string
     {
         return null === $uri
             ? $uri
-            : str_replace(
-                [' ', '[', ']', '<', '>', '{', '}'],
-                ['%20', '%5B', '%5D', '%3C', '%3E', '%7B', '%7D'],
-                $uri
-            );
+            : strtr($uri, \CycloneDX\Core\_helpers\_ESCAPES);
     }
 }

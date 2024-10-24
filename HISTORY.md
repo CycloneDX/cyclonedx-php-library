@@ -6,6 +6,11 @@ All notable changes to this project will be documented in this file.
 
 <!-- add unreleased items here -->
 
+* Fixed
+  * Encode quotation mark in URLs (via [#477])
+
+[#477]: https://github.com/CycloneDX/cyclonedx-php-library/pull/477
+
 ## 3.4.1 - 2024-08-31
 
 * Docs
