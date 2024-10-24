@@ -45,9 +45,9 @@ abstract class AnyUriData
         yield 'encode anyUri: relative path' => ['../foo/bar', '../foo/bar'];
         yield 'encode anyUri: space' => ['https://example.org/foo bar', 'https://example.org/foo%20bar'];
         yield 'encode anyUri: quote' => ['https://example.org/#"test"is\'test\'', 'https://example.org/#%22test%22is%27test%27'];
-        yield 'encode anyUri: []' => ['https://example.org/?bar[test]=baz', 'https://example.org/?bar%5Btest%5D=baz'];
-        yield 'encode anyUri: <>' => ['https://example.org/#<test>', 'https://example.org/#%3Ctest%3E'];
-        yield 'encode anyUri: {}' => ['https://example.org/#{test}', 'https://example.org/#%7Btest%7D'];
+        yield 'encode anyUri: []' => ['https://example.org/?bar[test]=baz[again]', 'https://example.org/?bar%5Btest%5D=baz%5Bagain%5D'];
+        yield 'encode anyUri: <>' => ['https://example.org/#<test><again>', 'https://example.org/#%3Ctest%3E%3Cagain%3E'];
+        yield 'encode anyUri: {}' => ['https://example.org/#{test}{again}', 'https://example.org/#%7Btest%7D%7Bagain%7D'];
         yield 'encode anyUri: non-ASCII' => ['https://example.org/édition', 'https://example.org/édition'];
         yield 'encode anyUri: partially encoded' => ['https://example.org/?bar[test%5D=baz', 'https://example.org/?bar%5Btest%5D=baz'];
     }
