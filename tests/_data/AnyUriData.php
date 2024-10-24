@@ -44,6 +44,7 @@ abstract class AnyUriData
         yield 'encode anyUri: mailto' => ['mailto:info@example.org', 'mailto:info@example.org'];
         yield 'encode anyUri: relative path' => ['../foo/bar', '../foo/bar'];
         yield 'encode anyUri: space' => ['https://example.org/foo bar', 'https://example.org/foo%20bar'];
+        yield 'encode anyUri: "' => ['https://example.org/#"test"', 'https://example.org/#%22test%22'];
         yield 'encode anyUri: []' => ['https://example.org/?bar[test]=baz', 'https://example.org/?bar%5Btest%5D=baz'];
         yield 'encode anyUri: <>' => ['https://example.org/#<test>', 'https://example.org/#%3Ctest%3E'];
         yield 'encode anyUri: {}' => ['https://example.org/#{test}', 'https://example.org/#%7Btest%7D'];

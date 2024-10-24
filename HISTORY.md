@@ -6,6 +6,11 @@ All notable changes to this project will be documented in this file.
 
 <!-- add unreleased items here -->
 
+* Fixed
+  * Encode double-quote in URLs. (via [#1155])
+
+[#]: 
+
 ## 3.4.1 - 2024-08-31
 
 * Docs
