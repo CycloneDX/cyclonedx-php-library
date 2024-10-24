@@ -31,6 +31,7 @@ namespace CycloneDX\Core\_helpers;
 const _ESCAPES = [
     ' ' => '%20',
     '"' => '%22',
+    "'" => '%27',
     '[' => '%5B',
     ']' => '%5D',
     '<' => '%3C',
