@@ -7,9 +7,9 @@ All notable changes to this project will be documented in this file.
 <!-- add unreleased items here -->
 
 * Fixed
-  * Encode double-quote in URLs. (via [#1155])
+  * Encode double-quote in URLs. (via [#477])
 
-[#]: 
+[#477]: https://github.com/CycloneDX/cyclonedx-php-library/pull/477
 
 ## 3.4.1 - 2024-08-31
 
