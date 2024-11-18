@@ -7,7 +7,6 @@
     },
     "require-dev": {
         "phpmd/phpmd": "2.15.0",
-        "symfony/config": "<7",
         "roave/security-advisories": "dev-latest"
     },
     "prefer-stable": true,
