@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 ## unreleased
 
 <!-- add unreleased items here -->
+* Added
+  * Support CycloneDX 1.6.1 ([#483] via [#])
+
+[#483]: https://github.com/CycloneDX/cyclonedx-php-library/issues/483
+[#]:
 
 ## 3.4.2 - 2024-10-24
 
