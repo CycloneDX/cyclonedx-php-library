@@ -66,7 +66,7 @@ abstract class SpecFactory
     }
 
     /**
-     * Create the {@see _SpecProtocol Specification} based on {@see \CycloneDX\Core\Spec\Version::v1dot1}.
+     * Create the {@see _SpecProtocol Specification} based on {@see Version::v1dot1}.
      *
      * @SuppressWarnings(PHPMD.ExcessiveMethodLength)
      */
@@ -129,7 +129,7 @@ abstract class SpecFactory
     }
 
     /**
-     * Create the {@see _SpecProtocol Specification} based on {@see \CycloneDX\Core\Spec\Version::v1dot2}.
+     * Create the {@see _SpecProtocol Specification} based on {@see Version::v1dot2}.
      *
      * @SuppressWarnings(PHPMD.ExcessiveMethodLength)
      */
@@ -200,7 +200,7 @@ abstract class SpecFactory
     }
 
     /**
-     * Create the {@see _SpecProtocol Specification} based on {@see \CycloneDX\Core\Spec\Version::v1dot3}.
+     * Create the {@see _SpecProtocol Specification} based on {@see Version::v1dot3}.
      *
      * @SuppressWarnings(PHPMD.ExcessiveMethodLength)
      */
@@ -274,7 +274,7 @@ abstract class SpecFactory
     }
 
     /**
-     * Create the {@see _SpecProtocol Specification} based on {@see \CycloneDX\Core\Spec\Version::v1dot4}.
+     * Create the {@see _SpecProtocol Specification} based on {@see Version::v1dot4}.
      *
      * @SuppressWarnings(PHPMD.ExcessiveMethodLength)
      */
@@ -349,7 +349,7 @@ abstract class SpecFactory
     }
 
     /**
-     * Create the {@see _SpecProtocol Specification} based on {@see \CycloneDX\Core\Spec\Version::v1dot5}.
+     * Create the {@see _SpecProtocol Specification} based on {@see Version::v1dot5}.
      *
      * @SuppressWarnings(PHPMD.ExcessiveMethodLength)
      */
@@ -453,7 +453,7 @@ abstract class SpecFactory
     }
 
     /**
-     * Create the {@see _SpecProtocol Specification} based on {@see \CycloneDX\Core\Spec\Version::v1dot6}.
+     * Create the {@see _SpecProtocol Specification} based on {@see Version::v1dot6}.
      *
      * @SuppressWarnings(PHPMD.ExcessiveMethodLength)
      */
