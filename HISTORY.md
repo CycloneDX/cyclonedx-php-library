@@ -6,10 +6,14 @@ All notable changes to this project will be documented in this file.
 
 <!-- add unreleased items here -->
 
+* Added
+  * Officially support PHP 8.3 ([#464] via [#488]) 
 * Style
   * Applied latest PHP Coding Standards (via [#485])
 
+[#464]: https://github.com/CycloneDX/cyclonedx-php-library/issues/464
 [#485]: https://github.com/CycloneDX/cyclonedx-php-library/pull/485
+[#488]: https://github.com/CycloneDX/cyclonedx-php-library/pull/488
 
 ## 3.5.0 - 2024-11-18
 
