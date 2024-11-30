@@ -25,7 +25,6 @@ namespace CycloneDX\Core\Serialization\DOM\Normalizers;
 
 use CycloneDX\Core\Collections\PropertyRepository;
 use CycloneDX\Core\Serialization\DOM\_BaseNormalizer;
-use DomainException;
 use DOMElement;
 
 /**
@@ -34,7 +33,7 @@ use DOMElement;
 class PropertyRepositoryNormalizer extends _BaseNormalizer
 {
     /**
-     * @return DOMElement[]
+     * @return \DOMElement[]
      *
      * @psalm-return list<DOMElement>
      */
@@ -46,7 +45,7 @@ class PropertyRepositoryNormalizer extends _BaseNormalizer
         foreach ($repo->getItems() as $property) {
             try {
                 $properties[] = $normalizer->normalize($property);
-            } catch (DomainException) {
+            } catch (\DomainException) {
                 // pass
             }
         }

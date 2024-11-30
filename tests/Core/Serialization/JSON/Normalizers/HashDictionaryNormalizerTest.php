@@ -29,7 +29,6 @@ use CycloneDX\Core\Serialization\JSON\_BaseNormalizer;
 use CycloneDX\Core\Serialization\JSON\NormalizerFactory;
 use CycloneDX\Core\Serialization\JSON\Normalizers\HashDictionaryNormalizer;
 use CycloneDX\Core\Serialization\JSON\Normalizers\HashNormalizer;
-use DomainException;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
@@ -76,7 +75,7 @@ class HashDictionaryNormalizerTest extends TestCase
 
         $hashNormalizer->expects(self::exactly(2))
             ->method('normalize')
-            ->willThrowException(new DomainException());
+            ->willThrowException(new \DomainException());
 
         $got = $normalizer->normalize($repo);
 

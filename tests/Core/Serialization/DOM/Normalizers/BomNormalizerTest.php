@@ -37,7 +37,6 @@ use CycloneDX\Core\Serialization\DOM\Normalizers;
 use CycloneDX\Core\Spec\_SpecProtocol;
 use CycloneDX\Core\Spec\Version;
 use CycloneDX\Tests\_traits\DomNodeAssertionTrait;
-use DOMDocument;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
@@ -58,7 +57,7 @@ class BomNormalizerTest extends TestCase
             NormalizerFactory::class,
             [
                 'getSpec' => $spec,
-                'getDocument' => new DOMDocument(),
+                'getDocument' => new \DOMDocument(),
             ]
         );
         $normalizer = new Normalizers\BomNormalizer($factory);
@@ -88,7 +87,7 @@ class BomNormalizerTest extends TestCase
             NormalizerFactory::class,
             [
                 'getSpec' => $spec,
-                'getDocument' => new DOMDocument(),
+                'getDocument' => new \DOMDocument(),
                 'makeForComponentRepository' => $componentsNormalizer,
             ]
         );
@@ -132,7 +131,7 @@ class BomNormalizerTest extends TestCase
             NormalizerFactory::class,
             [
                 'getSpec' => $spec,
-                'getDocument' => new DOMDocument(),
+                'getDocument' => new \DOMDocument(),
                 'makeForMetadata' => $metadataNormalizer,
             ]
         );
@@ -175,7 +174,7 @@ class BomNormalizerTest extends TestCase
             NormalizerFactory::class,
             [
                 'getSpec' => $spec,
-                'getDocument' => new DOMDocument(),
+                'getDocument' => new \DOMDocument(),
                 'makeForMetadata' => $metadataNormalizer,
             ]
         );
@@ -220,7 +219,7 @@ class BomNormalizerTest extends TestCase
             NormalizerFactory::class,
             [
                 'getSpec' => $spec,
-                'getDocument' => new DOMDocument(),
+                'getDocument' => new \DOMDocument(),
                 'makeForDependencies' => $dependencyNormalizer,
             ]
         );
@@ -263,7 +262,7 @@ class BomNormalizerTest extends TestCase
             NormalizerFactory::class,
             [
                 'getSpec' => $spec,
-                'getDocument' => new DOMDocument(),
+                'getDocument' => new \DOMDocument(),
                 'makeForDependencies' => $dependencyNormalizer,
             ]
         );
@@ -305,7 +304,7 @@ class BomNormalizerTest extends TestCase
         $extRefNormalizer = $this->createMock(Normalizers\ExternalReferenceRepositoryNormalizer::class);
         $factory = $this->createConfiguredMock(NormalizerFactory::class, [
             'getSpec' => $spec,
-            'getDocument' => new DOMDocument(),
+            'getDocument' => new \DOMDocument(),
             'makeForExternalReferenceRepository' => $extRefNormalizer,
         ]);
         $normalizer = new Normalizers\BomNormalizer($factory);
@@ -358,7 +357,7 @@ class BomNormalizerTest extends TestCase
         $extRefNormalizer = $this->createMock(Normalizers\ExternalReferenceRepositoryNormalizer::class);
         $factory = $this->createConfiguredMock(NormalizerFactory::class, [
             'getSpec' => $spec,
-            'getDocument' => new DOMDocument(),
+            'getDocument' => new \DOMDocument(),
             'makeForExternalReferenceRepository' => $extRefNormalizer,
         ]);
         $normalizer = new Normalizers\BomNormalizer($factory);
@@ -409,7 +408,7 @@ class BomNormalizerTest extends TestCase
             NormalizerFactory::class,
             [
                 'getSpec' => $spec,
-                'getDocument' => new DOMDocument(),
+                'getDocument' => new \DOMDocument(),
                 'makeForPropertyRepository' => $propertiesNormalizer,
             ]
         );
@@ -448,7 +447,7 @@ class BomNormalizerTest extends TestCase
             NormalizerFactory::class,
             [
                 'getSpec' => $spec,
-                'getDocument' => new DOMDocument(),
+                'getDocument' => new \DOMDocument(),
                 'makeForPropertyRepository' => $propertiesNormalizer,
             ]
         );

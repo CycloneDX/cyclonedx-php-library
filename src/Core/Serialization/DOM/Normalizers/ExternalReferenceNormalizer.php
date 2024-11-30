@@ -29,9 +29,6 @@ use CycloneDX\Core\Collections\HashDictionary;
 use CycloneDX\Core\Enums\ExternalReferenceType;
 use CycloneDX\Core\Models\ExternalReference;
 use CycloneDX\Core\Serialization\DOM\_BaseNormalizer;
-use DomainException;
-use DOMElement;
-use UnexpectedValueException;
 
 /**
  * @author jkowalleck
@@ -39,14 +36,14 @@ use UnexpectedValueException;
 class ExternalReferenceNormalizer extends _BaseNormalizer
 {
     /**
-     * @throws DomainException          when the type was not supported by the spec
-     * @throws UnexpectedValueException when url was unable to convert to XML::anyURI
+     * @throws \DomainException          when the type was not supported by the spec
+     * @throws \UnexpectedValueException when url was unable to convert to XML::anyURI
      */
-    public function normalize(ExternalReference $externalReference): DOMElement
+    public function normalize(ExternalReference $externalReference): \DOMElement
     {
         $refURI = $externalReference->getUrl();
         $anyURI = XmlHelper::encodeAnyUriBE($refURI)
-            ?? throw new UnexpectedValueException("unable to make 'anyURI' from: $refURI");
+            ?? throw new \UnexpectedValueException("unable to make 'anyURI' from: $refURI");
 
         $factory = $this->getNormalizerFactory();
         $spec = $factory->getSpec();
@@ -56,7 +53,7 @@ class ExternalReferenceNormalizer extends _BaseNormalizer
             // prevent information-loss -> try transfer to OTHER
             $type = ExternalReferenceType::Other;
             if (false === $spec->isSupportedExternalReferenceType($type)) {
-                throw new DomainException('ExternalReference has unsupported type: '.$externalReference->getType()->name);
+                throw new \DomainException('ExternalReference has unsupported type: '.$externalReference->getType()->name);
             }
         }
 
@@ -77,7 +74,7 @@ class ExternalReferenceNormalizer extends _BaseNormalizer
         );
     }
 
-    private function normalizeHashes(HashDictionary $hashes): ?DOMElement
+    private function normalizeHashes(HashDictionary $hashes): ?\DOMElement
     {
         if (0 === \count($hashes)) {
             return null;

@@ -32,14 +32,10 @@ use CycloneDX\Core\Serialization\DOM\Normalizers;
 use CycloneDX\Core\Spec\_SpecProtocol;
 use CycloneDX\Tests\_data\AnyUriData;
 use CycloneDX\Tests\_traits\DomNodeAssertionTrait;
-use DomainException;
-use DOMDocument;
-use Generator;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\DataProviderExternal;
 use PHPUnit\Framework\TestCase;
-use UnexpectedValueException;
 
 #[CoversClass(Normalizers\ExternalReferenceNormalizer::class)]
 #[CoversClass(_BaseNormalizer::class)]
@@ -51,7 +47,7 @@ class ExternalReferenceNormalizerTest extends TestCase
     {
         $spec = $this->createMock(_SpecProtocol::class);
         $normalizerFactory = $this->createConfiguredMock(NormalizerFactory::class, [
-            'getDocument' => new DOMDocument(),
+            'getDocument' => new \DOMDocument(),
             'getSPec' => $spec,
         ]);
         $normalizer = new Normalizers\ExternalReferenceNormalizer($normalizerFactory);
@@ -79,7 +75,7 @@ class ExternalReferenceNormalizerTest extends TestCase
     {
         $spec = $this->createMock(_SpecProtocol::class);
         $normalizerFactory = $this->createConfiguredMock(NormalizerFactory::class, [
-            'getDocument' => new DOMDocument(),
+            'getDocument' => new \DOMDocument(),
             'getSpec' => $spec,
         ]);
         $normalizer = new Normalizers\ExternalReferenceNormalizer($normalizerFactory);
@@ -87,13 +83,13 @@ class ExternalReferenceNormalizerTest extends TestCase
             'getUrl' => $unsupportedURL,
         ]);
 
-        $this->expectException(UnexpectedValueException::class);
+        $this->expectException(\UnexpectedValueException::class);
         $this->expectExceptionMessage("unable to make 'anyURI' from: $unsupportedURL");
 
         $normalizer->normalize($extRef);
     }
 
-    public static function dpThrowOnUnsupportedUrl(): Generator
+    public static function dpThrowOnUnsupportedUrl(): \Generator
     {
         yield 'multiple #' => ['https://example.com#foo#bar'];
     }
@@ -102,7 +98,7 @@ class ExternalReferenceNormalizerTest extends TestCase
     {
         $spec = $this->createMock(_SpecProtocol::class);
         $normalizerFactory = $this->createConfiguredMock(NormalizerFactory::class, [
-            'getDocument' => new DOMDocument(),
+            'getDocument' => new \DOMDocument(),
             'getSpec' => $spec,
         ]);
         $normalizer = new Normalizers\ExternalReferenceNormalizer($normalizerFactory);
@@ -120,7 +116,7 @@ class ExternalReferenceNormalizerTest extends TestCase
                 [ExternalReferenceType::Other, false],
             ]);
 
-        $this->expectException(DomainException::class);
+        $this->expectException(\DomainException::class);
         $this->expectExceptionMessage('ExternalReference has unsupported type: BOM');
 
         $normalizer->normalize($extRef);
@@ -130,7 +126,7 @@ class ExternalReferenceNormalizerTest extends TestCase
     {
         $spec = $this->createMock(_SpecProtocol::class);
         $normalizerFactory = $this->createConfiguredMock(NormalizerFactory::class, [
-            'getDocument' => new DOMDocument(),
+            'getDocument' => new \DOMDocument(),
             'getSPec' => $spec,
         ]);
         $normalizer = new Normalizers\ExternalReferenceNormalizer($normalizerFactory);
@@ -158,7 +154,7 @@ class ExternalReferenceNormalizerTest extends TestCase
     {
         $spec = $this->createMock(_SpecProtocol::class);
         $normalizerFactory = $this->createConfiguredMock(NormalizerFactory::class, [
-            'getDocument' => new DOMDocument(),
+            'getDocument' => new \DOMDocument(),
             'getSPec' => $spec,
         ]);
         $normalizer = new Normalizers\ExternalReferenceNormalizer($normalizerFactory);
@@ -191,7 +187,7 @@ class ExternalReferenceNormalizerTest extends TestCase
         $HashDictionaryNormalizer = $this->createMock(Normalizers\HashDictionaryNormalizer::class);
         $normalizerFactory = $this->createConfiguredMock(NormalizerFactory::class, [
             'getSpec' => $spec,
-            'getDocument' => new DOMDocument(),
+            'getDocument' => new \DOMDocument(),
             'makeForHashDictionary' => $HashDictionaryNormalizer,
         ]);
         $normalizer = new Normalizers\ExternalReferenceNormalizer($normalizerFactory);
@@ -229,7 +225,7 @@ class ExternalReferenceNormalizerTest extends TestCase
         $HashDictionaryNormalizer = $this->createMock(Normalizers\HashDictionaryNormalizer::class);
         $normalizerFactory = $this->createConfiguredMock(NormalizerFactory::class, [
             'getSpec' => $spec,
-            'getDocument' => new DOMDocument(),
+            'getDocument' => new \DOMDocument(),
             'makeForHashDictionary' => $HashDictionaryNormalizer,
         ]);
         $normalizer = new Normalizers\ExternalReferenceNormalizer($normalizerFactory);
@@ -263,7 +259,7 @@ class ExternalReferenceNormalizerTest extends TestCase
         $HashDictionaryNormalizer = $this->createMock(Normalizers\HashDictionaryNormalizer::class);
         $normalizerFactory = $this->createConfiguredMock(NormalizerFactory::class, [
             'getSpec' => $spec,
-            'getDocument' => new DOMDocument(),
+            'getDocument' => new \DOMDocument(),
             'makeForHashDictionary' => $HashDictionaryNormalizer,
         ]);
         $normalizer = new Normalizers\ExternalReferenceNormalizer($normalizerFactory);
@@ -296,7 +292,7 @@ class ExternalReferenceNormalizerTest extends TestCase
     {
         $spec = $this->createMock(_SpecProtocol::class);
         $normalizerFactory = $this->createConfiguredMock(NormalizerFactory::class, [
-            'getDocument' => new DOMDocument(),
+            'getDocument' => new \DOMDocument(),
             'getSpec' => $spec,
         ]);
         $normalizer = new Normalizers\ExternalReferenceNormalizer($normalizerFactory);

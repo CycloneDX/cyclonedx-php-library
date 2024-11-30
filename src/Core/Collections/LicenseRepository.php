@@ -23,7 +23,6 @@ declare(strict_types=1);
 
 namespace CycloneDX\Core\Collections;
 
-use Countable;
 use CycloneDX\Core\Models\License\LicenseExpression;
 use CycloneDX\Core\Models\License\NamedLicense;
 use CycloneDX\Core\Models\License\SpdxLicense;
@@ -36,7 +35,7 @@ use CycloneDX\Core\Models\License\SpdxLicense;
  *
  * @author jkowalleck
  */
-class LicenseRepository implements Countable
+class LicenseRepository implements \Countable
 {
     /**
      * @var SpdxLicense[]|NamedLicense[]|LicenseExpression[]

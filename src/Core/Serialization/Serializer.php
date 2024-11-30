@@ -24,7 +24,6 @@ declare(strict_types=1);
 namespace CycloneDX\Core\Serialization;
 
 use CycloneDX\Core\Models\Bom;
-use Throwable;
 
 /**
  * @author jkowalleck
@@ -37,7 +36,7 @@ interface Serializer
      * @param Bom  $bom         the BOM to serialize
      * @param bool $prettyPrint whether to beatify the resulting string. A `null` value means no preference.
      *
-     * @throws Throwable
+     * @throws \Throwable
      *
      * @SuppressWarnings(PHPMD.BooleanArgumentFlag)
      */

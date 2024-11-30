@@ -33,14 +33,11 @@ use CycloneDX\Core\Validation\Exceptions\FailedLoadingSchemaException;
 use CycloneDX\Core\Validation\ValidationError;
 use CycloneDX\Core\Validation\Validators\JsonStrictValidator;
 use CycloneDX\Core\Validation\Validators\JsonValidator;
-use Generator;
-use JsonException;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\Constraint\IsInstanceOf;
 use PHPUnit\Framework\TestCase;
-use stdClass;
 
 #[CoversClass(JsonStrictValidator::class)]
 #[CoversClass(JsonValidator::class)]
@@ -65,7 +62,7 @@ class JsonStrictValidatorTest extends TestCase
         $json = '{"dummy": "true"}';
 
         $validator->expects(self::once())->method('validateData')
-            ->with(new IsInstanceOf(stdClass::class))
+            ->with(new IsInstanceOf(\stdClass::class))
             ->willReturn(null);
 
         $error = $validator->validateString($json);
@@ -80,7 +77,7 @@ class JsonStrictValidatorTest extends TestCase
         $expectedError = $this->createStub(JsonValidationError::class);
 
         $validator->expects(self::once())->method('validateData')
-            ->with(new IsInstanceOf(stdClass::class))
+            ->with(new IsInstanceOf(\stdClass::class))
             ->willReturn($expectedError);
 
         $error = $validator->validateString($json);
@@ -94,7 +91,7 @@ class JsonStrictValidatorTest extends TestCase
         $validator = new JsonStrictValidator($spec);
         $json = '{"dummy":';
 
-        $this->expectException(JsonException::class);
+        $this->expectException(\JsonException::class);
         $this->expectExceptionMessageMatches('/loading failed/i');
 
         $validator->validateString($json);
@@ -169,7 +166,7 @@ class JsonStrictValidatorTest extends TestCase
 
         $this->expectException(FailedLoadingSchemaException::class);
 
-        $validator->validateData(new stdClass());
+        $validator->validateData(new \stdClass());
     }
 
     #[DataProvider('dpSchemaTestDataValid')]
@@ -188,17 +185,17 @@ class JsonStrictValidatorTest extends TestCase
         $this->assertInstanceOf(JsonValidationError::class, $errors);
     }
 
-    public static function dpSchemaTestDataValid(): Generator
+    public static function dpSchemaTestDataValid(): \Generator
     {
         yield from self::dpSchemaTestData('valid');
     }
 
-    public static function dpSchemaTestDataInvalid(): Generator
+    public static function dpSchemaTestDataInvalid(): \Generator
     {
         yield from self::dpSchemaTestData('invalid');
     }
 
-    private static function dpSchemaTestData(string $filePrefix): Generator
+    private static function dpSchemaTestData(string $filePrefix): \Generator
     {
         /** @var _SpecProtocol $spec */
         foreach ([

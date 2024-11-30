@@ -26,7 +26,6 @@ namespace CycloneDX\Tests\Core\Models\License;
 use CycloneDX\Core\Enums\LicenseAcknowledgement;
 use CycloneDX\Core\Models\License\_DisjunctiveLicenseBase;
 use CycloneDX\Core\Models\License\SpdxLicense;
-use DomainException;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DependsUsingShallowClone;
 use PHPUnit\Framework\TestCase;
@@ -49,7 +48,7 @@ class SpdxLicenseTest extends TestCase
 
     public function testConstructWithEmptyStringThrows(): void
     {
-        $this->expectException(DomainException::class);
+        $this->expectException(\DomainException::class);
         $this->expectExceptionMessage('ID must not be empty');
 
         new SpdxLicense('');
@@ -58,7 +57,7 @@ class SpdxLicenseTest extends TestCase
     #[DependsUsingShallowClone('testConstruct')]
     public function testSetIdWithEmptyStringThrows(SpdxLicense $license): void
     {
-        $this->expectException(DomainException::class);
+        $this->expectException(\DomainException::class);
         $this->expectExceptionMessage('ID must not be empty');
 
         $license->setId('');

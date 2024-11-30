@@ -30,7 +30,6 @@ use CycloneDX\Core\Serialization\JSON\NormalizerFactory;
 use CycloneDX\Core\Serialization\JSON\Normalizers\PropertyNormalizer;
 use CycloneDX\Core\Serialization\JSON\Normalizers\PropertyRepositoryNormalizer;
 use CycloneDX\Core\Spec\_SpecProtocol;
-use DomainException;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
@@ -98,7 +97,7 @@ class PropertyRepositoryNormalizerTest extends TestCase
 
         $propertyNormalizer->expects(self::once())->method('normalize')
             ->with($property)
-            ->willThrowException(new DomainException());
+            ->willThrowException(new \DomainException());
 
         $actual = $normalizer->normalize($properties);
 

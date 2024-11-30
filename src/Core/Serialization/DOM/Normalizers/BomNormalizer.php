@@ -30,7 +30,6 @@ use CycloneDX\Core\Models\Bom;
 use CycloneDX\Core\Models\Metadata;
 use CycloneDX\Core\Serialization\DOM\_BaseNormalizer;
 use CycloneDX\Core\Spec\Format;
-use DOMElement;
 
 /**
  * @author jkowalleck
@@ -40,7 +39,7 @@ class BomNormalizer extends _BaseNormalizer
     /** @var string */
     private const XML_NAMESPACE_PATTERN = 'http://cyclonedx.org/schema/bom/%s';
 
-    public function normalize(Bom $bom): DOMElement
+    public function normalize(Bom $bom): \DOMElement
     {
         $factory = $this->getNormalizerFactory();
         $document = $factory->getDocument();
@@ -82,7 +81,7 @@ class BomNormalizer extends _BaseNormalizer
                 : null;
     }
 
-    private function normalizeComponents(ComponentRepository $components): DOMElement
+    private function normalizeComponents(ComponentRepository $components): \DOMElement
     {
         $factory = $this->getNormalizerFactory();
 
@@ -92,7 +91,7 @@ class BomNormalizer extends _BaseNormalizer
         );
     }
 
-    private function normalizeMetadata(Metadata $metadata): ?DOMElement
+    private function normalizeMetadata(Metadata $metadata): ?\DOMElement
     {
         $factory = $this->getNormalizerFactory();
 
@@ -107,7 +106,7 @@ class BomNormalizer extends _BaseNormalizer
             : null;
     }
 
-    private function normalizeExternalReferences(Bom $bom): ?DOMElement
+    private function normalizeExternalReferences(Bom $bom): ?\DOMElement
     {
         $factory = $this->getNormalizerFactory();
 
@@ -136,7 +135,7 @@ class BomNormalizer extends _BaseNormalizer
             );
     }
 
-    private function normalizeDependencies(Bom $bom): ?DOMElement
+    private function normalizeDependencies(Bom $bom): ?\DOMElement
     {
         $factory = $this->getNormalizerFactory();
 
@@ -154,7 +153,7 @@ class BomNormalizer extends _BaseNormalizer
             );
     }
 
-    private function normalizeProperties(PropertyRepository $properties): ?DOMElement
+    private function normalizeProperties(PropertyRepository $properties): ?\DOMElement
     {
         if (false === $this->getNormalizerFactory()->getSpec()->supportsBomProperties(Format::XML)) {
             return null;

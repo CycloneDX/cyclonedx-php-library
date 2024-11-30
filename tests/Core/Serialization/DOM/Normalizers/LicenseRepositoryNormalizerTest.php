@@ -33,7 +33,6 @@ use CycloneDX\Core\Serialization\DOM\Normalizers\LicenseNormalizer;
 use CycloneDX\Core\Serialization\DOM\Normalizers\LicenseRepositoryNormalizer;
 use CycloneDX\Core\Spec\_SpecProtocol;
 use CycloneDX\Tests\_traits\DomNodeAssertionTrait;
-use DOMElement;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
@@ -73,7 +72,7 @@ class LicenseRepositoryNormalizerTest extends TestCase
             'count' => 1,
             'getItems' => [$license],
         ]);
-        $FakeLicense = $this->createStub(DOMElement::class);
+        $FakeLicense = $this->createStub(\DOMElement::class);
 
         $licenseNormalizer->method('normalize')
             ->with($license)
@@ -100,7 +99,7 @@ class LicenseRepositoryNormalizerTest extends TestCase
             'count' => 1,
             'getItems' => [$licenseSpdx, $licenseNamed, $licenseExpression],
         ]);
-        $FakeLicense = $this->createStub(DOMElement::class);
+        $FakeLicense = $this->createStub(\DOMElement::class);
 
         $licenseNormalizer->method('normalize')
             ->with($licenseExpression)

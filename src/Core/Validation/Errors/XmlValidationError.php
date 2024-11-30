@@ -24,7 +24,6 @@ declare(strict_types=1);
 namespace CycloneDX\Core\Validation\Errors;
 
 use CycloneDX\Core\Validation\ValidationError;
-use LibXMLError;
 
 /**
  * @author jkowalleck
@@ -34,7 +33,7 @@ class XmlValidationError extends ValidationError
     /**
      * @internal as this function may be affected by breaking changes without notice
      */
-    public static function fromLibXMLError(LibXMLError $error): static
+    public static function fromLibXMLError(\LibXMLError $error): static
     {
         $instance = new static($error->message);
         $instance->error = $error;

@@ -28,7 +28,6 @@ use CycloneDX\Core\Serialization\JSON\_BaseNormalizer;
 use CycloneDX\Core\Serialization\JSON\NormalizerFactory;
 use CycloneDX\Core\Serialization\JSON\Normalizers\PropertyNormalizer;
 use CycloneDX\Core\Spec\_SpecProtocol;
-use DomainException;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
@@ -74,7 +73,7 @@ class PropertyNormalizerTest extends TestCase
         $factory = $this->createConfiguredMock(NormalizerFactory::class, ['getSpec' => $spec]);
         $normalizer = new PropertyNormalizer($factory);
 
-        $this->expectException(DomainException::class);
+        $this->expectException(\DomainException::class);
         $this->expectExceptionMessageMatches('/name/');
 
         $normalizer->normalize($property);

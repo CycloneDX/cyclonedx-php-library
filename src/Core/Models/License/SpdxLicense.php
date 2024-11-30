@@ -23,8 +23,6 @@ declare(strict_types=1);
 
 namespace CycloneDX\Core\Models\License;
 
-use DomainException;
-
 /**
  * Disjunctive license with (SPDX-)ID - aka SpdxLicense.
  *
@@ -60,14 +58,14 @@ class SpdxLicense
     /**
      * @psalm-assert non-empty-string $id
      *
-     * @throws DomainException if `$id` is empty string
+     * @throws \DomainException if `$id` is empty string
      *
      * @return $this
      */
     public function setId(string $id): static
     {
         if ('' === $id) {
-            throw new DomainException('ID must not be empty');
+            throw new \DomainException('ID must not be empty');
         }
         $this->id = $id;
 
@@ -77,7 +75,7 @@ class SpdxLicense
     /**
      * @psalm-assert non-empty-string $id
      *
-     * @throws DomainException if `$id` is empty string
+     * @throws \DomainException if `$id` is empty string
      */
     public function __construct(string $id)
     {

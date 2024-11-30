@@ -25,7 +25,6 @@ namespace CycloneDX\Core\Serialization\JSON\Normalizers;
 
 use CycloneDX\Core\Models\Property;
 use CycloneDX\Core\Serialization\JSON\_BaseNormalizer;
-use DomainException;
 
 /**
  * @author jkowalleck
@@ -33,14 +32,14 @@ use DomainException;
 class PropertyNormalizer extends _BaseNormalizer
 {
     /**
-     * @throws DomainException if property's name is empty
+     * @throws \DomainException if property's name is empty
      */
     public function normalize(Property $property): array
     {
         $name = $property->getName();
         if ('' === $name) {
             // this implementation detail is optional
-            throw new DomainException('empty name');
+            throw new \DomainException('empty name');
         }
 
         return [

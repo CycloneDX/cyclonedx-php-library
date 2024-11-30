@@ -25,7 +25,6 @@ namespace CycloneDX\Core\Serialization\DOM\Normalizers;
 
 use CycloneDX\Core\Collections\HashDictionary;
 use CycloneDX\Core\Serialization\DOM\_BaseNormalizer;
-use DomainException;
 use DOMElement;
 
 /**
@@ -34,7 +33,7 @@ use DOMElement;
 class HashDictionaryNormalizer extends _BaseNormalizer
 {
     /**
-     * @return DOMElement[]
+     * @return \DOMElement[]
      *
      * @psalm-return list<DOMElement>
      */
@@ -46,7 +45,7 @@ class HashDictionaryNormalizer extends _BaseNormalizer
         foreach ($repo->getItems() as [$algorithm , $content]) {
             try {
                 $hashes[] = $hashNormalizer->normalize($algorithm, $content);
-            } catch (DomainException) {
+            } catch (\DomainException) {
                 // pass
             }
         }

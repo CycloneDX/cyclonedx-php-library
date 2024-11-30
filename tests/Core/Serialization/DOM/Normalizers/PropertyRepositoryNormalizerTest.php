@@ -31,9 +31,6 @@ use CycloneDX\Core\Serialization\DOM\Normalizers\PropertyNormalizer;
 use CycloneDX\Core\Serialization\DOM\Normalizers\PropertyRepositoryNormalizer;
 use CycloneDX\Core\Spec\_SpecProtocol;
 use CycloneDX\Tests\_traits\DomNodeAssertionTrait;
-use DomainException;
-use DOMDocument;
-use DOMElement;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
@@ -51,7 +48,7 @@ class PropertyRepositoryNormalizerTest extends TestCase
         $propertyNormalizer = $this->createMock(PropertyNormalizer::class);
         $factory = $this->createConfiguredMock(NormalizerFactory::class, [
             'getSpec' => $spec,
-            'getDocument' => new DOMDocument(),
+            'getDocument' => new \DOMDocument(),
             'makeForProperty' => $propertyNormalizer,
         ]);
 
@@ -69,7 +66,7 @@ class PropertyRepositoryNormalizerTest extends TestCase
         $propertyNormalizer = $this->createMock(PropertyNormalizer::class);
         $factory = $this->createConfiguredMock(NormalizerFactory::class, [
             'getSpec' => $spec,
-            'getDocument' => new DOMDocument(),
+            'getDocument' => new \DOMDocument(),
             'makeForProperty' => $propertyNormalizer,
         ]);
         $normalizer = new PropertyRepositoryNormalizer($factory);
@@ -79,7 +76,7 @@ class PropertyRepositoryNormalizerTest extends TestCase
             'getItems' => [$property],
         ]);
 
-        $FakeProperty = $this->createStub(DOMElement::class);
+        $FakeProperty = $this->createStub(\DOMElement::class);
 
         $propertyNormalizer->expects(self::once())->method('normalize')
             ->with($property)
@@ -96,7 +93,7 @@ class PropertyRepositoryNormalizerTest extends TestCase
         $propertyNormalizer = $this->createMock(PropertyNormalizer::class);
         $factory = $this->createConfiguredMock(NormalizerFactory::class, [
             'getSpec' => $spec,
-            'getDocument' => new DOMDocument(),
+            'getDocument' => new \DOMDocument(),
             'makeForProperty' => $propertyNormalizer,
         ]);
         $normalizer = new PropertyRepositoryNormalizer($factory);
@@ -108,7 +105,7 @@ class PropertyRepositoryNormalizerTest extends TestCase
 
         $propertyNormalizer->expects(self::once())->method('normalize')
             ->with($property)
-            ->willThrowException(new DomainException());
+            ->willThrowException(new \DomainException());
 
         $actual = $normalizer->normalize($properties);
 

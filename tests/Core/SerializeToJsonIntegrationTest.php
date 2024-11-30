@@ -30,7 +30,6 @@ use CycloneDX\Core\Spec\SpecFactory;
 use CycloneDX\Core\Validation\Validators\JsonStrictValidator;
 use CycloneDX\Tests\_data\BomModelProvider;
 use CycloneDX\Tests\_traits\SnapshotTrait;
-use DomainException;
 use PHPUnit\Framework\Attributes\CoversNothing;
 use PHPUnit\Framework\Attributes\DataProviderExternal;
 use PHPUnit\Framework\Attributes\Large;
@@ -60,7 +59,7 @@ class SerializeToJsonIntegrationTest extends TestCase
     {
         $spec = SpecFactory::make1dot1();
 
-        $this->expectException(DomainException::class);
+        $this->expectException(\DomainException::class);
         $this->expectExceptionMessageMatches('/unsupported format "JSON"/i');
 
         $serializer = new JsonSerializer(new JSON\NormalizerFactory($spec));

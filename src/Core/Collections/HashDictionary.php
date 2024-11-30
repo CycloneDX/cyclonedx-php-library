@@ -23,7 +23,6 @@ declare(strict_types=1);
 
 namespace CycloneDX\Core\Collections;
 
-use Countable;
 use CycloneDX\Core\Enums\HashAlgorithm;
 
 /**
@@ -34,7 +33,7 @@ use CycloneDX\Core\Enums\HashAlgorithm;
  *
  * @author jkowalleck
  */
-class HashDictionary implements Countable
+class HashDictionary implements \Countable
 {
     /**
      * @psalm-var  array<string,HashAlgorithmContentTuple>

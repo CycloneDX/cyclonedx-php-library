@@ -35,8 +35,6 @@ use CycloneDX\Core\Serialization\JSON\_BaseNormalizer;
 use CycloneDX\Core\Serialization\JSON\NormalizerFactory;
 use CycloneDX\Core\Serialization\JSON\Normalizers;
 use CycloneDX\Core\Spec\_SpecProtocol;
-use DomainException;
-use Generator;
 use PackageUrl\PackageUrl;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
@@ -66,7 +64,7 @@ class ComponentNormalizerTest extends TestCase
             ->with(ComponentType::Library)
             ->willReturn(false);
 
-        $this->expectException(DomainException::class);
+        $this->expectException(\DomainException::class);
         $this->expectExceptionMessageMatches('/Component .+ has unsupported type/i');
 
         $normalizer->normalize($component);
@@ -105,7 +103,7 @@ class ComponentNormalizerTest extends TestCase
         self::assertSame($expected, $actual);
     }
 
-    public static function dptNormalizeMinimal(): Generator
+    public static function dptNormalizeMinimal(): \Generator
     {
         yield 'mandatory Component Version' => [
             [

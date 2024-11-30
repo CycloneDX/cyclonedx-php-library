@@ -29,18 +29,13 @@ use CycloneDX\Core\Collections\ToolRepository;
 use CycloneDX\Core\Models\Component;
 use CycloneDX\Core\Models\Metadata;
 use CycloneDX\Core\Serialization\DOM\_BaseNormalizer;
-use DateTime;
-use DateTimeInterface;
-use DateTimeZone;
-use DomainException;
-use DOMElement;
 
 /**
  * @author jkowalleck
  */
 class MetadataNormalizer extends _BaseNormalizer
 {
-    public function normalize(Metadata $metadata): DOMElement
+    public function normalize(Metadata $metadata): \DOMElement
     {
         return SimpleDOM::appendChildren(
             $this->getNormalizerFactory()->getDocument()->createElement('metadata'),
@@ -56,14 +51,14 @@ class MetadataNormalizer extends _BaseNormalizer
         );
     }
 
-    private function normalizeTimestamp(?DateTimeInterface $timestamp): ?DOMElement
+    private function normalizeTimestamp(?\DateTimeInterface $timestamp): ?\DOMElement
     {
         if (null === $timestamp) {
             return null;
         }
 
-        $dtZulu = DateTime::createFromInterface($timestamp)
-            ->setTimezone(new DateTimeZone('UTC'))
+        $dtZulu = \DateTime::createFromInterface($timestamp)
+            ->setTimezone(new \DateTimeZone('UTC'))
             ->format('Y-m-d\\TH:i:sp');
 
         return SimpleDOM::makeSafeTextElement(
@@ -73,7 +68,7 @@ class MetadataNormalizer extends _BaseNormalizer
         );
     }
 
-    private function normalizeTools(ToolRepository $tools): ?DOMElement
+    private function normalizeTools(ToolRepository $tools): ?\DOMElement
     {
         return 0 === \count($tools)
             ? null
@@ -83,7 +78,7 @@ class MetadataNormalizer extends _BaseNormalizer
             );
     }
 
-    private function normalizeComponent(?Component $component): ?DOMElement
+    private function normalizeComponent(?Component $component): ?\DOMElement
     {
         if (null === $component) {
             return null;
@@ -91,12 +86,12 @@ class MetadataNormalizer extends _BaseNormalizer
 
         try {
             return $this->getNormalizerFactory()->makeForComponent()->normalize($component);
-        } catch (DomainException) {
+        } catch (\DomainException) {
             return null;
         }
     }
 
-    private function normalizeProperties(PropertyRepository $properties): ?DOMElement
+    private function normalizeProperties(PropertyRepository $properties): ?\DOMElement
     {
         if (false === $this->getNormalizerFactory()->getSpec()->supportsMetadataProperties()) {
             return null;

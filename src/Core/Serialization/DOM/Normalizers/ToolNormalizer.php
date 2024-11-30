@@ -28,14 +28,13 @@ use CycloneDX\Core\Collections\ExternalReferenceRepository;
 use CycloneDX\Core\Collections\HashDictionary;
 use CycloneDX\Core\Models\Tool;
 use CycloneDX\Core\Serialization\DOM\_BaseNormalizer;
-use DOMElement;
 
 /**
  * @author jkowalleck
  */
 class ToolNormalizer extends _BaseNormalizer
 {
-    public function normalize(Tool $tool): DOMElement
+    public function normalize(Tool $tool): \DOMElement
     {
         $doc = $this->getNormalizerFactory()->getDocument();
 
@@ -51,7 +50,7 @@ class ToolNormalizer extends _BaseNormalizer
         );
     }
 
-    private function normalizeHashes(HashDictionary $hashes): ?DOMElement
+    private function normalizeHashes(HashDictionary $hashes): ?\DOMElement
     {
         $factory = $this->getNormalizerFactory();
 
@@ -63,7 +62,7 @@ class ToolNormalizer extends _BaseNormalizer
             );
     }
 
-    private function normalizeExternalReferences(ExternalReferenceRepository $extRefs): ?DOMElement
+    private function normalizeExternalReferences(ExternalReferenceRepository $extRefs): ?\DOMElement
     {
         $factory = $this->getNormalizerFactory();
 

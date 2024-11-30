@@ -32,9 +32,6 @@ use CycloneDX\Core\Validation\Errors\XmlValidationError;
 use CycloneDX\Core\Validation\Exceptions\FailedLoadingSchemaException;
 use CycloneDX\Core\Validation\ValidationError;
 use CycloneDX\Core\Validation\Validators\XmlValidator;
-use DOMDocument;
-use DOMException;
-use Generator;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\UsesClass;
@@ -63,7 +60,7 @@ class XmlValidatorTest extends TestCase
         $xml = '<bom/>';
 
         $validator->expects(self::once())->method('validateDom')
-            ->with(new IsInstanceOf(DOMDocument::class))
+            ->with(new IsInstanceOf(\DOMDocument::class))
             ->willReturn(null);
 
         $error = $validator->validateString($xml);
@@ -78,7 +75,7 @@ class XmlValidatorTest extends TestCase
         $expectedError = $this->createStub(XmlValidationError::class);
 
         $validator->expects(self::once())->method('validateDom')
-            ->with(new IsInstanceOf(DOMDocument::class))
+            ->with(new IsInstanceOf(\DOMDocument::class))
             ->willReturn($expectedError);
 
         $error = $validator->validateString($xml);
@@ -92,7 +89,7 @@ class XmlValidatorTest extends TestCase
         $validator = new XmlValidator($spec);
         $xml = '<bom>some invalid XML';
 
-        $this->expectException(DOMException::class);
+        $this->expectException(\DOMException::class);
         $this->expectExceptionMessageMatches('/loading failed/i');
 
         $validator->validateString($xml);
@@ -102,7 +99,7 @@ class XmlValidatorTest extends TestCase
     {
         $spec = $this->createConfiguredMock(_SpecProtocol::class, ['getVersion' => Version::v1dot2]);
         $validator = new XmlValidator($spec);
-        $doc = new DOMDocument();
+        $doc = new \DOMDocument();
         $loaded = $doc->loadXML(
             <<<'XML'
                 <?xml version="1.0" encoding="utf-8"?>
@@ -132,7 +129,7 @@ class XmlValidatorTest extends TestCase
     {
         $spec = $this->createConfiguredMock(_SpecProtocol::class, ['getVersion' => Version::v1dot2]);
         $validator = new XmlValidator($spec);
-        $doc = new DOMDocument();
+        $doc = new \DOMDocument();
         $loaded = $doc->loadXML(
             <<<'XML'
                 <?xml version="1.0" encoding="utf-8"?>
@@ -170,7 +167,7 @@ class XmlValidatorTest extends TestCase
     {
         $spec = $this->createConfiguredMock(_SpecProtocol::class, ['getVersion' => Version::v1dot2]);
         $validator = new XmlValidator($spec);
-        $doc = new DOMDocument();
+        $doc = new \DOMDocument();
         $loaded = $doc->loadXML(
             <<<'XML'
                 <?xml version="1.0" encoding="utf-8"?>
@@ -207,7 +204,7 @@ class XmlValidatorTest extends TestCase
 
         $spec = $this->createConfiguredMock(_SpecProtocol::class, ['getVersion' => Version::v1dot1]);
         $validator = new XmlValidator($spec);
-        $doc = $this->createPartialMock(DOMDocument::class, ['schemaValidate']);
+        $doc = $this->createPartialMock(\DOMDocument::class, ['schemaValidate']);
 
         $doc->expects(self::never())->method('schemaValidate');
 
@@ -232,17 +229,17 @@ class XmlValidatorTest extends TestCase
         $this->assertInstanceOf(XmlValidationError::class, $errors);
     }
 
-    public static function dpSchemaTestDataValid(): Generator
+    public static function dpSchemaTestDataValid(): \Generator
     {
         yield from self::dpSchemaTestData('valid');
     }
 
-    public static function dpSchemaTestDataInvalid(): Generator
+    public static function dpSchemaTestDataInvalid(): \Generator
     {
         yield from self::dpSchemaTestData('invalid');
     }
 
-    private static function dpSchemaTestData(string $filePrefix): Generator
+    private static function dpSchemaTestData(string $filePrefix): \Generator
     {
         /** @var _SpecProtocol $spec */
         foreach ([

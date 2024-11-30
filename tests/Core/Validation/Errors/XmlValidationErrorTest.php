@@ -25,7 +25,6 @@ namespace CycloneDX\Tests\Core\Validation\Errors;
 
 use CycloneDX\Core\Validation\Errors\XmlValidationError;
 use CycloneDX\Core\Validation\ValidationError;
-use LibXMLError;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
@@ -35,7 +34,7 @@ class XmlValidationErrorTest extends TestCase
 {
     public function testFromLibXMLError(): void
     {
-        $libXmlError = new LibXMLError();
+        $libXmlError = new \LibXMLError();
         $libXmlError->message = 'foo bar';
         $libXmlError->level = \LIBXML_ERR_ERROR;
         $libXmlError->code = 1337;

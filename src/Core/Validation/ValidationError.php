@@ -23,8 +23,6 @@ declare(strict_types=1);
 
 namespace CycloneDX\Core\Validation;
 
-use Throwable;
-
 /**
  * @author jkowalleck
  */
@@ -53,7 +51,7 @@ class ValidationError
     /**
      * @internal as this function may be affected by breaking changes without notice
      */
-    public static function fromThrowable(Throwable $error): static
+    public static function fromThrowable(\Throwable $error): static
     {
         $instance = new static($error->getMessage());
         $instance->error = $error;

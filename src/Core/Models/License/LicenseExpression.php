@@ -24,7 +24,6 @@ declare(strict_types=1);
 namespace CycloneDX\Core\Models\License;
 
 use CycloneDX\Core\Enums\LicenseAcknowledgement;
-use DomainException;
 
 /**
  * (SPDX) License Expression.
@@ -54,14 +53,14 @@ class LicenseExpression
     /**
      * @psalm-assert non-empty-string $expression
      *
-     * @throws DomainException if `$expression` is empty string
+     * @throws \DomainException if `$expression` is empty string
      *
      * @return $this
      */
     public function setExpression(string $expression): static
     {
         if ('' === $expression) {
-            throw new DomainException('expression must not be empty');
+            throw new \DomainException('expression must not be empty');
         }
         $this->expression = $expression;
 
@@ -84,7 +83,7 @@ class LicenseExpression
     /**
      * @psalm-assert non-empty-string $expression
      *
-     * @throws DomainException if `$expression` is empty string
+     * @throws \DomainException if `$expression` is empty string
      */
     public function __construct(string $expression)
     {

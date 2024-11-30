@@ -31,12 +31,9 @@ use CycloneDX\Core\Models\Component;
 use CycloneDX\Core\Models\Metadata;
 use CycloneDX\Core\Serialization\BaseSerializer;
 use CycloneDX\Core\Serialization\BomRefDiscriminator;
-use Exception;
-use Generator;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
-use Throwable;
 
 #[CoversClass(BaseSerializer::class)]
 #[UsesClass(BomRefDiscriminator::class)]
@@ -67,7 +64,7 @@ class BaseSerializerTest extends TestCase
     public function testSerializeForwardsExceptionsFromRealNormalize(): void
     {
         $bom = $this->createStub(Bom::class);
-        $exception = $this->createStub(Exception::class);
+        $exception = $this->createStub(\Exception::class);
         $serializer = $this->getMockForAbstractClass(BaseSerializer::class);
         $serializer->expects(self::once())
             ->method('realNormalize')
@@ -82,7 +79,7 @@ class BaseSerializerTest extends TestCase
 
     public function testSerializeForwardsExceptionsFromRealSerializer(): void
     {
-        $exception = $this->createStub(Exception::class);
+        $exception = $this->createStub(\Exception::class);
         $bom = $this->createStub(Bom::class);
         $serializer = $this->getMockForAbstractClass(BaseSerializer::class);
         $serializer->expects(self::once())
@@ -156,7 +153,7 @@ class BaseSerializerTest extends TestCase
             $allBomRefsValuesOriginal[] = [$bomRef, $bomRef->getValue()];
         }
         $allBomRefsValuesOnNormalize = [];
-        $exception = $this->createStub(Exception::class);
+        $exception = $this->createStub(\Exception::class);
         $serializer = $this->getMockForAbstractClass(BaseSerializer::class);
         $serializer->expects(self::once())
             ->method('realNormalize')
@@ -177,7 +174,7 @@ class BaseSerializerTest extends TestCase
         $caught = null;
         try {
             $serializer->serialize($bom);
-        } catch (Throwable $caught) {
+        } catch (\Throwable $caught) {
             /* pass on */
         }
 
@@ -194,7 +191,7 @@ class BaseSerializerTest extends TestCase
         );
     }
 
-    public function dpBomWithRefs(): Generator
+    public function dpBomWithRefs(): \Generator
     {
         $dependencies = $this->createStub(BomRefRepository::class);
 

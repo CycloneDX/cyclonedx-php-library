@@ -26,7 +26,6 @@ namespace CycloneDX\Core\Models;
 use CycloneDX\Core\Collections\ComponentRepository;
 use CycloneDX\Core\Collections\ExternalReferenceRepository;
 use CycloneDX\Core\Collections\PropertyRepository;
-use DomainException;
 
 /**
  * @author nscuro
@@ -145,7 +144,7 @@ class Bom
      *
      * @psalm-assert positive-int $version
      *
-     * @throws DomainException if version <= 0
+     * @throws \DomainException if version <= 0
      *
      * @return $this
      */
@@ -153,7 +152,7 @@ class Bom
     {
         $this->version = self::isValidVersion($version)
             ? $version
-            : throw new DomainException("Invalid value: $version");
+            : throw new \DomainException("Invalid value: $version");
 
         return $this;
     }

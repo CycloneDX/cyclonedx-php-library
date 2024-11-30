@@ -28,9 +28,6 @@ use CycloneDX\Core\Spec\Version;
 use CycloneDX\Core\Validation\BaseValidator;
 use CycloneDX\Core\Validation\Errors\XmlValidationError;
 use CycloneDX\Core\Validation\Exceptions\FailedLoadingSchemaException;
-use DOMDocument;
-use DOMException;
-use LibXMLError;
 
 /**
  * @author jkowalleck
@@ -54,7 +51,7 @@ class XmlValidator extends BaseValidator
 
     /**
      * @throws FailedLoadingSchemaException if schema file unknown or not readable
-     * @throws DOMException                 if loading the DOM failed
+     * @throws \DOMException                if loading the DOM failed
      */
     public function validateString(string $string): ?XmlValidationError
     {
@@ -68,7 +65,7 @@ class XmlValidator extends BaseValidator
      *
      * @SuppressWarnings(PHPMD.StaticAccess)
      */
-    public function validateDom(DOMDocument $doc): ?XmlValidationError
+    public function validateDom(\DOMDocument $doc): ?XmlValidationError
     {
         $error = $this->validateDomWithSchema($doc);
 
@@ -80,7 +77,7 @@ class XmlValidator extends BaseValidator
     /**
      * @throws FailedLoadingSchemaException
      */
-    private function validateDomWithSchema(DOMDocument $doc): ?LibXMLError
+    private function validateDomWithSchema(\DOMDocument $doc): ?\LibXMLError
     {
         $schema = $this->getSchemaFile();
 
@@ -97,11 +94,11 @@ class XmlValidator extends BaseValidator
     }
 
     /**
-     * @throws DOMException if loading the DOM failed
+     * @throws \DOMException if loading the DOM failed
      */
-    private function loadDomFromXml(string $xml): DOMDocument
+    private function loadDomFromXml(string $xml): \DOMDocument
     {
-        $doc = new DOMDocument();
+        $doc = new \DOMDocument();
         $options = \LIBXML_NONET;
         if (\defined('LIBXML_COMPACT')) {
             $options |= \LIBXML_COMPACT;
@@ -120,7 +117,7 @@ class XmlValidator extends BaseValidator
         libxml_use_internal_errors($prevXmlUIE);
 
         if ($error) {
-            throw new DOMException('loading failed: '.$error->message);
+            throw new \DOMException('loading failed: '.$error->message);
         }
 
         return $doc;

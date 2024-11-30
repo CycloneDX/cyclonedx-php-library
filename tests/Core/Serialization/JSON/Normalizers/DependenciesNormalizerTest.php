@@ -32,8 +32,6 @@ use CycloneDX\Core\Models\Metadata;
 use CycloneDX\Core\Serialization\JSON\_BaseNormalizer;
 use CycloneDX\Core\Serialization\JSON\NormalizerFactory;
 use CycloneDX\Core\Serialization\JSON\Normalizers\DependenciesNormalizer;
-use Exception;
-use Generator;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\UsesClass;
@@ -76,7 +74,7 @@ class DependenciesNormalizerTest extends TestCase
                 try {
                     self::assertEquals($expected, $actual);
                     continue 2; // expected was found
-                } catch (Exception $exception) {
+                } catch (\Exception $exception) {
                     // pass
                 }
             }
@@ -93,7 +91,7 @@ class DependenciesNormalizerTest extends TestCase
         );
     }
 
-    public function dpNormalize(): Generator
+    public function dpNormalize(): \Generator
     {
         $dependencies = $this->createStub(BomRefRepository::class);
 

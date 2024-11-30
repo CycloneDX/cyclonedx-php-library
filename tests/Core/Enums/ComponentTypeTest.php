@@ -25,7 +25,6 @@ namespace CycloneDX\Tests\Core\Enums;
 
 use CycloneDX\Core\Enums\ComponentType;
 use CycloneDX\Tests\_data\BomSpecData;
-use Generator;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
@@ -38,7 +37,7 @@ class ComponentTypeTest extends TestCase
         self::assertNotNull(ComponentType::tryFrom($value), "missing $value");
     }
 
-    public static function dpSchemaValues(): Generator
+    public static function dpSchemaValues(): \Generator
     {
         $allValues = array_unique(array_merge(
             BomSpecData::getClassificationEnumForVersion('1.0'),

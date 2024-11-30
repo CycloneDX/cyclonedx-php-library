@@ -31,7 +31,6 @@ use CycloneDX\Core\Serialization\JSON\Normalizers\ExternalReferenceNormalizer;
 use CycloneDX\Core\Serialization\JSON\Normalizers\ExternalReferenceRepositoryNormalizer;
 use CycloneDX\Core\Serialization\JSON\Normalizers\ToolNormalizer;
 use CycloneDX\Core\Spec\_SpecProtocol;
-use DomainException;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
@@ -102,7 +101,7 @@ class ExternalReferenceRepositoryNormalizerTest extends TestCase
 
         $externalReferenceNormalizer->expects(self::exactly(2))
             ->method('normalize')
-            ->willThrowException(new DomainException());
+            ->willThrowException(new \DomainException());
 
         $actual = $normalizer->normalize($tools);
 

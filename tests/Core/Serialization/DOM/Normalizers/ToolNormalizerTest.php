@@ -23,7 +23,6 @@ declare(strict_types=1);
 
 namespace CycloneDX\Tests\Core\Serialization\DOM\Normalizers;
 
-use BadMethodCallException;
 use CycloneDX\Core\Collections\ExternalReferenceRepository;
 use CycloneDX\Core\Collections\HashDictionary;
 use CycloneDX\Core\Models\Tool;
@@ -34,7 +33,6 @@ use CycloneDX\Core\Serialization\DOM\Normalizers\HashDictionaryNormalizer;
 use CycloneDX\Core\Serialization\DOM\Normalizers\ToolNormalizer;
 use CycloneDX\Core\Spec\_SpecProtocol;
 use CycloneDX\Tests\_traits\DomNodeAssertionTrait;
-use DOMDocument;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
@@ -54,7 +52,7 @@ class ToolNormalizerTest extends TestCase
             NormalizerFactory::class,
             [
                 'getSpec' => $spec,
-                'getDocument' => new DOMDocument(),
+                'getDocument' => new \DOMDocument(),
             ]
         );
         $normalizer = new ToolNormalizer($factory);
@@ -88,7 +86,7 @@ class ToolNormalizerTest extends TestCase
             NormalizerFactory::class,
             [
                 'getSpec' => $spec,
-                'getDocument' => new DOMDocument(),
+                'getDocument' => new \DOMDocument(),
                 'makeForHashDictionary' => $HashDictNormalizer,
                 'makeForExternalReferenceRepository' => $extRefRepoNormalizer,
             ]
@@ -139,7 +137,7 @@ class ToolNormalizerTest extends TestCase
             NormalizerFactory::class,
             [
                 'getSpec' => $spec,
-                'getDocument' => new DOMDocument(),
+                'getDocument' => new \DOMDocument(),
                 'makeForHashDictionary' => $HashDictNormalizer,
                 'makeForExternalReferenceRepository' => $extRefRepoNormalizer,
             ]
@@ -148,10 +146,10 @@ class ToolNormalizerTest extends TestCase
 
         $HashDictNormalizer->expects(self::never())
             ->method('normalize')
-            ->willThrowException(new BadMethodCallException());
+            ->willThrowException(new \BadMethodCallException());
         $extRefRepoNormalizer->expects(self::never())
             ->method('normalize')
-            ->willThrowException(new BadMethodCallException());
+            ->willThrowException(new \BadMethodCallException());
 
         $actual = $normalizer->normalize($tool);
 

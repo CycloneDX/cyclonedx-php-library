@@ -25,7 +25,6 @@ namespace CycloneDX\Core\Serialization\JSON\Normalizers;
 
 use CycloneDX\Core\Enums\HashAlgorithm;
 use CycloneDX\Core\Serialization\JSON\_BaseNormalizer;
-use DomainException;
 
 /**
  * @author jkowalleck
@@ -33,16 +32,16 @@ use DomainException;
 class HashNormalizer extends _BaseNormalizer
 {
     /**
-     * @throws DomainException
+     * @throws \DomainException
      */
     public function normalize(HashAlgorithm $algorithm, string $content): array
     {
         $spec = $this->getNormalizerFactory()->getSpec();
         if (false === $spec->isSupportedHashAlgorithm($algorithm)) {
-            throw new DomainException("Invalid hash algorithm: $algorithm->name", 1);
+            throw new \DomainException("Invalid hash algorithm: $algorithm->name", 1);
         }
         if (false === $spec->isSupportedHashContent($content)) {
-            throw new DomainException("Invalid hash content: $content", 2);
+            throw new \DomainException("Invalid hash content: $content", 2);
         }
 
         return [

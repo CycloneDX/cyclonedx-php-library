@@ -30,7 +30,6 @@ use CycloneDX\Core\Serialization\JSON\NormalizerFactory;
 use CycloneDX\Core\Serialization\JSON\Normalizers\ToolNormalizer;
 use CycloneDX\Core\Serialization\JSON\Normalizers\ToolRepositoryNormalizer;
 use CycloneDX\Core\Spec\_SpecProtocol;
-use DomainException;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
@@ -99,7 +98,7 @@ class ToolRepositoryNormalizerTest extends TestCase
 
         $toolNormalizer->expects(self::exactly(2))
             ->method('normalize')
-            ->willThrowException(new DomainException());
+            ->willThrowException(new \DomainException());
 
         $actual = $normalizer->normalize($tools);
 

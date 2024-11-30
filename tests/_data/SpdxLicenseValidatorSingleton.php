@@ -24,14 +24,13 @@ declare(strict_types=1);
 namespace CycloneDX\Tests\_data;
 
 use CycloneDX\Core\Spdx\LicenseValidator as SpdxLicenseValidator;
-use RuntimeException;
 
 abstract class SpdxLicenseValidatorSingleton
 {
     private static ?SpdxLicenseValidator $instance = null;
 
     /**
-     * @throws RuntimeException if loading licenses failed
+     * @throws \RuntimeException if loading licenses failed
      */
     public static function getInstance(): SpdxLicenseValidator
     {

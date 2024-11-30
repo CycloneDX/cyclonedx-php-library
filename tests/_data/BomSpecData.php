@@ -24,7 +24,6 @@ declare(strict_types=1);
 namespace CycloneDX\Tests\_data;
 
 use Generator;
-use SimpleXMLElement;
 
 use function PHPUnit\Framework\assertFileExists;
 use function PHPUnit\Framework\assertIsArray;
@@ -96,7 +95,7 @@ abstract class BomSpecData
         assertIsString($specXml);
         assertFileExists($specXml);
 
-        $xml = new SimpleXMLElement($specXml, 0, true);
+        $xml = new \SimpleXMLElement($specXml, 0, true);
         $xmlEnumElems = $xml->xpath("xs:simpleType[@name='licenseId']/xs:restriction/xs:enumeration/@value");
         assertIsArray($xmlEnumElems);
         assertNotCount(0, $xmlEnumElems);
@@ -137,10 +136,10 @@ abstract class BomSpecData
      *
      * @psalm-suppress MissingThrowsDocblock
      */
-    private static function getEnumValuesForNameFromFile(string $version, string $name): Generator
+    private static function getEnumValuesForNameFromFile(string $version, string $name): \Generator
     {
         $specXml = self::getSpecFilePath($version);
-        $xml = new SimpleXMLElement($specXml, 0, true);
+        $xml = new \SimpleXMLElement($specXml, 0, true);
         $xmlEnumElems = $xml->xpath("xs:simpleType[@name='$name']/xs:restriction/xs:enumeration/@value");
         assertIsArray($xmlEnumElems);
         foreach ($xmlEnumElems as $xmlEnumElem) {

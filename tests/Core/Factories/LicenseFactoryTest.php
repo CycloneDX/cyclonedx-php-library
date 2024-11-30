@@ -29,8 +29,6 @@ use CycloneDX\Core\Models\License\LicenseExpression;
 use CycloneDX\Core\Models\License\NamedLicense;
 use CycloneDX\Core\Models\License\SpdxLicense;
 use CycloneDX\Core\Spdx\LicenseIdentifiers;
-use DomainException;
-use InvalidArgumentException;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
@@ -117,7 +115,7 @@ class LicenseFactoryTest extends TestCase
         $this->licenseIdentifiers->method('isKnownLicense')
             ->with($license)->willReturn(false);
 
-        $this->expectException(DomainException::class);
+        $this->expectException(\DomainException::class);
         $this->expectExceptionMessageMatches('/unknown SPDX license/i');
 
         $this->factory->makeSpdxLicense($license);
@@ -141,7 +139,7 @@ class LicenseFactoryTest extends TestCase
         $expression = uniqid('expression', true);
         $this->spdxLicenses->method('validate')
             ->with($expression)->willReturn(false);
-        $this->expectException(DomainException::class);
+        $this->expectException(\DomainException::class);
         $this->expectExceptionMessageMatches('/invalid SPDX license expressions/i');
         $this->factory->makeExpression($expression);
     }
@@ -150,8 +148,8 @@ class LicenseFactoryTest extends TestCase
     {
         $expression = uniqid('expression', true);
         $this->spdxLicenses->method('validate')
-            ->with($expression)->willThrowException(new InvalidArgumentException());
-        $this->expectException(DomainException::class);
+            ->with($expression)->willThrowException(new \InvalidArgumentException());
+        $this->expectException(\DomainException::class);
         $this->expectExceptionMessageMatches('/invalid SPDX license expressions/i');
         $this->factory->makeExpression($expression);
     }
@@ -177,7 +175,7 @@ class LicenseFactoryTest extends TestCase
         $expected = $this->createStub(NamedLicense::class);
         $factory = $this->createPartialMock(LicenseFactory::class, ['makeSpdxLicense', 'makeNamedLicense']);
         $factory->method('makeSpdxLicense')
-            ->with($license)->willThrowException(new DomainException());
+            ->with($license)->willThrowException(new \DomainException());
         $factory->method('makeNamedLicense')
             ->with($license)->willReturn($expected);
         $actual = $factory->makeDisjunctive($license);
@@ -205,7 +203,7 @@ class LicenseFactoryTest extends TestCase
         $expected = $this->createStub(LicenseExpression::class);
         $factory = $this->createPartialMock(LicenseFactory::class, ['makeSpdxLicense', 'makeExpression']);
         $factory->method('makeSpdxLicense')
-            ->with($license)->willThrowException(new DomainException());
+            ->with($license)->willThrowException(new \DomainException());
         $factory->method('makeExpression')
             ->with($license)->willReturn($expected);
         $actual = $factory->makeFromString($license);
@@ -218,9 +216,9 @@ class LicenseFactoryTest extends TestCase
         $expected = $this->createStub(NamedLicense::class);
         $factory = $this->createPartialMock(LicenseFactory::class, ['makeSpdxLicense', 'makeExpression', 'makeNamedLicense']);
         $factory->method('makeSpdxLicense')
-            ->with($license)->willThrowException(new DomainException());
+            ->with($license)->willThrowException(new \DomainException());
         $factory->method('makeExpression')
-            ->with($license)->willThrowException(new DomainException());
+            ->with($license)->willThrowException(new \DomainException());
         $factory->method('makeNamedLicense')
             ->with($license)->willReturn($expected);
         $actual = $factory->makeFromString($license);

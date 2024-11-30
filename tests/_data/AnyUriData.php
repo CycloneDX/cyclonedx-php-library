@@ -32,11 +32,11 @@ abstract class AnyUriData
      * - XML::anyURL {@see https://datatracker.ietf.org/doc/html/rfc2396 spec}.
      * - JSON::iri-reference {@link https://datatracker.ietf.org/doc/html/rfc3987 spec}.
      *
-     * @return Generator<string[]>
+     * @return \Generator<string[]>
      *
      * @psalm-return Generator<string, array{0:string, 1:string}>
      */
-    public static function dpEncodeAnyUri(): Generator
+    public static function dpEncodeAnyUri(): \Generator
     {
         yield 'encode anyUri: empty' => ['', ''];
         yield 'encode anyUri: urn' => ['urn:example:org', 'urn:example:org'];

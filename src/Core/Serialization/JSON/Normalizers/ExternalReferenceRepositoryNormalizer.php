@@ -25,8 +25,6 @@ namespace CycloneDX\Core\Serialization\JSON\Normalizers;
 
 use CycloneDX\Core\Collections\ExternalReferenceRepository;
 use CycloneDX\Core\Serialization\JSON\_BaseNormalizer;
-use DomainException;
-use UnexpectedValueException;
 
 /**
  * @author jkowalleck
@@ -46,7 +44,7 @@ class ExternalReferenceRepositoryNormalizer extends _BaseNormalizer
         foreach ($repo->getItems() as $externalReference) {
             try {
                 $item = $normalizer->normalize($externalReference);
-            } catch (DomainException|UnexpectedValueException) {
+            } catch (\DomainException|\UnexpectedValueException) {
                 continue;
             }
             if (false === empty($item)) {

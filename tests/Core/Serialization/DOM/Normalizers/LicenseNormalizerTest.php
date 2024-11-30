@@ -31,8 +31,6 @@ use CycloneDX\Core\Serialization\DOM\NormalizerFactory;
 use CycloneDX\Core\Serialization\DOM\Normalizers\LicenseNormalizer;
 use CycloneDX\Core\Spec\_SpecProtocol;
 use CycloneDX\Tests\_traits\DomNodeAssertionTrait;
-use DOMDocument;
-use Generator;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
@@ -62,7 +60,7 @@ class LicenseNormalizerTest extends TestCase
             NormalizerFactory::class,
             [
                 'getSpec' => $spec,
-                'getDocument' => new DOMDocument(),
+                'getDocument' => new \DOMDocument(),
             ]
         );
         $normalizer = new LicenseNormalizer($factory);
@@ -80,7 +78,7 @@ class LicenseNormalizerTest extends TestCase
             NormalizerFactory::class,
             [
                 'getSpec' => $spec,
-                'getDocument' => new DOMDocument(),
+                'getDocument' => new \DOMDocument(),
             ]
         );
         $normalizer = new LicenseNormalizer($factory);
@@ -92,7 +90,7 @@ class LicenseNormalizerTest extends TestCase
             $actual);
     }
 
-    public static function dpNormalize(): Generator
+    public static function dpNormalize(): \Generator
     {
         yield 'license expression' => [
             LicenseExpression::class, [

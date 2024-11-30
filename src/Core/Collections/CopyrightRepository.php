@@ -23,12 +23,10 @@ declare(strict_types=1);
 
 namespace CycloneDX\Core\Collections;
 
-use Countable;
-
 /**
  * @author jkowalleck
  */
-class CopyrightRepository implements Countable
+class CopyrightRepository implements \Countable
 {
     /**
      * @var string[]

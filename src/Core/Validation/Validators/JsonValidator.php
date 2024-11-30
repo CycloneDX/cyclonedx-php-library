@@ -28,11 +28,7 @@ use CycloneDX\Core\Spec\Version;
 use CycloneDX\Core\Validation\BaseValidator;
 use CycloneDX\Core\Validation\Errors\JsonValidationError;
 use CycloneDX\Core\Validation\Exceptions\FailedLoadingSchemaException;
-use Exception;
-use JsonException;
 use Opis\JsonSchema;
-use stdClass;
-use Throwable;
 
 /**
  * @author jkowalleck
@@ -56,7 +52,7 @@ class JsonValidator extends BaseValidator
 
     /**
      * @throws FailedLoadingSchemaException if schema file unknown or not readable
-     * @throws JsonException                if loading the JSON failed
+     * @throws \JsonException               if loading the JSON failed
      */
     public function validateString(string $string): ?JsonValidationError
     {
@@ -70,7 +66,7 @@ class JsonValidator extends BaseValidator
      *
      * @SuppressWarnings(PHPMD.StaticAccess)
      */
-    public function validateData(stdClass $data): ?JsonValidationError
+    public function validateData(\stdClass $data): ?JsonValidationError
     {
         $schemaId = uniqid('validate:cdx-php-lib?r=', true);
         $resolver = new JsonSchema\Resolvers\SchemaResolver();
@@ -81,7 +77,7 @@ class JsonValidator extends BaseValidator
         try {
             $validationError = $validator->validate($data, $schemaId)->error();
             // @codeCoverageIgnoreStart
-        } catch (Throwable $error) {
+        } catch (\Throwable $error) {
             return JsonValidationError::fromThrowable($error);
         }
         // @codeCoverageIgnoreEnd
@@ -92,16 +88,16 @@ class JsonValidator extends BaseValidator
     }
 
     /**
-     * @throws JsonException if loading the JSON failed
+     * @throws \JsonException if loading the JSON failed
      */
-    private function loadDataFromJson(string $json): stdClass
+    private function loadDataFromJson(string $json): \stdClass
     {
         try {
             $data = json_decode($json, false, 1024, \JSON_THROW_ON_ERROR);
-        } catch (Exception $exception) {
-            throw new JsonException('loading failed', previous: $exception);
+        } catch (\Exception $exception) {
+            throw new \JsonException('loading failed', previous: $exception);
         }
-        \assert($data instanceof stdClass);
+        \assert($data instanceof \stdClass);
 
         return $data;
     }

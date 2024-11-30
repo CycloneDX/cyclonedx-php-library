@@ -30,7 +30,6 @@ use CycloneDX\Core\Spec\_SpecProtocol;
 use CycloneDX\Core\Spec\Format;
 use CycloneDX\Core\Spec\Version;
 use CycloneDX\Tests\_data\BomSpecData;
-use Generator;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
@@ -65,7 +64,7 @@ abstract class SpecBaseTestCase extends TestCase
         self::assertSame($expected, $isSupported);
     }
 
-    final public static function dpIsSupportsFormat(): Generator
+    final public static function dpIsSupportsFormat(): \Generator
     {
         $should = static::shouldSupportFormats();
         foreach (Format::cases() as $format) {
@@ -80,7 +79,7 @@ abstract class SpecBaseTestCase extends TestCase
         self::assertSame($expected, $isSupported);
     }
 
-    final public static function dpIsSupportedComponentType(): Generator
+    final public static function dpIsSupportedComponentType(): \Generator
     {
         $known = BomSpecData::getClassificationEnumForVersion(static::getSpecVersion()->value);
         $values = ComponentType::cases();
@@ -96,7 +95,7 @@ abstract class SpecBaseTestCase extends TestCase
         self::assertSame($expected, $isSupported);
     }
 
-    final public static function dpIsSupportedHashAlgorithm(): Generator
+    final public static function dpIsSupportedHashAlgorithm(): \Generator
     {
         $known = BomSpecData::getHashAlgEnumForVersion(static::getSpecVersion()->value);
         $values = HashAlgorithm::cases();
@@ -112,7 +111,7 @@ abstract class SpecBaseTestCase extends TestCase
         self::assertSame($expected, $isSupported);
     }
 
-    final public static function dpIsSupportedHashContent(): Generator
+    final public static function dpIsSupportedHashContent(): \Generator
     {
         yield 'crap' => ['this is an invalid hash', false];
         yield 'valid sha1' => ['a052cfe45093f1c2d26bd854d06aa370ceca3b38', true];
@@ -125,7 +124,7 @@ abstract class SpecBaseTestCase extends TestCase
         self::assertSame($expected, $isSupported);
     }
 
-    final public static function dpIsSupportedExternalReferenceType(): Generator
+    final public static function dpIsSupportedExternalReferenceType(): \Generator
     {
         $known = BomSpecData::getExternalReferenceTypeForVersion(static::getSpecVersion()->value);
         $values = ExternalReferenceType::cases();
@@ -141,7 +140,7 @@ abstract class SpecBaseTestCase extends TestCase
         self::assertSame($expected, $isSupported);
     }
 
-    final public static function dpIsSupportedLicenseIdentifier(): Generator
+    final public static function dpIsSupportedLicenseIdentifier(): \Generator
     {
         $known = BomSpecData::getSpssLicenseIds();
         foreach ($known as $value) {
@@ -245,7 +244,7 @@ abstract class SpecBaseTestCase extends TestCase
         self::assertSame($shouldSupportBomProperties, $isSupported);
     }
 
-    final public static function dpSupportsBomProperties(): Generator
+    final public static function dpSupportsBomProperties(): \Generator
     {
         $should = static::shouldSupportBomProperties();
         foreach (Format::cases() as $format) {

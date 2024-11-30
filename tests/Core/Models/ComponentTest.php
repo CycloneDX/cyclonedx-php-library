@@ -32,7 +32,6 @@ use CycloneDX\Core\Enums\ComponentType;
 use CycloneDX\Core\Models\BomRef;
 use CycloneDX\Core\Models\Component;
 use CycloneDX\Core\Models\ComponentEvidence;
-use Generator;
 use PackageUrl\PackageUrl;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
@@ -166,7 +165,7 @@ class ComponentTest extends TestCase
         self::assertSame($expected, $component->getDescription());
     }
 
-    public static function dpDescriptionSetterGetter(): Generator
+    public static function dpDescriptionSetterGetter(): \Generator
     {
         yield 'null' => [null, null];
         yield 'empty string' => ['', null];
@@ -187,7 +186,7 @@ class ComponentTest extends TestCase
         self::assertSame($expected, $component->getAuthor());
     }
 
-    public static function dpAuthorSetterGetter(): Generator
+    public static function dpAuthorSetterGetter(): \Generator
     {
         yield 'null' => [null, null];
         yield 'empty string' => ['', null];
@@ -208,7 +207,7 @@ class ComponentTest extends TestCase
         self::assertSame($expected, $component->getGroup());
     }
 
-    public static function dpGroupSetterGetter(): Generator
+    public static function dpGroupSetterGetter(): \Generator
     {
         yield 'null' => [null, null];
         yield 'empty string' => ['', null];
@@ -285,7 +284,7 @@ class ComponentTest extends TestCase
         self::assertSame($expected, $component->getCopyright());
     }
 
-    public static function dpCopyrightSetterGetter(): Generator
+    public static function dpCopyrightSetterGetter(): \Generator
     {
         yield 'null' => [null, null];
         yield 'empty string' => ['', null];

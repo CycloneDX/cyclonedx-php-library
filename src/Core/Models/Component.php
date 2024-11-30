@@ -29,7 +29,6 @@ use CycloneDX\Core\Collections\HashDictionary;
 use CycloneDX\Core\Collections\LicenseRepository;
 use CycloneDX\Core\Collections\PropertyRepository;
 use CycloneDX\Core\Enums\ComponentType;
-use DomainException;
 use PackageUrl\PackageUrl;
 
 /**
@@ -389,7 +388,7 @@ class Component
     }
 
     /**
-     * @throws DomainException if type is unknown
+     * @throws \DomainException if type is unknown
      */
     public function __construct(ComponentType $type, string $name)
     {

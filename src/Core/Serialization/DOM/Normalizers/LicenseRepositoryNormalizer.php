@@ -36,7 +36,7 @@ class LicenseRepositoryNormalizer extends _BaseNormalizer
     /**
      * If there is any {@see LicenseExpression} in `$repo`, then this is the only item that is normalized.
      *
-     * @return DOMElement[]
+     * @return \DOMElement[]
      *
      * @psalm-return list<DOMElement>
      */

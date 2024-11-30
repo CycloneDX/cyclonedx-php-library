@@ -28,8 +28,6 @@ use CycloneDX\Core\Models\License\LicenseExpression;
 use CycloneDX\Core\Models\License\NamedLicense;
 use CycloneDX\Core\Models\License\SpdxLicense;
 use CycloneDX\Core\Spdx\LicenseIdentifiers;
-use DomainException;
-use InvalidArgumentException;
 
 class LicenseFactory
 {
@@ -53,12 +51,12 @@ class LicenseFactory
     {
         try {
             return $this->makeSpdxLicense($license);
-        } catch (DomainException) {
+        } catch (\DomainException) {
             /* pass */
         }
         try {
             return $this->makeExpression($license);
-        } catch (DomainException) {
+        } catch (\DomainException) {
             /* pass */
         }
 
@@ -69,35 +67,35 @@ class LicenseFactory
     {
         try {
             return $this->makeSpdxLicense($license);
-        } catch (DomainException) {
+        } catch (\DomainException) {
             return $this->makeNamedLicense($license);
         }
     }
 
     /**
-     * @throws DomainException when the SPDX license expressions was invalid
+     * @throws \DomainException when the SPDX license expressions was invalid
      */
     public function makeExpression(string $license): LicenseExpression
     {
         try {
             $valid = $this->spdxLicenses->validate($license);
-        } catch (InvalidArgumentException) {
+        } catch (\InvalidArgumentException) {
             $valid = false;
         }
         if ($valid) {
             return new LicenseExpression($license);
         }
-        throw new DomainException("invalid SPDX license expressions: $license");
+        throw new \DomainException("invalid SPDX license expressions: $license");
     }
 
     /**
-     * @throws DomainException when the SPDX license ID is unknown
+     * @throws \DomainException when the SPDX license ID is unknown
      */
     public function makeSpdxLicense(string $license): SpdxLicense
     {
         $fixed = $this->licenseIdentifiers->fixLicense($license);
         if (null === $fixed) {
-            throw new DomainException("unknown SPDX license ID: $license");
+            throw new \DomainException("unknown SPDX license ID: $license");
         }
 
         return new SpdxLicense($fixed);

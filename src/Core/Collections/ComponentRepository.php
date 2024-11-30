@@ -23,7 +23,6 @@ declare(strict_types=1);
 
 namespace CycloneDX\Core\Collections;
 
-use Countable;
 use CycloneDX\Core\Models\Component;
 
 /**
@@ -31,7 +30,7 @@ use CycloneDX\Core\Models\Component;
  *
  * @author jkowalleck
  */
-class ComponentRepository implements Countable
+class ComponentRepository implements \Countable
 {
     /**
      * @var Component[]

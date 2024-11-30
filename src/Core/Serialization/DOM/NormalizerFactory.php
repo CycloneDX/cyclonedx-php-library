@@ -25,8 +25,6 @@ namespace CycloneDX\Core\Serialization\DOM;
 
 use CycloneDX\Core\Spec\_SpecProtocol as Spec;
 use CycloneDX\Core\Spec\Format;
-use DomainException;
-use DOMDocument;
 
 /**
  * @SuppressWarnings(PHPMD.TooManyPublicMethods)
@@ -41,17 +39,17 @@ class NormalizerFactory
 
     private readonly Spec $spec;
 
-    private readonly DOMDocument $document;
+    private readonly \DOMDocument $document;
 
     /**
-     * @throws DomainException when the spec does not support XML format
+     * @throws \DomainException when the spec does not support XML format
      */
     public function __construct(Spec $spec)
     {
         $this->spec = $spec->isSupportedFormat(self::FORMAT)
             ? $spec
-            : throw new DomainException('Unsupported format "'.self::FORMAT->name.'" for spec '.$spec->getVersion()->name);
-        $this->document = new DOMDocument();
+            : throw new \DomainException('Unsupported format "'.self::FORMAT->name.'" for spec '.$spec->getVersion()->name);
+        $this->document = new \DOMDocument();
     }
 
     // intention: all factory methods return an instance of "_BaseNormalizer"
@@ -61,7 +59,7 @@ class NormalizerFactory
         return $this->spec;
     }
 
-    public function getDocument(): DOMDocument
+    public function getDocument(): \DOMDocument
     {
         return $this->document;
     }

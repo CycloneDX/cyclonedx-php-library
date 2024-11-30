@@ -31,14 +31,10 @@ use CycloneDX\Core\Serialization\DOM\Normalizers\ExternalReferenceNormalizer;
 use CycloneDX\Core\Serialization\DOM\Normalizers\ExternalReferenceRepositoryNormalizer;
 use CycloneDX\Core\Serialization\DOM\Normalizers\ToolNormalizer;
 use CycloneDX\Core\Spec\_SpecProtocol;
-use DomainException;
-use DOMElement;
-use Generator;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
-use UnexpectedValueException;
 
 #[CoversClass(ExternalReferenceRepositoryNormalizer::class)]
 #[CoversClass(_BaseNormalizer::class)]
@@ -77,7 +73,7 @@ class ExternalReferenceRepositoryNormalizerTest extends TestCase
             'count' => 1,
             'getItems' => [$externalReference],
         ]);
-        $FakeExtRef = $this->createStub(DOMElement::class);
+        $FakeExtRef = $this->createStub(\DOMElement::class);
 
         $externalReferenceNormalizer->expects(self::once())
             ->method('normalize')
@@ -118,9 +114,9 @@ class ExternalReferenceRepositoryNormalizerTest extends TestCase
         self::assertSame([], $actual);
     }
 
-    public static function dpNormalizeSkipsOnThrow(): Generator
+    public static function dpNormalizeSkipsOnThrow(): \Generator
     {
-        yield 'DomainException' => [DomainException::class];
-        yield 'UnexpectedValueException' => [UnexpectedValueException::class];
+        yield 'DomainException' => [\DomainException::class];
+        yield 'UnexpectedValueException' => [\UnexpectedValueException::class];
     }
 }

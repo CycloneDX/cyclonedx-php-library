@@ -23,7 +23,6 @@ declare(strict_types=1);
 
 namespace CycloneDX\Core\Collections;
 
-use Countable;
 use CycloneDX\Core\Models\Property;
 
 /**
@@ -31,7 +30,7 @@ use CycloneDX\Core\Models\Property;
  *
  * @author jkowalleck
  */
-class PropertyRepository implements Countable
+class PropertyRepository implements \Countable
 {
     /**
      * @var Property[]

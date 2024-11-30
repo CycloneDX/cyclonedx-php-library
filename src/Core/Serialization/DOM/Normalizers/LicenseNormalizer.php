@@ -29,21 +29,20 @@ use CycloneDX\Core\Models\License\LicenseExpression;
 use CycloneDX\Core\Models\License\NamedLicense;
 use CycloneDX\Core\Models\License\SpdxLicense;
 use CycloneDX\Core\Serialization\DOM\_BaseNormalizer;
-use DOMElement;
 
 /**
  * @author jkowalleck
  */
 class LicenseNormalizer extends _BaseNormalizer
 {
-    public function normalize(LicenseExpression|SpdxLicense|NamedLicense $license): DOMElement
+    public function normalize(LicenseExpression|SpdxLicense|NamedLicense $license): \DOMElement
     {
         return $license instanceof LicenseExpression
             ? $this->normalizeExpression($license)
             : $this->normalizeDisjunctive($license);
     }
 
-    private function normalizeExpression(LicenseExpression $license): DOMElement
+    private function normalizeExpression(LicenseExpression $license): \DOMElement
     {
         // TODO: IMPLEMENTED IF NEEDED: may throw, if not supported by the spec
         // $this->getNormalizerFactory()->getSpec()->supportsLicenseExpression()
@@ -68,7 +67,7 @@ class LicenseNormalizer extends _BaseNormalizer
     /**
      * @SuppressWarnings(PHPMD.ShortVariable)
      */
-    private function normalizeDisjunctive(SpdxLicense|NamedLicense $license): DOMElement
+    private function normalizeDisjunctive(SpdxLicense|NamedLicense $license): \DOMElement
     {
         $factory = $this->getNormalizerFactory();
 

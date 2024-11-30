@@ -25,7 +25,6 @@ namespace CycloneDX\Core\Serialization\JSON;
 
 use CycloneDX\Core\Spec\_SpecProtocol as Spec;
 use CycloneDX\Core\Spec\Format;
-use DomainException;
 
 /**
  * @SuppressWarnings(PHPMD.TooManyPublicMethods)
@@ -41,13 +40,13 @@ class NormalizerFactory
     private readonly Spec $spec;
 
     /**
-     * @throws DomainException when the spec does not support JSON format
+     * @throws \DomainException when the spec does not support JSON format
      */
     public function __construct(Spec $spec)
     {
         $this->spec = $spec->isSupportedFormat(self::FORMAT)
             ? $spec
-            : throw new DomainException('Unsupported format "'.self::FORMAT->name.'" for spec '.$spec->getVersion()->name);
+            : throw new \DomainException('Unsupported format "'.self::FORMAT->name.'" for spec '.$spec->getVersion()->name);
     }
 
     public function getSpec(): Spec

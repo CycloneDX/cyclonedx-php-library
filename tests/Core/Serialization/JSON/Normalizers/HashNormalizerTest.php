@@ -28,7 +28,6 @@ use CycloneDX\Core\Serialization\JSON\_BaseNormalizer;
 use CycloneDX\Core\Serialization\JSON\NormalizerFactory;
 use CycloneDX\Core\Serialization\JSON\Normalizers\HashNormalizer;
 use CycloneDX\Core\Spec\_SpecProtocol;
-use DomainException;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
@@ -76,7 +75,7 @@ class HashNormalizerTest extends TestCase
             )
         );
 
-        $this->expectException(DomainException::class);
+        $this->expectException(\DomainException::class);
         $this->expectExceptionMessageMatches('/invalid hash algorithm/i');
 
         $normalizer->normalize(HashAlgorithm::MD5, 'bar');
@@ -96,7 +95,7 @@ class HashNormalizerTest extends TestCase
             )
         );
 
-        $this->expectException(DomainException::class);
+        $this->expectException(\DomainException::class);
         $this->expectExceptionMessageMatches('/invalid hash content/i');
 
         $normalizer->normalize(HashAlgorithm::MD5, 'bar');

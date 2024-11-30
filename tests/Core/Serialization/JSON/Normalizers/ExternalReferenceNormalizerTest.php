@@ -31,12 +31,9 @@ use CycloneDX\Core\Serialization\JSON\NormalizerFactory;
 use CycloneDX\Core\Serialization\JSON\Normalizers;
 use CycloneDX\Core\Spec\_SpecProtocol;
 use CycloneDX\Tests\_data\AnyUriData;
-use DomainException;
-use Generator;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProviderExternal;
 use PHPUnit\Framework\TestCase;
-use UnexpectedValueException;
 
 #[CoversClass(Normalizers\ExternalReferenceNormalizer::class)]
 #[CoversClass(_BaseNormalizer::class)]
@@ -121,7 +118,7 @@ class ExternalReferenceNormalizerTest extends TestCase
                 [ExternalReferenceType::Other, false],
             ]);
 
-        $this->expectException(DomainException::class);
+        $this->expectException(\DomainException::class);
         $this->expectExceptionMessage('ExternalReference has unsupported type: BOM');
 
         $normalizer->normalize($extRef);
@@ -139,13 +136,13 @@ class ExternalReferenceNormalizerTest extends TestCase
             'getUrl' => $unsupportedURL,
         ]);
 
-        $this->expectException(UnexpectedValueException::class);
+        $this->expectException(\UnexpectedValueException::class);
         $this->expectExceptionMessage("invalid to format 'IriReference': $unsupportedURL");
 
         $normalizer->normalize($extRef);
     }
 
-    public static function dpThrowOnUnsupportedUrl(): Generator
+    public static function dpThrowOnUnsupportedUrl(): \Generator
     {
         yield 'multiple #' => ['https://example.com#foo#bar'];
     }

@@ -29,8 +29,6 @@ use CycloneDX\Core\Serialization\DOM\NormalizerFactory;
 use CycloneDX\Core\Serialization\DOM\Normalizers\PropertyNormalizer;
 use CycloneDX\Core\Spec\_SpecProtocol;
 use CycloneDX\Tests\_traits\DomNodeAssertionTrait;
-use DomainException;
-use DOMDocument;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
@@ -55,7 +53,7 @@ class PropertyNormalizerTest extends TestCase
             NormalizerFactory::class,
             [
                 'getSpec' => $spec,
-                'getDocument' => new DOMDocument(),
+                'getDocument' => new \DOMDocument(),
             ]
         );
         $normalizer = new PropertyNormalizer($factory);
@@ -82,12 +80,12 @@ class PropertyNormalizerTest extends TestCase
             NormalizerFactory::class,
             [
                 'getSpec' => $spec,
-                'getDocument' => new DOMDocument(),
+                'getDocument' => new \DOMDocument(),
             ]
         );
         $normalizer = new PropertyNormalizer($factory);
 
-        $this->expectException(DomainException::class);
+        $this->expectException(\DomainException::class);
         $this->expectExceptionMessageMatches('/name/');
 
         $normalizer->normalize($property);

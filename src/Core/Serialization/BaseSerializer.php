@@ -25,7 +25,6 @@ namespace CycloneDX\Core\Serialization;
 
 use CycloneDX\Core\Models\Bom;
 use CycloneDX\Core\Models\BomRef;
-use Exception;
 
 /**
  * @template TNormalizedBom
@@ -64,7 +63,7 @@ abstract class BaseSerializer implements Serializer
      * Also utilizes {@see BomRefDiscriminator}
      * to guarantee that each BomRef has a unique value.
      *
-     * @throws Exception
+     * @throws \Exception
      *
      * @return TNormalizedBom a version of the Bom that was normalized for serialization
      */
@@ -95,7 +94,7 @@ abstract class BaseSerializer implements Serializer
     /**
      * Normalize a {@see Bom} to the data structure that {@see realSerialize()} can handle.
      *
-     * @throws Exception
+     * @throws \Exception
      *
      * @return TNormalizedBom a version of the Bom that was normalized for serialization
      */
@@ -107,7 +106,7 @@ abstract class BaseSerializer implements Serializer
      *
      * @param TNormalizedBom $normalizedBom a version of the Bom that was normalized for serialization
      *
-     * @throws Exception
+     * @throws \Exception
      *
      * @SuppressWarnings(PHPMD.BooleanArgumentFlag)
      */

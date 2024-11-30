@@ -36,7 +36,7 @@ class DependenciesNormalizer extends _BaseNormalizer
      * Only named {@see BomRef BomRefs} will be taken into account.
      * Make sure to use the {@see \CycloneDX\Core\Serialization\BomRefDiscriminator} before calling.
      *
-     * @return DOMElement[]
+     * @return \DOMElement[]
      *
      * @psalm-return list<DOMElement>
      */
@@ -72,7 +72,7 @@ class DependenciesNormalizer extends _BaseNormalizer
         return $dependencies;
     }
 
-    private function normalizeDependency(BomRef $componentRef, BomRef ...$dependencyRefs): ?DOMElement
+    private function normalizeDependency(BomRef $componentRef, BomRef ...$dependencyRefs): ?\DOMElement
     {
         $componentRefValue = $componentRef->getValue();
         if (null === $componentRefValue) {

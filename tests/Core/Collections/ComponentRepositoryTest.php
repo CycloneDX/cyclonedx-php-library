@@ -25,7 +25,6 @@ namespace CycloneDX\Tests\Core\Collections;
 
 use CycloneDX\Core\Collections\ComponentRepository;
 use CycloneDX\Core\Models\Component;
-use Generator;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
@@ -89,7 +88,7 @@ class ComponentRepositoryTest extends TestCase
         }
     }
 
-    public function dpFindComponents(): Generator
+    public function dpFindComponents(): \Generator
     {
         yield 'nothing in empty' => [
             new ComponentRepository(),

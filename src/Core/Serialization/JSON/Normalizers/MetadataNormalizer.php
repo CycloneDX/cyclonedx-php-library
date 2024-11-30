@@ -29,10 +29,6 @@ use CycloneDX\Core\Collections\ToolRepository;
 use CycloneDX\Core\Models\Component;
 use CycloneDX\Core\Models\Metadata;
 use CycloneDX\Core\Serialization\JSON\_BaseNormalizer;
-use DateTime;
-use DateTimeInterface;
-use DateTimeZone;
-use DomainException;
 
 /**
  * @author jkowalleck
@@ -55,14 +51,14 @@ class MetadataNormalizer extends _BaseNormalizer
         );
     }
 
-    private function normalizeTimestamp(?DateTimeInterface $timestamp): ?string
+    private function normalizeTimestamp(?\DateTimeInterface $timestamp): ?string
     {
         if (null === $timestamp) {
             return null;
         }
 
-        return DateTime::createFromInterface($timestamp)
-            ->setTimezone(new DateTimeZone('UTC'))
+        return \DateTime::createFromInterface($timestamp)
+            ->setTimezone(new \DateTimeZone('UTC'))
             ->format('Y-m-d\\TH:i:sp');
     }
 
@@ -81,7 +77,7 @@ class MetadataNormalizer extends _BaseNormalizer
 
         try {
             return $this->getNormalizerFactory()->makeForComponent()->normalize($component);
-        } catch (DomainException) {
+        } catch (\DomainException) {
             return null;
         }
     }

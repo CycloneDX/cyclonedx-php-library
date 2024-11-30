@@ -26,7 +26,6 @@ namespace CycloneDX\Core\Spec;
 use CycloneDX\Core\Enums\ComponentType;
 use CycloneDX\Core\Enums\ExternalReferenceType;
 use CycloneDX\Core\Enums\HashAlgorithm;
-use DomainException;
 
 /**
  * Factory for {@see _SpecProtocol Specification} objects.
@@ -49,7 +48,7 @@ abstract class SpecFactory
     /**
      * Create the appropriate {@see _SpecProtocol Specification} based on {@see Version}.
      *
-     * @throws DomainException when $version was unsupported
+     * @throws \DomainException when $version was unsupported
      */
     public static function makeForVersion(Version $version): _SpecProtocol
     {
@@ -61,7 +60,7 @@ abstract class SpecFactory
             Version::v1dot5 => self::make1dot5(),
             Version::v1dot6 => self::make1dot6(),
             /* just in case fallback */
-            default => throw new DomainException('unsupported version: '.print_r($version, true)),
+            default => throw new \DomainException('unsupported version: '.print_r($version, true)),
         };
     }
 

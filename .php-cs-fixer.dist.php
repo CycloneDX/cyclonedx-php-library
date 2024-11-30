@@ -42,7 +42,6 @@ return (new PhpCsFixer\Config())
             '@Symfony:risky' => true,
             'declare_strict_types' => true,
             'header_comment' => ['header' => $header],
-            'global_namespace_import' => true,
             'fopen_flags' => ['b_mode' => true],
             'phpdoc_order' => true,
             'phpdoc_to_comment' => [

@@ -24,7 +24,6 @@ declare(strict_types=1);
 namespace CycloneDX\Core\Serialization;
 
 use CycloneDX\Core\Models\Bom;
-use DOMDocument;
 use DOMElement;
 
 /**
@@ -45,7 +44,7 @@ class XmlSerializer extends BaseSerializer
     ) {
     }
 
-    protected function realNormalize(Bom $bom): DOMElement
+    protected function realNormalize(Bom $bom): \DOMElement
     {
         return $this->normalizerFactory
             ->makeForBom()
@@ -54,7 +53,7 @@ class XmlSerializer extends BaseSerializer
 
     protected function realSerialize(/* DOMElement */ $normalizedBom, ?bool $prettyPrint): string
     {
-        $document = new DOMDocument($this->xmlVersion, $this->xmlEncoding);
+        $document = new \DOMDocument($this->xmlVersion, $this->xmlEncoding);
         $document->appendChild(
             $document->importNode(
                 $normalizedBom,

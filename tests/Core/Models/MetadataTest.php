@@ -27,7 +27,6 @@ use CycloneDX\Core\Collections\PropertyRepository;
 use CycloneDX\Core\Collections\ToolRepository;
 use CycloneDX\Core\Models\Component;
 use CycloneDX\Core\Models\Metadata;
-use DateTime;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DependsUsingShallowClone;
 use PHPUnit\Framework\Attributes\UsesClass;
@@ -53,7 +52,7 @@ class MetadataTest extends TestCase
     #[DependsUsingShallowClone('testConstructor')]
     public function testGetterSetterTimestamp(Metadata $metadata): void
     {
-        $timestamp = $this->createStub(DateTime::class);
+        $timestamp = $this->createStub(\DateTime::class);
         self::assertNotSame($timestamp, $metadata->getTimestamp());
         $actual = $metadata->setTimestamp($timestamp);
         self::assertSame($actual, $metadata);

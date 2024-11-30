@@ -30,9 +30,6 @@ use CycloneDX\Core\Serialization\DOM\_BaseNormalizer;
 use CycloneDX\Core\Serialization\DOM\NormalizerFactory;
 use CycloneDX\Core\Serialization\DOM\Normalizers\HashDictionaryNormalizer;
 use CycloneDX\Core\Serialization\DOM\Normalizers\HashNormalizer;
-use DomainException;
-use DOMDocument;
-use DOMElement;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
@@ -57,11 +54,11 @@ class HashDictionaryNormalizerTest extends TestCase
             NormalizerFactory::class,
             [
                 'makeForHash' => $hashNormalizer,
-                'getDocument' => new DOMDocument(),
+                'getDocument' => new \DOMDocument(),
             ]
         );
-        $dummy1 = $this->createStub(DOMElement::class);
-        $dummy2 = $this->createStub(DOMElement::class);
+        $dummy1 = $this->createStub(\DOMElement::class);
+        $dummy2 = $this->createStub(\DOMElement::class);
         $normalizer = new HashDictionaryNormalizer($factory);
         $repo = $this->createStub(HashDictionary::class);
         $repo->method('getItems')->willReturn([[HashAlgorithm::MD5, 'content1'], [HashAlgorithm::SHA_1, 'content2']]);
@@ -95,7 +92,7 @@ class HashDictionaryNormalizerTest extends TestCase
 
         $hashNormalizer->expects(self::exactly(3))
             ->method('normalize')
-            ->willThrowException(new DomainException());
+            ->willThrowException(new \DomainException());
 
         $got = $normalizer->normalize($repo);
 

@@ -23,7 +23,6 @@ declare(strict_types=1);
 
 namespace CycloneDX\Core\_helpers;
 
-use DOMDocument;
 use DOMElement;
 use DOMNode;
 
@@ -41,7 +40,7 @@ abstract class SimpleDOM
      *
      * @SuppressWarnings(PHPMD.ElseExpression)
      */
-    public static function setAttributes(DOMElement $element, iterable $attributes): DOMElement
+    public static function setAttributes(\DOMElement $element, iterable $attributes): \DOMElement
     {
         foreach ($attributes as $attName => $attValue) {
             if (null === $attValue) {
@@ -57,7 +56,7 @@ abstract class SimpleDOM
     /**
      * @psalm-param iterable<?DOMNode> $children
      */
-    public static function appendChildren(DOMElement $element, iterable $children): DOMElement
+    public static function appendChildren(\DOMElement $element, iterable $children): \DOMElement
     {
         foreach ($children as $child) {
             if (null !== $child) {
@@ -72,12 +71,12 @@ abstract class SimpleDOM
      * @param string|int|float|object|null $data either (something that can be cast to `string`) or `null`
      * @param bool                         $null whether to return `null` when `$data` is `null`
      *
-     * @return DOMElement|null `($null is true && $data is null ? null : DOMElement)`
+     * @return \DOMElement|null `($null is true && $data is null ? null : DOMElement)`
      *
      * @SuppressWarnings(PHPMD.BooleanArgumentFlag)
      * @SuppressWarnings(PHPMD.ElseExpression)
      */
-    public static function makeSafeTextElement(DOMDocument $document, string $name, string|int|float|object|null $data, bool $null = true): ?DOMElement
+    public static function makeSafeTextElement(\DOMDocument $document, string $name, string|int|float|object|null $data, bool $null = true): ?\DOMElement
     {
         $element = $document->createElement($name);
         if (null !== $data) {

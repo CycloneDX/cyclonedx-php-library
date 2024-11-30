@@ -33,9 +33,6 @@ use CycloneDX\Core\Serialization\DOM\_BaseNormalizer;
 use CycloneDX\Core\Serialization\DOM\NormalizerFactory;
 use CycloneDX\Core\Serialization\DOM\Normalizers\DependenciesNormalizer;
 use CycloneDX\Tests\_traits\DomNodeAssertionTrait;
-use DOMDocument;
-use Exception;
-use Generator;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\UsesClass;
@@ -63,7 +60,7 @@ class DependenciesNormalizerTest extends TestCase
         $this->factory = $this->createConfiguredMock(
             NormalizerFactory::class,
             [
-                'getDocument' => new DOMDocument(),
+                'getDocument' => new \DOMDocument(),
             ]
         );
         $this->normalizer = new DependenciesNormalizer($this->factory);
@@ -85,7 +82,7 @@ class DependenciesNormalizerTest extends TestCase
                 try {
                     self::assertStringEqualsDomNode($expected, $actual);
                     continue 2; // expected was found
-                } catch (Exception $exception) {
+                } catch (\Exception $exception) {
                     // pass
                 }
             }
@@ -102,7 +99,7 @@ class DependenciesNormalizerTest extends TestCase
         );
     }
 
-    public function dpNormalize(): Generator
+    public function dpNormalize(): \Generator
     {
         $dependencies = $this->createStub(BomRefRepository::class);
 

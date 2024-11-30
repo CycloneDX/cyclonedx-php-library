@@ -23,8 +23,6 @@ declare(strict_types=1);
 
 namespace CycloneDX\Core\Utils;
 
-use Exception;
-
 /**
  * Utility regarding:
  * - {@see \CycloneDX\Core\Models\Bom}.
@@ -38,7 +36,7 @@ abstract class BomUtility
      *
      * @since 2.1.0
      *
-     * @throws Exception if an appropriate source of randomness cannot be found
+     * @throws \Exception if an appropriate source of randomness cannot be found
      */
     public static function randomSerialNumber(): string
     {

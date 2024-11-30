@@ -31,8 +31,6 @@ use CycloneDX\Core\Collections\LicenseRepository;
 use CycloneDX\Core\Collections\PropertyRepository;
 use CycloneDX\Core\Models\Component;
 use CycloneDX\Core\Serialization\DOM\_BaseNormalizer;
-use DomainException;
-use DOMElement;
 use PackageUrl\PackageUrl;
 
 /**
@@ -41,9 +39,9 @@ use PackageUrl\PackageUrl;
 class ComponentNormalizer extends _BaseNormalizer
 {
     /**
-     * @throws DomainException if component has unsupported type
+     * @throws \DomainException if component has unsupported type
      */
-    public function normalize(Component $component): DOMElement
+    public function normalize(Component $component): \DOMElement
     {
         $name = $component->getName();
         $group = $component->getGroup();
@@ -58,7 +56,7 @@ class ComponentNormalizer extends _BaseNormalizer
             if (null !== $version) {
                 $reportFQN .= "@$version";
             }
-            throw new DomainException("Component '$reportFQN' has unsupported type: $type->name");
+            throw new \DomainException("Component '$reportFQN' has unsupported type: $type->name");
         }
 
         $bomRef = $spec->supportsBomRef()
@@ -111,7 +109,7 @@ class ComponentNormalizer extends _BaseNormalizer
         );
     }
 
-    private function normalizeLicenses(LicenseRepository $licenses): ?DOMElement
+    private function normalizeLicenses(LicenseRepository $licenses): ?\DOMElement
     {
         $factory = $this->getNormalizerFactory();
 
@@ -123,7 +121,7 @@ class ComponentNormalizer extends _BaseNormalizer
             );
     }
 
-    private function normalizeHashes(HashDictionary $hashes): ?DOMElement
+    private function normalizeHashes(HashDictionary $hashes): ?\DOMElement
     {
         $factory = $this->getNormalizerFactory();
 
@@ -135,7 +133,7 @@ class ComponentNormalizer extends _BaseNormalizer
             );
     }
 
-    private function normalizePurl(?PackageUrl $purl): ?DOMElement
+    private function normalizePurl(?PackageUrl $purl): ?\DOMElement
     {
         return null === $purl
             ? null
@@ -146,7 +144,7 @@ class ComponentNormalizer extends _BaseNormalizer
             );
     }
 
-    private function normalizeExternalReferences(ExternalReferenceRepository $extRefs): ?DOMElement
+    private function normalizeExternalReferences(ExternalReferenceRepository $extRefs): ?\DOMElement
     {
         $factory = $this->getNormalizerFactory();
 
@@ -158,7 +156,7 @@ class ComponentNormalizer extends _BaseNormalizer
             );
     }
 
-    private function normalizeProperties(PropertyRepository $properties): ?DOMElement
+    private function normalizeProperties(PropertyRepository $properties): ?\DOMElement
     {
         if (false === $this->getNormalizerFactory()->getSpec()->supportsComponentProperties()) {
             return null;

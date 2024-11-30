@@ -26,14 +26,13 @@ namespace CycloneDX\Core\Serialization\DOM\Normalizers;
 use CycloneDX\Core\_helpers\SimpleDOM;
 use CycloneDX\Core\Models\ComponentEvidence;
 use CycloneDX\Core\Serialization\DOM\_BaseNormalizer;
-use DOMElement;
 
 /**
  * @author jkowalleck
  */
 class ComponentEvidenceNormalizer extends _BaseNormalizer
 {
-    public function normalize(ComponentEvidence $evidence): DOMElement
+    public function normalize(ComponentEvidence $evidence): \DOMElement
     {
         $factory = $this->getNormalizerFactory();
         $document = $factory->getDocument();

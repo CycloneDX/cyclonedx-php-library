@@ -28,7 +28,6 @@ use CycloneDX\Core\Serialization\BaseSerializer;
 use CycloneDX\Core\Serialization\BomRefDiscriminator;
 use CycloneDX\Core\Serialization\JSON;
 use CycloneDX\Core\Serialization\JsonSerializer;
-use Generator;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\UsesClass;
@@ -57,7 +56,7 @@ class JsonSerializerTest extends TestCase
         self::assertSame($expected, $actual);
     }
 
-    public static function dpSerializeStructure(): Generator
+    public static function dpSerializeStructure(): \Generator
     {
         $normalizedDummy = uniqid('normalized', true);
         $normalizedDummyJson = json_encode($normalizedDummy);

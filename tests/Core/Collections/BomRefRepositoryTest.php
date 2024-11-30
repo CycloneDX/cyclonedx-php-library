@@ -25,7 +25,6 @@ namespace CycloneDX\Tests\Core\Collections;
 
 use CycloneDX\Core\Collections\BomRefRepository;
 use CycloneDX\Core\Models\BomRef;
-use Generator;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
@@ -57,7 +56,7 @@ class BomRefRepositoryTest extends TestCase
         }
     }
 
-    public static function dpNonEmptyConstructor(): Generator
+    public static function dpNonEmptyConstructor(): \Generator
     {
         $r1 = new BomRef();
         $r2 = new BomRef();
@@ -96,7 +95,7 @@ class BomRefRepositoryTest extends TestCase
         }
     }
 
-    public static function dpAddBomRef(): Generator
+    public static function dpAddBomRef(): \Generator
     {
         $r1 = new BomRef();
         $r2 = new BomRef();

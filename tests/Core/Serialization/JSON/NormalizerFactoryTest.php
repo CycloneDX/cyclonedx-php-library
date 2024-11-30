@@ -28,7 +28,6 @@ use CycloneDX\Core\Serialization\JSON\NormalizerFactory;
 use CycloneDX\Core\Serialization\JSON\Normalizers;
 use CycloneDX\Core\Spec\_SpecProtocol;
 use CycloneDX\Core\Spec\Version;
-use DomainException;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Depends;
 use PHPUnit\Framework\Attributes\UsesClass;
@@ -78,7 +77,7 @@ class NormalizerFactoryTest extends TestCase
             ]
         );
 
-        $this->expectException(DomainException::class);
+        $this->expectException(\DomainException::class);
         $this->expectExceptionMessageMatches('/unsupported format/i');
 
         new NormalizerFactory($spec);

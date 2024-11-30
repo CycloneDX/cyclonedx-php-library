@@ -31,9 +31,6 @@ use CycloneDX\Core\Serialization\JSON\_BaseNormalizer;
 use CycloneDX\Core\Serialization\JSON\NormalizerFactory;
 use CycloneDX\Core\Serialization\JSON\Normalizers;
 use CycloneDX\Core\Spec\_SpecProtocol;
-use DateTime;
-use DateTimeZone;
-use DomainException;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
@@ -59,8 +56,8 @@ class MetadataNormalizerTest extends TestCase
 
     public function testNormalizeTimestamp(): void
     {
-        $timeZone = new DateTimeZone('Pacific/Nauru');
-        $timestamp = new DateTime('2000-01-01 00:00:00', $timeZone);
+        $timeZone = new \DateTimeZone('Pacific/Nauru');
+        $timestamp = new \DateTime('2000-01-01 00:00:00', $timeZone);
         $metadata = $this->createConfiguredMock(
             Metadata::class,
             ['getTimestamp' => $timestamp]
@@ -172,7 +169,7 @@ class MetadataNormalizerTest extends TestCase
         $componentFactory->expects(self::once())
             ->method('normalize')
             ->with($metadata->getComponent())
-            ->willThrowException(new DomainException());
+            ->willThrowException(new \DomainException());
 
         $actual = $normalizer->normalize($metadata);
 

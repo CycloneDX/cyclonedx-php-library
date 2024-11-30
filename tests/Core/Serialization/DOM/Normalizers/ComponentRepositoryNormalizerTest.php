@@ -31,8 +31,6 @@ use CycloneDX\Core\Serialization\DOM\NormalizerFactory;
 use CycloneDX\Core\Serialization\DOM\Normalizers\ComponentNormalizer;
 use CycloneDX\Core\Serialization\DOM\Normalizers\ComponentRepositoryNormalizer;
 use CycloneDX\Core\Spec\_SpecProtocol;
-use DomainException;
-use DOMElement;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
@@ -68,7 +66,7 @@ class ComponentRepositoryNormalizerTest extends TestCase
             'count' => 1,
             'getItems' => [$component],
         ]);
-        $FakeComponent = $this->createStub(DOMElement::class);
+        $FakeComponent = $this->createStub(\DOMElement::class);
 
         $componentNormalizer->expects(self::once())->method('normalize')
             ->with($component)
@@ -97,7 +95,7 @@ class ComponentRepositoryNormalizerTest extends TestCase
 
         $componentNormalizer->expects(self::exactly(2))
             ->method('normalize')
-            ->willThrowException(new DomainException());
+            ->willThrowException(new \DomainException());
 
         $got = $normalizer->normalize($components);
 

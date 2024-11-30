@@ -23,8 +23,6 @@ declare(strict_types=1);
 
 namespace CycloneDX\Core\_helpers;
 
-use DOMDocument;
-
 /**
  * Namespace of functions related to XML.
  *
@@ -61,7 +59,7 @@ abstract class XML
      */
     public static function filterAnyUri(string $uri): bool
     {
-        $doc = new DOMDocument();
+        $doc = new \DOMDocument();
         $doc->appendChild($doc->createElement('t'))
             ->appendChild($doc->createCDATASection($uri));
 

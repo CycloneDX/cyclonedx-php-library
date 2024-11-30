@@ -23,8 +23,6 @@ declare(strict_types=1);
 
 namespace CycloneDX\Core\Validation\Exceptions;
 
-use RuntimeException;
-
-class FailedLoadingSchemaException extends RuntimeException
+class FailedLoadingSchemaException extends \RuntimeException
 {
 }

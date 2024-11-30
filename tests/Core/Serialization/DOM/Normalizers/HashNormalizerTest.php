@@ -28,8 +28,6 @@ use CycloneDX\Core\Serialization\DOM\NormalizerFactory;
 use CycloneDX\Core\Serialization\DOM\Normalizers\HashNormalizer;
 use CycloneDX\Core\Spec\_SpecProtocol;
 use CycloneDX\Tests\_traits\DomNodeAssertionTrait;
-use DomainException;
-use DOMDocument;
 use PHPUnit\Framework\TestCase;
 
 #[\PHPUnit\Framework\Attributes\CoversClass(HashNormalizer::class)]
@@ -50,7 +48,7 @@ class HashNormalizerTest extends TestCase
     {
         $factory = $this->createConfiguredMock(NormalizerFactory::class,
             [
-                'getDocument' => new DOMDocument(),
+                'getDocument' => new \DOMDocument(),
             ]
         );
         $normalizer = new HashNormalizer($factory);
@@ -83,7 +81,7 @@ class HashNormalizerTest extends TestCase
             )
         );
 
-        $this->expectException(DomainException::class);
+        $this->expectException(\DomainException::class);
         $this->expectExceptionMessageMatches('/invalid hash algorithm/i');
 
         $normalizer->normalize(HashAlgorithm::MD5, 'bar');
@@ -103,7 +101,7 @@ class HashNormalizerTest extends TestCase
             )
         );
 
-        $this->expectException(DomainException::class);
+        $this->expectException(\DomainException::class);
         $this->expectExceptionMessageMatches('/invalid hash content/i');
 
         $normalizer->normalize(HashAlgorithm::MD5, 'bar');

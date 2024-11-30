@@ -38,9 +38,6 @@ use CycloneDX\Core\Serialization\DOM\NormalizerFactory;
 use CycloneDX\Core\Serialization\DOM\Normalizers;
 use CycloneDX\Core\Spec\_SpecProtocol;
 use CycloneDX\Tests\_traits\DomNodeAssertionTrait;
-use DomainException;
-use DOMDocument;
-use Generator;
 use PackageUrl\PackageUrl;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
@@ -74,7 +71,7 @@ class ComponentNormalizerTest extends TestCase
             ->with(ComponentType::Library)
             ->willReturn(false);
 
-        $this->expectException(DomainException::class);
+        $this->expectException(\DomainException::class);
         $this->expectExceptionMessageMatches('/Component .+ has unsupported type/i');
 
         $normalizer->normalize($component);
@@ -100,7 +97,7 @@ class ComponentNormalizerTest extends TestCase
         $spec = $this->createMock(_SpecProtocol::class);
         $factory = $this->createConfiguredMock(
             NormalizerFactory::class,
-            ['getSpec' => $spec, 'getDocument' => new DOMDocument()]
+            ['getSpec' => $spec, 'getDocument' => new \DOMDocument()]
         );
         $normalizer = new Normalizers\ComponentNormalizer($factory);
 
@@ -116,7 +113,7 @@ class ComponentNormalizerTest extends TestCase
         self::assertStringEqualsDomNode($expected, $actual);
     }
 
-    public static function dbNormalizeMinimal(): Generator
+    public static function dbNormalizeMinimal(): \Generator
     {
         yield 'mandatory ComponentVersion' => [
             '<component type="library"><name>myName</name><version></version></component>',
@@ -165,7 +162,7 @@ class ComponentNormalizerTest extends TestCase
             NormalizerFactory::class,
             [
                 'getSpec' => $spec,
-                'getDocument' => new DOMDocument(),
+                'getDocument' => new \DOMDocument(),
                 'makeForLicenseRepository' => $licenseRepoNormalizer,
                 'makeForHashDictionary' => $hashDictionaryNormalizer,
                 'makeForComponentEvidence' => $evidenceNormalizer,
@@ -225,7 +222,7 @@ class ComponentNormalizerTest extends TestCase
             NormalizerFactory::class,
             [
                 'getSpec' => $spec,
-                'getDocument' => new DOMDocument(),
+                'getDocument' => new \DOMDocument(),
                 'makeForLicenseRepository' => $licenseRepoNormalizer,
             ]
         );
@@ -267,7 +264,7 @@ class ComponentNormalizerTest extends TestCase
             NormalizerFactory::class,
             [
                 'getSpec' => $spec,
-                'getDocument' => new DOMDocument(),
+                'getDocument' => new \DOMDocument(),
                 'makeForLicenseRepository' => $licenseRepoNormalizer,
             ]
         );
@@ -308,7 +305,7 @@ class ComponentNormalizerTest extends TestCase
             NormalizerFactory::class,
             [
                 'getSpec' => $spec,
-                'getDocument' => new DOMDocument(),
+                'getDocument' => new \DOMDocument(),
                 'makeForExternalReferenceRepository' => $externalReferenceRepositoryNormalizer,
             ]
         );
@@ -350,7 +347,7 @@ class ComponentNormalizerTest extends TestCase
             NormalizerFactory::class,
             [
                 'getSpec' => $spec,
-                'getDocument' => new DOMDocument(),
+                'getDocument' => new \DOMDocument(),
                 'makeForExternalReferenceRepository' => $externalReferenceRepositoryNormalizer,
             ]
         );
@@ -395,7 +392,7 @@ class ComponentNormalizerTest extends TestCase
             NormalizerFactory::class,
             [
                 'getSpec' => $spec,
-                'getDocument' => new DOMDocument(),
+                'getDocument' => new \DOMDocument(),
                 'makeForPropertyRepository' => $propertiesNormalizer,
             ]
         );
@@ -437,7 +434,7 @@ class ComponentNormalizerTest extends TestCase
             NormalizerFactory::class,
             [
                 'getSpec' => $spec,
-                'getDocument' => new DOMDocument(),
+                'getDocument' => new \DOMDocument(),
                 'makeForPropertyRepository' => $propertiesNormalizer,
             ]
         );

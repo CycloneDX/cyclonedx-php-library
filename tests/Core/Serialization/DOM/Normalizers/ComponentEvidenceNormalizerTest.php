@@ -33,7 +33,6 @@ use CycloneDX\Core\Serialization\DOM\NormalizerFactory;
 use CycloneDX\Core\Serialization\DOM\Normalizers;
 use CycloneDX\Core\Spec\_SpecProtocol;
 use CycloneDX\Tests\_traits\DomNodeAssertionTrait;
-use DOMDocument;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
@@ -57,7 +56,7 @@ class ComponentEvidenceNormalizerTest extends TestCase
         $spec = $this->createMock(_SpecProtocol::class);
         $factory = $this->createConfiguredMock(
             NormalizerFactory::class,
-            ['getSpec' => $spec, 'getDocument' => new DOMDocument()]
+            ['getSpec' => $spec, 'getDocument' => new \DOMDocument()]
         );
         $normalizer = new Normalizers\ComponentEvidenceNormalizer($factory);
 
@@ -81,7 +80,7 @@ class ComponentEvidenceNormalizerTest extends TestCase
             NormalizerFactory::class,
             [
                 'getSpec' => $spec,
-                'getDocument' => new DOMDocument(),
+                'getDocument' => new \DOMDocument(),
                 'makeForLicenseRepository' => $licenseRepoNormalizer,
             ]
         );

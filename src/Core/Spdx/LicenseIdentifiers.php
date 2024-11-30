@@ -24,8 +24,6 @@ declare(strict_types=1);
 namespace CycloneDX\Core\Spdx;
 
 use CycloneDX\Core\Resources;
-use JsonException;
-use RuntimeException;
 
 /**
  * Work with SPDX licences known to CycloneDX.
@@ -80,7 +78,7 @@ class LicenseIdentifiers
     /**
      * @psalm-assert array<string, string> $this->licenses
      *
-     * @throws RuntimeException when licenses could not be loaded
+     * @throws \RuntimeException when licenses could not be loaded
      */
     private function loadLicenses(): void
     {
@@ -93,9 +91,9 @@ class LicenseIdentifiers
         $file = $this->getResourcesFile();
         $json = file_exists($file)
             ? file_get_contents($file)
-            : throw new RuntimeException("Missing licenses file: $file");
+            : throw new \RuntimeException("Missing licenses file: $file");
         if (false === $json) {
-            throw new RuntimeException("Failed to get content from licenses file: $file");
+            throw new \RuntimeException("Failed to get content from licenses file: $file");
         }
 
         try {
@@ -109,8 +107,8 @@ class LicenseIdentifiers
              * @psalm-suppress MixedAssignment
              */
             ['enum' => $values] = json_decode($json, true, 3, \JSON_THROW_ON_ERROR);
-        } catch (JsonException $exception) {
-            throw new RuntimeException("Malformed licenses file: $file", previous: $exception);
+        } catch (\JsonException $exception) {
+            throw new \RuntimeException("Malformed licenses file: $file", previous: $exception);
         }
 
         $this->values = array_combine(

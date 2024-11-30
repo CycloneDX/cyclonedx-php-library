@@ -32,10 +32,6 @@ use CycloneDX\Core\Serialization\DOM\NormalizerFactory;
 use CycloneDX\Core\Serialization\DOM\Normalizers;
 use CycloneDX\Core\Spec\_SpecProtocol;
 use CycloneDX\Tests\_traits\DomNodeAssertionTrait;
-use DateTime;
-use DateTimeZone;
-use DomainException;
-use DOMDocument;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
@@ -53,7 +49,7 @@ class MetadataNormalizerTest extends TestCase
         $spec = $this->createMock(_SpecProtocol::class);
         $factory = $this->createConfiguredMock(
             NormalizerFactory::class,
-            ['getSpec' => $spec, 'getDocument' => new DOMDocument()]
+            ['getSpec' => $spec, 'getDocument' => new \DOMDocument()]
         );
         $normalizer = new Normalizers\MetadataNormalizer($factory);
 
@@ -64,8 +60,8 @@ class MetadataNormalizerTest extends TestCase
 
     public function testNormalizeTimestampIsToZuluWithoutModifications(): void
     {
-        $timeZone = new DateTimeZone('Pacific/Nauru');
-        $timestamp = new DateTime('2000-01-01 00:00:00', $timeZone);
+        $timeZone = new \DateTimeZone('Pacific/Nauru');
+        $timestamp = new \DateTime('2000-01-01 00:00:00', $timeZone);
         $metadata = $this->createConfiguredMock(
             Metadata::class,
             ['getTimestamp' => $timestamp]
@@ -75,7 +71,7 @@ class MetadataNormalizerTest extends TestCase
             NormalizerFactory::class,
             [
                 'getSpec' => $spec,
-                'getDocument' => new DOMDocument(),
+                'getDocument' => new \DOMDocument(),
             ]
         );
         $normalizer = new Normalizers\MetadataNormalizer($factory);
@@ -108,7 +104,7 @@ class MetadataNormalizerTest extends TestCase
             NormalizerFactory::class,
             [
                 'getSpec' => $spec,
-                'getDocument' => new DOMDocument(),
+                'getDocument' => new \DOMDocument(),
                 'makeForToolRepository' => $toolsRepoFactory,
             ]
         );
@@ -141,7 +137,7 @@ class MetadataNormalizerTest extends TestCase
             NormalizerFactory::class,
             [
                 'getSpec' => $spec,
-                'getDocument' => new DOMDocument(),
+                'getDocument' => new \DOMDocument(),
                 'makeForComponent' => $componentNormalizer,
             ]
         );
@@ -175,7 +171,7 @@ class MetadataNormalizerTest extends TestCase
             NormalizerFactory::class,
             [
                 'getSpec' => $spec,
-                'getDocument' => new DOMDocument(),
+                'getDocument' => new \DOMDocument(),
                 'makeForComponent' => $componentNormalizer,
             ]
         );
@@ -184,7 +180,7 @@ class MetadataNormalizerTest extends TestCase
         $componentNormalizer->expects(self::once())
             ->method('normalize')
             ->with($metadata->getComponent())
-            ->willThrowException(new DomainException());
+            ->willThrowException(new \DomainException());
 
         $actual = $normalizer->normalize($metadata);
 
@@ -212,7 +208,7 @@ class MetadataNormalizerTest extends TestCase
             NormalizerFactory::class,
             [
                 'getSpec' => $spec,
-                'getDocument' => new DOMDocument(),
+                'getDocument' => new \DOMDocument(),
                 'makeForPropertyRepository' => $propertiesNormalizer,
             ]
         );
@@ -248,7 +244,7 @@ class MetadataNormalizerTest extends TestCase
             NormalizerFactory::class,
             [
                 'getSpec' => $spec,
-                'getDocument' => new DOMDocument(),
+                'getDocument' => new \DOMDocument(),
                 'makeForPropertyRepository' => $propertiesNormalizer,
             ]
         );

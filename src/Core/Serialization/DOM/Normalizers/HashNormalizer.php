@@ -26,8 +26,6 @@ namespace CycloneDX\Core\Serialization\DOM\Normalizers;
 use CycloneDX\Core\_helpers\SimpleDOM;
 use CycloneDX\Core\Enums\HashAlgorithm;
 use CycloneDX\Core\Serialization\DOM\_BaseNormalizer;
-use DomainException;
-use DOMElement;
 
 /**
  * @author jkowalleck
@@ -35,16 +33,16 @@ use DOMElement;
 class HashNormalizer extends _BaseNormalizer
 {
     /**
-     * @throws DomainException
+     * @throws \DomainException
      */
-    public function normalize(HashAlgorithm $algorithm, string $content): DOMElement
+    public function normalize(HashAlgorithm $algorithm, string $content): \DOMElement
     {
         $spec = $this->getNormalizerFactory()->getSpec();
         if (false === $spec->isSupportedHashAlgorithm($algorithm)) {
-            throw new DomainException("Invalid hash algorithm: $algorithm->name", 1);
+            throw new \DomainException("Invalid hash algorithm: $algorithm->name", 1);
         }
         if (false === $spec->isSupportedHashContent($content)) {
-            throw new DomainException("Invalid hash content: $content", 2);
+            throw new \DomainException("Invalid hash content: $content", 2);
         }
 
         $element = SimpleDOM::makeSafeTextElement(

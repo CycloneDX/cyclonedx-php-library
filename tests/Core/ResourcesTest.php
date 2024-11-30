@@ -24,11 +24,9 @@ declare(strict_types=1);
 namespace CycloneDX\Tests\Core;
 
 use CycloneDX\Core\Resources;
-use Generator;
 use PHPUnit\Framework\Attributes\CoversNothing;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
-use ReflectionClass;
 
 #[CoversNothing]
 class ResourcesTest extends TestCase
@@ -40,7 +38,7 @@ class ResourcesTest extends TestCase
         self::assertDirectoryIsReadable($dir);
     }
 
-    public static function dpDirs(): Generator
+    public static function dpDirs(): \Generator
     {
         yield 'res root' => [Resources::DIR_ROOT];
         yield 'schema root' => [Resources::DIR_SCHEMA];
@@ -53,9 +51,9 @@ class ResourcesTest extends TestCase
         self::assertFileIsReadable($filePath);
     }
 
-    public static function dpFiles(): Generator
+    public static function dpFiles(): \Generator
     {
-        $constants = (new ReflectionClass(Resources::class))->getConstants();
+        $constants = (new \ReflectionClass(Resources::class))->getConstants();
         foreach ($constants as $name => $value) {
             if (str_starts_with($name, 'FILE')) {
                 yield $name => [$value];

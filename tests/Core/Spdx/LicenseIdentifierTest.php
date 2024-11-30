@@ -24,23 +24,21 @@ declare(strict_types=1);
 namespace CycloneDX\Tests\Core\Spdx;
 
 use CycloneDX\Core\Spdx\LicenseIdentifiers;
-use Generator;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
-use RuntimeException;
 
 #[CoversClass(LicenseIdentifiers::class)]
 class LicenseIdentifierTest extends TestCase
 {
-    public static function dpLicenses(): Generator
+    public static function dpLicenses(): \Generator
     {
         yield 'UPPERCASE (mod)' => ['APACHE-2.0'];
         yield 'lowercase (mod)' => ['mit'];
         yield 'PascalCase (original)' => ['Bitstream-Vera'];
     }
 
-    public static function dpKnownLicenses(): Generator
+    public static function dpKnownLicenses(): \Generator
     {
         foreach (['Apache-2.0', 'MIT', 'Bitstream-Vera'] as $license) {
             yield $license => [$license];
@@ -125,7 +123,7 @@ class LicenseIdentifierTest extends TestCase
             $licenses = $this->createPartialMock(LicenseIdentifiers::class, ['getResourcesFile']);
             $licenses->method('getResourcesFile')->willReturn($fakeResourcesFile);
 
-            $this->expectException(RuntimeException::class);
+            $this->expectException(\RuntimeException::class);
             $this->expectExceptionMessageMatches('/malformed licenses file/i');
 
             $licenses->__construct();
@@ -142,7 +140,7 @@ class LicenseIdentifierTest extends TestCase
         $licenses = $this->createPartialMock(LicenseIdentifiers::class, ['getResourcesFile']);
         $licenses->method('getResourcesFile')->willReturn($fakeResourcesFile);
 
-        $this->expectException(RuntimeException::class);
+        $this->expectException(\RuntimeException::class);
         $this->expectExceptionMessageMatches('/missing licenses file/i');
 
         $licenses->__construct();
@@ -161,7 +159,7 @@ class LicenseIdentifierTest extends TestCase
             $licenses = $this->createPartialMock(LicenseIdentifiers::class, ['getResourcesFile']);
             $licenses->method('getResourcesFile')->willReturn($fakeResourcesFile);
 
-            $this->expectException(RuntimeException::class);
+            $this->expectException(\RuntimeException::class);
             $this->expectExceptionMessageMatches('/failed to get content from licenses file/i');
 
             // suppress the warning/notice - we want the exception

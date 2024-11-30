@@ -30,7 +30,6 @@ use CycloneDX\Core\Serialization\JSON\_BaseNormalizer;
 use CycloneDX\Core\Serialization\JSON\NormalizerFactory;
 use CycloneDX\Core\Serialization\JSON\Normalizers\LicenseNormalizer;
 use CycloneDX\Core\Spec\_SpecProtocol;
-use Generator;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 
@@ -75,7 +74,7 @@ class LicenseNormalizerTest extends \PHPUnit\Framework\TestCase
             $actual);
     }
 
-    public static function dpNormalize(): Generator
+    public static function dpNormalize(): \Generator
     {
         yield 'license expression' => [
             LicenseExpression::class, [

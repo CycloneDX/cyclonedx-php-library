@@ -24,7 +24,6 @@ declare(strict_types=1);
 namespace CycloneDX\Tests\Core\Utils;
 
 use CycloneDX\Core\Utils\BomUtility;
-use Generator;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
@@ -39,7 +38,7 @@ class BomUtilityTest extends TestCase
         self::assertMatchesRegularExpression($pattern, $serialNumber);
     }
 
-    public static function dpRandomBomSerialNumberHasCorrectFormat(): Generator
+    public static function dpRandomBomSerialNumberHasCorrectFormat(): \Generator
     {
         yield 'from XSD' => ['/^urn:uuid:[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$|^\\{[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\\}$/'];
         yield 'from JSON schema' => ['/^urn:uuid:[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/'];

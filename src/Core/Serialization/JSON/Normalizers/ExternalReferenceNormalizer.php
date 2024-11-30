@@ -29,8 +29,6 @@ use CycloneDX\Core\Collections\HashDictionary;
 use CycloneDX\Core\Enums\ExternalReferenceType;
 use CycloneDX\Core\Models\ExternalReference;
 use CycloneDX\Core\Serialization\JSON\_BaseNormalizer;
-use DomainException;
-use UnexpectedValueException;
 
 /**
  * @author jkowalleck
@@ -38,8 +36,8 @@ use UnexpectedValueException;
 class ExternalReferenceNormalizer extends _BaseNormalizer
 {
     /**
-     * @throws UnexpectedValueException when the url is invalid to IriReference format
-     * @throws DomainException          when the type was not supported by the spec
+     * @throws \UnexpectedValueException when the url is invalid to IriReference format
+     * @throws \DomainException          when the type was not supported by the spec
      *
      * @SuppressWarnings(PHPMD.StaticAccess)
      */
@@ -47,7 +45,7 @@ class ExternalReferenceNormalizer extends _BaseNormalizer
     {
         $refURI = $externalReference->getUrl();
         $refIRI = JsonHelper::encodeIriReferenceBE($refURI)
-            ?? throw new UnexpectedValueException("invalid to format 'IriReference': $refURI");
+            ?? throw new \UnexpectedValueException("invalid to format 'IriReference': $refURI");
 
         $spec = $this->getNormalizerFactory()->getSpec();
         $type = $externalReference->getType();
@@ -55,7 +53,7 @@ class ExternalReferenceNormalizer extends _BaseNormalizer
             // prevent information-loss -> try transfer to OTHER
             $type = ExternalReferenceType::Other;
             if (false === $spec->isSupportedExternalReferenceType($type)) {
-                throw new DomainException('ExternalReference has unsupported type: '.$externalReference->getType()->name);
+                throw new \DomainException('ExternalReference has unsupported type: '.$externalReference->getType()->name);
             }
         }
 

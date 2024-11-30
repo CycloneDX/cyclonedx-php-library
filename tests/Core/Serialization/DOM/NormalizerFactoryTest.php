@@ -28,8 +28,6 @@ use CycloneDX\Core\Serialization\DOM\NormalizerFactory;
 use CycloneDX\Core\Serialization\DOM\Normalizers;
 use CycloneDX\Core\Spec\_SpecProtocol;
 use CycloneDX\Core\Spec\Version;
-use DomainException;
-use DOMDocument;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Depends;
 use PHPUnit\Framework\Attributes\UsesClass;
@@ -65,7 +63,7 @@ class NormalizerFactoryTest extends TestCase
 
         $factory = new NormalizerFactory($spec);
         self::assertSame($spec, $factory->getSpec());
-        self::assertInstanceOf(DOMDocument::class, $factory->getDocument());
+        self::assertInstanceOf(\DOMDocument::class, $factory->getDocument());
 
         return $factory;
     }
@@ -80,7 +78,7 @@ class NormalizerFactoryTest extends TestCase
             ]
         );
 
-        $this->expectException(DomainException::class);
+        $this->expectException(\DomainException::class);
         $this->expectExceptionMessageMatches('/unsupported format/i');
 
         new NormalizerFactory($spec);

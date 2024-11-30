@@ -31,7 +31,6 @@ use CycloneDX\Core\Collections\LicenseRepository;
 use CycloneDX\Core\Collections\PropertyRepository;
 use CycloneDX\Core\Models\Component;
 use CycloneDX\Core\Serialization\JSON\_BaseNormalizer;
-use DomainException;
 use PackageUrl\PackageUrl;
 
 /**
@@ -40,7 +39,7 @@ use PackageUrl\PackageUrl;
 class ComponentNormalizer extends _BaseNormalizer
 {
     /**
-     * @throws DomainException if component has unsupported type
+     * @throws \DomainException if component has unsupported type
      */
     public function normalize(Component $component): array
     {
@@ -56,7 +55,7 @@ class ComponentNormalizer extends _BaseNormalizer
             if (null !== $version) {
                 $reportFQN .= "@$version";
             }
-            throw new DomainException("Component '$reportFQN' has unsupported type: $type->name");
+            throw new \DomainException("Component '$reportFQN' has unsupported type: $type->name");
         }
 
         $bomRef = $spec->supportsBomRef()

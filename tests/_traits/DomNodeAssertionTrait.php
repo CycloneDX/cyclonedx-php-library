@@ -23,19 +23,16 @@ declare(strict_types=1);
 
 namespace CycloneDX\Tests\_traits;
 
-use DOMDocument;
-use DOMNode;
-use Exception;
 use PHPUnit\Framework\Assert;
 
 trait DomNodeAssertionTrait
 {
     /**
-     * @throws Exception
+     * @throws \Exception
      */
-    final protected static function assertDomNodeEqualsDomNode(DOMNode $expected, DOMNode $actual): void
+    final protected static function assertDomNodeEqualsDomNode(\DOMNode $expected, \DOMNode $actual): void
     {
-        $container = new DOMDocument();
+        $container = new \DOMDocument();
 
         $expectedNode = $container->appendChild($container->importNode($expected, true));
         $actualNode = $container->appendChild($container->importNode($actual, true));
@@ -44,11 +41,11 @@ trait DomNodeAssertionTrait
     }
 
     /**
-     * @throws Exception
+     * @throws \Exception
      */
-    final protected static function assertDomNodeEqualsString(DOMNode $expected, string $actual): void
+    final protected static function assertDomNodeEqualsString(\DOMNode $expected, string $actual): void
     {
-        $container = new DOMDocument();
+        $container = new \DOMDocument();
 
         $expectedNode = $container->appendChild($container->importNode($expected, true));
 
@@ -56,11 +53,11 @@ trait DomNodeAssertionTrait
     }
 
     /**
-     * @throws Exception
+     * @throws \Exception
      */
-    final protected static function assertStringEqualsDomNode(string $expected, DOMNode $actual, string $message = ''): void
+    final protected static function assertStringEqualsDomNode(string $expected, \DOMNode $actual, string $message = ''): void
     {
-        $container = new DOMDocument();
+        $container = new \DOMDocument();
 
         $actualNode = $container->appendChild($container->importNode($actual, true));
 
