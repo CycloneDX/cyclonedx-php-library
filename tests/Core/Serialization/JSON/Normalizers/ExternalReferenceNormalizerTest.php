@@ -34,6 +34,7 @@ use CycloneDX\Tests\_data\AnyUriData;
 use DomainException;
 use Generator;
 use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\DataProviderExternal;
 use PHPUnit\Framework\TestCase;
 use UnexpectedValueException;
@@ -127,7 +128,7 @@ class ExternalReferenceNormalizerTest extends TestCase
         $normalizer->normalize($extRef);
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('dpThrowOnUnsupportedUrl')]
+    #[DataProvider('dpThrowOnUnsupportedUrl')]
     public function testThrowOnUnsupportedUrl(string $unsupportedURL): void
     {
         $spec = $this->createMock(_SpecProtocol::class);

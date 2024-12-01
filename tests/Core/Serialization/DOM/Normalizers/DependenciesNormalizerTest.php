@@ -39,6 +39,7 @@ use Generator;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\UsesClass;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 #[CoversClass(DependenciesNormalizer::class)]
@@ -48,15 +49,9 @@ class DependenciesNormalizerTest extends TestCase
 {
     use DomNodeAssertionTrait;
 
-    /**
-     * @var NormalizerFactory|\PHPUnit\Framework\MockObject\MockObject
-     */
-    private $factory;
+    private NormalizerFactory&MockObject $factory;
 
-    /**
-     * @var DependenciesNormalizer
-     */
-    private $normalizer;
+    private DependenciesNormalizer $normalizer;
 
     protected function setUp(): void
     {

@@ -27,7 +27,7 @@ use Countable;
 use CycloneDX\Core\Enums\HashAlgorithm;
 
 /**
- * Dictionary of {@see HashAlgorithm} => HashContent.
+ * Dictionary of {@see HashAlgorithm} => {@see HashContent}.
  *
  * @psalm-type HashContent = string
  * @psalm-type HashAlgorithmContentTuple = list{HashAlgorithm,HashContent}

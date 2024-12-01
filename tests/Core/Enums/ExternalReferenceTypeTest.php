@@ -27,12 +27,13 @@ use CycloneDX\Core\Enums\ExternalReferenceType;
 use CycloneDX\Tests\_data\BomSpecData;
 use Generator;
 use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 #[CoversClass(ExternalReferenceType::class)]
 class ExternalReferenceTypeTest extends TestCase
 {
-    #[\PHPUnit\Framework\Attributes\DataProvider('dpSchemaValues')]
+    #[DataProvider('dpSchemaValues')]
     public function testHasCaseForSchemaValue(string $value): void
     {
         self::assertNotNull(ExternalReferenceType::tryFrom($value), "missing $value");

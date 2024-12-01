@@ -34,6 +34,7 @@ use CycloneDX\Core\Serialization\BomRefDiscriminator;
 use Exception;
 use Generator;
 use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
 use Throwable;
@@ -99,7 +100,7 @@ class BaseSerializerTest extends TestCase
     /**
      * @param BomRef[] $allBomRefs
      */
-    #[\PHPUnit\Framework\Attributes\DataProvider('dpBomWithRefs')]
+    #[DataProvider('dpBomWithRefs')]
     public function testSerializeUsesUniqueBomRefsAndResetThemAfterwards(Bom $bom, array $allBomRefs): void
     {
         $allBomRefsValuesOriginal = [];
@@ -148,7 +149,7 @@ class BaseSerializerTest extends TestCase
     /**
      * @param BomRef[] $allBomRefs
      */
-    #[\PHPUnit\Framework\Attributes\DataProvider('dpBomWithRefs')]
+    #[DataProvider('dpBomWithRefs')]
     public function testSerializeUsesUniqueBomRefsAndResetThemOnThrow(Bom $bom, array $allBomRefs): void
     {
         $allBomRefsValuesOriginal = [];
