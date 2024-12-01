@@ -24,9 +24,7 @@ declare(strict_types=1);
 namespace CycloneDX\Core\Enums;
 
 /**
- * Classification - aka ComponentType.
- *
- * See {@link https://cyclonedx.org/schema/bom/1.6 Schema 1.6} for `classification`.
+ * See {@link https://cyclonedx.org/schema/bom/1.6 Schema 1.6} for `licenseAcknowledgementEnumerationType`.
  *
  * @author jkowalleck
  */
