@@ -7,12 +7,12 @@ All notable changes to this project will be documented in this file.
 <!-- add unreleased items here -->
 
 * Docs
-  * Fixed the documentations of the Enum clases  (via [#])
+  * Fixed the documentations of the `\CycloneDX\Core\Enums` classes (via [#490])
 * Style
   * Applied latest PHP Coding Standards (via [#485])
 
 [#485]: https://github.com/CycloneDX/cyclonedx-php-library/pull/485
-[#]:
+[#490]: https://github.com/CycloneDX/cyclonedx-php-library/pull/490
 
 ## 3.5.0 - 2024-11-18
 
