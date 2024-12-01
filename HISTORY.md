@@ -6,6 +6,8 @@ All notable changes to this project will be documented in this file.
 
 <!-- add unreleased items here -->
 
+## 3.5.1 - 2024-12-01
+
 * Docs
   * Fixed the documentations of the `\CycloneDX\Core\Enums` classes (via [#490])
 * Style
