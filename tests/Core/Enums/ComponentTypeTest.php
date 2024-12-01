@@ -27,12 +27,13 @@ use CycloneDX\Core\Enums\ComponentType;
 use CycloneDX\Tests\_data\BomSpecData;
 use Generator;
 use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 #[CoversClass(ComponentType::class)]
 class ComponentTypeTest extends TestCase
 {
-    #[\PHPUnit\Framework\Attributes\DataProvider('dpSchemaValues')]
+    #[DataProvider('dpSchemaValues')]
     public function testHasCaseForSchemaValue(string $value): void
     {
         self::assertNotNull(ComponentType::tryFrom($value), "missing $value");

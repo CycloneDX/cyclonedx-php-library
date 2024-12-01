@@ -33,10 +33,11 @@ use CycloneDX\Core\Spec\_SpecProtocol;
 use Generator;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\TestCase;
 
 #[CoversClass(LicenseNormalizer::class)]
 #[CoversClass(_BaseNormalizer::class)]
-class LicenseNormalizerTest extends \PHPUnit\Framework\TestCase
+class LicenseNormalizerTest extends TestCase
 {
     /**
      * @psalm-param class-string<LicenseExpression|SpdxLicense|NamedLicense> $licenseClass

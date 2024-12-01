@@ -33,6 +33,7 @@ use DomainException;
 use InvalidArgumentException;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\UsesClass;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 #[CoversClass(LicenseFactory::class)]
@@ -41,8 +42,8 @@ use PHPUnit\Framework\TestCase;
 #[UsesClass(LicenseExpression::class)]
 class LicenseFactoryTest extends TestCase
 {
-    private LicenseIdentifiers&\PHPUnit\Framework\MockObject\MockObject $licenseIdentifiers;
-    private SpdxLicenses&\PHPUnit\Framework\MockObject\MockObject $spdxLicenses;
+    private LicenseIdentifiers&MockObject $licenseIdentifiers;
+    private SpdxLicenses&MockObject $spdxLicenses;
     private LicenseFactory $factory;
 
     protected function setUp(): void

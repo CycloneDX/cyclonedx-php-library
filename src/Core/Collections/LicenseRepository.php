@@ -39,7 +39,7 @@ use CycloneDX\Core\Models\License\SpdxLicense;
 class LicenseRepository implements Countable
 {
     /**
-     * @var SpdxLicense[]|NamedLicense[]|LicenseExpression[]
+     * @var (SpdxLicense|NamedLicense|LicenseExpression)[]
      *
      * @psalm-var list<SpdxLicense|NamedLicense|LicenseExpression>
      */
