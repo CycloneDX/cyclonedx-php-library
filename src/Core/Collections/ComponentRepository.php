@@ -82,8 +82,6 @@ class ComponentRepository implements Countable
      * @return Component[]
      *
      * @psalm-return list<Component>
-     *
-     * @SuppressWarnings(PHPMD.ShortVariable)
      */
     public function findItem(string $name, ?string $group): array
     {
@@ -91,10 +89,15 @@ class ComponentRepository implements Countable
             $group = null;
         }
 
+        $isItem = static fn (Component $component): bool =>
+            $component->getName() === $name
+            && $component->getGroup() === $group
+        ;
+
         return array_values(
             array_filter(
                 $this->items,
-                static fn (Component $c): bool => $c->getName() === $name && $c->getGroup() === $group
+                $isItem
             )
         );
     }
