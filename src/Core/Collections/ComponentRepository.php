@@ -82,6 +82,8 @@ class ComponentRepository implements Countable
      * @return Component[]
      *
      * @psalm-return list<Component>
+     *
+     * @SuppressWarnings(PHPMD.ShortVariable)
      */
     public function findItem(string $name, ?string $group): array
     {
