@@ -43,7 +43,7 @@ class LicenseRepositoryNormalizer extends _BaseNormalizer
             /** @var LicenseExpression[] $expressions */
             $expressions = array_filter(
                 $licenses,
-                static fn ($license) => $license instanceof LicenseExpression
+                static fn ($license): bool => $license instanceof LicenseExpression
             );
             if (\count($expressions) > 0) {
                 /**
