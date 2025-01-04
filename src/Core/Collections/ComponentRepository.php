@@ -92,10 +92,8 @@ class ComponentRepository implements Countable
         return array_values(
             array_filter(
                 $this->items,
-                static function (Component $component) use ($name, $group): bool {
-                    return $component->getName() === $name
-                        && $component->getGroup() === $group;
-                }
+                static fn (Component $component): bool => $component->getName() === $name
+                        && $component->getGroup() === $group
             )
         );
     }
