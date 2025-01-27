@@ -52,7 +52,7 @@ abstract class BaseValidator implements Validator
             throw new Exceptions\FailedLoadingSchemaException("Schema file unknown for specVersion: $specVersion->name");
         }
         $schemaPath = realpath($schemaFile);
-        if (is_String($schemaPath) && is_file($schemaPath) && is_readable($schemaPath)) {
+        if (\is_string($schemaPath) && is_file($schemaPath) && is_readable($schemaPath)) {
             return $schemaPath;
         }
         // @codeCoverageIgnoreStart
