@@ -51,8 +51,9 @@ abstract class BaseValidator implements Validator
         if (false === \is_string($schemaFile)) {
             throw new Exceptions\FailedLoadingSchemaException("Schema file unknown for specVersion: $specVersion->name");
         }
-        if (is_file($schemaFile) && is_readable($schemaFile)) {
-            return realpath($schemaFile);
+        $schemaPath = realpath($schemaFile);
+        if (\is_string($schemaPath) && is_file($schemaPath) && is_readable($schemaPath)) {
+            return $schemaPath;
         }
         // @codeCoverageIgnoreStart
         throw new Exceptions\FailedLoadingSchemaException("Schema file not readable: $schemaFile");

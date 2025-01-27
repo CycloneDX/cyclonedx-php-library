@@ -37,12 +37,12 @@ class JsonValidationError extends ValidationError
     public static function fromSchemaValidationError(JsonSchema\Errors\ValidationError $error): static
     {
         $formatter = new JsonSchema\Errors\ErrorFormatter();
-        $instance = new static(
-            json_encode(
-                $formatter->format($error, true),
-                \JSON_PRETTY_PRINT | \JSON_UNESCAPED_SLASHES
-            )
+        $message = json_encode(
+            $formatter->format($error, true),
+            \JSON_PRETTY_PRINT | \JSON_UNESCAPED_SLASHES
         );
+        \assert(\is_string($message));
+        $instance = new static($message);
         $instance->error = $error;
 
         return $instance;
