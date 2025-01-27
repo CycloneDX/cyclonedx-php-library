@@ -88,7 +88,7 @@ class XmlValidator extends BaseValidator
         libxml_clear_errors();
 
         $valid = $doc->schemaValidate($schema);
-        $error = $valid ? null : libxml_get_last_error();
+        $error = $valid ? null : (libxml_get_last_error() ?: null);
 
         libxml_clear_errors();
         libxml_use_internal_errors($prevXmlUIE);
