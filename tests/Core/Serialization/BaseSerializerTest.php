@@ -31,6 +31,7 @@ use CycloneDX\Core\Models\Component;
 use CycloneDX\Core\Models\Metadata;
 use CycloneDX\Core\Serialization\BaseSerializer;
 use CycloneDX\Core\Serialization\BomRefDiscriminator;
+use Error;
 use Exception;
 use Generator;
 use PHPUnit\Framework\Attributes\CoversClass;
@@ -38,6 +39,19 @@ use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
 use Throwable;
+
+class MockBaseSerializer extends BaseSerializer
+{
+    public function realNormalize(Bom $bom): mixed
+    {
+        throw new Error('not implemented');
+    }
+
+    public function realSerialize($normalizedBom, ?bool $prettyPrint): string
+    {
+        throw new Error('not implemented');
+    }
+}
 
 #[CoversClass(BaseSerializer::class)]
 #[UsesClass(BomRefDiscriminator::class)]
@@ -50,7 +64,7 @@ class BaseSerializerTest extends TestCase
         $normalized = uniqid('normalized', true);
         $serialized = uniqid('serialized', true);
         $bom = $this->createStub(Bom::class);
-        $serializer = $this->getMockForAbstractClass(BaseSerializer::class);
+        $serializer = $this->createMock(MockBaseSerializer::class);
         $serializer->expects(self::once())
             ->method('realNormalize')
             ->with($bom)
@@ -69,7 +83,7 @@ class BaseSerializerTest extends TestCase
     {
         $bom = $this->createStub(Bom::class);
         $exception = $this->createStub(Exception::class);
-        $serializer = $this->getMockForAbstractClass(BaseSerializer::class);
+        $serializer = $this->createMock(MockBaseSerializer::class);
         $serializer->expects(self::once())
             ->method('realNormalize')
             ->willThrowException($exception);
@@ -85,7 +99,7 @@ class BaseSerializerTest extends TestCase
     {
         $exception = $this->createStub(Exception::class);
         $bom = $this->createStub(Bom::class);
-        $serializer = $this->getMockForAbstractClass(BaseSerializer::class);
+        $serializer = $this->createMock(MockBaseSerializer::class);
         $serializer->expects(self::once())
             ->method('realNormalize');
         $serializer->expects(self::once())
