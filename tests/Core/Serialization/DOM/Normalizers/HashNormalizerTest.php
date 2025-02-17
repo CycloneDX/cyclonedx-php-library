@@ -23,7 +23,6 @@ declare(strict_types=1);
 
 namespace CycloneDX\Tests\Core\Serialization\DOM\Normalizers;
 
-use CycloneDX\Core\_helpers\SimpleDOM;
 use CycloneDX\Core\Enums\HashAlgorithm;
 use CycloneDX\Core\Serialization\DOM\_BaseNormalizer;
 use CycloneDX\Core\Serialization\DOM\NormalizerFactory;
@@ -38,7 +37,6 @@ use PHPUnit\Framework\TestCase;
 
 #[CoversClass(HashNormalizer::class)]
 #[CoversClass(_BaseNormalizer::class)]
-#[UsesClass(SimpleDOM::class)]
 class HashNormalizerTest extends TestCase
 {
     use DomNodeAssertionTrait;

@@ -18,7 +18,7 @@
          displayDetailsOnTestsThatTriggerWarnings="true"
          displayDetailsOnTestsThatTriggerErrors="true"
          failOnRisky="true"
-         failOnWarning="false"
+         failOnWarning="true"
          failOnSkipped="false"
          defaultTestSuite="default"
 >

@@ -23,7 +23,6 @@ declare(strict_types=1);
 
 namespace CycloneDX\Tests\Core\Serialization\DOM\Normalizers;
 
-use CycloneDX\Core\_helpers\SimpleDOM;
 use CycloneDX\Core\Collections\ComponentRepository;
 use CycloneDX\Core\Collections\ExternalReferenceRepository;
 use CycloneDX\Core\Collections\PropertyRepository;
@@ -44,7 +43,6 @@ use PHPUnit\Framework\TestCase;
 
 #[CoversClass(Normalizers\BomNormalizer::class)]
 #[CoversClass(_BaseNormalizer::class)]
-#[UsesClass(SimpleDOM::class)]
 #[UsesClass(ExternalReferenceRepository::class)]
 #[UsesClass(ExternalReferenceRepository::class)]
 class BomNormalizerTest extends TestCase

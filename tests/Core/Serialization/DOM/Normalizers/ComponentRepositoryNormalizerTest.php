@@ -23,7 +23,6 @@ declare(strict_types=1);
 
 namespace CycloneDX\Tests\Core\Serialization\DOM\Normalizers;
 
-use CycloneDX\Core\_helpers\SimpleDOM;
 use CycloneDX\Core\Collections\ComponentRepository;
 use CycloneDX\Core\Models\Component;
 use CycloneDX\Core\Serialization\DOM\_BaseNormalizer;
@@ -39,7 +38,6 @@ use PHPUnit\Framework\TestCase;
 
 #[CoversClass(ComponentRepositoryNormalizer::class)]
 #[CoversClass(_BaseNormalizer::class)]
-#[UsesClass(SimpleDOM::class)]
 class ComponentRepositoryNormalizerTest extends TestCase
 {
     public function testNormalizeEmpty(): void

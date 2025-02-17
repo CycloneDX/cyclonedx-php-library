@@ -24,14 +24,12 @@ declare(strict_types=1);
 namespace CycloneDX\Tests\Core\Models\License;
 
 use CycloneDX\Core\Enums\LicenseAcknowledgement;
-use CycloneDX\Core\Models\License\_DisjunctiveLicenseBase;
 use CycloneDX\Core\Models\License\NamedLicense;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DependsUsingShallowClone;
 use PHPUnit\Framework\TestCase;
 
 #[CoversClass(NamedLicense::class)]
-#[CoversClass(_DisjunctiveLicenseBase::class)]
 class NamedLicenseTest extends TestCase
 {
     public function testConstruct(): NamedLicense

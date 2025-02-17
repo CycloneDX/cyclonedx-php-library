@@ -24,7 +24,6 @@ declare(strict_types=1);
 namespace CycloneDX\Tests\Core\Models\License;
 
 use CycloneDX\Core\Enums\LicenseAcknowledgement;
-use CycloneDX\Core\Models\License\_DisjunctiveLicenseBase;
 use CycloneDX\Core\Models\License\SpdxLicense;
 use DomainException;
 use PHPUnit\Framework\Attributes\CoversClass;
@@ -32,7 +31,6 @@ use PHPUnit\Framework\Attributes\DependsUsingShallowClone;
 use PHPUnit\Framework\TestCase;
 
 #[CoversClass(SpdxLicense::class)]
-#[CoversClass(_DisjunctiveLicenseBase::class)]
 class SpdxLicenseTest extends TestCase
 {
     public function testConstruct(): SpdxLicense
