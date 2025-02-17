@@ -32,6 +32,9 @@ use CycloneDX\Core\Models\Component;
 use CycloneDX\Core\Models\Metadata;
 use Generator;
 
+/**
+ * @SuppressWarnings(PHPMD.CamelCaseClassName)
+ */
 abstract class _TestCommon
 {
     public static function BomsForDpNormalize(): Generator
