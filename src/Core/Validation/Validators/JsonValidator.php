@@ -31,6 +31,7 @@ use CycloneDX\Core\Validation\Exceptions\FailedLoadingSchemaException;
 use Exception;
 use JsonException;
 use Opis\JsonSchema;
+use Override;
 use stdClass;
 use Throwable;
 
@@ -42,6 +43,7 @@ class JsonValidator extends BaseValidator
     /**
      * @internal as this function may be affected by breaking changes without notice
      */
+    #[Override]
     protected static function listSchemaFiles(): array
     {
         return [
@@ -58,6 +60,7 @@ class JsonValidator extends BaseValidator
      * @throws FailedLoadingSchemaException if schema file unknown or not readable
      * @throws JsonException                if loading the JSON failed
      */
+    #[Override]
     public function validateString(string $string): ?JsonValidationError
     {
         return $this->validateData(

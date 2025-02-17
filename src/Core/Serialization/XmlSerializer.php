@@ -26,6 +26,7 @@ namespace CycloneDX\Core\Serialization;
 use CycloneDX\Core\Models\Bom;
 use DOMDocument;
 use DOMElement;
+use Override;
 
 /**
  * Transform data models to XML.
@@ -45,6 +46,7 @@ class XmlSerializer extends BaseSerializer
     ) {
     }
 
+    #[Override]
     protected function realNormalize(Bom $bom): DOMElement
     {
         return $this->normalizerFactory
@@ -52,6 +54,7 @@ class XmlSerializer extends BaseSerializer
             ->normalize($bom);
     }
 
+    #[Override]
     protected function realSerialize(/* DOMElement */ $normalizedBom, ?bool $prettyPrint): string
     {
         $document = new DOMDocument($this->xmlVersion, $this->xmlEncoding);

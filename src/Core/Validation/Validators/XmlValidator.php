@@ -31,6 +31,7 @@ use CycloneDX\Core\Validation\Exceptions\FailedLoadingSchemaException;
 use DOMDocument;
 use DOMException;
 use LibXMLError;
+use Override;
 
 /**
  * @author jkowalleck
@@ -40,6 +41,7 @@ class XmlValidator extends BaseValidator
     /**
      * @internal as this function may be affected by breaking changes without notice
      */
+    #[Override]
     protected static function listSchemaFiles(): array
     {
         return [
@@ -56,6 +58,7 @@ class XmlValidator extends BaseValidator
      * @throws FailedLoadingSchemaException if schema file unknown or not readable
      * @throws DOMException                 if loading the DOM failed
      */
+    #[Override]
     public function validateString(string $string): ?XmlValidationError
     {
         return $this->validateDom(

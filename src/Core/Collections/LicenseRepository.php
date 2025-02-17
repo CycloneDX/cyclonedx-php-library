@@ -27,6 +27,7 @@ use Countable;
 use CycloneDX\Core\Models\License\LicenseExpression;
 use CycloneDX\Core\Models\License\NamedLicense;
 use CycloneDX\Core\Models\License\SpdxLicense;
+use Override;
 
 /**
  * Unique collection of:
@@ -80,6 +81,7 @@ class LicenseRepository implements Countable
     /**
      * @psalm-return 0|positive-int
      */
+    #[Override]
     public function count(): int
     {
         return \count($this->items);

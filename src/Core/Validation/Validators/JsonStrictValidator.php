@@ -25,6 +25,7 @@ namespace CycloneDX\Core\Validation\Validators;
 
 use CycloneDX\Core\Resources;
 use CycloneDX\Core\Spec\Version;
+use Override;
 
 /**
  * @author jkowalleck
@@ -34,6 +35,7 @@ class JsonStrictValidator extends JsonValidator
     /**
      * @internal
      */
+    #[Override]
     protected static function listSchemaFiles(): array
     {
         return [

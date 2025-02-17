@@ -26,6 +26,7 @@ namespace CycloneDX\Core\Serialization;
 use CycloneDX\Core\Models\Bom;
 use CycloneDX\Core\Models\BomRef;
 use Exception;
+use Override;
 
 /**
  * @template TNormalizedBom
@@ -84,6 +85,7 @@ abstract class BaseSerializer implements Serializer
     /**
      * @SuppressWarnings(PHPMD.BooleanArgumentFlag)
      */
+    #[Override]
     final public function serialize(Bom $bom, ?bool $prettyPrint = null): string
     {
         return $this->realSerialize(

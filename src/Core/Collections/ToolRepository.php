@@ -25,6 +25,7 @@ namespace CycloneDX\Core\Collections;
 
 use Countable;
 use CycloneDX\Core\Models\Tool;
+use Override;
 
 /**
  * Unique collection of {@see Tool}.
@@ -73,6 +74,7 @@ class ToolRepository implements Countable
     /**
      * @psalm-return 0|positive-int
      */
+    #[Override]
     public function count(): int
     {
         return \count($this->items);

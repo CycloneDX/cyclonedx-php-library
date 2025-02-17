@@ -16,4 +16,7 @@
         <directory name="src"/>
         <directory name="examples"/>
     </projectFiles>
+    <issueHandlers>
+        <ClassMustBeFinal errorLevel="suppress"/>
+    </issueHandlers>
 </psalm>
