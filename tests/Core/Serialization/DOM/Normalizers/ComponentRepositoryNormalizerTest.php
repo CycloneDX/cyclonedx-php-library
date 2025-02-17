@@ -33,7 +33,6 @@ use CycloneDX\Core\Spec\_SpecProtocol;
 use DomainException;
 use DOMElement;
 use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
 
 #[CoversClass(ComponentRepositoryNormalizer::class)]

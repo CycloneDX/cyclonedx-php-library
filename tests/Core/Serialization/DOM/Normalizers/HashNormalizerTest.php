@@ -32,7 +32,6 @@ use CycloneDX\Tests\_traits\DomNodeAssertionTrait;
 use DomainException;
 use DOMDocument;
 use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
 
 #[CoversClass(HashNormalizer::class)]

@@ -34,7 +34,6 @@ use CycloneDX\Core\Spec\_SpecProtocol;
 use CycloneDX\Tests\_traits\DomNodeAssertionTrait;
 use DOMDocument;
 use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
 
 #[CoversClass(Normalizers\ComponentEvidenceNormalizer::class)]
