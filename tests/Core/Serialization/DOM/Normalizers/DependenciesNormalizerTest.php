@@ -23,17 +23,13 @@ declare(strict_types=1);
 
 namespace CycloneDX\Tests\Core\Serialization\DOM\Normalizers;
 
-use CycloneDX\Core\Collections\BomRefRepository;
-use CycloneDX\Core\Collections\ComponentRepository;
-use CycloneDX\Core\Enums\ComponentType;
 use CycloneDX\Core\Models\Bom;
 use CycloneDX\Core\Models\BomRef;
-use CycloneDX\Core\Models\Component;
-use CycloneDX\Core\Models\Metadata;
 use CycloneDX\Core\Serialization\DOM\_BaseNormalizer;
 use CycloneDX\Core\Serialization\DOM\NormalizerFactory;
 use CycloneDX\Core\Serialization\DOM\Normalizers\DependenciesNormalizer;
 use CycloneDX\Tests\_traits\DomNodeAssertionTrait;
+use CycloneDX\Tests\Core\Serialization\_TestCommon;
 use DOMDocument;
 use Exception;
 use Generator;
@@ -100,41 +96,10 @@ class DependenciesNormalizerTest extends TestCase
 
     public static function dpNormalize(): Generator
     {
-        $dependencies = new BomRefRepository();
-
-        $componentWithoutBomRefValue = (new Component(ComponentType::Library, 'WithoutBomRefValue'))
-            ->setBomRefValue(null)
-            ->setDependencies($dependencies);
-
-        $componentWithoutDeps = (new Component(ComponentType::Library, 'WithoutDeps'))
-            ->setBomRefValue('ComponentWithoutDeps')
-            ->setDependencies($dependencies);
-        $componentWithNoDeps = (new Component(ComponentType::Library, 'WithoutDeps'))
-            ->setBomRefValue('ComponentWithNoDeps')
-            ->setDependencies(new BomRefRepository());
-        $componentWithDeps = (new Component(ComponentType::Library, 'WithoutDeps'))
-            ->setBomRefValue('ComponentWithDeps')
-            ->setDependencies(new BomRefRepository($componentWithoutDeps->getBomRef(),
-                $componentWithNoDeps->getBomRef(), ));
-        $rootComponent = (new Component(ComponentType::Library, 'WithoutDeps'))
-            ->setBomRefValue('myRootComponent')
-            ->setDependencies(new BomRefRepository(
-                $componentWithDeps->getBomRef(),
-                $componentWithoutDeps->getBomRef(),
-                $componentWithoutBomRefValue->getBomRef(),
-                new BomRef('SomethingOutsideOfTheActualBom'),
-            ));
-
-        $bom = (new Bom())
-            ->setComponents(new ComponentRepository(
-                $componentWithoutDeps,
-                $componentWithNoDeps,
-                $componentWithDeps,
-                $componentWithoutBomRefValue))
-        ->setMetadata((new Metadata())->setComponent($rootComponent));
+        $boms = iterator_to_array(_TestCommon::BomsForDpNormalize());
 
         yield 'with metadata' => [
-            $bom,
+            $boms['with metadata'],
             [
                 // $rootComponent
                 '<dependency ref="myRootComponent">'.
