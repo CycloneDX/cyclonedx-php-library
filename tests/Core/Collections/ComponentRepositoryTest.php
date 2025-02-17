@@ -24,6 +24,7 @@ declare(strict_types=1);
 namespace CycloneDX\Tests\Core\Collections;
 
 use CycloneDX\Core\Collections\ComponentRepository;
+use CycloneDX\Core\Enums\ComponentType;
 use CycloneDX\Core\Models\Component;
 use Generator;
 use PHPUnit\Framework\Attributes\CoversClass;
@@ -98,27 +99,9 @@ class ComponentRepositoryTest extends TestCase
             [],
         ];
 
-        $component1 = $this->createConfiguredMock(
-            Component::class,
-            [
-                'getName' => 'foo',
-                'getGroup' => null,
-            ]
-        );
-        $component2 = $this->createConfiguredMock(
-            Component::class,
-            [
-                'getName' => 'foo',
-                'getGroup' => 'bar',
-            ]
-        );
-        $component3 = $this->createConfiguredMock(
-            Component::class,
-            [
-                'getName' => 'foo',
-                'getGroup' => 'bar',
-            ]
-        );
+        $component1 = new Component(ComponentType::Library, 'foo');
+        $component2 = (new Component(ComponentType::Library, 'foo'))->setGroup('bar');
+        $component3 = (new Component(ComponentType::Library, 'foo'))->setGroup('bar');
         $components = new ComponentRepository($component1, $component2, $component3);
         yield 'single empty group' => [
             $components,

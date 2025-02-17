@@ -25,6 +25,7 @@ namespace CycloneDX\Tests\Core\Serialization;
 
 use CycloneDX\Core\Collections\BomRefRepository;
 use CycloneDX\Core\Collections\ComponentRepository;
+use CycloneDX\Core\Enums\ComponentType;
 use CycloneDX\Core\Models\Bom;
 use CycloneDX\Core\Models\BomRef;
 use CycloneDX\Core\Models\Component;
@@ -39,12 +40,13 @@ use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
 use Throwable;
+use ValueError;
 
 class MockBaseSerializer extends BaseSerializer
 {
     public function realNormalize(Bom $bom): mixed
     {
-        throw new Error('not implemented');
+        throw new ValueError('not implemented');
     }
 
     public function realSerialize($normalizedBom, ?bool $prettyPrint): string
@@ -124,7 +126,7 @@ class BaseSerializerTest extends TestCase
         $allBomRefsValuesOnNormalize = [];
         $normalized = uniqid('normalized', true);
         $serialized = uniqid('serialized', true);
-        $serializer = $this->getMockForAbstractClass(BaseSerializer::class);
+        $serializer = $this->createMock(MockBaseSerializer::class);
         $serializer->expects(self::once())
             ->method('realNormalize')
             ->with($bom)
@@ -209,75 +211,33 @@ class BaseSerializerTest extends TestCase
         );
     }
 
-    public function dpBomWithRefs(): Generator
+    public static function dpBomWithRefs(): Generator
     {
-        $dependencies = $this->createStub(BomRefRepository::class);
+        $dependencies = new BomRefRepository();
 
         foreach (['null' => null, 'common string' => 'foo'] as $name => $bomRefValue) {
-            $componentNullDeps = $this->createConfiguredMock(
-                Component::class,
-                [
-                    'getBomRef' => new BomRef($bomRefValue),
-                    'getDependencies' => $dependencies,
-                ]
-            );
-            $componentEmptyDeps = $this->createConfiguredMock(
-                Component::class,
-                [
-                    'getBomRef' => new BomRef($bomRefValue),
-                    'getDependencies' => $this->createMock(BomRefRepository::class),
-                ]
-            );
-            $componentKnownDeps = $this->createConfiguredMock(
-                Component::class,
-                [
-                    'getBomRef' => new BomRef($bomRefValue),
-                    'getDependencies' => $this->createConfiguredMock(
-                        BomRefRepository::class,
-                        [
-                            'getItems' => [$componentNullDeps->getBomRef()],
-                        ]
-                    ),
-                ]
-            );
-            $componentRoot = $this->createConfiguredMock(
-                Component::class,
-                [
-                    'getBomRef' => new BomRef($bomRefValue),
-                    'getDependencies' => $this->createConfiguredMock(
-                        BomRefRepository::class,
-                        [
-                            'getItems' => [
-                                $componentKnownDeps->getBomRef(),
-                                $componentEmptyDeps->getBomRef(),
-                            ],
-                        ]
-                    ),
-                ]
-            );
+            $componentNullDeps = (new Component(ComponentType::Library, 'NullDeps'))
+                ->setBomRefValue($bomRefValue)
+                ->setDependencies($dependencies);
+            $componentEmptyDeps = (new Component(ComponentType::Library, 'EmptyDeps'))
+                ->setBomRefValue($bomRefValue)
+                ->setDependencies(new BomRefRepository());
+            $componentKnownDeps = (new Component(ComponentType::Library, 'KnownDeps'))
+                ->setBomRefValue($bomRefValue)
+                ->setDependencies(new BomRefRepository($componentNullDeps->getBomRef()));
+            $componentRoot = (new Component(ComponentType::Library, 'Root'))
+                ->setBomRefValue($bomRefValue)
+                ->setDependencies(new BomRefRepository($componentKnownDeps->getBomRef(),
+                    $componentEmptyDeps->getBomRef()));
 
             yield "bom with components and meta: bomRef=$name" => [
-                $this->createConfiguredMock(
-                    Bom::class,
-                    [
-                        'getComponents' => $this->createConfiguredMock(
-                            ComponentRepository::class,
-                            [
-                                'getItems' => [
-                                    $componentNullDeps,
-                                    $componentEmptyDeps,
-                                    $componentKnownDeps,
-                                ],
-                            ]
-                        ),
-                        'getMetadata' => $this->createConfiguredMock(
-                            Metadata::class,
-                            [
-                                'getComponent' => $componentRoot,
-                            ]
-                        ),
-                    ]
-                ),
+                (new Bom())
+                    ->setComponents(new ComponentRepository(
+                        $componentNullDeps,
+                        $componentEmptyDeps,
+                        $componentKnownDeps,
+                    ))
+                    ->setMetadata((new Metadata())->setComponent($componentRoot)),
                 [
                     $componentRoot->getBomRef(),
                     $componentNullDeps->getBomRef(),
