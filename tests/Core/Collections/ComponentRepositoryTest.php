@@ -29,9 +29,11 @@ use CycloneDX\Core\Models\Component;
 use Generator;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
 
 #[CoversClass(ComponentRepository::class)]
+#[UsesClass(Component::class)]
 class ComponentRepositoryTest extends TestCase
 {
     public function testEmptyConstructor(): void
