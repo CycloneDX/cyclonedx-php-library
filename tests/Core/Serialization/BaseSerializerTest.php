@@ -179,7 +179,7 @@ class BaseSerializerTest extends TestCase
         }
         $allBomRefsValuesOnNormalize = [];
         $exception = $this->createStub(Exception::class);
-        $serializer = $this->getMockForAbstractClass(BaseSerializer::class);
+        $serializer = $this->createMock(MockBaseSerializer::class);
         $serializer->expects(self::once())
             ->method('realNormalize')
             ->with($bom)
