@@ -57,7 +57,12 @@ class MockBaseSerializer extends BaseSerializer
 
 #[CoversClass(BaseSerializer::class)]
 #[UsesClass(BomRefDiscriminator::class)]
+#[UsesClass(Bom::class)]
 #[UsesClass(BomRef::class)]
+#[UsesClass(BomRefRepository::class)]
+#[UsesClass(Component::class)]
+#[UsesClass(ComponentRepository::class)]
+#[UsesClass(Metadata::class)]
 class BaseSerializerTest extends TestCase
 {
     public function testSerialize(): void

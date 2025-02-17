@@ -23,8 +23,12 @@ declare(strict_types=1);
 
 namespace CycloneDX\Tests\Core\Serialization\DOM\Normalizers;
 
+use CycloneDX\Core\Collections\BomRefRepository;
+use CycloneDX\Core\Collections\ComponentRepository;
 use CycloneDX\Core\Models\Bom;
 use CycloneDX\Core\Models\BomRef;
+use CycloneDX\Core\Models\Component;
+use CycloneDX\Core\Models\Metadata;
 use CycloneDX\Core\Serialization\DOM\_BaseNormalizer;
 use CycloneDX\Core\Serialization\DOM\NormalizerFactory;
 use CycloneDX\Core\Serialization\DOM\Normalizers\DependenciesNormalizer;
@@ -41,7 +45,12 @@ use PHPUnit\Framework\TestCase;
 
 #[CoversClass(DependenciesNormalizer::class)]
 #[CoversClass(_BaseNormalizer::class)]
+#[UsesClass(Bom::class)]
 #[UsesClass(BomRef::class)]
+#[UsesClass(BomRefRepository::class)]
+#[UsesClass(Component::class)]
+#[UsesClass(ComponentRepository::class)]
+#[UsesClass(Metadata::class)]
 class DependenciesNormalizerTest extends TestCase
 {
     use DomNodeAssertionTrait;
