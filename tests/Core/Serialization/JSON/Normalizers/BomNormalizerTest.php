@@ -23,7 +23,6 @@ declare(strict_types=1);
 
 namespace CycloneDX\Tests\Core\Serialization\JSON\Normalizers;
 
-use CycloneDX\Core\_helpers\Predicate;
 use CycloneDX\Core\Collections\ComponentRepository;
 use CycloneDX\Core\Collections\ExternalReferenceRepository;
 use CycloneDX\Core\Collections\PropertyRepository;
@@ -44,8 +43,6 @@ use PHPUnit\Framework\TestCase;
 #[CoversClass(_BaseNormalizer::class)]
 #[UsesClass(Normalizers\DependenciesNormalizer::class)]
 #[UsesClass(Normalizers\MetadataNormalizer::class)]
-#[UsesClass(Predicate::class)]
-#[UsesClass(ExternalReferenceRepository::class)]
 #[UsesClass(ExternalReferenceRepository::class)]
 class BomNormalizerTest extends TestCase
 {

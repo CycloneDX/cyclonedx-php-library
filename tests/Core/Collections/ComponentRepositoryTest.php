@@ -24,13 +24,16 @@ declare(strict_types=1);
 namespace CycloneDX\Tests\Core\Collections;
 
 use CycloneDX\Core\Collections\ComponentRepository;
+use CycloneDX\Core\Enums\ComponentType;
 use CycloneDX\Core\Models\Component;
 use Generator;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
 
 #[CoversClass(ComponentRepository::class)]
+#[UsesClass(Component::class)]
 class ComponentRepositoryTest extends TestCase
 {
     public function testEmptyConstructor(): void
@@ -89,7 +92,7 @@ class ComponentRepositoryTest extends TestCase
         }
     }
 
-    public function dpFindComponents(): Generator
+    public static function dpFindComponents(): Generator
     {
         yield 'nothing in empty' => [
             new ComponentRepository(),
@@ -98,27 +101,9 @@ class ComponentRepositoryTest extends TestCase
             [],
         ];
 
-        $component1 = $this->createConfiguredMock(
-            Component::class,
-            [
-                'getName' => 'foo',
-                'getGroup' => null,
-            ]
-        );
-        $component2 = $this->createConfiguredMock(
-            Component::class,
-            [
-                'getName' => 'foo',
-                'getGroup' => 'bar',
-            ]
-        );
-        $component3 = $this->createConfiguredMock(
-            Component::class,
-            [
-                'getName' => 'foo',
-                'getGroup' => 'bar',
-            ]
-        );
+        $component1 = new Component(ComponentType::Library, 'foo');
+        $component2 = (new Component(ComponentType::Library, 'foo'))->setGroup('bar');
+        $component3 = (new Component(ComponentType::Library, 'foo'))->setGroup('bar');
         $components = new ComponentRepository($component1, $component2, $component3);
         yield 'single empty group' => [
             $components,

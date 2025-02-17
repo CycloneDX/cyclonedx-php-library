@@ -23,7 +23,6 @@ declare(strict_types=1);
 
 namespace CycloneDX\Tests\Core\Serialization\DOM\Normalizers;
 
-use CycloneDX\Core\_helpers\SimpleDOM;
 use CycloneDX\Core\Collections\CopyrightRepository;
 use CycloneDX\Core\Collections\LicenseRepository;
 use CycloneDX\Core\Models\ComponentEvidence;
@@ -35,12 +34,10 @@ use CycloneDX\Core\Spec\_SpecProtocol;
 use CycloneDX\Tests\_traits\DomNodeAssertionTrait;
 use DOMDocument;
 use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
 
 #[CoversClass(Normalizers\ComponentEvidenceNormalizer::class)]
 #[CoversClass(_BaseNormalizer::class)]
-#[UsesClass(SimpleDOM::class)]
 class ComponentEvidenceNormalizerTest extends TestCase
 {
     use DomNodeAssertionTrait;

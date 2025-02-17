@@ -30,15 +30,10 @@ use Opis\JsonSchema\Info\DataInfo;
 use Opis\JsonSchema\Info\SchemaInfo;
 use Opis\JsonSchema\Schemas\EmptySchema;
 use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\Attributes\UsesClass;
 use PHPUnit\Framework\TestCase;
 
 #[CoversClass(JsonValidationError::class)]
 #[CoversClass(ValidationError::class)]
-#[UsesClass(JsonSchema\Errors\ValidationError::class)]
-#[UsesClass(EmptySchema::class)]
-#[UsesClass(SchemaInfo::class)]
-#[UsesClass(DataInfo::class)]
 class JsonValidationErrorTest extends TestCase
 {
     public function testFromJsonSchemaInvalidValue(): void
