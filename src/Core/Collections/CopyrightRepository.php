@@ -24,6 +24,7 @@ declare(strict_types=1);
 namespace CycloneDX\Core\Collections;
 
 use Countable;
+use Override;
 
 /**
  * @author jkowalleck
@@ -73,6 +74,7 @@ class CopyrightRepository implements Countable
     /**
      * @psalm-return 0|positive-int
      */
+    #[Override]
     public function count(): int
     {
         return \count($this->items);

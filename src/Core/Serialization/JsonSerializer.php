@@ -24,6 +24,7 @@ declare(strict_types=1);
 namespace CycloneDX\Core\Serialization;
 
 use CycloneDX\Core\Models\Bom;
+use Override;
 
 /**
  * Transform data models to JSON.
@@ -108,6 +109,7 @@ class JsonSerializer extends BaseSerializer
             | ($jsonEncodeFlags & self::JsonEncodeFlagsAllowedOptions);
     }
 
+    #[Override]
     protected function realNormalize(Bom $bom): array
     {
         return $this->normalizerFactory
@@ -115,6 +117,7 @@ class JsonSerializer extends BaseSerializer
             ->normalize($bom);
     }
 
+    #[Override]
     protected function realSerialize(/* array */ $normalizedBom, ?bool $prettyPrint): string
     {
         $jsonEncodeFlags = match ($prettyPrint) {

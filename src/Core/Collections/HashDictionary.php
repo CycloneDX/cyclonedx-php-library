@@ -25,6 +25,7 @@ namespace CycloneDX\Core\Collections;
 
 use Countable;
 use CycloneDX\Core\Enums\HashAlgorithm;
+use Override;
 
 /**
  * Dictionary of {@see HashAlgorithm} => {@see HashContent}.
@@ -115,6 +116,7 @@ class HashDictionary implements Countable
     /**
      * @psalm-return 0|positive-int
      */
+    #[Override]
     public function count(): int
     {
         return \count($this->items);

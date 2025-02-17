@@ -27,6 +27,7 @@ use CycloneDX\Core\Enums\ComponentType;
 use CycloneDX\Core\Enums\ExternalReferenceType;
 use CycloneDX\Core\Enums\HashAlgorithm;
 use CycloneDX\Core\Spdx\LicenseIdentifiers;
+use Override;
 
 /**
  * This class is not intended to be public API.
@@ -81,101 +82,121 @@ class _Spec implements _SpecProtocol
         $this->lLicenseIdentifiers = $licenseIdentifiers->getKnownLicenses();
     }
 
+    #[Override]
     public function getVersion(): Version
     {
         return $this->version;
     }
 
+    #[Override]
     public function isSupportedFormat(Format $format): bool
     {
         return \in_array($format, $this->lFormats, true);
     }
 
+    #[Override]
     public function isSupportedComponentType(ComponentType $componentType): bool
     {
         return \in_array($componentType, $this->lComponentTypes, true);
     }
 
+    #[Override]
     public function isSupportedHashAlgorithm(HashAlgorithm $alg): bool
     {
         return \in_array($alg, $this->lHashAlgorithms, true);
     }
 
+    #[Override]
     public function isSupportedHashContent(string $content): bool
     {
         return 1 === preg_match($this->sHashContentRegex, $content);
     }
 
+    #[Override]
     public function isSupportedExternalReferenceType(ExternalReferenceType $referenceType): bool
     {
         return \in_array($referenceType, $this->lExternalReferenceTypes, true);
     }
 
+    #[Override]
     public function isSupportedLicenseIdentifier(string $licenseIdentifier): bool
     {
         return \in_array($licenseIdentifier, $this->lLicenseIdentifiers, true);
     }
 
+    #[Override]
     public function supportsLicenseExpression(): bool
     {
         return $this->bLicenseExpression;
     }
 
+    #[Override]
     public function supportsMetadata(): bool
     {
         return $this->bMetadata;
     }
 
+    #[Override]
     public function supportsBomRef(): bool
     {
         return $this->bBomRef;
     }
 
+    #[Override]
     public function supportsDependencies(): bool
     {
         return $this->bDependencies;
     }
 
+    #[Override]
     public function supportsExternalReferenceHashes(): bool
     {
         return $this->bExternalReferenceHashes;
     }
 
+    #[Override]
     public function requiresComponentVersion(): bool
     {
         return $this->bComponentVersionMandatory;
     }
 
+    #[Override]
     public function supportsToolExternalReferences(): bool
     {
         return $this->bToolExternalReferences;
     }
 
+    #[Override]
     public function supportsMetadataProperties(): bool
     {
         return $this->bMetadataProperties;
     }
 
+    #[Override]
     public function supportsComponentAuthor(): bool
     {
         return $this->bComponentAuthor;
     }
 
+    #[Override]
     public function supportsComponentProperties(): bool
     {
         return $this->bComponentProperties;
     }
 
+    #[Override]
     public function supportsComponentEvidence(): bool
     {
         return $this->bComponentEvidence;
     }
 
+    #[Override]
     public function supportsBomProperties(Format $format): bool
     {
         return \in_array($format, $this->lFormatsSupportingBomProperties, true);
     }
 
+    #[Override]
     public function supportsLicenseAcknowledgement(): bool
     {
         return $this->bLicenseAcknowledgement;
