@@ -92,7 +92,7 @@ class ComponentRepositoryTest extends TestCase
         }
     }
 
-    public function dpFindComponents(): Generator
+    public static function dpFindComponents(): Generator
     {
         yield 'nothing in empty' => [
             new ComponentRepository(),
