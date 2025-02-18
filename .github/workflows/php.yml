@@ -163,7 +163,7 @@ jobs:
         # see https://github.com/shivammathur/setup-php
         uses: shivammathur/setup-php@v2
         with:
-          php-version: ${{ env.PHP_VERSION_LATEST }}
+          php-version: ${{ matrix.php }}
           extensions: ${{ env.PHP_PROJECT_EXT }}
           tools: composer:v2
           coverage: none
@@ -188,12 +188,10 @@ jobs:
         if: ${{ matrix.dependencies == 'lowest' }}
         run: |
           composer remove --dev 'roave/security-advisories'
-          composer config platform.php ${{ matrix.php }}
           composer update --prefer-dist --no-interaction --no-progress --prefer-lowest
       - name: Install highest dependencies
         if: ${{ matrix.dependencies != 'lowest' }}
         run: |
-          composer config platform.php ${{ matrix.php }}
           composer update --prefer-dist --no-interaction --no-progress
       - name: Run Psalm tests
         run: >
