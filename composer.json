@@ -116,7 +116,7 @@
         "test:composer-normalize": "@composer -d tools/composer-normalize normalize --dry-run $PWD/composer.json",
         "test:composer-require-checker": "@php tools/composer-require-checker/vendor/maglnet/composer-require-checker/bin/composer-require-checker",
         "test:composer-unused": "@php tools/composer-unused/vendor/icanhazstring/composer-unused/bin/composer-unused --excludeDir=tools",
-        "test:cs-fixer": "@php tools/php-cs-fixer/vendor/friendsofphp/php-cs-fixer/php-cs-fixer fix --dry-run --diff",
+        "test:cs-fixer": "@php tools/php-cs-fixer/vendor/friendsofphp/php-cs-fixer/php-cs-fixer check --diff",
         "test:infection": "@php -d zend.assertions=1 -d assert.exception=1 -d display_errors=On -d error_reporting=-1 -d log_errors_max_len=0 -d memory_limit=-1 -d xdebug.mode=coverage -d pcov.enabled=1 -d pcov.directory=src tools/infection/vendor/infection/infection/bin/infection ",
         "test:phpmd": "@php tools/phpmd/vendor/phpmd/phpmd/src/bin/phpmd src ansi phpmd.xml",
         "test:phpunit": "@php -d zend.assertions=1 -d assert.exception=1 -d display_errors=On -d error_reporting=-1 -d log_errors_max_len=0 -d memory_limit=-1 -d xdebug.mode=coverage -d pcov.enabled=1 -d pcov.directory=src tools/phpunit/vendor/phpunit/phpunit/phpunit",
