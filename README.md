@@ -18,6 +18,10 @@ Work with [CycloneDX] documents.
 OWASP CycloneDX is a full-stack Bill of Materials (BOM) standard
 that provides advanced supply chain capabilities for cyber risk reduction.
 
+> [!NOTE]  
+> This package is a software library not intended for standalone use.  
+> For generating Software Bill of Materials (SBOM), check out [CycloneDX PHP Composer Plugin](https://github.com/CycloneDX/cyclonedx-php-composer).
+
 ## Responsibilities
 
 * Provide a general purpose _php_-implementation of [_CycloneDX_][CycloneDX].
