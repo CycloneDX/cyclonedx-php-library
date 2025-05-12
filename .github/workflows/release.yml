@@ -62,3 +62,4 @@ jobs:
           tag_name: v${{ steps.set_version.outputs.version }}
           draft: false
           prerelease: ${{ steps.set_version.outputs.prerelease }}
+          target_commitish: ${{ github.head_ref || github.ref_name }}
