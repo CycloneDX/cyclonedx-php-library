@@ -43,11 +43,13 @@ jobs:
           echo "version=$VERSION" >> $GITHUB_OUTPUT
       - name: Create github release and git tag for release
         id: create_release
-        # see https://github.com/actions/create-release
-        uses: actions/create-release@v1
+        run: >
+          gh release create
+          --generate-notes
+          --title "$release_name"
+          "$tag_name"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
           release_name: ${{ steps.set_version.outputs.version }}
           tag_name: v${{ steps.set_version.outputs.version }}
           draft: false
