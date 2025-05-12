@@ -17,6 +17,8 @@ concurrency:
   group: '${{ github.workflow }}-${{ github.ref }}'
   cancel-in-progress: true
 
+permissions: {}
+
 env:
   PHP_VERSION_LOWEST: "8.1"  # lowest supported
   PHP_VERSION_LATEST: "8.4"  # highest supported
