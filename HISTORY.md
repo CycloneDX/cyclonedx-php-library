@@ -6,6 +6,11 @@ All notable changes to this project will be documented in this file.
 
 <!-- add unreleased items here -->
 
+* Added
+  * Pulled SPDX license IDs v1.0-3.26.0 (via [#])
+
+[#]: 
+
 ## 3.5.4 - 2025-05-12
 
 Maintenance release.

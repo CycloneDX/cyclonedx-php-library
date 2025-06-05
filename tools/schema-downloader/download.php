@@ -33,6 +33,7 @@ declare(strict_types=1);
 namespace tools\CycloneDX\SchemaDownloader;
 
 const SOURCE_ROOT = 'https://raw.githubusercontent.com/CycloneDX/specification/refs/tags/1.6.1/schema/';
+const SOURCE_ROOT_LATEST = 'https://raw.githubusercontent.com/CycloneDX/specification/refs/heads/master/schema/';
 const TARGET_ROOT = __DIR__.'/../../res/schema/';
 
 abstract class BaseDownloadable
@@ -110,9 +111,9 @@ abstract class BomJsonStrict extends BaseDownloadable
 }
 
 const OtherDownloadables = [
-    SOURCE_ROOT.'spdx.schema.json' => TARGET_ROOT.'spdx.SNAPSHOT.schema.json',
-    SOURCE_ROOT.'spdx.xsd' => TARGET_ROOT.'spdx.SNAPSHOT.xsd',
-    SOURCE_ROOT.'jsf-0.82.schema.json' => TARGET_ROOT.'jsf-0.82.SNAPSHOT.schema.json',
+    SOURCE_ROOT_LATEST.'spdx.schema.json' => TARGET_ROOT.'spdx.SNAPSHOT.schema.json',
+    SOURCE_ROOT_LATEST.'spdx.xsd' => TARGET_ROOT.'spdx.SNAPSHOT.xsd',
+    SOURCE_ROOT_LATEST.'jsf-0.82.schema.json' => TARGET_ROOT.'jsf-0.82.SNAPSHOT.schema.json',
 ];
 
 /** @psalm-var class-string<BaseDownloadable> $class */
