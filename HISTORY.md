@@ -6,6 +6,8 @@ All notable changes to this project will be documented in this file.
 
 <!-- add unreleased items here -->
 
+## 3.8.0 - 2025-10-22
+
 * Added
   * Support CycloneDX 1.7 ([#558] via [#559])
 
