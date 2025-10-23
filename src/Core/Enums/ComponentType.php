@@ -33,6 +33,7 @@ namespace CycloneDX\Core\Enums;
  * See {@link https://cyclonedx.org/schema/bom/1.4 Schema 1.4} for `classification`.
  * See {@link https://cyclonedx.org/schema/bom/1.5 Schema 1.5} for `classification`.
  * See {@link https://cyclonedx.org/schema/bom/1.6 Schema 1.6} for `classification`.
+ * See {@link https://cyclonedx.org/schema/bom/1.7 Schema 1.7} for `classification`.
  *
  * @author jkowalleck
  */

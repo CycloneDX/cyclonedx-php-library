@@ -43,6 +43,7 @@ class LicenseAcknowledgementTest extends TestCase
     {
         $allValues = array_unique(array_merge(
             BomSpecData::getLicenseAcknowledgementForVersion('1.6'),
+            BomSpecData::getLicenseAcknowledgementForVersion('1.7'),
         ));
         foreach ($allValues as $value) {
             yield $value => [$value];

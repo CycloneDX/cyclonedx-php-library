@@ -169,4 +169,24 @@ class SerializeToJsonIntegrationTest extends TestCase
     }
 
     // endregion Spec 1.6
+
+    // region Spec 1.7
+
+    #[DataProviderExternal(BomModelProvider::class, 'allBomTestData')]
+    public function testSchema17(Bom $bom): void
+    {
+        $spec = SpecFactory::make1dot7();
+        $serializer = new JsonSerializer(new JSON\NormalizerFactory($spec));
+        $validator = new JsonStrictValidator($spec);
+
+        $json = $serializer->serialize($bom, true);
+        $validationErrors = $validator->validateString($json);
+
+        self::assertNull($validationErrors);
+        if (!str_contains($this->dataName(), 'random')) {
+            self::assertStringEqualsSnapshot(__CLASS__.'-'.$this->name().'-'.$this->dataName().'.json', $json);
+        }
+    }
+
+    // endregion Spec 1.7
 }

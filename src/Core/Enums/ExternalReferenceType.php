@@ -30,6 +30,7 @@ namespace CycloneDX\Core\Enums;
  * See {@link https://cyclonedx.org/schema/bom/1.4 Schema 1.4} for `externalReferenceType`.
  * See {@link https://cyclonedx.org/schema/bom/1.5 Schema 1.5} for `externalReferenceType`.
  * See {@link https://cyclonedx.org/schema/bom/1.6 Schema 1.6} for `externalReferenceType`.
+ * See {@link https://cyclonedx.org/schema/bom/1.7 Schema 1.7} for `externalReferenceType`.
  *
  * @author jkowalleck
  */
@@ -77,6 +78,10 @@ enum ExternalReferenceType: string
     case ElectronicSignature = 'electronic-signature';
     case DigitalSignature = 'digital-signature';
     case RFC9116 = 'rfc-9116';
+    case Citation = 'citation';
+    case Patent = 'patent';
+    case PatentAssertion = 'patent-assertion';
+    case PatentFamily = 'patent-family';
 
     // ----
 

@@ -31,6 +31,7 @@ namespace CycloneDX\Core\Enums;
  * See {@link https://cyclonedx.org/schema/bom/1.4 Schema 1.4} for `hashAlg`.
  * See {@link https://cyclonedx.org/schema/bom/1.5 Schema 1.5} for `hashAlg`.
  * See {@link https://cyclonedx.org/schema/bom/1.6 Schema 1.6} for `hashAlg`.
+ * See {@link https://cyclonedx.org/schema/bom/1.7 Schema 1.7} for `hashAlg`.
  *
  * @author jkowalleck
  */
@@ -48,4 +49,6 @@ enum HashAlgorithm: string
     case SHA3_256 = 'SHA3-256';
     case SHA3_384 = 'SHA3-384';
     case SHA3_512 = 'SHA3-512';
+    case STREEBOG_256 = 'Streebog-256';
+    case STREEBOG_512 = 'Streebog-512';
 }

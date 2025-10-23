@@ -169,4 +169,24 @@ class SerializeToXmlIntegrationTest extends TestCase
     }
 
     // endregion Spec 1.6
+
+    // region Spec 1.7
+
+    #[DataProviderExternal(BomModelProvider::class, 'allBomTestData')]
+    public function testSchema17(Bom $bom): void
+    {
+        $spec = SpecFactory::make1dot7();
+        $serializer = new XmlSerializer(new DOM\NormalizerFactory($spec));
+        $validator = new XmlValidator($spec);
+
+        $xml = $serializer->serialize($bom, true);
+        $validationErrors = $validator->validateString($xml);
+
+        self::assertNull($validationErrors);
+        if (!str_contains($this->dataName(), 'random')) {
+            self::assertStringEqualsSnapshot(__CLASS__.'-'.$this->name().'-'.$this->dataName().'.xml', $xml);
+        }
+    }
+
+    // endregion Spec 1.7
 }

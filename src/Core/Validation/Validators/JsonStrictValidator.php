@@ -45,6 +45,7 @@ class JsonStrictValidator extends JsonValidator
             Version::v1dot4->value => Resources::FILE_CDX_JSON_SCHEMA_1_4, // 1.4 is already strict
             Version::v1dot5->value => Resources::FILE_CDX_JSON_SCHEMA_1_5, // 1.5 is already strict
             Version::v1dot6->value => Resources::FILE_CDX_JSON_SCHEMA_1_6, // 1.6 is already strict
+            Version::v1dot7->value => Resources::FILE_CDX_JSON_SCHEMA_1_7, // 1.7 is already strict
         ];
     }
 }

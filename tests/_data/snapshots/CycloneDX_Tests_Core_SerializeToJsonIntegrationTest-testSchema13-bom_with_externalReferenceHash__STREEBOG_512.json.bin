@@ -1,0 +1,14 @@
+{
+    "$schema": "http://cyclonedx.org/schema/bom-1.3a.schema.json",
+    "bomFormat": "CycloneDX",
+    "specVersion": "1.3",
+    "version": 1,
+    "components": [],
+    "externalReferences": [
+        {
+            "type": "other",
+            "url": ".../algorithm/STREEBOG_512.txt",
+            "hashes": []
+        }
+    ]
+}
