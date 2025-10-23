@@ -25,6 +25,7 @@ namespace CycloneDX\Core\Enums;
 
 /**
  * See {@link https://cyclonedx.org/schema/bom/1.6 Schema 1.6} for `licenseAcknowledgementEnumerationType`.
+ * See {@link https://cyclonedx.org/schema/bom/1.7 Schema 1.7} for `licenseAcknowledgementEnumerationType`.
  *
  * @author jkowalleck
  */

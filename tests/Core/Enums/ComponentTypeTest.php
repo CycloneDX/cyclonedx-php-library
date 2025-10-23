@@ -49,6 +49,7 @@ class ComponentTypeTest extends TestCase
             BomSpecData::getClassificationEnumForVersion('1.4'),
             BomSpecData::getClassificationEnumForVersion('1.5'),
             BomSpecData::getClassificationEnumForVersion('1.6'),
+            BomSpecData::getClassificationEnumForVersion('1.7'),
         ));
         foreach ($allValues as $value) {
             yield $value => [$value];

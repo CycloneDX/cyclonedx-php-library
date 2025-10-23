@@ -32,7 +32,7 @@ declare(strict_types=1);
 
 namespace tools\CycloneDX\SchemaDownloader;
 
-const SOURCE_ROOT = 'https://raw.githubusercontent.com/CycloneDX/specification/refs/tags/1.6.1/schema/';
+const SOURCE_ROOT = 'https://raw.githubusercontent.com/CycloneDX/specification/refs/tags/1.7/schema/';
 const SOURCE_ROOT_LATEST = 'https://raw.githubusercontent.com/CycloneDX/specification/refs/heads/master/schema/';
 const TARGET_ROOT = __DIR__.'/../../res/schema/';
 
@@ -56,7 +56,7 @@ abstract class BaseDownloadable
 
 abstract class BomXsd extends BaseDownloadable
 {
-    final public const Versions = ['1.6', '1.5', '1.4', '1.3', '1.2', '1.1', '1.0'];
+    final public const Versions = ['1.7', '1.6', '1.5', '1.4', '1.3', '1.2', '1.1', '1.0'];
     final public const SourcePattern = SOURCE_ROOT.'bom-%s.xsd';
     final public const TargetPattern = TARGET_ROOT.'bom-%s.SNAPSHOT.xsd';
     final public const ReplaceStr = [];
@@ -80,11 +80,12 @@ const _bomRequiredReplace = '
 
 abstract class BomJsonLax extends BaseDownloadable
 {
-    final public const Versions = ['1.6', '1.5', '1.4', '1.3', '1.2'];
+    final public const Versions = ['1.7', '1.6', '1.5', '1.4', '1.3', '1.2'];
     final public const SourcePattern = SOURCE_ROOT.'bom-%s.schema.json';
     final public const TargetPattern = TARGET_ROOT.'bom-%s.SNAPSHOT.schema.json';
     final public const ReplaceStr = [
         'spdx.schema.json' => 'spdx.SNAPSHOT.schema.json',
+        'cryptography-defs.schema.json' => 'cryptography-defs.SNAPSHOT.schema.json',
         'jsf-0.82.schema.json' => 'jsf-0.82.SNAPSHOT.schema.json',
         _bomRequired => _bomRequiredReplace,
     ];
@@ -111,8 +112,9 @@ abstract class BomJsonStrict extends BaseDownloadable
 }
 
 const OtherDownloadables = [
-    SOURCE_ROOT_LATEST.'spdx.schema.json' => TARGET_ROOT.'spdx.SNAPSHOT.schema.json',
     SOURCE_ROOT_LATEST.'spdx.xsd' => TARGET_ROOT.'spdx.SNAPSHOT.xsd',
+    SOURCE_ROOT_LATEST.'spdx.schema.json' => TARGET_ROOT.'spdx.SNAPSHOT.schema.json',
+    SOURCE_ROOT_LATEST.'cryptography-defs.schema.json' => TARGET_ROOT.'cryptography-defs.SNAPSHOT.schema.json',
     SOURCE_ROOT_LATEST.'jsf-0.82.schema.json' => TARGET_ROOT.'jsf-0.82.SNAPSHOT.schema.json',
 ];
 

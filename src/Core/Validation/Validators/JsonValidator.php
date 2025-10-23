@@ -53,6 +53,7 @@ class JsonValidator extends BaseValidator
             Version::v1dot4->value => Resources::FILE_CDX_JSON_SCHEMA_1_4,
             Version::v1dot5->value => Resources::FILE_CDX_JSON_SCHEMA_1_5,
             Version::v1dot6->value => Resources::FILE_CDX_JSON_SCHEMA_1_6,
+            Version::v1dot7->value => Resources::FILE_CDX_JSON_SCHEMA_1_7,
         ];
     }
 

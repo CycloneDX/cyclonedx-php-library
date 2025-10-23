@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bom xmlns="http://cyclonedx.org/schema/bom/1.7" version="1">
+  <components>
+    <component type="cryptographic-asset" bom-ref="dummy_CryptographicAsset">
+      <name><![CDATA[dummy_CryptographicAsset]]></name>
+    </component>
+  </components>
+  <dependencies>
+    <dependency ref="dummy_CryptographicAsset"/>
+  </dependencies>
+</bom>

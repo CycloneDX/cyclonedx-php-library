@@ -1,0 +1,13 @@
+{
+    "$schema": "http://cyclonedx.org/schema/bom-1.7.schema.json",
+    "bomFormat": "CycloneDX",
+    "specVersion": "1.7",
+    "version": 1,
+    "components": [],
+    "externalReferences": [
+        {
+            "type": "source-distribution",
+            "url": ".../types/SourceDistribution.txt"
+        }
+    ]
+}

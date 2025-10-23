@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bom xmlns="http://cyclonedx.org/schema/bom/1.7" version="1">
+  <components>
+    <component type="operating-system" bom-ref="dummy_OperatingSystem">
+      <name><![CDATA[dummy_OperatingSystem]]></name>
+    </component>
+  </components>
+  <dependencies>
+    <dependency ref="dummy_OperatingSystem"/>
+  </dependencies>
+</bom>
