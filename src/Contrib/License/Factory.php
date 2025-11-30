@@ -32,7 +32,7 @@ use DomainException;
 use InvalidArgumentException;
 
 /**
- * License Factory
+ * License Factory.
  *
  * @author jkowalleck
  */
