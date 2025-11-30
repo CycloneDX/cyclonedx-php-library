@@ -30,6 +30,7 @@ namespace CycloneDX\Core\Factories;
  * Use {@see \CycloneDX\Contrib\License\Factory} instead.
  * The exported symbol itself is NOT deprecated — only this import path.
  */
+#[\Deprecated('use instead \CycloneDX\Contrib\License\Factor()')]
 class LicenseFactory extends \CycloneDX\Contrib\License\Factory
 {
 }

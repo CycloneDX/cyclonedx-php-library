@@ -45,6 +45,7 @@ abstract class BomUtility
      * @since 2.1.0
      * @deprecated use {@see \CycloneDX\Contrib\Bom\Utils\randomSerialNumber()} instead
      */
+    #[\Deprecated('use instead \CycloneDX\Contrib\Bom\Utils\randomSerialNumber()')]
     public static function randomSerialNumber(): string
     {
         return \CycloneDX\Contrib\Bom\Utils\randomSerialNumber();
