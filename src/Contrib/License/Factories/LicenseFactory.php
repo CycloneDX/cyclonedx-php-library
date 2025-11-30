@@ -21,7 +21,7 @@ declare(strict_types=1);
  * Copyright (c) OWASP Foundation. All Rights Reserved.
  */
 
-namespace CycloneDX\Contrib\License;
+namespace CycloneDX\Contrib\License\Factories;
 
 use Composer\Spdx\SpdxLicenses;
 use CycloneDX\Core\Models\License\LicenseExpression;

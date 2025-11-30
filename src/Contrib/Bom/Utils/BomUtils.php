@@ -21,7 +21,7 @@ declare(strict_types=1);
  * Copyright (c) OWASP Foundation. All Rights Reserved.
  */
 
-namespace CycloneDX\Contrib\Bom;
+namespace CycloneDX\Contrib\Bom\Utils;
 
 use Exception;
 

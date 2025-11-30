@@ -24,12 +24,12 @@ declare(strict_types=1);
 namespace CycloneDX\Core\Utils;
 
 /**
- * Deprecated — Alias of {@see \CycloneDX\Contrib\Bom\BomUtils}.
+ * Deprecated — Alias of {@see \CycloneDX\Contrib\Bom\Utils\BomUtils}.
  *
  * @author jkowalleck
  *
- * @deprecated Use {@see \CycloneDX\Contrib\Bom\BomUtils} instead
+ * @deprecated Use {@see \CycloneDX\Contrib\Bom\Utils\BomUtils} instead
  */
-abstract class BomUtility extends \CycloneDX\Contrib\Bom\BomUtils
+abstract class BomUtility extends \CycloneDX\Contrib\Bom\Utils\BomUtils
 {
 }
