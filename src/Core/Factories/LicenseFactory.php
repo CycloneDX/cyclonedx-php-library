@@ -24,10 +24,10 @@ declare(strict_types=1);
 namespace CycloneDX\Core\Factories;
 
 /**
- * Deprecated — Alias of {@see \CycloneDX\Contrib\License\Factory}.
+ * Deprecated — Alias of {@see \CycloneDX\Contrib\License\LicenseFactory}.
  *
- * @deprecated use {@see \CycloneDX\Contrib\License\Factory} instead
+ * @deprecated use {@see \CycloneDX\Contrib\License\LicenseFactory} instead
  */
-class LicenseFactory extends \CycloneDX\Contrib\License\Factory
+class LicenseFactory extends \CycloneDX\Contrib\License\LicenseFactory
 {
 }

@@ -36,7 +36,7 @@ use InvalidArgumentException;
  *
  * @author jkowalleck
  */
-class Factory
+class LicenseFactory
 {
     public function __construct(
         private readonly LicenseIdentifiers $licenseIdentifiers = new LicenseIdentifiers(),
