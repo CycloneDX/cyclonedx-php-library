@@ -30,7 +30,6 @@ use Deprecated;
  *
  * @deprecated use {@see \CycloneDX\Contrib\License\Factory} instead
  */
-#[Deprecated('use instead: \\CycloneDX\\Contrib\\License\\Factor()')]
 class LicenseFactory extends \CycloneDX\Contrib\License\Factory
 {
 }
