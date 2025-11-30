@@ -23,30 +23,13 @@ declare(strict_types=1);
 
 namespace CycloneDX\Core\Utils;
 
-use Exception;
-
 /**
- * Utility regarding:
- * - {@see \CycloneDX\Core\Models\Bom}.
+ * Deprecated — Alias of {@see \CycloneDX\Contrib\Bom\BomUtils}.
  *
  * @author jkowalleck
  *
- * @deprecated
+ * @deprecated Use {@see \CycloneDX\Contrib\Bom\BomUtils} instead
  */
-abstract class BomUtility
+abstract class BomUtility extends \CycloneDX\Contrib\Bom\BomUtils
 {
-    /**
-     * Deprecated — Alias of {@see \CycloneDX\Contrib\Bom\Utils\randomSerialNumber()}.
-     *
-     * Generate valid random SerialNumbers for {@see \CycloneDX\Core\Models\Bom::setSerialNumber()}.
-     *
-     * @throws Exception if an appropriate source of randomness cannot be found
-     *
-     * @since 2.1.0
-     * @deprecated Use {@see \CycloneDX\Contrib\Bom\Utils\randomSerialNumber()} instead
-     */
-    public static function randomSerialNumber(): string
-    {
-        return \CycloneDX\Contrib\Bom\Utils\randomSerialNumber();
-    }
 }

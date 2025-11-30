@@ -26,12 +26,11 @@ namespace CycloneDX\Tests\Core\Utils;
 use CycloneDX\Core\Utils\BomUtility;
 use Generator;
 use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\Attributes\CoversFunction;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 #[CoversClass(BomUtility::class)]
-#[CoversFunction('\\CycloneDX\\Contrib\\Bom\\Utils\\randomSerialNumber')]
+#[CoversClass(\CycloneDX\Contrib\Bom\BomUtils::class)]
 class BomUtilityTest extends TestCase
 {
     #[DataProvider('dpRandomBomSerialNumberHasCorrectFormat')]
