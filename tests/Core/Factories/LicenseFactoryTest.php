@@ -37,6 +37,7 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 #[CoversClass(LicenseFactory::class)]
+#[CoversClass(\CycloneDX\Contrib\License\Factory::class)]
 #[UsesClass(NamedLicense::class)]
 #[UsesClass(SpdxLicense::class)]
 #[UsesClass(LicenseExpression::class)]

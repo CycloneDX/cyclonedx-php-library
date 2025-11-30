@@ -23,6 +23,7 @@ declare(strict_types=1);
 
 namespace CycloneDX\Core\Utils;
 
+use Deprecated;
 use Exception;
 
 /**
@@ -33,6 +34,7 @@ use Exception;
  *
  * @deprecated
  */
+#[Deprecated]
 abstract class BomUtility
 {
     /**
@@ -43,9 +45,9 @@ abstract class BomUtility
      * @throws Exception if an appropriate source of randomness cannot be found
      *
      * @since 2.1.0
-     * @deprecated use {@see \CycloneDX\Contrib\Bom\Utils\randomSerialNumber()} instead
+     * @deprecated Use {@see \CycloneDX\Contrib\Bom\Utils\randomSerialNumber()} instead
      */
-    #[\Deprecated('use instead \CycloneDX\Contrib\Bom\Utils\randomSerialNumber()')]
+    #[Deprecated('use instead: \\CycloneDX\\Contrib\\Bom\\Utils\\randomSerialNumber()')]
     public static function randomSerialNumber(): string
     {
         return \CycloneDX\Contrib\Bom\Utils\randomSerialNumber();

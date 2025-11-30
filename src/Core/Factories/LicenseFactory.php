@@ -23,14 +23,14 @@ declare(strict_types=1);
 
 namespace CycloneDX\Core\Factories;
 
+use Deprecated;
+
 /**
  * Deprecated — Alias of {@see \CycloneDX\Contrib\License\Factory}.
  *
- * @deprecated This re-export location is deprecated.
- * Use {@see \CycloneDX\Contrib\License\Factory} instead.
- * The exported symbol itself is NOT deprecated — only this import path.
+ * @deprecated use {@see \CycloneDX\Contrib\License\Factory} instead
  */
-#[\Deprecated('use instead \CycloneDX\Contrib\License\Factor()')]
+#[Deprecated('use instead: \\CycloneDX\\Contrib\\License\\Factor()')]
 class LicenseFactory extends \CycloneDX\Contrib\License\Factory
 {
 }
