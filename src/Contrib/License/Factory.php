@@ -31,6 +31,11 @@ use CycloneDX\Core\Spdx\LicenseIdentifiers;
 use DomainException;
 use InvalidArgumentException;
 
+/**
+ * License Factory
+ *
+ * @author jkowalleck
+ */
 class Factory
 {
     public function __construct(

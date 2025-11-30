@@ -33,6 +33,8 @@ use Exception;
  * Generate valid random SerialNumbers for {@see \CycloneDX\Core\Models\Bom::setSerialNumber()}.
  *
  * @throws Exception if an appropriate source of randomness cannot be found
+ *
+ * @author jkowalleck
  */
 function randomSerialNumber(): string
 {
