@@ -23,8 +23,6 @@ declare(strict_types=1);
 
 namespace CycloneDX\Core\Factories;
 
-use Deprecated;
-
 /**
  * Deprecated — Alias of {@see \CycloneDX\Contrib\License\Factory}.
  *
