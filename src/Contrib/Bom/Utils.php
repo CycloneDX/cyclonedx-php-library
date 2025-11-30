@@ -21,15 +21,32 @@ declare(strict_types=1);
  * Copyright (c) OWASP Foundation. All Rights Reserved.
  */
 
-namespace CycloneDX\Core\Factories;
+/**
+ * Utilities regarding: {@see \CycloneDX\Core\Models\Bom}.
+ */
+
+namespace CycloneDX\Contrib\Bom\Utils;
+
+use Exception;
 
 /**
- * Deprecated — Alias of {@see \CycloneDX\Contrib\License\Factory}.
+ * Generate valid random SerialNumbers for {@see \CycloneDX\Core\Models\Bom::setSerialNumber()}.
  *
- * @deprecated This re-export location is deprecated.
- * Use {@see \CycloneDX\Contrib\License\Factory} instead.
- * The exported symbol itself is NOT deprecated — only this import path.
+ * @throws Exception if an appropriate source of randomness cannot be found
  */
-class LicenseFactory extends \CycloneDX\Contrib\License\Factory
+function randomSerialNumber(): string
 {
+    return \sprintf(
+        'urn:uuid:%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
+        random_int(0, 0xFFFF),
+        random_int(0, 0xFFFF),
+        random_int(0, 0xFFFF),
+        // UUID version 4
+        random_int(0, 0x0FFF) | 0x4000,
+        // UUID version 4 variant 1
+        random_int(0, 0x3FFF) | 0x8000,
+        random_int(0, 0xFFFF),
+        random_int(0, 0xFFFF),
+        random_int(0, 0xFFFF),
+    );
 }

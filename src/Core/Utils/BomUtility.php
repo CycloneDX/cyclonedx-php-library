@@ -30,30 +30,23 @@ use Exception;
  * - {@see \CycloneDX\Core\Models\Bom}.
  *
  * @author jkowalleck
+ *
+ * @deprecated
  */
 abstract class BomUtility
 {
     /**
+     * Deprecated — Alias of {@see \CycloneDX\Contrib\Bom\Utils\randomSerialNumber()}.
+     *
      * Generate valid random SerialNumbers for {@see \CycloneDX\Core\Models\Bom::setSerialNumber()}.
      *
-     * @since 2.1.0
-     *
      * @throws Exception if an appropriate source of randomness cannot be found
+     *
+     * @since 2.1.0
+     * @deprecated use {@see \CycloneDX\Contrib\Bom\Utils\randomSerialNumber()} instead
      */
     public static function randomSerialNumber(): string
     {
-        return \sprintf(
-            'urn:uuid:%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
-            random_int(0, 0xFFFF),
-            random_int(0, 0xFFFF),
-            random_int(0, 0xFFFF),
-            // UUID version 4
-            random_int(0, 0x0FFF) | 0x4000,
-            // UUID version 4 variant 1
-            random_int(0, 0x3FFF) | 0x8000,
-            random_int(0, 0xFFFF),
-            random_int(0, 0xFFFF),
-            random_int(0, 0xFFFF),
-        );
+        return \CycloneDX\Contrib\Bom\Utils\randomSerialNumber();
     }
 }
