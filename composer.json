@@ -58,8 +58,8 @@
     "prefer-stable": true,
     "autoload": {
         "psr-4": {
-            "CycloneDX\\Core\\": "src/Core/",
-            "CycloneDX\\Contrib\\": "src/Contrib/"
+            "CycloneDX\\Contrib\\": "src/Contrib/",
+            "CycloneDX\\Core\\": "src/Core/"
         }
     },
     "autoload-dev": {
