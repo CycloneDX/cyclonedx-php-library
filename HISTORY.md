@@ -7,7 +7,7 @@ All notable changes to this project will be documented in this file.
 <!-- add unreleased items here -->
 
 * Added
-  * new Entry point `CycloneDX\Contrib` (via [#569])
+  * new Entry point `\CycloneDX\Contrib` (via [#569])
 * Changed
   * Moved non‑standard implementations to Contrib area ([#571] via [#569])
 * Deprecated
@@ -17,8 +17,8 @@ All notable changes to this project will be documented in this file.
   * The following symbols were moved ([#571] via [#569])  
     The symbols are still import-able through their old location.
     * **OLD** -> **NEW**
-    * `CycloneDX\Core\Factories\LicenseFactory` -> `CycloneDX\Contrib\License\Factories\LicenseFactory`
-    * `CycloneDX\Core\Utils\BomUtility` -> `CycloneDX\Contrib\Bom\Utils\BomUtils`
+    * `\CycloneDX\Core\Factories\LicenseFactory` -> `\CycloneDX\Contrib\License\Factories\LicenseFactory`
+    * `\CycloneDX\Core\Utils\BomUtility` -> `\CycloneDX\Contrib\Bom\Utils\BomUtils`
 
 [#571]: https://github.com/CycloneDX/cyclonedx-php-library/issues/571
 [#569]: https://github.com/CycloneDX/cyclonedx-php-library/pull/569
