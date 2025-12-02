@@ -27,7 +27,7 @@ require_once __DIR__.'/../vendor/autoload.php';
 
 // Example how to serialize a Bom to JSON / XML.
 
-$lFac = new \CycloneDX\Core\Factories\LicenseFactory();
+$lFac = new \CycloneDX\Contrib\License\Factories\LicenseFactory();
 
 // region build the BOM
 

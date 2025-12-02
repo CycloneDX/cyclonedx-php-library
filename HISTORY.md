@@ -6,6 +6,23 @@ All notable changes to this project will be documented in this file.
 
 <!-- add unreleased items here -->
 
+* Added
+  * new Entry point `\CycloneDX\Contrib` (via [#569])
+* Changed
+  * Moved non‑standard implementations to Contrib area ([#571] via [#569])
+* Deprecated
+  * Certain exports have been deprecated; downstream imports should be updated to the new locations ([#571] via [#569])  
+    Note: the symbols themselves remain supported. See documentation and the "Refactored" section below for details.
+* Refactored
+  * The following symbols were moved ([#571] via [#569])  
+    The symbols are still import-able through their old location.
+    * **OLD** -> **NEW**
+    * `\CycloneDX\Core\Factories\LicenseFactory` -> `\CycloneDX\Contrib\License\Factories\LicenseFactory`
+    * `\CycloneDX\Core\Utils\BomUtility` -> `\CycloneDX\Contrib\Bom\Utils\BomUtils`
+
+[#571]: https://github.com/CycloneDX/cyclonedx-php-library/issues/571
+[#569]: https://github.com/CycloneDX/cyclonedx-php-library/pull/569
+
 ## 3.8.0 - 2025-10-23
 
 * Added

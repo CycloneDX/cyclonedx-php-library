@@ -30,6 +30,7 @@ use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 #[CoversClass(BomUtility::class)]
+#[CoversClass(\CycloneDX\Contrib\Bom\Utils\BomUtils::class)]
 class BomUtilityTest extends TestCase
 {
     #[DataProvider('dpRandomBomSerialNumberHasCorrectFormat')]
