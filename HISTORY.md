@@ -6,6 +6,8 @@ All notable changes to this project will be documented in this file.
 
 <!-- add unreleased items here -->
 
+## 3.9.0 - 2025-12-02
+
 * Added
   * new Entry point `\CycloneDX\Contrib` (via [#569])
 * Changed
