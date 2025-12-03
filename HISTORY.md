@@ -6,6 +6,12 @@ All notable changes to this project will be documented in this file.
 
 <!-- add unreleased items here -->
 
+* Added
+  * Officially support PHP 8.5 ([#566] via [#])
+
+[#566]: https://github.com/CycloneDX/cyclonedx-php-library/issues/566
+[#]: 
+
 ## 3.9.0 - 2025-12-02
 
 * Added
