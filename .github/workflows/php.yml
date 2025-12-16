@@ -81,7 +81,7 @@ jobs:
       - name: Cache dependencies
         if: ${{ steps.composer-cache.outputs.dir }}
         # see https://github.com/actions/cache
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
           key: composer-${{ github.job }}-${{ runner.os }}-${{ matrix.php }}-${{ matrix.dependencies }}-${{ hashFiles('composer.*', 'tools/phpunit/composer.*') }}
@@ -175,7 +175,7 @@ jobs:
       - name: Cache dependencies
         if: ${{ steps.composer-cache.outputs.dir }}
         # see https://github.com/actions/cache
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
           key: composer-${{ github.job }}-${{ runner.os }}-${{ matrix.php }}-${{ matrix.dependencies }}-${{ hashFiles('composer.*', 'tools/psalm/composer.*') }}
@@ -235,7 +235,7 @@ jobs:
       - name: Cache dependencies
         if: ${{ steps.composer-cache.outputs.dir }}
         # see https://github.com/actions/cache
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
           key: composer-${{ github.job }}-${{ runner.os }}-${{ hashFiles('composer.*', 'tools/composer-unused/composer.*') }}
@@ -274,7 +274,7 @@ jobs:
       - name: Cache dependencies
         if: ${{ steps.composer-cache.outputs.dir }}
         # see https://github.com/actions/cache
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
           key: composer-${{ github.job }}-${{ runner.os }}-${{ hashFiles('composer.*', 'tools/composer-require-checker/composer.*') }}
@@ -311,7 +311,7 @@ jobs:
       - name: Cache dependencies
         if: ${{ steps.composer-cache.outputs.dir }}
         # see https://github.com/actions/cache
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
           key: composer-${{ github.job }}-${{ runner.os }}-${{ hashFiles('composer.*', 'tools/php-cs-fixer/composer.*') }}
@@ -349,7 +349,7 @@ jobs:
       - name: Cache dependencies
         if: ${{ steps.composer-cache.outputs.dir }}
         # see https://github.com/actions/cache
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
           key: composer-${{ github.job }}-${{ runner.os }}-${{ hashFiles('composer.*', 'tools/composer-normalize/composer.*') }}
@@ -389,7 +389,7 @@ jobs:
       - name: Cache dependencies
         if: ${{ steps.composer-cache.outputs.dir }}
         # see https://github.com/actions/cache
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
           key: composer-${{ github.job }}-${{ runner.os }}-${{ hashFiles('composer.*', 'tools/phpmd/composer.*') }}
@@ -425,7 +425,7 @@ jobs:
       - name: Cache dependencies
         if: ${{ steps.composer-cache.outputs.dir }}
         # see https://github.com/actions/cache
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
           key: composer-${{ github.job }}-${{ runner.os }}-${{ hashFiles('composer.*', 'tools/phpmd/composer.*') }}
