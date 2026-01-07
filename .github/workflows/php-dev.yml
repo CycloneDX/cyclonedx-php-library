@@ -30,7 +30,7 @@ permissions: {}
 
 env:
   PHP_VERSION_LATEST: "8.5"
-  PHP_PROJECT_EXT: dom,filter,json,libxml,simplexml,sodium  # via `composer info -pt`
+  PHP_PROJECT_EXT: dom,filter,json,libxml,simplexml,sodium,intl  # via `composer info -pt`
 
 jobs:
   asure-dev-setup:
