@@ -44,7 +44,6 @@ use PHPUnit\Framework\TestCase;
 #[CoversClass(Normalizers\BomNormalizer::class)]
 #[CoversClass(_BaseNormalizer::class)]
 #[UsesClass(ExternalReferenceRepository::class)]
-#[UsesClass(ExternalReferenceRepository::class)]
 class BomNormalizerTest extends TestCase
 {
     use DomNodeAssertionTrait;
