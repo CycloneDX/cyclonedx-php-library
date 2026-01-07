@@ -42,7 +42,6 @@ use PHPUnit\Framework\TestCase;
 #[CoversClass(_BaseNormalizer::class)]
 #[UsesClass(Normalizers\ComponentNormalizer::class)]
 #[UsesClass(Normalizers\PropertyRepositoryNormalizer::class)]
-#[UsesClass(Normalizers\PropertyRepositoryNormalizer::class)]
 class MetadataNormalizerTest extends TestCase
 {
     public function testNormalizeEmpty(): void

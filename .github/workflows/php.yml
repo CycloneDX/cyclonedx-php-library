@@ -21,8 +21,8 @@ permissions: {}
 
 env:
   PHP_VERSION_LOWEST: "8.1"  # lowest supported
-  PHP_VERSION_LATEST: "8.4"  # highest supported
-  PHP_PROJECT_EXT: dom,json,libxml,simplexml  # via `composer info -pt`
+  PHP_VERSION_LATEST: "8.5"  # highest supported
+  PHP_PROJECT_EXT: dom,json,libxml,simplexml,phar,bcmath,json,mbstring,sodium,intl  # via `composer info -pt` in root and all tools
   REPORTS_DIR: CI_reports
   TESTS_REPORTS_ARTIFACT: tests-reports
   TYPES_REPORTS_ARTIFACT: types-reports
@@ -54,7 +54,8 @@ jobs:
       matrix:
         os: [ "ubuntu-latest", "windows-latest", "macos-latest" ]
         php:
-          - "8.4"   # highest supported
+          - "8.5"   # highest supported
+          - "8.4"
           - "8.3"
           - "8.2"
           - "8.1"   # lowest supported
@@ -152,7 +153,7 @@ jobs:
       matrix:
         include:
           - # highest supported
-            php: "8.4"
+            php: "8.5"
             dependencies: "highest"
           - # lowest supported
             php: "8.1"
