@@ -58,7 +58,8 @@
         "composer/spdx-licenses": "<1.5"
     },
     "suggest": {
-        "composer/spdx-licenses": "used in license factory"
+        "composer/spdx-licenses": "used in license factory",
+        "package-url/packageurl-php": "*"
     },
     "prefer-stable": true,
     "autoload": {

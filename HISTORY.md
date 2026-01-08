@@ -9,6 +9,7 @@ All notable changes to this project will be documented in this file.
 * BREAKING changes
   * Removed deprecated symbols
   * Changed constructor of `CycloneDX\Contrib\License\Factories\LicenseFactory`
+  * Changed dependencies
 * Removed
   * Class `CycloneDX\Core\Factories\LicenseFactory` ([#571] via [#587])  
     Use `\CycloneDX\Contrib\License\Factories\LicenseFactory` instead.
@@ -17,12 +18,19 @@ All notable changes to this project will be documented in this file.
 * Changed
   * `CycloneDX\Contrib\License\Factories\LicenseFactory::__construct()` parameters are no longer autopopulated ([#571] via [#587])  
     Downstream implementations have to populate the parameters on their own, now.
+  * `CycloneDX\Core\Models\Component::setPackageUrl()` accepts `?string` ([#571] via [#])  
+    Downstream implementations may use [package-url/packageurl-php](https://packagist.org/packages/package-url/packageurl-php) for generation.
+  * `CycloneDX\Core\Models\Component::getPackageUrl()` returns `?string` ([#571] via [#])  
+    Downstream implementations may use [package-url/packageurl-php](https://packagist.org/packages/package-url/packageurl-php) for parsing.
 * Dependencies
   * No longer depends on, but suggests `composer/spdx-licenses:^1.5` ([#571] via [#587])  
     May be used when utilizing `\CycloneDX\Contrib\License\Factories\LicenseFactory`. 
+  * No longer depend on `package-url/packageurl-php` ([#571] via [#])
+
 
 [#571]: https://github.com/CycloneDX/cyclonedx-php-library/issues/571
 [#587]: https://github.com/CycloneDX/cyclonedx-php-library/pull/587
+[#]:
 
 ## 3.10.0 - 2026-01-07
 

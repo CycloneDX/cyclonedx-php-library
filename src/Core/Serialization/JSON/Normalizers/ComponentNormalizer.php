@@ -106,11 +106,11 @@ class ComponentNormalizer extends _BaseNormalizer
     }
 
     /**  @SuppressWarnings(PHPMD.StaticAccess) */
-    private function normalizePurl(?PackageUrl $purl): ?string
+    private function normalizePurl(?string $purl): ?string
     {
         return null === $purl
             ? null
-            : JsonHelper::encodeIriReferenceBE((string) $purl);
+            : JsonHelper::encodeIriReferenceBE( $purl);
     }
 
     private function normalizeExternalReferences(ExternalReferenceRepository $extRefs): ?array
