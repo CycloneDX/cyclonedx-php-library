@@ -25,7 +25,7 @@ namespace CycloneDX\Contrib\License\Validators;
 
 /**
  * suggested 3rd party implementation(s):
- * * `composer/spdx-licenses` - {@link https://packagist.org/packages/composer/spdx-licenses}
+ * - {@link https://packagist.org/packages/composer/spdx-licenses composer/spdx-licenses}
  */
 interface SpdxLicensesValidator
 {
