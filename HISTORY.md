@@ -8,11 +8,18 @@ All notable changes to this project will be documented in this file.
 
 * BREAKING changes
   * Removed deprecated symbols
+  * Changed constructor of `CycloneDX\Contrib\License\Factories\LicenseFactory`
 * Removed
-  * `CycloneDX\Core\Factories\LicenseFactory` ([#571] via [#587])
-    Use `\CycloneDX\Contrib\License\Factories\LicenseFactory` instead
-  * `CycloneDX\Core\Utils\BomUtility` ([#571] via [#587])
-    Use `\CycloneDX\Contrib\Bom\Utils\BomUtils` instead
+  * `CycloneDX\Core\Factories\LicenseFactory` ([#571] via [#587])  
+    Use `\CycloneDX\Contrib\License\Factories\LicenseFactory` instead.
+  * `CycloneDX\Core\Utils\BomUtility` ([#571] via [#587])  
+    Use `\CycloneDX\Contrib\Bom\Utils\BomUtils` instead.
+* Changed
+  * `CycloneDX\Contrib\License\Factories\LicenseFactory::__construct()` parameters are no longer autopopulated ([#571] via [#587])  
+    Downstream implementations have to populate the parameters on their own, now.
+* Dependencies
+  * No longer depends on, but suggests `composer/spdx-licenses:^1.5` ([#571] via [#587])  
+    May be used when utilizing `\CycloneDX\Contrib\License\Factories\LicenseFactory`. 
 
 [#571]: https://github.com/CycloneDX/cyclonedx-php-library/issues/571
 [#587]: https://github.com/CycloneDX/cyclonedx-php-library/pull/587

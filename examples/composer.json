@@ -1,0 +1,27 @@
+{
+    "name": "cyclonedx/cyclonedx-library-examples",
+    "description": "Example: Work with CycloneDX documents.",
+    "license": "Apache-2.0",
+    "type": "project",
+    "require": {
+        "composer/spdx-licenses": "^1.5",
+        "cyclonedx/cyclonedx-library": "*@dev"
+    },
+    "require-dev": {
+        "roave/security-advisories": "dev-latest"
+    },
+    "repositories": [
+        {
+            "type": "path",
+            "url": "../",
+            "options": {
+                "symlink": true
+            }
+        }
+    ],
+    "prefer-stable": true,
+    "scripts": {
+        "normalize": "@composer -d ../tools/composer-normalize normalize --diff $PWD/composer.json",
+        "test:psalm": "@php ../tools/psalm/vendor/vimeo/psalm/psalm"
+    }
+}
