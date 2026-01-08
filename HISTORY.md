@@ -6,6 +6,16 @@ All notable changes to this project will be documented in this file.
 
 <!-- add unreleased items here -->
 
+* BREAKING changes
+  * Removed deprecated symbols
+* Removed
+  * `CycloneDX\Core\Factories\LicenseFactory` ([#571] via [#])
+    Use `\CycloneDX\Contrib\License\Factories\LicenseFactory` instead
+  * `CycloneDX\Core\Utils\BomUtility` ([#571] via [#])
+    Use `\CycloneDX\Contrib\Bom\Utils\BomUtils` instead
+
+[#571]: https://github.com/CycloneDX/cyclonedx-php-library/issues/571
+
 ## 3.10.0 - 2026-01-07
 
 * Added
