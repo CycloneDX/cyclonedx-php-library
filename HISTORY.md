@@ -10,9 +10,9 @@ All notable changes to this project will be documented in this file.
   * Removed deprecated symbols
   * Changed constructor of `CycloneDX\Contrib\License\Factories\LicenseFactory`
 * Removed
-  * `CycloneDX\Core\Factories\LicenseFactory` ([#571] via [#587])  
+  * Class `CycloneDX\Core\Factories\LicenseFactory` ([#571] via [#587])  
     Use `\CycloneDX\Contrib\License\Factories\LicenseFactory` instead.
-  * `CycloneDX\Core\Utils\BomUtility` ([#571] via [#587])  
+  * Class `CycloneDX\Core\Utils\BomUtility` ([#571] via [#587])  
     Use `\CycloneDX\Contrib\Bom\Utils\BomUtils` instead.
 * Changed
   * `CycloneDX\Contrib\License\Factories\LicenseFactory::__construct()` parameters are no longer autopopulated ([#571] via [#587])  
