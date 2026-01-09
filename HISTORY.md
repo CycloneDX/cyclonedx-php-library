@@ -12,9 +12,10 @@ All notable changes to this project will be documented in this file.
   * Changed dependencies
 * Removed
   * Class `CycloneDX\Core\Factories\LicenseFactory` ([#571] via [#587])  
-    Use `\CycloneDX\Contrib\License\Factories\LicenseFactory` instead.
+    Use `CycloneDX\Contrib\License\Factories\LicenseFactory` instead.
   * Class `CycloneDX\Core\Utils\BomUtility` ([#571] via [#587])  
-    Use `\CycloneDX\Contrib\Bom\Utils\BomUtils` instead.
+    Use `CycloneDX\Contrib\Bom\Utils\BomUtils` instead.
+  * Method `CycloneDX\Core\Validation\BaseValidator::getSpec()` ([#590] via [#591])
 * Changed
   * `CycloneDX\Contrib\License\Factories\LicenseFactory::__construct()` parameters are no longer autopopulated ([#571] via [#587])  
     Downstream implementations have to populate the parameters on their own, now.
@@ -22,14 +23,18 @@ All notable changes to this project will be documented in this file.
     Downstream implementations may use [package-url/packageurl-php](https://packagist.org/packages/package-url/packageurl-php) for generation.
   * `CycloneDX\Core\Models\Component::getPackageUrl()` returns `?string` ([#571] via [#588])  
     Downstream implementations may use [package-url/packageurl-php](https://packagist.org/packages/package-url/packageurl-php) for parsing.
+  * `CycloneDX\Core\Validation\BaseValidator::__construct()` parameter is type `CycloneDX\Core\Spec\Version` ([#590] via [#591])  
+    Was internal type `CycloneDX\Core\Spec\_SpecProtocol`.
 * Dependencies
   * No longer depends on, but suggests `composer/spdx-licenses:^1.5` ([#571] via [#587])  
-    May be used when utilizing `\CycloneDX\Contrib\License\Factories\LicenseFactory`. 
+    May be used when utilizing `CycloneDX\Contrib\License\Factories\LicenseFactory`. 
   * No longer depend on `package-url/packageurl-php` ([#571] via [#588])
 
 [#571]: https://github.com/CycloneDX/cyclonedx-php-library/issues/571
 [#587]: https://github.com/CycloneDX/cyclonedx-php-library/pull/587
 [#588]: https://github.com/CycloneDX/cyclonedx-php-library/pull/588
+[#590]: https://github.com/CycloneDX/cyclonedx-php-library/issues/590
+[#591]: https://github.com/CycloneDX/cyclonedx-php-library/pull/591
 
 ## 3.10.0 - 2026-01-07
 

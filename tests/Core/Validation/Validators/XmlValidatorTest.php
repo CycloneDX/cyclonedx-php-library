@@ -24,8 +24,6 @@ declare(strict_types=1);
 namespace CycloneDX\Tests\Core\Validation\Validators;
 
 use CycloneDX\Core\Spec\_Spec;
-use CycloneDX\Core\Spec\_SpecProtocol;
-use CycloneDX\Core\Spec\SpecFactory;
 use CycloneDX\Core\Spec\Version;
 use CycloneDX\Core\Validation\BaseValidator;
 use CycloneDX\Core\Validation\Errors\XmlValidationError;
@@ -50,9 +48,9 @@ class XmlValidatorTest extends TestCase
 {
     public function testConstructor(): XmlValidator
     {
-        $spec = $this->createStub(_SpecProtocol::class);
-        $validator = new XmlValidator($spec);
-        self::assertSame($spec, $validator->getSpec());
+        $versopn = Version::v1dot7;
+        $validator = new XmlValidator(Version::v1dot7);
+        self::assertSame($versopn, $validator->version);
 
         return $validator;
     }
@@ -88,8 +86,7 @@ class XmlValidatorTest extends TestCase
 
     public function testValidateStringThrowsWhenNotParseable(): void
     {
-        $spec = $this->createConfiguredMock(_SpecProtocol::class, ['getVersion' => Version::v1dot2]);
-        $validator = new XmlValidator($spec);
+        $validator = new XmlValidator(Version::v1dot2);
         $xml = '<bom>some invalid XML';
 
         $this->expectException(DOMException::class);
@@ -100,8 +97,7 @@ class XmlValidatorTest extends TestCase
 
     public function testValidateDomPasses(): void
     {
-        $spec = $this->createConfiguredMock(_SpecProtocol::class, ['getVersion' => Version::v1dot2]);
-        $validator = new XmlValidator($spec);
+        $validator = new XmlValidator(Version::v1dot2);
         $doc = new DOMDocument();
         $loaded = $doc->loadXML(
             <<<'XML'
@@ -130,8 +126,7 @@ class XmlValidatorTest extends TestCase
 
     public function testValidateDomFails(): void
     {
-        $spec = $this->createConfiguredMock(_SpecProtocol::class, ['getVersion' => Version::v1dot2]);
-        $validator = new XmlValidator($spec);
+        $validator = new XmlValidator(Version::v1dot2);
         $doc = new DOMDocument();
         $loaded = $doc->loadXML(
             <<<'XML'
@@ -168,8 +163,7 @@ class XmlValidatorTest extends TestCase
 
     public function testValidateDomThrowsOnDuplicateBomRef(): void
     {
-        $spec = $this->createConfiguredMock(_SpecProtocol::class, ['getVersion' => Version::v1dot2]);
-        $validator = new XmlValidator($spec);
+        $validator = new XmlValidator(Version::v1dot2);
         $doc = new DOMDocument();
         $loaded = $doc->loadXML(
             <<<'XML'
@@ -205,8 +199,7 @@ class XmlValidatorTest extends TestCase
     {
         self::markTestSkipped('skipped, unless there is a version that does not support XML.');
 
-        $spec = $this->createConfiguredMock(_SpecProtocol::class, ['getVersion' => Version::v1dot1]);
-        $validator = new XmlValidator($spec);
+        $validator = new XmlValidator(Version::v1dot1);
         $doc = $this->createPartialMock(DOMDocument::class, ['schemaValidate']);
 
         $doc->expects(self::never())->method('schemaValidate');
@@ -217,17 +210,17 @@ class XmlValidatorTest extends TestCase
     }
 
     #[DataProvider('dpSchemaTestDataValid')]
-    public function testFunctionalValid(_Spec $spec, string $file): void
+    public function testFunctionalValid(Version $version, string $file): void
     {
-        $validator = new XmlValidator($spec);
+        $validator = new XmlValidator($version);
         $errors = $validator->validateString(file_get_contents($file));
         $this->assertNull($errors);
     }
 
     #[DataProvider('dpSchemaTestDataInvalid')]
-    public function testFunctionalInvalid(_Spec $spec, string $file): void
+    public function testFunctionalInvalid(Version $version, string $file): void
     {
-        $validator = new XmlValidator($spec);
+        $validator = new XmlValidator($version);
         $errors = $validator->validateString(file_get_contents($file));
         $this->assertInstanceOf(XmlValidationError::class, $errors);
     }
@@ -244,19 +237,18 @@ class XmlValidatorTest extends TestCase
 
     private static function dpSchemaTestData(string $filePrefix): Generator
     {
-        /** @var _SpecProtocol $spec */
+        /** @var Version $specVersion */
         foreach ([
-            SpecFactory::make1dot7(),
-            SpecFactory::make1dot6(),
-            SpecFactory::make1dot5(),
-            SpecFactory::make1dot4(),
-            SpecFactory::make1dot3(),
-            SpecFactory::make1dot2(),
-            SpecFactory::make1dot1(),
-        ] as $spec) {
-            $specVersion = $spec->getVersion()->value;
-            foreach (glob(__DIR__."/../../../_data/schemaTestData/$specVersion/$filePrefix-*.xml") as $file) {
-                yield "$specVersion ".basename($file, '.xml') => [$spec, $file];
+            Version::v1dot7,
+            Version::v1dot6,
+            Version::v1dot5,
+            Version::v1dot4,
+            Version::v1dot3,
+            Version::v1dot2,
+            Version::v1dot1,
+        ] as $specVersion) {
+            foreach (glob(__DIR__."/../../../_data/schemaTestData/$specVersion->value/$filePrefix-*.xml") as $file) {
+                yield "$specVersion->value ".basename($file, '.xml') => [$specVersion, $file];
             }
         }
     }
