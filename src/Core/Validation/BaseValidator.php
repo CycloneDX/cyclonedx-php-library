@@ -42,7 +42,7 @@ abstract class BaseValidator implements Validator
     {
         $schemaFile = static::listSchemaFiles()[$this->version->value] ?? null;
         if (false === \is_string($schemaFile)) {
-            throw new Exceptions\FailedLoadingSchemaException("Schema file unknown for specVersion: $this->version->name");
+            throw new Exceptions\FailedLoadingSchemaException("Schema file unknown for specVersion: {$this->version->name}");
         }
         $schemaPath = realpath($schemaFile);
         if (\is_string($schemaPath) && is_file($schemaPath) && is_readable($schemaPath)) {

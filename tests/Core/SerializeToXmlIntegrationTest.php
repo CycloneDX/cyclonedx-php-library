@@ -57,7 +57,7 @@ class SerializeToXmlIntegrationTest extends TestCase
     {
         $spec = SpecFactory::make1dot1();
         $serializer = new XmlSerializer(new DOM\NormalizerFactory($spec));
-        $validator = new XmlValidator($spec);
+        $validator = new XmlValidator($spec->getVersion());
 
         $xml = $serializer->serialize($bom, true);
         $validationErrors = $validator->validateString($xml);
@@ -77,7 +77,7 @@ class SerializeToXmlIntegrationTest extends TestCase
     {
         $spec = SpecFactory::make1dot2();
         $serializer = new XmlSerializer(new DOM\NormalizerFactory($spec));
-        $validator = new XmlValidator($spec);
+        $validator = new XmlValidator($spec->getVersion());
 
         $xml = $serializer->serialize($bom, true);
         $validationErrors = $validator->validateString($xml);
@@ -97,7 +97,7 @@ class SerializeToXmlIntegrationTest extends TestCase
     {
         $spec = SpecFactory::make1dot3();
         $serializer = new XmlSerializer(new DOM\NormalizerFactory($spec));
-        $validator = new XmlValidator($spec);
+        $validator = new XmlValidator($spec->getVersion());
 
         $xml = $serializer->serialize($bom, true);
         $validationErrors = $validator->validateString($xml);
@@ -117,7 +117,7 @@ class SerializeToXmlIntegrationTest extends TestCase
     {
         $spec = SpecFactory::make1dot4();
         $serializer = new XmlSerializer(new DOM\NormalizerFactory($spec));
-        $validator = new XmlValidator($spec);
+        $validator = new XmlValidator($spec->getVersion());
 
         $xml = $serializer->serialize($bom, true);
         $validationErrors = $validator->validateString($xml);
@@ -137,7 +137,7 @@ class SerializeToXmlIntegrationTest extends TestCase
     {
         $spec = SpecFactory::make1dot5();
         $serializer = new XmlSerializer(new DOM\NormalizerFactory($spec));
-        $validator = new XmlValidator($spec);
+        $validator = new XmlValidator($spec->getVersion());
 
         $xml = $serializer->serialize($bom, true);
         $validationErrors = $validator->validateString($xml);
@@ -157,7 +157,7 @@ class SerializeToXmlIntegrationTest extends TestCase
     {
         $spec = SpecFactory::make1dot6();
         $serializer = new XmlSerializer(new DOM\NormalizerFactory($spec));
-        $validator = new XmlValidator($spec);
+        $validator = new XmlValidator($spec->getVersion());
 
         $xml = $serializer->serialize($bom, true);
         $validationErrors = $validator->validateString($xml);
@@ -177,7 +177,7 @@ class SerializeToXmlIntegrationTest extends TestCase
     {
         $spec = SpecFactory::make1dot7();
         $serializer = new XmlSerializer(new DOM\NormalizerFactory($spec));
-        $validator = new XmlValidator($spec);
+        $validator = new XmlValidator($spec->getVersion());
 
         $xml = $serializer->serialize($bom, true);
         $validationErrors = $validator->validateString($xml);
