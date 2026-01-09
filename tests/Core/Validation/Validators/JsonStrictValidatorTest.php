@@ -52,9 +52,9 @@ class JsonStrictValidatorTest extends TestCase
 {
     public function testConstructor(): JsonStrictValidator
     {
-        $spec = $this->createStub(_SpecProtocol::class);
-        $validator = new JsonStrictValidator($spec);
-        self::assertSame($spec, $validator->getSpec());
+        $version = Version::v1dot7;
+        $validator = new JsonStrictValidator($version);
+        self::assertSame($version, $validator->version);
 
         return $validator;
     }
@@ -90,8 +90,7 @@ class JsonStrictValidatorTest extends TestCase
 
     public function testValidateStringThrowsWhenNotParseable(): void
     {
-        $spec = $this->createConfiguredMock(_SpecProtocol::class, ['getVersion' => Version::v1dot2]);
-        $validator = new JsonStrictValidator($spec);
+        $validator = new JsonStrictValidator(Version::v1dot2);
         $json = '{"dummy":';
 
         $this->expectException(JsonException::class);
@@ -102,8 +101,7 @@ class JsonStrictValidatorTest extends TestCase
 
     public function testValidateDataPasses(): void
     {
-        $spec = $this->createConfiguredMock(_SpecProtocol::class, ['getVersion' => Version::v1dot2]);
-        $validator = new JsonStrictValidator($spec);
+        $validator = new JsonStrictValidator(Version::v1dot2);
         $data = (object) [
             '$schema' => 'http://cyclonedx.org/schema/bom-1.2.schema.json',
             'bomFormat' => 'CycloneDX',
@@ -130,8 +128,7 @@ class JsonStrictValidatorTest extends TestCase
 
     public function testValidateDataFails(): void
     {
-        $spec = $this->createConfiguredMock(_SpecProtocol::class, ['getVersion' => Version::v1dot2]);
-        $validator = new JsonStrictValidator($spec);
+        $validator = new JsonStrictValidator(Version::v1dot2);
         $data = (object) [
             '$schema' => 'http://cyclonedx.org/schema/bom-1.2.schema.json',
             'bomFormat' => 'CycloneDX',
@@ -164,8 +161,7 @@ class JsonStrictValidatorTest extends TestCase
 
     public function testValidateDataThrowsOnSchemaFileUnknown(): void
     {
-        $spec = $this->createConfiguredMock(_SpecProtocol::class, ['getVersion' => Version::v1dot1]);
-        $validator = new JsonStrictValidator($spec);
+        $validator = new JsonStrictValidator(Version::v1dot1);
 
         $this->expectException(FailedLoadingSchemaException::class);
 
@@ -173,17 +169,17 @@ class JsonStrictValidatorTest extends TestCase
     }
 
     #[DataProvider('dpSchemaTestDataValid')]
-    public function testFunctionalValid(_Spec $spec, string $file): void
+    public function testFunctionalValid(Version $version, string $file): void
     {
-        $validator = new JsonStrictValidator($spec);
+        $validator = new JsonStrictValidator($version);
         $errors = $validator->validateString(file_get_contents($file));
         $this->assertNull($errors);
     }
 
     #[DataProvider('dpSchemaTestDataInvalid')]
-    public function testFunctionalInvalid(_Spec $spec, string $file): void
+    public function testFunctionalInvalid(Version $version, string $file): void
     {
-        $validator = new JsonStrictValidator($spec);
+        $validator = new JsonStrictValidator($version);
         $errors = $validator->validateString(file_get_contents($file));
         $this->assertInstanceOf(JsonValidationError::class, $errors);
     }
@@ -200,18 +196,17 @@ class JsonStrictValidatorTest extends TestCase
 
     private static function dpSchemaTestData(string $filePrefix): Generator
     {
-        /** @var _SpecProtocol $spec */
+        /** @var Version $specVersion */
         foreach ([
-            SpecFactory::make1dot7(),
-            SpecFactory::make1dot6(),
-            SpecFactory::make1dot5(),
-            SpecFactory::make1dot4(),
-            SpecFactory::make1dot3(),
-            SpecFactory::make1dot2(),
-        ] as $spec) {
-            $specVersion = $spec->getVersion()->value;
-            foreach (glob(__DIR__."/../../../_data/schemaTestData/$specVersion/$filePrefix-*.json") as $file) {
-                yield "$specVersion ".basename($file, '.json') => [$spec, $file];
+             Version::v1dot7,
+             Version::v1dot6,
+             Version::v1dot5,
+             Version::v1dot4,
+             Version::v1dot3,
+             Version::v1dot2,
+        ] as $specVersion) {
+            foreach (glob(__DIR__."/../../../_data/schemaTestData/$specVersion->value/$filePrefix-*.json") as $file) {
+                yield "$specVersion->value ".basename($file, '.json') => [$specVersion, $file];
             }
         }
     }
