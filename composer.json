@@ -47,13 +47,18 @@
         "ext-dom": "*",
         "ext-json": "*",
         "ext-libxml": "*",
-        "composer/spdx-licenses": "^1.5",
         "opis/json-schema": "^2.0",
         "package-url/packageurl-php": "^1.0"
     },
     "require-dev": {
         "ext-simplexml": "*",
         "roave/security-advisories": "dev-latest"
+    },
+    "conflict": {
+        "composer/spdx-licenses": "<1.5"
+    },
+    "suggest": {
+        "composer/spdx-licenses": "used in license factory"
     },
     "prefer-stable": true,
     "autoload": {

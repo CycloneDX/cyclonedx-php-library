@@ -23,11 +23,14 @@ declare(strict_types=1);
 
 namespace CycloneDX\Examples;
 
-require_once __DIR__.'/../vendor/autoload.php';
+require_once __DIR__.'/vendor/autoload.php';
 
 // Example how to serialize a Bom to JSON / XML.
 
-$lFac = new \CycloneDX\Contrib\License\Factories\LicenseFactory();
+$lFac = new \CycloneDX\Contrib\License\Factories\LicenseFactory(
+    new \CycloneDX\Core\Spdx\LicenseIdentifiers(),
+    new \Composer\Spdx\SpdxLicenses()
+);
 
 // region build the BOM
 
