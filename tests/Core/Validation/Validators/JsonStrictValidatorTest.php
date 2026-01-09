@@ -24,8 +24,6 @@ declare(strict_types=1);
 namespace CycloneDX\Tests\Core\Validation\Validators;
 
 use CycloneDX\Core\Spec\_Spec;
-use CycloneDX\Core\Spec\_SpecProtocol;
-use CycloneDX\Core\Spec\SpecFactory;
 use CycloneDX\Core\Spec\Version;
 use CycloneDX\Core\Validation\BaseValidator;
 use CycloneDX\Core\Validation\Errors\JsonValidationError;
@@ -198,12 +196,12 @@ class JsonStrictValidatorTest extends TestCase
     {
         /** @var Version $specVersion */
         foreach ([
-             Version::v1dot7,
-             Version::v1dot6,
-             Version::v1dot5,
-             Version::v1dot4,
-             Version::v1dot3,
-             Version::v1dot2,
+            Version::v1dot7,
+            Version::v1dot6,
+            Version::v1dot5,
+            Version::v1dot4,
+            Version::v1dot3,
+            Version::v1dot2,
         ] as $specVersion) {
             foreach (glob(__DIR__."/../../../_data/schemaTestData/$specVersion->value/$filePrefix-*.json") as $file) {
                 yield "$specVersion->value ".basename($file, '.json') => [$specVersion, $file];
