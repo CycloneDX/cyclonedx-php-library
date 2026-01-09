@@ -32,7 +32,6 @@ use CycloneDX\Core\Collections\PropertyRepository;
 use CycloneDX\Core\Models\Component;
 use CycloneDX\Core\Serialization\JSON\_BaseNormalizer;
 use DomainException;
-use PackageUrl\PackageUrl;
 
 /**
  * @author jkowalleck
@@ -110,7 +109,7 @@ class ComponentNormalizer extends _BaseNormalizer
     {
         return null === $purl
             ? null
-            : JsonHelper::encodeIriReferenceBE( $purl);
+            : JsonHelper::encodeIriReferenceBE($purl);
     }
 
     private function normalizeExternalReferences(ExternalReferenceRepository $extRefs): ?array

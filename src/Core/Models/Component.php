@@ -316,7 +316,7 @@ class Component
 
     /**
      * Downstream implementations may use
-     * {@link }https://packagist.org/packages/package-url/packageurl-php}
+     * {@link https://packagist.org/packages/package-url/packageurl-php}
      * for parsing.
      */
     public function getPackageUrl(): ?string
@@ -326,7 +326,7 @@ class Component
 
     /**
      * Downstream implementations may use
-     * {@link }https://packagist.org/packages/package-url/packageurl-php}
+     * {@link https://packagist.org/packages/package-url/packageurl-php}
      * for generation.
      *
      * @return $this

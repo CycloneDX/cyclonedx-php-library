@@ -141,7 +141,7 @@ class ComponentNormalizer extends _BaseNormalizer
             : SimpleDOM::makeSafeTextElement(
                 $this->getNormalizerFactory()->getDocument(),
                 'purl',
-                XmlHelper::encodeAnyUriBE( $purl)
+                XmlHelper::encodeAnyUriBE($purl)
             );
     }
 
