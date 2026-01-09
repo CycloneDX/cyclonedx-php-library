@@ -47,8 +47,7 @@
         "ext-dom": "*",
         "ext-json": "*",
         "ext-libxml": "*",
-        "opis/json-schema": "^2.0",
-        "package-url/packageurl-php": "^1.0"
+        "opis/json-schema": "^2.0"
     },
     "require-dev": {
         "ext-simplexml": "*",
@@ -59,7 +58,7 @@
     },
     "suggest": {
         "composer/spdx-licenses": "used in license factory",
-        "package-url/packageurl-php": "*"
+        "package-url/packageurl-php": "for parsing and crafting PackageURL strings"
     },
     "prefer-stable": true,
     "autoload": {
