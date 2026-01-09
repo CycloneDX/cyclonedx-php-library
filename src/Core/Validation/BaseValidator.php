@@ -23,7 +23,7 @@ declare(strict_types=1);
 
 namespace CycloneDX\Core\Validation;
 
-use CycloneDX\Core\Spec\_SpecProtocol as Spec;
+use CycloneDX\Core\Spec\Version;
 
 /**
  * @author jkowalleck
@@ -31,14 +31,8 @@ use CycloneDX\Core\Spec\_SpecProtocol as Spec;
 abstract class BaseValidator implements Validator
 {
     public function __construct(
-        /* @TODO in next major version: use `\CycloneDX\Core\Enums\Version` instead of `Spec` */
-        private readonly Spec $spec,
+        public readonly Version $version,
     ) {
-    }
-
-    public function getSpec(): Spec
-    {
-        return $this->spec;
     }
 
     /**
@@ -46,10 +40,9 @@ abstract class BaseValidator implements Validator
      */
     protected function getSchemaFile(): string
     {
-        $specVersion = $this->spec->getVersion();
-        $schemaFile = static::listSchemaFiles()[$specVersion->value] ?? null;
+        $schemaFile = static::listSchemaFiles()[$this->version->value] ?? null;
         if (false === \is_string($schemaFile)) {
-            throw new Exceptions\FailedLoadingSchemaException("Schema file unknown for specVersion: $specVersion->name");
+            throw new Exceptions\FailedLoadingSchemaException("Schema file unknown for specVersion: {$this->version->name}");
         }
         $schemaPath = realpath($schemaFile);
         if (\is_string($schemaPath) && is_file($schemaPath) && is_readable($schemaPath)) {

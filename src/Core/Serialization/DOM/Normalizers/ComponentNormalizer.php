@@ -33,7 +33,6 @@ use CycloneDX\Core\Models\Component;
 use CycloneDX\Core\Serialization\DOM\_BaseNormalizer;
 use DomainException;
 use DOMElement;
-use PackageUrl\PackageUrl;
 
 /**
  * @author jkowalleck
@@ -135,14 +134,14 @@ class ComponentNormalizer extends _BaseNormalizer
             );
     }
 
-    private function normalizePurl(?PackageUrl $purl): ?DOMElement
+    private function normalizePurl(?string $purl): ?DOMElement
     {
         return null === $purl
             ? null
             : SimpleDOM::makeSafeTextElement(
                 $this->getNormalizerFactory()->getDocument(),
                 'purl',
-                XmlHelper::encodeAnyUriBE((string) $purl)
+                XmlHelper::encodeAnyUriBE($purl)
             );
     }
 

@@ -409,6 +409,9 @@ jobs:
     name: Examples
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    defaults:
+      run:
+        working-directory: examples
     steps:
       - name: Checkout
         # see https://github.com/actions/checkout
@@ -436,6 +439,6 @@ jobs:
         run: composer install --no-dev --prefer-dist --no-interaction --no-progress
       - name: run all examples
         run: >
-          find examples -type f -name '*.php' -print0
+          find . -maxdepth 1 -type f -name '*.php' -print0
           | xargs -0 -L1 -t
           php -f
