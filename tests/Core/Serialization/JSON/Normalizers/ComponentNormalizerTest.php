@@ -140,10 +140,7 @@ class ComponentNormalizerTest extends TestCase
                 'getCopyright' => '(c) me and the gang',
                 'getEvidence' => $this->createMock(ComponentEvidence::class),
                 'getHashes' => $this->createConfiguredMock(HashDictionary::class, ['count' => 1]),
-                'getPackageUrl' => $this->createConfiguredMock(
-                    PackageUrl::class,
-                    ['toString' => 'FakePURL', '__toString' => 'FakePURL']
-                ),
+                'getPackageUrl' => 'pkg:generic/FakePURL',
             ]
         );
         $spec = $this->createConfiguredMock(_SpecProtocol::class, [
@@ -193,7 +190,7 @@ class ComponentNormalizerTest extends TestCase
                 'licenses' => ['FakeLicenses'],
                 'copyright' => '(c) me and the gang',
                 'evidence' => ['FakeEvidence'],
-                'purl' => 'FakePURL',
+                'purl' => 'pkg:generic/FakePURL',
             ],
             $actual
         );
