@@ -21,15 +21,18 @@ declare(strict_types=1);
  * Copyright (c) OWASP Foundation. All Rights Reserved.
  */
 
-namespace CycloneDX\Core\Utils;
+namespace CycloneDX\Contrib\License\Validators;
 
 /**
- * Deprecated — Alias of {@see \CycloneDX\Contrib\Bom\Utils\BomUtils}.
- *
- * @author jkowalleck
- *
- * @deprecated Use {@see \CycloneDX\Contrib\Bom\Utils\BomUtils} instead
+ * suggested 3rd party implementation(s):
+ * - {@link https://packagist.org/packages/composer/spdx-licenses composer/spdx-licenses}
  */
-abstract class BomUtility extends \CycloneDX\Contrib\Bom\Utils\BomUtils
+interface SpdxLicensesValidator
 {
+    /**
+     * @param string $license
+     *
+     * @return bool
+     */
+    public function validate($license);
 }

@@ -77,7 +77,7 @@ class SerializeToJsonIntegrationTest extends TestCase
     {
         $spec = SpecFactory::make1dot2();
         $serializer = new JsonSerializer(new JSON\NormalizerFactory($spec));
-        $validator = new JsonStrictValidator($spec);
+        $validator = new JsonStrictValidator($spec->getVersion());
 
         $json = $serializer->serialize($bom, true);
         $validationErrors = $validator->validateString($json);
@@ -97,7 +97,7 @@ class SerializeToJsonIntegrationTest extends TestCase
     {
         $spec = SpecFactory::make1dot3();
         $serializer = new JsonSerializer(new JSON\NormalizerFactory($spec));
-        $validator = new JsonStrictValidator($spec);
+        $validator = new JsonStrictValidator($spec->getVersion());
 
         $json = $serializer->serialize($bom, true);
         $validationErrors = $validator->validateString($json);
@@ -117,7 +117,7 @@ class SerializeToJsonIntegrationTest extends TestCase
     {
         $spec = SpecFactory::make1dot4();
         $serializer = new JsonSerializer(new JSON\NormalizerFactory($spec));
-        $validator = new JsonStrictValidator($spec);
+        $validator = new JsonStrictValidator($spec->getVersion());
 
         $json = $serializer->serialize($bom, true);
         $validationErrors = $validator->validateString($json);
@@ -137,7 +137,7 @@ class SerializeToJsonIntegrationTest extends TestCase
     {
         $spec = SpecFactory::make1dot5();
         $serializer = new JsonSerializer(new JSON\NormalizerFactory($spec));
-        $validator = new JsonStrictValidator($spec);
+        $validator = new JsonStrictValidator($spec->getVersion());
 
         $json = $serializer->serialize($bom, true);
         $validationErrors = $validator->validateString($json);
@@ -157,7 +157,7 @@ class SerializeToJsonIntegrationTest extends TestCase
     {
         $spec = SpecFactory::make1dot6();
         $serializer = new JsonSerializer(new JSON\NormalizerFactory($spec));
-        $validator = new JsonStrictValidator($spec);
+        $validator = new JsonStrictValidator($spec->getVersion());
 
         $json = $serializer->serialize($bom, true);
         $validationErrors = $validator->validateString($json);
@@ -177,7 +177,7 @@ class SerializeToJsonIntegrationTest extends TestCase
     {
         $spec = SpecFactory::make1dot7();
         $serializer = new JsonSerializer(new JSON\NormalizerFactory($spec));
-        $validator = new JsonStrictValidator($spec);
+        $validator = new JsonStrictValidator($spec->getVersion());
 
         $json = $serializer->serialize($bom, true);
         $validationErrors = $validator->validateString($json);

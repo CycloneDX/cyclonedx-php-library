@@ -21,10 +21,10 @@ declare(strict_types=1);
  * Copyright (c) OWASP Foundation. All Rights Reserved.
  */
 
-namespace CycloneDX\Tests\Core\Factories;
+namespace CycloneDX\Tests\Contrib\Factories;
 
-use Composer\Spdx\SpdxLicenses;
-use CycloneDX\Core\Factories\LicenseFactory;
+use CycloneDX\Contrib\License\Factories\LicenseFactory;
+use CycloneDX\Contrib\License\Validators\SpdxLicensesValidator;
 use CycloneDX\Core\Models\License\LicenseExpression;
 use CycloneDX\Core\Models\License\NamedLicense;
 use CycloneDX\Core\Models\License\SpdxLicense;
@@ -37,20 +37,19 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 #[CoversClass(LicenseFactory::class)]
-#[CoversClass(\CycloneDX\Contrib\License\Factories\LicenseFactory::class)]
 #[UsesClass(NamedLicense::class)]
 #[UsesClass(SpdxLicense::class)]
 #[UsesClass(LicenseExpression::class)]
 class LicenseFactoryTest extends TestCase
 {
     private LicenseIdentifiers&MockObject $licenseIdentifiers;
-    private SpdxLicenses&MockObject $spdxLicenses;
+    private MockObject $spdxLicenses;
     private LicenseFactory $factory;
 
     protected function setUp(): void
     {
         $this->licenseIdentifiers = $this->createMock(LicenseIdentifiers::class);
-        $this->spdxLicenses = $this->createMock(SpdxLicenses::class);
+        $this->spdxLicenses = $this->createPartialMock(SpdxLicensesValidator::class, []);
 
         $this->factory = new LicenseFactory(
             $this->licenseIdentifiers,
@@ -70,7 +69,7 @@ class LicenseFactoryTest extends TestCase
     public function testConstructorWithArgs(): void
     {
         $licenseIdentifiers = $this->createStub(LicenseIdentifiers::class);
-        $spdxLicenses = $this->createStub(SpdxLicenses::class);
+        $spdxLicenses = $this->createStub(SpdxLicensesValidator::class);
         $factory = new LicenseFactory($licenseIdentifiers, $spdxLicenses);
         self::assertSame($licenseIdentifiers, $factory->getLicenseIdentifiers());
         self::assertSame($spdxLicenses, $factory->getSpdxLicenses());
