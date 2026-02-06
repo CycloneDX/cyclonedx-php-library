@@ -23,11 +23,14 @@ declare(strict_types=1);
 
 namespace CycloneDX\Examples;
 
-require_once __DIR__.'/../vendor/autoload.php';
+require_once __DIR__.'/vendor/autoload.php';
 
 // Example how to serialize a Bom to JSON / XML.
 
-$lFac = new \CycloneDX\Contrib\License\Factories\LicenseFactory();
+$lFac = new \CycloneDX\Contrib\License\Factories\LicenseFactory(
+    new \CycloneDX\Core\Spdx\LicenseIdentifiers(),
+    new \Composer\Spdx\SpdxLicenses()
+);
 
 // region build the BOM
 
@@ -60,7 +63,7 @@ $serializedJSON = (new \CycloneDX\Core\Serialization\JsonSerializer(
     new \CycloneDX\Core\Serialization\JSON\NormalizerFactory($spec)
 ))->serialize($bom, $prettyPrint);
 echo $serializedJSON, \PHP_EOL;
-$jsonValidationErrors = (new \CycloneDX\Core\Validation\Validators\JsonValidator($spec))->validateString($serializedJSON);
+$jsonValidationErrors = (new \CycloneDX\Core\Validation\Validators\JsonValidator($spec->getVersion()))->validateString($serializedJSON);
 if (null === $jsonValidationErrors) {
     echo 'JSON valid', \PHP_EOL;
 } else {
@@ -73,7 +76,7 @@ $serializedXML = (new \CycloneDX\Core\Serialization\XmlSerializer(
     new \CycloneDX\Core\Serialization\DOM\NormalizerFactory($spec)
 ))->serialize($bom, $prettyPrint);
 echo $serializedXML, \PHP_EOL;
-$xmlValidationErrors = (new \CycloneDX\Core\Validation\Validators\XmlValidator($spec))->validateString($serializedXML);
+$xmlValidationErrors = (new \CycloneDX\Core\Validation\Validators\XmlValidator($spec->getVersion()))->validateString($serializedXML);
 if (null === $xmlValidationErrors) {
     echo 'XML valid', \PHP_EOL;
 } else {

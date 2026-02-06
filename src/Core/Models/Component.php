@@ -30,7 +30,6 @@ use CycloneDX\Core\Collections\LicenseRepository;
 use CycloneDX\Core\Collections\PropertyRepository;
 use CycloneDX\Core\Enums\ComponentType;
 use DomainException;
-use PackageUrl\PackageUrl;
 
 /**
  * @author nscuro
@@ -100,9 +99,9 @@ class Component
      * Package-URL (PURL).
      *
      * The purl, if specified, must be valid and conform to the specification
-     * defined at: {@link https://github.com/package-url/purl-spec/blob/master/README.rst#purl}.
+     * defined at: {@link https://github.com/package-url/purl-spec}.
      */
-    private ?PackageUrl $packageUrl = null;
+    private ?string $packageUrl = null;
 
     /**
      * Licence(s).
@@ -315,15 +314,24 @@ class Component
         return $this;
     }
 
-    public function getPackageUrl(): ?PackageUrl
+    /**
+     * Downstream implementations may use
+     * {@link https://packagist.org/packages/package-url/packageurl-php}
+     * for parsing.
+     */
+    public function getPackageUrl(): ?string
     {
         return $this->packageUrl;
     }
 
     /**
+     * Downstream implementations may use
+     * {@link https://packagist.org/packages/package-url/packageurl-php}
+     * for generation.
+     *
      * @return $this
      */
-    public function setPackageUrl(?PackageUrl $purl): static
+    public function setPackageUrl(?string $purl): static
     {
         $this->packageUrl = $purl;
 

@@ -23,7 +23,7 @@ declare(strict_types=1);
 
 namespace CycloneDX\Contrib\License\Factories;
 
-use Composer\Spdx\SpdxLicenses;
+use CycloneDX\Contrib\License\Validators\SpdxLicensesValidator;
 use CycloneDX\Core\Models\License\LicenseExpression;
 use CycloneDX\Core\Models\License\NamedLicense;
 use CycloneDX\Core\Models\License\SpdxLicense;
@@ -35,13 +35,35 @@ use InvalidArgumentException;
  * License Factory.
  *
  * @author jkowalleck
+ *
+ * @template T_SpdxLicensesValidator of SpdxLicensesValidator
  */
 class LicenseFactory
 {
+    private readonly LicenseIdentifiers $licenseIdentifiers;
+
+    /**
+     * @var SpdxLicensesValidator
+     *
+     * @psalm-var T_SpdxLicensesValidator
+     *
+     * @phpstan-var T_SpdxLicensesValidator
+     */
+    private readonly object $spdxLicenses;
+
+    /**
+     * @param SpdxLicensesValidator $spdxLicenses
+     *
+     * @phpstan-param T_SpdxLicensesValidator $spdxLicenses
+     *
+     * @psalm-param T_SpdxLicensesValidator $spdxLicenses
+     */
     public function __construct(
-        private readonly LicenseIdentifiers $licenseIdentifiers = new LicenseIdentifiers(),
-        private readonly SpdxLicenses $spdxLicenses = new SpdxLicenses(),
+        LicenseIdentifiers $licenseIdentifiers,
+        object $spdxLicenses,
     ) {
+        $this->licenseIdentifiers = $licenseIdentifiers;
+        $this->spdxLicenses = $spdxLicenses;
     }
 
     public function getLicenseIdentifiers(): LicenseIdentifiers
@@ -49,7 +71,14 @@ class LicenseFactory
         return $this->licenseIdentifiers;
     }
 
-    public function getSpdxLicenses(): SpdxLicenses
+    /**
+     * @return SpdxLicensesValidator
+     *
+     * @phpstan-return T_SpdxLicensesValidator
+     *
+     * @psalm-return T_SpdxLicensesValidator
+     */
+    public function getSpdxLicenses(): object
     {
         return $this->spdxLicenses;
     }
