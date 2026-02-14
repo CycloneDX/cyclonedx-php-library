@@ -63,6 +63,6 @@ abstract class JSON
             return IriFormats::iriReference($uri);
         }
 
-        return true;
+        return true;  // @codeCoverageIgnore
     }
 }
