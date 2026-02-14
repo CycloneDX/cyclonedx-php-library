@@ -6,6 +6,8 @@ All notable changes to this project will be documented in this file.
 
 <!-- add unreleased items here -->
 
+## 4.0.0-rc.1 - 2026-02-14
+
 * BREAKING changes
   * Removed deprecated symbols
   * Changed constructor of `CycloneDX\Contrib\License\Factories\LicenseFactory`
