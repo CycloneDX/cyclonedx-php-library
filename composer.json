@@ -50,9 +50,9 @@
     "require-dev": {
         "ext-libxml": "*",
         "ext-simplexml": "*",
-        "roave/security-advisories": "dev-latest",
         "composer/spdx-licenses": "^1.5",
-        "opis/json-schema": "^2.0"
+        "opis/json-schema": "^2.0",
+        "roave/security-advisories": "dev-latest"
     },
     "conflict": {
         "composer/spdx-licenses": "<1.5 || >=2",
@@ -60,8 +60,8 @@
     },
     "suggest": {
         "ext-libxml": "for XML validation",
-        "opis/json-schema": "for JSON validation",
         "composer/spdx-licenses": "used in license factory",
+        "opis/json-schema": "for JSON validation",
         "package-url/packageurl-php": "for parsing and crafting PackageURL strings"
     },
     "prefer-stable": true,
