@@ -59,9 +59,9 @@
         "opis/json-schema": "<2.0 || >=3"
     },
     "suggest": {
-        "ext-libxml": "for XML validation",
-        "composer/spdx-licenses": "used in license factory",
-        "opis/json-schema": "for JSON validation",
+        "ext-libxml": "runtime-dependency for XML validation",
+        "composer/spdx-licenses": "runtime-dependency used in contrib license factory",
+        "opis/json-schema": "runtime-dependency for JSON validation",
         "package-url/packageurl-php": "for parsing and crafting PackageURL strings"
     },
     "prefer-stable": true,
