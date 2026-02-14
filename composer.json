@@ -45,19 +45,22 @@
     "require": {
         "php": "^8.1",
         "ext-dom": "*",
-        "ext-json": "*",
-        "ext-libxml": "*",
-        "opis/json-schema": "^2.0"
+        "ext-json": "*"
     },
     "require-dev": {
+        "ext-libxml": "*",
         "ext-simplexml": "*",
         "roave/security-advisories": "dev-latest",
-        "composer/spdx-licenses": "^1.5"
+        "composer/spdx-licenses": "^1.5",
+        "opis/json-schema": "^2.0"
     },
     "conflict": {
-        "composer/spdx-licenses": "<1.5"
+        "composer/spdx-licenses": "<1.5 || >=2",
+        "opis/json-schema": "<2.0 || >=3"
     },
     "suggest": {
+        "ext-libxml": "for XML validation",
+        "opis/json-schema": "for JSON validation",
         "composer/spdx-licenses": "used in license factory",
         "package-url/packageurl-php": "for parsing and crafting PackageURL strings"
     },

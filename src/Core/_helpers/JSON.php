@@ -59,6 +59,10 @@ abstract class JSON
     /**  @SuppressWarnings(PHPMD.StaticAccess) */
     public static function filterIriReference(string $uri): bool
     {
-        return IriFormats::iriReference($uri);
+        if (class_exists(IriFormats::class)) {
+            return IriFormats::iriReference($uri);
+        }
+
+        return true;
     }
 }
