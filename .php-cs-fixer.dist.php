@@ -55,7 +55,7 @@ return (new PhpCsFixer\Config())
             'phpdoc_to_comment' => [
                 'ignored_tags' => [
                     // needed when PSALM introduced some issues that only manual hints can solve
-                    // 'psalm-var',
+                    'psalm-var',
                     // 'psalm-suppress',
                 ],
             ],

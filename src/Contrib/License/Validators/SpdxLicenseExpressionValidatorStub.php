@@ -23,13 +23,17 @@ declare(strict_types=1);
 
 namespace CycloneDX\Contrib\License\Validators;
 
+use InvalidArgumentException;
+
 /**
  * An SPDX License Expression validator.
  *
- * suggested 3rd party implementation(s):
+ * suggested 3rd party implementation:
  * - {@link https://packagist.org/packages/composer/spdx-licenses composer/spdx-licenses}
+ *
+ * @internal
  */
-interface SpdxLicenseExpressionValidator
+interface SpdxLicenseExpressionValidatorStub
 {
     /**
      * validate SPDX License Expression.
@@ -38,6 +42,8 @@ interface SpdxLicenseExpressionValidator
      * for backwards compatibility with older PHP versions and existing implementations.
      *
      * @param string $license
+     *
+     * @throws InvalidArgumentException
      *
      * @return bool
      */

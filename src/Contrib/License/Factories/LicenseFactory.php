@@ -23,7 +23,7 @@ declare(strict_types=1);
 
 namespace CycloneDX\Contrib\License\Factories;
 
-use CycloneDX\Contrib\License\Validators\SpdxLicenseExpressionValidator;
+use CycloneDX\Contrib\License\Validators\SpdxLicenseExpressionValidatorStub;
 use CycloneDX\Core\Models\License\LicenseExpression;
 use CycloneDX\Core\Models\License\NamedLicense;
 use CycloneDX\Core\Models\License\SpdxLicense;
@@ -36,8 +36,6 @@ use InvalidArgumentException;
  *
  * @author jkowalleck
  *
- * @template T_SpdxLicenseExpressionValidator of SpdxLicenseExpressionValidator
- *
  * @SuppressWarnings(PHPMD.LongVariable) spdxLicenseExpressionValidator
  */
 class LicenseFactory
@@ -46,27 +44,23 @@ class LicenseFactory
 
     /**
      * SPDX License Expression validator.
+     * Something compatible with {@see SpdxLicenseExpressionValidator}.
      *
-     * @var SpdxLicenseExpressionValidator
+     * Cannot use Type Constraints, to be compatible with 3rd party implementations on runtime.
      *
-     * @psalm-var T_SpdxLicenseExpressionValidator
-     *
-     * @phpstan-var T_SpdxLicenseExpressionValidator
+     * @var SpdxLicenseExpressionValidatorStub
      */
     private readonly object $spdxLicenseExpressionValidator;
 
     /**
-     * @param SpdxLicenseExpressionValidator $spdxLicenseExpressionValidator
-     *
-     * @phpstan-param T_SpdxLicenseExpressionValidator $spdxLicenseExpressionValidator
-     *
-     * @psalm-param T_SpdxLicenseExpressionValidator $spdxLicenseExpressionValidator
+     * @param object $spdxLicenseExpressionValidator - Something compatible with {@see SpdxLicenseExpressionValidatorStub}
      */
     public function __construct(
         LicenseIdentifiers $licenseIdentifiers,
         object $spdxLicenseExpressionValidator,
     ) {
         $this->licenseIdentifiers = $licenseIdentifiers;
+        /** @psalm-var SpdxLicenseExpressionValidatorStub spdxLicenseExpressionValidator */
         $this->spdxLicenseExpressionValidator = $spdxLicenseExpressionValidator;
     }
 
@@ -76,11 +70,7 @@ class LicenseFactory
     }
 
     /**
-     * @return SpdxLicenseExpressionValidator
-     *
-     * @phpstan-return T_SpdxLicenseExpressionValidator
-     *
-     * @psalm-return T_SpdxLicenseExpressionValidator
+     * @return SpdxLicenseExpressionValidatorStub
      */
     public function getSpdxLicensesExpressionValidator(): object
     {
@@ -122,7 +112,7 @@ class LicenseFactory
         } catch (InvalidArgumentException) {
             $valid = false;
         }
-        if ($valid) {
+        if (true === $valid) {
             return new LicenseExpression($license);
         }
         throw new DomainException("invalid SPDX license expressions: $license");
