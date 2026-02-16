@@ -29,7 +29,7 @@ All notable changes to this project will be documented in this file.
     Was internal type `CycloneDX\Core\Spec\_SpecProtocol`.
 * Dependencies
   * No longer depends on, but suggests `composer/spdx-licenses:^1.5` ([#571] via [#587])  
-    May be used when utilizing `CycloneDX\Contrib\License\Factories\LicenseFactory`. 
+    May be used when utilizing `CycloneDX\Contrib\License\Factories\LicenseFactory`.
   * No longer depend on `package-url/packageurl-php` ([#571] via [#588])
 
 [#571]: https://github.com/CycloneDX/cyclonedx-php-library/issues/571
