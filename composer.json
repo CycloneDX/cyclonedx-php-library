@@ -51,8 +51,8 @@
     },
     "require-dev": {
         "ext-simplexml": "*",
-        "roave/security-advisories": "dev-latest",
-        "composer/spdx-licenses": "^1.5"
+        "composer/spdx-licenses": "^1.5",
+        "roave/security-advisories": "dev-latest"
     },
     "conflict": {
         "composer/spdx-licenses": "<1.5"
