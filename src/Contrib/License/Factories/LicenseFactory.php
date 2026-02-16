@@ -45,7 +45,7 @@ class LicenseFactory
     private readonly LicenseIdentifiers $licenseIdentifiers;
 
     /**
-     * SPDX License Expression validator
+     * SPDX License Expression validator.
      *
      * @var SpdxLicenseExpressionValidator
      *
