@@ -23,7 +23,7 @@ declare(strict_types=1);
 
 namespace CycloneDX\Contrib\License\Factories;
 
-use CycloneDX\Contrib\License\Validators\SpdxLicensesExpressionValidator;
+use CycloneDX\Contrib\License\Validators\SpdxLicenseExpressionValidator;
 use CycloneDX\Core\Models\License\LicenseExpression;
 use CycloneDX\Core\Models\License\NamedLicense;
 use CycloneDX\Core\Models\License\SpdxLicense;
@@ -36,14 +36,14 @@ use InvalidArgumentException;
  *
  * @author jkowalleck
  *
- * @template T_SpdxLicenseExpressionValidator of SpdxLicensesExpressionValidator
+ * @template T_SpdxLicenseExpressionValidator of SpdxLicenseExpressionValidator
  */
 class LicenseFactory
 {
     private readonly LicenseIdentifiers $licenseIdentifiers;
 
     /**
-     * @var SpdxLicensesExpressionValidator
+     * @var SpdxLicenseExpressionValidator
      *
      * @psalm-var T_SpdxLicenseExpressionValidator
      *
@@ -52,8 +52,6 @@ class LicenseFactory
     private readonly object $spdxLicensesExpressionValidator;
 
     /**
-     * @param SpdxLicensesExpressionValidator $spdxLicenses
-     *
      * @phpstan-param T_SpdxLicenseExpressionValidator $spdxLicensesExpressionValidator
      *
      * @psalm-param T_SpdxLicenseExpressionValidator $spdxLicensesExpressionValidator

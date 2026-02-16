@@ -24,7 +24,7 @@ declare(strict_types=1);
 namespace CycloneDX\Tests\Contrib\Factories;
 
 use CycloneDX\Contrib\License\Factories\LicenseFactory;
-use CycloneDX\Contrib\License\Validators\SpdxLicensesValidator;
+use CycloneDX\Contrib\License\Validators\SpdxLicenseExpressionValidator;
 use CycloneDX\Core\Models\License\LicenseExpression;
 use CycloneDX\Core\Models\License\NamedLicense;
 use CycloneDX\Core\Models\License\SpdxLicense;
@@ -43,17 +43,17 @@ use PHPUnit\Framework\TestCase;
 class LicenseFactoryTest extends TestCase
 {
     private LicenseIdentifiers&MockObject $licenseIdentifiers;
-    private MockObject $spdxLicenses;
+    private MockObject $spdxLicensesExpressionValidator;
     private LicenseFactory $factory;
 
     protected function setUp(): void
     {
         $this->licenseIdentifiers = $this->createMock(LicenseIdentifiers::class);
-        $this->spdxLicenses = $this->createPartialMock(SpdxLicensesValidator::class, []);
+        $this->spdxLicensesExpressionValidator = $this->createPartialMock(SpdxLicenseExpressionValidator::class, []);
 
         $this->factory = new LicenseFactory(
             $this->licenseIdentifiers,
-            $this->spdxLicenses,
+            $this->spdxLicensesExpressionValidator,
         );
     }
 
@@ -69,10 +69,10 @@ class LicenseFactoryTest extends TestCase
     public function testConstructorWithArgs(): void
     {
         $licenseIdentifiers = $this->createStub(LicenseIdentifiers::class);
-        $spdxLicenses = $this->createStub(SpdxLicensesValidator::class);
-        $factory = new LicenseFactory($licenseIdentifiers, $spdxLicenses);
+        $spdxLicenseExpressionValidator = $this->createStub(SpdxLicenseExpressionValidator::class);
+        $factory = new LicenseFactory($licenseIdentifiers, $spdxLicenseExpressionValidator);
         self::assertSame($licenseIdentifiers, $factory->getLicenseIdentifiers());
-        self::assertSame($spdxLicenses, $factory->getSpdxLicenses());
+        self::assertSame($spdxLicenseExpressionValidator, $factory->getSpdxLicensesExpressionValidator());
     }
 
     public function testMakeNamedLicense(): void
@@ -131,7 +131,7 @@ class LicenseFactoryTest extends TestCase
     public function testMakeExpression(): void
     {
         $expression = uniqid('expression', true);
-        $this->spdxLicenses->method('validate')
+        $this->spdxLicensesExpressionValidator->method('validate')
             ->with($expression)->willReturn(true);
         $actual = $this->factory->makeExpression($expression);
         self::assertEquals(new LicenseExpression($expression), $actual);
@@ -140,7 +140,7 @@ class LicenseFactoryTest extends TestCase
     public function testMakeExpressionInvalidValueThrows(): void
     {
         $expression = uniqid('expression', true);
-        $this->spdxLicenses->method('validate')
+        $this->spdxLicensesExpressionValidator->method('validate')
             ->with($expression)->willReturn(false);
         $this->expectException(DomainException::class);
         $this->expectExceptionMessageMatches('/invalid SPDX license expressions/i');
@@ -150,7 +150,7 @@ class LicenseFactoryTest extends TestCase
     public function testMakeExpressionInvalidArgumentThrows(): void
     {
         $expression = uniqid('expression', true);
-        $this->spdxLicenses->method('validate')
+        $this->spdxLicensesExpressionValidator->method('validate')
             ->with($expression)->willThrowException(new InvalidArgumentException());
         $this->expectException(DomainException::class);
         $this->expectExceptionMessageMatches('/invalid SPDX license expressions/i');
