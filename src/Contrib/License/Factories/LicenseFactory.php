@@ -54,9 +54,9 @@ class LicenseFactory
     /**
      * @param SpdxLicensesExpressionValidator $spdxLicenses
      *
-     * @phpstan-param T_SpdxLicenseExpressionValidator $spdxLicenses
+     * @phpstan-param T_SpdxLicenseExpressionValidator $spdxLicensesExpressionValidator
      *
-     * @psalm-param T_SpdxLicenseExpressionValidator $spdxLicenses
+     * @psalm-param T_SpdxLicenseExpressionValidator $spdxLicensesExpressionValidator
      */
     public function __construct(
         LicenseIdentifiers $licenseIdentifiers,
