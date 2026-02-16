@@ -53,7 +53,7 @@ class LicenseFactory
     private readonly object $spdxLicenseExpressionValidator;
 
     /**
-     * @param object $spdxLicenseExpressionValidator - Something compatible with {@see SpdxLicenseExpressionValidatorStub}
+     * @param object $spdxLicenseExpressionValidator Something compatible with {@see SpdxLicenseExpressionValidatorStub}
      */
     public function __construct(
         LicenseIdentifiers $licenseIdentifiers,
