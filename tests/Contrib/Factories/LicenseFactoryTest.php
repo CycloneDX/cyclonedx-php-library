@@ -24,7 +24,7 @@ declare(strict_types=1);
 namespace CycloneDX\Tests\Contrib\Factories;
 
 use CycloneDX\Contrib\License\Factories\LicenseFactory;
-use CycloneDX\Contrib\License\Validators\SpdxLicenseExpressionValidator;
+use CycloneDX\Contrib\License\Validators\SpdxLicenseExpressionValidatorStub;
 use CycloneDX\Core\Models\License\LicenseExpression;
 use CycloneDX\Core\Models\License\NamedLicense;
 use CycloneDX\Core\Models\License\SpdxLicense;
@@ -49,7 +49,7 @@ class LicenseFactoryTest extends TestCase
     protected function setUp(): void
     {
         $this->licenseIdentifiers = $this->createMock(LicenseIdentifiers::class);
-        $this->spdxLicensesExpressionValidator = $this->createPartialMock(SpdxLicenseExpressionValidator::class, []);
+        $this->spdxLicensesExpressionValidator = $this->createPartialMock(SpdxLicenseExpressionValidatorStub::class, []);
 
         $this->factory = new LicenseFactory(
             $this->licenseIdentifiers,
@@ -69,7 +69,7 @@ class LicenseFactoryTest extends TestCase
     public function testConstructorWithArgs(): void
     {
         $licenseIdentifiers = $this->createStub(LicenseIdentifiers::class);
-        $spdxLicenseExpressionValidator = $this->createStub(SpdxLicenseExpressionValidator::class);
+        $spdxLicenseExpressionValidator = $this->createStub(SpdxLicenseExpressionValidatorStub::class);
         $factory = new LicenseFactory($licenseIdentifiers, $spdxLicenseExpressionValidator);
         self::assertSame($licenseIdentifiers, $factory->getLicenseIdentifiers());
         self::assertSame($spdxLicenseExpressionValidator, $factory->getSpdxLicensesExpressionValidator());
