@@ -34,7 +34,8 @@ interface SpdxLicenseExpressionValidator
     /**
      * validate SPDX License Expression.
      *
-     * The parameter and return is intentionally untyped for backwards compatibility with older PHP versions and existing implementations.
+     * The parameter and return is intentionally untyped
+     * for backwards compatibility with older PHP versions and existing implementations.
      *
      * @param string $license
      *
