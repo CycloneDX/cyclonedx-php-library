@@ -146,11 +146,11 @@ class ComponentTest extends TestCase
     #[DependsUsingShallowClone('testConstructor')]
     public function testPackageUrlSetterGetter(Component $component): void
     {
-        $url = $this->createMock(PackageUrl::class);
-        self::assertNotSame($url, $component->getPackageUrl());
-        $actual = $component->setPackageUrl($url);
+        $purl = 'pkg:generic/foo@1337#dummy';
+        self::assertNotSame($purl, $component->getPackageUrl());
+        $actual = $component->setPackageUrl($purl);
         self::assertSame($component, $actual);
-        self::assertSame($url, $component->getPackageUrl());
+        self::assertSame($purl, $component->getPackageUrl());
     }
 
     // endregion packageUrl setter&getter
