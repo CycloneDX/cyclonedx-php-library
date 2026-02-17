@@ -39,7 +39,7 @@ All notable changes to this project will be documented in this file.
 [#588]: https://github.com/CycloneDX/cyclonedx-php-library/pull/588
 [#590]: https://github.com/CycloneDX/cyclonedx-php-library/issues/590
 [#591]: https://github.com/CycloneDX/cyclonedx-php-library/pull/591
-[#600]: github.com/CycloneDX/cyclonedx-php-library/pull/600
+[#600]: https://github.com/CycloneDX/cyclonedx-php-library/pull/600
 
 ## 3.10.0 - 2026-01-07
 
