@@ -22,15 +22,16 @@ All notable changes to this project will be documented in this file.
   * `CycloneDX\Contrib\License\Factories\LicenseFactory::__construct()` parameters are no longer autopopulated ([#571] via [#587])  
     Downstream implementations have to populate the parameters on their own, now.
   * `CycloneDX\Core\Models\Component::setPackageUrl()` accepts `?string` ([#571] via [#588])  
-    Downstream implementations may use [package-url/packageurl-php](https://packagist.org/packages/package-url/packageurl-php) for generation.
+    Downstream implementations may use [`package-url/packageurl-php`](https://packagist.org/packages/package-url/packageurl-php) for generation.
   * `CycloneDX\Core\Models\Component::getPackageUrl()` returns `?string` ([#571] via [#588])  
-    Downstream implementations may use [package-url/packageurl-php](https://packagist.org/packages/package-url/packageurl-php) for parsing.
+    Downstream implementations may use [`package-url/packageurl-php`](https://packagist.org/packages/package-url/packageurl-php) for parsing.
   * `CycloneDX\Core\Validation\BaseValidator::__construct()` parameter is type `CycloneDX\Core\Spec\Version` ([#590] via [#591])  
     Was internal type `CycloneDX\Core\Spec\_SpecProtocol`.
 * Dependencies
   * No longer depends on, but suggests `composer/spdx-licenses:^1.5` ([#571] via [#587])  
     May be used when utilizing `CycloneDX\Contrib\License\Factories\LicenseFactory`.
-  * No longer depend on `package-url/packageurl-php` ([#571] via [#588])
+  * No longer depend on, but suggests [`package-url/packageurl-php`](https://packagist.org/packages/package-url/packageurl-php) ([#571] via [#588])  
+    May be used for parsing and crafting PackageURL strings downstream.
 * Style
   * Applied latest PHP Coding Standards (via [#600])
 
