@@ -136,7 +136,7 @@ class BaseSerializerTest extends TestCase
             ->method('realNormalize')
             ->with($bom)
             ->willReturnCallback(
-                function () use ($allBomRefsValuesOriginal, &$allBomRefsValuesOnNormalize, $normalized) {
+                static function () use ($allBomRefsValuesOriginal, &$allBomRefsValuesOnNormalize, $normalized) {
                     /**
                      * @var BomRef $bomRef
                      */
@@ -184,7 +184,7 @@ class BaseSerializerTest extends TestCase
             ->method('realNormalize')
             ->with($bom)
             ->willReturnCallback(
-                function () use ($allBomRefsValuesOriginal, &$allBomRefsValuesOnNormalize, $exception): void {
+                static function () use ($allBomRefsValuesOriginal, &$allBomRefsValuesOnNormalize, $exception): void {
                     /**
                      * @var BomRef $bomRef
                      */
