@@ -1,0 +1,18 @@
+{
+  "symbol-whitelist": [
+    "// ext-libxml is optional",
+    "LibXMLError",
+    "libxml_clear_errors",
+    "LIBXML_COMPACT",
+    "libxml_get_last_error",
+    "LIBXML_NONET",
+    "LIBXML_PARSEHUGE",
+    "libxml_use_internal_errors",
+    "// opis/json-schema is optional",
+    "Opis\\JsonSchema\\Errors\\ErrorFormatter",
+    "Opis\\JsonSchema\\Errors\\ValidationError",
+    "Opis\\JsonSchema\\Formats\\IriFormats",
+    "Opis\\JsonSchema\\Resolvers\\SchemaResolver",
+    "Opis\\JsonSchema\\Validator"
+  ]
+}

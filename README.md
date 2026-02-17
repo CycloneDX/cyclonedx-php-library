@@ -84,6 +84,11 @@ Install via composer:
 composer require cyclonedx/cyclonedx-library
 ```
 
+Some runtime dependencies are optional - for version constraints, see section `conflict` in `composer.json`.
+* `ext-libxml` - for XML validation
+* `opis/json-schema` - for JSON validation
+* `composer/spdx-licenses` - used in contrib license factory
+
 ## Usage
 
 See extended [examples].

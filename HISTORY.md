@@ -28,6 +28,10 @@ All notable changes to this project will be documented in this file.
   * `CycloneDX\Core\Validation\BaseValidator::__construct()` parameter is type `CycloneDX\Core\Spec\Version` ([#590] via [#591])  
     Was internal type `CycloneDX\Core\Spec\_SpecProtocol`.
 * Dependencies
+  * No longer depends on, but suggests `opis/json-schema:^2.0` (via [#603])  
+    May be used when utilizing `CycloneDX\Core\Validation\Validators\JsonValidator`.
+  * No longer depends on, but suggests `ext-libxml:*` (via [#603])  
+    May be used when utilizing `CycloneDX\Core\Validation\Validators\XmlValidator`.
   * No longer depends on, but suggests `composer/spdx-licenses:^1.5` ([#571] via [#587])  
     May be used when utilizing `CycloneDX\Contrib\License\Factories\LicenseFactory`.
   * No longer depend on `package-url/packageurl-php` ([#571] via [#588])
@@ -37,6 +41,7 @@ All notable changes to this project will be documented in this file.
 [#588]: https://github.com/CycloneDX/cyclonedx-php-library/pull/588
 [#590]: https://github.com/CycloneDX/cyclonedx-php-library/issues/590
 [#591]: https://github.com/CycloneDX/cyclonedx-php-library/pull/591
+[#603]: https://github.com/CycloneDX/cyclonedx-php-library/pull/603
 
 ## 3.10.0 - 2026-01-07
 

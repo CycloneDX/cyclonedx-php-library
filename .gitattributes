@@ -29,6 +29,7 @@ composer.lock text eol=lf diff=json
 /phpmd.*                export-ignore
 /phpunit.*              export-ignore
 /psalm.*                export-ignore
+/composer-require-checker.json  export-ignore
 
 # files that are forced to be exported in "dist" release
 /README.*               -export-ignore
