@@ -30,7 +30,7 @@ All notable changes to this project will be documented in this file.
 * Dependencies
   * No longer depends on, but suggests `composer/spdx-licenses:^1.5` ([#571] via [#587])  
     May be used when utilizing `CycloneDX\Contrib\License\Factories\LicenseFactory`.
-  * No longer depend on, but suggests `package-url/packageurl-php` ([#571] via [#588])  
+  * No longer depend on, but suggests [package-url/packageurl-php](https://packagist.org/packages/package-url/packageurl-php) ([#571] via [#588])  
     May be used for parsing and crafting PackageURL strings downstream.
 
 [#571]: https://github.com/CycloneDX/cyclonedx-php-library/issues/571
