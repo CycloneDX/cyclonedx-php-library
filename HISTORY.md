@@ -31,12 +31,15 @@ All notable changes to this project will be documented in this file.
   * No longer depends on, but suggests `composer/spdx-licenses:^1.5` ([#571] via [#587])  
     May be used when utilizing `CycloneDX\Contrib\License\Factories\LicenseFactory`.
   * No longer depend on `package-url/packageurl-php` ([#571] via [#588])
+* Style
+  * Applied latest PHP Coding Standards (via [#600])
 
 [#571]: https://github.com/CycloneDX/cyclonedx-php-library/issues/571
 [#587]: https://github.com/CycloneDX/cyclonedx-php-library/pull/587
 [#588]: https://github.com/CycloneDX/cyclonedx-php-library/pull/588
 [#590]: https://github.com/CycloneDX/cyclonedx-php-library/issues/590
 [#591]: https://github.com/CycloneDX/cyclonedx-php-library/pull/591
+[#600]: github.com/CycloneDX/cyclonedx-php-library/pull/600
 
 ## 3.10.0 - 2026-01-07
 
