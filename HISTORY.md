@@ -14,7 +14,7 @@ All notable changes to this project will be documented in this file.
   * Support CycloneDX 1.5.1 (via [#634])
   * Pulled SPDX license IDs v1.1-3.28.0 ([#607] via [#635])
 
-[607]: https://github.com/CycloneDX/cyclonedx-php-library/issues/607
+[#607]: https://github.com/CycloneDX/cyclonedx-php-library/issues/607
 [#633]: https://github.com/CycloneDX/cyclonedx-php-library/issues/633
 [#634]: https://github.com/CycloneDX/cyclonedx-php-library/pull/634
 [#635]: https://github.com/CycloneDX/cyclonedx-php-library/pull/635
