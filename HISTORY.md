@@ -6,6 +6,8 @@ All notable changes to this project will be documented in this file.
 
 <!-- add unreleased items here -->
 
+## 4.2.0 - 2026-09-17
+
 * Added
   * Support CycloneDX 1.7.2 ([#657] via [#658])
   * Pulled SPDX license IDs v1.1-3.29.0 (via [#658])
