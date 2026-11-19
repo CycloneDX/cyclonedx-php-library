@@ -37,8 +37,8 @@ return (new PhpCsFixer\Config())
         [
             // region migrate
             // lowest supported PHP
-            '@PHP80Migration:risky' => true, // there is no `PHP81Migration:risky`
-            '@PHP81Migration' => true,
+            '@PHP8x3Migration:risky' => true,
+            '@PHP8x3Migration' => true,
             // lowest supported Phpunit
             '@PHPUnit100Migration:risky' => true,
             // endregion migrate
