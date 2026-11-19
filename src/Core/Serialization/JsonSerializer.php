@@ -50,7 +50,7 @@ class JsonSerializer extends BaseSerializer
      *
      * @var int
      */
-    private const JsonEncodeFlagsAllowedOptions = 0
+    private const int JsonEncodeFlagsAllowedOptions = 0
         | \JSON_HEX_TAG
         | \JSON_HEX_AMP
         | \JSON_HEX_APOS
@@ -71,7 +71,7 @@ class JsonSerializer extends BaseSerializer
      *
      * @var int
      */
-    private const JsonEncodeFlagsDefaults = 0
+    private const int JsonEncodeFlagsDefaults = 0
         | \JSON_THROW_ON_ERROR // prevent unexpected data
         | \JSON_PRESERVE_ZERO_FRACTION // float/double not converted to int
     ;
@@ -85,7 +85,7 @@ class JsonSerializer extends BaseSerializer
      *
      * @var int
      */
-    private const JsonEncodeFlagsDefaultOptions = 0
+    private const int JsonEncodeFlagsDefaultOptions = 0
         | \JSON_UNESCAPED_SLASHES // urls become shorter
     ;
 

@@ -37,10 +37,10 @@ return (new PhpCsFixer\Config())
         [
             // region migrate
             // lowest supported PHP
-            '@PHP80Migration:risky' => true, // there is no `PHP81Migration:risky`
-            '@PHP81Migration' => true,
+            '@autoPHPMigration:risky' => true,
+            '@autoPHPMigration' => true,
             // lowest supported Phpunit
-            '@PHPUnit100Migration:risky' => true,
+            '@PHPUnit11x0Migration:risky' => true,
             // endregion migrate
             // region general code style
             '@Symfony' => true,

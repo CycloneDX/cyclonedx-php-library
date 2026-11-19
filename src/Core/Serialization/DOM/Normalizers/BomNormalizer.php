@@ -38,7 +38,7 @@ use DOMElement;
 class BomNormalizer extends _BaseNormalizer
 {
     /** @var string */
-    private const XML_NAMESPACE_PATTERN = 'http://cyclonedx.org/schema/bom/%s';
+    private const string XML_NAMESPACE_PATTERN = 'http://cyclonedx.org/schema/bom/%s';
 
     public function normalize(Bom $bom): DOMElement
     {

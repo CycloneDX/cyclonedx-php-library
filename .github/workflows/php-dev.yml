@@ -46,9 +46,7 @@ jobs:
         php:
           - "8.5"   # highest supported
           - "8.4"
-          - "8.3"
-          - "8.2"
-          - "8.1"   # lowest supported
+          - "8.3"  # lowest supported
     timeout-minutes: 10
     steps:
       - name: Checkout
