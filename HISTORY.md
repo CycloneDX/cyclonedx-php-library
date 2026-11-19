@@ -6,9 +6,8 @@ All notable changes to this project will be documented in this file.
 
 <!-- add unreleased items here -->
 
-## BREAKING Changes
-
-* Removed support for PHP<8.3 ([#672] via [#673])
+* BREAKING Changes
+  * Removed support for PHP<8.3 ([#672] via [#673])
 
 [#672]: https://github.com/CycloneDX/cyclonedx-php-library/issues/672
 [#673]: https://github.com/CycloneDX/cyclonedx-php-library/pull/673
