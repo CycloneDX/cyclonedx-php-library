@@ -348,10 +348,10 @@ jobs:
         working-directory: tools/phpmd
       - name: Run phpmd tests
         run: >
-          php tools/phpmd/vendor/phpmd/phpmd/src/bin/phpmd
+          php tools/phpmd/vendor/phpmd/phpmd/bin/phpmd
+          analyze
+          --fornmat=github
           src
-          github
-          phpmd.xml
   examples:
     name: Examples
     runs-on: ubuntu-latest
