@@ -350,7 +350,7 @@ jobs:
         run: >
           php tools/phpmd/vendor/phpmd/phpmd/bin/phpmd
           analyze
-          --fornmat=github
+          --format github
           src
   examples:
     name: Examples
