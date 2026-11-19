@@ -1,0 +1,26 @@
+# PHPMD configuration, see https://phpmd.org/documentation/creating-a-ruleset.html
+name: 'own PHPMD Rules'
+description: 'Rules to apply to PHPMD'
+rules: # see https://github.com/phpmd/phpmd/tree/3.x/rulesets
+  - ref: rulesets/cleancode.xml
+    exclude:
+      - StaticAccess
+  - ref: rulesets/cleancode.xml/StaticAccess
+    properties:
+      exceptions: |- # some classes are assembled of static methods only - these classes represent namespaces
+        CycloneDX\Core\Utils\BomUtility,
+        CycloneDX\Core\_helpers\Predicate,
+        CycloneDX\Core\_helpers\SimpleDOM,
+        CycloneDX\Core\_helpers\XML
+  - ref: rulesets/codesize.xml
+  - ref: rulesets/design.xml
+  - ref: rulesets/naming.xml
+  - ref: rulesets/unusedcode.xml
+  - ref: rulesets/controversial.xml
+    exclude:
+      - CamelCaseNamespace
+  - ref: rulesets/controversial.xml/CamelCaseNamespace
+    properties:
+      exceptions: |-
+        _helpers
+
