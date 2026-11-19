@@ -66,4 +66,4 @@ jobs:
             --title "${VERSION}" \
             --target "${TARGET}" \
             --prerelease="${PRERELEASE}" \
-            --notes ""
+            --generate-notes
