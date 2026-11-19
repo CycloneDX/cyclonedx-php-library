@@ -19,7 +19,7 @@ build:
   jobs:
     pre_build:
       - php -v
-      - composer remove roave/security-advisories --no-update  # circumvent build issues for outdated php - see https://app.readthedocs.org/projects/cyclonedx-php-library/builds/36011131/
+      - composer remove --dev --no-update roave/security-advisories   # circumvent build issues for outdated php - see https://app.readthedocs.org/projects/cyclonedx-php-library/builds/36011131/
       - composer install --prefer-dist --no-interaction --no-progress
       - wget https://github.com/phpDocumentor/phpDocumentor/releases/download/v3.10.0/phpDocumentor.phar -O /tmp/phpDocumentor.phar
       - php /tmp/phpDocumentor.phar
