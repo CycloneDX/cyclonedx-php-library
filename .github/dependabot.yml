@@ -16,6 +16,8 @@ updates:
       prefix: 'composer'
       include: 'scope'
     open-pull-requests-limit: 999
+    cooldown:
+      default-days: 7
 
   - directory: '/tools/composer-normalize'
     package-ecosystem: 'composer'
@@ -31,6 +33,8 @@ updates:
       prefix: 'tools'
       include: 'scope'
     open-pull-requests-limit: 999
+    cooldown:
+      default-days: 7
   - directory: '/tools/composer-require-checker'
     package-ecosystem: 'composer'
     schedule:
@@ -45,6 +49,8 @@ updates:
       prefix: 'tools'
       include: 'scope'
     open-pull-requests-limit: 999
+    cooldown:
+      default-days: 7
   - directory: '/tools/composer-unused'
     package-ecosystem: 'composer'
     schedule:
@@ -59,6 +65,8 @@ updates:
       prefix: 'tools'
       include: 'scope'
     open-pull-requests-limit: 999
+    cooldown:
+      default-days: 7
   - directory: '/tools/infection'
     package-ecosystem: 'composer'
     schedule:
@@ -73,6 +81,8 @@ updates:
       prefix: 'tools'
       include: 'scope'
     open-pull-requests-limit: 999
+    cooldown:
+      default-days: 7
   - directory: '/tools/php-cs-fixer'
     package-ecosystem: 'composer'
     schedule:
@@ -87,6 +97,8 @@ updates:
       prefix: 'tools'
       include: 'scope'
     open-pull-requests-limit: 999
+    cooldown:
+      default-days: 7
   - directory: '/tools/phpmd'
     package-ecosystem: 'composer'
     schedule:
@@ -101,6 +113,8 @@ updates:
       prefix: 'tools'
       include: 'scope'
     open-pull-requests-limit: 999
+    cooldown:
+      default-days: 7
   - directory: '/tools/phpunit'
     package-ecosystem: 'composer'
     schedule:
@@ -115,6 +129,8 @@ updates:
       prefix: 'tools'
       include: 'scope'
     open-pull-requests-limit: 999
+    cooldown:
+      default-days: 7
   - directory: '/tools/psalm'
     package-ecosystem: 'composer'
     schedule:
@@ -129,6 +145,8 @@ updates:
       prefix: 'tools'
       include: 'scope'
     open-pull-requests-limit: 999
+    cooldown:
+      default-days: 7
 
   - package-ecosystem: 'github-actions'
     directory: '/'
@@ -141,3 +159,5 @@ updates:
       prefix: 'gh-actions'
       include: 'scope'
     open-pull-requests-limit: 999
+    cooldown:
+      default-days: 7

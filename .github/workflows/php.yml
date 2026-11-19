@@ -35,10 +35,12 @@ jobs:
     steps:
       - name: Checkout
         # see https://github.com/actions/checkout
-        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v6
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
       - name: Setup PHP
         # see https://github.com/shivammathur/setup-php
-        uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962 # v2.40.0
+        uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962 # 2.40.0
         with:
           php-version: ${{ env.PHP_VERSION_LATEST }}
           extensions: ${{ env.PHP_PROJECT_EXT }}
@@ -62,12 +64,14 @@ jobs:
     steps:
       - name: Checkout
         # see https://github.com/actions/checkout
-        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v6
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
       - name: dir setup
         run: mkdir ${{ env.REPORTS_DIR }}
       - name: Setup PHP
         # see https://github.com/shivammathur/setup-php
-        uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962 # v2.40.0
+        uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962 # 2.40.0
         with:
           php-version: ${{ matrix.php }}
           extensions: ${{ env.PHP_PROJECT_EXT }}
@@ -77,17 +81,6 @@ jobs:
         id: composer-cache
         shell: bash
         run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
-      - name: Cache dependencies
-        if: ${{ steps.composer-cache.outputs.dir }}
-        # see https://github.com/actions/cache
-        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v5
-        with:
-          path: ${{ steps.composer-cache.outputs.dir }}
-          key: composer-${{ github.job }}-${{ runner.os }}-${{ matrix.php }}-${{ matrix.dependencies }}-${{ hashFiles('composer.*', 'tools/phpunit/composer.*') }}
-          restore-keys: |
-            composer-${{ github.job }}-${{ runner.os }}-${{ matrix.php }}-${{ matrix.dependencies }}-
-            composer-${{ github.job }}-${{ runner.os }}-${{ matrix.php }}-
-            composer-${{ github.job }}-${{ runner.os }}-
       - name: Install PHPUnit
         run: composer install --prefer-dist --no-interaction --no-progress
         working-directory: tools/phpunit
@@ -159,10 +152,12 @@ jobs:
     steps:
       - name: Checkout
         # see https://github.com/actions/checkout
-        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v6
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
       - name: Setup PHP
         # see https://github.com/shivammathur/setup-php
-        uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962 # v2.40.0
+        uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962 # 2.40.0
         with:
           php-version: ${{ matrix.php }}
           extensions: ${{ env.PHP_PROJECT_EXT }}
@@ -171,17 +166,6 @@ jobs:
       - name: Get composer cache directory
         id: composer-cache
         run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
-      - name: Cache dependencies
-        if: ${{ steps.composer-cache.outputs.dir }}
-        # see https://github.com/actions/cache
-        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v5
-        with:
-          path: ${{ steps.composer-cache.outputs.dir }}
-          key: composer-${{ github.job }}-${{ runner.os }}-${{ matrix.php }}-${{ matrix.dependencies }}-${{ hashFiles('composer.*', 'tools/psalm/composer.*') }}
-          restore-keys: |
-            composer-${{ github.job }}-${{ runner.os }}-${{ matrix.php }}-${{ matrix.dependencies }}-
-            composer-${{ github.job }}-${{ runner.os }}-${{ matrix.php }}-
-            composer-${{ github.job }}-${{ runner.os }}-
       - name: Install psalm
         run: composer install --prefer-dist --no-interaction --no-progress
         working-directory: tools/psalm
@@ -219,10 +203,12 @@ jobs:
     steps:
       - name: Checkout
         # see https://github.com/actions/checkout
-        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v6
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
       - name: Setup PHP
         # see https://github.com/shivammathur/setup-php
-        uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962 # v2.40.0
+        uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962 # 2.40.0
         with:
           php-version: ${{ env.PHP_VERSION_LATEST }}
           extensions: ${{ env.PHP_PROJECT_EXT }}
@@ -231,15 +217,6 @@ jobs:
       - name: Get composer cache directory
         id: composer-cache
         run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
-      - name: Cache dependencies
-        if: ${{ steps.composer-cache.outputs.dir }}
-        # see https://github.com/actions/cache
-        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v5
-        with:
-          path: ${{ steps.composer-cache.outputs.dir }}
-          key: composer-${{ github.job }}-${{ runner.os }}-${{ hashFiles('composer.*', 'tools/composer-unused/composer.*') }}
-          restore-keys: |
-            composer-${{ github.job }}-${{ runner.os }}-
       - name: Install composer-unused
         run: composer install --prefer-dist --no-interaction --no-progress
         working-directory: tools/composer-unused
@@ -258,10 +235,12 @@ jobs:
     steps:
       - name: Checkout
         # see https://github.com/actions/checkout
-        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v6
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
       - name: Setup PHP
         # see https://github.com/shivammathur/setup-php
-        uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962 # v2.40.0
+        uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962 # 2.40.0
         with:
           php-version: ${{ env.PHP_VERSION_LATEST }}
           extensions: ${{ env.PHP_PROJECT_EXT }}
@@ -270,15 +249,6 @@ jobs:
       - name: Get composer cache directory
         id: composer-cache
         run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
-      - name: Cache dependencies
-        if: ${{ steps.composer-cache.outputs.dir }}
-        # see https://github.com/actions/cache
-        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v5
-        with:
-          path: ${{ steps.composer-cache.outputs.dir }}
-          key: composer-${{ github.job }}-${{ runner.os }}-${{ hashFiles('composer.*', 'tools/composer-require-checker/composer.*') }}
-          restore-keys: |
-            composer-${{ github.job }}-${{ runner.os }}-
       - name: Install composer-require-checker
         run: composer install --prefer-dist --no-interaction --no-progress
         working-directory: tools/composer-require-checker
@@ -295,10 +265,12 @@ jobs:
     steps:
       - name: Checkout
         # see https://github.com/actions/checkout
-        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v6
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
       - name: Setup PHP
         # see https://github.com/shivammathur/setup-php
-        uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962 # v2.40.0
+        uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962 # 2.40.0
         with:
           php-version: ${{ env.PHP_VERSION_LOWEST }}
           extensions: ${{ env.PHP_PROJECT_EXT }}
@@ -307,15 +279,6 @@ jobs:
       - name: Get composer cache directory
         id: composer-cache
         run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
-      - name: Cache dependencies
-        if: ${{ steps.composer-cache.outputs.dir }}
-        # see https://github.com/actions/cache
-        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v5
-        with:
-          path: ${{ steps.composer-cache.outputs.dir }}
-          key: composer-${{ github.job }}-${{ runner.os }}-${{ hashFiles('composer.*', 'tools/php-cs-fixer/composer.*') }}
-          restore-keys: |
-            composer-${{ github.job }}-${{ runner.os }}-
       - name: Install PHP-CS-Fixer
         run: composer install --prefer-dist --no-interaction --no-progress
         working-directory: tools/php-cs-fixer
@@ -334,10 +297,12 @@ jobs:
     steps:
       - name: Checkout
         # see https://github.com/actions/checkout
-        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v6
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
       - name: Setup PHP
         # see https://github.com/shivammathur/setup-php
-        uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962 # v2.40.0
+        uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962 # 2.40.0
         with:
           php-version: ${{ env.PHP_VERSION_LATEST }}
           tools: composer:v2
@@ -345,15 +310,6 @@ jobs:
       - name: Get composer cache directory
         id: composer-cache
         run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
-      - name: Cache dependencies
-        if: ${{ steps.composer-cache.outputs.dir }}
-        # see https://github.com/actions/cache
-        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v5
-        with:
-          path: ${{ steps.composer-cache.outputs.dir }}
-          key: composer-${{ github.job }}-${{ runner.os }}-${{ hashFiles('composer.*', 'tools/composer-normalize/composer.*') }}
-          restore-keys: |
-            composer-${{ github.job }}-${{ runner.os }}-
       - name: Install composer-normalize
         run: composer install --prefer-dist --no-interaction --no-progress
         working-directory: tools/composer-normalize
@@ -374,10 +330,12 @@ jobs:
     steps:
       - name: Checkout
         # see https://github.com/actions/checkout
-        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v6
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
       - name: Setup PHP
         # see https://github.com/shivammathur/setup-php
-        uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962 # v2.40.0
+        uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962 # 2.40.0
         with:
           php-version: ${{ env.PHP_VERSION_LATEST }}
           tools: composer:v2
@@ -385,15 +343,6 @@ jobs:
       - name: Get composer cache directory
         id: composer-cache
         run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
-      - name: Cache dependencies
-        if: ${{ steps.composer-cache.outputs.dir }}
-        # see https://github.com/actions/cache
-        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v5
-        with:
-          path: ${{ steps.composer-cache.outputs.dir }}
-          key: composer-${{ github.job }}-${{ runner.os }}-${{ hashFiles('composer.*', 'tools/phpmd/composer.*') }}
-          restore-keys: |
-            composer-${{ github.job }}-${{ runner.os }}-
       - name: Install phpmd
         run: composer install --prefer-dist --no-interaction --no-progress
         working-directory: tools/phpmd
@@ -413,10 +362,12 @@ jobs:
     steps:
       - name: Checkout
         # see https://github.com/actions/checkout
-        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v6
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
       - name: Setup PHP
         # see https://github.com/shivammathur/setup-php
-        uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962 # v2.40.0
+        uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962 # 2.40.0
         with:
           php-version: ${{ env.PHP_VERSION_LATEST }}
           tools: composer:v2
@@ -424,15 +375,6 @@ jobs:
       - name: Get composer cache directory
         id: composer-cache
         run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
-      - name: Cache dependencies
-        if: ${{ steps.composer-cache.outputs.dir }}
-        # see https://github.com/actions/cache
-        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v5
-        with:
-          path: ${{ steps.composer-cache.outputs.dir }}
-          key: composer-${{ github.job }}-${{ runner.os }}-${{ hashFiles('composer.*', 'tools/phpmd/composer.*') }}
-          restore-keys: |
-            composer-${{ github.job }}-${{ runner.os }}-
       - name: Install dependencies
         run: composer install --no-dev --prefer-dist --no-interaction --no-progress
       - name: run all examples
