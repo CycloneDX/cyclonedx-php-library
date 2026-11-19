@@ -81,18 +81,6 @@ jobs:
         id: composer-cache
         shell: bash
         run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
-      - name: Cache dependencies
-        if: ${{ steps.composer-cache.outputs.dir }}
-        # see https://github.com/actions/cache
-        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
-        with:
-          path: ${{ steps.composer-cache.outputs.dir }}
-          key: composer-${{ github.job }}-${{ runner.os }}-${{ matrix.php }}-${{ matrix.dependencies }}-${{ hashFiles('composer.*', 'tools/phpunit/composer.*') }}
-          restore-keys: |
-            composer-${{ github.job }}-${{ runner.os }}-${{ matrix.php }}-${{ matrix.dependencies }}-
-            composer-${{ github.job }}-${{ runner.os }}-${{ matrix.php }}-
-            composer-${{ github.job }}-${{ runner.os }}-
-          lookup-only: true
       - name: Install PHPUnit
         run: composer install --prefer-dist --no-interaction --no-progress
         working-directory: tools/phpunit
@@ -178,18 +166,6 @@ jobs:
       - name: Get composer cache directory
         id: composer-cache
         run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
-      - name: Cache dependencies
-        if: ${{ steps.composer-cache.outputs.dir }}
-        # see https://github.com/actions/cache
-        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
-        with:
-          path: ${{ steps.composer-cache.outputs.dir }}
-          key: composer-${{ github.job }}-${{ runner.os }}-${{ matrix.php }}-${{ matrix.dependencies }}-${{ hashFiles('composer.*', 'tools/psalm/composer.*') }}
-          restore-keys: |
-            composer-${{ github.job }}-${{ runner.os }}-${{ matrix.php }}-${{ matrix.dependencies }}-
-            composer-${{ github.job }}-${{ runner.os }}-${{ matrix.php }}-
-            composer-${{ github.job }}-${{ runner.os }}-
-          lookup-only: true
       - name: Install psalm
         run: composer install --prefer-dist --no-interaction --no-progress
         working-directory: tools/psalm
@@ -241,16 +217,6 @@ jobs:
       - name: Get composer cache directory
         id: composer-cache
         run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
-      - name: Cache dependencies
-        if: ${{ steps.composer-cache.outputs.dir }}
-        # see https://github.com/actions/cache
-        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
-        with:
-          path: ${{ steps.composer-cache.outputs.dir }}
-          key: composer-${{ github.job }}-${{ runner.os }}-${{ hashFiles('composer.*', 'tools/composer-unused/composer.*') }}
-          restore-keys: |
-            composer-${{ github.job }}-${{ runner.os }}-
-          lookup-only: true
       - name: Install composer-unused
         run: composer install --prefer-dist --no-interaction --no-progress
         working-directory: tools/composer-unused
@@ -283,16 +249,6 @@ jobs:
       - name: Get composer cache directory
         id: composer-cache
         run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
-      - name: Cache dependencies
-        if: ${{ steps.composer-cache.outputs.dir }}
-        # see https://github.com/actions/cache
-        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
-        with:
-          path: ${{ steps.composer-cache.outputs.dir }}
-          key: composer-${{ github.job }}-${{ runner.os }}-${{ hashFiles('composer.*', 'tools/composer-require-checker/composer.*') }}
-          restore-keys: |
-            composer-${{ github.job }}-${{ runner.os }}-
-          lookup-only: true
       - name: Install composer-require-checker
         run: composer install --prefer-dist --no-interaction --no-progress
         working-directory: tools/composer-require-checker
@@ -323,16 +279,6 @@ jobs:
       - name: Get composer cache directory
         id: composer-cache
         run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
-      - name: Cache dependencies
-        if: ${{ steps.composer-cache.outputs.dir }}
-        # see https://github.com/actions/cache
-        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
-        with:
-          path: ${{ steps.composer-cache.outputs.dir }}
-          key: composer-${{ github.job }}-${{ runner.os }}-${{ hashFiles('composer.*', 'tools/php-cs-fixer/composer.*') }}
-          restore-keys: |
-            composer-${{ github.job }}-${{ runner.os }}-
-          lookup-only: true
       - name: Install PHP-CS-Fixer
         run: composer install --prefer-dist --no-interaction --no-progress
         working-directory: tools/php-cs-fixer
@@ -364,16 +310,6 @@ jobs:
       - name: Get composer cache directory
         id: composer-cache
         run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
-      - name: Cache dependencies
-        if: ${{ steps.composer-cache.outputs.dir }}
-        # see https://github.com/actions/cache
-        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
-        with:
-          path: ${{ steps.composer-cache.outputs.dir }}
-          key: composer-${{ github.job }}-${{ runner.os }}-${{ hashFiles('composer.*', 'tools/composer-normalize/composer.*') }}
-          restore-keys: |
-            composer-${{ github.job }}-${{ runner.os }}-
-          lookup-only: true
       - name: Install composer-normalize
         run: composer install --prefer-dist --no-interaction --no-progress
         working-directory: tools/composer-normalize
@@ -407,16 +343,6 @@ jobs:
       - name: Get composer cache directory
         id: composer-cache
         run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
-      - name: Cache dependencies
-        if: ${{ steps.composer-cache.outputs.dir }}
-        # see https://github.com/actions/cache
-        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
-        with:
-          path: ${{ steps.composer-cache.outputs.dir }}
-          key: composer-${{ github.job }}-${{ runner.os }}-${{ hashFiles('composer.*', 'tools/phpmd/composer.*') }}
-          restore-keys: |
-            composer-${{ github.job }}-${{ runner.os }}-
-          lookup-only: true
       - name: Install phpmd
         run: composer install --prefer-dist --no-interaction --no-progress
         working-directory: tools/phpmd
@@ -449,16 +375,6 @@ jobs:
       - name: Get composer cache directory
         id: composer-cache
         run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
-      - name: Cache dependencies
-        if: ${{ steps.composer-cache.outputs.dir }}
-        # see https://github.com/actions/cache
-        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
-        with:
-          path: ${{ steps.composer-cache.outputs.dir }}
-          key: composer-${{ github.job }}-${{ runner.os }}-${{ hashFiles('composer.*', 'tools/phpmd/composer.*') }}
-          restore-keys: |
-            composer-${{ github.job }}-${{ runner.os }}-
-          lookup-only: true
       - name: Install dependencies
         run: composer install --no-dev --prefer-dist --no-interaction --no-progress
       - name: run all examples
