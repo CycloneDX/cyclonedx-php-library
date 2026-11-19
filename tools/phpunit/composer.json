@@ -6,7 +6,6 @@
         "php": "^8.3"
     },
     "require-dev": {
-        "php": "^8.3.36",
         "phpunit/phpunit": "12.5.8",
         "roave/security-advisories": "dev-latest"
     },
