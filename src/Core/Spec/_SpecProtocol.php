@@ -54,6 +54,7 @@ interface _SpecProtocol
 
     public function isSupportedLicenseIdentifier(string $licenseIdentifier): bool;
 
+    /** @psalm-suppress PossiblyUnusedMethod */
     public function supportsLicenseExpression(): bool;
 
     public function supportsMetadata(): bool;

@@ -3,14 +3,15 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="https://getpsalm.org/schema/config tools/psalm/vendor/vimeo/psalm/config.xsd"
        errorLevel="1"
+       runTaintAnalysis="true"
        checkForThrowsDocblock="true"
        findUnusedPsalmSuppress="true"
        findUnusedBaselineEntry="true"
        findUnusedVariablesAndParams="true"
-       findUnusedCode="false"
        ensureArrayStringOffsetsExist="true"
        ensureArrayIntOffsetsExist="true"
        cacheDirectory=".psalm.cache"
+       markAllNonInternalCodeAsApi="true"
 >
     <projectFiles>
         <directory name="src"/>
