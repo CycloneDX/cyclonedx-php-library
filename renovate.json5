@@ -1,0 +1,26 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended",
+    ":configMigration",
+    ":gitSignOff",
+    ":prHourlyLimitNone",
+    "schedule:weekends",
+  ],
+  "minimumReleaseAge": "7 days",
+  "labels": [
+    "dependencies"
+  ],
+  "packageRules": [
+    {
+      "matchManagers": ["github-actions"],
+      "labels": ["dependencies", "CI"],
+    },
+    {
+      "matchManagers": ["composer"],
+      "matchFileNames": ["tools/**/composer.json"],
+      "labels": ["dependencies", "tools"],
+      "additionalBranchPrefix": "{{{parentDir}}}-"
+    },
+  ]
+}
