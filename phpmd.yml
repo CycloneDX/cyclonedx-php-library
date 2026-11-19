@@ -7,7 +7,7 @@ rules: # see https://github.com/phpmd/phpmd/tree/3.x/rulesets
       - StaticAccess
   - ref: rulesets/cleancode.xml/StaticAccess
     properties:
-      exceptions: |-
+      exceptions: |- # some classes are assembled of static methods only - these classes represent namespaces
         CycloneDX\Core\Utils\BomUtility,
         CycloneDX\Core\_helpers\Predicate,
         CycloneDX\Core\_helpers\SimpleDOM,
