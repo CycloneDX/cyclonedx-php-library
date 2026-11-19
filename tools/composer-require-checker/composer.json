@@ -6,6 +6,7 @@
         "php": "^8.3"
     },
     "require-dev": {
+        "php": "^8.3.36",
         "maglnet/composer-require-checker": "4.20.0||4.24.0",
         "roave/security-advisories": "dev-latest"
     },
