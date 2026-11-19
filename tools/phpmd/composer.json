@@ -7,7 +7,7 @@
     },
     "require-dev": {
         "php": "^8.3.36",
-        "phpmd/phpmd": "2.15.0",
+        "phpmd/phpmd": "3.0.0",
         "roave/security-advisories": "dev-latest"
     },
     "prefer-stable": true,
