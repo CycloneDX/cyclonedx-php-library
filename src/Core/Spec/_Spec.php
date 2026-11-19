@@ -40,9 +40,11 @@ use Override;
  * @SuppressWarnings(PHPMD.CamelCaseClassName)
  * @SuppressWarnings(PHPMD.TooManyPublicMethods)
  *
+ * @psalm-suppress UnusedProperty
+ *
  * @author jkowalleck
  */
-class _Spec implements _SpecProtocol
+final class _Spec implements _SpecProtocol
 {
     /** @psalm-var list<string> */
     private array $lLicenseIdentifiers;
