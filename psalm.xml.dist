@@ -11,7 +11,7 @@
        ensureArrayStringOffsetsExist="true"
        ensureArrayIntOffsetsExist="true"
        cacheDirectory=".psalm.cache"
-        markAllNonInternalCodeAsApi="true"
+       markAllNonInternalCodeAsApi="true"
 >
     <projectFiles>
         <directory name="src"/>
