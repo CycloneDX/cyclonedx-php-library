@@ -40,7 +40,7 @@ return (new PhpCsFixer\Config())
             '@PHP8x3Migration:risky' => true,
             '@PHP8x3Migration' => true,
             // lowest supported Phpunit
-            '@PHPUnit100Migration:risky' => true,
+            '@PHPUnit11x0Migration:risky' => true,
             // endregion migrate
             // region general code style
             '@Symfony' => true,
