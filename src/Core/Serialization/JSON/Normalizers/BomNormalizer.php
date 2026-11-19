@@ -37,7 +37,7 @@ use CycloneDX\Core\Spec\Version;
 class BomNormalizer extends _BaseNormalizer
 {
     /** @var string */
-    private const BOM_FORMAT = 'CycloneDX';
+    private const string BOM_FORMAT = 'CycloneDX';
 
     /** @psalm-pure  */
     private function getSchema(Version $version): ?string

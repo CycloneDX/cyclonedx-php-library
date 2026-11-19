@@ -36,8 +36,7 @@ use DOMDocument;
  */
 class NormalizerFactory
 {
-    /** @var Format */
-    public const FORMAT = Format::XML;
+    public const Format FORMAT = Format::XML;
 
     private readonly Spec $spec;
 
