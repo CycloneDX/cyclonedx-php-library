@@ -8,7 +8,7 @@
     "require-dev": {
         "php": "^8.3.36",
         "roave/security-advisories": "dev-latest",
-        "vimeo/psalm": "6.20.0"
+        "vimeo/psalm": "7.3.1"
     },
     "prefer-stable": true,
     "config": {
