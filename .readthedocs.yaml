@@ -14,9 +14,9 @@ build:
     - wget
   jobs:
     pre_build:
-      - add-apt-repository -y ppa:ondrej/php
-      - apt-get update
-      - apt-get install -y php8.5-cli php8.5-mbstring php8.5-xml composer
+      - sudo add-apt-repository -y ppa:ondrej/php
+      - sudo apt-get update
+      - sudo apt-get install -y php8.5-cli php8.5-mbstring php8.5-xml composer
       - php -v
       - composer install --prefer-dist --no-interaction --no-progress
       - wget https://github.com/phpDocumentor/phpDocumentor/releases/download/v3.10.0/phpDocumentor.phar -O /tmp/phpDocumentor.phar
