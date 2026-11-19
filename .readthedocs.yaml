@@ -9,9 +9,9 @@ build:
   tools:
     python: "3.14"
   apt_packages:
-    - php8.5-cli
-    - php8.5-mbstring
-    - php8.5-xml
+    - php-cli
+    - php-mbstring
+    - php-xml
     - composer
     - graphviz
     - plantuml
