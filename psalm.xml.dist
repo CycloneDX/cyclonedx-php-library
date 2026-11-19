@@ -8,10 +8,10 @@
        findUnusedPsalmSuppress="true"
        findUnusedBaselineEntry="true"
        findUnusedVariablesAndParams="true"
-       findUnusedCode="false"
        ensureArrayStringOffsetsExist="true"
        ensureArrayIntOffsetsExist="true"
        cacheDirectory=".psalm.cache"
+        markAllNonInternalCodeAsApi="true"
 >
     <projectFiles>
         <directory name="src"/>
