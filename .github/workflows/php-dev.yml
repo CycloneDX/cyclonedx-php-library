@@ -61,6 +61,8 @@ jobs:
           php-version: ${{ matrix.php }}
           extensions: ${{ env.PHP_PROJECT_EXT }}
           tools: composer:v2
+        env:
+          update: true
       - name: Get composer cache directory
         id: composer-cache
         shell: bash

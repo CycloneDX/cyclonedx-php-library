@@ -46,6 +46,8 @@ jobs:
           extensions: ${{ env.PHP_PROJECT_EXT }}
           tools: composer:v2
           coverage: none
+        env:
+          update: true
       - name: Validate composer.json and composer.lock
         run: composer validate --no-interaction
   phpunit:
@@ -77,6 +79,8 @@ jobs:
           extensions: ${{ env.PHP_PROJECT_EXT }}
           tools: composer:v2
           coverage: xdebug
+        env:
+          update: true
       - name: Get composer cache directory
         id: composer-cache
         shell: bash
@@ -163,6 +167,8 @@ jobs:
           extensions: ${{ env.PHP_PROJECT_EXT }}
           tools: composer:v2
           coverage: none
+        env:
+          update: true
       - name: Get composer cache directory
         id: composer-cache
         run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
@@ -214,6 +220,8 @@ jobs:
           extensions: ${{ env.PHP_PROJECT_EXT }}
           tools: composer:v2
           coverage: none
+        env:
+          update: true
       - name: Get composer cache directory
         id: composer-cache
         run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
@@ -246,6 +254,8 @@ jobs:
           extensions: ${{ env.PHP_PROJECT_EXT }}
           tools: composer:v2
           coverage: none
+        env:
+          update: true
       - name: Get composer cache directory
         id: composer-cache
         run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
@@ -276,6 +286,8 @@ jobs:
           extensions: ${{ env.PHP_PROJECT_EXT }}
           tools: composer:v2
           coverage: none
+        env:
+          update: true
       - name: Get composer cache directory
         id: composer-cache
         run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
@@ -307,6 +319,8 @@ jobs:
           php-version: ${{ env.PHP_VERSION_LATEST }}
           tools: composer:v2
           coverage: none
+        env:
+          update: true
       - name: Get composer cache directory
         id: composer-cache
         run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
@@ -340,6 +354,8 @@ jobs:
           php-version: ${{ env.PHP_VERSION_LATEST }}
           tools: composer:v2
           coverage: none
+        env:
+          update: true
       - name: Get composer cache directory
         id: composer-cache
         run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
@@ -372,6 +388,8 @@ jobs:
           php-version: ${{ env.PHP_VERSION_LATEST }}
           tools: composer:v2
           coverage: none
+        env:
+          update: true
       - name: Get composer cache directory
         id: composer-cache
         run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
