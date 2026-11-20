@@ -100,9 +100,10 @@ jobs:
         run: >
           php
           -d zend.assertions=1 -d assert.exception=1
-          -d display_errors=On -d error_reporting=-1 -d log_errors_max_len=0
+          -d display_errors=On -d display_startup_errors=On -d error_reporting=-1
+          -d log_errors_max_len=0
           -d memory_limit=-1
-          -d xdebug.mode=coverage
+          -d xdebug.show_exception_trace=0 -d xdebug.mode=coverage
           -d pcov.enabled=1 -d pcov.directory=src
           tools/phpunit/vendor/phpunit/phpunit/phpunit
           --no-progress
