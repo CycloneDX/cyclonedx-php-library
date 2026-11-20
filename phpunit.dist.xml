@@ -37,7 +37,7 @@
             <directory>src/Core/_helpers</directory>
         </exclude>
     </source>
-    <coverage cacheDirectory=".phpunit.cache/code-coverage">
+    <coverage>
         <report>
             <clover outputFile="reports/coverage.clover.xml"/>
             <html outputDirectory="reports/coverage.html"/>
@@ -48,8 +48,9 @@
         <testdoxText outputFile="reports/phpunits.txt"/>
     </logging>
     <php>
-        <ini name="xdebug.mode" value="coverage"/>
-        <ini name="pcov.enabled" value="1"/>
-        <ini name="pcov.directory" value="src"/>
+        <!--
+        no ini values are set here, they are set via `php -d`,
+        as they might become readonly on runtime.
+        -->
     </php>
 </phpunit>
