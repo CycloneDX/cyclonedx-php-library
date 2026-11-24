@@ -3,7 +3,7 @@
     "description": "composer-require-checker",
     "type": "metapackage",
     "require": {
-        "php": "^8.3"
+        "php": "^8.5"
     },
     "require-dev": {
         "maglnet/composer-require-checker": "4.20.0||4.24.0",
