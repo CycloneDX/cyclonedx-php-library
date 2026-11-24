@@ -19,6 +19,10 @@ concurrency:
 
 permissions: {}
 
+defaults:
+  run:
+    shell: bash
+
 env:
   PHP_VERSION_LOWEST: "8.3"  # lowest supported
   PHP_VERSION_LATEST: "8.5"  # highest supported
@@ -83,7 +87,6 @@ jobs:
           update: true
       - name: Get composer cache directory
         id: composer-cache
-        shell: bash
         run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
       - name: Install PHPUnit
         run: composer install --prefer-dist --no-interaction --no-progress
