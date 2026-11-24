@@ -51,13 +51,13 @@ jobs:
       - name: Validate composer.json and composer.lock
         run: composer validate --no-interaction
   phpunit:
-    name: PHPUnit (${{ matrix.os}}, ${{ matrix.php }}, ${{ matrix.dependencies }})
+    name: PHPUnit (${{ matrix.os}}, ${{ matrix.php-version }}, ${{ matrix.dependencies }})
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
       matrix:
         os: [ "ubuntu-latest", "windows-latest", "macos-latest" ]
-        php:
+        php-version:
           - "8.5"   # highest supported
           - "8.4"
           - "8.3"   # lowest supported
@@ -70,12 +70,12 @@ jobs:
         with:
           persist-credentials: false
       - name: dir setup
-        run: mkdir ${{ env.REPORTS_DIR }}
+        run: mkdir -p "${REPORTS_DIR}"
       - name: Setup PHP
         # see https://github.com/shivammathur/setup-php
         uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962 # 2.40.0
         with:
-          php-version: ${{ matrix.php }}
+          php-version: ${{ matrix.php-version }}
           extensions: ${{ env.PHP_PROJECT_EXT }}
           tools: composer:v2
           coverage: xdebug
@@ -97,6 +97,10 @@ jobs:
         if: ${{ matrix.dependencies != 'lowest' }}
         run: composer update --prefer-dist --no-interaction --no-progress
       - name: Run PHPUnit tests
+        env:
+          OS: ${{ matrix.os }}
+          PHP_VERSION: ${{ matrix.php-version }}
+          DEPENDENCIES: ${{ matrix.dependencies }}
         run: >
           php
           -d zend.assertions=1 -d assert.exception=1
@@ -107,14 +111,14 @@ jobs:
           -d pcov.enabled=1 -d pcov.directory=src
           tools/phpunit/vendor/phpunit/phpunit/phpunit
           --no-progress
-          --log-junit='${{ env.REPORTS_DIR }}/phpunit/tests/${{ matrix.os }}_php${{ matrix.php }}_${{ matrix.dependencies }}.junit.xml'
-          --coverage-clover='${{ env.REPORTS_DIR }}/phpunit/coverage/${{ matrix.os}}_php${{ matrix.php }}_${{ matrix.dependencies }}.clover.xml'
+          --log-junit="${REPORTS_DIR}/phpunit/tests/${OS}_php${PHP_VERSION}_${DEPENDENCIES}.junit.xml"
+          --coverage-clover="${REPORTS_DIR}/phpunit/coverage/${OS}_php${PHP_VERSION}_${DEPENDENCIES}.clover.xml"
       - name: Artifact reports
         if: ${{ ! cancelled() }}
         # see https://github.com/actions/upload-artifact
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
-          name: '${{ env.TESTS_REPORTS_ARTIFACT }}_${{ matrix.os}}_php${{ matrix.php }}_${{ matrix.dependencies }}'
+          name: '${{ env.TESTS_REPORTS_ARTIFACT }}_${{ matrix.os}}_php${{ matrix.php-version }}_${{ matrix.dependencies }}'
           path: ${{ env.REPORTS_DIR }}
           if-no-files-found: error
   report-coverage:
@@ -141,7 +145,7 @@ jobs:
           project-token: ${{ env.CODACY_PROJECT_TOKEN }}
           coverage-reports: ${{ env.REPORTS_DIR }}/phpunit/coverage/*.clover.xml
   code-checker:
-    name: Code Analysis (${{ matrix.php }}, ${{ matrix.dependencies }})
+    name: Code Analysis (${{ matrix.php-version }}, ${{ matrix.dependencies }})
     runs-on: ubuntu-latest
     timeout-minutes: 10
     strategy:
@@ -149,10 +153,10 @@ jobs:
       matrix:
         include:
           - # highest supported
-            php: "8.5"
+            php-version: "8.5"
             dependencies: "highest"
           - # lowest supported
-            php: "8.3"
+            php-version: "8.3"
             dependencies: "lowest"
     steps:
       - name: Checkout
@@ -164,15 +168,12 @@ jobs:
         # see https://github.com/shivammathur/setup-php
         uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962 # 2.40.0
         with:
-          php-version: ${{ matrix.php }}
+          php-version: ${{ matrix.php-version }}
           extensions: ${{ env.PHP_PROJECT_EXT }}
           tools: composer:v2
           coverage: none
         env:
           update: true
-      - name: Get composer cache directory
-        id: composer-cache
-        run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
       - name: Install psalm
         run: composer install --prefer-dist --no-interaction --no-progress
         working-directory: tools/psalm
@@ -186,13 +187,16 @@ jobs:
         run: |
           composer update --prefer-dist --no-interaction --no-progress
       - name: Run Psalm tests
+        env:
+          PHP_VERSION: ${{ matrix.php-version }}
+          DEPENDENCIES: ${{ matrix.dependencies }}
         run: >
           php tools/psalm/vendor/vimeo/psalm/psalm
           --no-diff
           --no-cache
           --long-progress
           --output-format=github
-          --report=${{ env.REPORTS_DIR }}/psalm/php${{ matrix.php }}_${{ matrix.dependencies }}.junit.xml
+          --report="${REPORTS_DIR}/psalm/php${PHP_VERSION}_${DEPENDENCIES}.junit.xml"
           --stats
           --shepherd
       - name: Artifact reports
@@ -200,7 +204,7 @@ jobs:
         # see https://github.com/actions/upload-artifact
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
-          name: '${{ env.TYPES_REPORTS_ARTIFACT }}_php${{ matrix.php }}_${{ matrix.dependencies }}'
+          name: '${{ env.TYPES_REPORTS_ARTIFACT }}_php${{ matrix.php-version }}_${{ matrix.dependencies }}'
           path: ${{ env.REPORTS_DIR }}
           if-no-files-found: error
   composer-unused:
@@ -223,9 +227,6 @@ jobs:
           coverage: none
         env:
           update: true
-      - name: Get composer cache directory
-        id: composer-cache
-        run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
       - name: Install composer-unused
         run: composer install --prefer-dist --no-interaction --no-progress
         working-directory: tools/composer-unused
@@ -257,9 +258,6 @@ jobs:
           coverage: none
         env:
           update: true
-      - name: Get composer cache directory
-        id: composer-cache
-        run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
       - name: Install composer-require-checker
         run: composer install --prefer-dist --no-interaction --no-progress
         working-directory: tools/composer-require-checker
@@ -289,9 +287,6 @@ jobs:
           coverage: none
         env:
           update: true
-      - name: Get composer cache directory
-        id: composer-cache
-        run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
       - name: Install PHP-CS-Fixer
         run: composer install --prefer-dist --no-interaction --no-progress
         working-directory: tools/php-cs-fixer
@@ -337,7 +332,7 @@ jobs:
           --no-check-lock
           --no-update-lock
           --no-interaction
-          $PWD/composer.json
+          "$PWD/composer.json"
   phpmd:
     name: PHP Mess Detector
     runs-on: ubuntu-latest
