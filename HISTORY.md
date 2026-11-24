@@ -6,6 +6,8 @@ All notable changes to this project will be documented in this file.
 
 <!-- add unreleased items here -->
 
+## 5.0.0 - 2026-11-24
+
 * BREAKING Changes
   * Removed support for PHP<8.3 ([#672] via [#673])
 
