@@ -24,8 +24,7 @@ defaults:
     shell: bash
 
 env:
-  PHP_VERSION_LOWEST: "8.3"  # lowest supported
-  PHP_VERSION_LATEST: "8.5"  # highest supported
+  PHP_VERSION_LATEST: "8.5"
   PHP_PROJECT_EXT: dom,json,libxml,simplexml,phar,bcmath,json,mbstring,sodium,intl  # via `composer info -pt` in root and all tools
   REPORTS_DIR: CI_reports
   TESTS_REPORTS_ARTIFACT: tests-reports
@@ -62,7 +61,8 @@ jobs:
       matrix:
         os: [ "ubuntu-latest", "windows-latest", "macos-latest" ]
         php-version:
-          - "8.5"   # highest supported
+          - "8.6"   # highest supported
+          - "8.5"
           - "8.4"
           - "8.3"   # lowest supported
         dependencies: [ "lowest", "highest" ]
@@ -156,7 +156,7 @@ jobs:
       matrix:
         include:
           - # highest supported
-            php-version: "8.5"
+            php-version: "8.6"
             dependencies: "highest"
           - # lowest supported
             php-version: "8.3"
@@ -284,7 +284,7 @@ jobs:
         # see https://github.com/shivammathur/setup-php
         uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962 # 2.40.0
         with:
-          php-version: ${{ env.PHP_VERSION_LOWEST }}
+          php-version: ${{ env.PHP_VERSION_LATEST }}
           extensions: ${{ env.PHP_PROJECT_EXT }}
           tools: composer:v2
           coverage: none
