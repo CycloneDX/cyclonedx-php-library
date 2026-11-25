@@ -6,7 +6,7 @@
         "php": "^8.5"
     },
     "require-dev": {
-        "ergebnis/composer-normalize": "2.58.0",
+        "ergebnis/composer-normalize": "2.59.0",
         "roave/security-advisories": "dev-latest"
     },
     "prefer-stable": true,
