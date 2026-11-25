@@ -6,10 +6,13 @@ All notable changes to this project will be documented in this file.
 
 <!-- add unreleased items here -->
 
+## 5.1.0 - 2026-11-25
+
 * Added
-  * Support PHP 8.6 ([#710] via [#])
+  * Support PHP 8.6 ([#710] via [#711])
 
 [#710]: https://github.com/CycloneDX/cyclonedx-php-library/issues/710
+[#711]: https://github.com/CycloneDX/cyclonedx-php-library/pull/711
 
 ## 5.0.0 - 2026-11-24
 
